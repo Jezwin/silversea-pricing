@@ -25,5 +25,12 @@ $(function () {
                 }
             ]
         });
+        progressBarSize();
+        $(window).resize(progressBarSize);
     }
 });
+
+function progressBarSize() {
+    var $dots = $(".slick-dots li");
+    $dots.css("width", ($(".slick-dots").outerWidth(true) / $dots.length) + "px");
+}

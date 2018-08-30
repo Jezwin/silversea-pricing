@@ -77,6 +77,7 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
+        totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
 
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         currentPath = retrieveCurrentPath();
@@ -307,7 +308,7 @@ public class Cruise2018Use extends EoHelper {
     }
 
     public int getTotalNumberOfOffers() {
-        return exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
+        return totalNumberOfOffers;
     }
 
     public boolean isWaitlist() {

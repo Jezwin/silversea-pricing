@@ -35,36 +35,37 @@
     max-height: 250px;
     .cruise-2018-offer-slider-text {
       letter-spacing: 0.5px;
-      margin-top: 60px;
-      padding: 10px;
     }
     .cruise-2018-offer-slider-title {
       text-transform: uppercase;
       font-family: @freight;
       letter-spacing: 0.5px;
       line-height: 26px;
-      font-size: 18px;
+      font-size: 22px;
     }
 
     .cruise-2018-offer-slider-description {
       font-family: @freight;
       letter-spacing: 0.5px;
-      font-size: 16px;
-      line-height: 22px;
+      font-size: 20px;
+      line-height: 24px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: 7px;
     }
     .cruise-2018-offer-slider-container {
       color: @white;
       background-color: @color-second;
       display: inline-block;
       height: 250px;
-      width: 86%;
-      margin-left: 7%;
+      width: 95%;
+      margin-left: 2.3%;
       min-height: 250px;
       max-height: 250px;
+      text-align: center;
 
     }
     .cruise-2018-offer-slider-icon-container {
-      position: absolute;
 
     }
     .cruise-2018-offer-slider-icon {
@@ -72,7 +73,7 @@
       height: @iconSize;
       width: @iconSize;
       border-radius: @iconSize/2;
-      margin: 10px;
+      margin: 10px auto;
       background-color: @white;
       img {
         width: @iconSize;
@@ -89,16 +90,16 @@
 
     }
     .slick-dots {
-      width: 100% !important;
       position: absolute;
       border-bottom: none !important;
       white-space: nowrap;
-      bottom: -5px !important;
+      bottom: -25px !important;
 
       li {
         height: 2px !important;
         margin: 0 !important;
         vertical-align: bottom;
+
         button::before {
           background-color: @black;
           -webkit-border-radius: 0 !important;
@@ -118,8 +119,8 @@
       }
     }
     .slick-next:after {
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       padding: 10px;
       border-left: 0 solid @transparent;
       border-right: 2px solid @color-second !important;
@@ -133,13 +134,13 @@
     }
 
     .slick-prev {
-      width:50px;
-      left: -25px !important;
+      width: 50px;
+      left: -21px !important;
       transform: rotateZ(135deg);
     }
     .slick-next {
-      width:50px;
-      right: -25px !important;
+      width: 50px;
+      right: -21px !important;
       transform: rotateZ(-45deg);
 
     }
@@ -205,7 +206,6 @@
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
     font-family: @suisse;
     font-size: 13px;
     letter-spacing: 0.5px;
@@ -224,6 +224,10 @@
       line-height: 24px;
       text-align: center;
     }
+    .cruise-2018-offers-slider {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
 
     .cruise-2018-offer-container {
       margin-top: 5px;
@@ -235,6 +239,21 @@
     }
     .cruise-2018-offer-title {
       font-size: 20px;
+    }
+    .cruise-2018-offer-slider-icon {
+      margin: 10px;
+
+    }
+    .cruise-2018-offer-slider-title {
+      font-size: 20px !important;
+      line-height: 24px !important;
+    }
+    .cruise-2018-offer-slider-description {
+      font-size: 18px !important;
+      line-height: 24px !important;
+    }
+    .cruise-2018-offer-slider-text {
+      padding: 10px;
     }
 
     .cruise-2018-offers-slider .cruise-2018-offer-container {
@@ -267,8 +286,16 @@
       line-height: 18px !important;;
       letter-spacing: 1px !important;;
     }
+    .cruise-2018-offers-gap {
+      content: ' ';
+      height: 45px;
+      min-height: 45px;
+    }
     .cruise-2018-offers-footnotes {
-      margin-top: 25px;
+    }
+    .slick-dots {
+      width: 76% !important;
+      margin-left: 3%;
     }
   }
 }
@@ -311,6 +338,11 @@
       padding: 30px;
     }
 
+    .cruise-2018-offers-gap {
+      content: ' ';
+      height: 35px;
+      min-height: 35px;
+    }
     .cruise-2018-offer-title {
       text-align: center;
       font-size: 22px;
@@ -323,6 +355,10 @@
       margin-left: auto;
       margin-right: auto;
       width: 80%;
+    }
+    .slick-dots {
+      width: 97% !important;
+      margin-left: 1%;
     }
   }
 
