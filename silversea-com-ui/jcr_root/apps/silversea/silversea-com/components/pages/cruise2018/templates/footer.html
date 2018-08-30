@@ -1,2 +1,27 @@
 <template data-sly-template.default="${ @ cruise }">
+    <div class="fixed-footer-cruise visible-xs">
+        <div class="fixed-footer-info">
+            <div class="fixed-footer-container">
+                <div class="fixed-footer-price col-xs-6">
+                    <div class="fixed-footer-quote-price">
+                        <div class="fixed-footer-quote-price-from">${'from' @ i18n}</div>
+                        <div class="fixed-footer-quote-price-number">
+                            ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
+                        </div>
+                        <div class="fixed-footer-quote-price-bonus"
+                             data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                    </div>
+                </div>
+                <div class="fixed-footer-quote-rqa col-xs-6">
+                    <a class="fixed-footer-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
+                       id="fixed-footer-2018-rqa"
+                       data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"
+                       data-sscclicktype="clic-RAQ">
+                        <span>${'request-quote' @i18n}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

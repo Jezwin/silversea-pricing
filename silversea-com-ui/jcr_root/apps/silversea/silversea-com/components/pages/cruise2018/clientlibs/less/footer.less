@@ -10,6 +10,7 @@
     .c-footer-call-and-raq .request-quote-section {
       display: none;
     }
+
     .c-footer-call-and-raq::after {
       display: none;
     }
@@ -21,3 +22,106 @@
   display: none;
 }
 
+@media (max-width: @screen-sm) {
+  .fixed-footer-cruise {
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    z-index: 2000;
+    width: 100%;
+    margin-left: -15px;
+    background-color: @white;
+    text-transform: uppercase;
+
+    .fixed-footer-info {
+      position: relative;
+    }
+
+    .fixed-footer-price {
+      padding: 0px;
+    }
+
+    .fixed-footer-quote-price {
+      transform: translateY(25%);
+      top: 50%;
+      position: absolute;
+      --webkit-transform: translateY(50%);
+    }
+
+    .fixed-footer-container {
+      position: absolute;
+      top: 32px;
+      left: 11%;
+      --webkit-transform: translate(-32px, -25%);
+      transform: translate(-32px, -25%);
+      width: 91%;
+    }
+
+    .fixed-footer-quote-rqa {
+      padding: 0;
+    }
+
+    .fixed-footer-quote-price-from {
+      display: inline;
+      color: @grey--3;
+      font-family: @suisse;
+      letter-spacing: 0.5px;
+      font-size: 11px;
+      line-height: 18px;
+
+    }
+
+    .fixed-footer-quote-price-number {
+      display: inline;
+      color: @grey--3;
+      font-family: @suisse;
+      letter-spacing: 1px;
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    .fixed-footer-quote-price-bonus {
+      color: @grey--3;
+      font-family: @suisse;
+      letter-spacing: 0.5px;
+      font-size: 11px;
+      line-height: 18px;
+
+    }
+
+    .fixed-footer-overview-quote-btn {
+      float: right;
+      border-radius: @nd-button-border-radius;
+      display: inline-block;
+      font-family: @suisse;
+      font-size: @nd-button-font-size;
+      font-weight: normal;
+      letter-spacing: @nd-button-letter-spacing;
+      line-height: @nd-button-line-height;
+      margin-bottom: 3px;
+      padding: @nd-button-padding;
+      text-align: center ! important;
+      text-transform: uppercase;
+      vertical-align: middle;
+      white-space: normal;
+
+      span {
+        padding-right: 0 ! important;
+      }
+
+      &.btn-red {
+        border-width: @nd-button-border-width;
+        background-color: @nd-red;
+        color: @white;
+        &:hover, &:focus, &:active {
+          background-color: @nd-red-darker ! important;
+          color: @white ! important;
+        }
+      }
+      &.btn-white {
+        border: 1px solid @color-second !important;
+        color: @color-second;
+      }
+    }
+  }
+}
