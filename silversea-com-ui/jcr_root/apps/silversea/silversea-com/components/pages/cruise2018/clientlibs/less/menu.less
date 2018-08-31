@@ -27,6 +27,10 @@
 
   .ssc-cell-full-width {
     display: table-cell;
+    &:hover {
+      background-color: @grey--f9;
+
+    }
   }
 
   .ssc-table-full-width:before, .ssc-table-full-width:after {
@@ -70,7 +74,6 @@
     line-height: @cruise-2018-menu-height;
     text-align: center;
     text-transform: uppercase;
-    font-size: 13px;
     font-family: @suisse;
     letter-spacing: 1.5px;
     padding-left: 15px;
@@ -82,8 +85,7 @@
       position: absolute;
       bottom: 0;
       height: 1px;
-      width: 80%;
-      margin-left: 10%;
+      width: 100%;
       background-color: @color-second;
       content: " ";
       display: inline-block;
@@ -93,26 +95,37 @@
   }
 
   @media screen and (max-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 94vw;
+    }
+
     .cruise-2018-menu {
       .cruise-2018-menu-tab-fourth {
         display: none;
       }
       .cruise-2018-menu-tab {
-        width: 32%;
         border-left: 0;
         border-right: 0;
+        font-size: 12px;
       }
       .cruise-2018-menu-tab-text-big {
         display: none;
       }
+      .ssc-sticky-top {
+        width: 94vw !important;
+      }
     }
   }
   @media screen and (min-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 100%;
+    }
+
     .cruise-2018-menu {
       .cruise-2018-menu-tab {
-        width: 24%;
         border-left: 1px solid @white;
         border-right: 1px solid @white;
+        font-size: 13px;
       }
       .cruise-2018-menu-tab-text-small {
         display: none;

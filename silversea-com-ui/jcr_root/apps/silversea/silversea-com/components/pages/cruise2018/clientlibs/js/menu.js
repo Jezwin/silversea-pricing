@@ -2,8 +2,8 @@ $.fn.isUnderViewport = function (offset) {
     return $(this).offset().top - headerHeight() + $(this).height() - offset > $(window).scrollTop();
 };
 
-function isScrolledIntoView(elem) {
-    var docViewTop = $(window).scrollTop()+headerHeight()+$(".ssc-sticky-top").height();
+function isScrolledIntoView(elem, offset) {
+    var docViewTop = $(window).scrollTop() + headerHeight() + $(".ssc-sticky-top").height() + offset;
     var elemTop = $(elem).offset().top;
     var elemBottom = elemTop + $(elem).outerHeight(true);
     return ((elemBottom >= docViewTop) && (docViewTop >= elemTop));
@@ -37,7 +37,7 @@ function stickMenu() {
 function activeTab() {
     $(".cruise-2018-menu-tab").each(function () {
         target = $(this).attr("href");
-        if ($(target).position() && isScrolledIntoView(target)) {
+        if ($(target).position() && isScrolledIntoView(target, 11)) {
             $(this).addClass("active");
         } else {
             $(this).removeClass("active");
@@ -48,6 +48,8 @@ function activeTab() {
 function onScroll() {
     stickMenu();
     activeTab();
+    var $tabs = $(".cruise-2018-menu-tab");
+    $tabs.css("width", (100 / $tabs.length - 1) + "%");
 }
 
 $(".cruise-2018-menu a[href^=#]").on("click touchstart", function (e) {
