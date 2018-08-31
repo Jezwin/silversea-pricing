@@ -587,7 +587,9 @@ if (/MSIE|Trident/.test(navigator.userAgent)){
 
                         valueCSS[1].forEach(function(rule) {
                             if (rule.indexOf(dictionnary[0]) != -1) {
+                                var re = new RegExp('var\\('+dictionnary[0]+'.{0,5}\\)', 'g');
                                 var ruleProcessed = rule.replace("var("+dictionnary[0]+")", dictionnary[1]);
+                                ruleProcessed = ruleProcessed.replace(re, dictionnary[1]);
                                 //Should be replaced with a global selector that will test if it's a child node or current node of the scope
                                 $(valueCSS[0]).each(function(){
                                     if($(valueInline[0]).has($(this)).length > 0 || $(valueInline[0])[0] == $(this)[0]){

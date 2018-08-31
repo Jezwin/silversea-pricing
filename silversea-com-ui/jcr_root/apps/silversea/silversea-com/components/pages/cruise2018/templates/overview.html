@@ -1,5 +1,4 @@
-<template data-sly-template.default="${ @ cruise }">
-    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+<template data-sly-template.default="${ @ cruise, externalizerHelper }">
     <div class="cruise-2018-overview row container">
         <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12"
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
