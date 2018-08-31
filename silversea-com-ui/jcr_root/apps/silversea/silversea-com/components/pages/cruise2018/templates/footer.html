@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="fixed-footer-cruise visible-xs">
+    <div class="fixed-footer-cruise">
         <div class="fixed-footer-info">
             <div class="fixed-footer-container">
                 <div class="fixed-footer-price col-xs-6">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="fixed-footer-quote-rqa col-xs-6">
                     <a class="fixed-footer-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
-                       id="fixed-footer-2018-rqa"
+                       id="fixed-footer-2018-raq"
                        data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
                        href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"
                        data-sscclicktype="clic-RAQ">
