@@ -1,9 +1,10 @@
 <div itemscope itemtype="http://schema.org/Product" class="cruise-2018 container"
      data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use">
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
     <sly data-sly-use.header="/apps/silversea/silversea-com/components/pages/cruise2018/templates/header.html"
          data-sly-call="${header.default @ cruise=cruise}"/>
     <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise2018/templates/overview.html"
-         data-sly-call="${overview.default @ cruise=cruise}"/>
+         data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
     <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise2018/templates/offers.html"
          data-sly-call="${offers.default @ offers = cruise.exclusiveOffers}"/>
     <sly data-sly-use.itineraryexcursions="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/itineraryexcursions.html"
@@ -13,7 +14,7 @@
     <sly data-sly-use.suitesfares="/apps/silversea/silversea-com/components/pages/cruise2018/templates/suites-fares.html"
          data-sly-call="${suitesfares.default @ cruise=cruise}"/>
     <sly data-sly-use.ship="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/ship.html"
-         data-sly-call="${ship.default @ cruise=cruise}"/>
+         data-sly-call="${ship.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise2018/templates/pre-post.html"
          data-sly-call="${prepost.default @ cruise=cruise}"/>
     <sly data-sly-use.nextprev="/apps/silversea/silversea-com/components/pages/cruise2018/templates/next-prev.html"
