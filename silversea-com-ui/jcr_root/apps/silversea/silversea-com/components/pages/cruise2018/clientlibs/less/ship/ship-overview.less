@@ -200,13 +200,9 @@
 
       .slick-slide {
         .ratio {
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: cover;
           cursor: pointer;
-          height: 0;
+          height: 435px;
           margin: 0;
-          padding-bottom: 60%;
           position: relative;
           width: 100%;
 
@@ -214,7 +210,6 @@
             height: 0;
 
             &.s7videoviewer {
-              height: 100%;
               left: 0;
               position: absolute;
               top: 0;
@@ -258,7 +253,7 @@
 @media (min-width: @screen-sm-min) {
   .ship-slider-overview {
     .ship-slider {
-      max-width: 1200px;
+      max-width: 780px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -296,6 +291,13 @@
         height: 8px;
         margin: 0 1px;
         width: 8px;
+      }
+    }
+    .ship-slider--main {
+      .slick-slide {
+        .ratio {
+          height: 184px;
+        }
       }
     }
   }
