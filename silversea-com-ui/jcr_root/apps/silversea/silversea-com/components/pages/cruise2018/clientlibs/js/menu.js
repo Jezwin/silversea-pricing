@@ -52,7 +52,7 @@ function onScroll() {
     $tabs.css("width", (100 / $tabs.length - 1) + "%");
 }
 
-$(".cruise-2018-menu a[href^=#]").on("click touchstart", function (e) {
+$(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
     e.preventDefault();
     $target = $($(this).attr("href"));
     $([document.documentElement, document.body]).animate({
