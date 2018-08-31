@@ -62,6 +62,7 @@ public class Cruise2018Use extends EoHelper {
 
 
     private List<SilverseaAsset> assetsGallery;
+    private List<SilverseaAsset> shipAssetGallery;
     private String bigItineraryMap;
     private String smallItineraryMap;
 
@@ -98,6 +99,7 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
+        shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
@@ -106,7 +108,7 @@ public class Cruise2018Use extends EoHelper {
         lowestPrice = retrieveLowestPrice(prices);
         waitlist = lowestPrice == null;
         computedPriceFormatted = PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-        if(countryCode.equals("US")) {
+        if (countryCode.equals("US")) {
             isFeetSquare = true;
         }
         retrievePreviousCruise(cruiseModel).ifPresent(previous -> {
@@ -119,6 +121,18 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+    }
+
+    private List<SilverseaAsset> retrieveShipAssetsGallery(CruiseModel cruiseModel) {
+        if (cruiseModel != null && cruiseModel.getShip() != null) {
+            String assetSelectionReference = cruiseModel.getShip().getAssetGallerySelectionReference();
+            if (StringUtils.isNotBlank(assetSelectionReference)) {
+                return AssetUtils
+                        .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                                null);
+            }
+        }
+        return null;
     }
 
     private Lightbox checkIsLightbox(String[] selectors) {
@@ -192,11 +206,11 @@ public class Cruise2018Use extends EoHelper {
                                 break;
                             }
                         }
-                        if(b) {
+                        if (b) {
                             SuitePrice suitePrice = new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
                             list.add(suitePrice);
-                        }else {
-                            list.stream().filter(t-> t.getSuite().equals(price.getSuite())).findFirst().get().add(price);
+                        } else {
+                            list.stream().filter(t -> t.getSuite().equals(price.getSuite())).findFirst().get().add(price);
                         }
                     }
                 }
@@ -345,6 +359,10 @@ public class Cruise2018Use extends EoHelper {
 
     public String getSmallItineraryMap() {
         return smallItineraryMap;
+    }
+
+    public List<SilverseaAsset> getShipAssetGallery() {
+        return shipAssetGallery;
     }
 
     private enum Lightbox {

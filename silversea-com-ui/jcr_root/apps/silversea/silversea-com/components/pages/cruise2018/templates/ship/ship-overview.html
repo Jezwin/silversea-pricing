@@ -1,6 +1,36 @@
 <template data-sly-template.default="${ @ cruise, externalizerHelper }">
-    ${cruise.ship.shipCode}
-    <div data-lightbox-deck="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-deck'}">
-        <a class="open-lightbox-deck cruise-2018-link-open-modal" data-target=".lightbox" href="#">VIEW DECK PLAN ${cruise @ context='html'}</a>
+    <div class="cruise-2018-ship-overview" data-sly-test.ship="${cruise.cruiseModel.ship}">
+        <div class="cruise-2018-ship-overview-title">
+            <span class="cruise-2018-ship-overview-title-ship">${'ship' @ i18n}</span> - <span
+                class="cruise-2018-ship-overview-title-title">${ship.title}</span>
+        </div>
+        <div class="cruise-2018-ship-overview-description hidden-xs">
+            ${ship.shortVoyageDescription @ context='html'}
+        </div>
+        <div class="cruise-2018-ship-overview-button hidden-xs"
+             data-lightbox-deck="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-deck'}">
+            <a class="cruise-2018-ship-overview-view-deck-plan-btn btn btn-thin btn-white open-lightbox-deck cruise-2018-link-open-modal"
+               data-target=".lightbox" href="#">${'view-deck-plan' @i18n}
+            </a>
+        </div>
+        <div class="ship-slider-overview">
+            <div class="ship-slider ship-slider--main main-slider">
+                <div data-sly-repeat.asset="${cruise.shipAssetGallery}" data-image="${asset.path}">
+                    <div class="ratio">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                             data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}"/>
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+                             data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+                        <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                        <div data-sly-test="${isVideo}" class="c-video" data-video-asset="${asset.path}"
+                             data-video-autoplay="1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cruise-2018-ship-overview-description visible-xs">
+            ${ship.shortVoyageDescription @ context='html'}
+        </div>
     </div>
+
 </template>
