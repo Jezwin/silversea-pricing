@@ -43,16 +43,16 @@
     }
 
     .fixed-footer-quote-price {
-      transform: translateY(25%);
-      top: 50%;
+      transform: translateY(20%);
+      top: 20%;
       position: absolute;
-      --webkit-transform: translateY(50%);
+      --webkit-transform: translateY(20%);
     }
 
     .fixed-footer-container {
       position: absolute;
       top: 32px;
-      left: 11%;
+      left: 14%;
       --webkit-transform: translate(-32px, -25%);
       transform: translate(-32px, -25%);
       width: 91%;
@@ -67,7 +67,7 @@
       color: @grey--3;
       font-family: @suisse;
       letter-spacing: 0.5px;
-      font-size: 11px;
+      font-size: 9px;
       line-height: 18px;
 
     }
@@ -76,18 +76,18 @@
       display: inline;
       color: @grey--3;
       font-family: @suisse;
-      letter-spacing: 1px;
-      font-size: 20px;
-      line-height: 24px;
+      font-size: 18px;
+      letter-spacing: 0.43px;
+      line-height: 25px;
     }
 
     .fixed-footer-quote-price-bonus {
       color: @grey--3;
       font-family: @suisse;
       letter-spacing: 0.5px;
-      font-size: 11px;
+      font-size: 9px;
       line-height: 18px;
-
+      margin-top: -7px;
     }
 
     .fixed-footer-overview-quote-btn {
@@ -123,6 +123,26 @@
         border: 1px solid @color-second !important;
         color: @color-second;
       }
+    }
+  }
+}
+
+@media (max-width: @screen-xxxxs) {
+  .fixed-footer-cruise {
+    .fixed-footer-container {
+      left: 15%;
+    }
+    .fixed-footer-overview-quote-btn {
+      font-size: 10px;
+    }
+    .fixed-footer-quote-price-number {
+      font-size: 17px;
+    }
+    .fixed-footer-quote-price-from {
+      font-size: 9px;
+    }
+    .fixed-footer-quote-price-bonus {
+      font-size: 9px;
     }
   }
 }
