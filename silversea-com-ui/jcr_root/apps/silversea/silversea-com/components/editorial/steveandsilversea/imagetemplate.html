@@ -1,8 +1,17 @@
 <template data-sly-template.default="${ @ imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=imagePath}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
         <a href="${imagePath}" class="lazy c-steveandsilversea__gallery__item ${isVideo ? 'video-link steveandsilversea-video-link' : ''}
+             ${properties.assetSelection ? 'automatic-gallery-modal' : 'inactiveLink'}" data-target=".bs-modal-lg" 
+            data-src="${assetHelper.imageUrl @ context='uri'}?hei=530&fit=constrain">
+            <i data-sly-test="${isVideo}" class="fa fa-play"></i>
+        </a>
+	</template>	
+<template data-sly-template.displayasnotnull="${ @ imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=imagePath}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+        <a href="${imagePath}" class="lazy c-steveandsilversea__gallery__item ${isVideo ? 'video-link steveandsilversea-video-link' : ''}
              ${properties.assetSelection ? properties.displayas : 'inactiveLink'}" data-target=".bs-modal-lg" 
             data-src="${assetHelper.imageUrl @ context='uri'}?hei=530&fit=constrain">
             <i data-sly-test="${isVideo}" class="fa fa-play"></i>
         </a>
 </template>	
+

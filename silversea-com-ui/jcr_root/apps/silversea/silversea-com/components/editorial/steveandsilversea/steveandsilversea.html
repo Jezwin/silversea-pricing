@@ -1,20 +1,32 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SteveAndSilversea"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
-
 <div class="row c-steveandsilversea hidden-xs hidden-sm" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
         <div class="col-sm-6-content">
             <div class="content">
                 <div class="content__title">${properties.title}</div>
                 <div class="content__descr">${properties.text @ context='html'}</div>
                 <div class="content__cta">
-                    <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? properties.displayas : ''}">${properties.ctatext}</a>
+					<div data-sly-test="${!properties.displayas}" data-sly-unwrap>
+						<a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
+					</div>
+
+					<div data-sly-test="${properties.displayas != null}" data-sly-unwrap>
+
+                    	<a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? properties.displayas : ''}">${properties.ctatext}</a>
+					</div>
                 </div>
             </div>
         </div>
          <div class="col-sm-6-image image-div">
          	<div class="image">
-                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
-                	data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
+                <div data-sly-test="${!properties.displayas}" data-sly-unwrap>
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
+                            data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
+                </div>
+                <div data-sly-test="${properties.displayas != null}" data-sly-unwrap>
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
+                            data-sly-call="${imageTemplate.displayasnotnull @ imagePath=properties.imagePath}"></sly>
+                </div>
 				<div class="${properties.displayWatermark ? 'content__watermark' : 'content__nowatermark'}">&#169; Steve McCurry</div>
                 <div class="${properties.displayWatermark ? 'content__nowatermark' : 'content__tag'}"> ${assetHelper.asset.metadata.dc:title} </div>
             </div>
@@ -23,8 +35,14 @@
 <div class="row c-steveandsilversea c-steveandsilversea-mobile hidden-md hidden-lg" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
             <div class="col-sm-6 col-sm-6-image-mobile image-div">
                 <div class="image">
-                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
-                        data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
+                    <div data-sly-test="${!properties.displayas}" data-sly-unwrap>
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
+                            data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
+                    </div>
+                    <div data-sly-test="${properties.displayas != null}" data-sly-unwrap>
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
+                            data-sly-call="${imageTemplate.displayasnotnull @ imagePath=properties.imagePath}"></sly>
+                    </div>
                     <div class="${properties.displayWatermark ? 'content__watermark' : 'content__nowatermark'}">&#169; Steve McCurry</div>
                     <div class="${properties.displayWatermark ? 'content__nowatermark' : 'content__tag'}"> ${assetHelper.asset.metadata.dc:title} </div>
                 </div>
@@ -34,7 +52,12 @@
                     <div class="content__title">${properties.title}</div>
                     <div class="content__descr">${properties.text @ context='html'}</div>
                     <div class="content__cta">
-                         <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? properties.displayas : ''}">${properties.ctatext}</a>
+						<div data-sly-test="${!properties.displayas}" data-sly-unwrap>
+	                         <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
+						</div>
+						<div data-sly-test="${properties.displayas != null}" data-sly-unwrap>
+	                         <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? properties.displayas : ''}">${properties.ctatext}</a>
+						</div>
                     </div>
                 </div>
             </div>

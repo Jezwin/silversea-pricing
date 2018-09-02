@@ -2,6 +2,6 @@
 <div data-sly-test="${properties.displayas == 'automatic-gallery-modal-fullscreen'}" data-sly-unwrap>
 	<div class="c-steveandsilversea__gallery__fullscreen" data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html" data-sly-call="${galleryTemplate.fullscreen @ list=setImage.renditionList}"> </div>
 </div>
-<div data-sly-test="${properties.displayas == '' || properties.displayas == 'automatic-gallery-modal'}" data-sly-unwrap>
-	<div class="c-steveandsilversea__gallery " data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html" data-sly-call="${galleryTemplate.default @ list=setImage.renditionList}"> </div>
+<div data-sly-test="${!properties.displayas || properties.displayas == 'automatic-gallery-modal'}" data-sly-unwrap>
+	<div class="c-steveandsilversea__gallery c-steveandsilversea__gallery_default" data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html" data-sly-call="${galleryTemplate.default @ list=setImage.renditionList}"> </div>
 </div>
