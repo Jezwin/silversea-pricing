@@ -282,6 +282,7 @@ $('.automatic-gallery-modal-fullscreen').on('click', function(e) {
         // Wait for modal opening
         $modalContent.on('shown.bs.modal', function(e) {
             var $modal = $(this);
+            $modal.addClass('modal-dialog-fullscreen');
             $modal.off('shown.bs.modal');
 
             // Append html response inside modal

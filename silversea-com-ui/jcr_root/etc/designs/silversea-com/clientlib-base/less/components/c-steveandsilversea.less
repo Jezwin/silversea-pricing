@@ -8,6 +8,13 @@
 }
 
 .c-steveandsilversea__gallery__fullscreen .c-slider--for .slick-slide .ratio {
+    padding-bottom: 100vh !important;
+    @media (max-width: @screen-md-min){
+        background-size: auto 100%;
+    }
+    @media (orientation: portrait){
+		background-size: 100% auto;
+    }
     background-size: contain !important;
 }
 
@@ -249,19 +256,43 @@
 }
 
 .c-steveandsilversea__gallery__fullscreen {
-     background-color: black;
+    background-color: black;
     height: 100%;
-    width: 100%;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    position: relative;
-    right: 50%;
-    width: 100vw;
-    top:-8%;
+    width: 100vw !important;
+    top:0;
+
+    @media (min-width: @screen-md-min) and (orientation: landscape){
+		width: auto;
+    } 
+
+    .modal-content{
+		top: 0 !important;
+        transform: none !important;
+
+        .modal-header, .modal-body{
+			padding: 0 !important;
+        }
+    }
 }
 
+@media (min-width: @screen-md-min) {
+    .c-steveandsilversea__gallery_default{
+		padding-top: 30px;
+    }
+}
 
+@media (min-width: 767px){
+    .modal.modal-dialog-fullscreen .modal-dialog{
+        @media (orientation: portrait){
+            padding-top: 0;
+        }
+        @media (orientation: landscape){
+            width: 100%;
+            margin: 0;
+            max-width: initial;
+        }
+    }
+}
 
 @media (min-width: @screen-md-max) {
     .row.c-steveandsilversea {
