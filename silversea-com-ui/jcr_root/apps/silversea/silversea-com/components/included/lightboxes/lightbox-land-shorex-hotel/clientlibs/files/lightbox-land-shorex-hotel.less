@@ -1,0 +1,261 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+@media (min-width: @screen-md-min) {
+  .modal.lightbox .modal-content.lightbox-land-shore-hotel-content {
+    top: 0px;
+  }
+}
+
+.lightbox .modal-content .modal-body.lightbox-land-shore-hotel-body {
+  padding-top: 0px;
+}
+
+.lightbox-land-shore-hotel {
+
+  //common style across templates
+  .lg-content {
+    margin: 0px 60px 0px 60px;
+
+    hr {
+      border: 1px solid rgba(152, 152, 155, 0.2);
+    }
+  }
+
+  .lsh-asset-slider {
+    margin-bottom: 20px;
+    visibility: hidden;
+
+    &.slick-initialized {
+      visibility: visible !important;
+    }
+    .parbase {
+      margin-bottom: 0 !important;
+    }
+
+    .slick-cloned .o-img {
+      display: none;
+    }
+
+    .slick-slide {
+      &,
+      a:focus {
+        outline: 0;
+      }
+
+      > * {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    &:not(.lg-slider--full-width) .slick-slide > * {
+      margin: 0 5px;
+      @media (max-width: @screen-sm) {
+        margin: 0 10px;
+      }
+    }
+
+    .slick-prev,
+    .slick-next {
+      height: 100%;
+      width: 80px;
+      z-index: 1;
+
+      &:before,
+      &:after {
+        content: " ";
+        display: block;
+        height: 20px;
+        position: absolute;
+        top: 50%;
+        width: 20px;
+      }
+
+      &:before {
+        border: 1px solid @grey--9;
+        border-width: 0 1px 1px 0;
+        opacity: .7;
+        top: calc(~"50% + 2px");
+      }
+
+      &:after {
+        border: 2px solid @white;
+        border-width: 0 1px 1px 0;
+      }
+    }
+
+    .slick-prev {
+      &:before,
+      &:after {
+        left: 60%;
+        -webkit-transform: translate(-50%, -50%) rotateZ(135deg);
+        -ms-transform: translate(-50%, -50%) rotateZ(135deg);
+        transform: translate(-50%, -50%) rotateZ(135deg);
+      }
+    }
+
+    .slick-next {
+      &:before,
+      &:after {
+        left: 40%;
+        -webkit-transform: translate(-50%, -50%) rotateZ(-45deg);
+        -ms-transform: translate(-50%, -50%) rotateZ(-45deg);
+        transform: translate(-50%, -50%) rotateZ(-45deg);
+      }
+    }
+
+    .slick-dots {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+      width: auto;
+      bottom: 30px;
+    }
+
+    &--main {
+      .lazy {
+        &:after {
+          background-image: url('/etc/designs/silversea-com/clientlib-base/images/loader.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          content: ' ';
+          height: 50px;
+          left: calc(~'50% - 25px');
+          position: absolute;
+          top: calc(~'50% - 25px');
+          width: 50px;
+          z-index: -1;
+        }
+      }
+    }
+
+    &--main {
+      .slick-prev,
+      .slick-next {
+        height: 100px;
+      }
+
+      .slick-slide {
+        .ratio {
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          cursor: pointer;
+          height: 0;
+          margin: 0;
+          position: relative;
+          width: 100%;
+
+          .c-video {
+            height: 0;
+
+            &.s7videoviewer {
+              height: 100%;
+              left: 0;
+              position: absolute;
+              top: 0;
+              width: 100%
+            }
+          }
+        }
+      }
+    }
+    .slick-dots li.slick-active {
+      border: 1px solid @white;
+    }
+
+    .slick-dots {
+      width: 100%;
+      max-width: 150px;
+    }
+
+    .slick-dots li {
+      height: 1px;
+      margin: 0;
+    }
+
+    .slick-dots li button {
+      height: 2px;
+    }
+
+    .slick-dots li.slick-active button:before {
+      background-color: @white;
+      opacity: .8;
+    }
+    .slick-dots li button:before {
+      border-radius: 0;
+    }
+    .slick-slide[data-slide-type^="video"] {
+      position: relative;
+    }
+    .lg-virtual-tour {
+      &:not(:required):after {
+        content: '360\00b0';
+        font-size: 100px;
+        z-index: 3243;
+        background-image: none;
+        color: @white;
+        font-family: @f-serif;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        position: absolute;
+      }
+      &:before {
+        content: "";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        background-color: @grey--04;
+      }
+    }
+  }
+}
+
+//Desktop and Tablet
+@media screen and (min-width: @screen-md-min) {
+  .lightbox-land-shore-hotel {
+    .lg-content {
+      margin: 0 60px 0 60px;
+
+    }
+    .lsh-asset-slider--main {
+      .slick-slide .ratio {
+        height: 432px;
+      }
+    }
+  }
+}
+
+//Mobile
+@media screen and (max-width: @screen-sm) {
+  .lightbox-land-shore-hotel {
+    .lg-content {
+      margin: 0 25px 0 25px;
+    }
+
+    .lsh-asset-slider--main {
+      .slick-slide .ratio {
+        height: 210px;
+      }
+    }
+    .lsh-asset-slider {
+      .slick-dots {
+        bottom: 20px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+

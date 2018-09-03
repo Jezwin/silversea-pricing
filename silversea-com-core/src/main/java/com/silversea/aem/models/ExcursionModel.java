@@ -51,12 +51,18 @@ public class ExcursionModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/pois") @Optional
     private String pois;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shorexId") @Optional
+    private Long shorexId;
     
     private String shortDescription;
 
     private List<FeatureModel> features = new ArrayList<>();
 
     private String schedule;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    private String  assetSelectionReference;
 
     @PostConstruct
     private void init() throws Exception {
@@ -153,7 +159,15 @@ public class ExcursionModel {
         return schedule;
     }
 
-	/**
+    public Long getShorexId() {
+        return shorexId;
+    }
+
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
+    }
+
+    /**
      * TODO replace by {@link java.time.Duration}
      */
     @Deprecated

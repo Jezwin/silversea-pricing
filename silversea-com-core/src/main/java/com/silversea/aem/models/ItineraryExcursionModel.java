@@ -124,7 +124,11 @@ public class ItineraryExcursionModel {
 		return excursion;
 	}
 
-	public class Duration {
+    public Long getShorexId() {
+        return excursion != null ? excursion.getShorexId() : null;
+    }
+
+    public class Duration {
         int hours;
         int minutes;
 

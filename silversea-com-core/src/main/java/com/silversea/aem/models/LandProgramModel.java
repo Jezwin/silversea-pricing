@@ -34,7 +34,9 @@ public class LandProgramModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/landCode") @Optional
     private String landCode;
-    
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    private String  assetSelectionReference;
 
     private String shortDescription;
     
@@ -61,5 +63,9 @@ public class LandProgramModel {
 
 	public String getLandCode() {
         return landCode;
+    }
+
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
     }
 }
