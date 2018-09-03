@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
@@ -72,6 +71,7 @@ public class Cruise2018Use extends EoHelper {
     private String next;
     private String nextDeparture;
     private String nextArrival;
+    private String highlights;
 
 
     @Override
@@ -83,6 +83,9 @@ public class Cruise2018Use extends EoHelper {
         switch (typeLightbox) {
             case ASSET_GALLERY:
                 assetsGallery = retrieveAssetsGallery();
+                return;
+            case HIGHLIGHTS:
+                highlights = retrieveHighlights();
                 return;
             case ASSET_MAP:
                 List<String> newItineraryMap = retrieveItineraryMaps();
@@ -123,25 +126,28 @@ public class Cruise2018Use extends EoHelper {
         });
     }
 
+    private String retrieveHighlights() {
+        return ofNullable(getCurrentPage()).map(Page::getProperties)
+                .map(props -> props.get("voyageHighlights", String.class)).orElse("");
+
+    }
+
     private List<SilverseaAsset> retrieveShipAssetsGallery(CruiseModel cruiseModel) {
         if (cruiseModel != null && cruiseModel.getShip() != null) {
             String assetSelectionReference = cruiseModel.getShip().getAssetGallerySelectionReference();
             if (StringUtils.isNotBlank(assetSelectionReference)) {
-                return AssetUtils
-                        .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                null);
+                return AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), null);
             }
         }
         return null;
     }
 
     private Lightbox checkIsLightbox(String[] selectors) {
-        for (String selector : selectors) {
-            if (selector.contains(Lightbox.ASSET_GALLERY.getSelector())) {
-                return Lightbox.ASSET_GALLERY;
-            }
-            if (selector.contains(Lightbox.ASSET_MAP.getSelector())) {
-                return Lightbox.ASSET_MAP;
+        for (Lightbox lightbox : Lightbox.values()) {
+            for (String selector : selectors) {
+                if (selector.contains(lightbox.getSelector())) {
+                    return lightbox;
+                }
             }
         }
         return Lightbox.CRUISE_PAGE;
@@ -207,10 +213,12 @@ public class Cruise2018Use extends EoHelper {
                             }
                         }
                         if (b) {
-                            SuitePrice suitePrice = new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
+                            SuitePrice suitePrice =
+                                    new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
                             list.add(suitePrice);
                         } else {
-                            list.stream().filter(t -> t.getSuite().equals(price.getSuite())).findFirst().get().add(price);
+                            list.stream().filter(t -> t.getSuite().equals(price.getSuite())).findFirst().get()
+                                    .add(price);
                         }
                     }
                 }
@@ -242,11 +250,12 @@ public class Cruise2018Use extends EoHelper {
         }
     }
 
+
     private List<SilverseaAsset> retrieveAssetsGallery() {
         Page currentPage = getCurrentPage();
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
-        String assetSelectionReference = null;
+        String assetSelectionReference;
         if (pageManager != null) {
             ValueMap vmProperties = currentPage.getProperties();
             if (vmProperties != null) {
@@ -365,25 +374,6 @@ public class Cruise2018Use extends EoHelper {
         return shipAssetGallery;
     }
 
-    private enum Lightbox {
-        ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), CRUISE_PAGE("");
-
-        private String selector = "";
-
-        public String getSelector() {
-            return selector;
-        }
-
-        Lightbox(String selector) {
-            this.selector = selector;
-        }
-
-        public String toString() {
-            return selector;
-        }
-
-    }
-
     public List<ExclusiveOfferItem> getExclusiveOffers() {
         return exclusiveOffers;
     }
@@ -437,6 +427,10 @@ public class Cruise2018Use extends EoHelper {
         return previousDeparture;
     }
 
+    public String getHighlights() {
+        return highlights;
+    }
+
     /**
      * @return get next cruise in the destination
      */
@@ -478,4 +472,26 @@ public class Cruise2018Use extends EoHelper {
     public String getCcptCode() {
         return ccptCode;
     }
+
+    private enum Lightbox {
+
+        ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), HIGHLIGHTS("highlights"), CRUISE_PAGE("");
+
+        private String selector;
+
+        public String getSelector() {
+            return selector;
+        }
+
+        Lightbox(String selector) {
+            this.selector = selector;
+        }
+
+        public String toString() {
+            return selector;
+        }
+
+    }
+
 }
+

@@ -106,7 +106,7 @@
   }
 
   .lightbox-close-dark {
-    color:@color-medium-bg;
+    color: @color-medium-bg;
   }
 }
 
@@ -122,3 +122,9 @@
   }
 }
 
+@media (min-width: @screen-md-min) {
+  .modal.lightbox .modal-content.lightbox-suite-content,
+  .modal.lightbox .modal-content.lightbox-no-top {
+    top: 0px;
+  }
+}

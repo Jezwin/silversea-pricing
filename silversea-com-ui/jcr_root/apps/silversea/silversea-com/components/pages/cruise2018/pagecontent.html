@@ -7,15 +7,15 @@
          data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
     <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise2018/templates/offers.html"
          data-sly-call="${offers.default @ offers = cruise.exclusiveOffers}"/>
-    <hr />
+    <hr/>
     <sly data-sly-use.itineraryexcursions="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/itineraryexcursions.html"
-         data-sly-call="${itineraryexcursions.default @ cruise=cruise}"/>
-    <hr />
+         data-sly-call="${itineraryexcursions.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+    <hr/>
     <sly data-sly-use.expeditions="/apps/silversea/silversea-com/components/pages/cruise2018/templates/expeditions.html"
          data-sly-call="${expeditions.default @ cruise=cruise}"/>
     <sly data-sly-use.suitesfares="/apps/silversea/silversea-com/components/pages/cruise2018/templates/suites-fares.html"
          data-sly-call="${suitesfares.default @ cruise=cruise}"/>
-    <hr />
+    <hr/>
     <sly data-sly-use.ship="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/ship.html"
          data-sly-call="${ship.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise2018/templates/pre-post.html"
