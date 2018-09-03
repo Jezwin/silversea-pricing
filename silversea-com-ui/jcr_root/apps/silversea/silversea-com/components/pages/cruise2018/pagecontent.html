@@ -24,4 +24,50 @@
          data-sly-call="${nextprev.default @ cruise=cruise}"/>
     <sly data-sly-use.footer="/apps/silversea/silversea-com/components/pages/cruise2018/templates/footer.html"
          data-sly-call="${footer.default @ cruise=cruise}"/>
+
+
+
+
+    <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"
+         data-sly-test="${cruise.cruiseModel.Itineraries}"
+         data-sly-list.itinerary="${cruise.cruiseModel.Itineraries}">
+        <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.compactedExcursions : itinerary.port.excursions }" />
+        <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.landPrograms  }" />
+
+        <div class="c-cruise-itinerary-list__item panel">
+            <a class="open-lightbox-suite cruise-2018-link-open-modal" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', item.suiteCategory, pageProperties.cruiseCode]}">
+            <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itineraryList.count}" data-parent="#c-cruise-itinerary-list" role="button"
+                 data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = itinerary.port.thumbnail}">
+                <div class="c-cruise-itinerary-list__headline__image lazy" data-sly-test="${itinerary.port.thumbnail}"
+                     data-src="${assetHelper.imageUrl @ context='uri'}?hei=430&wid=430&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"></div>
+                <ul class="c-cruise-itinerary-list__headline__title">
+                    <li class="c-cruise-itinerary-list__headline__title__city">${itinerary.port.apiTitle}</li>
+                    <li class="c-cruise-itinerary-list__headline__title__country">${itinerary.port.country}</li>
+                </ul>
+                <ul class="c-cruise-itinerary-list__headline__date">
+                    <li class="c-cruise-itinerary-list__headline__date__duration">
+                        <sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly>
+                        <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</span>
+                        <sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
+                        <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
+                    </li>
+                    <li class="c-cruise-itinerary-list__headline__date__time hidden-xs">
+                        <span data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=itinerary.arriveTime}" data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTimeFormat.value}</span><sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
+                        <span data-sly-use.departTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=itinerary.departTime}" data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTimeFormat.value}</span>
+                    </li>
+                    <li class="c-cruise-itinerary-list__headline_overnight hidden-xs" data-sly-test="${itinerary.numberDays > 0 && itinerary.port.cityId != 299}">
+                        <sly data-sly-use.loopOvernight="${'com.silversea.aem.helper.ListHelper' @ sizeLoop=itinerary.numberDays}" data-sly-repeat="${loopOvernight.objectListLoop}">
+                            <span><i class="fa fa-moon-o"></i></span>
+                        </sly>
+                        <span data-sly-test="${itinerary.numberDays == 1}">${'overnight-in-port' @ i18n }</span>
+                        <span data-sly-test="${itinerary.numberDays > 1}">${'overnights-in-port' @ i18n }</span>
+                    </li>
+
+                </ul>
+
+            </div>
+            </a>
+        </div>
+    </div>
+</div>
 </div>

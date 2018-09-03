@@ -1,0 +1,19 @@
+<template data-sly-template.default="${@ model}">
+    <div class="lg-asset-slider lg-asset-slider--main">
+        <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=model.port.assetSelectionReference}"/>
+        <div data-sly-repeat.asset="${setImage.renditionList}" data-image="${asset.path}">
+            <div class="ratio ${asset.type == 'virtual-tour' ? 'lg-virtual-tour' : ''}"
+                 id="lg-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
+                 data-image-virtual-tour="${asset.path}">
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                     data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}"/>
+                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+                     data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+                <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i>
+                </a>
+                <div data-sly-test="${isVideo}" class="c-video" data-video-asset="${asset.path}"
+                     data-video-autoplay="1"></div>
+            </div>
+        </div>
+    </div>
+</template>

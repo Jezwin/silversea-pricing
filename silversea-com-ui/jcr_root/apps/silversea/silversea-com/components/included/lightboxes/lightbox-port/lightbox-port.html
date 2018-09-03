@@ -1,0 +1,18 @@
+<template data-sly-template.default="${ @ model}">
+    <sly data-sly-use.model="com.silversea.aem.components.included.lightboxes.LightboxPortUse"/>
+    <div class="modal-body lightbox-suite-body">
+        <div class="lightbox-suite">
+            <sly data-sly-test="${ model.port.assetSelectionReference }"
+                 data-sly-use.templateGallery="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-gallery.html"
+                 data-sly-call="${templateGallery.default @ model = model}"/>
+            <div class="lg-content">
+                <sly data-sly-use.templateOverview="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-overview.html"
+                     data-sly-call="${templateOverview.default @ model= model}"/>
+
+                <sly data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-excursion.html"
+                     data-sly-call="${templateDeck.default @ model= model}"/>
+                <sly data-sly-use.templateCta="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-call.html"/>
+            </div>
+        </div>
+    </div>
+</template>
