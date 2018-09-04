@@ -135,3 +135,129 @@
 
 }
 
+.menu-overview-fixed {
+  .menu-container {
+    padding-top: 10px;
+    padding-bottom: 5px;
+
+    .menu-date-days, .menu-price-raq {
+      border-left: 1px solid fade(@color-medium-bg, 20%);
+      min-height: 44px;
+    }
+
+    .menu-overview-destination {
+      font-family: @freight;
+      font-size: 18px;
+      line-height: 22px;
+      .to {
+        text-transform: lowercase;
+      }
+      .departurePort {
+        display: block;
+      }
+    }
+    .menu-date-days {
+      font-family: @suisse;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      line-height: 18px;
+      text-transform: uppercase;
+    }
+
+    .menu-quote-price {
+      font-family: @suisse;
+      text-transform: uppercase;
+      .from, .early-booking {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+        line-height: 18px;
+      }
+      .price {
+        font-size: 16px;
+        letter-spacing: 0.53px;
+        line-height: 24px;
+      }
+      .display-inline {
+        display: inline-block;
+      }
+    }
+
+    .menu-price-raq {
+      padding-right: 0px;
+      .menu-quote-price {
+        padding-left: 0px;
+      }
+    }
+
+    .menu-raq {
+      padding-left: 0px;
+      padding-right: 0px;
+      .raq-quote-btn {
+        border-radius: @nd-button-border-radius;
+        display: inline-block;
+        font-family: @suisse;
+        font-size: @nd-button-font-size;
+        font-weight: normal;
+        letter-spacing: @nd-button-letter-spacing;
+        line-height: @nd-button-line-height;
+        margin-bottom: 3px;
+        padding: @nd-button-padding;
+        text-align: center ! important;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: normal;
+        span {
+          padding-right: 0 ! important;
+        }
+
+        &-red {
+          border-width: @nd-button-border-width;
+          background-color: @nd-red;
+          color: @white;
+          &:hover, &:focus, &:active {
+            background-color: @nd-red-darker ! important;
+            color: @white ! important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-sm) {
+  .menu-overview-fixed {
+    .menu-container {
+      .menu-overview-destination {
+        .to {
+
+        }
+      }
+      .menu-date-days {
+        .days {
+
+        }
+        .date {
+
+        }
+      }
+
+      .menu-quote-price {
+        .from {
+
+        }
+        .price {
+
+        }
+        .early-booking {
+
+        }
+      }
+
+      .menu-raq {
+        .raq-quote-btn {
+
+        }
+      }
+    }
+  }
+}
