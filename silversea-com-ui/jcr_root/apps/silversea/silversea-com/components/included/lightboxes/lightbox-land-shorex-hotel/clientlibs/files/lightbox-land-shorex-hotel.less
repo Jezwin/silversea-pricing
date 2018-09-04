@@ -1,23 +1,97 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
 @media (min-width: @screen-md-min) {
-  .modal.lightbox .modal-content.lightbox-land-shore-hotel-content {
+  .modal.lightbox .modal-content.lightbox-land-shorex-hotel-content {
     top: 0px;
   }
 }
 
-.lightbox .modal-content .modal-body.lightbox-land-shore-hotel-body {
+.lightbox .modal-content .modal-body.lightbox-lsh-body {
   padding-top: 0px;
 }
 
-.lightbox-land-shore-hotel {
+.lightbox-land-shorex-hotel {
 
   //common style across templates
   .lg-content {
-    margin: 0px 60px 0px 60px;
+    margin: 0px 60px 60px 60px;
 
     hr {
       border: 1px solid rgba(152, 152, 155, 0.2);
+    }
+
+    .lsh-title {
+      font-family: @freight;
+      font-size: 30px;
+      letter-spacing: 0.5px;
+      line-height: 32px;
+      margin-top: 40px;
+      margin-bottom: 15px;
+    }
+
+    .lsh-code {
+      font-family: @suisse;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      text-transform: capitalize;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .lsh-other-info {
+      font-family: @suisse;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      text-transform: capitalize;
+      margin-left: 15px;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .lsh-icon {
+      font-size: 18px;
+      .feature {
+        margin-right: 10px;
+      }
+    }
+
+    .lsh-icon-list {
+      .icon-name {
+        opacity: 0.7;
+        font-family: @suisse;
+        font-size: 11px;
+        letter-spacing: 0.42px;
+        line-height: 20px;
+        margin-left: 9px;
+        text-transform: uppercase;
+      }
+      .icon-info {
+        font-size: 16px;
+      }
+
+      .icon-description {
+        margin-top: 8px;
+        font-family:@suisse;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        line-height: 16px;
+      }
+    }
+
+    .lsh-description {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      margin-top: 25px;
+
+      br {
+        display: none;
+      }
     }
   }
 
@@ -141,10 +215,10 @@
           background-repeat: no-repeat;
           background-size: cover;
           cursor: pointer;
-          height: 0;
           margin: 0;
           position: relative;
           width: 100%;
+          height: 432px;
 
           .c-video {
             height: 0;
@@ -215,47 +289,4 @@
     }
   }
 }
-
-//Desktop and Tablet
-@media screen and (min-width: @screen-md-min) {
-  .lightbox-land-shore-hotel {
-    .lg-content {
-      margin: 0 60px 0 60px;
-
-    }
-    .lsh-asset-slider--main {
-      .slick-slide .ratio {
-        height: 432px;
-      }
-    }
-  }
-}
-
-//Mobile
-@media screen and (max-width: @screen-sm) {
-  .lightbox-land-shore-hotel {
-    .lg-content {
-      margin: 0 25px 0 25px;
-    }
-
-    .lsh-asset-slider--main {
-      .slick-slide .ratio {
-        height: 210px;
-      }
-    }
-    .lsh-asset-slider {
-      .slick-dots {
-        bottom: 20px;
-      }
-    }
-  }
-}
-
-
-
-
-
-
-
-
 

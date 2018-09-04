@@ -1,6 +1,6 @@
 <template data-sly-template.default="${ @ model }">
     <div class="modal-body lightbox-lsh-body">
-        <div class="lightbox-lsh">
+        <div class="lightbox-land-shorex-hotel">
             <div class="lsh-asset-slider lsh-asset-slider--main">
                 <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=model.assetSelectionReference}"/>
                 <div data-sly-repeat.asset="${setImage.renditionList}" data-image="${asset.path}">
@@ -22,7 +22,24 @@
             </div>
             <div class="lg-content">
                 <div class="lsh-title">${model.title || model.name}</div>
+                <div class="lsh-code" data-sly-test="${model.code}">
+                    <span>${'code' @ i18n }:</span>
+                    ${model.code}
+                </div>
+                <div class="lsh-other-info" data-sly-test="${model.duration.hours || model.duration.minutes}">
+                    ${'duration' @ i18n}:
+                    <span data-sly-test.durationHours="${model.duration.hours}">${durationHours} ${'hours' @ i18n}</span>
+                    <span data-sly-test.durationMinutes="${model.duration.minutes}">${durationMinutes} ${'minutes' @ i18n} </span>
+                </div>
+                <div class="lsh-icon" data-sly-test="${model.features}" data-sly-list.feature="${model.features}">
+                    <span class="feature"> <i class="${feature.icon}"></i> </span>
+                </div>
                 <div class="lsh-description">${model.description @ context='html'}</div>
+                <hr data-sly-test="${model.features}" />
+                <div class="lsh-icon-list" data-sly-test="${model.features}" data-sly-list.feature="${model.features}">
+                    <span class="icon-info"> <i class="${feature.icon}"></i><span class="icon-name"><i></i>${feature.title}</span></span>
+                    <div class="icon-description"> ${feature.description @ context='html'}</div>
+                </div>
             </div>
         </div>
     </div>

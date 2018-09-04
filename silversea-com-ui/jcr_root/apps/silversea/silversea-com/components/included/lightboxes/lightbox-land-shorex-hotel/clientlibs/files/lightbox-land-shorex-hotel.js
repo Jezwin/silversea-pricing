@@ -77,7 +77,7 @@ $(function () {
         });
 
         loadLazyImage($mainSlider);
-        createLineProgressBarSuiteGallery($modal);
+        createLineProgressBarGallery($modal);
 
     };//createLigthboxGallerySlider
 
@@ -166,7 +166,7 @@ $(function () {
         }
     };//createVirtualTour
 
-    function createLineProgressBarSuiteGallery($modal) {
+    function createLineProgressBarGallery($modal) {
         var widthSlider = $modal.find(".slick-dots").width();
         if ($("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg")) {
             if (widthSlider > 930) {
@@ -190,7 +190,7 @@ $(function () {
         } else if ($("body").hasClass("viewport-xs")) {
             $modal.find("ul.slick-dots li").css("width", liWidth + "px");
         }
-    };//createLineProgressBarSuiteGallery
+    };//createLineProgressBarGallery
 
     var wdest = $(window).width();
 
@@ -198,6 +198,6 @@ $(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
         var $modal = $(".modal.lightbox");
-        createLineProgressBarSuiteGallery($modal);
+        createLineProgressBarGallery($modal);
     });
 });

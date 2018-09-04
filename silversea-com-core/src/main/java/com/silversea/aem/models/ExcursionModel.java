@@ -127,6 +127,10 @@ public class ExcursionModel {
         return codeExcursion;
     }
 
+    public String getCode() {
+        return getCodeExcursion();
+    }
+
     public String getApiLongDescription() {
         return apiLongDescription;
     }
