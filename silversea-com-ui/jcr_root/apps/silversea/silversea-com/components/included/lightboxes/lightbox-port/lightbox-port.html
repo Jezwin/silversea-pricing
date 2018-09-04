@@ -1,17 +1,25 @@
 <template data-sly-template.default="${ @ model}">
     <sly data-sly-use.model="com.silversea.aem.components.included.lightboxes.LightboxPortUse"/>
-    <div class="modal-body lightbox-suite-body">
-        <div class="lightbox-suite">
-            <sly data-sly-test="${ model.port.assetSelectionReference }"
+    <div class="modal-body lightbox-port-body">
+        <div class="lightbox-port">
+            <sly data-sly-test="${ model.portItinerary.port.assetSelectionReference }"
                  data-sly-use.templateGallery="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-gallery.html"
                  data-sly-call="${templateGallery.default @ model = model}"/>
+            <sly data-sly-test="${ !model.portItinerary.port.assetSelectionReference }">
+                <sly data-sly-test="${ model.portItinerary.port.thumbnail }">
+                    <div class="lg-single-asset">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                             data-sly-call="${imageTemplate.resp @ imagePath= model.portItinerary.port.thumbnail }"/>
+                    </div>
+                </sly>
+            </sly>
             <div class="lg-content">
                 <sly data-sly-use.templateOverview="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-overview.html"
                      data-sly-call="${templateOverview.default @ model= model}"/>
 
-                <sly data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-excursion.html"
-                     data-sly-call="${templateDeck.default @ model= model}"/>
-                <sly data-sly-use.templateCta="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-call.html"/>
+                <sly data-sly-use.templateExcursion="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-excursion.html"
+                     data-sly-call="${templateExcursion.default @ model= model}"/>
+                <sly data-sly-use.templateCall="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-port/templates/port-call.html" data-sly-call="${templateCall.default}"/>
             </div>
         </div>
     </div>

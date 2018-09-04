@@ -12,6 +12,12 @@
 
 .lightbox-port {
 
+
+  .lg-single-asset{
+    height:210px;
+    position: relative;
+  }
+
   //common style across templates
   .lg-content {
     margin: 0px 60px 0px 60px;
@@ -22,15 +28,20 @@
 
   }
 
+
+
   //style applied only to suite-overview.html template
   .lg-port-overview {
 
-    .lg-suite-name {
+    .lg-port-name {
       font-family: @freight;
     }
 
+    .lg-port-country {
+      font-family: @suisse;
+    }
 
-    .lg-suite-description {
+    .lg-port-description {
       font-family: @suisse;
       font-size: 13px;
       letter-spacing: 0.5px;
@@ -215,18 +226,6 @@
     .lg-content {
       margin: 0 25px 0 25px;
 
-    }
-
-    //style applied only to suite-overview.html template
-    .lg-port-overview {
-      .lg-row-descr {
-        margin-top: 15px;
-        margin-bottom: 5px;
-
-        .lg-suite-description p {
-          margin-bottom: 0px;
-        }
-      }
     }
 
     //style applied only to suite-gallery.html templates

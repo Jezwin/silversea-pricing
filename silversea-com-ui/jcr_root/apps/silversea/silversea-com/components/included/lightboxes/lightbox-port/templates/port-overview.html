@@ -1,14 +1,16 @@
 <template data-sly-template.default="${@ model}">
     <div class="lg-port-overview">
-        <div class="row lg-row-descr">
+        <div class="row">
             <div class="col-xs-12">
-                <div class="lg-suite-description lg-suite-description-truncate">
-                    <span class="lg-suite-descr-label hidden-xs">${'description' @ i18n}</span>
-                    ${model.suitePrice.suite.longDescription @ context="html"}
+                <div class="lg-port-name">
+                    ${model.portItinerary.port.apiTitle}
                 </div>
-            </div>
-            <div class="col-xs-12 visible-xs">
-                <span class="lg-suite-description-expand">${'read-more' @ i18n }</span>
+                <div class="lg-port-country">
+                    ${model.portItinerary.port.country}
+                </div>
+                <div class="lg-port-description">
+                    ${model.portItinerary.port.description @ context='html'}
+                </div>
             </div>
         </div>
     </div>
