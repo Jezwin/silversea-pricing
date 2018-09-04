@@ -1,2 +1,14 @@
-<template data-sly-template.default="${ @ cruise }">
+<template data-sly-template.default="${ @ port }">
+    <div class="cruise-2018-itineraries-port-excursions">
+        <sly data-sly-list.excursion="${port.excursions}">
+            <div class="cruise-2018-itineraries-port-excursions-excursion">
+                ${excursion.title}
+                <div class="cruise-2018-itineraries-port-excursions-excursion-features"
+                     data-sly-list.feature="${excursion.features}">
+                    <span class="feature"> <i class="${feature.icon}"></i> <span class="tooltip"><i></i>${feature.title}</span></span>
+                </div>
+            </div>
+        </sly>
+    </div>
+
 </template>

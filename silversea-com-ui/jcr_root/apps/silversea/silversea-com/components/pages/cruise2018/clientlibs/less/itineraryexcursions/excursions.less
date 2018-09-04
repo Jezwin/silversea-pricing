@@ -1,0 +1,121 @@
+.cruise-2018-itineraries-container {
+  .cruise-2018-itineraries-port-excursions-description {
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    margin-top: 15px;
+  }
+
+  .cruise-2018-itineraries-port-excursions-number {
+    text-transform: uppercase;
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 20px;
+    margin-top: 25px;
+  }
+
+  .cruise-2018-itineraries-port-excursions {
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion {
+    width: 100%;
+    padding-right: 30px;
+    padding-left: 13px;
+
+  }
+
+  .cruise-2018-itineraries-port-excursions > .cruise-2018-itineraries-port-excursions-excursion {
+    flex: 0 50%;
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion {
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion {
+    border-bottom: 1px solid rgba(152, 152, 155, 0.3);
+    height: 95px;
+    margin-top: 15px;
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion-features {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  .feature {
+    cursor: pointer;
+    float: left;
+    height: 12px;
+    margin-right: 7px;
+    position: relative;
+    z-index: 1;
+    width: 12px;
+
+    .tooltip {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      left: -20px;
+      background: @white;
+      border: 1px solid @black;
+      text-align: center;
+      padding: 5px 10px;
+      white-space: nowrap;
+      z-index: 5;
+      color: @grey--3;
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+    }
+
+    &:hover .tooltip {
+      display: block;
+
+      i {
+        &:before {
+          content: "";
+          display: block;
+          font-style: normal;
+        }
+      }
+
+      &:after,
+      &:before {
+        top: 100%;
+        left: 24px;
+        border: solid transparent;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &:after {
+        border-top-color: @white;
+        border-width: 6px;
+        margin-left: -6px;
+      }
+
+      &:before {
+        border-top-color: @black;
+        border-width: 7px;
+        margin-left: -7px;
+      }
+    }
+  }
+}

@@ -1,0 +1,170 @@
+.cruise-2018-itineraries-container {
+
+  .cruise-2018-itineraries-itinerary-row {
+    height: 124px;
+    width: 100%;
+    vertical-align: top;
+    display: table;
+  }
+
+  .cruise-2018-itineraries-itinerary-row-container {
+    display: table;
+    width: 100%;
+    height: 114px;
+    padding-bottom: 13px;
+  }
+
+  .cruise-2018-itineraries-itinerary-row-container:not(.cruise-2018-itineraries-show-less) {
+    border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+
+  }
+  .cruise-2018-itineraries-itinerary-row-day {
+    display: table-cell;
+    vertical-align: top;
+    max-width: 80px;
+    width: 80px;
+    position: relative;
+    text-align: center;
+    background-color: white;
+    z-index: 0;
+  }
+  .cruise-2018-itineraries-itinerary-row-day-wrapper {
+    line-height: 0;
+    border-radius: 50%;
+    border: 1px solid @nd-red;
+    font-size: 32px;
+    display: inline-block;
+    vertical-align: top;
+    background: @white;
+    z-index: 100;
+    overflow: hidden;
+    position: relative;
+  }
+  .cruise-2018-itineraries-itinerary-row-day::after {
+    width: 1px;
+    content: " ";
+    border: 1px solid @color-medium-bg;
+    bottom: 0;
+    clear: both;
+    display: block;
+    height: 100%;
+    margin-left: 40px;
+    margin-right: 40px;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    opacity: 0.5;
+  }
+  .cruise-2018-itineraries-itinerary-row-day-content {
+    font-size: 13px;
+    display: inline-block;
+    padding-top: 50%;
+    padding-bottom: 50%;
+    color: @nd-red;
+    margin-left: 8px;
+    min-width: 1em;
+    margin-right: 8px;
+  }
+  .cruise-2018-itineraries-itinerary-row-thumbnail {
+    height: 100%;
+    width: 160px;
+    display: table-cell;
+  }
+  .cruise-2018-itineraries-itinerary-row-thumbnail picture {
+    height: 100%;
+    max-width: 160px;
+    max-height: 109px;
+    position: relative;
+  }
+  .cruise-2018-itineraries-itinerary-row-text {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 15px;
+    width: 60%;
+  }
+  .cruise-2018-itineraries-itinerary-row-text-name {
+    color: @grey--3;
+    font-family: @freight;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    line-height: 26px;
+    display: inline-block;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .cruise-2018-itineraries-itinerary-row-text-country {
+    opacity: 0.8;
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+    margin-bottom: 8px;
+
+  }
+  .cruise-2018-itineraries-itinerary-row-text-excursions {
+    opacity: 0.8;
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    line-height: 18px;
+
+  }
+  .cruise-2018-itineraries-itinerary-row-date {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+  }
+  .cruise-2018-itineraries-itinerary-row-date-day {
+    text-transform: uppercase;
+    color: @grey--3;
+    margin-bottom: 4px;
+    .c-pressreleaseslist__date {
+      font-size: 11px !important;
+      line-height: 18px !important;
+      letter-spacing: 0.5px !important;
+      font-family: @suisse;
+
+    }
+  }
+
+  .cruise-2018-itineraries-itinerary-row-date-time {
+    opacity: 0.8;
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 11px;
+    letter-spacing: 0.42px;
+    line-height: 18px;
+    text-align: right;
+  }
+
+  .cruise-2018-itineraries-itinerary-row-date-arrow {
+    vertical-align: middle;
+    height: 100%;
+    display: table-cell;
+    text-align: right;
+    width: 20px;
+  }
+
+  .cruise-2018-itineraries-show-more-wrapper {
+    display: table;
+    border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+    padding-bottom: 14px;
+  }
+
+  .cruise-2018-itineraries-port-excursions {
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion {
+    width: 100%;
+  }
+
+  .cruise-2018-itineraries-port-excursions > .cruise-2018-itineraries-port-excursions-excursion {
+    flex: 0 50%;
+  }
+}
