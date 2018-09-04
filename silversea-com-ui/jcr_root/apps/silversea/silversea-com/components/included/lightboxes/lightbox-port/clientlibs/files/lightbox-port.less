@@ -1,6 +1,6 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
-@media(min-width: @screen-md-min) {
+@media (min-width: @screen-md-min) {
   .modal.lightbox .modal-content.lightbox-port-content {
     top: 0px;
   }
@@ -12,9 +12,8 @@
 
 .lightbox-port {
 
-
-  .lg-single-asset{
-    height:210px;
+  .lg-single-asset {
+    height: 210px;
     position: relative;
   }
 
@@ -28,30 +27,113 @@
 
   }
 
-
-
   //style applied only to suite-overview.html template
   .lg-port-overview {
-
+    margin-bottom: 25px;
     .lg-port-name {
       font-family: @freight;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      line-height: 24px;
     }
 
     .lg-port-country {
       font-family: @suisse;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
+      margin-top: 12px;
     }
 
     .lg-port-description {
       font-family: @suisse;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      line-height: 20px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
+      margin-top: 12px;
+    }
+  }
+
+  .lg-port-excursion {
+    margin-bottom: 15px;
+    .lg-port-excursion-title {
+      font-family: @suisse;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .lg-port-excursion-list {
+      margin-bottom: 15px;
+      &--item {
+        &-inner{
+          position:relative;
+        }
+        .icon-part{
+          width:10%;
+          float:left;
+          top: 0px;
+          bottom: 0px;
+          position: absolute;
+        }
+        .content-part{
+          width:90%;
+          margin-left:10%;
+          float:left;
+        }
+        .icon{
+          transform: translateY(-50%) rotate(45deg);
+          -webkit-transform: translateY(-50%) rotate(45deg);
+          color:@color-second;
+          font-size:19px;
+          top: 47%;
+          position: absolute;
+
+        }
+        font-family: @suisse;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        line-height: 18px;
+      }
+    }
+  }
+
+  .lg-port-call{
+    background-color:@nd-light-bg;
+    .lg-port-call-section {
+      padding-top:25px;
+      padding-bottom: 25px;
+      text-align:center;
+      .lg-port-call-section-text-1 {
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        text-align: center;
+        color:@color-second;
+        font-family: @suisse;
+      }
+
+      .lg-port-call-section-number{
+        font-family: @suisse;
+        font-size: 18px;
+        letter-spacing: 0.82px;
+        line-height: 24px;
+        color: @color-second;
+        text-align: center;
+        .fa{
+          width: 7%;
+          position: relative;
+        }
+      }
+
     }
   }
 
   //style applied only to suite-gallery.html templates
   .lg-asset-slider {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     visibility: hidden;
 
     &.slick-initialized {
@@ -235,7 +317,7 @@
       }
     }
     .lg-asset-slider {
-        .slick-dots {
+      .slick-dots {
         bottom: 20px;
       }
     }

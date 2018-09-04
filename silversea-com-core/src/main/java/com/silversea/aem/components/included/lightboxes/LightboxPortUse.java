@@ -29,13 +29,12 @@ public class LightboxPortUse extends AbstractGeolocationAwareUse {
     private ItineraryModel retrievePortItineraryModel(String[] selectors) {
         if (ArrayUtils.isNotEmpty(selectors)) {
             String itineraryId = selectors[2];
-            ItineraryModel itiModel;
             Resource currentResource = getCurrentPage().getContentResource();
             Resource itiResource = currentResource.hasChildren() ? currentResource.getChild("itineraries") : null;
             if (itiResource != null) {
                 Resource selectedIti = itiResource.getChild(itineraryId);
                 if(selectedIti != null) {
-                    itiModel = selectedIti.adaptTo(ItineraryModel.class);
+                    ItineraryModel itiModel = selectedIti.adaptTo(ItineraryModel.class);
                     return itiModel;
                 }
             }
