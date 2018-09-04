@@ -8,7 +8,7 @@
                             <span class="cruise-2018-itineraries-itinerary-row-day-content"> ${itineraryList.count}</span>
                         </div>
                     </div>
-                    <div class="cruise-2018-itineraries-itinerary-row-container">
+                    <div class="cruise-2018-itineraries-itinerary-row-container ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-thumbnail">
                             <!--<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                              data-sly-call="${imageTemplate.default @ imagePath=itinerary.port.thumbnail}"/>-->
@@ -39,13 +39,17 @@
                                 <span data-sly-test="${itinerary.overnight}">moon</span>
                             </div>
                         </div>
-                        <div class="cruise-2018-itineraries-itinerary-row-date-arrow">
-                            <i data-sly-test="${itinerary.port.excursions.size}" class="btn-more fa fa-angle-down"></i>
+                        <div data-sly-test="${itinerary.port.excursions.size}"
+                             class="cruise-2018-itineraries-itinerary-row-date-arrow" data-ssc-accordion="show">
+                            <i class="btn-more fa fa-angle-down"></i>
+                            <i style="display:none;" class="btn-more fa fa-angle-up"></i>
                         </div>
                     </div>
-                    <div class="cruise-2018-itineraries-show-more-wrapper" data-sly-test="${itinerary.port.excursions.size}">
-                        <div class="cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${itinerary.port.description} </div>
-                        <div class="cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">${itinerary.port.excursions.size} ${'excursions' @ i18n}</div>
+                    <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper"
+                         style="display:none;"
+                         data-sly-test="${itinerary.port.excursions.size}">
+                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${itinerary.port.description} </div>
+                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">${itinerary.port.excursions.size} ${'excursions' @ i18n}</div>
                     </div>
                     <sly data-sly-test="${itinerary.port.excursions.size}"
                          data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
