@@ -3,6 +3,8 @@
         <div data-sly-list.itinerary="${cruise.cruiseModel.itineraries}">
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
+                    <a class="open-lightbox-port cruise-2018-link-open-modal" data-target=".lightbox"
+                       href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
                     <div class="cruise-2018-itineraries-itinerary-row-day">
                         <div class="cruise-2018-itineraries-itinerary-row-day-wrapper">
                             <span class="cruise-2018-itineraries-itinerary-row-day-content"> ${itineraryList.count}</span>
@@ -25,6 +27,11 @@
                             <div data-sly-test=${itinerary.port.excursions.size} class="cruise-2018-itineraries-itinerary-row-text-excursions">
                                 ${itinerary.port.excursions.size} ${'excursions' @i18n}
                             </div>
+                            <div class="cruise-2018-itineraries-itinerary-row-text-mobile-date">
+                                <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEE dd MMM', date=itinerary.date}">
+                                     ${date.value}
+                                </span>
+                            </div>
                         </div>
                         <div class="cruise-2018-itineraries-itinerary-row-date">
                             <div class="cruise-2018-itineraries-itinerary-row-date-day">
@@ -39,10 +46,15 @@
                                 <span data-sly-test="${itinerary.overnight}">moon</span>
                             </div>
                         </div>
-                        <div data-sly-test="${itinerary.port.excursions.size}"
-                             class="cruise-2018-itineraries-itinerary-row-date-arrow" data-ssc-accordion="show">
+                        <div class="cruise-2018-itineraries-itinerary-row-date-lightbox">
                             <i class="btn-more fa fa-angle-down"></i>
-                            <i style="display:none;" class="btn-more fa fa-angle-up"></i>
+                        </div>
+                        <div
+                                class="cruise-2018-itineraries-itinerary-row-date-arrow" data-ssc-accordion="show">
+                            <i data-sly-test="${itinerary.port.excursions.size}"
+                               class="btn-more fa fa-angle-down"></i>
+                            <i data-sly-test="${itinerary.port.excursions.size}" style="display:none;"
+                               class="btn-more fa fa-angle-up"></i>
                         </div>
                     </div>
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper"
