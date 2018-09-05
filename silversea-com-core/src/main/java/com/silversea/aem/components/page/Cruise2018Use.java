@@ -65,6 +65,7 @@ public class Cruise2018Use extends EoHelper {
     private List<SilverseaAsset> assetsGallery;
     private List<SilverseaAsset> shipAssetGallery;
     private String bigItineraryMap;
+    private String bigThumbnailItineraryMap;
     private String smallItineraryMap;
 
     private String previous;
@@ -95,7 +96,8 @@ public class Cruise2018Use extends EoHelper {
                 List<String> newItineraryMap = retrieveItineraryMaps();
                 if (newItineraryMap != null && !newItineraryMap.isEmpty()) {
                     bigItineraryMap = newItineraryMap.get(0);
-                    smallItineraryMap = newItineraryMap.get(1);
+                    bigThumbnailItineraryMap = newItineraryMap.get(1);
+                    smallItineraryMap = newItineraryMap.get(2);
                 }
                 return;
             case LAND_SHOREX_HOTEL:
@@ -398,13 +400,11 @@ public class Cruise2018Use extends EoHelper {
                 assetsListResult.add(itineraryMap);
                 assetsListResult.add(itineraryMap);
                 String bigItineraryMap = vmProperties.get("bigItineraryMap", String.class);
+                String bigThumbnailItineraryMap = vmProperties.get("bigThumbnailItineraryMap", String.class);
                 String smallItineraryMap = vmProperties.get("smallItineraryMap", String.class);
-                if (StringUtils.isNotEmpty(bigItineraryMap)) {
-                    assetsListResult.add(0, bigItineraryMap);
-                }
-                if (StringUtils.isNotEmpty(smallItineraryMap)) {
-                    assetsListResult.add(1, smallItineraryMap);
-                }
+                assetsListResult.add(bigItineraryMap);
+                assetsListResult.add(bigThumbnailItineraryMap);
+                assetsListResult.add(smallItineraryMap);
                 return assetsListResult;
             }
         }
@@ -493,6 +493,10 @@ public class Cruise2018Use extends EoHelper {
 
     public ItineraryExcursionModel getItineraryShorexExcursionLightbox() {
         return itineraryShorexExcursionLightbox;
+    }
+
+    public String getBigThumbnailItineraryMap() {
+        return bigThumbnailItineraryMap;
     }
 
     private enum Lightbox {

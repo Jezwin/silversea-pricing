@@ -549,13 +549,21 @@ public class CruisesImporterImpl implements CruisesImporter {
 
         if (StringUtils.isNotEmpty(cruise.getMap3Url())){
             CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
-                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap3Url(), "bigItineraryMap",mimeTypeService, resourceResolver);
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap3Url(), "bigThumbnailItineraryMap",mimeTypeService, resourceResolver);
         }
 
         if (StringUtils.isNotEmpty(cruise.getMap4Url())){
             CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
-                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap4Url(), "smallItineraryMap",mimeTypeService, resourceResolver);
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap4Url(), "bigItineraryMap",mimeTypeService, resourceResolver);
         }
+
+        /*
+            TODO: check with SMA the name of the field
+            if (StringUtils.isNotEmpty(cruise.getMap5Url())){
+                CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap5Url(), "smallItineraryMap",mimeTypeService, resourceResolver);
+            }
+        */
 
         final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
         final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
