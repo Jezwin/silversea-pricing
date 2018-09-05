@@ -1477,6 +1477,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Téléchargez le programme des croisières"/>
+    <itinerary-and-excursions
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:message="Itinerary and excursions"/>
     <specifications
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"

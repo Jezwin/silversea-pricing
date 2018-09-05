@@ -163,6 +163,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="call-reservations-team-2"
         sling:message="or contact your travel agent"/>
+    <call-reservations-team-learn-excursion
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-learn-excursion"
+        sling:message="Call our Reservations Team to know more about our excursions"/>
     <check-phone-format
         jcr:primaryType="sling:MessageEntry"
         sling:key="check-phone-format"
@@ -1526,6 +1530,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="download-tour-book"
         sling:message="Download the tour program"/>
+    <itinerary-and-excursions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="itinerary-and-excursions"
+        sling:message="Itinerary and excursions"/>
     <specifications
         jcr:primaryType="sling:MessageEntry"
         sling:key="specifications"

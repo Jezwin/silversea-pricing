@@ -4,7 +4,9 @@
     <sly data-sly-use.header="/apps/silversea/silversea-com/components/pages/cruise2018/templates/header.html"
          data-sly-call="${header.default @ cruise=cruise}"/>
     <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise2018/templates/overview.html"
-         data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+        data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+    <sly data-sly-use.menu="/apps/silversea/silversea-com/components/pages/cruise2018/templates/menu.html"
+         data-sly-call="${menu.default @ cruise=cruise}"/>
     <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise2018/templates/offers.html"
          data-sly-call="${offers.default @ offers = cruise.exclusiveOffers}"/>
     <hr/>
