@@ -6,7 +6,7 @@
                     <sly data-sly-use.menu="/apps/silversea/silversea-com/components/pages/cruise2018/templates/menu.html"
                          data-sly-call="${menu.overview @ cruise=cruise}"/>
                 </div>
-                <div class="row row-menu-navaigation">
+                <div class="row row-menu-navigation">
                     <a href="#cruise2018offers" data-sly-test="${cruise.exclusiveOffers.size>0}"
                        class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-first">
                         <span class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
@@ -34,11 +34,11 @@
 <template data-sly-template.overview="${ @ cruise }">
     <div class="menu-overview-fixed">
         <div class="menu-container">
-            <div class="menu-overview-destination col-sm-4">
+            <div class="menu-overview-destination col-sm-6 col-md-4">
                 <span class="departurePort">${cruise.cruiseModel.departurePortName}</span>
                 <span class="to">${'to' @ i18n}</span> ${cruise.cruiseModel.arrivalPortName}
             </div>
-            <div class="menu-date-days col-sm-3 hidden-xs">
+            <div class="menu-date-days col-sm-3 hidden-xs hidden-sm">
                 <div
                         data-sly-use.dateStartDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}"
                         data-sly-use.dateEndDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.endDate}"
@@ -48,8 +48,8 @@
                 ${cruise.cruiseModel.duration}
                 ${'days' @ i18n}
             </div>
-            <div class="menu-price-raq col-sm-5 hidden-xs">
-                <div class="menu-quote-price col-sm-6">
+            <div class="menu-price-raq col-sm-6 col-md-5 hidden-xs">
+                <div class="menu-quote-price col-sm-5 col-md-6">
                     <div class="from ${cruise.lowestPrice.earlyBookingBonus ? 'display-inline' : ''}">${'from' @ i18n}</div>
                     <div class="price ${cruise.lowestPrice.earlyBookingBonus ? 'display-inline' : ''}">
                         ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
@@ -58,7 +58,7 @@
                         ${'with-early' @ i18n} ${'booking-bonus' @ i18n}
                     </div>
                 </div>
-                <div class="menu-raq col-sm-6">
+                <div class="menu-raq col-sm-7 col-md-6">
                     <a class="raq-quote-btn btn btn-thin btn-red effect"
                        id="menu-overview-raq"
                        data-sly-test.appendSuffix="${'{0}{1}' @ format=[cruise.suite.name, '.html']}"
