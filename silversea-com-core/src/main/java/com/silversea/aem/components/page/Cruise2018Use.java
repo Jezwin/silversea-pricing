@@ -48,16 +48,18 @@ public class Cruise2018Use extends EoHelper {
     private List<String> exclusiveOffersCruiseFareAdditions;
     private boolean venetianSociety;
 
+
+    private int totalNumberOfOffers;
     private boolean isFeetSquare = false;
 
     private List<SuitePrice> prices;
+
     private PriceModel lowestPrice;
     private boolean waitlist;
     private String computedPriceFormatted;
-
     private String currentPath;
-    private String ccptCode;
 
+    private String ccptCode;
     private CruiseModel cruiseModel;
 
 
@@ -67,6 +69,7 @@ public class Cruise2018Use extends EoHelper {
     private String smallItineraryMap;
 
     private String previous;
+
     private String previousDeparture;
     private String previousArrival;
     private String next;
@@ -74,13 +77,12 @@ public class Cruise2018Use extends EoHelper {
     private String nextArrival;
     private String highlights;
 
-
     private ItineraryExcursionModel itineraryShorexExcursionLightbox;
     private ExcursionModel shorexExcursionLightbox;
     private ItineraryHotelModel hotelLightbox;
     private ItineraryLandProgramModel landProgramLightbox;
     private String typeLandShorexHotelLB;
-
+    
     @Override
     public void activate() throws Exception {
         super.activate();
@@ -123,6 +125,7 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
+        totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
         currentPath = retrieveCurrentPath();
@@ -608,6 +611,10 @@ public class Cruise2018Use extends EoHelper {
         return lowestPrice;
     }
 
+    public int getTotalNumberOfOffers() {
+        return totalNumberOfOffers;
+    }
+
     public boolean isWaitlist() {
         return waitlist;
     }
@@ -631,3 +638,4 @@ public class Cruise2018Use extends EoHelper {
 
 }
 
+>>>>>>> silversea-com-core/src/main/java/com/silversea/aem/components/page/Cruise2018Use.java
