@@ -40,7 +40,11 @@
     width: 100vw;
     display: table-cell;
     position: absolute;
-    top: 0;
+    top: 0px;
+  }
+
+  .ssc-table-full-width-with-overview:before, .ssc-table-full-width-with-overview:after {
+    top: 60px;
   }
 
   .ssc-table-full-width:before {
@@ -115,6 +119,9 @@
         width: 94vw !important;
       }
     }
+    .ssc-table-full-width-with-overview:before, .ssc-table-full-width-with-overview:after {
+      top: 42px;
+    }
   }
   @media screen and (min-width: @screen-sm) {
     .ssc-table-full-width {
@@ -132,10 +139,16 @@
       }
     }
   }
+}
 
+.show-block {
+  display: block !important;
 }
 
 .menu-overview-fixed {
+  background-color: @white;
+  min-height: 60px;
+  display: none;
   .menu-container {
     padding-top: 10px;
     padding-bottom: 5px;
@@ -226,36 +239,14 @@
 
 @media (max-width: @screen-sm) {
   .menu-overview-fixed {
+    min-height: 0px;
     .menu-container {
+      padding-top: 10px;
+      padding-bottom: 10px;
       .menu-overview-destination {
-        .to {
-
-        }
-      }
-      .menu-date-days {
-        .days {
-
-        }
-        .date {
-
-        }
-      }
-
-      .menu-quote-price {
-        .from {
-
-        }
-        .price {
-
-        }
-        .early-booking {
-
-        }
-      }
-
-      .menu-raq {
-        .raq-quote-btn {
-
+        text-align: center;
+        .departurePort {
+          display: inline-block;
         }
       }
     }
