@@ -36,7 +36,7 @@ function stickMenu() {
             $stickyTop2.addClass("ssc-sticky-top").fadeIn(0);
             $(".cruise-2018-menu").addClass("ssc-table-full-width-with-overview");
         });
-        $stickyTop.css('top', ($(".c-header__container").height() + $(".c-main-nav__bottom").height() - 50) + "px");
+        //$stickyTop.css('top', ($(".c-header__container").height() + $(".c-main-nav__bottom").height() - 50) + "px");
         $("#header").addClass("hide-header");
         $stickyTop.css('top', "-50px");
     }

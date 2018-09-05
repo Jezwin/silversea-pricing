@@ -38,14 +38,12 @@
     background-color: @grey--f4;
     height: 60px;
     width: 100vw;
-    display: table-cell;
+    display: inline-block;
     position: absolute;
-    top: 0px;
+    bottom: 0px;
   }
 
-  .ssc-table-full-width-with-overview:before, .ssc-table-full-width-with-overview:after {
-    top: 60px;
-  }
+
 
   .ssc-table-full-width:before {
     left: -100vw;
@@ -119,9 +117,7 @@
         width: 94vw !important;
       }
     }
-    .ssc-table-full-width-with-overview:before, .ssc-table-full-width-with-overview:after {
-      top: 42px;
-    }
+
   }
   @media screen and (min-width: @screen-sm) {
     .ssc-table-full-width {
