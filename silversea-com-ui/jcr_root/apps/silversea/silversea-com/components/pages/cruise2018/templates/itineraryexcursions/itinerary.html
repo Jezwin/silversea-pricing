@@ -1,4 +1,10 @@
-<template data-sly-template.default="${ @ cruise }">
+<template data-sly-template.default="${ @ cruise, externalizerHelper }">
+    <div class="cruise-2018-ship-overview-button hidden-xs"
+         data-lightbox-highlights="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-highlights'}">
+        <a class="cruise-2018-ship btn btn-thin btn-white open-lightbox-highlights cruise-2018-link-open-modal"
+           data-target=".lightbox" href="#">${'voyage-highlights' @i18n}
+        </a>
+    </div>
     <ul data-sly-list="${cruise.cruiseModel.itinerariesStable}">
         <li>
             <h1>${item.port.apiTitle}</h1>
