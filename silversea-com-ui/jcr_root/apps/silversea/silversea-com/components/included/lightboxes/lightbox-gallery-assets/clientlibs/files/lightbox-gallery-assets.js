@@ -9,6 +9,10 @@ $(function () {
             ajaxContentPath = $link.closest('[data-lightbox-gallery-path]').data('lightbox-gallery-path'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
+        $modalContent.find(".modal-content").addClass("modal-content--transparent");
+        $modalContent.addClass("lightbox-no-scroll");
+        $modalContent.find(".modal-dialog").addClass("custom-lightbox-width");
+        $modalContent.find(".modal-dialog").addClass("lightbox-width-1200");
         $modalContent.modal('show');
 
         // Wait for modal opening
@@ -18,7 +22,7 @@ $(function () {
             var $modal = $(this);
             $modal.off('shown.bs.modal');
             // Append html response inside modal
-            $modal.find('.modal-dialog').load(ajaxContentPath, function (e) {
+            $modal.find('.modal-content').load(ajaxContentPath, function (e) {
                 createLigthboxGallerySlider($modal, $link);
             });
         });
@@ -60,14 +64,13 @@ $(function () {
             $video.attr('class', 'c-video').empty();
             // Call lazy load for 2 previous and 2 next slides
             destroyVirtualTour();
-            loadLazyImage($(this));
         }).on('afterChange', function (event, slick, currentSlide) {
             createInfoAssetSection($(this));
             // Call lazy load for 2 previous and 2 next slides
             loadLazyImage($(this));
         });
 
-
+        loadLazyImage($mainSlider);
         createInfoAssetSection($mainSlider);
 
     };//createLigthboxGallerySlider

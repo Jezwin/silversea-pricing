@@ -1,0 +1,25 @@
+<template data-sly-template.default="${@ model}">
+    <div class="lg-suite-cta">
+        <div class="lg-suite-prices">
+                    <span data-sly-test="${model.suitePrice.isWaitList}"
+                          class="lg-suite-waiting-list">${'waitlist' @ i18n}</span>
+            <sly data-sly-test="${!model.suitePrice.isWaitList}">
+                <span class="lg-suite-prices-from">${'from' @ i18n}</span>
+                <span class="lg-suite-prices-text">
+                        ${model.suitePrice.lowestPrice.currency @ i18n} ${model.suitePrice.computedPriceFormated}
+                    </span>
+                <span class="lg-suite-prices-bonus"
+                      data-sly-test="${!model.suitePrice.lowestPrice.earlyBookingBonus}">
+                        ${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
+                    </span>
+            </sly>
+        </div>
+        <div class="lg-suite-raq">
+            <a class="btn btn-thin btn-red effect"
+               href="${model.raqLink @ extension='html', appendSuffix=model.appendSuffixUrl, suffix=model.suffixUrl, selectors=model.selectorUrl}"
+               data-sscclicktype="clic-RAQ">
+                <span>${'request-quote' @i18n}</span>
+            </a>
+        </div>
+    </div>
+</template>

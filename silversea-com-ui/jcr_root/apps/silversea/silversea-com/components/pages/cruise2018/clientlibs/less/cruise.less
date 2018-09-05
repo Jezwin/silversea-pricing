@@ -8,13 +8,24 @@
   @import "header.less";
   @import "offers.less";
   @import "overview.less";
+  @import "menu.less";
   @import "pre-post.less";
   @import "next-prev.less";
   @import "ship/ship-overview.less";
   @import "ship/dining.less";
   @import "ship/public-areas.less";
   @import "suites-fares.less";
+
+  hr {
+    margin-bottom: 50px;
+    margin-top: 50px;
+
+    @media(max-width: @screen-sm){
+      display: none;
+    }
+  }
 }
+
 
 .cruise-2018-title {
   text-align: center;

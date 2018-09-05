@@ -1,0 +1,17 @@
+<template data-sly-template.default="${@ model}">
+    <div class="lg-port-overview">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="lg-port-name">
+                    ${model.portItinerary.port.apiTitle}
+                </div>
+                <div class="lg-port-country">
+                    ${model.portItinerary.port.country}
+                </div>
+                <div class="lg-port-description">
+                    ${model.portItinerary.port.description @ context='html'}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

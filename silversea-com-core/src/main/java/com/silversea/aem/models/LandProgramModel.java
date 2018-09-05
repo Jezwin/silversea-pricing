@@ -30,11 +30,13 @@ public class LandProgramModel {
     private String description;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/landId") @Optional
-    private String landId;
+    private Long landId;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/landCode") @Optional
     private String landCode;
-    
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    private String  assetSelectionReference;
 
     private String shortDescription;
     
@@ -55,11 +57,15 @@ public class LandProgramModel {
         return shortDescription;
     }
 
-    public String getLandId() {
+    public Long getLandId() {
         return landId;
     }
 
 	public String getLandCode() {
         return landCode;
+    }
+
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
     }
 }

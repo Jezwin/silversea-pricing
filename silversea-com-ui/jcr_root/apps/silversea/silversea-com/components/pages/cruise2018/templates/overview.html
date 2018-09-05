@@ -1,13 +1,15 @@
-<template data-sly-template.default="${ @ cruise }">
-    <div class="cruise-2018-overview row container"
-         data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-        <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12">
-            <sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html"
-                 data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.thumbnail, imageTemplate = imageTemplate}"/>
-            <div class="cruise-2018-overview-map-btn hidden-xs"
-                 style="background-image:url('${cruise.cruiseModel.itinerary @ context='unsafe'}')">
+<template data-sly-template.default="${ @ cruise, externalizerHelper }">
+    <div class="cruise-2018-overview row container">
+        <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12"
+             data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
+             data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
+            <sly data-sly-test.cruiseImg="${cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary}"/>
+            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                 data-sly-call="${imageTemplate.default @ imagePath=cruiseImg}"/>
+            <a href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
+                 style="background-image:url('${itineraryMap @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
-            </div>
+            </a>
             <a href="#"
                class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
                 <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>
@@ -46,7 +48,7 @@
                 <div class="cruise-2018-overview-description-date-boxes-box-container">
                     <div class="cruise-2018-overview-description-date-boxes-box">
                         <div class="cruise-2018-overview-description-date-boxes-title">${'ship' @ i18n}</div>
-                        <div class="cruise-2018-overview-description-date-boxes-ship">${cruise.cruiseModel.ship.name}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-ship">${cruise.cruiseModel.ship.title}</div>
                         <div class="cruise-2018-overview-description-date-boxes-subtitle">&nbsp;</div>
                     </div>
                 </div>
@@ -62,19 +64,14 @@
                 </div>
                 <div class="cruise-2018-overview-quote-rqa">
                     <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
-                       id="cruise-2018-rqa-${itemList.index}"
-                       data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
-                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
-                       data-sscclicktype="clic-RAQ">
+                       id="cruise-2018-rqa"
+                       data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" data-sscclicktype="clic-RAQ">
                         <span>${'request-quote' @i18n}</span>
                     </a>
                 </div>
                 <div class="cruise-2018-overview-quote-suites-fares">
-                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote "
-                       id="cruise-2018-rqa-${itemList.index}"
-                       data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
-                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
-                       data-sscclicktype="clic-RAQ">
+                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote coolanchorminussmall" href="#SuiteBlock">
                         <span>${'suites-and-fares' @i18n}</span>
                     </a>
                 </div>

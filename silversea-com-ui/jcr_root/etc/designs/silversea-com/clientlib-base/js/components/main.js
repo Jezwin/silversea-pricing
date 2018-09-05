@@ -399,102 +399,253 @@ window.briteVerify = function(email){
 
 })();
 
-// FIX Object-fit for IE 11 
-this.fitie = function (node) {
-	// restrict to valid object-fit value
-	var objectFit = node.currentStyle ? node.currentStyle['object-fit'] : null;
+// FIX Object-fit for IE 11
 
-	if (!objectFit || !/^(contain|cover|fill)$/.test(objectFit)) return;
+if (/MSIE|Trident/.test(navigator.userAgent)){
+    setTimeout(function() {
+        $('picture').each(function () {
+            var $container = $(this),
+                imgUrl = $container.find('img').prop('src');
+            if($container.find('img').attr("style")){
+                if($container.find('img').attr("style").indexOf("cover") != -1 && $container.find('img').attr("style").indexOf("object-fit") != -1 ) {
+                    if (imgUrl && imgUrl.indexOf('base64') == -1) {
+                        $container
+                            .css('backgroundImage', 'url(' + imgUrl + ')')
+                            .addClass('compat-object-fit');
+                        $container.find('img').remove();
+                    }else {
+                        imgUrl = $container.find('img').prop('data-src');
+                        if (imgUrl) {
+                            $container
+                                .css('backgroundImage', 'url(' + imgUrl + ')')
+                                .addClass('compat-object-fit');
+                            $container.find('img').remove();
+                        }
+                    }
+                }
+            }
+        });
+    },1000);
+    setTimeout(function() {
+        $('picture').each(function () {
+            var $container = $(this),
+                imgUrl = $container.find('img').prop('src');
+            if($container.find('img').attr("style")){
+                if($container.find('img').attr("style").indexOf("cover") != -1 && $container.find('img').attr("style").indexOf("object-fit") != -1 ) {
+                    if (imgUrl && imgUrl.indexOf('base64') == -1) {
+                        $container
+                            .css('backgroundImage', 'url(' + imgUrl + ')')
+                            .addClass('compat-object-fit');
+                        $container.find('img').remove();
+                    }else {
+                        imgUrl = $container.find('img').prop('data-src');
+                        if (imgUrl) {
+                            $container
+                                .css('backgroundImage', 'url(' + imgUrl + ')')
+                                .addClass('compat-object-fit');
+                            $container.find('img').remove();
+                        }
+                    }
+                }
+            }
+        });
+    },12000);
 
-	// prepare container styles
-	var outerWidth  = node.clientWidth;
-	var outerHeight = node.clientHeight;
-	var outerRatio  = outerWidth / outerHeight;
+//fix IE VAR
+    window.allInlineStyle = [];
+    window.relatedCSSRule = [];
+    window.currentViewportWidth = $(window).width();
 
-	var name = node.nodeName.toLowerCase();
+    function listAllChildrenInlineStyle(target) {
+        $(target).children().each(function(el) {
+            var element = this;
+            var elStyle = $(this).attr("data-ie-style");
+            if (typeof elStyle != 'undefined') {
+                var elStyleArray = elStyle.split(';');
+                $(elStyleArray).each(function() {
+                    str = this + ';';
+                    if (str.match(/(--.+:.+;)/g)) {
+                        var currArr = [];
+                        currArr.push(element, this);
+                        allInlineStyle.push(currArr);
 
-	var setCSS = node.runtimeStyle;
-	var getCSS = node.currentStyle;
+                    }
+                });
+            }
 
-	var addEventListener = node.addEventListener || node.attachEvent;
-	var removeEventListener = node.removeEventListener || node.detachEvent;
-	var on = node.addEventListener ? '' : 'on';
-	var img = name === 'img';
-	var type = img ? 'load' : 'loadedmetadata';
+            //Enter this in allInlineStyle with scope of parent css ??? how to define the scope
+            listAllChildrenInlineStyle(this);
+        });
+    }
 
-	addEventListener.call(node, on + type, onload);
+    function ParseCSSAndFindVar() {
+        var styleBlocks = document.querySelectorAll('link[type="text/css"]');
+        styleCount = styleBlocks.length;
+        styleParsed = 0;
+        // we need to track the order of the style/link elements when we save off the CSS, set a counter
+        counter = 1;
 
-	if (node.complete) onload();
+        // loop through all CSS blocks looking for CSS variables being set
+        [].forEach.call(styleBlocks, function(block) {
 
-	function onload() {
-		removeEventListener.call(node, on + type, onload);
+            if (block.nodeName === 'LINK') {
 
-		// prepare container styles
-		var imgCSS = {
-			boxSizing: 'content-box',
-			display:   'inline-block',
-			overflow:  'hidden'
-		};
 
-		'backgroundColor backgroundImage borderColor borderStyle borderWidth bottom fontSize lineHeight height left opacity margin position right top visibility width'.replace(/\w+/g, function (key) {
-			imgCSS[key] = getCSS[key];
-		});
+                getLink(block.getAttribute('href'), counter, function(counter, request) {
 
-		// prepare image styles
-		setCSS.border = setCSS.margin = setCSS.padding = 0;
-		setCSS.display = 'block';
-		setCSS.height = setCSS.width = 'auto';
-		setCSS.opacity = 1;
+                    var resultCSS = request.responseText;
+                    var regex = /@media[^{]+\{([\s\S]+?})\s*}/g;
+                    var m;
+                    var isDesktop = true;
+                    while ((m = regex.exec(request.responseText)) !== null) {
+                        // This is necessary to avoid infinite loops with zero-width matches
+                        if (m.index === regex.lastIndex) {
+                            regex.lastIndex++;
+                        }
 
-		var innerWidth  = node.videoWidth || node.width;
-		var innerHeight = node.videoHeight || node.height;
-		var innerRatio  = innerWidth / innerHeight;
+                        // The result can be accessed through the `m`-variable.
+                        m.forEach(function (match, groupIndex) {
+                            //group 0 -- test the fucking media query
+                            //group 1 is the current css that shold be processed or not inf function of the group 0
 
-		// style container
-		var imgx = document.createElement('object-fit');
+                            if(groupIndex == 1 && isDesktop) {
 
-		imgx.appendChild(node.parentNode.replaceChild(imgx, node));
+                                var splittedCSS = match.split("\n");
+                                splittedCSS.forEach(function(value) {
+                                    //test if we have max-width or min-width - test if we are on desktop - only take desktop one
+                                    value = value.replace("}", "");
+                                    if (value.indexOf("var(--") != -1) {
+                                        var splVal = value.split('{');
+                                        var curArr = [];
+                                        var cssArr = [];
+                                        var splValCss = splVal[1].split(';');
+                                        splValCss.forEach(function(va) {
+                                            if (va.indexOf("var(--") != -1) {
+                                                cssArr.push(va);
+                                            }
+                                        });
+                                        curArr.push(splVal[0], cssArr);
+                                        window.relatedCSSRule.push(curArr);
+                                    }
 
-		for (var key in imgCSS) imgx.runtimeStyle[key] = imgCSS[key];
+                                });
+                            }else if(groupIndex == 0) {
 
-		// style image
-		var newSize;
+                                isDesktop = true;
+                                resultCSS = resultCSS.replace(match, "");
+                                if(match.indexOf("(min-width") != -1){
+                                    isDesktop = true;
+                                }
+                                if (match.indexOf("(max-width") != -1){
+                                    isDesktop = false;
+                                }
+                            }
+                        });
+                    }
 
-		if (objectFit === 'fill') {
-			if (img) {
-				setCSS.width = outerWidth;
-				setCSS.height = outerHeight;
-			} else {
-				setCSS['-ms-transform-origin'] = '0% 0%';
-				setCSS['-ms-transform'] = 'scale(' + outerWidth / innerWidth + ',' + outerHeight / innerHeight + ')';
-			}
-		} else if (innerRatio < outerRatio ? objectFit === 'contain' : objectFit === 'cover') {
-			newSize = outerHeight * innerRatio;
 
-			setCSS.width  = Math.round(newSize) + 'px';
-			setCSS.height = outerHeight + 'px';
-			setCSS.marginLeft = Math.round((outerWidth - newSize) / 2) + 'px';
-		} else {
-			newSize = outerWidth / innerRatio;
+                    var splittedCSS = resultCSS.split("\n");
+                    splittedCSS.forEach(function(value) {
+                        //test if we have max-width or min-width - test if we are on desktop - only take desktop one
+                        value = value.replace("}", "");
+                        if (value.indexOf("var(--") != -1) {
+                            var splVal = value.split('{');
+                            var curArr = [];
+                            var cssArr = [];
+                            var splValCss = splVal[1].split(';');
+                            splValCss.forEach(function(va) {
+                                if (va.indexOf("var(--") != -1) {
+                                    cssArr.push(va);
+                                }
+                            });
+                            curArr.push(splVal[0], cssArr);
+                            window.relatedCSSRule.push(curArr);
+                        }
 
-			setCSS.width  = outerWidth + 'px';
-			setCSS.height = Math.round(newSize) + 'px';
-			setCSS.marginTop = Math.round((outerHeight - newSize) / 2) + 'px';
-		}
-	}
+                    });
+
+
+                    styleParsed++;
+                });
+
+
+            }
+
+            counter++;
+        });
+    }
+
+    function InjectInlineCSS() {
+        intervalIE11Var = setInterval(function(){
+            if(styleParsed == styleCount){
+                clearInterval(intervalIE11Var);
+                window.allInlineStyle.forEach(function(valueInline) {
+                    var dictionnary = valueInline[1].trim('{').trim('}').trim('"').split(":");
+                    //for each rules - check if we have the var in the scope and inject css inline
+
+                    window.relatedCSSRule.forEach(function(valueCSS) {
+
+                        valueCSS[1].forEach(function(rule) {
+                            if (rule.indexOf(dictionnary[0]) != -1) {
+                                var re = new RegExp('var\\('+dictionnary[0]+'.{0,5}\\)', 'g');
+                                var ruleProcessed = rule.replace("var("+dictionnary[0]+")", dictionnary[1]);
+                                ruleProcessed = ruleProcessed.replace(re, dictionnary[1]);
+                                //Should be replaced with a global selector that will test if it's a child node or current node of the scope
+                                $(valueCSS[0]).each(function(){
+                                    if($(valueInline[0]).has($(this)).length > 0 || $(valueInline[0])[0] == $(this)[0]){
+                                        var currentStyle = $(this).attr("style");
+                                        if(currentStyle == "undefined" || currentStyle == null) {
+                                            currentStyle = "";
+                                            $(this).attr("style",  ruleProcessed);
+                                        }else {
+                                            $(this).attr("style", currentStyle + ";" + ruleProcessed);
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                });
+            }
+        }, 250);
+
+    }
+
+    function getLink(url, counter, success) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.overrideMimeType('text/css;');
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                // Success!
+                if (typeof success === 'function') {
+                    success(counter, request);
+                }
+            } else {
+                // We reached our target server, but it returned an error
+                console.warn('an error was returned from:', url);
+            }
+        };
+
+        request.onerror = function() {
+            // There was a connection error of some sort
+            console.warn('we could not get anything from:', url);
+        };
+
+        request.send();
+    }
+
+    function initIEVar() {
+        listAllChildrenInlineStyle('body');
+        ParseCSSAndFindVar();
+        InjectInlineCSS();
+    }
+    initIEVar();
+
 };
-this.fitie.init = function () {
-	if (document.body) {
-		var all = document.querySelectorAll('img,video');
-		var index = -1;
 
-		while (all[++index]) fitie(all[index]);
-	} else {
-		setTimeout(fitie.init);
-	}
-};
-
-if (/MSIE|Trident/.test(navigator.userAgent)) this.fitie.init();
 
 //KONAMI CODE
 $(function() {

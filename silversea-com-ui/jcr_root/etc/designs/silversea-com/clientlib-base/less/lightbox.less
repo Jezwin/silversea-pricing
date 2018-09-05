@@ -1,0 +1,131 @@
+.lightbox {
+  .lightbox-close {
+    position: fixed;
+    right: 0;
+    background-color: #FFFFFF;
+    height: 59px;
+    width: 130px;
+    cursor: pointer;
+    z-index: 2001;
+    top: 0px;
+
+    &:hover {
+      opacity: 0.9;
+      .icon-close, .text-close {
+        opacity: 1;
+      }
+    }
+
+    .icon-close {
+      display: inline;
+      position: absolute;
+      top: 27%;
+      left: 55%;
+      opacity: 0.9;
+    }
+    .text-close {
+      display: inline;
+      color: #333333;
+      font-family: @f-open_sans;
+      font-size: 11px;
+      letter-spacing: 0.85px;
+      line-height: 18px;
+      text-transform: uppercase;
+      position: absolute;
+      top: 34%;
+      left: 25%;
+      opacity: 0.9;
+    }
+  }
+  .modal-content {
+    padding: 0px;
+
+    .modal-body {
+      padding: 0px;
+    }
+  }
+}
+
+@media (min-width: @screen-lg-min) {
+  .lightbox {
+    .lightbox-width-732 {
+      max-width: 732px !important;
+    }
+
+    .lightbox-width-1200 {
+      max-width: 1200px !important;
+    }
+  }
+}
+
+@media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
+  .modal.lightbox {
+    .modal-dialog {
+      padding-top: 0%;
+    }
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .lightbox {
+    .modal-dialog {
+      width: 100%;
+      max-width: 768px;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm) {
+  .modal.lightbox {
+    padding-left: 0px;
+    .lightbox-close {
+      position: absolute;
+      right: 0;
+      height: 59px;
+      width: 130px;
+      cursor: pointer;
+      z-index: 2001;
+      color: @white;
+      background-color: @transparent;
+
+      .icon-close {
+        top: 15%;
+        left: 70%;
+        opacity: 1.0;
+      }
+
+      i {
+        font-size: 30px;
+      }
+    }
+    .modal-dialog {
+      padding-top:0px;
+      .modal-content {
+        top: 0%;
+      }
+    }
+  }
+
+  .lightbox-close-dark {
+    color: @color-medium-bg;
+  }
+}
+
+@media (max-width: @screen-md-max) {
+  .lightbox-no-scroll {
+    display: block;
+    overflow-y: hidden;
+
+    .modal-body {
+      overflow-y: scroll;
+      max-height: 100vh;
+    }
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .modal.lightbox .modal-content.lightbox-suite-content,
+  .modal.lightbox .modal-content.lightbox-no-top {
+    top: 0px;
+  }
+}

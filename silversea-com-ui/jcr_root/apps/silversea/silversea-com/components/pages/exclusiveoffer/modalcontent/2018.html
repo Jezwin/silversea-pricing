@@ -1,7 +1,6 @@
 <div class="cruise-2018">
     <div class="modal-body cruise-2018-offers"
          data-sly-use.exclusiveOffer="com.silversea.aem.components.page.ExclusiveOfferUse">
-
         <div class="cruise-2018-modal-exclusive-offer-content">
             <div class="cruise-2018-modal-exclusive-offer-title">${exclusiveOffer.exclusiveOfferItem.title @ context='html'}</div>
             <sly data-sly-test=${exclusiveOffer.exclusiveOfferItem.isLBGreyBoxActivated}>
@@ -17,5 +16,4 @@
             </div>
         </div>
     </div>
-
 </div>

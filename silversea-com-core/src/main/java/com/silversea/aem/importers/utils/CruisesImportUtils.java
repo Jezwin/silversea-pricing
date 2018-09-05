@@ -255,7 +255,7 @@ public class CruisesImportUtils {
 	}
 
 	public static void associateMapAsset(final Session session, final Node cruiseContentNode,
-			final String destinationPageName, final String mapUrl, final MimeTypeService mimeTypeService,
+			final String destinationPageName, final String mapUrl,String typeMap, final MimeTypeService mimeTypeService,
 			final ResourceResolver resourceResolver) throws RepositoryException {
 
 		final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
@@ -291,13 +291,13 @@ public class CruisesImportUtils {
 				}
 
 				if (!updateAsset) {
-					cruiseContentNode.setProperty("itinerary", assetPath);
+					cruiseContentNode.setProperty(typeMap, assetPath);
 				} else {
 					LOGGER.info("Creating itinerary asset {}", assetPath);
 					final InputStream mapStream = new URL(mapUrl).openStream();
 					final Asset asset = assetManager.createAsset(assetPath, mapStream,
 							mimeTypeService.getMimeType(mapUrl), false);
-					LOGGER.info("Creating itinerary asset {} SAVED.", assetPath);
+					LOGGER.info("Creating {} asset {} SAVED.", typeMap, assetPath);
 					// setting to activate flag on asset
 					final Node assetNode = asset.adaptTo(Node.class);
 					if (assetNode != null && assetNode.hasNode(JcrConstants.JCR_CONTENT)) {
@@ -308,12 +308,12 @@ public class CruisesImportUtils {
 						}
 					}
 
-					cruiseContentNode.setProperty("itinerary", asset.getPath());
+					cruiseContentNode.setProperty(typeMap, asset.getPath());
 				}
 
-				LOGGER.trace("Creating itinerary asset {}", assetPath);
+				LOGGER.trace("Creating {} asset {}", typeMap, assetPath);
 			} catch (IOException e) {
-				LOGGER.warn("Cannot import itinerary image {}", mapUrl);
+				LOGGER.warn("Cannot import {} image {}", typeMap, mapUrl);
 			}
 		}
 	}
