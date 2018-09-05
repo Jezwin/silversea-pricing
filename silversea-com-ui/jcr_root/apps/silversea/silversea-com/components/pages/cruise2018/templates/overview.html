@@ -6,7 +6,7 @@
             <sly data-sly-test.cruiseImg="${cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.itinerary}"/>
             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                  data-sly-call="${imageTemplate.default @ imagePath=cruiseImg}"/>
-            <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.smallItineraryMap || cruise.cruiseModel.itinerary}"
+            <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
                  style="background-image:url('${itineraryMap @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
             </a>
