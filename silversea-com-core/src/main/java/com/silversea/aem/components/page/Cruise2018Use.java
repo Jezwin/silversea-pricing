@@ -638,4 +638,3 @@ public class Cruise2018Use extends EoHelper {
 
 }
 
->>>>>>> silversea-com-core/src/main/java/com/silversea/aem/components/page/Cruise2018Use.java
