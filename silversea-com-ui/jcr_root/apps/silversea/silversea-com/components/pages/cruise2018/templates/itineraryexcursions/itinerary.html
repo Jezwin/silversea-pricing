@@ -1,2 +1,28 @@
 <template data-sly-template.default="${ @ cruise }">
+    <ul data-sly-list="${cruise.cruiseModel.itinerariesStable}">
+        <li>
+            <h1>${item.port.apiTitle}</h1>
+            <div data-sly-repeat.land="${item.landPrograms}">
+                <p>
+                    <a class="open-lightbox-land-shorex-hotel" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel.lg-land', item.itineraryId, land.landId]}">
+                        Land: ${land.title || land.name}
+                    </a>
+                </p>
+            </div>
+            <div data-sly-repeat.hotel="${item.hotels}">
+                <p>
+                    <a class="open-lightbox-land-shorex-hotel" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel.lg-hotel', item.itineraryId, hotel.hotelId]}">
+                        Hotel: ${hotel.title || hotel.name}
+                    </a>
+                </p>
+            </div>
+            <div data-sly-test.shorex="${item.hasDedicatedShorex ? item.Excursions : item.port.excursions }" data-sly-repeat.sh="${shorex}">
+                <p>
+                    <a data-sly-test.isDedicat="${item.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}" class="open-lightbox-land-shorex-hotel" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',isDedicat, item.itineraryId, sh.shorexId]}">
+                        Shorex: ${sh.title || sh.name}
+                    </a>
+                </p>
+            </div>
+        </li>
+    </ul>
 </template>

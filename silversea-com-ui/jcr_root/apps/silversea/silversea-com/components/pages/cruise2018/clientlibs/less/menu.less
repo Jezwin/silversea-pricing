@@ -1,0 +1,137 @@
+@cruise-2018-menu-height: 60px;
+
+.cruise-2018-menu-container-wrapper {
+  height: @cruise-2018-menu-height;
+  min-height: @cruise-2018-menu-height;
+  display: block;
+  padding-bottom: 60px;
+
+  .ssc-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    z-index: 99;
+  }
+  .cruise-2018-menu-container {
+    height: @cruise-2018-menu-height;
+    min-height: @cruise-2018-menu-height;
+    display: block;
+  }
+
+  .ssc-table-full-width {
+    width: 100%;
+    display: table;
+    position: relative;
+    border-collapse: collapse;
+  }
+
+  .ssc-cell-full-width {
+    display: table-cell;
+    &:hover {
+      background-color: @grey--f9;
+
+    }
+  }
+
+  .ssc-table-full-width:before, .ssc-table-full-width:after {
+    content: " ";
+    background-color: @grey--f4;
+    height: 60px;
+    width: 100vw;
+    display: table-cell;
+    position: absolute;
+    top: 0;
+  }
+
+  .ssc-table-full-width:before {
+    left: -100vw;
+  }
+
+  .ssc-table-full-width:after {
+    right: -100vw;
+  }
+
+  .ssc-sticky-top {
+    position: fixed;
+    z-index: 999;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 932px;
+    width: 100%;
+  }
+
+  .cruise-2018-menu {
+    background-color: @grey--f4;
+    height: @cruise-2018-menu-height;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    vertical-align: middle;
+  }
+
+  .cruise-2018-menu-tab {
+    color: @color-second;
+    vertical-align: middle;
+    line-height: @cruise-2018-menu-height;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @suisse;
+    letter-spacing: 1.5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    white-space: nowrap;
+    position: relative;
+
+    &.active span:after {
+      position: absolute;
+      bottom: 0;
+      height: 1px;
+      width: 100%;
+      background-color: @color-second;
+      content: " ";
+      display: inline-block;
+      left: 0;
+
+    }
+  }
+
+  @media screen and (max-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 94vw;
+    }
+
+    .cruise-2018-menu {
+      .cruise-2018-menu-tab-fourth {
+        display: none;
+      }
+      .cruise-2018-menu-tab {
+        border-left: 0;
+        border-right: 0;
+        font-size: 12px;
+      }
+      .cruise-2018-menu-tab-text-big {
+        display: none;
+      }
+      .ssc-sticky-top {
+        width: 94vw !important;
+      }
+    }
+  }
+  @media screen and (min-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 100%;
+    }
+
+    .cruise-2018-menu {
+      .cruise-2018-menu-tab {
+        border-left: 1px solid @white;
+        border-right: 1px solid @white;
+        font-size: 13px;
+      }
+      .cruise-2018-menu-tab-text-small {
+        display: none;
+      }
+    }
+  }
+
+}
+
