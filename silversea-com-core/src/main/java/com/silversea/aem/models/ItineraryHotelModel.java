@@ -53,7 +53,15 @@ public class ItineraryHotelModel {
         return hotel != null ? hotel.getCode() : null;
     }
 
-	public HotelModel getHotel() {
+    public String getAssetSelectionReference() {
+        return hotel != null ? hotel.getAssetSelectionReference() : null;
+    }
+
+    public Long getHotelId() {
+        return hotel != null ? hotel.getHotelId() : null;
+    }
+
+    public HotelModel getHotel() {
 		return hotel;
 	}
 }

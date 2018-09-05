@@ -1,0 +1,11 @@
+<sly data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use"/>
+<sly data-sly-use.lshTemplate="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-land-shorex-hotel/lightbox-land-shorex-hotel.html">
+    <sly data-sly-test="${cruise.typeLandShorexHotelLB == 'lg-land'}"
+         data-sly-call="${lshTemplate.default @ model= cruise.landProgramLightbox}"/>
+    <sly data-sly-test="${cruise.typeLandShorexHotelLB == 'lg-hotel'}"
+         data-sly-call="${lshTemplate.default @ model= cruise.hotelLightbox}"/>
+    <sly data-sly-test="${cruise.typeLandShorexHotelLB == 'lg-shorex'}"
+         data-sly-call="${lshTemplate.default @ model= cruise.shorexExcursionLightbox}"/>
+    <sly data-sly-test="${cruise.typeLandShorexHotelLB == 'lg-itShorex'}"
+         data-sly-call="${lshTemplate.default @ model= cruise.itineraryShorexExcursionLightbox}"/>
+</sly>
