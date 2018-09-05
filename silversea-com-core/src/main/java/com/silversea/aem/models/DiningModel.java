@@ -44,20 +44,23 @@ public class DiningModel implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
     private String thumbnail;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shortVoyageDescription") @Optional
+    private String shortVoyageDescription;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
     private String virtualTour;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/diningReference") @Optional
     private String diningReference;
-    
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/shipId") @Optional
     private String shipId;
 
     private List<Asset> assets = new ArrayList<>();
 
     // TODO replace by an injector
-    private DiningModel genericDining;
 
+    private DiningModel genericDining;
     @PostConstruct
     private void init() {
         final PageManager pageManager = page.getPageManager();
@@ -114,8 +117,12 @@ public class DiningModel implements ShipAreaModel {
     public Page getPage() {
         return page;
     }
-    
+
     public String getShipId() {
  		return shipId;
+    }
+
+    public String getShortVoyageDescription() {
+        return shortVoyageDescription;
     }
 }

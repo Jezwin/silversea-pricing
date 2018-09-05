@@ -745,6 +745,17 @@ var v2 = function () {
 
                             // Set data layer key according to the current result
                             searchAnalytics();
+
+                            try {
+                                $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+                                    var currentPort = $(this).text();
+                                    currentPort = currentPort.toLowerCase();
+                                    $(this).text(currentPort);
+                                });
+                            }
+                            catch(error) {
+                                console.error(error);
+                            }
                         }
                     });
                 }

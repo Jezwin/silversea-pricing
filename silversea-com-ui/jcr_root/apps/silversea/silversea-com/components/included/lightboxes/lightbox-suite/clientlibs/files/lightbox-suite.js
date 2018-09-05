@@ -50,8 +50,7 @@ $(function () {
             ajaxContentPath = $link.attr('href'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
-        $modalContent.find(".modal-dialog").addClass("custom-lightbox-width");
-        $modalContent.find(".modal-dialog").addClass("lightbox-width-732");
+        $modalContent.find(".modal-content").addClass("lightbox-suite-content");
         $modalContent.addClass("lightbox-no-scroll");
 
         // Activate Modal
@@ -252,9 +251,9 @@ $(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
         var $modal = $(".modal.lightbox");
-        if ($("body").hasClass("viewport-sm")) {
+        /*if ($("body").hasClass("viewport-sm")) {
             $modal.css("padding-left", "0px");
-        }
+        }*/
         createLineProgressBarSuiteGallery($modal);
     });
 });

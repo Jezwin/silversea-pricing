@@ -81,7 +81,7 @@ function applyWithoutTransitions(callback) {
         }
     };
     var goBack = function () {};
-    $("*").filter(function (e, element) {
+    $(".btn").filter(function (e, element) {
         return $(element).css('transition-duration') != '0s';
     }).each(function () {
         var $this = $(this);

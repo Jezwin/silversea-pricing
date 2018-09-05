@@ -8,7 +8,7 @@
             <sly data-sly-repeat="${cruise.prices}">
                 <div class="col-md-4 col-xs-12 col-sm-6 cruise-2018-suites-fares-col">
                     <div class="cruise-2018-suites-fares-container " id="cruise-2018-container${itemList.index}">
-                        <a class="open-lightbox-suite cruise-2018-link-open-modal" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-suite', item.suiteCategory]}"></a>
+                        <a class="open-lightbox-suite cruise-2018-link-open-modal" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-suite', item.suiteCategory, pageProperties.cruiseCode]}"></a>
                         <div class="cruise-2018-suites-fares-image">
                             <sly data-sly-test="${item.suite.thumbnail}"
                                  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
@@ -17,7 +17,7 @@
                         <div class="cruise-2018-suites-fares-description">
                         <span class="cruise-2018-suites-fares-description-title"
                               data-sly-text="${item.suite.title}"></span>
-                            <p class="cruise-2018-suites-fares-description-upto">${item.suite.suitesubtitleUpTo @ context='html'}</p>
+                            <p class="cruise-2018-suites-fares-description-upto">${item.suite.suitesubtitleUpTo @ context='html'} ${cruise.isFeetSquare ? item.suite.suiteSizeFeet  : item.suite.suiteSizeMeter}</p>
                         </div>
                         <div class="cruise-2018-suites-fares-price ">
                             <span data-sly-test="${item.isWaitList}"

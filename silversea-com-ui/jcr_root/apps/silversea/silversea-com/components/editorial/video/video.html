@@ -1,4 +1,4 @@
-<div data-sly-test="${wcmmode.edit && !properties.videoReference}" class="cq-placeholder cq-dd-image" data-emptytext="Video"></div>
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Video"></div>
 <sly data-sly-test="${properties.videoReference}"
      data-sly-use.videoTemplate="videotemplate.html"
      data-sly-call="${videoTemplate.default @ videoPath = properties.videoReference}" />

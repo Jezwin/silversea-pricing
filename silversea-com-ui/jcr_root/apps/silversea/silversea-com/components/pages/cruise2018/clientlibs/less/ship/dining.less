@@ -1,0 +1,206 @@
+.cruise-2018-ship-dining-area {
+
+  .cruise-2018-ship-dining-area-text-title {
+    color: @grey--3;
+    font-family: @freight;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cruise-2018-ship-dining-area-text-description {
+    color: @grey--3;
+    font-family: @suisse;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+  .cruise-2018-ship-dining-area-btns {
+    text-align: center;
+  }
+  .cruise-2018-ship-dining-area-btns a {
+    border-radius: @nd-button-border-radius;
+    border-width: 1px !important;
+    display: inline-block;
+    font-family: @suisse;
+    font-size: @nd-button-font-size;
+    font-weight: normal;
+    letter-spacing: @nd-button-letter-spacing;
+    line-height: @nd-button-line-height;
+    margin-bottom: 15px;
+    margin-top: 25px;
+    padding: @nd-button-padding;
+    text-align: center ! important;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: normal;
+    span {
+      padding-right: 0 ! important;
+    }
+
+  }
+  .cruise-2018-accordion {
+    display: none;
+  }
+}
+
+@media screen and (max-width: @screen-sm) {
+  .cruise-2018-ship-dining-area {
+
+    background: @grey--f4;
+    padding-bottom: 55px;
+    width: 100vw;
+    margin-left: -23px;
+    padding-top: 25px;
+    .cruise-2018-ship-dining-area-title-mobile {
+      color: @grey--3;
+      font-family: @suisse;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      line-height: 18px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 23px;
+    }
+
+    .cruise-2018-ship-dining-area-slide {
+      background: @white;
+    }
+    .cruise-2018-ship-dining-area-slide-thumbnail {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+
+      &:before {
+        content: ' ';
+        display: block;
+        height: 0;
+        margin: 0;
+        padding-bottom: 66%;
+        width: 100%;
+      }
+      margin-left: -1px;
+      margin-bottom: 15px;
+    }
+    .cruise-2018-ship-dining-area-slide-thumbnail img {
+      height: 100%;
+    }
+    .cruise-2018-ship-dining-area-slide-title {
+      text-transform: uppercase;
+      color: @grey--3;
+      font-family: @freight;
+      font-size: 18px;
+      line-height: 20px;
+      margin-bottom: 12px;
+    }
+
+    .cruise-2018-ship-dining-area-slide-description {
+      height: 141px;
+      color: @grey--3;
+      font-family: @suisse;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
+
+    }
+
+    .cruise-2018-ship-dining-area-slide.slick-slide:not(.slick-current) {
+      transform: scale(0.95);
+      opacity: 0.4;
+      .cruise-2018-ship-dining-area-slide-title {
+        max-height: 1em;
+        overflow: hidden;
+      }
+    }
+    .cruise-2018-ship-dining-area-slide-text {
+      padding-left: 11px;
+      padding-right: 11px;
+      padding-bottom: 20px;
+    }
+
+    .slick-dots {
+      bottom: -25px !important;
+      width: 60%;
+      margin-left: 20%;
+
+    }
+    .slick-dots li {
+      height: 1px;
+      margin: 0;
+    }
+    .slick-dots li button:before {
+      border-radius: 0;
+    }
+    .slick-dots li button {
+      height: 1px;
+      width: 100%;
+    }
+    .slick-dots li button:before {
+      background-color: @grey--9 !important;
+      opacity: 0.5;
+
+    }
+    .slick-dots li.slick-active {
+      border: 1px solid @grey--3;
+      opacity: 1 !important;
+    }
+  }
+
+}
+
+@media screen and (min-width: @screen-sm) {
+  .cruise-2018-ship-dining-area {
+    .cruise-2018-ship-dining-area-title-mobile, .cruise-2018-ship-dining-area-list-slider {
+      display: none;
+    }
+    .cruise-2018-ship-dining-area-title {
+      color: @grey--3;
+      font-family: @freight;
+      font-size: 24px;
+      letter-spacing: 0.5px;
+      line-height: 26px;
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .cruise-2018-ship-dining-area-text-title {
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 14px;
+      margin-top: 80px;
+    }
+
+    .cruise-2018-ship-dining-area-text-description {
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    @cruise2018diningheight: 310px;
+    .cruise-2018-ship-dining-area-text {
+      padding-left: 25px;
+      height: @cruise2018diningheight;
+    }
+    .cruise-2018-ship-dining-area-row {
+      margin-top: 20px;
+      img {
+        height: @cruise2018diningheight;
+        object-fit: cover;
+      }
+    }
+    .cruise-2018-ship-dining-area-text:after {
+      content: " ";
+      width: 165px;
+      background-color: rgb(155, 155, 155, 0.3);
+      height: 1px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+}
