@@ -6,10 +6,19 @@
     display: table;
   }
 
+  .cruise-2018-itineraries-itinerary-row-container-with-excursion {
+    cursor: pointer;
+  }
   .cruise-2018-itineraries-itinerary-row-container {
     display: table;
     width: 100%;
-    padding-bottom: 13px;
+    padding-bottom: 12px;
+  }
+
+  .cruise-2018-itineraries-day-label{
+    text-transform: uppercase;
+    margin-left: 26px;
+    margin-bottom: 12px;
   }
 
   .cruise-2018-itineraries-itinerary-row-day {
@@ -47,6 +56,9 @@
     top: 0;
     z-index: 0;
     opacity: 0.5;
+  }
+  .cruise-2018-itineraries-itinerary-row-day-last::after {
+    display: none;
   }
   .cruise-2018-itineraries-itinerary-row-day-content {
     font-size: 13px;
@@ -218,7 +230,7 @@
     overflow: hidden;
   }
 
-  .cruise-2018-itineraries-itinerary-row-container {
+  .cruise-2018-itineraries-itinerary-row-container  {
     height: 80px;
     margin-left: 13px;
     padding-right: 13px;
