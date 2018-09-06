@@ -22,23 +22,37 @@ function stickMenu() {
         $stickyTop.fadeOut(0, function () {
             $wrapper.css("padding-bottom", "60px");//this is for smoothness
             $wrapper.css("margin-top", "0px");
-            $overviewMenu.removeClass("show-block");
             $stickyTop.removeClass("ssc-sticky-top").fadeIn(0);
-            $("#header").removeClass("hide-header");
             $(".cruise-2018-menu").removeClass("ssc-table-full-width-with-overview");
+            $("#header").animate({
+                top: '0px',
+                duration: 200
+            }, {
+                progress: function (now, fx) {
+                    $(".menu-overview-fixed").hide(0);
+                }
+            });
         });
+
     } else {
         var $stickyTop2 = $(".cruise-2018-menu-container:not(.ssc-sticky-top)");
         $stickyTop2.fadeOut(0, function () {
             $wrapper.css("padding-bottom", "0px");//this is for smoothness
             $wrapper.css("margin-top", "50px");
-            $overviewMenu.addClass("show-block");
             $stickyTop2.addClass("ssc-sticky-top").fadeIn(0);
+            $overviewMenu.show(200);
             $(".cruise-2018-menu").addClass("ssc-table-full-width-with-overview");
+            $("#header").animate({
+                top: '-110px',
+                duration: 200,
+                easing: 'linear'
+            }, {
+                progress: function (now, fx) {
+                    $(".cruise-2018-menu-container.ssc-sticky-top").css('top', "-50px");
+                }
+            });
         });
         //$stickyTop.css('top', ($(".c-header__container").height() + $(".c-main-nav__bottom").height() - 50) + "px");
-        $("#header").addClass("hide-header");
-        $stickyTop.css('top', "-50px");
     }
 }
 
