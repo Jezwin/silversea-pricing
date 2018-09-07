@@ -1,4 +1,4 @@
-html.ab-global-v2-activated{
+body:not:(.landingpage){
   @import "variables.less";
   @import "fontoverride/com/general.less";
   @import "fontoverride/com/components/c-chosen.less";
@@ -232,5 +232,24 @@ html.ab-global-v2-activated{
   @import "new-design/general.less";
   @import "new-design/components.less";
   @import "new-design/suitecards.less";
+
+
+///Coming from Target - be cleaned after (with all the rest)
+//Search Hero
+.c-search-hero-v2 {
+  display:block;
+}
+.c-search-hero {
+  display:none;
+}
+//Footer
+.ab-test-footer-to-show {
+  display:block !important;
+}
+
+.ab-test-footer-to-hide{
+  display: none !important;
+}
+
 
 }
