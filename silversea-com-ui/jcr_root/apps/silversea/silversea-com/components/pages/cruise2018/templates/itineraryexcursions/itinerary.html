@@ -1,6 +1,18 @@
 <template data-sly-template.default="${ @ cruise }">
     <div class="cruise-2018-itineraries-container">
-        <div data-sly-list.itinerary="${cruise.cruiseModel.itineraries}">
+        <sly data-sly-test.list="${cruise.itinerary}"/>
+        <div data-sly-list.itinerary="${list}">
+            <sly data-sly-test.thumbnail="${itinerary.thumbnail}"/>
+            <sly data-sly-test.name="${itinerary.name}"/>
+            <sly data-sly-test.country="${itinerary.countryIso3}"/>
+            <sly data-sly-test.excursions="${itinerary.excursions}"/>
+            <sly data-sly-test.iDate="${itinerary.date}"/>
+            <sly data-sly-test.arriveTime="${itinerary.arriveTime}"/>
+            <sly data-sly-test.departTime="${itinerary.departTime}"/>
+            <sly data-sly-test.hasExcursions="${itinerary.hasExcursions}"/>
+            <sly data-sly-test.excursionDescription="${itinerary.excursionDescription}"/>
+            <sly data-sly-test.overnight="${itinerary.overnight}"/>
+            <!--/content/dam/silversea-com/ports/s/san-cristobal/new-itinerary-san-cristobal-silversea-galapagos-cruise-san-cristobal1.jpg-->
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
                     <a class="open-lightbox-port cruise-2018-link-open-modal" data-target=".lightbox"
@@ -12,23 +24,21 @@
                     </div>
                     <div class="cruise-2018-itineraries-itinerary-row-container ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-thumbnail">
-                            <!--<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                             data-sly-call="${imageTemplate.default @ imagePath=itinerary.port.thumbnail}"/>-->
                             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                                 data-sly-call="${imageTemplate.default @ imagePath='/content/dam/silversea-com/ports/s/san-cristobal/new-itinerary-san-cristobal-silversea-galapagos-cruise-san-cristobal1.jpg'}"/>
+                                 data-sly-call="${imageTemplate.default @ imagePath=thumbnail}"/>
                         </div>
                         <div class="cruise-2018-itineraries-itinerary-row-text">
                             <div class="cruise-2018-itineraries-itinerary-row-text-name">
-                                ${itinerary.port.title}
+                                ${name}
                             </div>
                             <div class="cruise-2018-itineraries-itinerary-row-text-country">
-                                ${itinerary.port.countryIso3 @ i18n}
+                                ${country @ i18n}
                             </div>
-                            <div data-sly-test=${itinerary.port.excursions.size} class="cruise-2018-itineraries-itinerary-row-text-excursions">
-                                ${itinerary.port.excursions.size} ${'excursions' @i18n}
+                            <div data-sly-test=${hasExcursions} class="cruise-2018-itineraries-itinerary-row-text-excursions">
+                                ${excursions.size} ${'excursions' @i18n}
                             </div>
                             <div class="cruise-2018-itineraries-itinerary-row-text-mobile-date">
-                                <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEE dd MMM', date=itinerary.date}">
+                                <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEE dd MMM', date=iDate}">
                                      ${date.value}
                                 </span>
                             </div>
@@ -36,14 +46,14 @@
                         <div class="cruise-2018-itineraries-itinerary-row-date">
                             <div class="cruise-2018-itineraries-itinerary-row-date-day">
                                 <span class="c-pressreleaseslist__date"
-                                      data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">
+                                      data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=iDate}">
                                      ${date.value}
                                 </span>
                             </div>
                             <div class="cruise-2018-itineraries-itinerary-row-date-time">
-                                ${itinerary.arriveTime}
-                                ${itinerary.departTime}
-                                <span data-sly-test="${itinerary.overnight}">moon</span>
+                                ${arriveTime}
+                                ${departTime}
+                                <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
                             </div>
                         </div>
                         <div class="cruise-2018-itineraries-itinerary-row-date-lightbox">
@@ -51,23 +61,22 @@
                         </div>
                         <div
                                 class="cruise-2018-itineraries-itinerary-row-date-arrow" data-ssc-accordion="show">
-                            <i data-sly-test="${itinerary.port.excursions.size}"
+                            <i data-sly-test="${hasExcursions}"
                                class="btn-more fa fa-angle-down"></i>
-                            <i data-sly-test="${itinerary.port.excursions.size}" style="display:none;"
+                            <i data-sly-test="${hasExcursions}" style="display:none;"
                                class="btn-more fa fa-angle-up"></i>
                         </div>
                     </div>
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper"
-                         style="display:none;"
-                         data-sly-test="${itinerary.port.excursions.size}">
-                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${itinerary.port.description} </div>
-                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">${itinerary.port.excursions.size} ${'excursions' @ i18n}</div>
+                         style="display:none;" data-sly-test="${hasExcursions}">
+                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${excursionDescription} </div>
+                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">${excursions.size} ${'excursions' @ i18n}</div>
                     </div>
-                    <sly data-sly-test="${itinerary.port.excursions.size}"
+                    <sly data-sly-test="${hasExcursions}"
                          data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
-                         data-sly-call="${excursion.default @ port=itinerary.port}"/>
-                </div>
+                         data-sly-call="${excursion.default @ port=itinerary.port, excursions=excursions}"/>
 
+                </div>
             </div>
         </div>
     </div>

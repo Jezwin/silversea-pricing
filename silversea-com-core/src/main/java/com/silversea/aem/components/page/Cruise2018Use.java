@@ -1,6 +1,7 @@
 package com.silversea.aem.components.page;
 
 import com.day.cq.commons.Externalizer;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.EoBean;
@@ -22,10 +23,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.google.common.base.Strings.emptyToNull;
+import static com.silversea.aem.utils.AssetUtils.buildAssetList;
 import static java.util.Comparator.comparing;
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Stream.concat;
 import static org.apache.commons.lang3.ObjectUtils.firstNonNull;
 
 
@@ -59,6 +64,8 @@ public class Cruise2018Use extends EoHelper {
     private String ccptCode;
 
     private CruiseModel cruiseModel;
+
+    private List<CruiseItinerary> itinerary;
 
 
     private List<SilverseaAsset> assetsGallery;
@@ -101,6 +108,8 @@ public class Cruise2018Use extends EoHelper {
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
+        itinerary = retrieveItinerary(cruiseModel);
+
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
 
@@ -121,6 +130,38 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+    }
+
+    public List<CruiseItinerary> getItinerary() {
+        return itinerary;
+    }
+
+
+    private LinkedList<String> portAssets(PortModel portModel) {
+        String assetSelectionReference = portModel.getAssetSelectionReference();
+        Stream<String> assets =
+                ofNullable(emptyToNull(assetSelectionReference)).map(reference -> buildAssetList(reference,
+                        getResourceResolver())).map(list -> list.stream().map(Asset::getPath)).orElseGet(Stream::empty);
+        return concat(Stream.of(portModel.getThumbnail()), assets).distinct().collect(toCollection(LinkedList::new));
+    }
+
+    private List<CruiseItinerary> retrieveItinerary(CruiseModel cruiseModel) {
+        List<CruiseItinerary> result = new ArrayList<>();
+        List<ItineraryModel> itineraries = cruiseModel.getItineraries();
+        int size = itineraries.size();
+        Map<Integer, LinkedList<String>> portAssets = itineraries.stream().map(ItineraryModel::getPort).distinct()
+                .collect(Collectors.toMap(PortModel::getCityId, this::portAssets, (l1, l2) -> l1));
+        for (int day = 0; day < size; day++) {
+            ItineraryModel itinerary = itineraries.get(day);
+            Integer portId = itinerary.getPortId();
+            boolean isNextDaySamePort =
+                    day != size - 1 && itineraries.get(day + 1).getPortId().equals(portId);
+            result.add(
+                    new CruiseItinerary(day + 1, day == 0, day == size - 1,
+                            ofNullable(portAssets.get(portId).poll()).orElse(itinerary.getPort().getThumbnail()),
+                            isNextDaySamePort, itinerary));
+        }
+        return result;
     }
 
     private List<SilverseaAsset> retrieveShipAssetsGallery(CruiseModel cruiseModel) {
@@ -207,10 +248,12 @@ public class Cruise2018Use extends EoHelper {
                             }
                         }
                         if (b) {
-                            SuitePrice suitePrice = new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
+                            SuitePrice suitePrice =
+                                    new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
                             list.add(suitePrice);
                         } else {
-                            list.stream().filter(t -> t.getSuite().equals(price.getSuite())).findFirst().get().add(price);
+                            list.stream().filter(t -> t.getSuite().equals(price.getSuite())).findFirst().get()
+                                    .add(price);
                         }
                     }
                 }
@@ -477,5 +520,97 @@ public class Cruise2018Use extends EoHelper {
 
     public String getCcptCode() {
         return ccptCode;
+    }
+
+    public class CruiseItinerary {
+        private final int day;
+        private final String thumbnail;
+        private final String name;
+        private final String countryIso3;
+        private final List<ExcursionModel> excursions;
+        private final boolean hasExcursions;
+        private final Calendar date;
+        private final String arriveTime;
+        private final String departTime;
+        private final String excursionDescription;
+        private final boolean overnight;
+
+        CruiseItinerary(int day, boolean isEmbark, boolean isDebark, String thumbnail, boolean overnight,
+                        ItineraryModel itinerary) {
+            this.day = day;
+            this.thumbnail = thumbnail;
+            this.name = itinerary.getPort().getTitle();
+            this.countryIso3 = itinerary.getPort().getCountryIso3();
+            this.excursions = retrieveExcursions(isEmbark, isDebark, itinerary);
+            this.hasExcursions = excursions != null && !excursions.isEmpty();
+            if (hasExcursions) {
+                excursions.sort(Comparator.comparing(ex -> ex.getTitle().trim()));
+            }
+            this.date = itinerary.getDepartDate();
+            this.arriveTime = itinerary.getArriveTime();
+            this.departTime = itinerary.getDepartTime();
+            this.overnight = overnight;
+            this.excursionDescription = itinerary.getPort().getDescription();
+        }
+
+        private List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark, ItineraryModel itinerary) {
+            if (itinerary.getHasDedicatedShorex()) {
+                return ofNullable(itinerary.getExcursions())
+                        .map(Collection::stream).orElseGet(Stream::empty)
+                        .map(ItineraryExcursionModel::getExcursion)
+                        .collect(toList());
+            } else {
+                return ofNullable(itinerary.getPort().getExcursions())
+                        .map(Collection::stream).orElseGet(Stream::empty)
+                        .filter(ex -> !isEmbark || ex.isOkForEmbark())
+                        .filter(ex -> !isDebark || ex.isOkForDebarks())
+                        .collect(toList());
+            }
+        }
+
+
+        public int getDay() {
+            return day;
+        }
+
+        public String getThumbnail() {
+            return thumbnail;
+        }
+
+        public boolean isHasExcursions() {
+            return hasExcursions;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getCountryIso3() {
+            return countryIso3;
+        }
+
+        public String getExcursionDescription() {
+            return excursionDescription;
+        }
+
+        public List<?> getExcursions() {
+            return excursions;
+        }
+
+        public Calendar getDate() {
+            return date;
+        }
+
+        public String getArriveTime() {
+            return arriveTime;
+        }
+
+        public boolean isOvernight() {
+            return overnight;
+        }
+
+        public String getDepartTime() {
+            return departTime;
+        }
     }
 }
