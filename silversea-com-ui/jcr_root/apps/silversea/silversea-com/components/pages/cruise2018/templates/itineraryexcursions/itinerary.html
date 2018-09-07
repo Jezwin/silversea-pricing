@@ -1,5 +1,38 @@
 <template data-sly-template.default="${ @ cruise }">
     <div class="cruise-2018-itineraries-container">
+        <div class="cruise-2018-itineraries-header">
+            <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
+            <div class="cruise-2018-itineraries-info">
+            <span class="itineraries-info" data-sly-test="${cruise.cruiseModel.duration}">
+                <i class="fa fa-clock-o fa-lg"></i> ${cruise.cruiseModel.duration} ${'days' @ i18n}
+            </span>
+                <span class="itineraries-info" data-sly-test="${cruise.ports}">
+                <i class="fa fa-anchor fa-lg"></i> ${cruise.ports} ${'ports' @ i18n}
+            </span>
+                <span class="itineraries-info" data-sly-test="${cruise.countries}">
+                <i class="fa fa-flag-o fa-lg"></i> ${cruise.countries} ${'countries' @ i18n}
+            </span>
+            </div>
+            <div class="cruise-2018-itineraries-description">${'cruise-itinerary-description-v2' @ i18n}</div>
+            <div class="cruise-2018-itineraries-voyage-code hidden-xs">${'voyage' @ i18n}: ${cruise.cruiseModel.cruiseCode}</div>
+            <div class="cruise-2018-itineraries-map">
+                <div class="ratio-big-itinerary"
+                     data-sly-test.map="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}">
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                         data-sly-call="${imageTemplate.resp @ imagePath=map}"/>
+                </div>
+                <div class="ratio-small-itinerary"
+                     data-sly-test.smallMap="${cruise.cruiseModel.smalItineraryMap || cruise.cruiseModel.itinerary}">
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                         data-sly-call="${imageTemplate.resp @ imagePath=smallMap}"/>
+                </div>
+            </div>
+        </div>
+        <div class="cruise-2018-itineraries-pdf hidden-xs" data-sly-test="${cruise.cruiseModel.tourBook}">
+            <a href="${cruise.cruiseModel.tourBook}" target="_blank"><span>${'view-all-excursions' @ i18n}</span>
+                <i class="fa fa-angle-right fa-lg"></i>
+            </a>
+        </div>
         <div class="cruise-2018-itineraries-day-label hidden-xs">${ 'day' @ i18n }</div>
         <div data-sly-list.itinerary="${cruise.cruiseModel.itineraries}">
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
@@ -67,7 +100,7 @@
                     </div>
                     <sly data-sly-test="${itinerary.port.excursions.size}"
                          data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
-                         data-sly-call="${excursion.default @ port=itinerary.port}"/>
+                         data-sly-call="${excursion.default @ port=itinerary.port, cruise=cruise}"/>
                 </div>
 
             </div>

@@ -1319,6 +1319,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all"
         sling:message="View all"/>
+    <view-all-excursions
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-all-excursions"
+            sling:message="View all excursions"/>
     <view-all-pictures
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all-pictures"
