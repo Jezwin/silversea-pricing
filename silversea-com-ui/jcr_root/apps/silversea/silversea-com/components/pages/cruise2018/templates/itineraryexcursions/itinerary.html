@@ -46,10 +46,8 @@
                     </div>
                     <div class="cruise-2018-itineraries-itinerary-row-container ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''} ${itinerary.port.excursions.size > 0 ? 'cruise-2018-itineraries-itinerary-row-container-with-excursion' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-thumbnail">
-                            <!--<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                             data-sly-call="${imageTemplate.default @ imagePath=itinerary.port.thumbnail}"/>-->
                             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                                 data-sly-call="${imageTemplate.default @ imagePath='/content/dam/silversea-com/marguerite-daisy-beautiful-beauty.jpg'}"/>
+                             data-sly-call="${imageTemplate.respLazy @ imagePath=itinerary.port.thumbnail}"/>
                         </div>
                         <div class="cruise-2018-itineraries-itinerary-row-text">
                             <div class="cruise-2018-itineraries-itinerary-row-text-name">
