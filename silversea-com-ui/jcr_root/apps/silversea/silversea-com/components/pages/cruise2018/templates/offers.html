@@ -1,7 +1,6 @@
 <template data-sly-template.default="${ @ offers, offersNumber, isVenetian }">
     <div class="cruise-2018-offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer"
          data-sly-test="${offersNumber!=0}">
-        ##${offers.size}QA
         <div class="cruise-2018-title cruise-2018-offers-title"> ${ 'offers' @ i18n} </div>
         <sly data-sly-test.ast="*"/>
         <sly data-sly-test="${offers.size<=4}">
