@@ -51,7 +51,10 @@
                                 </span>
                             </div>
                             <div class="cruise-2018-itineraries-itinerary-row-date-time">
+                                <sly data-sly-test="${arriveTime && !departTime}">${'arrive' @i18n}</sly>
                                 ${arriveTime}
+                                <sly data-sly-test="${arriveTime && (departTime || overnight)}">-</sly>
+                                <sly data-sly-test="${!arriveTime && departTime}">${'departure' @i18n}</sly>
                                 ${departTime}
                                 <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
                             </div>

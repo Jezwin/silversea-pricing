@@ -871,6 +871,18 @@
         jcr:primaryType="nt:folder"
         sling:key="pre-post-hotels    "
         sling:message="Hôtels avant et après"/>
+    <pre-post-extensions
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pre &amp; Post Cruise Extensions"/>
+    <night
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="night"/>
+    <nights
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="nights"/>
     <pressure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

@@ -53,7 +53,7 @@ public class Cruise2018Use extends EoHelper {
     private List<String> exclusiveOffersCruiseFareAdditions;
     private boolean venetianSociety;
 
-    private boolean isFeetSquare = false;
+    private boolean isFeetSquare;
 
     private List<SuitePrice> prices;
     private PriceModel lowestPrice;
@@ -117,9 +117,7 @@ public class Cruise2018Use extends EoHelper {
         lowestPrice = retrieveLowestPrice(prices);
         waitlist = lowestPrice == null;
         computedPriceFormatted = PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-        if (countryCode.equals("US")) {
-            isFeetSquare = true;
-        }
+        isFeetSquare = "US".equals(countryCode);
         retrievePreviousCruise(cruiseModel).ifPresent(previous -> {
             this.previous = previous.getPath();
             this.previousArrival = previous.getArrivalPortName();
@@ -210,10 +208,8 @@ public class Cruise2018Use extends EoHelper {
     private boolean retrieveVenetianSociety(CruiseModel cruise) {
         for (FeatureModel featureModel : cruise.getFeatures()) {
             String featureCode = featureModel.getFeatureCode();
-            if (featureCode != null) {
-                if (WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY.equals(featureCode)) {
-                    return true;
-                }
+            if (WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY.equals(featureCode)) {
+                return true;
             }
         }
         return false;
@@ -223,10 +219,7 @@ public class Cruise2018Use extends EoHelper {
         List<String> list = new ArrayList<>();
         for (ExclusiveOfferItem offer : offers) {
             if (offer.getCruiseFareAdditions() != null) {
-                List<String> cruiseFareAdditions = offer.getCruiseFareAdditions();
-                for (String string : cruiseFareAdditions) {
-                    list.add(string);
-                }
+                list.addAll(offer.getCruiseFareAdditions());
             }
         }
         return list;
@@ -234,32 +227,32 @@ public class Cruise2018Use extends EoHelper {
 
     private List<SuitePrice> retrievePrices(CruiseModel cruise) {
         Locale locale = getCurrentPage().getLanguage(false);
-        List<SuitePrice> list = new ArrayList<>();
+        List<SuitePrice> suites = new ArrayList<>();
         Set<PriceModel> uniqueValues = new HashSet<>();
         for (PriceModel price : cruise.getPrices()) {
             if (geomarket.equals(price.getGeomarket())) {
                 if (currency.equals(price.getCurrency())) {
                     if (uniqueValues.add(price)) {
-                        boolean b = true;
-                        for (SuitePrice t1 : list) {
-                            if (t1.getSuite().equals(price.getSuite())) {
-                                b = false;
+                        boolean newSuite = true;
+                        for (SuitePrice suite : suites) {
+                            if (suite.getSuite().equals(price.getSuite())) {
+                                newSuite = false;
                                 break;
                             }
                         }
-                        if (b) {
+                        if (newSuite) {
                             SuitePrice suitePrice =
                                     new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
-                            list.add(suitePrice);
+                            suites.add(suitePrice);
                         } else {
-                            list.stream().filter(t -> t.getSuite().equals(price.getSuite())).findFirst().get()
-                                    .add(price);
+                            suites.stream().filter(t -> t.getSuite().equals(price.getSuite())).findFirst()
+                                    .ifPresent(suite -> suite.add(price));
                         }
                     }
                 }
             }
         }
-        return list;
+        return suites;
     }
 
     private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruise) {
@@ -289,7 +282,7 @@ public class Cruise2018Use extends EoHelper {
         Page currentPage = getCurrentPage();
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
-        String assetSelectionReference = null;
+        String assetSelectionReference;
         if (pageManager != null) {
             ValueMap vmProperties = currentPage.getProperties();
             if (vmProperties != null) {
@@ -522,12 +515,84 @@ public class Cruise2018Use extends EoHelper {
         return ccptCode;
     }
 
+    public List<CruisePrePost> getPrePost() {
+        return getItinerary().stream().flatMap(itinerary -> itinerary.getPrePosts().stream()).distinct()
+                .collect(toList());
+    }
+
+    public class CruisePrePost {
+        private final String thumbnail;
+        private final String prePost;
+        private final String category;
+        private final String id;
+        private final String title;
+        private final Integer nights;
+
+        CruisePrePost(String thumbnail, HotelModel hotel) {
+            this.thumbnail = thumbnail;
+            this.category = hotel.getCategory();
+            this.title = hotel.getPage().getTitle();
+            this.nights = hotel.getNights();
+            this.prePost = "pre";
+            this.id = hotel.getCode();
+        }
+
+        CruisePrePost(String thumbnail, LandProgramModel land) {
+            this.thumbnail = thumbnail;
+            this.prePost = "post";
+            this.nights = land.getNights();
+            this.title = land.getTitle();
+            this.category = land.getCategory();
+            this.id = land.getLandId();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            CruisePrePost that = (CruisePrePost) o;
+            return Objects.equals(id, that.id);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
+
+        public String getThumbnail() {
+            return thumbnail;
+        }
+
+        public String getPrePost() {
+            return prePost;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Integer getNights() {
+            return nights;
+        }
+
+
+    }
+
     public class CruiseItinerary {
         private final int day;
         private final String thumbnail;
         private final String name;
         private final String countryIso3;
+
         private final List<ExcursionModel> excursions;
+        private final List<CruisePrePost> prePosts;
+
+        private final List<LandProgramModel> landPrograms;
+        private final List<HotelModel> hotels;
         private final boolean hasExcursions;
         private final Calendar date;
         private final String arriveTime;
@@ -540,6 +605,9 @@ public class Cruise2018Use extends EoHelper {
             this.day = day;
             this.thumbnail = thumbnail;
             this.name = itinerary.getPort().getTitle();
+            this.landPrograms = itinerary.getLandPrograms().stream().map(ItineraryLandProgramModel::getLandProgram)
+                    .collect(toList());
+            this.hotels = itinerary.getHotels().stream().map(ItineraryHotelModel::getHotel).collect(toList());
             this.countryIso3 = itinerary.getPort().getCountryIso3();
             this.excursions = retrieveExcursions(isEmbark, isDebark, itinerary);
             this.hasExcursions = excursions != null && !excursions.isEmpty();
@@ -551,6 +619,14 @@ public class Cruise2018Use extends EoHelper {
             this.departTime = itinerary.getDepartTime();
             this.overnight = overnight;
             this.excursionDescription = itinerary.getPort().getDescription();
+            this.prePosts = concat(
+                    hotels.stream().map(hotel -> new CruisePrePost(itinerary.getPort().getThumbnail(), hotel)),
+                    landPrograms.stream().map(land -> new CruisePrePost(itinerary.getPort().getThumbnail(), land)))
+                    .collect(toList());
+        }
+
+        List<CruisePrePost> getPrePosts() {
+            return prePosts;
         }
 
         private List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark, ItineraryModel itinerary) {
@@ -611,6 +687,14 @@ public class Cruise2018Use extends EoHelper {
 
         public String getDepartTime() {
             return departTime;
+        }
+
+        public List<LandProgramModel> getLandPrograms() {
+            return landPrograms;
+        }
+
+        public List<HotelModel> getHotels() {
+            return hotels;
         }
     }
 }

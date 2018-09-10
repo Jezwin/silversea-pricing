@@ -919,6 +919,19 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-hotels"
         sling:message="Pre-post hotels"/>
+    <pre-post-extensions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pre-post-extensions"
+        sling:message="Pre &amp; Post Cruise Extensions"/>
+    <night
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="night"
+        sling:message="night"/>
+    <nights
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="nights"
+        sling:message="nights"/>
+
     <pressure
         jcr:primaryType="sling:MessageEntry"
         sling:key="pressure"
