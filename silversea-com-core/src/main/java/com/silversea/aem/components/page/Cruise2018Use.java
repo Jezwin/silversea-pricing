@@ -62,6 +62,8 @@ public class Cruise2018Use extends EoHelper {
     private String ccptCode;
     private CruiseModel cruiseModel;
 
+    private int numPorts;
+    private int numCountries;
 
     private List<SilverseaAsset> assetsGallery;
     private List<SilverseaAsset> shipAssetGallery;
@@ -83,7 +85,7 @@ public class Cruise2018Use extends EoHelper {
     private ItineraryHotelModel hotelLightbox;
     private ItineraryLandProgramModel landProgramLightbox;
     private String typeLandShorexHotelLB;
-    
+
     @Override
     public void activate() throws Exception {
         super.activate();
@@ -133,6 +135,10 @@ public class Cruise2018Use extends EoHelper {
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
 
+        int[] numPortsCountries = retrieveNumberPortsAndCountries(cruiseModel);
+        numPorts = numPortsCountries[0];
+        numCountries = numPortsCountries[1];
+
         prices = retrievePrices(cruiseModel);
         lowestPrice = retrieveLowestPrice(prices);
         waitlist = lowestPrice == null;
@@ -150,6 +156,25 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+    }
+
+    private int[] retrieveNumberPortsAndCountries(CruiseModel cruiseModel) {
+        int[] numCountriesAndPorts = new int[2];
+        if (cruiseModel != null && cruiseModel.getItineraries() != null) {
+            List<Integer> ports = new ArrayList<>();
+            List<String> countries = new ArrayList<>();
+            for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
+                if (!countries.contains(itineraryModel.getPort().getCountryIso3())) {
+                    countries.add(itineraryModel.getPort().getCountryIso3());
+                }
+                if (!ports.contains(itineraryModel.getItineraryId())) {
+                    ports.add(itineraryModel.getItineraryId());
+                }
+            }
+            numCountriesAndPorts[0] = !ports.isEmpty() ? ports.size() : null;
+            numCountriesAndPorts[1] = !countries.isEmpty() ? countries.size() : null;
+        }
+        return numCountriesAndPorts;
     }
 
 
@@ -508,6 +533,14 @@ public class Cruise2018Use extends EoHelper {
 
     public String getBigThumbnailItineraryMap() {
         return bigThumbnailItineraryMap;
+    }
+
+    public int getNumCountries() {
+        return numCountries;
+    }
+
+    public int getNumPorts() {
+        return numPorts;
     }
 
     private enum Lightbox {
