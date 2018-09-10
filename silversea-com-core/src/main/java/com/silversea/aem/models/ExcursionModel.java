@@ -82,11 +82,18 @@ public class ExcursionModel {
     @Optional
     private String pois;
 
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shorexId") @Optional
+    private Long shorexId;
+    
     private String shortDescription;
 
     private List<FeatureModel> features = new ArrayList<>();
 
     private String schedule;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    private String  assetSelectionReference;
 
     @PostConstruct
     private void init() throws Exception {
@@ -151,6 +158,10 @@ public class ExcursionModel {
         return codeExcursion;
     }
 
+    public String getCode() {
+        return getCodeExcursion();
+    }
+
     public String getApiLongDescription() {
         return apiLongDescription;
     }
@@ -183,6 +194,7 @@ public class ExcursionModel {
         return schedule;
     }
 
+
     public boolean isOkForDebarks() {
         return okForDebarks;
     }
@@ -193,6 +205,13 @@ public class ExcursionModel {
 
     public String getShorexCategory() {
         return shorexCategory;
+
+    public Long getShorexId() {
+        return shorexId;
+    }
+
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
     }
 
     /**

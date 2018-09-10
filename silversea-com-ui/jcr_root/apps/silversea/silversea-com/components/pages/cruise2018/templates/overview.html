@@ -3,10 +3,10 @@
         <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12"
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
              data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
-            <sly data-sly-test.cruiseImg="${cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary}"/>
+            <sly data-sly-test.cruiseImg="${cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.itinerary}"/>
             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                  data-sly-call="${imageTemplate.default @ imagePath=cruiseImg}"/>
-            <a href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
+            <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
                  style="background-image:url('${itineraryMap @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
             </a>
@@ -71,7 +71,7 @@
                     </a>
                 </div>
                 <div class="cruise-2018-overview-quote-suites-fares">
-                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote coolanchorminussmall" href="#SuiteBlock">
+                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote coolanchorminussmall" href="#cruise2018suites">
                         <span>${'suites-and-fares' @i18n}</span>
                     </a>
                 </div>

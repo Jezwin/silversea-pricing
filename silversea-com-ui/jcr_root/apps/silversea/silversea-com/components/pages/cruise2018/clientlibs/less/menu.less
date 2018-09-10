@@ -1,0 +1,276 @@
+@cruise-2018-menu-height: 60px;
+
+.cruise-2018-menu-container-wrapper {
+  height: @cruise-2018-menu-height;
+  min-height: @cruise-2018-menu-height;
+  display: block;
+  padding-bottom: 60px;
+
+  .ssc-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    z-index: 99;
+  }
+  .cruise-2018-menu-container {
+    height: @cruise-2018-menu-height;
+    min-height: @cruise-2018-menu-height;
+    display: block;
+  }
+
+  .ssc-table-full-width {
+    width: 100%;
+    display: table;
+    position: relative;
+    border-collapse: collapse;
+  }
+
+  .ssc-cell-full-width {
+    display: table-cell;
+    &:hover {
+      background-color: @grey--f9;
+
+    }
+  }
+
+  .row-menu-navigation:before, .row-menu-navigation:after {
+    content: " ";
+    background-color: @grey--f4;
+    height: 60px;
+    width: 100vw;
+    display: inline-block;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .row-menu-overview:before, .row-menu-overview:after {
+    content: " ";
+    background-color: @white;
+    height: 60px;
+    width: 100vw;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+  }
+
+  .row-menu-overview:before, .row-menu-navigation:before {
+    left: -100vw;
+  }
+
+  .row-menu-overview:after, .row-menu-navigation:after {
+    right: -100vw;
+  }
+
+  .ssc-sticky-top {
+    position: fixed;
+    z-index: 999;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 932px;
+    width: 100%;
+  }
+
+  .cruise-2018-menu {
+    background-color: @grey--f4;
+    height: @cruise-2018-menu-height;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    vertical-align: middle;
+  }
+
+  .cruise-2018-menu-tab {
+    color: @color-second;
+    vertical-align: middle;
+    line-height: @cruise-2018-menu-height;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @suisse;
+    letter-spacing: 1.5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    white-space: nowrap;
+    position: relative;
+
+    &.active span:after {
+      position: absolute;
+      bottom: 0;
+      height: 1px;
+      width: 100%;
+      background-color: @color-second;
+      content: " ";
+      display: inline-block;
+      left: 0;
+
+    }
+  }
+
+  @media screen and (max-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 94vw;
+    }
+
+    .cruise-2018-menu {
+      .cruise-2018-menu-tab-fourth {
+        display: none;
+      }
+      .cruise-2018-menu-tab {
+        border-left: 0;
+        border-right: 0;
+        font-size: 12px;
+      }
+      .cruise-2018-menu-tab-text-big {
+        display: none;
+      }
+      .ssc-sticky-top {
+        width: 94vw !important;
+      }
+    }
+
+  }
+  @media screen and (min-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 100%;
+    }
+
+    .cruise-2018-menu {
+      .cruise-2018-menu-tab {
+        border-left: 1px solid @white;
+        border-right: 1px solid @white;
+        font-size: 13px;
+      }
+      .cruise-2018-menu-tab-text-small {
+        display: none;
+      }
+    }
+  }
+}
+
+.show-block {
+  display: block !important;
+}
+
+.menu-overview-fixed {
+  background-color: @white;
+  min-height: 60px;
+  display: none;
+  .menu-container {
+    padding-top: 10px;
+    padding-bottom: 5px;
+
+    .menu-date-days, .menu-price-raq {
+      border-left: 1px solid fade(@color-medium-bg, 20%);
+      min-height: 44px;
+    }
+
+    .menu-overview-destination {
+      font-family: @freight;
+      font-size: 18px;
+      line-height: 22px;
+      padding-right: 0px;
+      padding-left: 1px;
+      .to {
+        text-transform: lowercase;
+      }
+      .departurePort {
+        display: block;
+      }
+    }
+    .menu-date-days {
+      font-family: @suisse;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      line-height: 18px;
+      text-transform: uppercase;
+    }
+
+    .menu-quote-price {
+      font-family: @suisse;
+      text-transform: uppercase;
+      .from, .early-booking {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+        line-height: 18px;
+      }
+      .price {
+        font-size: 16px;
+        letter-spacing: 0.53px;
+        line-height: 24px;
+      }
+      .display-inline {
+        display: inline-block;
+      }
+    }
+
+    .menu-price-raq {
+      padding-right: 0px;
+      .menu-quote-price {
+        padding-left: 0px;
+      }
+    }
+
+    .menu-raq {
+      padding-left: 0px;
+      padding-right: 0px;
+      .raq-quote-btn {
+        border-radius: @nd-button-border-radius;
+        display: inline-block;
+        font-family: @suisse;
+        font-size: @nd-button-font-size;
+        font-weight: normal;
+        letter-spacing: @nd-button-letter-spacing;
+        line-height: @nd-button-line-height;
+        margin-bottom: 3px;
+        padding: @nd-button-padding;
+        text-align: center ! important;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: normal;
+        span {
+          padding-right: 0 ! important;
+        }
+
+        &-red {
+          border-width: @nd-button-border-width;
+          background-color: @nd-red;
+          color: @white;
+          &:hover, &:focus, &:active {
+            background-color: @nd-red-darker ! important;
+            color: @white ! important;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
+  .menu-overview-fixed {
+    .menu-container {
+      .menu-overview-destination {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      .from, .early-booking {
+        font-size: 8px !important;
+        letter-spacing: 0.2px !important;
+        line-height: 10px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-sm) {
+  .menu-overview-fixed {
+    min-height: 0px;
+    .menu-container {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .menu-overview-destination {
+        text-align: center;
+        .departurePort {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+

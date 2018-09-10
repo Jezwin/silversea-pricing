@@ -17,10 +17,10 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.google.common.base.Strings.emptyToNull;
@@ -54,32 +54,43 @@ public class Cruise2018Use extends EoHelper {
     private boolean venetianSociety;
 
     private boolean isFeetSquare;
+    private int totalNumberOfOffers;
 
     private List<SuitePrice> prices;
+
     private PriceModel lowestPrice;
     private boolean waitlist;
     private String computedPriceFormatted;
-
     private String currentPath;
+
     private String ccptCode;
-
     private CruiseModel cruiseModel;
-
+    
     private List<CruiseItinerary> itinerary;
 
+    private int numPorts;
+    private int numCountries;
 
     private List<SilverseaAsset> assetsGallery;
     private List<SilverseaAsset> shipAssetGallery;
     private String bigItineraryMap;
+    private String bigThumbnailItineraryMap;
     private String smallItineraryMap;
 
     private String previous;
+
     private String previousDeparture;
     private String previousArrival;
     private String next;
     private String nextDeparture;
     private String nextArrival;
+    private String highlights;
 
+    private ItineraryExcursionModel itineraryShorexExcursionLightbox;
+    private ExcursionModel shorexExcursionLightbox;
+    private ItineraryHotelModel hotelLightbox;
+    private ItineraryLandProgramModel landProgramLightbox;
+    private String typeLandShorexHotelLB;
 
     @Override
     public void activate() throws Exception {
@@ -91,11 +102,29 @@ public class Cruise2018Use extends EoHelper {
             case ASSET_GALLERY:
                 assetsGallery = retrieveAssetsGallery();
                 return;
+            case HIGHLIGHTS:
+                highlights = retrieveHighlights();
+                return;
             case ASSET_MAP:
                 List<String> newItineraryMap = retrieveItineraryMaps();
                 if (newItineraryMap != null && !newItineraryMap.isEmpty()) {
                     bigItineraryMap = newItineraryMap.get(0);
-                    smallItineraryMap = newItineraryMap.get(1);
+                    bigThumbnailItineraryMap = newItineraryMap.get(1);
+                    smallItineraryMap = newItineraryMap.get(2);
+                }
+                return;
+            case LAND_SHOREX_HOTEL:
+                if (selectors.length > 4) {
+                    typeLandShorexHotelLB = selectors[2];
+                    if (Lightbox.LAND_PROGRAM.toString().equals(typeLandShorexHotelLB)) {
+                        landProgramLightbox = retrieveLandProgramModel(selectors);
+                    } else if (Lightbox.SHOREX_EXCURSION.toString().equals(typeLandShorexHotelLB)) {
+                        shorexExcursionLightbox = retrieveShorexExcursion(selectors);
+                    } else if (Lightbox.ITINERARY_SHOREX_EXCURSION.toString().equals(typeLandShorexHotelLB)) {
+                        itineraryShorexExcursionLightbox = retrieveItineraryShorexExcursion(selectors);
+                    } else if (Lightbox.HOTEL.toString().equals(typeLandShorexHotelLB)) {
+                        hotelLightbox = retrieveHotelModel(selectors);
+                    }
                 }
                 return;
             case CRUISE_PAGE:
@@ -106,12 +135,17 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
+        totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
         itinerary = retrieveItinerary(cruiseModel);
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
+
+        int[] numPortsCountries = retrieveNumberPortsAndCountries(cruiseModel);
+        numPorts = numPortsCountries[0];
+        numCountries = numPortsCountries[1];
 
         prices = retrievePrices(cruiseModel);
         lowestPrice = retrieveLowestPrice(prices);
@@ -162,25 +196,138 @@ public class Cruise2018Use extends EoHelper {
         return result;
     }
 
+    private int[] retrieveNumberPortsAndCountries(CruiseModel cruiseModel) {
+        int[] numCountriesAndPorts = new int[2];
+        if (cruiseModel != null && cruiseModel.getItineraries() != null) {
+            List<Integer> ports = new ArrayList<>();
+            List<String> countries = new ArrayList<>();
+            for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
+                if (!countries.contains(itineraryModel.getPort().getCountryIso3())) {
+                    countries.add(itineraryModel.getPort().getCountryIso3());
+                }
+                if (!ports.contains(itineraryModel.getItineraryId())) {
+                    ports.add(itineraryModel.getItineraryId());
+                }
+            }
+            numCountriesAndPorts[0] = !ports.isEmpty() ? ports.size() : null;
+            numCountriesAndPorts[1] = !countries.isEmpty() ? countries.size() : null;
+        }
+        return numCountriesAndPorts;
+    }
+
+
+    private String retrieveHighlights() {
+        return ofNullable(getCurrentPage()).map(Page::getProperties)
+                .map(props -> props.get("voyageHighlights", String.class)).orElse("");
+    }
+
+
+    private ItineraryHotelModel retrieveHotelModel(String[] selectors) {
+        if (selectors != null && selectors.length > 4) {
+            Long itineraryID = Long.valueOf(selectors[3]);
+            Long hotelID = Long.valueOf(selectors[4]);
+
+            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
+            if (itineraryModel != null) {
+                List<ItineraryHotelModel> hotels = itineraryModel.getHotels();
+                for (ItineraryHotelModel hotel : hotels) {
+                    if (hotel.getHotelId().equals(hotelID)) {
+                        return hotel;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private ExcursionModel retrieveShorexExcursion(String[] selectors) {
+        if (selectors != null && selectors.length > 4) {
+            Long itineraryID = Long.valueOf(selectors[3]);
+            Long shorexID = Long.valueOf(selectors[4]);
+
+            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
+            if (itineraryModel != null) {
+                List<ExcursionModel> shorexExcursions = itineraryModel.getPort().getExcursions();
+                for (ExcursionModel shorex : shorexExcursions) {
+                    if (shorex.getShorexId().equals(shorexID)) {
+                        return shorex;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private ItineraryExcursionModel retrieveItineraryShorexExcursion(String[] selectors) {
+        if (selectors != null && selectors.length > 4) {
+            Long itineraryID = Long.valueOf(selectors[3]);
+            Long shorexID = Long.valueOf(selectors[4]);
+
+            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
+            if (itineraryModel != null) {
+                List<ItineraryExcursionModel> itShorexExcursions = itineraryModel.getExcursions();
+                for (ItineraryExcursionModel shorex : itShorexExcursions) {
+                    if (shorex.getShorexId().equals(shorexID)) {
+                        return shorex;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private ItineraryLandProgramModel retrieveLandProgramModel(String[] selectors) {
+        if (selectors != null && selectors.length > 4) {
+            Long itineraryID = Long.valueOf(selectors[3]);
+            Long landID = Long.valueOf(selectors[4]);
+            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
+            if (itineraryModel != null) {
+                List<ItineraryLandProgramModel> landPrograms = itineraryModel.getLandPrograms();
+                for (ItineraryLandProgramModel landProgram : landPrograms) {
+                    if (landProgram.getLandId().equals(landID)) {
+                        return landProgram;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private ItineraryModel retrieveItineraryModel(Long id) {
+        if (id != null) {
+            Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
+            if (itinerariesResource.hasChildren()) {
+                Iterator<Resource> children = itinerariesResource.getChildren().iterator();
+                ItineraryModel itineraryModel = null;
+                while (children.hasNext()) {
+                    Resource it = children.next();
+                    ValueMap itMap = it.getValueMap();
+                    Long itineraryID = itMap.get("itineraryId", Long.class);
+                    if (itineraryID != null && itineraryID.equals(id)) {
+                        return it.adaptTo(ItineraryModel.class);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     private List<SilverseaAsset> retrieveShipAssetsGallery(CruiseModel cruiseModel) {
         if (cruiseModel != null && cruiseModel.getShip() != null) {
             String assetSelectionReference = cruiseModel.getShip().getAssetGallerySelectionReference();
             if (StringUtils.isNotBlank(assetSelectionReference)) {
-                return AssetUtils
-                        .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                null);
+                return AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), null);
             }
         }
         return null;
     }
 
     private Lightbox checkIsLightbox(String[] selectors) {
-        for (String selector : selectors) {
-            if (selector.contains(Lightbox.ASSET_GALLERY.getSelector())) {
-                return Lightbox.ASSET_GALLERY;
-            }
-            if (selector.contains(Lightbox.ASSET_MAP.getSelector())) {
-                return Lightbox.ASSET_MAP;
+        for (Lightbox lightbox : Lightbox.values()) {
+            for (String selector : selectors) {
+                if (selector.contains(lightbox.getSelector())) {
+                    return lightbox;
+                }
             }
         }
         return Lightbox.CRUISE_PAGE;
@@ -278,6 +425,7 @@ public class Cruise2018Use extends EoHelper {
         }
     }
 
+
     private List<SilverseaAsset> retrieveAssetsGallery() {
         Page currentPage = getCurrentPage();
         PageManager pageManager = currentPage.getPageManager();
@@ -320,13 +468,11 @@ public class Cruise2018Use extends EoHelper {
                 assetsListResult.add(itineraryMap);
                 assetsListResult.add(itineraryMap);
                 String bigItineraryMap = vmProperties.get("bigItineraryMap", String.class);
+                String bigThumbnailItineraryMap = vmProperties.get("bigThumbnailItineraryMap", String.class);
                 String smallItineraryMap = vmProperties.get("smallItineraryMap", String.class);
-                if (StringUtils.isNotEmpty(bigItineraryMap)) {
-                    assetsListResult.add(0, bigItineraryMap);
-                }
-                if (StringUtils.isNotEmpty(smallItineraryMap)) {
-                    assetsListResult.add(1, smallItineraryMap);
-                }
+                assetsListResult.add(bigItineraryMap);
+                assetsListResult.add(bigThumbnailItineraryMap);
+                assetsListResult.add(smallItineraryMap);
                 return assetsListResult;
             }
         }
@@ -401,8 +547,41 @@ public class Cruise2018Use extends EoHelper {
         return shipAssetGallery;
     }
 
+
+    public ItineraryHotelModel getHotelLightbox() {
+        return hotelLightbox;
+    }
+
+    public ItineraryLandProgramModel getLandProgramLightbox() {
+        return landProgramLightbox;
+    }
+
+    public String getTypeLandShorexHotelLB() {
+        return typeLandShorexHotelLB;
+    }
+
+    public ItineraryExcursionModel getItineraryShorexExcursionLightbox() {
+        return itineraryShorexExcursionLightbox;
+    }
+
+    public String getBigThumbnailItineraryMap() {
+        return bigThumbnailItineraryMap;
+    }
+
+    public int getNumCountries() {
+        return numCountries;
+    }
+
+    public int getNumPorts() {
+        return numPorts;
+    }
+
     private enum Lightbox {
-        ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), CRUISE_PAGE("");
+        ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), LAND_PROGRAM("lg-land"), ITINERARY_SHOREX_EXCURSION("lg-itShorex"), SHOREX_EXCURSION("lg-shorex"), HOTEL("lg-hotel"),
+        LAND_SHOREX_HOTEL
+                ("lg-land-shorex-hotel"), HIGHLIGHTS("highlights"),
+
+        CRUISE_PAGE("");
 
         private String selector = "";
 
@@ -473,6 +652,10 @@ public class Cruise2018Use extends EoHelper {
         return previousDeparture;
     }
 
+    public String getHighlights() {
+        return highlights;
+    }
+
     /**
      * @return get next cruise in the destination
      */
@@ -496,6 +679,10 @@ public class Cruise2018Use extends EoHelper {
 
     public PriceModel getLowestPrice() {
         return lowestPrice;
+    }
+
+    public int getTotalNumberOfOffers() {
+        return totalNumberOfOffers;
     }
 
     public boolean isWaitlist() {
@@ -697,4 +884,10 @@ public class Cruise2018Use extends EoHelper {
             return hotels;
         }
     }
+    
+    public ExcursionModel getShorexExcursionLightbox() {
+        return shorexExcursionLightbox;
+    }
+
 }
+

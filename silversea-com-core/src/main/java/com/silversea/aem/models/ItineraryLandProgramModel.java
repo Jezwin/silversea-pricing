@@ -49,7 +49,7 @@ public class ItineraryLandProgramModel {
         return landProgram != null ? landProgram.getShortDescription() : null;
     }
 
-    public String getLandId() {
+    public Long getLandId() {
         return landProgram != null ? landProgram.getLandId() : null;
     }
 
@@ -57,7 +57,15 @@ public class ItineraryLandProgramModel {
         return landProgram != null ? landProgram.getLandCode() : null;
     }
 
-	public LandProgramModel getLandProgram() {
+    public String getCode() {
+        return getLandCode();
+    }
+
+    public LandProgramModel getLandProgram() {
 		return landProgram;
 	}
+
+    public String getAssetSelectionReference() {
+        return landProgram != null ? landProgram.getAssetSelectionReference() : null;
+    }
 }

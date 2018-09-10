@@ -3,6 +3,7 @@ cruise2018.js
 expeditions.js
 footer.js
 header.js
+menu.js
 itineraryexcursions/excursions.js
 itineraryexcursions/itinerary.js
 offers.js
