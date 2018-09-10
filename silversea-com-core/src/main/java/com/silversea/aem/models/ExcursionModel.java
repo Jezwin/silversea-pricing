@@ -205,6 +205,7 @@ public class ExcursionModel {
 
     public String getShorexCategory() {
         return shorexCategory;
+    }
 
     public Long getShorexId() {
         return shorexId;

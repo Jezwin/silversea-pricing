@@ -21,6 +21,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.google.common.base.Strings.emptyToNull;
@@ -730,7 +731,7 @@ public class Cruise2018Use extends EoHelper {
             this.nights = land.getNights();
             this.title = land.getTitle();
             this.category = land.getCategory();
-            this.id = land.getLandId();
+            this.id = land.getLandId().toString();
         }
 
         @Override
