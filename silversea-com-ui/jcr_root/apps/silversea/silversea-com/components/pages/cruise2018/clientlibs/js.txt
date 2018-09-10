@@ -1,4 +1,5 @@
 #base=js
+cruise2018.js
 expeditions.js
 footer.js
 header.js

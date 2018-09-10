@@ -38,6 +38,12 @@ public class HotelModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String  assetSelectionReference;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/category") @Optional
+    private String category;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/nights") @Optional
+    private Integer nights;
+
 	private String shortDescription;
 
     @PostConstruct
@@ -64,7 +70,14 @@ public class HotelModel {
     public Page getPage() {
         return page;
     }
+    public String getCategory() {
+        return category;
+    }
 
+    public Integer getNights() {
+        return nights;
+    }
+        
     public Long getHotelId() {
         return hotelId;
     }

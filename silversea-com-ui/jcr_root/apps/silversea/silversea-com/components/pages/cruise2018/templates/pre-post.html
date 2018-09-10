@@ -1,2 +1,25 @@
 <template data-sly-template.default="${ @ cruise }">
+    <div class="cruise-2018-prepost-wrapper hidden-xs">
+        <div class="cruise-2018-prepost">
+            <sly data-sly-test.prePosts="${cruise.prePost}">
+                <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n}</div>
+            </sly>
+            <div data-ssc-slides="4" class="cruise-2018-prepost-content c-slider cruise-2018-slider">
+                <sly data-sly-list.prePost="${cruise.prePost}">
+                    <div class="cruise-2018-prepost-slide">
+                        <div class="cruise-2018-prepost-slide-thumbnail">
+                            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                                 data-sly-call="${imageTemplate.image @ imagePath=prePost.thumbnail, width=930}"/>
+                        </div>
+                        <div class="cruise-2018-prepost-slide-prepost">${prePost.prePost}</div>
+                        <div class="cruise-2018-prepost-slide-title">${prePost.title}</div>
+                        <div data-sly-test=${prePost.nights} class="cruise-2018-prepost-slide-days">${prePost.nights} ${prePost.nights> 1 ? 'nights' : 'night' @ i18n}</div>
+                        <div data-sly-test=${prePost.category} class="cruise-2018-prepost-slide-collection">${prePost.category}</div>
+                        <div class="cruise-2018-prepost-slide-moredetails">${'view-more-details' @ i18n}</div>
+                    </div>
+
+                </sly>
+            </div>
+        </div>
+    </div>
 </template>

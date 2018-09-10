@@ -59,7 +59,7 @@
 	<available-on-ships
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="ist auf folgenden Schiffen verfügbar"/>	
+        sling:message="ist auf folgenden Schiffen verfügbar"/>
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -263,7 +263,7 @@
     <cruise-itinerary-description-v2-expedition
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>    
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -789,7 +789,7 @@
     <other-restaurants-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Mit der Bedeutung des Essens in der italienischen Kultur sollten Sie erwarten, dass das Essen bei Silversea eine hohe Priorität hat. Und es ist sicher. Darüber hinaus ist gastronomische Exzellenz dank unserer Partnerschaft mit den angesehenen Grands Chefs Relais &amp; Châteaux eine Selbstverständlichkeit."/>	
+        sling:message="Mit der Bedeutung des Essens in der italienischen Kultur sollten Sie erwarten, dass das Essen bei Silversea eine hohe Priorität hat. Und es ist sicher. Darüber hinaus ist gastronomische Exzellenz dank unserer Partnerschaft mit den angesehenen Grands Chefs Relais &amp; Châteaux eine Selbstverständlichkeit."/>
 	<other-suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -797,16 +797,16 @@
     <other-suites-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="&#xa;Silverseas Suiten bieten eines der höchsten Raum-pro-Gäste-Verhältnis aller Luxus-Kreuzfahrt-Unterkünfte. Alle unsere Suiten verfügen über Meerblick und viele mit einer privaten Teakholzveranda."/>	
+        sling:message="&#xa;Silverseas Suiten bieten eines der höchsten Raum-pro-Gäste-Verhältnis aller Luxus-Kreuzfahrt-Unterkünfte. Alle unsere Suiten verfügen über Meerblick und viele mit einer privaten Teakholzveranda."/>
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Übersicht"/>
-    <overnight-in-port 
+    <overnight-in-port
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Übernachtung im Hafen"/>
-    <overnights-in-port 
+    <overnights-in-port
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Übernachtungen im Hafen"/>
@@ -870,6 +870,18 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Hotels vor und nach der Kreuzfahrt"/>
+    <pre-post-extensions
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Pre &amp; Post Cruise Extensions"/>
+    <night
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="night"/>
+    <nights
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="nights"/>
     <pressure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1077,7 +1089,7 @@
 	<select-inquiry
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Anfrage wählen"/>	
+        sling:message="Anfrage wählen"/>
     <select-language
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1279,7 +1291,7 @@
 	<view-all-pictures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Alle Bilder anzeigen"/>	
+        sling:message="Alle Bilder anzeigen"/>
     <view-all-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1443,7 +1455,7 @@
 	<show-less
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
-	    sling:message="show Less"/>                        
+	    sling:message="show Less"/>
 	<show-all
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-all"

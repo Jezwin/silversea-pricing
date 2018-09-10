@@ -1,7 +1,6 @@
-<template data-sly-template.default="${ @ port, cruise }">
-    <div style="display:none;"
-         class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion">
-        <sly data-sly-list.excursion="${port.excursions}">
+<template data-sly-template.default="${ @ port, excursions }">
+    <div style="display:none;" class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion">
+        <sly data-sly-list.excursion="${excursions}">
             <div class="${excursionList.index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion">
                 <a
                    class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
@@ -18,7 +17,7 @@
             </div>
         </sly>
 
-        <div data-ssc-accordion="show" data-sly-test="${port.excursions.size>8}"
+        <div data-ssc-accordion="show" data-sly-test="${excursions.size>8}"
              class="cruise-2018-itineraries-port-excursions-btn">
             <a class="btn btn-thin btn-white" href="#">
                 <span class="cruise-2018-excursions-accordion-button">${'view-all' @ i18n}</span>

@@ -32,6 +32,12 @@ public class LandProgramModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/landId") @Optional
     private Long landId;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/category") @Optional
+    private String category;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/nights") @Optional
+    private Integer nights;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/landCode") @Optional
     private String landCode;
 
@@ -39,10 +45,18 @@ public class LandProgramModel {
     private String  assetSelectionReference;
 
     private String shortDescription;
-    
+
     @PostConstruct
     private void init() {
         shortDescription = (description != null && description.length() > 200) ? description.substring(0, 200) : description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public Integer getNights() {
+        return nights;
     }
 
     public String getTitle() {
@@ -52,7 +66,7 @@ public class LandProgramModel {
     public String getDescription() {
         return description;
     }
-    
+
     public String getShortDescription() {
         return shortDescription;
     }
