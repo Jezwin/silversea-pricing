@@ -85,6 +85,8 @@ $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
 });
 
 $(function () {
-    onScroll();
-    $(document).on('scroll resize touchmove gesturechange', onScroll);
+    if($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0 ){
+        onScroll();
+        $(document).on('scroll resize touchmove gesturechange', onScroll);
+    }
 });
