@@ -50,13 +50,18 @@
             </div>
             <div class="menu-price-raq col-sm-6 col-md-5 hidden-xs">
                 <div class="menu-quote-price col-sm-5 col-md-6">
-                    <div class="from ${cruise.lowestPrice.earlyBookingBonus ? 'display-inline' : ''}">${'from' @ i18n}</div>
-                    <div class="price ${cruise.lowestPrice.earlyBookingBonus ? 'display-inline' : ''}">
-                        ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
-                    </div>
-                    <div class="early-booking" data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">
-                        ${'with-early' @ i18n} ${'booking-bonus' @ i18n}
-                    </div>
+                    <sly data-sly-test="${cruise.isWaitlist}">
+                        <div class="waitlist">${'waitlist' @ i18n}</div>
+                    </sly>
+                    <sly data-sly-test="${!cruise.isWaitlist}">
+                        <div class="from ${cruise.lowestPrice.earlyBookingBonus ? 'display-inline' : ''}">${'from' @ i18n}</div>
+                        <div class="price ${cruise.lowestPrice.earlyBookingBonus ? 'display-inline' : ''}">
+                            ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
+                        </div>
+                        <div class="early-booking" data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">
+                            ${'with-early' @ i18n} ${'booking-bonus' @ i18n}
+                        </div>
+                    </sly>
                 </div>
                 <div class="menu-raq col-sm-7 col-md-6">
                     <a class="raq-quote-btn btn btn-thin btn-red effect"

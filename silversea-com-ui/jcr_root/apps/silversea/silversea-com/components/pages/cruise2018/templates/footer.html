@@ -3,13 +3,20 @@
         <div class="fixed-footer-info">
             <div class="fixed-footer-container">
                 <div class="fixed-footer-price col-xs-6">
-                    <div class="fixed-footer-quote-price">
-                        <div class="fixed-footer-quote-price-from">${'from' @ i18n}</div>
-                        <div class="fixed-footer-quote-price-number">
-                            ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
-                        </div>
-                        <div class="fixed-footer-quote-price-bonus"
-                             data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                    <div class="fixed-footer-quote-price ${cruise.isWaitlist ? 'fixed-footer-quote-price-waitlist-div' : ''}">
+                        <sly data-sly-test="${cruise.isWaitlist}">
+                            <div class="fixed-footer-quote-price-waitlist">
+                                ${'waitlist' @ i18n}
+                            </div>
+                        </sly>
+                        <sly data-sly-test="${!cruise.isWaitlist}">
+                            <div class="fixed-footer-quote-price-from">${'from' @ i18n}</div>
+                            <div class="fixed-footer-quote-price-number">
+                                ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
+                            </div>
+                            <div class="fixed-footer-quote-price-bonus"
+                                 data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                        </sly>
                     </div>
                 </div>
                 <div class="fixed-footer-quote-rqa col-xs-6">
