@@ -838,7 +838,7 @@ public class Cruise2018Use extends EoHelper {
         public int getDay() {
             return day;
         }
-        
+
         public int getItineraryId() { return itineraryId; }
 
         public String getThumbnail() {
