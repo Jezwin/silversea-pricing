@@ -70,8 +70,6 @@ function activeTab() {
 function onScroll() {
     stickMenu();
     activeTab();
-    var $tabs = $(".cruise-2018-menu-tab");
-    $tabs.css("width", (100 / $tabs.length - 1) + "%");
 }
 
 $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {

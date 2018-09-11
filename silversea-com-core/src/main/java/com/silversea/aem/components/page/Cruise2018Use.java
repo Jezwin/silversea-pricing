@@ -133,7 +133,7 @@ public class Cruise2018Use extends EoHelper {
         }
 
         cruiseModel = retrieveCruiseModel();
-        exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+        exclusiveOffers = false ? retrieveExclusiveOffers(cruiseModel) : Collections.emptyList();
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
@@ -150,8 +150,13 @@ public class Cruise2018Use extends EoHelper {
 
         prices = retrievePrices(cruiseModel);
         lowestPrice = retrieveLowestPrice(prices);
-        waitlist = lowestPrice == null;
-        computedPriceFormatted = PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
+        if (lowestPrice != null) {
+            waitlist = false;
+            computedPriceFormatted = PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
+        } else {
+            waitlist = true;
+            computedPriceFormatted = null;//not shown
+        }
         isFeetSquare = "US".equals(countryCode);
         retrievePreviousCruise(cruiseModel).ifPresent(previous -> {
             this.previous = previous.getPath();
@@ -578,7 +583,8 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private enum Lightbox {
-        ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), LAND_PROGRAM("lg-land"), ITINERARY_SHOREX_EXCURSION("lg-itShorex"), SHOREX_EXCURSION("lg-shorex"), HOTEL("lg-hotel"),
+        ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), LAND_PROGRAM("lg-land"),
+        ITINERARY_SHOREX_EXCURSION("lg-itShorex"), SHOREX_EXCURSION("lg-shorex"), HOTEL("lg-hotel"),
         LAND_SHOREX_HOTEL
                 ("lg-land-shorex-hotel"), HIGHLIGHTS("highlights"),
 
