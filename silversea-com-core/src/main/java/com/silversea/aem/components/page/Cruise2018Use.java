@@ -66,7 +66,7 @@ public class Cruise2018Use extends EoHelper {
 
     private String ccptCode;
     private CruiseModel cruiseModel;
-    
+
     private List<CruiseItinerary> itinerary;
 
     private int numPorts;
@@ -324,9 +324,9 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private Lightbox checkIsLightbox(String[] selectors) {
-        for (Lightbox lightbox : Lightbox.values()) {
-            for (String selector : selectors) {
-                if (selector.contains(lightbox.getSelector())) {
+        for (String selector : selectors) {
+            for (Lightbox lightbox : Lightbox.values()) {
+                if (selector.equalsIgnoreCase(lightbox.getSelector())) {
                     return lightbox;
                 }
             }
@@ -839,7 +839,9 @@ public class Cruise2018Use extends EoHelper {
             return day;
         }
 
-        public int getItineraryId() { return itineraryId; }
+        public int getItineraryId() {
+            return itineraryId;
+        }
 
         public String getThumbnail() {
             return thumbnail;
@@ -889,7 +891,7 @@ public class Cruise2018Use extends EoHelper {
             return hotels;
         }
     }
-    
+
     public ExcursionModel getShorexExcursionLightbox() {
         return shorexExcursionLightbox;
     }

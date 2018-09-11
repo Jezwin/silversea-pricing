@@ -1,10 +1,10 @@
-<template data-sly-template.default="${ @ port, excursions, cruise }">
+<template data-sly-template.default="${ @ itinerary, excursions, cruise }">
     <div style="display:none;" class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion">
-        <sly data-sly-list.excursion="${excursions}" data-sly-test.isDedicat="${port.hasDedicatedShorex}">
+        <sly data-sly-list.excursion="${excursions}" data-sly-test.isDedicate="${itinerary.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}">
             <div class="${excursionList.index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion">
                 <a
                    class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
-                   href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',isDedicat, port.itineraryId, excursions.shorexId]}">
+                   href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',isDedicate, itinerary.itineraryId, excursion.shorexId]}">
                     <span class="cruise-2018-itineraries-port-excursions-moredetails">
                         ${'view-more-details' @ i18n}
                     </span>
