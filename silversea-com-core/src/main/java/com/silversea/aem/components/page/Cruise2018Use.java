@@ -196,6 +196,7 @@ public class Cruise2018Use extends EoHelper {
                             ofNullable(portAssets.get(portId).poll()).orElse(itinerary.getPort().getThumbnail()),
                             isNextDaySamePort, itinerary));
         }
+        result.sort(comparing(CruiseItinerary::getDate));
         return result;
     }
 
@@ -352,7 +353,7 @@ public class Cruise2018Use extends EoHelper {
 
     private PriceModel retrieveLowestPrice(List<SuitePrice> prices) {
         return prices.stream().filter(price -> !price.isWaitList()).map(SuitePrice::getLowestPrice)
-                .min(Comparator.comparing(PriceModel::getComputedPrice)).orElse(null);
+                .min(comparing(PriceModel::getComputedPrice)).orElse(null);
     }
 
     private boolean retrieveVenetianSociety(CruiseModel cruise) {
@@ -529,13 +530,13 @@ public class Cruise2018Use extends EoHelper {
     private Optional<CruiseModelLight> retrievePreviousCruise(CruiseModel cruiseModel) {
         return allSameShipCruises(cruiseModel)
                 .filter(cruise -> cruise.getStartDate().before(cruiseModel.getStartDate()))
-                .max(Comparator.comparing(CruiseModelLight::getStartDate));
+                .max(comparing(CruiseModelLight::getStartDate));
     }
 
     private Optional<CruiseModelLight> retrieveNextCruise(CruiseModel cruiseModel) {
         return allSameShipCruises(cruiseModel)
                 .filter(cruise -> cruise.getStartDate().after(cruiseModel.getStartDate()))
-                .min(Comparator.comparing(CruiseModelLight::getStartDate));
+                .min(comparing(CruiseModelLight::getStartDate));
     }
 
     public String getBigItineraryMap() {
