@@ -20,16 +20,16 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
+            history.pushState(null, null, "#modal"); // push state that hash into the url
+            //avoid ios issue
+            if (window.scrollSupport != null && window.scrollSupport) {
+                window.iNoBounce.enable();
+            }
             var $modal = $(this);
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
-                history.pushState(null, null, "#modal"); // push state that hash into the url
                 createSlider($modal, $link);
-                //avoid ios issue
-                if (window.scrollSupport != null && window.scrollSupport) {
-                    window.iNoBounce.enable();
-                }
                 if ($("body").hasClass("viewport-sm")) {
                     $(".modal.lightbox").css("padding-left", "0px");
                 }
