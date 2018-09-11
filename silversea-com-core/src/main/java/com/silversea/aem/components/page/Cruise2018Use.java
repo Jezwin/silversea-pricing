@@ -772,6 +772,7 @@ public class Cruise2018Use extends EoHelper {
 
     public class CruiseItinerary {
         private final int day;
+        private final int itineraryId;
         private final String thumbnail;
         private final String name;
         private final String countryIso3;
@@ -807,6 +808,7 @@ public class Cruise2018Use extends EoHelper {
             this.departTime = itinerary.getDepartTime();
             this.overnight = overnight;
             this.excursionDescription = itinerary.getPort().getDescription();
+            this.itineraryId = itinerary.getItineraryId();
             this.prePosts = concat(
                     hotels.stream().map(hotel -> new CruisePrePost(itinerary.getPort().getThumbnail(), hotel)),
                     landPrograms.stream().map(land -> new CruisePrePost(itinerary.getPort().getThumbnail(), land)))
@@ -836,6 +838,8 @@ public class Cruise2018Use extends EoHelper {
         public int getDay() {
             return day;
         }
+        
+        public int getItineraryId() { return itineraryId; }
 
         public String getThumbnail() {
             return thumbnail;
