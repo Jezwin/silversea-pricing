@@ -41,6 +41,7 @@
             <sly data-sly-test.country="${itinerary.countryIso3}"/>
             <sly data-sly-test.excursions="${itinerary.excursions}"/>
             <sly data-sly-test.iDate="${itinerary.date}"/>
+            <sly data-sly-test.iDay="${itinerary.day}"/>
             <sly data-sly-test.arriveTime="${itinerary.arriveTime}"/>
             <sly data-sly-test.departTime="${itinerary.departTime}"/>
             <sly data-sly-test.hasExcursions="${itinerary.hasExcursions}"/>
@@ -53,7 +54,7 @@
                        href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-day-wrapper">
-                            <span class="cruise-2018-itineraries-itinerary-row-day-content"> ${itineraryList.count}</span>
+                            <span class="cruise-2018-itineraries-itinerary-row-day-content"> ${iDay}</span>
                         </div>
                     </div>
 
