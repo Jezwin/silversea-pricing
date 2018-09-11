@@ -130,7 +130,7 @@ public class Cruise2018Use extends EoHelper {
         }
 
         cruiseModel = retrieveCruiseModel();
-        exclusiveOffers = false ? retrieveExclusiveOffers(cruiseModel) : Collections.emptyList();
+        exclusiveOffers =  retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
