@@ -37,26 +37,18 @@ $(function () {
 
     $(document).ready(function () {
         if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".cruise-2018-itineraries-container").length > 0) {
-            window.slicePortImages = 0;
             $(document).on('scroll touchmove gesturechange', loadPortsImage);
             loadPortsImage();
         }
     });
 
     function loadPortsImage() {
-        var $itinerayContainer = $(".cruise-2018-itineraries-title");
+        var $itinerayContainer = $(".cruise-2018-itineraries-container");
         if ($itinerayContainer) {
             var isInsideTheView =  isElementInView($itinerayContainer, true);
-            var isLastElementInTheView = isElementInView(window.$lastPortImageShowed, true);
-            if ((isInsideTheView || isLastElementInTheView) && window.slicePortImages >= 0) {
-                var $elementsToShow = $(".cruise-2018-itineraries-itinerary-row-thumbnail img").slice(window.slicePortImages, window.slicePortImages + 5).lazy("lazy");
-                if ($elementsToShow.length > 0) {
-                    window.slicePortImages = window.slicePortImages + 5;
-                    window.$lastPortImageShowed = $(".cruise-2018-itineraries-itinerary-row-thumbnail img").slice(window.slicePortImages - 1, window.slicePortImages);
-                } else {
-                    window.slicePortImages = -1;
-                    window.$lastPortImageShowed = null;
-                }
+            if (isInsideTheView) {
+                $(".cruise-2018-itineraries-itinerary-row-thumbnail img").lazy("lazy");
+                $(document).off('scroll touchmove gesturechange', loadPortsImage);
             }
         }
     };//loadPortsImage
