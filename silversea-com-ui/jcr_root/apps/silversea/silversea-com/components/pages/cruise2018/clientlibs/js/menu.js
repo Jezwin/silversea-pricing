@@ -59,7 +59,7 @@ function stickMenu() {
 function activeTab() {
     $(".cruise-2018-menu-tab").each(function () {
         target = $(this).attr("href");
-        if ($(target).position() && isScrolledIntoView(target, 11)) {
+        if ($(target).position() && isScrolledIntoView(target, 15)) {
             $(this).addClass("active");
         } else {
             $(this).removeClass("active");
