@@ -1,24 +1,26 @@
 <template data-sly-template.default="${@ model}">
     <div class="lg-port-excursion">
         <sly data-sly-test.excursions="${model.portItinerary.hasDedicatedShorex ? model.portItinerary.Excursions : model.portItinerary.port.excursions }"/>
-        <div class="lg-port-excursion-title">
-            ${excursions.size} ${'excursion-s' @ i18n}
-        </div>
-        <div class="lg-port-excursion-list">
-            <div class="lg-port-excursion-list--item" data-sly-repeat.excursion="${excursions}">
-                <div class="lg-port-excursion-list--item-inner">
-                    <div class="icon-part">
-                        <i class="material-icons icon">
-                            stop
-                        </i>
-                    </div>
-                    <div class="content-part">
-                        ${excursion.title}
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <hr data-sly-test="${!excursionList.last}"/>
+        <sly data-sly-test="${excursions.size > 0}">
+            <div class="lg-port-excursion-title">
+                ${excursions.size} ${'excursion-s' @ i18n}
             </div>
-        </div>
+            <div class="lg-port-excursion-list">
+                <div class="lg-port-excursion-list--item" data-sly-repeat.excursion="${excursions}">
+                    <div class="lg-port-excursion-list--item-inner">
+                        <div class="icon-part">
+                            <i class="material-icons icon">
+                                stop
+                            </i>
+                        </div>
+                        <div class="content-part">
+                            ${excursion.title}
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <hr data-sly-test="${!excursionList.last}"/>
+                </div>
+            </div>
+        </sly>
     </div>
 </template>

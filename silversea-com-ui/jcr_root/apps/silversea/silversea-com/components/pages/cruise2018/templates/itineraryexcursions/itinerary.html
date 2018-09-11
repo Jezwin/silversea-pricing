@@ -46,7 +46,6 @@
             <sly data-sly-test.hasExcursions="${itinerary.hasExcursions}"/>
             <sly data-sly-test.excursionDescription="${itinerary.excursionDescription}"/>
             <sly data-sly-test.overnight="${itinerary.overnight}"/>
-            <!--/content/dam/silversea-com/ports/s/san-cristobal/new-itinerary-san-cristobal-silversea-galapagos-cruise-san-cristobal1.jpg-->
 
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
@@ -117,7 +116,7 @@
                     </div>
                     <sly
                          data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
-                         data-sly-call="${excursion.default @ port=itinerary.port, excursions=excursions}"/>
+                         data-sly-call="${excursion.default @ port=itinerary.port, excursions=excursions, cruise=cruise}"/>
                 </div>
             </div>
         </div>
