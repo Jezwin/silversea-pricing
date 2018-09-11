@@ -3,7 +3,7 @@
          data-sly-test="${offersNumber!=0}">
         <div class="cruise-2018-title cruise-2018-offers-title"> ${ 'offers' @ i18n} </div>
         <sly data-sly-test.ast="*"/>
-        <sly data-sly-test="${offers.size<=3 && !isVenetian}">
+        <sly data-sly-test="${offers.size<=4}">
             <div class="cruise-2018-offers-list cruise-2018-offers-size-${offersNumber}">
                 <sly data-sly-list.offer="${offers}">
                     <a href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
@@ -21,7 +21,7 @@
                         </div>
                     </a>
                 </sly>
-                <sly data-sly-test="${offers.size<3 && isVenetian}">
+                <sly data-sly-test="${offers.size<4 && isVenetian}">
                     <div class="cruise-2018-offer-container">
                         <div class="cruise-2018-offer-icon-container">
                             <div class="cruise-2018-offer-icon"><i class="icon-shield-v"></i></div>
@@ -34,7 +34,7 @@
                 </sly>
             </div>
         </sly>
-        <sly data-sly-test="${offers.size>3 || (offers.size >= 3 && isVenetian)}">
+        <sly data-sly-test="${offers.size>4}">
             <div class="cruise-2018-offers-slider c-slider">
                 <sly data-sly-list.offer="${offers}">
                     <div class="cruise-2018-offers-slider-item">
