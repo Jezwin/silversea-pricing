@@ -128,7 +128,8 @@ public class ItineraryModel {
                 }
             }
         }
-        hasDedicatedShorex = Days.daysBetween(Instant.now(), new DateTime(departDate)).getDays() < 120;
+        hasDedicatedShorex =
+                !excursions.isEmpty() && Days.daysBetween(Instant.now(), new DateTime(departDate)).getDays() < 120;
         Collections.sort(excursionToShow, new Comparator<ItineraryExcursionModel>() {
             @Override
             public int compare(ItineraryExcursionModel o1, ItineraryExcursionModel o2) {
