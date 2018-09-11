@@ -15,7 +15,7 @@
             </div>
             <div class="cruise-2018-itineraries-description">${'cruise-itinerary-description-v2' @ i18n}</div>
             <div class="cruise-2018-itineraries-voyage-code hidden-xs">${'voyage' @ i18n}: ${cruise.cruiseModel.cruiseCode}</div>
-            <div class="cruise-2018-itineraries-map">
+<!--/*            <div class="cruise-2018-itineraries-map">
                 <div class="ratio-big-itinerary"
                      data-sly-test.map="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}">
                     <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
@@ -26,7 +26,7 @@
                     <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                          data-sly-call="${imageTemplate.resp @ imagePath=smallMap}"/>
                 </div>
-            </div>
+            </div>*/-->
         </div>
         <div class="cruise-2018-itineraries-pdf hidden-xs" data-sly-test="${cruise.cruiseModel.tourBook}">
             <a href="${cruise.cruiseModel.tourBook}" target="_blank"><span>${'view-all-excursions' @ i18n}</span>
