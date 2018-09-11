@@ -803,7 +803,7 @@ public class Cruise2018Use extends EoHelper {
             if (hasExcursions) {
                 excursions.sort(Comparator.comparing(ex -> ex.getTitle().trim()));
             }
-            this.date = itinerary.getDepartDate();
+            this.date = itinerary.getDate();
             this.arriveTime = itinerary.getArriveTime();
             this.departTime = itinerary.getDepartTime();
             this.overnight = overnight;
