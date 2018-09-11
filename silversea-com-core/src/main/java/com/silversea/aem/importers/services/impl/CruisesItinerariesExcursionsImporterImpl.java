@@ -167,7 +167,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                             // Checking if the itinerary correspond to excursion informations
                             if (itineraryModel.isItineraryBasedOnDayOnly(excursion.getVoyageId(),
-                                    excursion.getDate().toGregorianCalendar())) {
+                                    excursion.getDate().toGregorianCalendar()) && excursion.getCityId().equals(itineraryModel.getPortId())) {
 
                                 // Trying to write excursion data on itinerary
                                 try {
@@ -265,7 +265,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                             // Checking if the itinerary correspond to excursion informations
                             if (itineraryModel.isItineraryBasedOnDayOnly(excursionDiff.getVoyageId(),
-                            		excursionDiff.getDate().toGregorianCalendar())) {
+                            		excursionDiff.getDate().toGregorianCalendar())  && excursionDiff.getCityId().equals(itineraryModel.getPortId())) {
 
                                 // Trying to write or update excursion data on itinerary
                                 try {
