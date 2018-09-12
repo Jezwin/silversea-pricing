@@ -4,12 +4,14 @@
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
              data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
             <sly data-sly-test.cruiseImg="${cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.itinerary}"/>
-            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                 data-sly-call="${imageTemplate.default @ imagePath=cruiseImg}"/>
-            <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
+            <div class="open-lightbox-gallery-assets" data-target=".lightbox">
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                     data-sly-call="${imageTemplate.default @ imagePath=cruiseImg}"/>
+            </div>
+           <!--/* <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
                  style="background-image:url('${itineraryMap @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
-            </a>
+            </a>*/-->
             <a href="#"
                class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
                 <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>

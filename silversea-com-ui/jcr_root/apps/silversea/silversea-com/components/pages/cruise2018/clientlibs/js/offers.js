@@ -8,13 +8,13 @@ $(function () {
         }
         $slider.removeClass('c-slider');
         $slider.slick({
-            slidesToShow: 3,
+            slidesToShow: 2,
             arrows: true,
-            centerPadding: '0px',
+            //enterPadding: '0px',
             dots: true,
             infinite: true,
             slidesToScroll: 1,
-            centerMode: true,
+           // centerMode: true,
             responsive: [
                 {
                     breakpoint: 600,
@@ -31,6 +31,6 @@ $(function () {
 });
 
 function progressBarSize() {
-    var $dots = $(".slick-dots li");
-    $dots.css("width", ($(".slick-dots").outerWidth(true) / $dots.length) + "px");
+    var $dots = $(".cruise-2018-offers-slider .slick-dots li");
+    $dots.css("width", ($(".cruise-2018-offers-slider .slick-dots").width() / $dots.length) + "px");
 }

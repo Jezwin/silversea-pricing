@@ -12,12 +12,12 @@
                         <div class="cruise-2018-suites-fares-image">
                             <sly data-sly-test="${item.suite.thumbnail}"
                                  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                                 data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}"/>
+                                 data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=item.suite.thumbnail, Width='450'}"/>
                         </div>
                         <div class="cruise-2018-suites-fares-description">
                         <span class="cruise-2018-suites-fares-description-title"
                               data-sly-text="${item.suite.title}"></span>
-                            <p class="cruise-2018-suites-fares-description-upto"> ${cruise.isFeetSquare ? item.suite.suiteSizeFeet  : item.suite.suiteSizeMeter}</p>
+                            <p class="cruise-2018-suites-fares-description-upto">${'up-to' @i18n} ${cruise.isFeetSquare ? item.suite.suiteSizeFeet  : item.suite.suiteSizeMeter}</p>
                         </div>
                         <div class="cruise-2018-suites-fares-price ">
                             <span data-sly-test="${item.isWaitList}"

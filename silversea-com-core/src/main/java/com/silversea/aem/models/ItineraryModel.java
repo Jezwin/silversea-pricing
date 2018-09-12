@@ -47,6 +47,7 @@ public class ItineraryModel {
     private Date date; // TODO change by arriveDate
 
     private Calendar departDate; // used only when itineraries are compacted
+    private Calendar departDateInit;
 
     @Inject
     @Optional
@@ -105,6 +106,8 @@ public class ItineraryModel {
 
             if (cruiseContentResource != null) {
                 cruiseId = cruiseContentResource.getValueMap().get("cruiseId", Integer.class);
+                departDateInit = cruiseContentResource.getValueMap().get("startDate", Calendar.class);
+
             }
         }
 
@@ -128,7 +131,7 @@ public class ItineraryModel {
                 }
             }
         }
-        hasDedicatedShorex = Days.daysBetween(Instant.now(), new DateTime(departDate)).getDays() < 120;
+        hasDedicatedShorex = Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 120;
         Collections.sort(excursionToShow, new Comparator<ItineraryExcursionModel>() {
             @Override
             public int compare(ItineraryExcursionModel o1, ItineraryExcursionModel o2) {

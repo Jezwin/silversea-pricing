@@ -20,6 +20,11 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
+            history.pushState(null, null, "#modal"); // push state that hash into the url
+            //avoid ios issue
+            if (window.scrollSupport != null && window.scrollSupport) {
+                window.iNoBounce.enable();
+            }
             var $modal = $(this);
             $modal.off('shown.bs.modal');
             var itineraryId = $link.data('itinerary-id');
