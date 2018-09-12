@@ -47,6 +47,9 @@
             <sly data-sly-test.hasExcursions="${itinerary.hasExcursions}"/>
             <sly data-sly-test.excursionDescription="${itinerary.excursionDescription}"/>
             <sly data-sly-test.overnight="${itinerary.overnight}"/>
+            <script>
+                window.it${itinerary.itineraryId @context='unsafe'} = ${itinerary.excursionsLabel @context='unsafe'};
+            </script>
 
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
@@ -103,7 +106,7 @@
                         <div
                                 class="cruise-2018-itineraries-itinerary-row-date-arrow" data-ssc-accordion="show">
                             <i
-                               class="btn-more fa fa-angle-down"></i>
+                                    class="btn-more fa fa-angle-down"></i>
                             <i style="display:none;"
                                class="btn-more fa fa-angle-up"></i>
                         </div>
@@ -113,11 +116,12 @@
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper"
                          style="display:none;">
                         <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${excursionDescription} </div>
-                        <div data-sly-test="${hasExcursions}" class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">${excursions.size} ${'excursions' @ i18n}</div>
+                        <div data-sly-test="${hasExcursions}"
+                             class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">${excursions.size} ${'excursions' @ i18n}</div>
                     </div>
                     <sly
-                         data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
-                         data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, cruise=cruise}"/>
+                            data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
+                            data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, cruise=cruise}"/>
                 </div>
             </div>
         </div>
