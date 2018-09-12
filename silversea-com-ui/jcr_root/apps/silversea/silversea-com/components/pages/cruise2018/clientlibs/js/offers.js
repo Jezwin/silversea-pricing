@@ -31,6 +31,6 @@ $(function () {
 });
 
 function progressBarSize() {
-    var $dots = $(".slick-dots li");
-    $dots.css("width", ($(".slick-dots").outerWidth(true) / $dots.length) + "px");
+    var $dots = $(".cruise-2018-offers-slider .slick-dots li");
+    $dots.css("width", ($(".cruise-2018-offers-slider .slick-dots").width() / $dots.length) + "px");
 }
