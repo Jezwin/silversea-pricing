@@ -1,4 +1,18 @@
+function Offers() {
+
+}
+
+Offers.prototype = {
+    constructor: Offers,
+    progressBarSize:
+        function progressBarSize() {
+            var $dots = $(".slick-dots li");
+            $dots.css("width", ($(".slick-dots").outerWidth(true) / $dots.length) + "px");
+        }
+
+};
 $(function () {
+    var offers = new Offers();
     $slider = $('.cruise-2018-offers-slider');
     if ($slider) {
         try {
@@ -14,7 +28,7 @@ $(function () {
             dots: true,
             infinite: true,
             slidesToScroll: 1,
-           // centerMode: true,
+            // centerMode: true,
             responsive: [
                 {
                     breakpoint: 600,
@@ -25,12 +39,8 @@ $(function () {
                 }
             ]
         });
-        progressBarSize();
-        $(window).resize(progressBarSize);
+        offers.progressBarSize();
+        $(window).resize(offers.progressBarSize.bind(offers));
     }
 });
 
-function progressBarSize() {
-    var $dots = $(".slick-dots li");
-    $dots.css("width", ($(".slick-dots").outerWidth(true) / $dots.length) + "px");
-}

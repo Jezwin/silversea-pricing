@@ -1,90 +1,94 @@
-$.fn.isUnderViewport = function (offset) {
-    return $(this).offset().top - headerHeight() + $(this).height() - offset > $(window).scrollTop();
-};
-
-function isScrolledIntoView(elem, offset) {
-    var docViewTop = $(window).scrollTop() + headerHeight() + $(".ssc-sticky-top").height() + offset;
-    var elemTop = $(elem).offset().top;
-    var elemBottom = elemTop + $(elem).outerHeight(true);
-    return ((elemBottom >= docViewTop) && (docViewTop >= elemTop));
+function Menu() {
 }
 
-function headerHeight() {
-    return $("#header").height() + $(".c-main-nav__bottom").height();
-}
+Menu.prototype = {
+    constructor: Menu,
+    isUnderViewport: function ($el, offset) {
+        return $el.offset().top - this.headerHeight() + $el.height() - offset > $(window).scrollTop();
+    },
+    isScrolledIntoView: function isScrolledIntoView(elem, offset) {
+        var docViewTop = $(window).scrollTop() + this.headerHeight() + $(".ssc-sticky-top").height() + offset;
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).outerHeight(true);
+        return ((elemBottom >= docViewTop) && (docViewTop >= elemTop));
+    },
+    headerHeight: function headerHeight() {
+        return $("#header").height() + $(".c-main-nav__bottom").height();
+    },
 
 
-function stickMenu() {
-    var $wrapper = $(".cruise-2018-menu-container-wrapper");
-    var $stickyTop = $(".cruise-2018-menu-container.ssc-sticky-top");
-    var $overviewMenu = $(".menu-overview-fixed");
-    if ($wrapper.isUnderViewport(15 + $(".ssc-sticky-top").outerHeight())) {
-        $stickyTop.fadeOut(0, function () {
-            $wrapper.css("padding-bottom", "60px");//this is for smoothness
-            $wrapper.css("margin-top", "0px");
-            $stickyTop.removeClass("ssc-sticky-top").fadeIn(0);
-            $(".cruise-2018-menu").removeClass("ssc-table-full-width-with-overview");
-            $("#header").animate({
-                top: '0px',
-                duration: 200
-            }, {
-                progress: function (now, fx) {
-                    $(".menu-overview-fixed").hide(0);
-                }
+    stickMenu: function stickMenu() {
+        var $wrapper = $(".cruise-2018-menu-container-wrapper");
+        var $stickyTop = $(".cruise-2018-menu-container.ssc-sticky-top");
+        var $overviewMenu = $(".menu-overview-fixed");
+        if (this.isUnderViewport($wrapper, 15 + $(".ssc-sticky-top").outerHeight())) {
+            $stickyTop.fadeOut(0, function () {
+                $wrapper.css("padding-bottom", "60px");//this is for smoothness
+                $wrapper.css("margin-top", "0px");
+                $stickyTop.removeClass("ssc-sticky-top").fadeIn(0);
+                $(".cruise-2018-menu").removeClass("ssc-table-full-width-with-overview");
+                $("#header").animate({
+                    top: '0px',
+                    duration: 200
+                }, {
+                    progress: function (now, fx) {
+                        $(".menu-overview-fixed").hide(0);
+                    }
+                });
             });
-        });
 
-    } else {
-        var $stickyTop2 = $(".cruise-2018-menu-container:not(.ssc-sticky-top)");
-        $stickyTop2.fadeOut(0, function () {
-            $wrapper.css("padding-bottom", "0px");//this is for smoothness
-            $wrapper.css("margin-top", "50px");
-            $stickyTop2.addClass("ssc-sticky-top").fadeIn(0);
-            $overviewMenu.show(200);
-            $(".cruise-2018-menu").addClass("ssc-table-full-width-with-overview");
-            $("#header").animate({
-                top: '-110px',
-                duration: 200,
-                easing: 'linear'
-            }, {
-                progress: function (now, fx) {
-                    $(".cruise-2018-menu-container.ssc-sticky-top").css('top', "-50px");
-                }
-            });
-        });
-        //$stickyTop.css('top', ($(".c-header__container").height() + $(".c-main-nav__bottom").height() - 50) + "px");
-    }
-}
-
-function activeTab() {
-    $(".cruise-2018-menu-tab").each(function () {
-        target = $(this).attr("href");
-        if ($(target).position() && isScrolledIntoView(target, 15)) {
-            $(this).addClass("active");
         } else {
-            $(this).removeClass("active");
+            var $stickyTop2 = $(".cruise-2018-menu-container:not(.ssc-sticky-top)");
+            $stickyTop2.fadeOut(0, function () {
+                $wrapper.css("padding-bottom", "0px");//this is for smoothness
+                $wrapper.css("margin-top", "50px");
+                $stickyTop2.addClass("ssc-sticky-top").fadeIn(0);
+                $overviewMenu.show(200);
+                $(".cruise-2018-menu").addClass("ssc-table-full-width-with-overview");
+                $("#header").animate({
+                    top: '-110px',
+                    duration: 200,
+                    easing: 'linear'
+                }, {
+                    progress: function (now, fx) {
+                        $(".cruise-2018-menu-container.ssc-sticky-top").css('top', "-50px");
+                    }
+                });
+            });
+            //$stickyTop.css('top', ($(".c-header__container").height() + $(".c-main-nav__bottom").height() - 50) + "px");
         }
-    });
-}
+    },
 
-function onScroll() {
-    stickMenu();
-    activeTab();
-}
+    activeTab: function activeTab() {
+        var menu = this;
+        $(".cruise-2018-menu-tab").each(function () {
+            target = $(this).attr("href");
+            if ($(target).position() && menu.isScrolledIntoView(target, 15)) {
+                $(this).addClass("active");
+            } else {
+                $(this).removeClass("active");
+            }
+        });
+    },
 
-$(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
-    e.preventDefault();
-    $target = $($(this).attr("href"));
-    $([document.documentElement, document.body]).animate({
-        scrollTop: $target.position().top - headerHeight() - 70,
-        duration: 500,
-        easing: 'linear'
-    });
-});
-
+    onScroll: function onScroll() {
+        this.stickMenu();
+        this.activeTab();
+    }
+};
 $(function () {
-    if($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0 ){
-        onScroll();
-        $(document).on('scroll resize touchmove gesturechange', onScroll);
+    var menu = new Menu();
+    $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
+        e.preventDefault();
+        $target = $($(this).attr("href"));
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $target.position().top - menu.headerHeight() - 70,
+            duration: 500,
+            easing: 'linear'
+        });
+    });
+    if ($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0) {
+        menu.onScroll();
+        $(document).on('scroll resize touchmove gesturechange', menu.onScroll.bind(menu));
     }
 });
