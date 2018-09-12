@@ -761,7 +761,7 @@
     <no-results-search
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Leider konnte keine Treffer für Ihre Suchanfrage gefunden warden. Versuchen Sie es bitte mit einem Begriff erneut."/>
+        sling:message="Leider konnte keine Treffer für Ihre Suchanfrage gefunden werden. Versuchen Sie es bitte mit einem neuen Begriff."/>
     <note
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
