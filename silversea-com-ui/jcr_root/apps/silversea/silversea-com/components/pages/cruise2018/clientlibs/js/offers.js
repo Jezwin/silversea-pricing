@@ -8,13 +8,13 @@ $(function () {
         }
         $slider.removeClass('c-slider');
         $slider.slick({
-            slidesToShow: 3,
+            slidesToShow: 2,
             arrows: true,
-            centerPadding: '0px',
+            //enterPadding: '0px',
             dots: true,
             infinite: true,
             slidesToScroll: 1,
-            centerMode: true,
+           // centerMode: true,
             responsive: [
                 {
                     breakpoint: 600,
