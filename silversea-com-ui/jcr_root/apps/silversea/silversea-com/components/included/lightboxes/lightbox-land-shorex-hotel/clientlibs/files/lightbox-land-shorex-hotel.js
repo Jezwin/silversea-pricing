@@ -22,10 +22,30 @@ $(function () {
             e.stopPropagation();
             var $modal = $(this);
             $modal.off('shown.bs.modal');
+            var itineraryId = $link.data('itinerary-id');
+            var excursionId = $link.data('excursion-id');
+            setModalContent($modal, itineraryId, excursionId, ajaxContentPath, false)
             // Append html response inside modal
-            $modal.find('.modal-content').load(ajaxContentPath, function (e) {
+        });
+    });
+
+    $('.lightbox-prev-link, .lightbox-next-link').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $this = $(this);
+        var itineraryId = $this.data('itinerary-id');
+        var excursionId = $this.data('excursion-id');
+        var $modal = $('#' + $this.data('target'));
+        setModalContent($modal, itineraryId, excursionId, $this.attr('href'), true);
+    });
+
+    function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation) {
+        setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
+        var $modalContent = $modal.find('.modal-content');
+        var loadContent = function (callback) {
+            $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
                 history.pushState(null, null, "#modal"); // push state that hash into the url
-                createSlider($modal, $link);
+                createSlider($modal);
                 //avoid ios issue
                 if (window.scrollSupport != null && window.scrollSupport) {
                     window.iNoBounce.enable();
@@ -33,11 +53,42 @@ $(function () {
                 if ($("body").hasClass("viewport-sm")) {
                     $(".modal.lightbox").css("padding-left", "0px");
                 }
+                callback && callback();
             });
-        });
-    });
+        };
+        if (animation) {
+            $modalContent.animate({'left': '-100vw'}, 400, function () {
+                loadContent(function () {
+                    $modalContent.animate({'right': '', 'duration': '500ms'});
+                });
+                $modalContent.css('right', '-100vw');
+                $modalContent.css('left', '');
+            });
+        } else {
+            loadContent();
+        }
+    }
 
-    function createSlider($modal, $link) {
+
+    function setModalNavigation($modal, uri, itineraryId, excursionId) {
+        var excursion = window['it' + itineraryId][excursionId];
+        var prev = $modal.find('.lightbox-prev-label');
+        var next = $modal.find('.lightbox-next-label');
+        var nextLink = $modal.find('.lightbox-next-link');
+        var prevLink = $modal.find('.lightbox-prev-link');
+        prev.html(excursion.prevLabel);
+        next.html(excursion.nextLabel);
+        prevLink.data('target', $modal.attr('id'));
+        prevLink.data('itinerary-id', itineraryId);
+        prevLink.data('excursion-id', excursion.prevId);
+        prevLink.attr('href', uri);
+        nextLink.data('target', $modal.attr('id'));
+        nextLink.data('itinerary-id', itineraryId);
+        nextLink.data('excursion-id', excursion.nextId);
+        nextLink.attr('href', uri);
+    }
+
+    function createSlider($modal) {
         var $mainSlider = $modal.find('.lightbox-land-shorex-hotel .lsh-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,

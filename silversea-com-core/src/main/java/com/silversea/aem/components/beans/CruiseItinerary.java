@@ -1,5 +1,7 @@
 package com.silversea.aem.components.beans;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.silversea.aem.models.*;
 
 import java.util.Calendar;
@@ -16,13 +18,16 @@ public class CruiseItinerary {
     private final int day;
     private final int itineraryId;
     private final String thumbnail;
+
     private final String name;
+
     private final String countryIso3;
-
     private final List<ExcursionModel> excursions;
-    private final List<CruisePrePost> prePosts;
 
+    private final String excursionsLabel;
+    private final List<CruisePrePost> prePosts;
     private final List<LandProgramModel> landPrograms;
+
     private final List<HotelModel> hotels;
     private final boolean hasExcursions;
     private final Calendar date;
@@ -32,7 +37,7 @@ public class CruiseItinerary {
     private final boolean overnight;
 
     public CruiseItinerary(int day, boolean isEmbark, boolean isDebark, String thumbnail, boolean overnight,
-                    ItineraryModel itinerary) {
+                           ItineraryModel itinerary) {
         this.day = day;
         this.thumbnail = thumbnail;
         this.name = itinerary.getPort().getTitle();
@@ -42,9 +47,22 @@ public class CruiseItinerary {
         this.countryIso3 = itinerary.getPort().getCountryIso3();
         this.excursions = retrieveExcursions(isEmbark, isDebark, itinerary);
         this.hasExcursions = excursions != null && !excursions.isEmpty();
+        JsonObject map = new JsonObject();
         if (hasExcursions) {
             excursions.sort(Comparator.comparing(ex -> ex.getTitle().trim()));
+            int size = excursions.size();
+            for (int i = 0; i < size; i++) {
+                JsonObject labels = new JsonObject();
+                ExcursionModel prev = excursions.get(Math.floorMod(i - 1, size));
+                ExcursionModel next = excursions.get((i + 1) % size);
+                labels.addProperty("prevLabel", prev.getTitle());
+                labels.addProperty("nextLabel", next.getTitle());
+                labels.addProperty("prevId", prev.getShorexId());
+                labels.addProperty("nextId", next.getShorexId());
+                map.add(excursions.get(i).getShorexId() + "", labels);
+            }
         }
+        excursionsLabel = map.toString();
         this.date = itinerary.getDate();
         this.arriveTime = itinerary.getArriveTime();
         this.departTime = itinerary.getDepartTime();
@@ -52,8 +70,12 @@ public class CruiseItinerary {
         this.excursionDescription = itinerary.getPort().getDescription();
         this.itineraryId = itinerary.getItineraryId();
         this.prePosts = concat(
-                hotels.stream().map(hotel -> new CruisePrePost(itinerary.getItineraryId(), itinerary.getPort().getThumbnail(), hotel)),
-                landPrograms.stream().map(land -> new CruisePrePost(itinerary.getItineraryId(), itinerary.getPort().getThumbnail(), land)))
+                hotels.stream()
+                        .map(hotel -> new CruisePrePost(itinerary.getItineraryId(), itinerary.getPort().getThumbnail(),
+                                hotel)),
+                landPrograms.stream()
+                        .map(land -> new CruisePrePost(itinerary.getItineraryId(), itinerary.getPort().getThumbnail(),
+                                land)))
                 .collect(toList());
     }
 
@@ -131,5 +153,9 @@ public class CruiseItinerary {
 
     public List<HotelModel> getHotels() {
         return hotels;
+    }
+
+    public String getExcursionsLabel() {
+        return excursionsLabel;
     }
 }

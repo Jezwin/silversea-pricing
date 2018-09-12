@@ -4,7 +4,8 @@
             <div class="${excursionList.index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion">
                 <a
                    class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
-                   href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',isDedicate, itinerary.itineraryId, excursion.shorexId]}">
+                   data-itinerary-id="${itinerary.itineraryId}" data-excursion-id="${excursion.shorexId}"
+                   href="${request.requestURI @ extension='', selectors=['lightboxes.lg-land-shorex-hotel',isDedicate]}">
                     <span class="cruise-2018-itineraries-port-excursions-moredetails">
                         ${'view-more-details' @ i18n}
                     </span>

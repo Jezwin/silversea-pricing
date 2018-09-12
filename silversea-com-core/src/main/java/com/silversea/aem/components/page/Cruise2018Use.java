@@ -76,7 +76,6 @@ public class Cruise2018Use extends EoHelper {
     private String smallItineraryMap;
 
     private String previous;
-
     private String previousDeparture;
     private String previousArrival;
     private String next;
@@ -88,7 +87,7 @@ public class Cruise2018Use extends EoHelper {
     private ExcursionModel shorexExcursionLightbox;
     private ItineraryHotelModel hotelLightbox;
     private ItineraryLandProgramModel landProgramLightbox;
-    private String typeLandShorexHotelLB;
+    private String selector;
 
     @Override
     public void activate() throws Exception {
@@ -96,6 +95,7 @@ public class Cruise2018Use extends EoHelper {
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         Locale locale = getCurrentPage().getLanguage(false);
         Lightbox typeLightbox = checkIsLightbox(selectors);
+        selector = typeLightbox.getSelector();
         switch (typeLightbox) {
             case ASSET_GALLERY:
                 assetsGallery = retrieveAssetsGallery();
@@ -104,39 +104,37 @@ public class Cruise2018Use extends EoHelper {
                 highlights = retrieveHighlights();
                 return;
             case ASSET_MAP:
-                List<String> newItineraryMap = retrieveItineraryMaps();
-                if (newItineraryMap != null && !newItineraryMap.isEmpty()) {
-                    bigItineraryMap = newItineraryMap.get(0);
-                    bigThumbnailItineraryMap = newItineraryMap.get(1);
-                    smallItineraryMap = newItineraryMap.get(2);
-                }
+                Optional.ofNullable(getCurrentPage().getProperties()).ifPresent(vmProperties -> {
+                    bigItineraryMap = vmProperties.get("bigItineraryMap", String.class);
+                    bigThumbnailItineraryMap = vmProperties.get("bigThumbnailItineraryMap", String.class);
+                    smallItineraryMap = vmProperties.get("smallItineraryMap", String.class);
+                });
                 return;
-            case LAND_SHOREX_HOTEL:
-                if (selectors.length > 4) {
-                    typeLandShorexHotelLB = selectors[2];
-                    if (Lightbox.LAND_PROGRAM.toString().equals(typeLandShorexHotelLB)) {
-                        landProgramLightbox = retrieveLandProgramModel(selectors);
-                    } else if (Lightbox.SHOREX_EXCURSION.toString().equals(typeLandShorexHotelLB)) {
-                        shorexExcursionLightbox = retrieveShorexExcursion(selectors);
-                    } else if (Lightbox.ITINERARY_SHOREX_EXCURSION.toString().equals(typeLandShorexHotelLB)) {
-                        itineraryShorexExcursionLightbox = retrieveItineraryShorexExcursion(selectors);
-                    } else if (Lightbox.HOTEL.toString().equals(typeLandShorexHotelLB)) {
-                        hotelLightbox = retrieveHotelModel(selectors);
-                    }
-                }
+            case LAND_PROGRAM:
+                landProgramLightbox = retrieveLandProgramModel(selectors);
+                return;
+            case ITINERARY_SHOREX_EXCURSION:
+                itineraryShorexExcursionLightbox = retrieveItineraryShorexExcursion(selectors);
+                return;
+            case SHOREX_EXCURSION:
+                shorexExcursionLightbox = retrieveShorexExcursion(selectors);
+                return;
+            case HOTEL:
+                hotelLightbox = retrieveHotelModel(selectors);
                 return;
             case CRUISE_PAGE:
                 break;
         }
 
         cruiseModel = retrieveCruiseModel();
-        exclusiveOffers =  retrieveExclusiveOffers(cruiseModel);
+        exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
         itinerary = retrieveItinerary(cruiseModel);
+
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
@@ -461,28 +459,6 @@ public class Cruise2018Use extends EoHelper {
         return null;
     }
 
-    private List<String> retrieveItineraryMaps() {
-        Page currentPage = getCurrentPage();
-        PageManager pageManager = currentPage.getPageManager();
-        if (pageManager != null) {
-            ValueMap vmProperties = currentPage.getProperties();
-            if (vmProperties != null) {
-                List<String> assetsListResult = new ArrayList<>();
-                String itineraryMap = vmProperties.get("itinerary", String.class);
-                assetsListResult.add(itineraryMap);
-                assetsListResult.add(itineraryMap);
-                String bigItineraryMap = vmProperties.get("bigItineraryMap", String.class);
-                String bigThumbnailItineraryMap = vmProperties.get("bigThumbnailItineraryMap", String.class);
-                String smallItineraryMap = vmProperties.get("smallItineraryMap", String.class);
-                assetsListResult.add(bigItineraryMap);
-                assetsListResult.add(bigThumbnailItineraryMap);
-                assetsListResult.add(smallItineraryMap);
-                return assetsListResult;
-            }
-        }
-        return null;
-    }
-
     private List<SilverseaAsset> retrieveAssetsFromShip(ShipModel shipModel) {
         List<SilverseaAsset> listShipAssets = new ArrayList<>();
         if (shipModel != null) {
@@ -560,8 +536,8 @@ public class Cruise2018Use extends EoHelper {
         return landProgramLightbox;
     }
 
-    public String getTypeLandShorexHotelLB() {
-        return typeLandShorexHotelLB;
+    public String getSelector() {
+        return selector;
     }
 
     public ItineraryExcursionModel getItineraryShorexExcursionLightbox() {
@@ -583,8 +559,7 @@ public class Cruise2018Use extends EoHelper {
     private enum Lightbox {
         ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), LAND_PROGRAM("lg-land"),
         ITINERARY_SHOREX_EXCURSION("lg-itShorex"), SHOREX_EXCURSION("lg-shorex"), HOTEL("lg-hotel"),
-        LAND_SHOREX_HOTEL
-                ("lg-land-shorex-hotel"), HIGHLIGHTS("highlights"),
+        HIGHLIGHTS("highlights"),
 
         CRUISE_PAGE("");
 
