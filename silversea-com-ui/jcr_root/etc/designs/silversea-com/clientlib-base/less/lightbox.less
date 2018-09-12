@@ -192,6 +192,9 @@
 }
 
 @media (max-width: @screen-md-max) {
+  .lightbox-prev:before, .lightbox-next:after {
+    display: none !important;
+  }
   .lightbox-no-scroll {
     display: block;
     overflow-y: hidden;
