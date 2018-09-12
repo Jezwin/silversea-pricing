@@ -3,13 +3,13 @@
         <div class="cruise-2018-prepost">
             <sly data-sly-test.prePosts="${cruise.prePost}">
                 <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n}</div>
-                <div data-ssc-slides="${cruise.prePost.size> 4 ? 4 : cruise.prePost.size}"
+                <div data-ssc-slides="4"
                      class="cruise-2018-prepost-content c-slider cruise-2018-slider">
                     <sly data-sly-list.prePost="${cruise.prePost}">
-                        <sly data-sly-test.typeLB="${prePost.type == 'hotel' ? 'lg-hotel': 'lg-land'}"/>
-                        <a class="open-lightbox-land-shorex-hotel prepost-lightbox-link" data-target=".lightbox"
-                           href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',typeLB, prePost.itineraryId, prePost.id]}"></a>
                         <div class="cruise-2018-prepost-slide">
+                            <sly data-sly-test.typeLB="${prePost.type == 'hotel' ? 'lg-hotel': 'lg-land'}"/>
+                            <a class="open-lightbox-land-shorex-hotel prepost-lightbox-link" data-target=".lightbox"
+                               href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',typeLB, prePost.itineraryId, prePost.id]}"></a>
                             <div class="cruise-2018-prepost-slide-thumbnail">
                                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                                      data-sly-call="${imageTemplate.image @ imagePath=prePost.thumbnail, width=930}"/>
