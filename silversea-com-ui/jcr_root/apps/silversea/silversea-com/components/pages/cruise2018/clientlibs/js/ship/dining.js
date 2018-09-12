@@ -58,7 +58,7 @@ $(function () {
     }
 
     function initSlider() {
-        const $slider = $(".cruise-2018-ship-dining-area-list-slider:visible");
+        var $slider = $(".cruise-2018-ship-dining-area-list-slider:visible");
         if ($slider) {
             try {
                 $slider.slick("unslick");
@@ -70,8 +70,8 @@ $(function () {
                 dots: true,
                 draggable: true,
                 infinite: true,
-                slidesPerRow: 1,
-                slidesToShow: 1,
+                slidesPerRow: 3,
+                slidesToShow: 3,
                 centerPadding: '40px'
 
             });
