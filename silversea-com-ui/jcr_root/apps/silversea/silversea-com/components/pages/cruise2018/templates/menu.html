@@ -7,24 +7,26 @@
                          data-sly-call="${menu.overview @ cruise=cruise}"/>
                 </div>
                 <div class="row-menu-navigation">
-                    <a href="#cruise2018offers" data-sly-test="${cruise.exclusiveOffers.size>0}"
-                       class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-first">
-                        <span class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
-                    </a>
-                    <a href="#cruise2018itinerary"
-                       class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-second">
-                        <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
-                        <span class="cruise-2018-menu-tab-text-small">${'itinerary' @ i18n}</span>
-                    </a>
-                    <a href="#cruise2018suites"
-                       class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-third">
-                        <span class="cruise-2018-menu-tab-text-small">${'suites' @i18n}</span>
-                        <span class="cruise-2018-menu-tab-text-big">${'suites-and-fares' @i18n}</span>
-                    </a>
-                    <a href="#cruise2018ship"
-                       class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-fourth">
-                        <span class="cruise-2018-menu-tab-text-big">${'ship' @i18n}</span>
-                    </a>
+                    <div class="cruise-2018-menu-tab-wrapper">
+                        <a href="#cruise2018offers" data-sly-test="${cruise.exclusiveOffers.size>0}"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-first">
+                            <span class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
+                        </a>
+                        <a href="#cruise2018itinerary"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-second">
+                            <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
+                            <span class="cruise-2018-menu-tab-text-small">${'itinerary' @ i18n}</span>
+                        </a>
+                        <a href="#cruise2018suites"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-third">
+                            <span class="cruise-2018-menu-tab-text-small">${'suites' @i18n}</span>
+                            <span class="cruise-2018-menu-tab-text-big">${'suites-and-fares' @i18n}</span>
+                        </a>
+                        <a href="#cruise2018ship"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-fourth">
+                            <span class="cruise-2018-menu-tab-text-big">${'ship' @i18n}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
