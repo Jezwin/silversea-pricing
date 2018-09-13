@@ -78,6 +78,11 @@
                         <span>${'suites-and-fares' @i18n}</span>
                     </a>
                 </div>
+                <div class="cruise-2018-overview-quote-photo-video visible-xs" data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}">
+                    <a class="open-lightbox-gallery-assets cruise-2018-overview-quote-btn" href="#" data-target=".lightbox">
+                        <span>${'photos-and-videos' @i18n}</span>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="col-md-6 cruise-2018-overview-quote-icons hidden-xs">
@@ -95,9 +100,9 @@
         </div>
     </div>
     <script lang="javascript">
-        const uri = '${cruise.currentPath @ context="uri"}';
-        const countryCode = '${cruise.countryCode @ context="scriptString"}';
-        const ccpt = '${cruise.ccptCode @ context="scriptString"}';
+        var uri = '${cruise.currentPath @ context="uri"}';
+        var countryCode = '${cruise.countryCode @ context="scriptString"}';
+        var ccpt = '${cruise.ccptCode @ context="scriptString"}';
         var cruiseTypeText = '';
         if ('${cruise.cruiseModel.cruiseType  @ context='scriptString'}' === 'silversea-expedition') {
             cruiseTypeText = '${'expedition-cruise' @ i18n,context='scriptString'}'
@@ -105,7 +110,7 @@
         else {
             cruiseTypeText = '${'cruise' @ i18n,context='scriptString'}'
         }
-        const shareText = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
+        var shareText = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
         $(document).ready(function () {
                 pdfInit(uri, countryCode, ccpt);
                 socialInit(shareText);
