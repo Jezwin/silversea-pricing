@@ -70,10 +70,9 @@ $(function () {
                 dots: true,
                 draggable: true,
                 infinite: true,
-                slidesPerRow: 3,
-                slidesToShow: 3,
+                slidesPerRow: 1,
+                slidesToShow: 1,
                 centerPadding: '40px'
-
             });
         }
         createLineProgressBar();

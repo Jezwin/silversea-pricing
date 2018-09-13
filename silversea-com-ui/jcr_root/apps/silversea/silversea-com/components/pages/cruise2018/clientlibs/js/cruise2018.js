@@ -30,6 +30,7 @@ function initSlider() {
                 dots: $slider.hasClass('activate-progressbar'),
                 draggable: true,
                 slidesToShow: $slider.data('ssc-slides') || 3,
+                slidesToScroll: $slider.data('ssc-slides') || 3,
                 centerPadding: '40px'
             };
             var breakpoint = $slider.data('ssc-breakpoint');
@@ -38,7 +39,8 @@ function initSlider() {
                     [{
                         breakpoint: breakpoint,
                         settings: {
-                            slidesToShow: 3,
+                            slidesToShow: $slider.data('ssc-slides') -1 || 3,
+                            slidesToScroll: $slider.data('ssc-slides') -1 || 3
                         }
                     }];
             }
