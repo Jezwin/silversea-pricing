@@ -63,8 +63,9 @@ Menu.prototype = {
         var menu = this;
         $(".cruise-2018-menu-tab").each(function () {
             target = $(this).attr("href");
-            if ($(target).position() && menu.isScrolledIntoView(target, 15)) {
+            if ($(target).position() && menu.isScrolledIntoView(target, 60)) {
                 $(this).addClass("active");
+                return false;//this stops the cycle!
             } else {
                 $(this).removeClass("active");
             }
