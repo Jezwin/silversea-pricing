@@ -10,7 +10,7 @@
                             - ${'deck-plans' @ i18n }
                         </span>
                     </div>
-                    <div class="lg-deck-tab">
+                    <div class="lg-deck-tab" data-sly-test="${model.ship.deckInfoList}">
                         <div class="lg-deck-number ${itemList.first ? 'lg-active-deck lg-active-first' : ''}"
                              data-sly-repeat.item="${model.ship.deckInfoList}">
                             <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageTopPath}"/>
@@ -21,7 +21,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="lg-deck-image">
+                    <div class="lg-deck-image" data-sly-test="${model.ship.deckInfoList}">
                         <img id="image-deck-plan-top" src="" alt="location top" title="Location top" class="o-img"/>
                         <img id="image-deck-plan-side" src="" alt="location side" title="Location side" class="o-img"/>
                     </div>
