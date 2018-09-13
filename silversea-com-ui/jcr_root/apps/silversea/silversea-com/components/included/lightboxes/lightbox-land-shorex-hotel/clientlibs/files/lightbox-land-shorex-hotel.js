@@ -7,6 +7,7 @@ $(function () {
     $('.open-lightbox-land-shorex-hotel').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
+        $(".lightbox-prev-link, .lightbox-next-link").hide();
         var $link = $(this),
             ajaxContentPath = $link.attr('href'),
             modalTarget = $link.data('target'),
@@ -46,6 +47,7 @@ $(function () {
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation) {
         if (itineraryId && excursionId) {
+            $(".lightbox-prev-link, .lightbox-next-link").show();
             setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
         }
         var $modalContent = $modal.find('.modal-content');
@@ -79,7 +81,6 @@ $(function () {
 
     function setModalNavigation($modal, uri, itineraryId, excursionId) {
         try {
-
             var excursion = window['it' + itineraryId][excursionId];
             var prev = $modal.find('.lightbox-prev-label');
             var next = $modal.find('.lightbox-next-label');
