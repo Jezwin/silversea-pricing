@@ -16,6 +16,7 @@ $(function () {
 
         // Activate Modal
         $modalContent.modal('show');
+
         // Wait for modal opening
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();

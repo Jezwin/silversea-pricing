@@ -19,6 +19,7 @@ $(function () {
         $modalLightbox.find(".lightbox-close").on("click", function (e) {
             e.preventDefault();
             $('.modal').modal('hide');
+            //history.back();
         });
 
         if ($modalBodyLightbox.hasClass("cruise-2018-offers")) {
@@ -30,6 +31,12 @@ $(function () {
      * Modal : Global Clean modal content on close event
      **************************************************************************/
     $(document).on('hide.bs.modal', function (e) {
+        if(window.location.hash.indexOf("#modal") != -1) {
+            history.back();
+            window.location.hash =  "";
+            window.backNavigation = false;
+        }
+
         $(e.target).removeData('bs.modal');
         var $body = $('body');
         var $html = $('html');
