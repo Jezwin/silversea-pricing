@@ -25,12 +25,24 @@ function initSlider() {
             } catch (e) {
 
             }
-            $slider.slick({
+
+            var options = {
                 dots: $slider.hasClass('activate-progressbar'),
                 draggable: true,
                 slidesToShow: $slider.data('ssc-slides') || 3,
                 centerPadding: '40px'
-            });
+            };
+            var breakpoint = $slider.data('ssc-breakpoint');
+            if (breakpoint) {
+                options.responsive =
+                    [{
+                        breakpoint: breakpoint,
+                        settings: {
+                            slidesToShow: 3,
+                        }
+                    }];
+            }
+            $slider.slick(options);
         }
         $slider.removeClass('c-slider');
         createLineProgressBar();
