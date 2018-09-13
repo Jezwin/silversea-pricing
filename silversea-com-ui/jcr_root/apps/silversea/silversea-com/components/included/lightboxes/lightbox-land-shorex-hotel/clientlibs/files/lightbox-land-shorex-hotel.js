@@ -45,7 +45,9 @@ $(function () {
     });
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation) {
-        setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
+        if (itineraryId && excursionId) {
+            setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
+        }
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
@@ -76,21 +78,26 @@ $(function () {
 
 
     function setModalNavigation($modal, uri, itineraryId, excursionId) {
-        var excursion = window['it' + itineraryId][excursionId];
-        var prev = $modal.find('.lightbox-prev-label');
-        var next = $modal.find('.lightbox-next-label');
-        var nextLink = $modal.find('.lightbox-next-link');
-        var prevLink = $modal.find('.lightbox-prev-link');
-        prev.html(excursion.prevLabel);
-        next.html(excursion.nextLabel);
-        prevLink.data('target', $modal.attr('id'));
-        prevLink.data('itinerary-id', itineraryId);
-        prevLink.data('excursion-id', excursion.prevId);
-        prevLink.attr('href', uri);
-        nextLink.data('target', $modal.attr('id'));
-        nextLink.data('itinerary-id', itineraryId);
-        nextLink.data('excursion-id', excursion.nextId);
-        nextLink.attr('href', uri);
+        try {
+
+            var excursion = window['it' + itineraryId][excursionId];
+            var prev = $modal.find('.lightbox-prev-label');
+            var next = $modal.find('.lightbox-next-label');
+            var nextLink = $modal.find('.lightbox-next-link');
+            var prevLink = $modal.find('.lightbox-prev-link');
+            prev.html(excursion.prevLabel);
+            next.html(excursion.nextLabel);
+            prevLink.data('target', $modal.attr('id'));
+            prevLink.data('itinerary-id', itineraryId);
+            prevLink.data('excursion-id', excursion.prevId);
+            prevLink.attr('href', uri);
+            nextLink.data('target', $modal.attr('id'));
+            nextLink.data('itinerary-id', itineraryId);
+            nextLink.data('excursion-id', excursion.nextId);
+            nextLink.attr('href', uri);
+        } catch (e) {
+
+        }
     }
 
     function createSlider($modal) {
