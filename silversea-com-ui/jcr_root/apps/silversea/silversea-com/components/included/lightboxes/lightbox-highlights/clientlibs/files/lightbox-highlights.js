@@ -7,7 +7,6 @@ $(function () {
             ajaxContentPath = $link.closest('[data-lightbox-highlights]').data('lightbox-highlights'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
-        $modalContent.find(".modal-content").addClass("lightbox-no-top");
         $modalContent.find(".lightbox-close i").addClass("lightbox-close-dark");
 
         // Activate Modal
