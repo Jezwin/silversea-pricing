@@ -3,10 +3,18 @@
         <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12"
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
              data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
-            <sly data-sly-test.cruiseImg="${cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.itinerary}"/>
+            <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"/>
+            <sly data-sly-test.cruiseMobileImg="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"/>
             <div class="open-lightbox-gallery-assets" data-target=".lightbox">
-                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                     data-sly-call="${imageTemplate.default @ imagePath=cruiseImg}"/>
+                <picture data-sly-test="${cruiseDesktopImg || cruiseMobileImg}">
+                    <sly data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseDesktopImg}"/>
+                    <sly data-sly-use.assetHelperMobile="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseMobileImg}"/>
+                    <!--[if IE 9]><video style="display: none;"><![endif]-->
+                    <source srcset="${assetHelperMobile.imageUrl}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1" media="(max-width: 991px)" />
+                    <source srcset="${assetHelperDesktop.imageUrl}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1" media="(min-width: 992px)" />
+                    <!--[if IE 9]></video><![endif]-->
+                    <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" src="${assetHelperDesktop.imageUrl @ context='unsafe'}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit" alt="${assetHelperDesktop.metadataResource.valueMap['dc:title']  || currentPage.title}" />
+                </picture>
             </div>
            <!--/* <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
                  style="background-image:url('${itineraryMap @ context='unsafe'}')">
