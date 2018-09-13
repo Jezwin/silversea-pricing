@@ -31,9 +31,9 @@ $(function () {
         $arrow.find('i').toggle();
     }
 
-    $(".cruise-2018-itineraries-port-excursions-btn").on('click touchstart', toggle);
+    $(".cruise-2018-itineraries-port-excursions-btn").on('click', toggle);
 
-    $(".cruise-2018-itineraries-itinerary-row-container-with-excursion").on('click touchstart', toggleExcursions);
+    $(".cruise-2018-itineraries-itinerary-row-container-with-excursion").on('click', toggleExcursions);
 
     $(document).ready(function () {
         if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".cruise-2018-itineraries-container").length > 0) {
