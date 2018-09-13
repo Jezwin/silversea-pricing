@@ -9,7 +9,7 @@
                         ${model.suitePrice.lowestPrice.currency @ i18n} ${model.suitePrice.computedPriceFormated}
                     </span>
                 <span class="lg-suite-prices-bonus"
-                      data-sly-test="${!model.suitePrice.lowestPrice.earlyBookingBonus}">
+                      data-sly-test="${model.suitePrice.lowestPrice.earlyBookingBonus}">
                         ${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
                     </span>
             </sly>

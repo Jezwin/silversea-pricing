@@ -44,3 +44,7 @@ $(function () {
     }
 });
 
+function progressBarSize() {
+    var $dots = $(".cruise-2018-offers-slider .slick-dots li");
+    $dots.css("width", ($(".cruise-2018-offers-slider .slick-dots").width() / $dots.length) + "px");
+}

@@ -38,7 +38,9 @@ $(function () {
         $sliderActive.next().find('.lazy').lazy();
         $sliderActive.next().next().find('.lazy').lazy();
         setTimeout(function () {
+            $sliderActive.prev().find('.lazy').lazy();
             $sliderActive.find('.lazy').lazy();
+            $sliderActive.next().find('.lazy').lazy();
         }, 50);
 
     };//loadLazyImage
