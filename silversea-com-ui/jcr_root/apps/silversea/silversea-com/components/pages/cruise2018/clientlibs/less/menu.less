@@ -12,7 +12,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: 110px;
-    z-index:1001;
+    z-index: 1001;
   }
   .cruise-2018-menu-container {
     height: @cruise-2018-menu-height;
@@ -44,8 +44,6 @@
     display: inline-block;
     position: absolute;
     bottom: 0px;
-    border-right: 1px solid white;
-    border-left: 1px solid white;
   }
 
   .row-menu-overview:before, .row-menu-overview:after {
@@ -252,6 +250,7 @@
     }
   }
 }
+
 @media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
   .menu-overview-fixed {
     .menu-container {
@@ -268,7 +267,20 @@
   }
 }
 
+@media (min-width: @screen-sm) {
+  .row-menu-navigation:before, .row-menu-navigation:after {
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+  }
+
+}
+
 @media (max-width: @screen-sm) {
+  .row-menu-navigation {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .menu-overview-fixed {
     min-height: 0px;
     .menu-container {
