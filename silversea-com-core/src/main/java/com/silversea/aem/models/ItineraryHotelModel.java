@@ -19,6 +19,7 @@ public class ItineraryHotelModel {
     private int hotelId;
 
     @Inject
+    @Optional
     private String hotelReference;
 
     // TODO create custom injector
