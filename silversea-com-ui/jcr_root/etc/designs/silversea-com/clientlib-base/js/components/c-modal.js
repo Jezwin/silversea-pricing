@@ -38,8 +38,8 @@ $(function () {
     $(document).on('hide.bs.modal', function (e) {
         if(window.location.hash.indexOf("#lb-detatils") != -1) {
             history.back();
-            window.location.hash =  "";
-            window.backNavigation = false;
+          //  window.location.hash =  "";
+        //    window.backNavigation = false;
         }
 
         $(e.target).removeData('bs.modal');
