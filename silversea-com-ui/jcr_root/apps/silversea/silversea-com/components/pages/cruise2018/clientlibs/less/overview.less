@@ -369,20 +369,19 @@
   }
 }
 
-
 //issue with bigItineraryMap
 @media screen and (min-width: 981px) and (max-width: 991px) {
-  .cruise-2018-overview  .cruise-2018-overview-big-pic {
+  .cruise-2018-overview .cruise-2018-overview-big-pic {
     margin-left: -28px !important;
   }
 }
+
 //issue with bigItineraryMap
 @media screen and (min-width: 969px) and (max-width: 980px) {
-  .cruise-2018-overview  .cruise-2018-overview-big-pic {
+  .cruise-2018-overview .cruise-2018-overview-big-pic {
     margin-left: -26px !important;
   }
 }
-
 
 @media screen and (min-width: @screen-sm) {
   .cruise-2018-overview {
@@ -457,4 +456,50 @@
       height: 65px;
     }
   }
+}
+
+/*code to fix in all devices the not align ship label*/
+
+.cruise-2018-overview-description-date-boxes {
+  min-height: 80px !important;
+}
+
+.cruise-2018-overview-description-date-boxes-title {
+  min-height: 18px !important;
+  max-height: 18px !important;
+}
+
+.cruise-2018-overview-description-date-boxes-title .ship-title {
+  min-height: 21px !important;
+  max-height: 24px !important;
+}
+
+.cruise-2018-overview-description-date-boxes-content {
+  min-height: 25px !important;
+  max-height: 25px !important;
+
+}
+
+.cruise-2018-overview-description-date-boxes-subtitle {
+  min-height: 25px !important;
+  max-height: 25px !important;
+
+}
+
+.cruise-2018-overview-description-date-boxes-content.ship-content {
+  font-size: 11px !important;
+  white-space: normal !important;
+  line-height: 14px !important;
+}
+
+@media (max-width: 767px) {
+  .cruise-2018-overview-description-date-boxes-content.ship-content {
+    font-size: 9px !important;
+    white-space: normal !important;
+    line-height: 11px !important;
+  }
+}
+
+.cruise-2018-overview-description-date-boxes-box.bordered::after {
+  height: 60px !important
 }
