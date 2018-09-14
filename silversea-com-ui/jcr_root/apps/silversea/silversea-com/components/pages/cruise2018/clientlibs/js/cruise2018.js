@@ -21,7 +21,7 @@ function initSlider() {
         var $slider = $(this);
         if ($slider) {
             try {
-                $slider.slick("unslick");
+               // $slider.slick("unslick");
             } catch (e) {
 
             }
@@ -31,7 +31,7 @@ function initSlider() {
                 draggable: true,
                 slidesToShow: $slider.data('ssc-slides') || 3,
                 slidesToScroll: $slider.data('ssc-slides') || 3,
-                centerPadding: '40px'
+                //centerPadding: '40px'
             };
             var breakpoint = $slider.data('ssc-breakpoint');
             if (breakpoint) {
@@ -46,7 +46,7 @@ function initSlider() {
             }
             $slider.slick(options);
         }
-        $slider.removeClass('c-slider');
+       // $slider.removeClass('c-slider');
         createLineProgressBar();
     });
 }
