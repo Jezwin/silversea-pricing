@@ -26,6 +26,7 @@ public class ItineraryExcursionModel {
     private int excursionId;
 
     @Inject
+    @Optional
     private String excursionReference;
 
     @Inject @Optional
