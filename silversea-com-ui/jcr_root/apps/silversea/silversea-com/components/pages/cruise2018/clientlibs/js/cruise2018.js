@@ -54,5 +54,12 @@ function initSlider() {
 
 $(function () {
     initSlider();
-    $(window).on("resize", initSlider);
+    //$(window).on("resize", initSlider);
+    
+     widthCruise2018 = $(window).width();
+        $(window).resize(function () {
+            if ($(window).width()==widthCruise2018) return;
+            widthCruise2018 = $(window).width();
+            createLineProgressBar();
+        });
 });
