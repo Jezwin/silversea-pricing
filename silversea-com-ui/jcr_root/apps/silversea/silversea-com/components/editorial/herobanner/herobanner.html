@@ -4,7 +4,6 @@
 	<sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default @ banner=banner}" />
 	<sly data-sly-test="${properties.type == 'home'}" data-sly-call="${heroBannerTemplate.home @ banner=banner}" />
 	<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer @ banner=banner}" />
-	<sly data-sly-test="${properties.enableVersionB}" data-sly-call="${heroBannerTemplate.abTest @ banner=banner}" />
 
 	<style>
 		@media (min-width: 768px){
