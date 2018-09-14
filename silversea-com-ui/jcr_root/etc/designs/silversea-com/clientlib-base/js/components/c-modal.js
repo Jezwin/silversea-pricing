@@ -1,14 +1,10 @@
 $(function () {
 
-    $(document).ready(function () {
-        if(window.location.hash.indexOf("#lb-detatils") >= 0) {
-            window.location.hash =  "";
-        }
-    });
     /***************************************************************************
      * Modal : Global modal code applied for every modal
      **************************************************************************/
     $(document).on('show.bs.modal', function (e) {
+        $(".lightbox-prev-link, .lightbox-next-link").hide();
         var $body = $('body');
         var $html = $('html');
         var $modalLightbox = $("#modalLightbox");
@@ -21,9 +17,10 @@ $(function () {
             $html.addClass('no-scroll-html');
         }
 
+        $modalLightbox.find(".lightbox-close").off("click");
         $modalLightbox.find(".lightbox-close").on("click", function (e) {
             e.preventDefault();
-            $('.modal').modal('hide');
+            $('#modalLightbox').modal('hide');
             //history.back();
         });
 
@@ -36,10 +33,10 @@ $(function () {
      * Modal : Global Clean modal content on close event
      **************************************************************************/
     $(document).on('hide.bs.modal', function (e) {
-        if(window.location.hash.indexOf("#lb-detatils") != -1) {
+        if (window.location.hash.indexOf("#lb-detatils") != -1) {
             history.back();
-          //  window.location.hash =  "";
-        //    window.backNavigation = false;
+            //  window.location.hash =  "";
+            //    window.backNavigation = false;
         }
 
         $(e.target).removeData('bs.modal');
