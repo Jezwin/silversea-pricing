@@ -19,6 +19,7 @@ public class ItineraryLandProgramModel {
     private int landProgramId;
 
     @Inject
+    @Optional
     private String landProgramReference;
 
     // TODO create custom injector
