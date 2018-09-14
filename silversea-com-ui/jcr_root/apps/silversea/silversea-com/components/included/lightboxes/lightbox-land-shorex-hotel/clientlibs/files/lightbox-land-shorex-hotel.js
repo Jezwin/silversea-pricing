@@ -53,7 +53,7 @@ $(function () {
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
-                history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+                //history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
                 createSlider($modal);
                 //avoid ios issue
                 if (window.scrollSupport != null && window.scrollSupport) {
