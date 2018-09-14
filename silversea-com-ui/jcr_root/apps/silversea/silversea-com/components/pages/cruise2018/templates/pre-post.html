@@ -4,7 +4,7 @@
             <sly data-sly-test.prePosts="${cruise.prePost}">
                 <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n}</div>
                 <div data-ssc-slides="4" data-ssc-breakpoint="1024"
-                     class="cruise-2018-prepost-content c-slider cruise-2018-slider">
+                     class="cruise-2018-prepost-content cruise-2018-slider">
                     <sly data-sly-list.prePost="${cruise.prePost}">
                         <div class="cruise-2018-prepost-slide">
                             <sly data-sly-test.typeLB="${prePost.type == 'hotel' ? 'lg-hotel': 'lg-land'}"/>
