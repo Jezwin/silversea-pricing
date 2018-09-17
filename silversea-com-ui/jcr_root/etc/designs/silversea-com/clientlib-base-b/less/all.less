@@ -245,4 +245,77 @@ html.aToBTmp {
       display: block;
     }
   }
+
+  @media(max-width: 990px) and (min-width: 768px) {
+    .slider .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow {
+      display: none !important;
+    }
+  }
+
+
+  @media (max-width: 767px) {
+
+    .slider .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-prev:after {
+      width: 25px;
+      height: 25px;
+      border-left: 0 solid transparent;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+      border-top: 0 solid transparent;
+      opacity: .6;
+      content: " ";
+      right: 0;
+      transform: rotateZ(135deg);
+      border-color: #171D47 !important;
+    }
+
+    .slider.parbase.aem-GridColumn.aem-GridColumn--default--12 .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-next:after {
+      width: 25px;
+      height: 25px;
+      border-left: 0 solid transparent;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+      border-top: 0 solid transparent;
+      opacity: .6;
+      content: " ";
+      left: 0;
+      transform: rotateZ(-45deg);
+      border-color: #171D47 !important;
+    }
+    .slider .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-prev {
+      left: -100px !important;
+    }
+    .slider.parbase.aem-GridColumn.aem-GridColumn--default--12 .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-next {
+      right: -95px !important;
+    }
+  }
+
+
+  .c-tab__body .port_v2 .port_v2__section_header_separator {
+    display: none !important;
+  }
+  .c-tab__body .port_v2 .port_v2__desc .btn {
+    display: none !important;
+  }
+  .c-tab__body .port_v2 #port_v2__stats {
+    display: none !important;
+  }
+  .c-tab__body .port_v2 .port_v2__section_title:before {
+    background: none !important;
+  }
+  .c-tab__body .port_v2 .btn.btn-dark {
+    color: #171D47 !important;
+    background-color: white !important;
+    border: 1px solid rgba(23, 29, 71, 0.2) !important;
+  }
+  .c-tab__body .port_v2 .btn.btn-dark:hover {
+    border: 1px solid #171d47 !important;
+    color: #171D47 !important;
+  }
+  .c-tab__body .port_v2 .ab-test-intro-silversea-to-show {
+    display: block !important;
+  }
+  .c-tab__body .port_v2 .ab-test-intro-silversea-to-hide {
+    display: none !important;
+  }
 }
