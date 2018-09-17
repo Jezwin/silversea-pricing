@@ -30,7 +30,7 @@ $(function () {
             $modal.off('shown.bs.modal');
             var itineraryId = $link.data('itinerary-id');
             var excursionId = $link.data('excursion-id');
-            setModalContent($modal, itineraryId, excursionId, ajaxContentPath, false)
+            setModalContent($modal, itineraryId, excursionId, ajaxContentPath, false, '')
             // Append html response inside modal
         });
     });
@@ -42,10 +42,10 @@ $(function () {
         var itineraryId = $this.data('itinerary-id');
         var excursionId = $this.data('excursion-id');
         var $modal = $('#' + $this.data('target'));
-        setModalContent($modal, itineraryId, excursionId, $this.attr('href'), true);
+        setModalContent($modal, itineraryId, excursionId, $this.attr('href'), true, $this.hasClass('lightbox-prev-link') ? 'right' : 'left');
     });
 
-    function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation) {
+    function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
         if (itineraryId && excursionId) {
             $(".lightbox-prev-link, .lightbox-next-link").show();
             setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
@@ -66,13 +66,21 @@ $(function () {
             });
         };
         if (animation) {
-            $modalContent.animate({'left': '-100vw'}, 400, function () {
-                loadContent(function () {
-                    $modalContent.animate({'right': '', 'duration': '500ms'});
+            var opposite = direction === 'left' ? 'right' : 'left';
+            (function c(direction, opposite) {
+                var obj = {};
+                obj[direction] = '-100vw';
+                $modalContent.animate(obj, 400, function () {//this move it out of view from one side
+                    loadContent(function () {
+                        $modalContent.animate({left: '', right: ''}, 500, function () {//this bring back to view from the other side
+                            $modalContent.css('left', '');//this is just to rest left && right because previous line put them to 0
+                            $modalContent.css('right', '');
+                        });
+                    });
+                    $modalContent.css(opposite, '-100vw');//this move it on the other side of the screen
+                    $modalContent.css(direction, '');//this remove the first set
                 });
-                $modalContent.css('right', '-100vw');
-                $modalContent.css('left', '');
-            });
+            })(direction, opposite);
         } else {
             loadContent();
         }
