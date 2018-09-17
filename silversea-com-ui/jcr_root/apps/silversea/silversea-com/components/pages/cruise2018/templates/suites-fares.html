@@ -8,7 +8,8 @@
             <sly data-sly-repeat="${cruise.prices}">
                 <div class="col-md-4 col-xs-12 col-sm-6 cruise-2018-suites-fares-col">
                     <div class="cruise-2018-suites-fares-container " id="cruise-2018-container${itemList.index}">
-                        <a class="open-lightbox-suite cruise-2018-link-open-modal" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-suite', item.suiteCategory, pageProperties.cruiseCode]}"></a>
+                        <a class="open-lightbox-suite cruise-2018-link-open-modal" data-target=".lightbox"
+                           href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-suite', item.suiteCategory, pageProperties.cruiseCode]}"></a>
                         <div class="cruise-2018-suites-fares-image">
                             <sly data-sly-test="${item.suite.thumbnail}"
                                  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
@@ -55,7 +56,8 @@
                     </div>
                 </div>
             </sly>
-            <div class="col-xs-12 cruise-2018-suites-fares-included hidden-xs">
+            <div class="col-xs-12 cruise-2018-suites-fares-included hidden-xs"
+                 data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size>0 || cruise.cruiseModel.cruiseFareAdditions.size>0}">
                 <div class="cruise-2018-suites-fares-included-title">${'included-cruise-fare' @ i18n}</div>
                 <ul class="cruise-2018-suites-fares-included-ul">
                     <li data-sly-repeat="${cruise.exclusiveOffersCruiseFareAdditions}"
