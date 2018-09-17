@@ -4,6 +4,7 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.google.common.base.Strings;
 import com.silversea.aem.components.beans.*;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.EoHelper;
@@ -66,8 +67,8 @@ public class Cruise2018Use extends EoHelper {
 
     private List<CruiseItinerary> itinerary;
 
-    private int numPorts;
-    private int numCountries;
+    private long numPorts;
+    private long numCountries;
 
     private List<SilverseaAsset> assetsGallery;
     private List<SilverseaAsset> shipAssetGallery;
@@ -139,9 +140,8 @@ public class Cruise2018Use extends EoHelper {
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
 
-        int[] numPortsCountries = retrieveNumberPortsAndCountries(cruiseModel);
-        numPorts = numPortsCountries[0];
-        numCountries = numPortsCountries[1];
+        numPorts = retrieveNumberOfPorts(cruiseModel);
+        numCountries = retrieveNumberOfCountries(cruiseModel);
 
         prices = retrievePrices(cruiseModel);
         lowestPrice = retrieveLowestPrice(prices);
@@ -198,25 +198,18 @@ public class Cruise2018Use extends EoHelper {
         return result;
     }
 
-    private int[] retrieveNumberPortsAndCountries(CruiseModel cruiseModel) {
-        int[] numCountriesAndPorts = new int[2];
-        if (cruiseModel != null && cruiseModel.getItineraries() != null) {
-            List<Integer> ports = new ArrayList<>();
-            List<String> countries = new ArrayList<>();
-            for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
-                if (!countries.contains(itineraryModel.getPort().getCountryIso3())) {
-                    countries.add(itineraryModel.getPort().getCountryIso3());
-                }
-                if (!ports.contains(itineraryModel.getItineraryId())) {
-                    ports.add(itineraryModel.getItineraryId());
-                }
-            }
-            numCountriesAndPorts[0] = !ports.isEmpty() ? ports.size() : null;
-            numCountriesAndPorts[1] = !countries.isEmpty() ? countries.size() : null;
-        }
-        return numCountriesAndPorts;
+    private long retrieveNumberOfPorts(CruiseModel cruiseModel) {
+        return cruiseModel.getItineraries().stream()
+                .map(ItineraryModel::getPort)
+                .filter(port -> port.getCountry() != null).distinct().count();
     }
 
+    private long retrieveNumberOfCountries(CruiseModel cruiseModel) {
+        return cruiseModel.getItineraries().stream()
+                .map(ItineraryModel::getPort)
+                .filter(port -> !Strings.isNullOrEmpty(port.getCountryIso3()))
+                .map(PortModel::getCountryIso3).distinct().count();
+    }
 
     private String retrieveHighlights() {
         return ofNullable(getCurrentPage()).map(Page::getProperties)
@@ -548,11 +541,11 @@ public class Cruise2018Use extends EoHelper {
         return bigThumbnailItineraryMap;
     }
 
-    public int getNumCountries() {
+    public long getNumCountries() {
         return numCountries;
     }
 
-    public int getNumPorts() {
+    public long getNumPorts() {
         return numPorts;
     }
 
