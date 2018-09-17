@@ -94,22 +94,24 @@ function applyWithoutTransitions(callback) {
 }
 
 $(function() {
-    window.applyNewStyle();
+    if($("html.bVersionLiveTemp").length > 0) {
+        window.applyNewStyle();
 
-    //Temp place for ProgressBar Width
-    setTimeout(function(){
-        console.log("haaa");
-        progressBarEditorialSlider();
-    }, 300);
-    wabIncluded = $(window).width();
-    $( window ).resize(function() {
-        if ($(window).width()==wabIncluded) return;
-        wabIncluded = $(window).width();
-        setTimeout(function(){
-            //initProgressBar();
+        //Temp place for ProgressBar Width
+        setTimeout(function () {
+            console.log("haaa");
             progressBarEditorialSlider();
-        }, 200);
-    });
+        }, 300);
+        wabIncluded = $(window).width();
+        $(window).resize(function () {
+            if ($(window).width() == wabIncluded) return;
+            wabIncluded = $(window).width();
+            setTimeout(function () {
+                //initProgressBar();
+                progressBarEditorialSlider();
+            }, 200);
+        });
+    }
 });
 
 function progressBarEditorialSlider(){
