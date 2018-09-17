@@ -1551,6 +1551,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="itinerary-and-excursions"
         sling:message="Itinerary and excursions"/>
+    <itinerary
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="itinerary"
+            sling:message="Itinerary"/>
     <specifications
         jcr:primaryType="sling:MessageEntry"
         sling:key="specifications"
