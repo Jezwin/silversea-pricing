@@ -94,7 +94,7 @@ function applyWithoutTransitions(callback) {
 }
 
 $(function() {
-    if($("html.ab-global-v2-activated").length > 0) {
+    if($("html.aToBTmp").length > 0) {
         window.applyNewStyle();
 
         //Temp place for ProgressBar Width
