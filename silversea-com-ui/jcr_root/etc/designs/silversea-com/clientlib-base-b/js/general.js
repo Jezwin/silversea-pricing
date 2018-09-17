@@ -92,3 +92,53 @@ function applyWithoutTransitions(callback) {
     callback();
     goBack();
 }
+
+$(function() {
+    window.applyNewStyle();
+
+    //Temp place for ProgressBar Width
+    setTimeout(function(){
+        console.log("haaa");
+        progressBarEditorialSlider();
+    }, 300);
+    wabIncluded = $(window).width();
+    $( window ).resize(function() {
+        if ($(window).width()==wabIncluded) return;
+        wabIncluded = $(window).width();
+        setTimeout(function(){
+            //initProgressBar();
+            progressBarEditorialSlider();
+        }, 200);
+    });
+});
+
+function progressBarEditorialSlider(){
+    $(".slider:not(.nd) .c-slider:not(.nd):not(.c-slider--full-width) .slick-dots").each(function(){
+        var widthSlider = $(this).width();
+        var $dots = $(this).find("li");
+        var liWidth = ((widthSlider / $dots.length));
+        $dots.width(liWidth + "px");
+    });
+
+
+    $(".c-single-dining-slider .c-slider:not(.nd):not(.c-slider--full-width) .slick-dots").each(function(){
+        var widthSlider = $(this).width();
+        var $dots = $(this).find("li");
+        var liWidth = ((widthSlider / $dots.length));
+        $dots.width(liWidth + "px");
+    });
+
+    $(".c-single-suite-slider .c-slider:not(.nd):not(.c-slider--full-width) .slick-dots").each(function(){
+        var widthSlider = $(this).width();
+        var $dots = $(this).find("li");
+        var liWidth = ((widthSlider / $dots.length));
+        $dots.width(liWidth + "px");
+    });
+
+    $(".port_v2__postcarousel.slick-slider .slick-dots").each(function(){
+        var widthSlider = $(this).width();
+        var $dots = $(this).find("li");
+        var liWidth = ((widthSlider / $dots.length));
+        $dots.width(liWidth + "px");
+    });
+}
