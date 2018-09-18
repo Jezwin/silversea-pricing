@@ -461,7 +461,7 @@ public class Cruise2018Use extends EoHelper {
             assetsListResult.addAll(0, AssetUtils.buildSilverseaAssetList(map, getResourceResolver(), null));
         }
 
-        return assetsListResult;
+        return assetsListResult.stream().distinct().collect(toList());
     }
 
     private List<SilverseaAsset> retrieveAssetsFromPort() {
