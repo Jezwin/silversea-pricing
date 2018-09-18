@@ -383,4 +383,28 @@ html.aToBTmp {
   .c-tab__body .port_v2 .ab-test-intro-silversea-to-hide {
     display: none !important;
   }
+
+
+
+  //Other lang fixes
+  &.es, &.fr, &.de, &.pt-BR {
+    .c-search-hero__form .btn {
+      font-size: 12px !important;
+      font-weight: normal !important;
+      padding: 14px 11px 11px 11px !important;
+      @media (min-width:768px) and (max-width:991px){
+        font-size: 11px !important;
+        letter-spacing: -0.1px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+      }
+    }
+
+    @media (max-width: 991px) and (min-width: 768px){
+      .heroBannerDestinationND .c-hero-banner-destination__title {
+        width:59% !important;
+      }
+    }
+
+  }
 }
