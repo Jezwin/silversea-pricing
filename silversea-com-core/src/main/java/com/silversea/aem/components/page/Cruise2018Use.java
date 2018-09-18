@@ -477,6 +477,9 @@ public class Cruise2018Use extends EoHelper {
                     String assetSelectionReference = portModel.getAssetSelectionReference();
                     if (StringUtils.isNotBlank(assetSelectionReference)) {
                         List<SilverseaAsset> portAssets = AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), portModel.getTitle());
+                        if(portAssets != null && !portAssets.isEmpty()){
+                            portsAssetsList.addAll(portAssets);
+                        }
                     }
                 }
             }
@@ -585,7 +588,7 @@ public class Cruise2018Use extends EoHelper {
     private enum Lightbox {
         ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), LAND_PROGRAM("lg-land"),
         ITINERARY_SHOREX_EXCURSION("lg-itShorex"), SHOREX_EXCURSION("lg-shorex"), HOTEL("lg-hotel"),
-        HIGHLIGHTS("highlights"),
+        HIGHLIGHTS("lg-highlights"),
 
         CRUISE_PAGE("");
 
