@@ -426,34 +426,42 @@ public class Cruise2018Use extends EoHelper {
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
         String assetSelectionReference;
-        if (pageManager != null) {
-            ValueMap vmProperties = currentPage.getProperties();
-            if (vmProperties != null) {
-                String shipReference = vmProperties.get("shipReference", String.class);
-                if (StringUtils.isNotEmpty(shipReference)) {
-                    Page shipPage = pageManager.getPage(shipReference);
-                    if (shipPage != null) {
-                        ship = shipPage.adaptTo(ShipModel.class);
-                    }
-                }
-                assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
-                List<SilverseaAsset> assetsListResult = new ArrayList<>();
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetsListResult.addAll(AssetUtils
-                            .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                    null));
-                }
-                List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort();
-                if (portsAssetsList != null && !portsAssetsList.isEmpty()) {
-                    assetsListResult.addAll(portsAssetsList);
-                }
-                if (ship != null) {
-                    assetsListResult.addAll(retrieveAssetsFromShip(ship));
-                }
-                return assetsListResult;
+        if (pageManager == null) {
+            return null;
+        }
+        ValueMap vmProperties = currentPage.getProperties();
+        if (vmProperties == null) {
+            return null;
+        }
+        String shipReference = vmProperties.get("shipReference", String.class);
+        if (StringUtils.isNotEmpty(shipReference)) {
+            Page shipPage = pageManager.getPage(shipReference);
+            if (shipPage != null) {
+                ship = shipPage.adaptTo(ShipModel.class);
             }
         }
-        return null;
+        assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
+        List<SilverseaAsset> assetsListResult = new ArrayList<>();
+        if (StringUtils.isNotBlank(assetSelectionReference)) {
+            assetsListResult.addAll(AssetUtils
+                    .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                            null));
+        }
+        List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort();
+        if (portsAssetsList != null && !portsAssetsList.isEmpty()) {
+            assetsListResult.addAll(portsAssetsList);
+        }
+        if (ship != null) {
+            assetsListResult.addAll(retrieveAssetsFromShip(ship));
+        }
+        String map = firstNonNull(vmProperties.get("bigItineraryMap", String.class),
+                vmProperties.get("bigThumbnailItineraryMap", String.class),
+                vmProperties.get("smallItineraryMap", String.class));
+        if (map != null) {
+            assetsListResult.addAll(0, AssetUtils.buildSilverseaAssetList(map, getResourceResolver(), null));
+        }
+
+        return assetsListResult;
     }
 
     private List<SilverseaAsset> retrieveAssetsFromPort() {
@@ -469,8 +477,10 @@ public class Cruise2018Use extends EoHelper {
                     PortModel portModel = itineraryModel.getPort();
                     String assetSelectionReference = portModel.getAssetSelectionReference();
                     if (StringUtils.isNotBlank(assetSelectionReference)) {
-                        List<SilverseaAsset> portAssets = AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), portModel.getTitle());
-                        if(portAssets != null && !portAssets.isEmpty()){
+                        List<SilverseaAsset> portAssets = AssetUtils
+                                .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                                        portModel.getTitle());
+                        if (portAssets != null && !portAssets.isEmpty()) {
                             portsAssetsList.addAll(portAssets);
                         }
                     }
