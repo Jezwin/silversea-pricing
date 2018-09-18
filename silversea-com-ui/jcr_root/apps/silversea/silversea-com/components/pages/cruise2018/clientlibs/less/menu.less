@@ -304,23 +304,12 @@
 }
 
 /*Style other lang*/
-.es {
+.es, .pt-BR {
   .menu-overview-fixed {
     @media (min-width: @screen-md-min) {
-      .menu-raq span {
-        font-size: 8px;
-        padding: 12px 0px 10px 0px;
-      }
-    }
-  }
-}
-
-.pt-BR {
-  .menu-overview-fixed {
-    @media (min-width: @screen-md-min) {
-      .menu-raq span {
-        font-size: 9px;
-        padding: 12px 0px 10px 0px;
+      .menu-raq a {
+        font-size: 10px !important;
+        padding: 12px 5px 10px 6px !important;
       }
     }
   }
@@ -329,8 +318,8 @@
 .de, .fr {
   .menu-overview-fixed {
     @media (min-width: @screen-md-min) {
-      .menu-raq span {
-        font-size: 11px;
+      .menu-raq a {
+        padding: 12px 6px 10px 7px;
       }
     }
   }
@@ -339,8 +328,8 @@
 .pt-BR, .es {
   .menu-overview-fixed {
     @media (min-width: @screen-md-min) {
-      .early-booking {
-        font-size: 9px;
+      div.early-booking {
+        font-size: 7.5px;
       }
     }
   }
