@@ -237,14 +237,36 @@ html.ab-global-v2-activated, html.aToBTmp {
 }
 
 html.aToBTmp {
-  body.abTestManual{
-    .manualAVersion {
-       display:none;
+  &:not(.aem-AuthorLayer-Edit) {
+    body.abTestManual {
+      .manualAVersion {
+        display: none !important;
+      }
+      .manualBVersion {
+        display: block !important;
+      }
     }
-    .manualBVersion {
-      display: block;
+
+    .destination .ab-test-global-v1, .ship .ab-test-global-v1, .destination .slider.parbase .c-slider, .ship .slider.parbase .c-slider {
+      display: none !important;
+    }
+
+    .destination .ab-test-global-v2, .ship .ab-test-global-v2 {
+      display: block !important;
     }
   }
+
+  @media screen and (min-width: 991px){
+    .ship .c-inlinegallery.c-slider, .destination .c-inlinegallery.c-slider {
+      max-width:1152px !important;
+    }
+  }
+
+  @media (min-width:991px){
+    .destination .c-inlinegallery.c-slider.arrowProgressBarDesktopFullWidth .slick-dots, .ship .c-inlinegallery.c-slider.arrowProgressBarDesktopFullWidth .slick-dots {
+      width:930px;
+    }
+}
 
   @media(max-width: 990px) and (min-width: 768px) {
     .slider .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow {
@@ -252,6 +274,49 @@ html.aToBTmp {
     }
   }
 
+  @media screen and (max-width: 2000px) and (min-width: 992px){
+    .destination .c-inlinegallery.c-slider .slick-next, .ship .c-inlinegallery.c-slider .slick-next {
+      right: -40px;
+      left: auto;
+      margin:auto;
+    }
+    .destination .c-inlinegallery.c-slider .slick-prev, .ship .c-inlinegallery.c-slider .slick-prev {
+      left: -40px;
+      right: auto;
+      margin:auto;
+    }
+  }
+
+  @media (max-width:767px){
+    .c-fyc-filter button.btn.btn-dark.effect, .c-fyc-filter button.btn.btn-block.dropdown-toggle {
+      border-radius:0px;
+    }
+    .containerDownArrow {
+      display:none;
+    }
+    .c-fyc-filter .chosen-container.chosen-container-single a.chosen-single {
+      border-radius:0px;
+    }
+    .destination .c-inlinegallery.c-slider .slick-slide>div, .ship .c-inlinegallery.c-slider .slick-slide>div {
+      margin:0;
+    }
+    .destination .c-inlinegallery.c-slider, .ship .c-inlinegallery.c-slider  {
+      margin-bottom:15px;
+      width:100vw;
+    }
+    .destination .c-hero-banner-destination-image-container, .ship .c-hero-banner-destination-image-container {
+      display:none;
+    }
+    .destination .c-fyc-filter, .ship .c-fyc-filter  {
+      margin-top: 0px !important;
+    }
+    .destination .c-inlinegallery, .ship .c-inlinegallery {
+      display:none !important;
+    }
+    .destination .forceVisibleIG, .ship .forceVisibleIG {
+      display:block !important;
+    }
+  }
 
   @media (max-width: 767px) {
 
