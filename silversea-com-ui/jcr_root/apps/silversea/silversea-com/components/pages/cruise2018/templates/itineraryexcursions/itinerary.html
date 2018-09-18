@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ cruise }">
+<template data-sly-template.default="${ @ cruise, externalizerHelper }">
     <div class="cruise-2018-itineraries-container" id="cruise2018itinerary">
         <div class="cruise-2018-itineraries-header">
             <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
@@ -28,10 +28,20 @@
                 </div>
             </div>*/-->
         </div>
-        <div class="cruise-2018-itineraries-pdf hidden-xs" data-sly-test="${cruise.cruiseModel.tourBook}">
-            <a href="${cruise.cruiseModel.tourBook}" target="_blank"><span>${'view-all-excursions' @ i18n}</span>
-                <i class="fa fa-angle-right fa-lg"></i>
-            </a>
+        <div class="cruise-2018-itineraries-pdf hidden-xs">
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
+                <a href="${cruise.cruiseModel.tourBook}" target="_blank" data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
+                    <i class="fa fa-angle-right fa-lg"></i>
+                </a>
+            </sly>
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+                <div data-lightbox-highlights="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-highlights'}">
+                    <a class="open-lightbox-highlights" data-target=".lightbox" href="#">
+                        <span>${'voyage-highlights' @ i18n}</span>
+                        <i class="fa fa-angle-right fa-lg"></i>
+                    </a>
+                </div>
+            </sly>
         </div>
         <div class="cruise-2018-itineraries-day-label hidden-xs">${ 'day' @ i18n }</div>
         <sly data-sly-test.list="${cruise.itinerary}"/>

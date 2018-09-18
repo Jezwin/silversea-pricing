@@ -450,11 +450,40 @@ public class Cruise2018Use extends EoHelper {
                             .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
                                     null));
                 }
+                List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort();
+                if (portsAssetsList != null && !portsAssetsList.isEmpty()) {
+                    assetsListResult.addAll(portsAssetsList);
+                }
                 if (ship != null) {
                     assetsListResult.addAll(retrieveAssetsFromShip(ship));
                 }
                 return assetsListResult;
             }
+        }
+        return null;
+    }
+
+    private List<SilverseaAsset> retrieveAssetsFromPort() {
+        Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
+        if (itinerariesResource.hasChildren()) {
+            Iterator<Resource> children = itinerariesResource.getChildren().iterator();
+            ItineraryModel itineraryModel = null;
+            List<SilverseaAsset> portsAssetsList = new ArrayList<>();
+            while (children.hasNext()) {
+                Resource it = children.next();
+                itineraryModel = it.adaptTo(ItineraryModel.class);
+                if (itineraryModel != null && itineraryModel.getPort() != null) {
+                    PortModel portModel = itineraryModel.getPort();
+                    String assetSelectionReference = portModel.getAssetSelectionReference();
+                    if (StringUtils.isNotBlank(assetSelectionReference)) {
+                        List<SilverseaAsset> portAssets = AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), portModel.getTitle());
+                        if(portAssets != null && !portAssets.isEmpty()){
+                            portsAssetsList.addAll(portAssets);
+                        }
+                    }
+                }
+            }
+            return portsAssetsList;
         }
         return null;
     }
@@ -559,7 +588,7 @@ public class Cruise2018Use extends EoHelper {
     private enum Lightbox {
         ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), LAND_PROGRAM("lg-land"),
         ITINERARY_SHOREX_EXCURSION("lg-itShorex"), SHOREX_EXCURSION("lg-shorex"), HOTEL("lg-hotel"),
-        HIGHLIGHTS("highlights"),
+        HIGHLIGHTS("lg-highlights"),
 
         CRUISE_PAGE("");
 
