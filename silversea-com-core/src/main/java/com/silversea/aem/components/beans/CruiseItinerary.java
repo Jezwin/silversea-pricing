@@ -84,7 +84,7 @@ public class CruiseItinerary {
     }
 
     private List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark, ItineraryModel itinerary) {
-        if (false && itinerary.getHasDedicatedShorex()) {
+        if (itinerary.getHasDedicatedShorex()) {
             return ofNullable(itinerary.getExcursions())
                     .map(Collection::stream).orElseGet(Stream::empty)
                     .map(ItineraryExcursionModel::getExcursion)
