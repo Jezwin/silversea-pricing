@@ -351,7 +351,7 @@
     <destination
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Destination"/>
+        sling:message="Reiseziel"/>
     <destination-discover-more
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

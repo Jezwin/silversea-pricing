@@ -16,8 +16,8 @@
                 </select>
             </div>
             <div class="col-sm-3">
-                <select class="chosen form-control" data-placeholder="${'departure-dates' @ i18n}" name="date">
-                    <option value="all">${'departure-dates' @i18n}</option>
+                <select class="chosen form-control" data-placeholder="${'departure-date' @ i18n}" name="date">
+                    <option value="all">${'departure-date' @i18n}</option>
                     <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
                         <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue.toString}"/>
                         ${month.value} ${item.year}
@@ -26,8 +26,8 @@
             </div>
             <div class="col-sm-3 ships"
                  data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
-                <select class="chosen form-control" data-placeholder="${'ships' @ i18n}" name="ship">
-                    <option value="all">${'ships' @ i18n}</option>
+                <select class="chosen form-control" data-placeholder="${'ship' @ i18n}" name="ship">
+                    <option value="all">${'ship' @ i18n}</option>
                     <option data-sly-repeat="${fyc.ships}" value="${item.name}">${item.title}</option>
                 </select>
             </div>
