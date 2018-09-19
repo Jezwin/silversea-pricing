@@ -55,6 +55,8 @@ public class Cruise2018Use extends EoHelper {
     private boolean isFeetSquare;
     private int totalNumberOfOffers;
 
+    private boolean showCruiseBeforeName;
+
     private List<SuitePrice> prices;
 
     private PriceModel lowestPrice;
@@ -136,6 +138,7 @@ public class Cruise2018Use extends EoHelper {
 
         itinerary = retrieveItinerary(cruiseModel);
 
+        showCruiseBeforeName = retrieveShowCruiseBeforeName(locale);
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
@@ -163,6 +166,16 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+    }
+
+    private boolean retrieveShowCruiseBeforeName(Locale locale) {
+        switch (locale.getLanguage().toLowerCase()) {
+            case "en":
+            case "de":
+                return false;
+            default :
+                return true;
+        }
     }
 
     public List<CruiseItinerary> getItinerary() {
@@ -599,8 +612,8 @@ public class Cruise2018Use extends EoHelper {
             return selector;
         }
 
-    }
 
+    }
     public List<ExclusiveOfferItem> getExclusiveOffers() {
         return exclusiveOffers;
     }
@@ -713,5 +726,9 @@ public class Cruise2018Use extends EoHelper {
         return shorexExcursionLightbox;
     }
 
+
+    public boolean isShowCruiseBeforeName() {
+        return showCruiseBeforeName;
+    }
 }
 
