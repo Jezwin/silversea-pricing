@@ -1,4 +1,4 @@
-html.ab-global-v2-activated{
+html.ab-global-v2-activated, html.aToBTmp {
   @import "variables.less";
   @import "fontoverride/com/general.less";
   @import "fontoverride/com/components/c-chosen.less";
@@ -233,4 +233,218 @@ html.ab-global-v2-activated{
   @import "new-design/components.less";
   @import "new-design/suitecards.less";
 
+
+}
+
+html.aToBTmp {
+  &:not(.aem-AuthorLayer-Edit) {
+    body.abTestManual {
+      .manualAVersion {
+        display: none !important;
+      }
+      .manualBVersion {
+        display: block !important;
+      }
+    }
+
+    .destination .ab-test-global-v1, .ship .ab-test-global-v1, .destination .slider.parbase .c-slider, .ship .slider.parbase .c-slider {
+      display: none !important;
+    }
+
+    .destination .ab-test-global-v2, .ship .ab-test-global-v2 {
+      display: block !important;
+    }
+  }
+
+  @media screen and (min-width: 991px){
+    .ship .c-inlinegallery.c-slider, .destination .c-inlinegallery.c-slider {
+      max-width:1152px !important;
+    }
+  }
+
+  @media (min-width:991px){
+    .destination .c-inlinegallery.c-slider.arrowProgressBarDesktopFullWidth .slick-dots, .ship .c-inlinegallery.c-slider.arrowProgressBarDesktopFullWidth .slick-dots {
+      width:930px;
+    }
+}
+
+  @media(max-width: 990px) and (min-width: 768px) {
+    .slider .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 2000px) and (min-width: 992px){
+    .destination .c-inlinegallery.c-slider .slick-next, .ship .c-inlinegallery.c-slider .slick-next {
+      right: -40px;
+      left: auto;
+      margin:auto;
+    }
+    .destination .c-inlinegallery.c-slider .slick-prev, .ship .c-inlinegallery.c-slider .slick-prev {
+      left: -40px;
+      right: auto;
+      margin:auto;
+    }
+  }
+
+  @media (max-width:767px){
+    .c-fyc-filter button.btn.btn-dark.effect, .c-fyc-filter button.btn.btn-block.dropdown-toggle {
+      border-radius:0px;
+    }
+    .containerDownArrow {
+      display:none;
+    }
+    .c-fyc-filter .chosen-container.chosen-container-single a.chosen-single {
+      border-radius:0px;
+    }
+    .destination .c-inlinegallery.c-slider .slick-slide>div, .ship .c-inlinegallery.c-slider .slick-slide>div {
+      margin:0;
+    }
+    .destination .c-inlinegallery.c-slider, .ship .c-inlinegallery.c-slider  {
+      margin-bottom:15px;
+      width:100vw;
+    }
+    .destination .c-hero-banner-destination-image-container, .ship .c-hero-banner-destination-image-container {
+      display:none;
+    }
+    .destination .c-fyc-filter, .ship .c-fyc-filter  {
+      margin-top: 0px !important;
+    }
+    .destination .c-inlinegallery, .ship .c-inlinegallery {
+      display:none !important;
+    }
+    .destination .forceVisibleIG, .ship .forceVisibleIG {
+      display:block !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+
+    .slider .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-prev:after {
+      width: 25px;
+      height: 25px;
+      border-left: 0 solid transparent;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+      border-top: 0 solid transparent;
+      opacity: .6;
+      content: " ";
+      right: 0;
+      transform: rotateZ(135deg);
+      border-color: #171D47 !important;
+    }
+
+    .slider.parbase.aem-GridColumn.aem-GridColumn--default--12 .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-next:after {
+      width: 25px;
+      height: 25px;
+      border-left: 0 solid transparent;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+      border-top: 0 solid transparent;
+      opacity: .6;
+      content: " ";
+      left: 0;
+      transform: rotateZ(-45deg);
+      border-color: #171D47 !important;
+    }
+    .slider .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-prev {
+      left: -100px !important;
+    }
+    .slider.parbase.aem-GridColumn.aem-GridColumn--default--12 .c-slider.slick-initialized.slick-slider.slick-dotted .slick-arrow.slick-next {
+      right: -95px !important;
+    }
+  }
+
+
+  .c-tab__body .port_v2 .port_v2__section_header_separator {
+    display: none !important;
+  }
+  .c-tab__body .port_v2 .port_v2__desc .btn {
+    display: none !important;
+  }
+  .c-tab__body .port_v2 #port_v2__stats {
+    display: none !important;
+  }
+  .c-tab__body .port_v2 .port_v2__section_title:before {
+    background: none !important;
+  }
+  .c-tab__body .port_v2 .btn.btn-dark {
+    color: #171D47 !important;
+    background-color: white !important;
+    border: 1px solid rgba(23, 29, 71, 0.2) !important;
+  }
+  .c-tab__body .port_v2 .btn.btn-dark:hover {
+    border: 1px solid #171d47 !important;
+    color: #171D47 !important;
+  }
+  .c-tab__body .port_v2 .ab-test-intro-silversea-to-show {
+    display: block !important;
+  }
+  .c-tab__body .port_v2 .ab-test-intro-silversea-to-hide {
+    display: none !important;
+  }
+
+
+  @media (max-width:991px) {
+    .port_v2__postcarousel .slick-dots {
+      width: 95% !important;
+    }
+  }
+
+  @media (max-width:991px) and (min-width:768px) {
+    .c-fyc-v2__result__content__price .price-suffixe {
+      font-size:9px;
+      letter-spacing: -0.2px;
+    }
+  }
+
+
+  //Other lang fixes
+  &.es, &.fr, &.de, &.pt-BR {
+    .c-search-hero__form .btn {
+      font-size: 12px !important;
+      font-weight: normal !important;
+      padding: 14px 11px 11px 11px !important;
+      @media (min-width:768px) and (max-width:991px){
+        font-size: 11px !important;
+        letter-spacing: -0.1px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+      }
+    }
+
+    @media (max-width: 991px) and (min-width: 768px){
+      .c-fyc-v2__result .c-fyc-v2__result__content .c-fyc-v2__result__content__button .btn {
+        font-size: 12px !important;
+        letter-spacing: 0.5px !important;
+        padding-left: 13px !important;
+        padding-right: 13px !important;
+      }
+
+      .heroBannerDestinationND .c-hero-banner-destination__title {
+        width:59% !important;
+      }
+
+      .c-footer-other-link .other-link-accordion-title {
+        letter-spacing: 1px !important;
+      }
+    }
+
+    .row.c-suitelist__row-card .c-suitelist__content .c-suitelist__button-card {
+          max-width: 210px !important;
+        }
+
+    .row.c-suitelist__row-card .c-suitelist__content .c-suitelist__button-card a.btn, .cruise__header .cruise__header__desc .cruise__header__cta .btn {
+      max-width: 210px !important;
+      letter-spacing: 1px;
+      padding-left: 8px!important;
+      padding-right: 8px !important;
+      font-size: 12px !important;
+    }
+
+    .c-footer-request-brochure .request-brochure-btn, .c-footer-call-and-raq .request-quote-btn {
+      min-width:250px;
+    }
+
+  }
 }
