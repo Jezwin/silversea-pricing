@@ -681,7 +681,7 @@
     <last
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="dernier"/>
+        sling:message="derniere"/>
     <last-name
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -753,7 +753,7 @@
     <next
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Page suivante"/>
+        sling:message="Suivante"/>
     <next-voyage
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

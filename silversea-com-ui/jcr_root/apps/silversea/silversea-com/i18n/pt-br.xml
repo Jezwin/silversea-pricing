@@ -749,7 +749,7 @@
     <next
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Página seguinte"/>
+        sling:message="Seguinte"/>
     <next-voyage
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

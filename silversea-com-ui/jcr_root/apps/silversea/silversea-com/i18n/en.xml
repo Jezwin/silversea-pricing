@@ -794,7 +794,7 @@
     <next
         jcr:primaryType="sling:MessageEntry"
         sling:key="next"
-        sling:message="Next page"/>
+        sling:message="Next"/>
     <next-voyage
         jcr:primaryType="sling:MessageEntry"
         sling:key="next-voyage"
