@@ -9,7 +9,7 @@
          data-sly-call="${menu.navigation @ cruise=cruise}"/>
     <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise2018/templates/offers.html"
          data-sly-call="${offers.default @ offers = cruise.exclusiveOffers, offersNumber = cruise.totalNumberOfOffers, isVenetian=cruise.isVenetianSociety}"/>
-    <hr data-sly-test="${offers.size!=0 || isVenetian}"/>
+    <hr data-sly-test="${cruise.totalNumberOfOffers != 0}"/>
     <sly data-sly-use.itineraryexcursions="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/itineraryexcursions.html"
          data-sly-call="${itineraryexcursions.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
     <hr/>
