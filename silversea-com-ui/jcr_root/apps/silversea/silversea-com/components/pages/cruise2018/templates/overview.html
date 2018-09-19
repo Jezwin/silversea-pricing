@@ -1,6 +1,6 @@
 <template data-sly-template.default="${ @ cruise, externalizerHelper }">
     <div class="cruise-2018-overview row container">
-        <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12"
+        <div class="cruise-2018-overview-big-pic col-xs-6"
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
              data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
             <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"/>
@@ -25,7 +25,7 @@
                 <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>
             </a>
         </div>
-        <div class="cruise-2018-overview-description col-md-6 col-xs-12">
+        <div class="cruise-2018-overview-description  col-xs-6">
             <div class="cruise-2018-overview-description-cruise">
                 ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
             </div>

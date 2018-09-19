@@ -71,6 +71,7 @@ public class Cruise2018Use extends EoHelper {
     private long numCountries;
 
     private List<SilverseaAsset> assetsGallery;
+    private String labelAssetGallery;
     private List<SilverseaAsset> shipAssetGallery;
     private String bigItineraryMap;
     private String bigThumbnailItineraryMap;
@@ -450,6 +451,7 @@ public class Cruise2018Use extends EoHelper {
                 if (ship != null) {
                     assetsListResult.addAll(retrieveAssetsFromShip(ship));
                 }
+                this.labelAssetGallery = vmProperties.get("apiTitle", String.class);
                 return assetsListResult;
             }
         }
@@ -576,6 +578,10 @@ public class Cruise2018Use extends EoHelper {
 
     public long getNumPorts() {
         return numPorts;
+    }
+
+    public String getLabelAssetGallery() {
+        return labelAssetGallery;
     }
 
     private enum Lightbox {

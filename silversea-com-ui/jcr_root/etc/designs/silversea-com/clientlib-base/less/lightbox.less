@@ -1,13 +1,14 @@
 .lightbox {
+
   .lightbox-close {
     position: fixed;
-    right: 0;
-    background-color: #FFFFFF;
+    background-color: #0000005e;
     height: 59px;
-    width: 130px;
+    width: 768px;
     cursor: pointer;
     z-index: 2001;
-    top: 0;
+    color: white !important;
+    /* top: 60px; */
 
     &:hover {
       opacity: 0.9;
@@ -15,17 +16,19 @@
         opacity: 1;
       }
     }
-
+    .lightbox-close-div {
+      pointer-events: all;
+    }
     .icon-close {
       display: inline;
       position: absolute;
       top: 27%;
-      left: 55%;
-      opacity: 0.9;
+      left: 96%;
+      opacity: 1;
     }
     .text-close {
       display: inline;
-      color: #333333;
+      color: white;
       font-family: @f-open_sans;
       font-size: 11px;
       letter-spacing: 0.85px;
@@ -33,8 +36,8 @@
       text-transform: uppercase;
       position: absolute;
       top: 34%;
-      left: 25%;
-      opacity: 0.9;
+      left: 90%;
+      opacity: 1;
     }
   }
   .modal-content {
@@ -137,7 +140,23 @@
 
     .lightbox-width-1200 {
       max-width: 1200px !important;
+
+      .lightbox-close {
+        position: fixed;
+        background-color: #00000030;
+        height: 59px;
+        width: 100%;
+        cursor: pointer;
+        z-index: 2001;
+        left: 50%;
+        color: white !important;
+        max-width: 996px;
+        transform: translateX(-50%);
+      }
     }
+  }
+  .lg-content {
+    padding-top: 15px;
   }
 }
 
@@ -145,6 +164,9 @@
   .modal.lightbox {
     .modal-dialog {
       padding-top: 0;
+    }
+    .lg-content {
+      padding-top: 15px;
     }
   }
 }
@@ -162,23 +184,23 @@
   .modal.lightbox {
     padding-left: 0;
     .lightbox-close {
-      position: absolute;
-      right: 0;
-      height: 59px;
-      width: 130px;
-      cursor: pointer;
       z-index: 2001;
-      color: @white;
-      background-color: @transparent;
+      height: 49px;
+      width: 100vw;
 
+      .text-close {
+        right: 45px !important;
+        left: auto !important;
+        opacity: 1;
+        top: 18px;
+      }
       .icon-close {
-        top: 15%;
-        left: 70%;
-        opacity: 1.0;
-        text-shadow: 0px 0px 1px black;
+        left: auto !important;
+        right: 10px !important;
+        opacity: 1;
       }
 
-      i {
+        i {
         font-size: 30px;
       }
     }
@@ -224,7 +246,7 @@
 
 @media (min-width: @screen-md-min) {
   .modal.lightbox .modal-content {
-    top: 60px;
+    top: 0;
   }
 }
 
