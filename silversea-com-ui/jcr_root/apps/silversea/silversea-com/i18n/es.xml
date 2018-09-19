@@ -1307,7 +1307,7 @@
     <view-more-details
     	jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-    	sling:message="VVer más detalles" />
+    	sling:message="Ver más detalles" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
