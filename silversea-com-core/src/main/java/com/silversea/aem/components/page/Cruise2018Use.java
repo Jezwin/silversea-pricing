@@ -55,6 +55,8 @@ public class Cruise2018Use extends EoHelper {
     private boolean isFeetSquare;
     private int totalNumberOfOffers;
 
+    private boolean showCruiseBeforeName;
+
     private List<SuitePrice> prices;
 
     private PriceModel lowestPrice;
@@ -137,6 +139,7 @@ public class Cruise2018Use extends EoHelper {
 
         itinerary = retrieveItinerary(cruiseModel);
 
+        showCruiseBeforeName = retrieveShowCruiseBeforeName(locale);
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
@@ -164,6 +167,16 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+    }
+
+    private boolean retrieveShowCruiseBeforeName(Locale locale) {
+        switch (locale.getLanguage().toLowerCase()) {
+            case "en":
+            case "de":
+                return false;
+            default:
+                return true;
+        }
     }
 
     public List<CruiseItinerary> getItinerary() {
@@ -243,7 +256,7 @@ public class Cruise2018Use extends EoHelper {
 
             ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
             if (itineraryModel != null) {
-                List<ExcursionModel> shorexExcursions = itineraryModel.getPort().getExcursions();
+                List<ExcursionModel> shorexExcursions = CruiseItinerary.retrieveExcursions(itineraryModel);
                 for (ExcursionModel shorex : shorexExcursions) {
                     if (shorex.getShorexId().equals(shorexID)) {
                         return shorex;
@@ -258,7 +271,6 @@ public class Cruise2018Use extends EoHelper {
         if (selectors != null && selectors.length > 4) {
             Long itineraryID = Long.valueOf(selectors[3]);
             Long shorexID = Long.valueOf(selectors[4]);
-
             ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
             if (itineraryModel != null) {
                 List<ItineraryExcursionModel> itShorexExcursions = itineraryModel.getExcursions();
@@ -292,11 +304,8 @@ public class Cruise2018Use extends EoHelper {
     private ItineraryModel retrieveItineraryModel(Long id) {
         if (id != null) {
             Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
-            if (itinerariesResource.hasChildren()) {
-                Iterator<Resource> children = itinerariesResource.getChildren().iterator();
-                ItineraryModel itineraryModel = null;
-                while (children.hasNext()) {
-                    Resource it = children.next();
+            if (itinerariesResource != null && itinerariesResource.hasChildren()) {
+                for (Resource it : itinerariesResource.getChildren()) {
                     ValueMap itMap = it.getValueMap();
                     Long itineraryID = itMap.get("itineraryId", Long.class);
                     if (itineraryID != null && itineraryID.equals(id)) {
@@ -609,6 +618,7 @@ public class Cruise2018Use extends EoHelper {
             return selector;
         }
 
+
     }
 
     public List<ExclusiveOfferItem> getExclusiveOffers() {
@@ -723,5 +733,9 @@ public class Cruise2018Use extends EoHelper {
         return shorexExcursionLightbox;
     }
 
+
+    public boolean isShowCruiseBeforeName() {
+        return showCruiseBeforeName;
+    }
 }
 
