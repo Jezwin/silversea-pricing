@@ -515,6 +515,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-code"
         sling:message="Excursion Code"/>
+    <excursion
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="excursion"
+            sling:message="Excursion"/>
     <excursion-s
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"
