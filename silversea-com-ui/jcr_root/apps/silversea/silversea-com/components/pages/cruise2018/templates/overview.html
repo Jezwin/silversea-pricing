@@ -1,6 +1,6 @@
 <template data-sly-template.default="${ @ cruise, externalizerHelper }">
     <div class="cruise-2018-overview row container">
-        <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12"
+        <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12 hidden-xs"
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
              data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
             <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"/>
@@ -16,14 +16,24 @@
                     <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" src="${assetHelperDesktop.imageUrl @ context='unsafe'}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit" alt="${assetHelperDesktop.metadataResource.valueMap['dc:title']  || currentPage.title}" />
                 </picture>
             </div>
-           <!--/* <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
-                 style="background-image:url('${itineraryMap @ context='unsafe'}')">
-                <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
-            </a>*/-->
             <a href="#"
                class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
                 <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>
             </a>
+        </div>
+        <div class="ow-slider ow-slider--main main-slider visible-xs">
+            <div data-sly-repeat.asset="${cruise.assetsGallery}" data-image="${asset.path}">
+                <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}"
+                     id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
+                     data-image-virtual-tour="${asset.path}"
+                     data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                    <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                    <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                </div>
+                <div data-sly-test="${asset.type == 'virtual-tour'}" id="ow-virtual-tour-${assetList.index}-container"></div>
+            </div>
         </div>
         <div class="cruise-2018-overview-description col-md-6 col-xs-12">
             <div class="cruise-2018-overview-description-cruise">
@@ -84,11 +94,6 @@
                 <div class="cruise-2018-overview-quote-suites-fares">
                     <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote coolanchorminussmall" href="#cruise2018suites">
                         <span>${'suites-and-fares' @i18n}</span>
-                    </a>
-                </div>
-                <div class="cruise-2018-overview-quote-photo-video visible-xs" data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}">
-                    <a class="open-lightbox-gallery-assets cruise-2018-overview-quote-btn" href="#" data-target=".lightbox">
-                        <span>${'photos-and-videos' @i18n}</span>
                     </a>
                 </div>
             </div>

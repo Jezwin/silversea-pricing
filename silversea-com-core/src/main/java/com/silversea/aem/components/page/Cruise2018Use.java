@@ -127,6 +127,7 @@ public class Cruise2018Use extends EoHelper {
                 break;
         }
 
+        assetsGallery = retrieveAssetsGallery();
         cruiseModel = retrieveCruiseModel();
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
@@ -448,9 +449,7 @@ public class Cruise2018Use extends EoHelper {
                             null));
         }
         List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort();
-        if (portsAssetsList != null && !portsAssetsList.isEmpty()) {
-            assetsListResult.addAll(portsAssetsList);
-        }
+        assetsListResult.addAll(portsAssetsList);
         if (ship != null) {
             assetsListResult.addAll(retrieveAssetsFromShip(ship));
         }
@@ -466,10 +465,10 @@ public class Cruise2018Use extends EoHelper {
 
     private List<SilverseaAsset> retrieveAssetsFromPort() {
         Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
-        if (itinerariesResource.hasChildren()) {
+        List<SilverseaAsset> portsAssetsList = new ArrayList<>();
+        if (itinerariesResource != null && itinerariesResource.hasChildren()) {
             Iterator<Resource> children = itinerariesResource.getChildren().iterator();
-            ItineraryModel itineraryModel = null;
-            List<SilverseaAsset> portsAssetsList = new ArrayList<>();
+            ItineraryModel itineraryModel;
             while (children.hasNext()) {
                 Resource it = children.next();
                 itineraryModel = it.adaptTo(ItineraryModel.class);
@@ -486,9 +485,8 @@ public class Cruise2018Use extends EoHelper {
                     }
                 }
             }
-            return portsAssetsList;
         }
-        return null;
+        return portsAssetsList;
     }
 
     private List<SilverseaAsset> retrieveAssetsFromShip(ShipModel shipModel) {
