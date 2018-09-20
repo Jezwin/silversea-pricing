@@ -103,27 +103,25 @@
                             </div>
                             <div class="cruise-2018-itineraries-itinerary-row-date-time">
                                 <sly data-sly-test="${arriveTime && !departTime}">${'arrive' @i18n}</sly>
-                                <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=arriveTime}" > ${arriveTimeFormat.value}</sly>
+                                <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=arriveTime}"> ${arriveTimeFormat.value}</sly>
                                 <sly data-sly-test="${arriveTime && (departTime || overnight)}">-</sly>
                                 <sly data-sly-test="${!arriveTime && departTime}">${'departure' @i18n}</sly>
-                                <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}" > ${arriveTimeFormat.value}</sly>
+                                <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}"> ${arriveTimeFormat.value}</sly>
                                 <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
                             </div>
                         </div>
                         <div class="cruise-2018-itineraries-itinerary-row-date-lightbox">
-                            <i class="btn-more fa fa-angle-down"></i>
+                            <i class="material-icons"> zoom_out_map </i>
                         </div>
                         <div
                                 class="cruise-2018-itineraries-itinerary-row-date-arrow" data-ssc-accordion="show">
-                            <i
-                                    class="btn-more fa fa-angle-down"></i>
-                            <i style="display:none;"
-                               class="btn-more fa fa-angle-up"></i>
+                            <i class="btn-more fa fa-angle-down"></i>
+                            <i style="display:none;" class="btn-more fa fa-angle-up"></i>
                         </div>
                     </div>
 
 
-                    <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper"
+                    <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper ${itineraryList.last ? '' : 'bordered'}"
                          style="display:none;">
                         <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${excursionDescription @context='html'} </div>
                         <div data-sly-test="${hasExcursions}"

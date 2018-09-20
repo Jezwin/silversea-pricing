@@ -77,6 +77,33 @@
     margin-right: auto;
     max-width: 932px;
     width: 100%;
+
+    .row-menu-overview:before, .row-menu-navigation:before {
+      box-shadow: rgba(0, 0, 0, 0.8) 0 15px 17px -13px;
+    }
+
+    .row-menu-overview:after, .row-menu-navigation:after {
+      box-shadow: rgba(0, 0, 0, 0.8) 0 15px 17px -13px;
+
+    }
+    .cruise-2018-menu {
+      box-shadow: rgba(0, 0, 0, 0.8) 0px -10px 15px 12px;
+
+    }
+    .cruise-2018-menu-tab.active {
+      background-color: white;
+      & span:after {
+        position: absolute;
+        bottom: 0;
+        height: 3px;
+        width: 100%;
+        background-color: @red;
+        content: " ";
+        display: inline-block;
+        left: 0;
+
+      }
+    }
   }
 
   .cruise-2018-menu {
@@ -101,17 +128,6 @@
     position: relative;
     width: 25%;
 
-    &.active span:after {
-      position: absolute;
-      bottom: 0;
-      height: 1px;
-      width: 100%;
-      background-color: @color-second;
-      content: " ";
-      display: inline-block;
-      left: 0;
-
-    }
   }
 
   @media screen and (max-width: @screen-sm) {

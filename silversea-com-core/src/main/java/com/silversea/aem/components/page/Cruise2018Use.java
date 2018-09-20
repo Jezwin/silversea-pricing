@@ -130,6 +130,7 @@ public class Cruise2018Use extends EoHelper {
                 break;
         }
 
+        assetsGallery = retrieveAssetsGallery();
         cruiseModel = retrieveCruiseModel();
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
@@ -464,15 +465,34 @@ public class Cruise2018Use extends EoHelper {
                 return assetsListResult;
             }
         }
-        return null;
+        assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
+        List<SilverseaAsset> assetsListResult = new ArrayList<>();
+        if (StringUtils.isNotBlank(assetSelectionReference)) {
+            assetsListResult.addAll(AssetUtils
+                    .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                            null));
+        }
+        List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort();
+        assetsListResult.addAll(portsAssetsList);
+        if (ship != null) {
+            assetsListResult.addAll(retrieveAssetsFromShip(ship));
+        }
+        String map = firstNonNull(vmProperties.get("bigItineraryMap", String.class),
+                vmProperties.get("bigThumbnailItineraryMap", String.class),
+                vmProperties.get("smallItineraryMap", String.class));
+        if (map != null) {
+            assetsListResult.addAll(0, AssetUtils.buildSilverseaAssetList(map, getResourceResolver(), null));
+        }
+
+        return assetsListResult.stream().distinct().collect(toList());
     }
 
     private List<SilverseaAsset> retrieveAssetsFromPort() {
         Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
-        if (itinerariesResource.hasChildren()) {
+        List<SilverseaAsset> portsAssetsList = new ArrayList<>();
+        if (itinerariesResource != null && itinerariesResource.hasChildren()) {
             Iterator<Resource> children = itinerariesResource.getChildren().iterator();
-            ItineraryModel itineraryModel = null;
-            List<SilverseaAsset> portsAssetsList = new ArrayList<>();
+            ItineraryModel itineraryModel;
             while (children.hasNext()) {
                 Resource it = children.next();
                 itineraryModel = it.adaptTo(ItineraryModel.class);
@@ -487,9 +507,8 @@ public class Cruise2018Use extends EoHelper {
                     }
                 }
             }
-            return portsAssetsList;
         }
-        return null;
+        return portsAssetsList;
     }
 
     private List<SilverseaAsset> retrieveAssetsFromShip(ShipModel shipModel) {

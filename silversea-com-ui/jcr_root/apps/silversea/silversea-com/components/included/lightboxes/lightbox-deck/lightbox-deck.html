@@ -15,8 +15,8 @@
                              data-sly-repeat.item="${model.ship.deckInfoList}">
                             <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageTopPath}"/>
                             <sly data-sly-use.assetHelperSide="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageSidePath}"/>
-                            <span data-deck-number="${item.level}" data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"
-                                  data-image-src-side="${assetHelperSide.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain">
+                            <span data-deck-number="${item.level}" data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain"
+                                  data-image-src-side="${assetHelperSide.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain">
                                 ${'deck' @ i18n} ${item.level}
                             </span>
                         </div>
