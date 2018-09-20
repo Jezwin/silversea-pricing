@@ -3,6 +3,8 @@ package com.silversea.aem.components.beans;
 import com.silversea.aem.models.HotelModel;
 import com.silversea.aem.models.LandProgramModel;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class CruisePrePost {
@@ -10,31 +12,48 @@ public class CruisePrePost {
     private final String prePost;
     private final String category;
     private final String id;
+    private final String code;
     private final String title;
     private final Integer nights;
     private final String type;
     private final Integer itineraryId;
+    private final static List<String> coutoureCollectoinCodes =
+            Arrays.asList("05PREHKGTW", "05PSTHKGTW", "06PREDRWAO", "06PREKEFFI", "06PSTDRWAO", "06PSTKEFFI",
+                    "07PRECPTNR", "07PREZNZRS", "07PSTZNZRS", "08PRETYOGK", "08PSTMCTRP", "08PSTTYOGK", "09PRECAOBR",
+                    "09PSTCAOBR"
+            );//Mario dixit
 
     public CruisePrePost(Integer itineraryId, String thumbnail, HotelModel hotel) {
         this.thumbnail = thumbnail;
         this.category = hotel.getCategory();
         this.title = hotel.getPage().getTitle();
-        this.nights = hotel.getNights();
-        this.prePost = "pre";
         this.id = hotel.getHotelId().toString();
+        this.code = hotel.getCode();
+        this.nights = 0;
+        this.prePost = hotel.getCode().matches(".*PO?ST.*") ? "POST" : "PRE";
         this.type = "hotel";
         this.itineraryId = itineraryId;
     }
 
     public CruisePrePost(Integer itineraryId, String thumbnail, LandProgramModel land) {
         this.thumbnail = thumbnail;
-        this.prePost = "post";
-        this.nights = land.getNights();
         this.title = land.getTitle();
-        this.category = land.getCategory();
         this.id = land.getLandId().toString();
+        this.code = land.getLandCode();
+        this.category = coutoureCollectoinCodes.contains(code) ? "Couture Collection" : "";
+        this.prePost = land.getLandCode().substring(3, 7).matches(".*PO?ST.*") ? "POST" : "PRE";
+        this.nights = numberOfNights(code);
         this.type = "land";
         this.itineraryId = itineraryId;
+    }
+
+    private int numberOfNights(String landCode) {
+        try {
+            return Integer.parseInt((landCode.substring(0, 2).replaceFirst("^0?", "")));
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     @Override
@@ -80,5 +99,9 @@ public class CruisePrePost {
 
     public Integer getItineraryId() {
         return itineraryId;
+    }
+
+    public String getCode() {
+        return code;
     }
 }
