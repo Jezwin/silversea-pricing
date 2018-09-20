@@ -17,15 +17,15 @@ $(function () {
             $html.addClass('no-scroll-html');
         }
 
-        $modalLightbox.find(".lightbox-close").off("click");
-        $modalLightbox.find(".lightbox-close").on("click", function (e) {
+        $modalLightbox.find(".modal-dialog").find(".lightbox-close .lightbox-close-div").off("click");
+        $modalLightbox.find(".modal-dialog").find(".lightbox-close .lightbox-close-div").on("click", function (e) {
             e.preventDefault();
             $('#modalLightbox').modal('hide');
             //history.back();
         });
 
         if ($modalBodyLightbox.hasClass("cruise-2018-offers")) {
-            $modalLightbox.find(".lightbox-close i").addClass("lightbox-close-dark");
+            $modalLightbox.find(".modal-dialog").find(".lightbox-close .lightbox-close-div i").addClass("lightbox-close-dark");
         }
     });
 

@@ -35,6 +35,7 @@ Menu.prototype = {
                         $(".menu-overview-fixed").hide(0);
                     }
                 });
+                $(".cruise-2018-menu-tab").removeClass('active');
             });
 
         } else {

@@ -14,7 +14,7 @@ $(function () {
 
     function toggle(e) {
         e && e.preventDefault();
-        const $this = $(this);
+        var $this = $(this);
         if ($this.data('ssc-accordion') === 'show') {
             viewMore(e);
             $this.data('ssc-accordion', 'hide');

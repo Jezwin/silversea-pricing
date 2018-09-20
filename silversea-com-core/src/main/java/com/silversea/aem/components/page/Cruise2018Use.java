@@ -73,6 +73,7 @@ public class Cruise2018Use extends EoHelper {
     private long numCountries;
 
     private List<SilverseaAsset> assetsGallery;
+    private String labelAssetGallery;
     private List<SilverseaAsset> shipAssetGallery;
     private String bigItineraryMap;
     private String bigThumbnailItineraryMap;
@@ -459,6 +460,7 @@ public class Cruise2018Use extends EoHelper {
                 if (ship != null) {
                     assetsListResult.addAll(retrieveAssetsFromShip(ship));
                 }
+                this.labelAssetGallery = vmProperties.get("apiTitle", String.class);
                 return assetsListResult;
             }
         }
@@ -478,9 +480,7 @@ public class Cruise2018Use extends EoHelper {
                     PortModel portModel = itineraryModel.getPort();
                     String assetSelectionReference = portModel.getAssetSelectionReference();
                     if (StringUtils.isNotBlank(assetSelectionReference)) {
-                        List<SilverseaAsset> portAssets = AssetUtils
-                                .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                        portModel.getTitle());
+                        List<SilverseaAsset> portAssets = AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), portModel.getTitle());
                         if (portAssets != null && !portAssets.isEmpty()) {
                             portsAssetsList.addAll(portAssets);
                         }
@@ -587,6 +587,14 @@ public class Cruise2018Use extends EoHelper {
 
     public long getNumPorts() {
         return numPorts;
+    }
+
+    public String getLabelAssetGallery() {
+        return labelAssetGallery;
+    }
+
+    public boolean getAreOffersOdd() {
+        return this.totalNumberOfOffers % 2 != 0;
     }
 
     private enum Lightbox {
