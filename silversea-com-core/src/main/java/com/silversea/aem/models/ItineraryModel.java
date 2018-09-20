@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.components.beans.CruiseItinerary;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -131,13 +132,8 @@ public class ItineraryModel {
                 }
             }
         }
-        hasDedicatedShorex = !excursions.isEmpty() && Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 120;
-        Collections.sort(excursionToShow, new Comparator<ItineraryExcursionModel>() {
-            @Override
-            public int compare(ItineraryExcursionModel o1, ItineraryExcursionModel o2) {
-                return o1.getTitle().compareTo(o2.getTitle());
-            }
-        });
+        hasDedicatedShorex = Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 120;
+        excursionToShow.sort(Comparator.comparing(ItineraryExcursionModel::getTitle));
         this.excursions = excursionToShow;
 
         List<ItineraryLandProgramModel> landProgramsToShow = new ArrayList<>();
@@ -147,12 +143,7 @@ public class ItineraryModel {
                 landProgramsToShow.add(landProgram);
             }
         }
-        Collections.sort(landProgramsToShow, new Comparator<ItineraryLandProgramModel>() {
-            @Override
-            public int compare(ItineraryLandProgramModel o1, ItineraryLandProgramModel o2) {
-                return o1.getTitle().compareTo(o2.getTitle());
-            }
-        });
+        landProgramsToShow.sort(Comparator.comparing(ItineraryLandProgramModel::getTitle));
         this.landPrograms = landProgramsToShow;
 
         List<ItineraryHotelModel> hotelsToShow = new ArrayList<>();

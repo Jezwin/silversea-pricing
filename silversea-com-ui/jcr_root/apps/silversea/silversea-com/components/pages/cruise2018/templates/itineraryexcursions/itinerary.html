@@ -4,16 +4,16 @@
             <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
             <div class="cruise-2018-itineraries-info">
             <span class="itineraries-info" data-sly-test="${cruise.cruiseModel.duration}">
-                <i class="fa fa-clock-o fa-lg"></i> ${cruise.cruiseModel.duration} ${'days' @ i18n}
+                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/duration.png" /> ${cruise.cruiseModel.duration} ${'days' @ i18n}
             </span>
                 <span class="itineraries-info" data-sly-test="${cruise.numPorts}">
-                <i class="fa fa-anchor fa-lg"></i> ${cruise.numPorts} ${'ports' @ i18n}
+                    <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/port.png" /> ${cruise.numPorts} ${'ports' @ i18n}
             </span>
                 <span class="itineraries-info" data-sly-test="${cruise.numCountries}">
-                <i class="fa fa-flag-o fa-lg"></i> ${cruise.numCountries} ${'countries' @ i18n}
+                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/country.png" /> ${cruise.numCountries} ${'countries' @ i18n}
             </span>
             </div>
-            <div class="cruise-2018-itineraries-description">${'cruise-itinerary-description-v2' @ i18n}</div>
+            <div class="cruise-2018-itineraries-description">${cruise.cruiseModel.description @ i18n}</div>
             <div class="cruise-2018-itineraries-voyage-code hidden-xs">${'voyage' @ i18n}: ${cruise.cruiseModel.cruiseCode}</div>
             <!--/*            <div class="cruise-2018-itineraries-map">
                 <div class="ratio-big-itinerary"

@@ -83,19 +83,26 @@ public class CruiseItinerary {
         return prePosts;
     }
 
-    private List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark, ItineraryModel itinerary) {
-        if (false && itinerary.getHasDedicatedShorex()) {
-            return ofNullable(itinerary.getExcursions())
+    public static List<ExcursionModel> retrieveExcursions(ItineraryModel itinerary) {
+        return retrieveExcursions(false, false, itinerary);
+    }
+
+    public static List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark,
+                                                          ItineraryModel itinerary) {
+        if (itinerary.getHasDedicatedShorex()) {
+            List<ExcursionModel> dedicated = ofNullable(itinerary.getExcursions())
                     .map(Collection::stream).orElseGet(Stream::empty)
                     .map(ItineraryExcursionModel::getExcursion)
                     .collect(toList());
-        } else {
-            return ofNullable(itinerary.getPort().getExcursions())
-                    .map(Collection::stream).orElseGet(Stream::empty)
-                    .filter(ex -> !isEmbark || ex.isOkForEmbark())
-                    .filter(ex -> !isDebark || ex.isOkForDebarks())
-                    .collect(toList());
+            if (!dedicated.isEmpty()) {
+                return dedicated;
+            }
         }
+        return ofNullable(itinerary.getPort().getExcursions())
+                .map(Collection::stream).orElseGet(Stream::empty)
+                .filter(ex -> !isEmbark || ex.isOkForEmbark())
+                .filter(ex -> !isDebark || ex.isOkForDebarks())
+                .collect(toList());
     }
 
 
