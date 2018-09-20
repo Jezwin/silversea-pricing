@@ -472,7 +472,7 @@ public class Cruise2018Use extends EoHelper {
                     String assetSelectionReference = portModel.getAssetSelectionReference();
                     if (StringUtils.isNotBlank(assetSelectionReference)) {
                         List<SilverseaAsset> portAssets = AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), portModel.getTitle());
-                        if(portAssets != null && !portAssets.isEmpty()){
+                        if (portAssets != null && !portAssets.isEmpty()) {
                             portsAssetsList.addAll(portAssets);
                         }
                     }
@@ -582,6 +582,10 @@ public class Cruise2018Use extends EoHelper {
 
     public String getLabelAssetGallery() {
         return labelAssetGallery;
+    }
+
+    public boolean getAreOffersOdd() {
+        return this.totalNumberOfOffers % 2 != 0;
     }
 
     private enum Lightbox {

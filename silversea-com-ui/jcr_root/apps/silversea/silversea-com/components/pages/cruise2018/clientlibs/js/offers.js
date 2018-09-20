@@ -1,50 +1,20 @@
-function Offers() {
-
-}
-
-Offers.prototype = {
-    constructor: Offers,
-    progressBarSize:
-        function progressBarSize() {
-            var $dots = $(".slick-dots li");
-            $dots.css("width", ($(".slick-dots").outerWidth(true) / $dots.length) + "px");
-        }
-
-};
 $(function () {
-    var offers = new Offers();
-    $slider = $('.cruise-2018-offers-slider');
-    if ($slider) {
-        try {
-            $slider.slick("unslick");
-        } catch (e) {
+    $(".offers .offers-btns a").on("click touchstart", toggle);
 
+    function toggle(e) {
+        e && e.preventDefault();
+        e && e.stopPropagation();
+        var $this = $(this);
+        if ($this.data('ssc-accordion') === 'show') {
+            $(".offers .offers-hide").slideDown('slow');
+            $this.data('ssc-accordion', 'hide');
+            $('.offers').get(0).scrollIntoView({block: 'start', behavior: 'smooth'});
+        } else if ($this.data('ssc-accordion') === 'hide') {
+            $(".offers .offers-hide").slideUp('slow');
+            $this.data('ssc-accordion', 'show');
+            $('.offers').get(0).scrollIntoView({block: 'end', behavior: 'smooth'});
         }
-        $slider.removeClass('c-slider');
-        $slider.slick({
-            slidesToShow: 2,
-            arrows: true,
-            //enterPadding: '0px',
-            dots: true,
-            infinite: true,
-            slidesToScroll: 1,
-            // centerMode: true,
-            responsive: [
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-        offers.progressBarSize();
-        $(window).resize(offers.progressBarSize.bind(offers));
+        $this.blur();
+        $('.offers .offers-accordion-button').toggle();
     }
-});
-
-function progressBarSize() {
-    var $dots = $(".cruise-2018-offers-slider .slick-dots li");
-    $dots.css("width", ($(".cruise-2018-offers-slider .slick-dots").width() / $dots.length) + "px");
-}
+})();

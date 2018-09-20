@@ -36,7 +36,7 @@
       text-transform: uppercase;
       position: absolute;
       top: 34%;
-      left: 90%;
+      left: 91%;
       opacity: 1;
     }
   }
@@ -152,6 +152,10 @@
         color: white !important;
         max-width: 996px;
         transform: translateX(-50%);
+
+        .text-close {
+          left: 92%;
+        }
       }
     }
   }
@@ -183,6 +187,11 @@
 @media screen and (max-width: @screen-sm) {
   .modal.lightbox {
     padding-left: 0;
+
+    .lg-content {
+      padding-top: 25px;
+    }
+
     .lightbox-close {
       z-index: 2001;
       height: 49px;
