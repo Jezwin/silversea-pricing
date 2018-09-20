@@ -10,7 +10,7 @@
                     <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/port.png"/> ${cruise.numPorts} ${'ports' @ i18n}
             </span>
                 <span class="itineraries-info" data-sly-test="${cruise.numCountries}">
-                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/country.png"/> ${cruise.numCountries} ${'countries' @ i18n}
+                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/country.png"/> ${cruise.numCountries} ${ (cruise.numCountries> 1 ? 'countries' : 'country') @ i18n}
             </span>
             </div>
             <div class="cruise-2018-itineraries-description">${cruise.cruiseModel.description @ i18n}</div>

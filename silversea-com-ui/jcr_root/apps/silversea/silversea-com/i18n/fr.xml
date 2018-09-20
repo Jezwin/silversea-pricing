@@ -472,7 +472,7 @@
     <excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Excursion"/>
+            sling:message="Excursion
     <excursion-s
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -890,15 +890,15 @@
     <pre-post-extensions
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Pre &amp; Post Cruise Extensions"/>
+            sling:message="Prolongations avant et après la croisière"/>
     <night
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="night"/>
+            sling:message="nuit"/>
     <nights
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="nights"/>
+            sling:message="nuits"/>
     <pressure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1512,7 +1512,7 @@
     <itinerary-and-excursions
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Itinerary and excursions"/>
+            sling:message="Itinéraire et excursions"/>
     <itinerary
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
@@ -1569,7 +1569,7 @@
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
             sling:message="Up to "/>
-    <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Map"/>
+    <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Carte"/>
     <dining-options
             jcr:primaryType="nt:folder"
             sling:key="dining-options"
@@ -1577,23 +1577,23 @@
     <number1
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="one"/>
+            sling:message="un"/>
     <number2
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="two"/>
+            sling:message="deux"/>
     <number3
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="three"/>
+            sling:message="trois"/>
     <number4
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="four"/>
+            sling:message="quatre"/>
     <number5
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="five"/>
+            sling:message="cinq"/>
     <number6
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
@@ -1601,15 +1601,15 @@
     <number7
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="seven"/>
+            sling:message="sept"/>
     <number8
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="eight"/>
+            sling:message="huit"/>
     <number9
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="nine"/>
+            sling:message="neuf"/>
     <ABW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aruba" />
     <AFG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afghanistan" />
     <AGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Angola" />
