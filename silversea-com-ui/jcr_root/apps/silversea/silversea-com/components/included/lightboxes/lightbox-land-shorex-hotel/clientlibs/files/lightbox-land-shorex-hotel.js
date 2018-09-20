@@ -70,11 +70,13 @@ $(function () {
             (function c(direction, opposite) {
                 var obj = {};
                 obj[direction] = '-100vw';
+                $('.lightbox-close').hide();
                 $modalContent.animate(obj, 400, function () {//this move it out of view from one side
                     loadContent(function () {
                         $modalContent.animate({left: '', right: ''}, 500, function () {//this bring back to view from the other side
                             $modalContent.css('left', '');//this is just to rest left && right because previous line put them to 0
                             $modalContent.css('right', '');
+                            $('.lightbox-close').fadeIn();
                         });
                     });
                     $modalContent.css(opposite, '-100vw');//this move it on the other side of the screen
