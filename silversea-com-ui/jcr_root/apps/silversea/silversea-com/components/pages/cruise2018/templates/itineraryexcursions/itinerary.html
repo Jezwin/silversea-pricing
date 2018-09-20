@@ -57,6 +57,7 @@
             <sly data-sly-test.hasExcursions="${itinerary.hasExcursions}"/>
             <sly data-sly-test.excursionDescription="${itinerary.excursionDescription}"/>
             <sly data-sly-test.overnight="${itinerary.overnight}"/>
+            <sly data-sly-test.expandable="${excursions || excursionDescription}"/>
             <script>
                 window.it${itinerary.itineraryId @context='unsafe'} = ${itinerary.excursionsLabel @context='unsafe'};
             </script>
@@ -72,7 +73,7 @@
                     </div>
 
 
-                    <div class="cruise-2018-itineraries-itinerary-row-container ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''} cruise-2018-itineraries-itinerary-row-container-with-excursion">
+                    <div class="cruise-2018-itineraries-itinerary-row-container ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''} ${expandable ? 'cruise-2018-itineraries-itinerary-row-container-with-excursion' :''}">
                         <div class="cruise-2018-itineraries-itinerary-row-thumbnail">
                             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                                  data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=thumbnail, Width='250'}"/>
@@ -114,7 +115,8 @@
                             <i class="material-icons"> zoom_out_map </i>
                         </div>
                         <div
-                                class="cruise-2018-itineraries-itinerary-row-date-arrow" data-ssc-accordion="show">
+                                class="cruise-2018-itineraries-itinerary-row-date-arrow  ${expandable ? '' : 'ssc_hidden'}"
+                                data-ssc-accordion="show">
                             <i class="btn-more fa fa-angle-down"></i>
                             <i style="display:none;" class="btn-more fa fa-angle-up"></i>
                         </div>
