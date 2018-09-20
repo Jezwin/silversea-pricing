@@ -437,32 +437,18 @@ public class Cruise2018Use extends EoHelper {
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
         String assetSelectionReference;
-        if (pageManager != null) {
-            ValueMap vmProperties = currentPage.getProperties();
-            if (vmProperties != null) {
-                String shipReference = vmProperties.get("shipReference", String.class);
-                if (StringUtils.isNotEmpty(shipReference)) {
-                    Page shipPage = pageManager.getPage(shipReference);
-                    if (shipPage != null) {
-                        ship = shipPage.adaptTo(ShipModel.class);
-                    }
-                }
-                assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
-                List<SilverseaAsset> assetsListResult = new ArrayList<>();
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetsListResult.addAll(AssetUtils
-                            .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                    null));
-                }
-                List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort();
-                if (portsAssetsList != null && !portsAssetsList.isEmpty()) {
-                    assetsListResult.addAll(portsAssetsList);
-                }
-                if (ship != null) {
-                    assetsListResult.addAll(retrieveAssetsFromShip(ship));
-                }
-                this.labelAssetGallery = vmProperties.get("apiTitle", String.class);
-                return assetsListResult;
+        if (pageManager == null) {
+            return null;
+        }
+        ValueMap vmProperties = currentPage.getProperties();
+        if (vmProperties == null) {
+            return null;
+        }
+        String shipReference = vmProperties.get("shipReference", String.class);
+        if (StringUtils.isNotEmpty(shipReference)) {
+            Page shipPage = pageManager.getPage(shipReference);
+            if (shipPage != null) {
+                ship = shipPage.adaptTo(ShipModel.class);
             }
         }
         assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
@@ -486,6 +472,7 @@ public class Cruise2018Use extends EoHelper {
 
         return assetsListResult.stream().distinct().collect(toList());
     }
+
 
     private List<SilverseaAsset> retrieveAssetsFromPort() {
         Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
