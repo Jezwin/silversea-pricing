@@ -21,6 +21,11 @@
                 <span>${page3.navigationTitle || page3.title}</span>
             </a>
         </li>
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-sm" data-sly-test.page4="${navTop.link4Page}">
+            <a href="${page4.path @ extension = 'html'}" class="c-main-nav__top__link" target="_blank">
+                <span>${page4.navigationTitle || page4.title}</span>
+            </a>
+        </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md c-language-selector">
             <a href="#" class="c-main-nav__top__link open-language-selector" aria-expanded="false">
                 <span data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">${pageHelper.homePage.navigationTitle || pageHelper.homePage.name}</span>
@@ -33,6 +38,11 @@
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-md hidden-lg" data-sly-test="${page3}">
             <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3.navigationTitle || page3.title}</span>
+            </a>
+        </li>
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-md hidden-lg" data-sly-test="${page4}">
+            <a href="${page4.path @ extension = 'html'}" class="c-main-nav__top__link">
+                <span>${page4.navigationTitle || page4.title}</span>
             </a>
         </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--search" data-sly-test.search="${navTop.searchPage}">
