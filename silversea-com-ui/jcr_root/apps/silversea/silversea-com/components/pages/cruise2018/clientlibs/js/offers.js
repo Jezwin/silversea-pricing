@@ -17,4 +17,4 @@ $(function () {
         $this.blur();
         $('.offers .offers-accordion-button').toggle();
     }
-})();
+});
