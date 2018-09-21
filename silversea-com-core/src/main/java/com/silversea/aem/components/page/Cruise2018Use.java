@@ -214,16 +214,32 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private long retrieveNumberOfPorts(CruiseModel cruiseModel) {
-        return cruiseModel.getItineraries().stream()
-                .map(ItineraryModel::getPort)
-                .filter(port -> port.getCountry() != null).distinct().count();
+        long count = 0L;
+        Set<PortModel> uniqueValues = new HashSet<>();
+        for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
+            PortModel port = itineraryModel.getPort();
+            if (port.getCountry() != null) {
+                if (uniqueValues.add(port)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     private long retrieveNumberOfCountries(CruiseModel cruiseModel) {
-        return cruiseModel.getItineraries().stream()
-                .map(ItineraryModel::getPort)
-                .filter(port -> !Strings.isNullOrEmpty(port.getCountryIso3()))
-                .map(PortModel::getCountryIso3).distinct().count();
+        long count = 0L;
+        Set<String> uniqueValues = new HashSet<>();
+        for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
+            PortModel port = itineraryModel.getPort();
+            if (!Strings.isNullOrEmpty(port.getCountryIso3())) {
+                String countryIso3 = port.getCountryIso3();
+                if (uniqueValues.add(countryIso3)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     private String retrieveHighlights() {
