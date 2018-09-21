@@ -747,8 +747,16 @@ public class Cruise2018Use extends EoHelper {
     }
 
     public List<CruisePrePost> getPrePost() {
-        return getItinerary().stream().flatMap(itinerary -> itinerary.getPrePosts().stream()).distinct()
-                .collect(toList());
+        List<CruisePrePost> list = new ArrayList<>();
+        Set<CruisePrePost> uniqueValues = new HashSet<>();
+        for (CruiseItinerary cruiseItinerary : getItinerary()) {
+            for (CruisePrePost cruisePrePost : cruiseItinerary.getPrePosts()) {
+                if (uniqueValues.add(cruisePrePost)) {
+                    list.add(cruisePrePost);
+                }
+            }
+        }
+        return list;
     }
 
     public ExcursionModel getShorexExcursionLightbox() {
