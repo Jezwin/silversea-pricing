@@ -5,17 +5,23 @@ $(function () {
         e && e.preventDefault();
         e && e.stopPropagation();
         var $this = $(this);
+        var offset = 130;
         if ($this.data('ssc-accordion') === 'show') {
             $(".offers .offers-hide").slideDown('slow');
             $this.data('ssc-accordion', 'hide');
-            //$('.offers').get(0).scrollIntoView({block: 'start', behavior: 'smooth'});
+            offset = 130;
         } else if ($this.data('ssc-accordion') === 'hide') {
             $(".offers .offers-hide").slideUp('slow');
             $this.data('ssc-accordion', 'show');
-           // $('.offers').get(0).scrollIntoView({block: 'start', behavior: 'smooth'});
+            offset = 100;
         }
         $this.blur();
         $('.offers .offers-accordion-button').toggle();
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(".offers-title").position().top - $(".row-menu-overview").height() - offset,
+            duration: 500,
+            easing: 'linear'
+        });
     }
     
     $(".offers .open-lightbox-offer").click(function () {
