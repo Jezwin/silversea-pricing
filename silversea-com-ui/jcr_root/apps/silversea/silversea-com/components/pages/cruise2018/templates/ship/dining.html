@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="cruise-2018-ship-dining-area">
+    <div class="cruise-2018-ship-dining-area" id="cruise2018shipdining">
         <sly data-sly-test.dinings="${cruise.cruiseModel.ship.dinings}">
             <div class="hidden-xs cruise-2018-ship-dining-area-title">${cruise.cruiseModel.ship.title} ${'dining-options' @i18n}: ${dinings.size} ${'restaurants' @i18n}</div>
             <div class="hidden-xs cruise-2018-ship-dining-area-list" data-sly-list="${dinings}">
