@@ -83,7 +83,7 @@ $(function () {
         if ($slider) {
             $slider.slick({
                 centerMode: true,
-                dots: true,
+                dots: false,
                 draggable: true,
                 infinite: true,
                 slidesPerRow: 1,

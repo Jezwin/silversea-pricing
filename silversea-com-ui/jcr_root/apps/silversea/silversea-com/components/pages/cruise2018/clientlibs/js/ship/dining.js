@@ -82,9 +82,7 @@ $(function () {
     }
 
     $(".cruise-2018-ship-dining-area-btns a").on("click touchstart", toggle);
-    if ($(window).width() < 768) {
-        initSlider();
-        displayLazy();
-    }
+    initSlider();
+    displayLazy();
 });
 
