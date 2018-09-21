@@ -54,6 +54,7 @@ function createOverviewGallerySlider() {
         // Call lazy load for 2 previous and 2 next slides
         loadLazyImageOverview($(this));
     });
+    $(".cruise-2018-overview-big-pic").replaceWith($(".ow-slider"));
 
     loadLazyImageOverview($mainSlider);
 }
@@ -78,7 +79,9 @@ function loadLazyImageOverview($slider) {
 }
 
 $(function () {
-    createOverviewGallerySlider();
+    if ($(window).width() < 768) {
+        createOverviewGallerySlider();
+    }
     $("a.coolanchorminussmall").click(function () {
         //check if it has a hash (i.e. if it's an anchor link)
         if (this.hash) {

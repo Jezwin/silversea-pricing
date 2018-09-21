@@ -2,13 +2,13 @@
     <div class="offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer" id="cruise2018offers"
          data-sly-test="${offersNumber!=0}">
         <div class="offers-title"> ${ 'offers' @ i18n} </div>
-        <div class="row">
+        <div class="row offer-slider">
             <sly data-sly-list.offer="${offers}">
-                <div class="col-sm-6 offer-item  ${offerList.last && !isVenetian && offerList.odd ? 'col-sm-offset-3' : ''} ${offerList.index > 2 ? 'offers-hide' : ''}">
+                <div class="col-sm-6 offer-item  ${offerList.last && !isVenetian && offerList.odd ? 'col-sm-offset-3' : ''} ${offerList.index > 1 ? 'offers-hide' : ''}">
                     <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
                          href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
                          rel="nofollow"
-                         data-toggle="modal" class="offer-slider-container"
+                         data-toggle="modal" class="offer-slider-container open-lightbox-offer"
                          data-target=".lightbox">
                         <div class="offer-slider-icon-container">
                             <div class="offer-slider-icon"><img
@@ -23,7 +23,8 @@
                     </div>
                 </div>
             </sly>
-            <div class="col-sm-6 offer-item ${ odd ? 'col-sm-offset-3' : ''} ${(offersNumber > 2) || (offersNumber == 2 && isVenetian) ? 'offers-hide' : ''}" data-sly-test="${isVenetian}">
+            <div class="col-sm-6 offer-item ${ (odd)  ? 'col-sm-offset-3' : ''} ${(offersNumber > 2)  ? 'offers-hide' : ''}"
+                 data-sly-test="${isVenetian}">
                 <div class="offer-slider-container">
                     <div class="offer-slider-icon-container">
                         <div class="offer-slider-icon"><i class="icon-shield-v"></i></div>
@@ -35,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2) || (offersNumber == 2 && isVenetian)}">
+        <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
             <a data-ssc-accordion="show" class="btn btn-thin btn-white offers-show-btn" href="#">
                 <span class="offers-accordion-button">${'view-all' @ i18n}</span>
                 <span class="offers-accordion-button" style="display:none">${'close' @ i18n}</span>
