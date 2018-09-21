@@ -15,7 +15,18 @@
             <a href="${page3Mobile.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3Mobile.navigationTitle || page3Mobile.title}</span>
             </a>
-        </li> 
+        </li>
+        <sly data-sly-test.page4Mobile="${navTop.link4Page}" />
+        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--left ${!page4Mobile ? 'c-main-nav__top__item--empty' : ''}">
+            <a href="${page4Mobile.path @ extension = 'html'}" class="c-main-nav__top__link">
+                <span>${page4Mobile.navigationTitle || page4Mobile.title}</span>
+            </a>
+        </li>
+        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right c-main-nav__top__item--empty">
+            <a href="#" class="c-main-nav__top__link">
+                <span></span>
+            </a>
+        </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
             <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top__link" target="_blank">
                 <span>${page3.navigationTitle || page3.title}</span>
@@ -38,11 +49,6 @@
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-md hidden-lg" data-sly-test="${page3}">
             <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3.navigationTitle || page3.title}</span>
-            </a>
-        </li>
-        <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-md hidden-lg" data-sly-test="${page4}">
-            <a href="${page4.path @ extension = 'html'}" class="c-main-nav__top__link">
-                <span>${page4.navigationTitle || page4.title}</span>
             </a>
         </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--search" data-sly-test.search="${navTop.searchPage}">
