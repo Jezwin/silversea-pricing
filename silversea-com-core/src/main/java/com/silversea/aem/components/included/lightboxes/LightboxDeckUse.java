@@ -42,8 +42,10 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
             } else if (StringUtils.isNotEmpty(ship.getLengthM())) {
                 spec.add(new SpecBean("length", ship.getLengthM()));
             }
-            if (StringUtils.isNotEmpty(ship.getWidth())) {
-                spec.add(new SpecBean("width", ship.getWidth()));
+            if (countryCode.equals("US") && StringUtils.isNotEmpty(ship.getWidthFt())) {
+                spec.add(new SpecBean("width", ship.getWidthFt()));
+            } else if (StringUtils.isNotEmpty(ship.getWidthM())) {
+                spec.add(new SpecBean("width", ship.getWidthM()));
             }
             if (StringUtils.isNotEmpty(ship.getSpeed())) {
                 spec.add(new SpecBean("speed", ship.getSpeed()));

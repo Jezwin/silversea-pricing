@@ -78,7 +78,9 @@ function loadLazyImageOverview($slider) {
 }
 
 $(function () {
-    createOverviewGallerySlider();
+    if ($(window).width() < 768) {
+        createOverviewGallerySlider();
+    }
     $("a.coolanchorminussmall").click(function () {
         //check if it has a hash (i.e. if it's an anchor link)
         if (this.hash) {
