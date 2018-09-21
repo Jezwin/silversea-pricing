@@ -47,8 +47,9 @@ $(function () {
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
         if (itineraryId && excursionId) {
-            $(".lightbox-prev-link, .lightbox-next-link").show();
-            setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
+            if (setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
+                $(".lightbox-prev-link, .lightbox-next-link").show();
+            }
         }
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
@@ -91,7 +92,11 @@ $(function () {
 
     function setModalNavigation($modal, uri, itineraryId, excursionId) {
         try {
+
             var excursion = window['it' + itineraryId][excursionId];
+            if (excursion.prevId === excursionId) {
+                return false;
+            }
             var prev = $modal.find('.lightbox-prev-label');
             var next = $modal.find('.lightbox-next-label');
             var nextLink = $modal.find('.lightbox-next-link');
@@ -109,6 +114,7 @@ $(function () {
         } catch (e) {
 
         }
+        return true;
     }
 
     function createSlider($modal) {
