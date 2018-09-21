@@ -87,7 +87,7 @@ $(function () {
         }
         createLineProgressBar();
         loadLazyImage($slider);
-        $(".cruise-2018-overview-big-pic").hide();
+        $(".offers .offer-slider").css("visibility","visible");
         $slider.on('afterChange', function (event, slick, currentSlide) {
             loadLazyImage($(this));
         });

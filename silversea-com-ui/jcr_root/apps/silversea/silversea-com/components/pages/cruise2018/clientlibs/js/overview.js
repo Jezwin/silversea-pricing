@@ -54,6 +54,7 @@ function createOverviewGallerySlider() {
         // Call lazy load for 2 previous and 2 next slides
         loadLazyImageOverview($(this));
     });
+    $(".cruise-2018-overview-big-pic").replaceWith($(".ow-slider"));
 
     loadLazyImageOverview($mainSlider);
 }
