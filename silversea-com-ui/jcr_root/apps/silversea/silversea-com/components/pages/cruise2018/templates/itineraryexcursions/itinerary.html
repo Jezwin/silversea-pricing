@@ -64,7 +64,7 @@
 
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
-                    <a class="open-lightbox-port cruise-2018-link-open-modal" data-target=".lightbox"
+                    <a class="open-lightbox-port cruise-2018-link-open-modal" data-target=".lightbox" data-sly-test="${expandable}"
                        href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-day-wrapper">
@@ -111,7 +111,8 @@
                                 <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
                             </div>
                         </div>
-                        <div class="cruise-2018-itineraries-itinerary-row-date-lightbox">
+                        <div
+                             class="cruise-2018-itineraries-itinerary-row-date-lightbox ${expandable ? '' : 'ssc_hidden'}">
                             <i class="material-icons"> zoom_out_map </i>
                         </div>
                         <div
