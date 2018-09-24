@@ -40,7 +40,7 @@ function createOverviewGallerySlider() {
     $mainSlider.find('.video-link').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        if(typeof s7viewers !== 'undefined'){
+        if (typeof s7viewers !== 'undefined') {
             $(this).next('.video-itinerary').startVideo();
         }
     });
@@ -99,48 +99,42 @@ $(function () {
     });
 
 
-    $.fn.startVideo = function() {
-        this.each(function() {
-            var $video = $(this);
-            var asset = $video.data('video-asset');
-            var autoplay = $video.data('video-autoplay') !== 'undefined' ? $video.data('video-autoplay') : '0'; // autoplay false by default
+    $('.open-video-slider').on('click', function (e) {
+        e && e.preventDefault();
+        e && e.stopPropagation();
+        $('body').addClass('modal-open');
+        // HTML layout
+        var $modalContent = $('<div class="modal-content modal-content--transparent modal-content--single">'
+            + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
+            + '<div class="modal-body automatic-modal-body">' +
+             + '<div class="ow-slider ow-slider--main main-slider">' +
+                +'<div class="ratio">'+
+                    +'<img class="o-img" src="dataSrc"/>'+
+                    +'<a class="video-link" href="#"><i class="fa fa-play"></i></a>'+
+                    +'<div class="video-itinerary" id="currentIdNode" data-video-asset="assetPath" data-video-autoplay="1"></div>'+
+                +'</div>'+
+            +'</div>'+
+            '</div>' + '</div>');
 
-            var s7videoviewer = new s7viewers.VideoViewer({
-                'containerId' : $video.data('video-link'),
-                'params' : {
-                    'VideoPlayer.ssl' : 'on',
-                    'serverurl' : 'https://silversea-h.assetsadobe2.com/is/image',
-                    'contenturl' : 'https://www.silversea.com/',
-                    'config' : 'etc/dam/presets/viewer/Video',
-                    //'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
-                    'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public-ssl/silversea',
-                    'posterimage' : asset,
-                    'asset' : asset,
-                    'autoplay' : autoplay.toString(),
-                    'progressivebitrate' : '3000',
-                    'initialbitrate' : '3000'
-                }
+        var $link = $(this);
+        var dataSrc = $link.data("data-src");
+        var currentIdNode = $link.data("current-id-node");
+        var assetPath = $link.data("asset-path");
 
-            });
+        $modalContent.replace("dataSrc", dataSrc);
+        $modalContent.replace("currentIdNode", currentIdNode);
+        $modalContent.replace("assetPath", assetPath);
 
-            // Bind initComplete event before init()
-            s7videoviewer.setHandlers({
-                'initComplete' : function() {
-                    var $videoElement = $video.find('video');
+        // Activate Modal
+        $($(this).data('target')).modal('show');
 
-                    $videoElement.on('loadstart', function() {
-                        // Add loader (svg)
-                        $video.addClass('loading');
-                    }).on('loadeddata', function() {
-                        // remove loader
-                        $video.removeClass('loading');
-                    });
-                }
-            });
-
-            s7videoviewer.init()
+        // Append image inside Modal
+        $('.modal').on('shown.bs.modal', function (e) {
+            $(this).find('.modal-dialog').empty().append($modalContent);
+           // $(this).find('img').attr('src', imagePath);
         });
-    };
+    });
+
 });
 
 window.voyagePdfPrintClicked = false;
