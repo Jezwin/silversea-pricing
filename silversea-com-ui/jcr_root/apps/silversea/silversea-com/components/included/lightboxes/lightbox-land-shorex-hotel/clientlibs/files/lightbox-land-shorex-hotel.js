@@ -47,8 +47,9 @@ $(function () {
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
         if (itineraryId && excursionId) {
-            $(".lightbox-prev-link, .lightbox-next-link").show();
-            setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
+            if (setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
+                $(".lightbox-prev-link, .lightbox-next-link").show();
+            }
         }
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
@@ -70,11 +71,13 @@ $(function () {
             (function c(direction, opposite) {
                 var obj = {};
                 obj[direction] = '-100vw';
+                $('.lightbox-close').hide();
                 $modalContent.animate(obj, 400, function () {//this move it out of view from one side
                     loadContent(function () {
                         $modalContent.animate({left: '', right: ''}, 500, function () {//this bring back to view from the other side
                             $modalContent.css('left', '');//this is just to rest left && right because previous line put them to 0
                             $modalContent.css('right', '');
+                            $('.lightbox-close').fadeIn();
                         });
                     });
                     $modalContent.css(opposite, '-100vw');//this move it on the other side of the screen
@@ -89,7 +92,11 @@ $(function () {
 
     function setModalNavigation($modal, uri, itineraryId, excursionId) {
         try {
+
             var excursion = window['it' + itineraryId][excursionId];
+            if (excursion.prevId === excursionId) {
+                return false;
+            }
             var prev = $modal.find('.lightbox-prev-label');
             var next = $modal.find('.lightbox-next-label');
             var nextLink = $modal.find('.lightbox-next-link');
@@ -107,6 +114,7 @@ $(function () {
         } catch (e) {
 
         }
+        return true;
     }
 
     function createSlider($modal) {

@@ -1,7 +1,7 @@
 <template data-sly-template.default="${ @ itinerary, excursions, cruise }">
     <div style="display:none;" class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion" id="cruise2018itineraryexcursion">
         <sly data-sly-list.excursion="${excursions}" data-sly-test.isDedicate="${itinerary.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}">
-            <div class="${excursionList.index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion ${excursion.description  ? '' : 'cruise-2018-itineraries-port-excursions-excursion-no-content'}">
+            <div class="${excursionList.index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion ${(excursion.longDescription || excursion.apiLongDescription || excursion.description ) ? '' : 'cruise-2018-itineraries-port-excursions-excursion-no-content'}">
                 <a
                    class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
                    data-itinerary-id="${itinerary.itineraryId}" data-excursion-id="${excursion.shorexId}"

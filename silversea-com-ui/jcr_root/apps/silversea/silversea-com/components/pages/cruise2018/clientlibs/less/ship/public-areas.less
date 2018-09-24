@@ -89,11 +89,28 @@
 
   .cruise-2018-ship-public-slide-thumbnail {
     height: 172px;
+    .ratio {
+      cursor: pointer;
+      height: 172px;
+      margin: 0;
+      position: relative;
+      width: 100%;
+
+      .c-video {
+        height: 0;
+
+        &.s7videoviewer {
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%
+        }
+      }
+    }
   }
 
   .cruise-2018-ship-public-slide-thumbnail img {
     height: 172px;
-    object-fit: cover;
   }
 
   .cruise-2018-ship-public-slide-title {

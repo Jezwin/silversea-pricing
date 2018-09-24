@@ -2,7 +2,7 @@
     <div class="cruise-2018-prepost-wrapper hidden-xs" id="cruise2018prepost">
         <div class="cruise-2018-prepost">
             <sly data-sly-test.prePosts="${cruise.prePost}">
-                <div class="cruise-2018-prepost-title">${'land-programmes' @ i18n} & ${'hotels' @i18n}</div>
+                <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n} & ${'hotels' @i18n}</div>
                 <div data-ssc-slides="4" data-ssc-breakpoint="1024"
                      class="cruise-2018-prepost-content cruise-2018-slider">
                     <sly data-sly-list.prePost="${cruise.prePost}">
@@ -14,8 +14,7 @@
                                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                                      data-sly-call="${imageTemplate.image @ imagePath=prePost.thumbnail, width=350}"/>
                             </div>
-                            <div class="cruise-2018-prepost-slide-prepost"
-                                 style="display: none;">${prePost.prePost}</div>
+                            <div class="cruise-2018-prepost-slide-prepost">${prePost.prePost}</div>
                             <div class="cruise-2018-prepost-slide-title">${prePost.title}</div>
                             <div data-sly-test=${prePost.nights} class="cruise-2018-prepost-slide-days">${prePost.nights} ${prePost.nights> 1 ? 'nights' : 'night' @ i18n}</div>
                             <div data-sly-test=${prePost.category} class="cruise-2018-prepost-slide-collection">${prePost.category}</div>
