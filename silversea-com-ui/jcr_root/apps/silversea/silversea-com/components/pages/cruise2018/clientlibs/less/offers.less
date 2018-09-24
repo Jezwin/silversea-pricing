@@ -167,16 +167,19 @@
     padding-bottom: 25px;
     margin-top: 25px;
 
+    .offer-slider-icon-container {
+      display: inline-block;
+    }
+
     .offers-title {
       font-size: 22px;
       letter-spacing: 0.5px;
       line-height: 24px;
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 0px;
     }
-    .offers-slider {
-      padding-left: 25px;
-      padding-right: 25px;
+    .offer-slider {
+      visibility: hidden;
     }
 
     .offer-container {
@@ -197,20 +200,17 @@
     .offer-slider-title {
       font-size: 20px !important;
       line-height: 24px !important;
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
     .offer-slider-container {
-      min-height: 152px;
+      min-height: 256px;
     }
     .offer-slider-description {
       font-size: 18px !important;
       line-height: 24px !important;
-    }
-    .offer-slider-text {
-      padding: 10px;
-      position: relative;
-      float: right;
-      width: 84%;
+      padding-bottom: 20px;
     }
 
     .offers-slider .offer-container {
@@ -219,6 +219,11 @@
       min-height: 240px !important;
       width: 80%;
       margin: 10%;
+    }
+
+    .offer-item {
+      padding-left: 5px;
+      padding-right: 5px;
     }
 
     .offer-description {
@@ -244,11 +249,6 @@
       letter-spacing: 1px !important;;
       font-size: 12px;
     }
-  .offer-slider-icon-container {
-    position: relative;
-    width: 15%;
-    float: left;
-  }
 
   }
 }
@@ -571,6 +571,18 @@
       padding: 20px;
       margin-bottom: 25px;
     }
+
+    .cruise-2018-modal-footnotes {
+      text-align: justify;
+      opacity: 0.5;
+      color: #333333;
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      text-align: center;
+    }
+
     .cruise-2018-modal-exclusive-offer-title {
       margin-top: 10px;
     }

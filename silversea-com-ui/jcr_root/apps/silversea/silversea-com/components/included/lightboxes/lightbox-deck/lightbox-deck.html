@@ -39,7 +39,7 @@
                                         <sly data-sly-test="${spec.label != 'third-guest-capacity'}">
                                             ${spec.value}
                                         </sly>
-                                        <sly data-sly-test="${spec.label == 'width' || spec.label == 'length'}">${'knots' @ i18n }
+                                        <sly data-sly-test="${spec.label == 'width' || spec.label == 'length'}">
                                             <sly data-sly-test="${spec.isFeet}">${'feet' @ i18n }</sly>
                                             <sly data-sly-test="${spec.isFeet}">${'meters' @ i18n }</sly>
                                         </sly>

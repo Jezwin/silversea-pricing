@@ -83,7 +83,7 @@ $(function () {
         e.preventDefault();
         $target = $($(this).attr("href"));
         $([document.documentElement, document.body]).animate({
-            scrollTop: $target.position().top - menu.headerHeight() - 70,
+            scrollTop: $target.position().top - menu.headerHeight(),
             duration: 500,
             easing: 'linear'
         });
