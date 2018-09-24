@@ -40,8 +40,7 @@
                     <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                     <sly data-sly-test.isVideo="${isVideo}">
-                        <a class="video-link open-video-slider" href="#"><i class="fa fa-play"></i></a>
-                        <div data-current-id-node="${currentNode.identifier}-${assetList.count}" data-data-src="${asset.imageUrl}" data-asset-path="${asset.path}"></div>
+                        <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
                     </sly>
                 </div>
                 <div data-sly-test="${asset.type == 'virtual-tour'}" id="ow-virtual-tour-${assetList.index}-container"></div>

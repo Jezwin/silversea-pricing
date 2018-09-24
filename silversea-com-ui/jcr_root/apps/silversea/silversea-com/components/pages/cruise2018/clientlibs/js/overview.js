@@ -36,14 +36,6 @@ function createOverviewGallerySlider() {
         slidesToShow: 1,
         slidesToScroll: 1
     });
-    // Init video on click
-    $mainSlider.find('.video-link').on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (typeof s7viewers !== 'undefined') {
-            $(this).next('.video-itinerary').startVideo();
-        }
-    });
 
     $mainSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
         var $slider = $(this);
@@ -104,26 +96,22 @@ $(function () {
         e && e.stopPropagation();
         $('body').addClass('modal-open');
         // HTML layout
-        var $modalContent = $('<div class="modal-content modal-content--transparent modal-content--single">'
+        var $modalContent = '<div class="modal-content modal-content--transparent modal-content--single">'
             + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
-            + '<div class="modal-body automatic-modal-body">' +
-             + '<div class="ow-slider ow-slider--main main-slider">' +
-                +'<div class="ratio">'+
-                    +'<img class="o-img" src="dataSrc"/>'+
-                    +'<a class="video-link" href="#"><i class="fa fa-play"></i></a>'+
-                    +'<div class="video-itinerary" id="currentIdNode" data-video-asset="assetPath" data-video-autoplay="1"></div>'+
-                +'</div>'+
+            + '<div class="modal-body automatic-modal-body">'
+             + '<div class="ow-slider ow-slider--main main-slider">'
+                +'<div class="ratio">'
+                    +'<div class="video-itinerary" id="currentIdNode" data-video-asset="assetPath" data-video-autoplay="1"></div>'
+                +'</div>'
             +'</div>'+
-            '</div>' + '</div>');
+            '</div>' + '</div>';
 
         var $link = $(this);
-        var dataSrc = $link.data("data-src");
         var currentIdNode = $link.data("current-id-node");
         var assetPath = $link.data("asset-path");
 
-        $modalContent.replace("dataSrc", dataSrc);
-        $modalContent.replace("currentIdNode", currentIdNode);
-        $modalContent.replace("assetPath", assetPath);
+        $modalContent = $modalContent.replace("currentIdNode", currentIdNode);
+        $modalContent = $modalContent.replace("assetPath", assetPath);
 
         // Activate Modal
         $($(this).data('target')).modal('show');
@@ -131,7 +119,7 @@ $(function () {
         // Append image inside Modal
         $('.modal').on('shown.bs.modal', function (e) {
             $(this).find('.modal-dialog').empty().append($modalContent);
-           // $(this).find('img').attr('src', imagePath);
+            $(".video-itinerary").initVideo();
         });
     });
 
