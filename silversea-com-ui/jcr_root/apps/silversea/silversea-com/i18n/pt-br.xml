@@ -481,6 +481,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="cruzeiro de expedição"/>
+    <expedition-itinerary
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="expedition itinerary"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -786,6 +790,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Offers"/>
+    <offers-for-this-cruise
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Offers for this cruise"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1209,7 +1217,7 @@
     <suites-and-fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Suites e tarifas"/>
+        sling:message="Suites &amp; tarifas"/>
     <suites-descr
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1511,7 +1519,7 @@
     <itinerary-and-excursions
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Itinerário e excursões"/>
+            sling:message="Itinerário &amp; excursões"/>
     <itinerary
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"

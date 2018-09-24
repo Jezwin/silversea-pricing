@@ -531,6 +531,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-cruise"
         sling:message="expedition cruise"/>
+    <expedition-itinerary
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-itinerary"
+        sling:message="expedition itinerary"/>
     <expedition-team
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-team"
@@ -831,6 +835,10 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="offers"
             sling:message="Offers"/>
+    <offers-for-this-cruise
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offers-for-this-cruise"
+            sling:message="Offers for this cruise"/>
     <other-recent-journals
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-journals"
@@ -1251,7 +1259,7 @@
     <suites-and-fares
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-and-fares"
-        sling:message="Suites and fares"/>
+        sling:message="Suites &amp; fares"/>
     <suites-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-descr"
@@ -1554,7 +1562,7 @@
     <itinerary-and-excursions
         jcr:primaryType="sling:MessageEntry"
         sling:key="itinerary-and-excursions"
-        sling:message="Itinerary and excursions"/>
+        sling:message="Itinerary &amp; excursions"/>
     <itinerary
             jcr:primaryType="sling:MessageEntry"
             sling:key="itinerary"

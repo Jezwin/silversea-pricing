@@ -1,7 +1,12 @@
 <template data-sly-template.default="${ @ cruise, externalizerHelper }">
     <div class="cruise-2018-itineraries-container" id="cruise2018itinerary">
         <div class="cruise-2018-itineraries-header">
-            <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
+                <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
+            </sly>
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+                <div class="cruise-2018-itineraries-title">${'expedition-itinerary' @ i18n}</div>
+            </sly>
             <div class="cruise-2018-itineraries-info">
             <span class="itineraries-info" data-sly-test="${cruise.cruiseModel.duration}">
                 <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/duration.png"/> ${cruise.cruiseModel.duration} ${'days' @ i18n}

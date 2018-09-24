@@ -1,7 +1,7 @@
 <template data-sly-template.default="${ @ offers, offersNumber, isVenetian, odd }">
     <div class="offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer" id="cruise2018offers"
          data-sly-test="${offersNumber!=0}">
-        <div class="offers-title"> ${ 'offers' @ i18n} </div>
+        <div class="offers-title"> ${ 'offers-for-this-cruise' @ i18n} </div>
         <div class="row offer-slider">
             <sly data-sly-list.offer="${offers}">
                 <div class="col-sm-6 offer-item  ${offerList.last && !isVenetian && offerList.odd ? 'col-sm-offset-3' : ''} ${offerList.index > 1 ? 'offers-hide' : ''}">
@@ -11,8 +11,9 @@
                          data-toggle="modal" class="offer-slider-container open-lightbox-offer"
                          data-target=".lightbox">
                         <div class="offer-slider-icon-container">
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = offer.voyageIcon}" />
                             <div class="offer-slider-icon"><img
-                                    src="${offer.voyageIcon @ context='uri'}"/>
+                                    src="${assetHelper.imageUrl @ context='uri'}"/>
                             </div>
                         </div>
                         <div class="offer-slider-text">
