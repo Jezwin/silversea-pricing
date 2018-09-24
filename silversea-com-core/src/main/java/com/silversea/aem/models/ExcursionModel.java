@@ -28,35 +28,72 @@ public class ExcursionModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ExcursionModel.class);
 
-    @Inject @Self
+    @Inject
+    @Self
     private Page page;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Optional
     private String title;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
+    @Optional
     private String description;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/codeExcursion") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/codeExcursion")
+    @Optional
     private String codeExcursion;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription")
+    @Optional
     private String apiLongDescription;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
+    @Optional
     private String longDescription;
-    
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/note") @Optional
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/note")
+    @Optional
     private String note;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/pois") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/okForDebarks")
+    @Optional
+    private boolean okForDebarks;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/okForEmbarks")
+    @Optional
+    private boolean okForEmbark;
+
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/shorexCategory")
+    @Optional
+    private String shorexCategory;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/pois")
+    @Optional
     private String pois;
+
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shorexId") @Optional
+    private Long shorexId;
     
     private String shortDescription;
 
     private List<FeatureModel> features = new ArrayList<>();
 
     private String schedule;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    private String  assetSelectionReference;
 
     @PostConstruct
     private void init() throws Exception {
@@ -121,6 +158,10 @@ public class ExcursionModel {
         return codeExcursion;
     }
 
+    public String getCode() {
+        return getCodeExcursion();
+    }
+
     public String getApiLongDescription() {
         return apiLongDescription;
     }
@@ -128,7 +169,7 @@ public class ExcursionModel {
     public String getLongDescription() {
         return longDescription;
     }
-    
+
     public String getNote() {
         return note;
     }
@@ -153,7 +194,28 @@ public class ExcursionModel {
         return schedule;
     }
 
-	/**
+
+    public boolean isOkForDebarks() {
+        return okForDebarks;
+    }
+
+    public boolean isOkForEmbark() {
+        return okForEmbark;
+    }
+
+    public String getShorexCategory() {
+        return shorexCategory;
+    }
+
+    public Long getShorexId() {
+        return shorexId;
+    }
+
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
+    }
+
+    /**
      * TODO replace by {@link java.time.Duration}
      */
     @Deprecated

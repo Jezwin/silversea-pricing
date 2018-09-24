@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.istack.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -15,13 +16,15 @@ import com.day.cq.dam.api.Asset;
 import com.silversea.aem.models.ShipAreaModel;
 import com.silversea.aem.models.SilverseaAsset;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * Utils class for Assets.
  */
 public class AssetUtils {
 
     /**
-     * @param setPath path of the asset which is a Media Set
+     * @param setPath          path of the asset which is a Media Set
      * @param resourceResolver the resource resolver
      * @return the Asset list of a media set
      */
@@ -48,7 +51,7 @@ public class AssetUtils {
 
         return renditionList;
     }
-    
+
     public static List<Asset> buildAssetList2018Order(String setPath, ResourceResolver resourceResolver) {
         List<Asset> renditionList = new ArrayList<>();
 
@@ -67,27 +70,27 @@ public class AssetUtils {
                         renditionList.add(asset);
                     }
                 }
-                
-                renditionList.add(0, renditionList.get(renditionList.size()-1));
-                renditionList.remove(renditionList.size()-1);
+
+                renditionList.add(0, renditionList.get(renditionList.size() - 1));
+                renditionList.remove(renditionList.size() - 1);
             }
         }
 
         return renditionList;
     }
 
-    public static Map<String,List<SilverseaAsset>> addAllShipAreaAssets(final ResourceResolver resourceResolver, final List<? extends ShipAreaModel> shipAreas) {
-    	Map<String,List<SilverseaAsset>> result = new HashMap<>();
+    public static Map<String, List<SilverseaAsset>> addAllShipAreaAssets(final ResourceResolver resourceResolver, final List<? extends ShipAreaModel> shipAreas) {
+        Map<String, List<SilverseaAsset>> result = new HashMap<>();
         List<SilverseaAsset> assets = new ArrayList<>();
         List<SilverseaAsset> assetsVirtualTour = new ArrayList<>();
 
         for (ShipAreaModel shipArea : shipAreas) {
             for (Asset item : shipArea.getAssets()) {
-            	SilverseaAsset sscAsset =  new SilverseaAsset();
-            	sscAsset.setPath(item.getPath());
-            	sscAsset.setName(item.getName());
-            	String label = item.getMetadataValue("dc:title");
-            	if (StringUtils.isNotEmpty(label)) {
+                SilverseaAsset sscAsset = new SilverseaAsset();
+                sscAsset.setPath(item.getPath());
+                sscAsset.setName(item.getName());
+                String label = item.getMetadataValue("dc:title");
+                if (StringUtils.isNotEmpty(label)) {
                     sscAsset.setLabel(label);
                 } else {
                     sscAsset.setLabel(shipArea.getTitle());
@@ -98,22 +101,22 @@ public class AssetUtils {
             }
             if (StringUtils.isNotBlank(shipArea.getVirtualTour())) {
                 Resource virtualTourResource = resourceResolver.getResource(shipArea.getVirtualTour());
-                if (virtualTourResource != null) {     
-					Asset vAsset = virtualTourResource.adaptTo(Asset.class);
-                	SilverseaAsset sscAssetVirtT =  new SilverseaAsset();
-                	sscAssetVirtT.setPath(vAsset.getPath());
+                if (virtualTourResource != null) {
+                    Asset vAsset = virtualTourResource.adaptTo(Asset.class);
+                    SilverseaAsset sscAssetVirtT = new SilverseaAsset();
+                    sscAssetVirtT.setPath(vAsset.getPath());
                     sscAssetVirtT.setType("virtual-tour");
                     assetsVirtualTour.add(sscAssetVirtT);
                 }
             }
         }
-        
+
         result.put("assets", assets);
         result.put("assetsVirtualTour", assetsVirtualTour);
 
         return result;
     }
-    
+
     public static List<SilverseaAsset> buildSilverseaAssetList(String setPath, ResourceResolver resourceResolver, String label) {
         List<SilverseaAsset> renditionList = new ArrayList<>();
 
@@ -129,14 +132,14 @@ public class AssetUtils {
                 while (it.hasNext()) {
                     Asset asset = it.next().adaptTo(Asset.class);
                     if (asset != null) {
-                    	sscAsset =  new SilverseaAsset();
-                    	sscAsset.setPath(asset.getPath());
-                    	sscAsset.setName(asset.getName());
-                    	if(StringUtils.isNotEmpty(label)) {
-                    		sscAsset.setLabel(label);
-                    	} else {
-                    		sscAsset.setLabel(asset.getMetadataValue("dc:title"));
-                    	}
+                        sscAsset = new SilverseaAsset();
+                        sscAsset.setPath(asset.getPath());
+                        sscAsset.setName(asset.getName());
+                        if (StringUtils.isNotEmpty(label)) {
+                            sscAsset.setLabel(label);
+                        } else {
+                            sscAsset.setLabel(asset.getMetadataValue("dc:title"));
+                        }
                         String metadataValue = asset.getMetadataValue("dam:credit");
                         sscAsset.setCredits(metadataValue);
                         renditionList.add(sscAsset);
@@ -146,5 +149,29 @@ public class AssetUtils {
         }
 
         return renditionList;
+    }
+
+    public static SilverseaAsset buildSilverseaAsset(String setPath, ResourceResolver resourceResolver, String label) {
+        if (setPath != null) {
+            Resource member = resourceResolver.getResource(setPath);
+
+            if (member != null) {
+                Asset asset = member.adaptTo(Asset.class);
+                if (asset != null) {
+                    SilverseaAsset sscAsset = new SilverseaAsset();
+                    sscAsset.setPath(asset.getPath());
+                    sscAsset.setName(asset.getName());
+                    if (StringUtils.isNotEmpty(label)) {
+                        sscAsset.setLabel(label);
+                    } else {
+                        sscAsset.setLabel(asset.getMetadataValue("dc:title"));
+                    }
+                    String metadataValue = asset.getMetadataValue("dam:credit");
+                    sscAsset.setCredits(metadataValue);
+                    return sscAsset;
+                }
+            }
+        }
+        return null;
     }
 }

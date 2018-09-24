@@ -1,12 +1,12 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="cruise-2018-ship-dining-area">
+    <div class="cruise-2018-ship-dining-area" id="cruise2018shipdining">
         <sly data-sly-test.dinings="${cruise.cruiseModel.ship.dinings}">
             <div class="hidden-xs cruise-2018-ship-dining-area-title">${cruise.cruiseModel.ship.title} ${'dining-options' @i18n}: ${dinings.size} ${'restaurants' @i18n}</div>
             <div class="hidden-xs cruise-2018-ship-dining-area-list" data-sly-list="${dinings}">
                 <div class="row cruise-2018-ship-dining-area-row ${itemList.index<2 ? '' : 'cruise-2018-accordion'}">
                     <div class="col-xs-6">
                         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                             data-sly-call="${imageTemplate.lazy @ imagePath=item.thumbnail, width=930}"/>
+                             data-sly-call="${imageTemplate.lazy @ imagePath=item.thumbnail, width=550}"/>
                     </div>
                     <div class="col-xs-6 cruise-2018-ship-dining-area-text">
                         <div class="cruise-2018-ship-dining-area-text-wrapper">
@@ -29,7 +29,7 @@
                 <div class="cruise-2018-ship-dining-area-slide">
                     <div class="cruise-2018-ship-dining-area-slide-thumbnail">
                         <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                             data-sly-call="${imageTemplate.responsiveLazy @ imagePath=item.thumbnail}"/>
+                             data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=item.thumbnail, Width='550'}"/>
                     </div>
                     <div class="cruise-2018-ship-dining-area-slide-text">
                         <div class="cruise-2018-ship-dining-area-slide-title">

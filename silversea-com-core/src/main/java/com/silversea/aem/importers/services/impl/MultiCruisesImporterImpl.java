@@ -407,9 +407,11 @@ public class MultiCruisesImporterImpl implements MultiCruisesImporter {
 		 * String[]{"apiTitle", "importedDescription", "jcr:title", "sling:alias"}); } }
 		 */
 
-		CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
-				cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService,
-				resourceResolver);
+		if (StringUtils.isNotEmpty(cruise.getMapUrl())) {
+			CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+					cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(),"itinerary" ,mimeTypeService,
+					resourceResolver);
+		}
 
 		final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
 		final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();

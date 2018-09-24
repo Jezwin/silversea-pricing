@@ -148,6 +148,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="ou contactez votre agent de voyages"/>
+    <call-reservations-team-learn-excursion
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Call our Reservations Team to know more about our excursions"/>
     <check-phone-format
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -219,7 +223,7 @@
     <credits
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="credits"/>
+        sling:message="crédits"/>
     <crew
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -774,6 +778,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Owner's 2"/>
+    <offer
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Offer"/>
+    <offers
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Offers"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -871,6 +883,18 @@
         jcr:primaryType="nt:folder"
         sling:key="pre-post-hotels    "
         sling:message="Hôtels avant et après"/>
+    <pre-post-extensions
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pre &amp; Post Cruise Extensions"/>
+    <night
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="night"/>
+    <nights
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="nights"/>
     <pressure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1273,6 +1297,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Voir tout"/>
+    <view-all-excursions
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="View all excursions"/>
 	<view-all-pictures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1477,54 +1505,66 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Téléchargez le programme des croisières"/>
+    <itinerary-and-excursions
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:message="Itinerary and excursions"/>
+    <itinerary
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:message="Itinerary"/>
     <specifications
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="specifications"/>
+            sling:message="spécifications"/>
     <officers
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="officers"/>
+            sling:message="officiers"/>
     <width
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="width"/>
+            sling:message="largeur"/>
     <speed
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="speed"/>
+            sling:message="vitesse"/>
     <passenger-decks
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="passenger-decks"/>
+            sling:message="ponts passagers"/>
     <third-guest-capacity
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="3rd guest capacity"/>
+            sling:message="possibilité d’un 3ème passager"/>
     <connecting-suites
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="connecting suites"/>
+            sling:message="suites communicantes"/>
     <handicap-suites
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="handicap suites"/>
+            sling:message="suites adaptées aux personnes handicapées"/>
     <built
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="built"/>
+            sling:message="construction"/>
     <registry
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="registry"/>
+            sling:message="pavillon"/>
     <knots
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="knots"/>
+            sling:message="nœuds"/>
     <download-pdf
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="download the pdf"/>
+            sling:message="télécharger le pdf"/>
+    <up-to
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:message="Up to "/>
     <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Map"/>
     <dining-options
             jcr:primaryType="nt:folder"

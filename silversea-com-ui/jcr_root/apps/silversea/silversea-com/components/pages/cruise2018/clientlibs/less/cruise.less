@@ -8,6 +8,7 @@
   @import "header.less";
   @import "offers.less";
   @import "overview.less";
+  @import "menu.less";
   @import "pre-post.less";
   @import "next-prev.less";
   @import "ship/ship-overview.less";
@@ -16,7 +17,7 @@
   @import "suites-fares.less";
 
   hr {
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     margin-top: 50px;
 
     @media(max-width: @screen-sm){
@@ -25,9 +26,96 @@
   }
 }
 
+
 .cruise-2018-title {
   text-align: center;
   margin-bottom: 25px;
   font-size: 30px;
   letter-spacing: 1px;
+}
+
+
+/*Style other lang for MENU*/
+.es, .pt-BR {
+  .menu-overview-fixed {
+    @media (min-width: 768px) {
+      .menu-raq a {
+        font-size: 10px !important;
+        padding: 12px 5px 10px 6px !important;
+      }
+    }
+  }
+}
+
+.de, .fr {
+  .menu-overview-fixed {
+    @media (min-width: 768px) {
+      .menu-raq a {
+        padding: 12px 6px 10px 7px;
+      }
+    }
+  }
+}
+
+.pt-BR, .es {
+  .menu-overview-fixed {
+    @media (min-width: 768px) {
+      div.early-booking {
+        font-size: 7.5px;
+      }
+    }
+  }
+}
+
+/*Style other lang for FOOTER*/
+.es, .pt-BR {
+  .fixed-footer-cruise {
+    @media (max-width: 767px) {
+      .fixed-footer-overview-quote-btn {
+        font-size: 8px !important;
+      }
+    }
+    @media (max-width: 374px) {
+      a#fixed-footer-2018-raq {
+        font-size: 7px !important;
+        padding-left: 6px !important;
+        padding-right: 5px !important;
+      }
+      .fixed-footer-quote-price-bonus {
+        font-size: 7px;
+      }
+    }
+  }
+}
+
+.de {
+  .fixed-footer-cruise {
+    @media (max-width: 767px) {
+      .fixed-footer-overview-quote-btn {
+        font-size: 10px !important;
+      }
+    }
+    @media (max-width: 374px) {
+      a#fixed-footer-2018-raq {
+        font-size: 9px !important;
+        padding-left: 9px !important;
+        padding-right: 8px !important;
+      }
+    }
+  }
+}
+
+.fr {
+  .fixed-footer-cruise {
+    @media (max-width: 767px) {
+      .fixed-footer-overview-quote-btn {
+        font-size: 11px !important;
+      }
+    }
+    @media (max-width: 374px) {
+      a#fixed-footer-2018-raq {
+        font-size: 9px !important;
+      }
+    }
+  }
 }

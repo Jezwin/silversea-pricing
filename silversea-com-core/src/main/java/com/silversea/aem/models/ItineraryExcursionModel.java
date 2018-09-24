@@ -26,6 +26,7 @@ public class ItineraryExcursionModel {
     private int excursionId;
 
     @Inject
+    @Optional
     private String excursionReference;
 
     @Inject @Optional
@@ -124,7 +125,19 @@ public class ItineraryExcursionModel {
 		return excursion;
 	}
 
-	public class Duration {
+    public String getAssetSelectionReference() {
+        return excursion != null ? excursion.getAssetSelectionReference() : null;
+    }
+
+    public Long getShorexId() {
+        return excursion != null ? excursion.getShorexId() : null;
+    }
+
+    public String getCode() {
+        return excursion != null ? excursion.getCodeExcursion() : null;
+    }
+
+    public class Duration {
         int hours;
         int minutes;
 

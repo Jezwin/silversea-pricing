@@ -1,0 +1,30 @@
+<template data-sly-template.default="${ @ itinerary, excursions, cruise }">
+    <div style="display:none;" class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion" id="cruise2018itineraryexcursion">
+        <sly data-sly-list.excursion="${excursions}" data-sly-test.isDedicate="${itinerary.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}">
+            <div class="${excursionList.index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion ${excursion.description  ? '' : 'cruise-2018-itineraries-port-excursions-excursion-no-content'}">
+                <a
+                   class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
+                   data-itinerary-id="${itinerary.itineraryId}" data-excursion-id="${excursion.shorexId}"
+                   href="${request.requestURI @ extension='', selectors=['lightboxes.lg-land-shorex-hotel',isDedicate]}">
+                    <span class="cruise-2018-itineraries-port-excursions-moredetails">
+                        ${'view-more-details' @ i18n}
+                    </span>
+                </a>
+                ${excursion.title}
+                <div class="cruise-2018-itineraries-port-excursions-excursion-features"
+                     data-sly-list.feature="${excursion.features}">
+                    <span class="feature"> <i class="${feature.icon}"></i> <span class="tooltip"><i></i>${feature.title}</span></span>
+                </div>
+            </div>
+        </sly>
+
+        <div data-ssc-accordion="show" data-sly-test="${excursions.size>8}"
+             class="cruise-2018-itineraries-port-excursions-btn">
+            <a class="btn btn-thin btn-white" href="#">
+                <span class="cruise-2018-excursions-accordion-button">${'view-all' @ i18n}</span>
+                <span class="cruise-2018-excursions-accordion-button" style="display:none">${'close' @ i18n}</span>
+            </a>
+        </div>
+    </div>
+
+</template>

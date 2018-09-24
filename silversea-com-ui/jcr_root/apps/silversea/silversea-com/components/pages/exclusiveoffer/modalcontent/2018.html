@@ -14,6 +14,9 @@
                 <a class="cruise-2018-modal-exclusive-offer-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
                    href="${exclusiveOffer.requestQuotePagePath @ extension='html'}">${'request-quote' @ i18n }</a>
             </div>
+            <sly data-sly-test="${exclusiveOffer.exclusiveOfferItem.footnote}">
+                <span class="cruise-2018-modal-footnotes">${exclusiveOffer.exclusiveOfferItem.footnote @ context='html'}</span>
+            </sly>
         </div>
     </div>
 </div>

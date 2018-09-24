@@ -102,6 +102,11 @@ public class CruiseModel {
     private String bigItineraryMap;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigThumbnailItineraryMap")
+    @Optional
+    private String bigThumbnailItineraryMap;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/smallItineraryMap")
     @Optional
     private String smallItineraryMap;
@@ -492,6 +497,10 @@ public class CruiseModel {
 
     public String getBigItineraryMap() {
         return bigItineraryMap;
+    }
+
+    public String getBigThumbnailItineraryMap() {
+        return bigThumbnailItineraryMap;
     }
 
     public String getSmallItineraryMap() {

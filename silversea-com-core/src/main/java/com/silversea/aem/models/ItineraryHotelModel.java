@@ -5,6 +5,7 @@ import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ public class ItineraryHotelModel {
     private int hotelId;
 
     @Inject
+    @Optional
     private String hotelReference;
 
     // TODO create custom injector
@@ -53,7 +55,15 @@ public class ItineraryHotelModel {
         return hotel != null ? hotel.getCode() : null;
     }
 
-	public HotelModel getHotel() {
+    public String getAssetSelectionReference() {
+        return hotel != null ? hotel.getAssetSelectionReference() : null;
+    }
+
+    public Long getHotelId() {
+        return hotel != null ? hotel.getHotelId() : null;
+    }
+
+    public HotelModel getHotel() {
 		return hotel;
 	}
 }

@@ -59,7 +59,7 @@
 	<available-on-ships
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="ist auf folgenden Schiffen verfügbar"/>	
+        sling:message="ist auf folgenden Schiffen verfügbar"/>
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -148,6 +148,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="oder kontaktieren Sie Ihr Reisebüro"/>
+    <call-reservations-team-learn-excursion
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Call our Reservations Team to know more about our excursions"/>
     <check-phone-format
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -219,7 +223,7 @@
     <credits
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="credits"/>
+        sling:message="guthaben"/>
     <crew
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -263,7 +267,7 @@
     <cruise-itinerary-description-v2-expedition
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>    
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -761,7 +765,7 @@
     <no-results-search
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Leider konnte keine Treffer für Ihre Suchanfrage gefunden warden. Versuchen Sie es bitte mit einem Begriff erneut."/>
+        sling:message="Leider konnte keine Treffer für Ihre Suchanfrage gefunden werden. Versuchen Sie es bitte mit einem neuen Begriff."/>
     <note
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -774,6 +778,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Owner's 2"/>
+    <offer
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Offer"/>
+    <offers
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Offers"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -789,7 +801,7 @@
     <other-restaurants-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Mit der Bedeutung des Essens in der italienischen Kultur sollten Sie erwarten, dass das Essen bei Silversea eine hohe Priorität hat. Und es ist sicher. Darüber hinaus ist gastronomische Exzellenz dank unserer Partnerschaft mit den angesehenen Grands Chefs Relais &amp; Châteaux eine Selbstverständlichkeit."/>	
+        sling:message="Mit der Bedeutung des Essens in der italienischen Kultur sollten Sie erwarten, dass das Essen bei Silversea eine hohe Priorität hat. Und es ist sicher. Darüber hinaus ist gastronomische Exzellenz dank unserer Partnerschaft mit den angesehenen Grands Chefs Relais &amp; Châteaux eine Selbstverständlichkeit."/>
 	<other-suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -797,16 +809,16 @@
     <other-suites-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="&#xa;Silverseas Suiten bieten eines der höchsten Raum-pro-Gäste-Verhältnis aller Luxus-Kreuzfahrt-Unterkünfte. Alle unsere Suiten verfügen über Meerblick und viele mit einer privaten Teakholzveranda."/>	
+        sling:message="&#xa;Silverseas Suiten bieten eines der höchsten Raum-pro-Gäste-Verhältnis aller Luxus-Kreuzfahrt-Unterkünfte. Alle unsere Suiten verfügen über Meerblick und viele mit einer privaten Teakholzveranda."/>
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Übersicht"/>
-    <overnight-in-port 
+    <overnight-in-port
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Übernachtung im Hafen"/>
-    <overnights-in-port 
+    <overnights-in-port
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Übernachtungen im Hafen"/>
@@ -870,6 +882,18 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Hotels vor und nach der Kreuzfahrt"/>
+    <pre-post-extensions
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Pre &amp; Post Cruise Extensions"/>
+    <night
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="night"/>
+    <nights
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="nights"/>
     <pressure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1077,7 +1101,7 @@
 	<select-inquiry
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Anfrage wählen"/>	
+        sling:message="Anfrage wählen"/>
     <select-language
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1272,10 +1296,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Alle ansehen"/>
+    <view-all-excursions
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="View all excursions"/>
 	<view-all-pictures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Alle Bilder anzeigen"/>	
+        sling:message="Alle Bilder anzeigen"/>
     <view-all-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1439,7 +1467,7 @@
 	<show-less
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
-	    sling:message="show Less"/>                        
+	    sling:message="show Less"/>
 	<show-all
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-all"
@@ -1480,54 +1508,66 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Tourenprogramm herunterladen "/>
+    <itinerary-and-excursions
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:message="Itinerary and excursions"/>
+    <itinerary
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:message="Itinerary"/>
     <specifications
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="specifications"/>
+            sling:message="technische Daten"/>
     <officers
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="officers"/>
+            sling:message="offiziere"/>
     <width
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="width"/>
+            sling:message="breite"/>
     <speed
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="speed"/>
+            sling:message="geschwindigkeit"/>
     <passenger-decks
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="passenger decks"/>
+            sling:message="passagierdecks"/>
     <third-guest-capacity
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="3rd guest capacity"/>
+            sling:message="platz für 3. gast"/>
     <connecting-suites
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="connecting suites"/>
+            sling:message="Suiten mit Verbindungstüren"/>
     <handicap-suites
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="handicap suites"/>
+            sling:message="Behindertengerechte Suiten"/>
     <built
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="built"/>
+            sling:message="Gebaut"/>
     <registry
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="registry"/>
+            sling:message="Registrierung"/>
     <knots
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="knots"/>
+            sling:message="Knoten"/>
     <download-pdf
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="download the pdf"/>
+            sling:message="PDF herunterladen"/>
+    <up-to
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:message="Up to "/>
     <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Map"/>
     <dining-options
             jcr:primaryType="nt:folder"

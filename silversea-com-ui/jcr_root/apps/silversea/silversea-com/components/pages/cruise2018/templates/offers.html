@@ -1,41 +1,46 @@
-<template data-sly-template.default="${ @ offers }">
-
-    <div class="cruise-2018-offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer"
-         data-sly-test="${offers.size!=0}">
-        <div class="cruise-2018-title cruise-2018-offers-title">
-            ${ 'offers' @ i18n}
-        </div>
-        <sly data-sly-test.ast="*"/>
-        <div data-sly-list.offer="${offers}" class="cruise-2018-offers-list cruise-2018-offers-size-${offers.size}">
-            <sly data-sly-test.linkOffer="${offer.newSystem ? offer.exclusiveOfferPath : offer.lightboxReference }"/>
-            <a href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent','2018']}"
-               rel="nofollow"
-               data-toggle="modal" class="cruise-2018-offer-container"
-               data-target=".lightbox">
-                <div class="cruise-2018-offer-icon-container">
-                    <div class="cruise-2018-offer-icon"><img src="${offer.voyageIcon @ context='uri'}"/></div>
-                </div>
-                <div class="cruise-2018-offer-text">
-                    <div class="cruise-2018-offer-title">${offer.title}</div>
-                    <div class="cruise-2018-offer-description"> ${offer.description @ context='html'}
-                        <sly data-sly-test="${offer.footNotes.size>0}">${ast}</sly>
-                        <sly data-sly-test.ast="${ast}*"/>
+<template data-sly-template.default="${ @ offers, offersNumber, isVenetian, odd }">
+    <div class="offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer" id="cruise2018offers"
+         data-sly-test="${offersNumber!=0}">
+        <div class="offers-title"> ${ 'offers' @ i18n} </div>
+        <div class="row offer-slider">
+            <sly data-sly-list.offer="${offers}">
+                <div class="col-sm-6 offer-item  ${offerList.last && !isVenetian && offerList.odd ? 'col-sm-offset-3' : ''} ${offerList.index > 1 ? 'offers-hide' : ''}">
+                    <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
+                         href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
+                         rel="nofollow"
+                         data-toggle="modal" class="offer-slider-container open-lightbox-offer"
+                         data-target=".lightbox">
+                        <div class="offer-slider-icon-container">
+                            <div class="offer-slider-icon"><img
+                                    src="${offer.voyageIcon @ context='uri'}"/>
+                            </div>
+                        </div>
+                        <div class="offer-slider-text">
+                            <div class="offer-slider-title">${offer.title}</div>
+                            <div class="offer-slider-description"> ${offer.description @ context='html'}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </a>
-        </div>
-        <sly data-sly-test.ast="*"/>
-        <div class="cruise-2018-offers-footnotes">
-            <div data-sly-list.offer="${offers}" class="cruise-2018-offers-footnotes">
-                <div class="cruise-2018-offer-footnote">
-                    <ul>
-                        <li data-sly-repeat.footnote="${offer.footNotes}">
-                            ${ast}${footnote @ context='html'}
-                            <sly data-sly-test.ast="${ast}*"/>
-                        </li>
-                    </ul>
+            </sly>
+            <div class="col-sm-6 offer-item ${ (odd)  ? 'col-sm-offset-3' : ''} ${(offersNumber > 2)  ? 'offers-hide' : ''}"
+                 data-sly-test="${isVenetian}">
+                <div class="offer-slider-container">
+                    <div class="offer-slider-icon-container">
+                        <div class="offer-slider-icon"><i class="icon-shield-v"></i></div>
+                    </div>
+                    <div class="offer-slider-text">
+                        <div class="offer-slider-title"> ${'VS-EO-Title' @ i18n}</div>
+                        <div class="offer-slider-description">${'VS-EO-Message' @ i18n} </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
+            <a data-ssc-accordion="show" class="btn btn-thin btn-white offers-show-btn" href="#">
+                <span class="offers-accordion-button">${'view-all' @ i18n}</span>
+                <span class="offers-accordion-button" style="display:none">${'close' @ i18n}</span>
+            </a>
         </div>
     </div>
 </template>

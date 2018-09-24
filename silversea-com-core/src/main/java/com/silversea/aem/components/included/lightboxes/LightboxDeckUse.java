@@ -1,13 +1,14 @@
 package com.silversea.aem.components.included.lightboxes;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.models.ShipModel;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.ValueMap;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LightboxDeckUse extends AbstractGeolocationAwareUse {
@@ -41,8 +42,10 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
             } else if (StringUtils.isNotEmpty(ship.getLengthM())) {
                 spec.add(new SpecBean("length", ship.getLengthM()));
             }
-            if (StringUtils.isNotEmpty(ship.getWidth())) {
-                spec.add(new SpecBean("width", ship.getWidth()));
+            if (countryCode.equals("US") && StringUtils.isNotEmpty(ship.getWidthFt())) {
+                spec.add(new SpecBean("width", ship.getWidthFt()));
+            } else if (StringUtils.isNotEmpty(ship.getWidthM())) {
+                spec.add(new SpecBean("width", ship.getWidthM()));
             }
             if (StringUtils.isNotEmpty(ship.getSpeed())) {
                 spec.add(new SpecBean("speed", ship.getSpeed()));
@@ -51,17 +54,18 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
             if (StringUtils.isNotEmpty(ship.getThirdGuestCapacity())) {
                 spec.add(new SpecBean("third-guest-capacity", ship.getThirdGuestCapacity()));
             }
-            if (StringUtils.isNotEmpty(ship.getConnectingSuites())) {
-                spec.add(new SpecBean("connecting-suites", ship.getConnectingSuites()));
-            }
             if (StringUtils.isNotEmpty(ship.getHandicapSuites())) {
                 spec.add(new SpecBean("handicap-suites", ship.getHandicapSuites()));
             }
             if (StringUtils.isNotEmpty(ship.getBuiltDate())) {
-                spec.add(new SpecBean("built", ship.getBuiltDate()));
+                String year = ship.getBuiltDate().substring(0,4);
+                spec.add(new SpecBean("built",year));
             }
             if (StringUtils.isNotEmpty(ship.getRegistry())) {
                 spec.add(new SpecBean("registry", ship.getRegistry()));
+            }
+            if (StringUtils.isNotEmpty(ship.getConnectingSuites())) {
+                spec.add(new SpecBean("connecting-suites", ship.getConnectingSuites()));
             }
             return spec;
         }

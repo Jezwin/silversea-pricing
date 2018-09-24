@@ -117,9 +117,14 @@ public class ShipModel {
     private String lengthM;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/width")
+    @Named(JcrConstants.JCR_CONTENT + "/widthFt")
     @Optional
-    private String width;
+    private String widthFt;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/widthM")
+    @Optional
+    private String widthM;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/speed")
@@ -188,26 +193,26 @@ public class ShipModel {
         try {
             if (this.page.getContentResource("deckInfoNode") != null) {
                 Node nodeToTransform = this.page.getContentResource("deckInfoNode").adaptTo(Node.class);
-                if(nodeToTransform != null && nodeToTransform.hasNodes()) {
+                if (nodeToTransform != null && nodeToTransform.hasNodes()) {
                     List<DeckBean> listResult = new ArrayList<>();
                     Iterator<Node> nodeIterator = nodeToTransform.getNodes();
                     while (nodeIterator.hasNext()) {
                         DeckBean deckBean = new DeckBean();
                         Node node = nodeIterator.next();
-                        if(node.hasProperty("deckLevel") && node.getProperty("deckLevel") != null) {
+                        if (node.hasProperty("deckLevel") && node.getProperty("deckLevel") != null) {
                             String propertyDeckLevel = node.getProperty("deckLevel").getString();
                             deckBean.setLevel(propertyDeckLevel);
                         }
-                        if(node.hasProperty("deckImageTop") && node.getProperty("deckImageTop") != null) {
+                        if (node.hasProperty("deckImageTop") && node.getProperty("deckImageTop") != null) {
                             String propertyImageTopPath = node.getProperty("deckImageTop").getString();
                             deckBean.setImageTopPath(propertyImageTopPath);
                         }
-                        if(node.hasProperty("deckImageSide") && node.getProperty("deckImageSide") != null) {
+                        if (node.hasProperty("deckImageSide") && node.getProperty("deckImageSide") != null) {
                             String propertyImageSidePath = node.getProperty("deckImageSide").getString();
                             deckBean.setImageSidePath(propertyImageSidePath);
                         }
                         listResult.add(deckBean);
-                        LOGGER.debug("ShipModelTransformDeckInfo name: {} add new deck bean {}",this.name, deckBean.toString());
+                        LOGGER.debug("ShipModelTransformDeckInfo name: {} add new deck bean {}", this.name, deckBean.toString());
                     }
                     LOGGER.debug("ShipModelTransformDeckInfo name: {}  list of  {} elements", listResult.size());
                     return listResult;
@@ -297,10 +302,6 @@ public class ShipModel {
         return lengthM;
     }
 
-    public String getWidth() {
-        return width;
-    }
-
     public String getSpeed() {
         return speed;
     }
@@ -377,7 +378,7 @@ public class ShipModel {
     }
 
     public List<DeckBean> getDeckInfoList() {
-        if(deckInfoList == null){
+        if (deckInfoList == null) {
             deckInfoList = transformDeckInformationFromNodeToList("deckInfoNode");
         }
         return deckInfoList;
@@ -389,5 +390,13 @@ public class ShipModel {
 
     public String getShortVoyageDescription() {
         return shortVoyageDescription;
+    }
+
+    public String getWidthFt() {
+        return widthFt;
+    }
+
+    public String getWidthM() {
+        return widthM;
     }
 }

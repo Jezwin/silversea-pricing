@@ -19,12 +19,33 @@
 </div>
 
 <div class="modal fade lightbox" id="modalLightbox" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="lightbox-close" data-dismiss="modal">
-        <div class="text-close hidden-xs">${'close' @ i18n}</div>
-        <div class="icon-close"><i class="material-icons">close</i></div>
-    </div>
+    <a class="lightbox-prev-link" data-target=".lightbox"
+       href="#">
+        <div class="lightbox-prev-wrapper">
+            <span class="lightbox-prev-label">X</span>
+            <div class="lightbox-prev">
+                <span class="ligthbox-prev-button">${'previous' @i18n}</span>
+            </div>
+        </div>
+    </a>
+    <a class="lightbox-next-link" data-target=".lightbox"
+       href="#">
+        <div class="lightbox-next-wrapper">
+            <span class="lightbox-next-label">X</span>
+            <div class="lightbox-next">
+                <span class="ligthbox-next-button">${'next' @i18n}</span>
+            </div>
+        </div>
+    </a>
     <div class="modal-dialog" role="document">
+        <div class="lightbox-close" data-dismiss="modal">
+            <div class="lightbox-close-div">
+                <div class="text-close">${'close' @ i18n}</div>
+                <div class="icon-close"><i class="material-icons">close</i></div>
+            </div>
+        </div>
         <div class="modal-content"></div>
     </div>
 </div>
-<!--/* /Modal */-->
+
+        <!--/* /Modal */-->

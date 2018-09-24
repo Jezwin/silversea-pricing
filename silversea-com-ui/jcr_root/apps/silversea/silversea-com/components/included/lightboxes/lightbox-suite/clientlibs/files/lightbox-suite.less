@@ -1,10 +1,5 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
-@media(min-width: @screen-md-min) {
-  .modal.lightbox .modal-content.lightbox-suite-content {
-    top: 0px;
-  }
-}
 
 .lightbox .modal-content .modal-body.lightbox-suite-body {
   padding-top: 0px;
@@ -15,7 +10,6 @@
   //common style across templates
   .lg-content {
     margin: 0px 60px 0px 60px;
-
     hr {
       border: 1px solid rgba(152, 152, 155, 0.2);
     }
@@ -106,8 +100,8 @@
 
   //style applied only to suite-gallery.html templates
   .lg-asset-slider {
-    margin-bottom: 20px;
     visibility: hidden;
+    min-height: 60px;
 
     &.slick-initialized {
       visibility: visible !important;
@@ -245,7 +239,7 @@
       }
     }
     .slick-dots li.slick-active {
-      border: 1px solid @white;
+      padding:1px;
     }
 
     .slick-dots {
@@ -455,9 +449,6 @@
         letter-spacing: 0.5px;
         line-height: 32px;
       }
-      .lg-row-title-price {
-        margin-top: 60px;
-      }
 
       .lg-row-descr {
         margin-top: 50px;
@@ -662,7 +653,7 @@
     .visible-xs {
       .lg-suite-cta {
         .lg-suite-raq {
-          margin-bottom: 20px;
+          margin-bottom: 60px;
         }
       }
     }
@@ -670,7 +661,7 @@
     //style applied only to the second suite-cta.html templates
     .lg-suite-cta {
       .lg-suite-raq {
-        margin-bottom: 30px;
+        margin-bottom: 60px;
       }
     }
 
@@ -693,8 +684,20 @@
   }
 }
 
+//Style other lang
+.es, .pt-BR {
+  .lightbox-suite {
+    .lg-suite-raq a {
+      padding: 12px 19px 10px 20px !important;
+    }
 
-
+    @media (max-width: 374px) {
+      .lg-suite-raq a {
+        padding: 12px 28px 10px 29px;
+      }
+    }
+  }
+}
 
 
 
