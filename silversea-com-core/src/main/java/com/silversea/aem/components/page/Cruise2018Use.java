@@ -203,13 +203,15 @@ public class Cruise2018Use extends EoHelper {
         int size = itineraries.size();
         Map<Integer, LinkedList<String>> portAssets = itineraries.stream().map(ItineraryModel::getPort).distinct()
                 .collect(Collectors.toMap(PortModel::getCityId, this::portAssets, (l1, l2) -> l1));
-        for (int day = 0; day < size; day++) {
-            ItineraryModel itinerary = itineraries.get(day);
+        Set<Calendar> days = new HashSet<>();
+        for (int counter = 0; counter < size; counter++) {
+            ItineraryModel itinerary = itineraries.get(counter);
+            days.add(itinerary.getDate());
             Integer portId = itinerary.getPortId();
             boolean isNextDaySamePort =
-                    day != size - 1 && itineraries.get(day + 1).getPortId().equals(portId);
+                    counter != size - 1 && itineraries.get(counter + 1).getPortId().equals(portId);
             result.add(
-                    new CruiseItinerary(day + 1, day == 0, day == size - 1,
+                    new CruiseItinerary(days.size(), counter == 0, counter == size - 1,
                             ofNullable(portAssets.get(portId).poll()).orElse(itinerary.getPort().getThumbnail()),
                             isNextDaySamePort, itinerary));
         }
@@ -518,7 +520,9 @@ public class Cruise2018Use extends EoHelper {
                     PortModel portModel = itineraryModel.getPort();
                     String assetSelectionReference = portModel.getAssetSelectionReference();
                     if (StringUtils.isNotBlank(assetSelectionReference)) {
-                        List<SilverseaAsset> portAssets = AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), portModel.getTitle());
+                        List<SilverseaAsset> portAssets = AssetUtils
+                                .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                                        portModel.getTitle());
                         if (portAssets != null && !portAssets.isEmpty()) {
                             portsAssetsList.addAll(portAssets);
                         }
@@ -560,8 +564,9 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private List<CruiseModelLight> allSameShipCruises(CruiseModel cruiseModel) {
-        if(allSameShipCruises != null)
+        if (allSameShipCruises != null) {
             return allSameShipCruises;
+        }
 
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
         final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
@@ -589,7 +594,7 @@ public class Cruise2018Use extends EoHelper {
                 }
             }
         }
-        return seen ? Optional.of(best) : Optional.empty();
+        return Optional.ofNullable(best);
     }
 
     private Optional<CruiseModelLight> retrieveNextCruise(CruiseModel cruiseModel) {
@@ -604,7 +609,7 @@ public class Cruise2018Use extends EoHelper {
                 }
             }
         }
-        return seen ? Optional.of(best) : Optional.empty();
+        return Optional.ofNullable(best);
     }
 
     public String getBigItineraryMap() {
@@ -783,17 +788,12 @@ public class Cruise2018Use extends EoHelper {
         return ccptCode;
     }
 
-    public List<CruisePrePost> getPrePost() {
-        List<CruisePrePost> list = new ArrayList<>();
+    public Collection<CruisePrePost> getPrePost() {
         Set<CruisePrePost> uniqueValues = new HashSet<>();
         for (CruiseItinerary cruiseItinerary : getItinerary()) {
-            for (CruisePrePost cruisePrePost : cruiseItinerary.getPrePosts()) {
-                if (uniqueValues.add(cruisePrePost)) {
-                    list.add(cruisePrePost);
-                }
-            }
+            uniqueValues.addAll(cruiseItinerary.getPrePosts());
         }
-        return list;
+        return uniqueValues;
     }
 
     public ExcursionModel getShorexExcursionLightbox() {
