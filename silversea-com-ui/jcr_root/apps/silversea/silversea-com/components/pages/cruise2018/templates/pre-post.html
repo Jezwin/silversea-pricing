@@ -14,8 +14,7 @@
                                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                                      data-sly-call="${imageTemplate.image @ imagePath=prePost.thumbnail, width=350}"/>
                             </div>
-                            <div class="cruise-2018-prepost-slide-prepost"
-                                 style="display: none;">${prePost.prePost}</div>
+                            <div class="cruise-2018-prepost-slide-prepost">${prePost.prePost}</div>
                             <div class="cruise-2018-prepost-slide-title">${prePost.title}</div>
                             <div data-sly-test=${prePost.nights} class="cruise-2018-prepost-slide-days">${prePost.nights} ${prePost.nights> 1 ? 'nights' : 'night' @ i18n}</div>
                             <div data-sly-test=${prePost.category} class="cruise-2018-prepost-slide-collection">${prePost.category}</div>

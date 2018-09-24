@@ -41,7 +41,7 @@ public class CruisePrePost {
         this.id = land.getLandId().toString();
         this.code = land.getLandCode();
         this.category = coutoureCollectoinCodes.contains(code) ? "Couture Collection" : "";
-        this.prePost = land.getLandCode().substring(3, 7).matches(".*PO?ST.*") ? "POST" : "PRE";
+        this.prePost = land.getLandCode().substring(2, 6).matches(".*PO?ST.*") ? "POST" : "PRE";
         this.nights = numberOfNights(code);
         this.type = "land";
         this.itineraryId = itineraryId;
