@@ -45,17 +45,6 @@ $(function () {
         }
     })();
 
-    function loadLazyImage($slider) {
-        var $sliderActive = $slider.closest('.cruise-2018-ship-dining-area-list-slider').find('.slick-active');
-        $sliderActive.find('.lazy').lazy();
-        $sliderActive.prev().find('.lazy').lazy();
-        $sliderActive.prev().prev().find('.lazy').lazy();
-        $sliderActive.next().find('.lazy').lazy();
-        $sliderActive.next().next().find('.lazy').lazy();
-        setTimeout(function () {
-            $sliderActive.find('.lazy').lazy();
-        }, 50);
-    }
 
     function initSlider() {
         var $slider = $(".cruise-2018-ship-dining-area-list-slider:visible");
@@ -77,7 +66,7 @@ $(function () {
         }
         createLineProgressBar();
         $slider.on('afterChange', function (event, slick, currentSlide) {
-            loadLazyImage($(this));
+            loadLazyImageInSlider($(this), 'cruise-2018-ship-dining-area-list-slider');
         });
     }
 

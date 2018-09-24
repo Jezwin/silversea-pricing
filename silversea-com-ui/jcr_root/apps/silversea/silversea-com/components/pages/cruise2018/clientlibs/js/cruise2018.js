@@ -15,23 +15,31 @@ var createLineProgressBar = (function () {
         });
     }
 })();
+function loadLazyImageInSlider($slider) {
+    var $sliderActive = $slider.find('.slick-active');
+    $sliderActive.find('.lazy').lazy();
+    $sliderActive.prev().find('.lazy').lazy();
+    $sliderActive.prev().prev().find('.lazy').lazy();
+    $sliderActive.next().find('.lazy').lazy();
+    $sliderActive.next().next().find('.lazy').lazy();
+    setTimeout(function () {
+        $sliderActive.find('.lazy').lazy();
+    }, 50);
+}
 
 function initSlider() {
     $(".cruise-2018-slider").each(function () {
         var $slider = $(this);
         if ($slider) {
             try {
-               // $slider.slick("unslick");
             } catch (e) {
 
             }
-
             var options = {
                 dots: $slider.hasClass('activate-progressbar'),
                 draggable: true,
                 slidesToShow: $slider.data('ssc-slides') || 3,
                 slidesToScroll: $slider.data('ssc-slides') || 3,
-                //centerPadding: '40px'
             };
             var breakpoint = $slider.data('ssc-breakpoint');
             if (breakpoint) {
@@ -39,14 +47,17 @@ function initSlider() {
                     [{
                         breakpoint: breakpoint,
                         settings: {
-                            slidesToShow: $slider.data('ssc-slides') -1 || 3,
-                            slidesToScroll: $slider.data('ssc-slides') -1 || 3
+                            slidesToShow: $slider.data('ssc-slides') - 1 || 3,
+                            slidesToScroll: $slider.data('ssc-slides') - 1 || 3
                         }
                     }];
             }
             $slider.slick(options);
+            $slider.on('afterChange', function (event, slick, currentSlide) {
+                loadLazyImageInSlider($(this), 'cruise-2018-slide');
+            });
+            loadLazyImageInSlider($slider);
         }
-       // $slider.removeClass('c-slider');
         createLineProgressBar();
     });
 }
@@ -54,12 +65,10 @@ function initSlider() {
 
 $(function () {
     initSlider();
-    //$(window).on("resize", initSlider);
-    
-     window.widthCruise2018 = $(window).width();
-        $(window).resize(function () {
-            if ($(window).width()==window.widthCruise2018) return;
-            window.widthCruise2018 = $(window).width();
-            createLineProgressBar();
-        });
+    window.widthCruise2018 = $(window).width();
+    $(window).resize(function () {
+        if ($(window).width() == window.widthCruise2018) return;
+        window.widthCruise2018 = $(window).width();
+        createLineProgressBar();
+    });
 });
