@@ -92,25 +92,32 @@ $(function () {
 
     function setModalNavigation($modal, uri, itineraryId, excursionId) {
         try {
-
             var excursion = window['it' + itineraryId][excursionId];
+            console.log(excursion);
             if (excursion.prevId === excursionId) {
                 return false;
             }
+            var subUri = uri.substring(0, uri.lastIndexOf('.')+1);
             var prev = $modal.find('.lightbox-prev-label');
             var next = $modal.find('.lightbox-next-label');
             var nextLink = $modal.find('.lightbox-next-link');
             var prevLink = $modal.find('.lightbox-prev-link');
             prev.html(excursion.prevLabel);
             next.html(excursion.nextLabel);
+
             prevLink.data('target', $modal.attr('id'));
             prevLink.data('itinerary-id', itineraryId);
             prevLink.data('excursion-id', excursion.prevId);
-            prevLink.attr('href', uri);
+
+            var prevUri = subUri+excursion.prevKind;
+            prevLink.attr('href', prevUri);
+
             nextLink.data('target', $modal.attr('id'));
             nextLink.data('itinerary-id', itineraryId);
             nextLink.data('excursion-id', excursion.nextId);
-            nextLink.attr('href', uri);
+
+            var nextUri = subUri+excursion.nextKind;
+            nextLink.attr('href', nextUri);
         } catch (e) {
 
         }

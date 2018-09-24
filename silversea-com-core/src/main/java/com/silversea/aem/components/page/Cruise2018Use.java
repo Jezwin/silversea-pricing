@@ -19,6 +19,8 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -95,6 +97,7 @@ public class Cruise2018Use extends EoHelper {
 
     //caching
     private List<CruiseModelLight> allSameShipCruises;
+    private ItineraryLandProgramModel midlandShorexLightbox;
 
     @Override
     public void activate() throws Exception {
@@ -123,6 +126,9 @@ public class Cruise2018Use extends EoHelper {
                 return;
             case ITINERARY_SHOREX_EXCURSION:
                 itineraryShorexExcursionLightbox = retrieveItineraryShorexExcursion(selectors);
+                return;
+            case MIDLAND:
+                midlandShorexLightbox = retrieveMidlandLightbox(selectors);
                 return;
             case SHOREX_EXCURSION:
                 shorexExcursionLightbox = retrieveShorexExcursion(selectors);
@@ -174,6 +180,8 @@ public class Cruise2018Use extends EoHelper {
         });
     }
 
+
+
     private boolean retrieveShowCruiseBeforeName(Locale locale) {
         switch (locale.getLanguage().toLowerCase()) {
             case "en":
@@ -220,32 +228,26 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private long retrieveNumberOfPorts(CruiseModel cruiseModel) {
-        long count = 0L;
         Set<PortModel> uniqueValues = new HashSet<>();
         for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
             PortModel port = itineraryModel.getPort();
-            if (port.getCountry() != null) {
-                if (uniqueValues.add(port)) {
-                    count++;
-                }
+            if (!(port.getCountry() == null || "day-at-sea".equals(port.getName()))) {
+                uniqueValues.add(port);
             }
         }
-        return count;
+        return uniqueValues.size();
     }
 
     private long retrieveNumberOfCountries(CruiseModel cruiseModel) {
-        long count = 0L;
         Set<String> uniqueValues = new HashSet<>();
         for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
             PortModel port = itineraryModel.getPort();
             if (!Strings.isNullOrEmpty(port.getCountryIso3())) {
                 String countryIso3 = port.getCountryIso3();
-                if (uniqueValues.add(countryIso3)) {
-                    count++;
-                }
+                uniqueValues.add(countryIso3);
             }
         }
-        return count;
+        return uniqueValues.size();
     }
 
     private String retrieveHighlights() {
@@ -272,56 +274,44 @@ public class Cruise2018Use extends EoHelper {
         return null;
     }
 
-    private ExcursionModel retrieveShorexExcursion(String[] selectors) {
+
+    private <T> T retrieveFromList(String[] selectors, Function<ItineraryModel, List<T>> listFactory,
+                                   BiFunction<Long, T, Boolean> test) {
         if (selectors != null && selectors.length > 4) {
             Long itineraryID = Long.valueOf(selectors[3]);
             Long shorexID = Long.valueOf(selectors[4]);
-
             ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
             if (itineraryModel != null) {
-                List<ExcursionModel> shorexExcursions = CruiseItinerary.retrieveExcursions(itineraryModel);
-                for (ExcursionModel shorex : shorexExcursions) {
-                    if (shorex.getShorexId().equals(shorexID)) {
-                        return shorex;
+                for (T element : listFactory.apply(itineraryModel)) {
+                    if (test.apply(shorexID, element)) {
+                        return element;
                     }
                 }
             }
         }
         return null;
+    }
+
+    private ExcursionModel retrieveShorexExcursion(String[] selectors) {
+        return retrieveFromList(selectors, CruiseItinerary::retrieveExcursions,
+                (id, shorex) -> shorex.getShorexId().equals(id));
+
     }
 
     private ItineraryExcursionModel retrieveItineraryShorexExcursion(String[] selectors) {
-        if (selectors != null && selectors.length > 4) {
-            Long itineraryID = Long.valueOf(selectors[3]);
-            Long shorexID = Long.valueOf(selectors[4]);
-            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
-            if (itineraryModel != null) {
-                List<ItineraryExcursionModel> itShorexExcursions = itineraryModel.getExcursions();
-                for (ItineraryExcursionModel shorex : itShorexExcursions) {
-                    if (shorex.getShorexId().equals(shorexID)) {
-                        return shorex;
-                    }
-                }
-            }
-        }
-        return null;
+        return retrieveFromList(selectors, ItineraryModel::getExcursions,
+                (id, shorex) -> shorex.getShorexId().equals(id));
     }
 
+
     private ItineraryLandProgramModel retrieveLandProgramModel(String[] selectors) {
-        if (selectors != null && selectors.length > 4) {
-            Long itineraryID = Long.valueOf(selectors[3]);
-            Long landID = Long.valueOf(selectors[4]);
-            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
-            if (itineraryModel != null) {
-                List<ItineraryLandProgramModel> landPrograms = itineraryModel.getLandPrograms();
-                for (ItineraryLandProgramModel landProgram : landPrograms) {
-                    if (landProgram.getLandId().equals(landID)) {
-                        return landProgram;
-                    }
-                }
-            }
-        }
-        return null;
+        return retrieveFromList(selectors, ItineraryModel::getLandPrograms,
+                (id, landProgram) -> landProgram.getLandId().equals(id));
+    }
+
+    private ItineraryLandProgramModel retrieveMidlandLightbox(String[] selectors) {
+        return retrieveFromList(selectors, ItineraryModel::getLandPrograms,
+                (id, landProgram) -> landProgram.getLandId().equals(id));
     }
 
     private ItineraryModel retrieveItineraryModel(Long id) {
@@ -661,14 +651,14 @@ public class Cruise2018Use extends EoHelper {
         return this.totalNumberOfOffers % 2 != 0;
     }
 
-    private enum Lightbox {
+    public enum Lightbox {
         ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), LAND_PROGRAM("lg-land"),
         ITINERARY_SHOREX_EXCURSION("lg-itShorex"), SHOREX_EXCURSION("lg-shorex"), HOTEL("lg-hotel"),
-        HIGHLIGHTS("lg-highlights"),
+        HIGHLIGHTS("lg-highlights"), MIDLAND("lg-midShorex"),
 
         CRUISE_PAGE("");
 
-        private String selector = "";
+        private String selector;
 
         public String getSelector() {
             return selector;
@@ -803,6 +793,10 @@ public class Cruise2018Use extends EoHelper {
 
     public boolean isShowCruiseBeforeName() {
         return showCruiseBeforeName;
+    }
+
+    public ItineraryLandProgramModel getMidlandShorexLightbox() {
+        return midlandShorexLightbox;
     }
 }
 

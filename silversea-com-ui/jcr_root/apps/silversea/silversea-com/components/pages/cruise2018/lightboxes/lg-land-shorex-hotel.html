@@ -8,4 +8,6 @@
          data-sly-call="${lshTemplate.default @ model= cruise.shorexExcursionLightbox}"/>
     <sly data-sly-test="${cruise.selector == 'lg-itShorex'}"
          data-sly-call="${lshTemplate.default @ model= cruise.itineraryShorexExcursionLightbox}"/>
+    <sly data-sly-test="${cruise.selector == 'lg-midShorex'}"
+         data-sly-call="${lshTemplate.default @ model= cruise.midlandShorexLightbox.landProgram}"/>
 </sly>

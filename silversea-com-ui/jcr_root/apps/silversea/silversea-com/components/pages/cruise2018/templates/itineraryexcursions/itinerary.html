@@ -4,7 +4,7 @@
             <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
             <div class="cruise-2018-itineraries-info">
             <span class="itineraries-info" data-sly-test="${cruise.cruiseModel.duration}">
-                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/duration.png"/> ${cruise.cruiseModel.duration} ${'days' @ i18n}
+                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/duration.png"/> ${cruise.cruiseModel.duration} ${'day' @ i18n}
             </span>
                 <span class="itineraries-info" data-sly-test="${cruise.numPorts}">
                     <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/port.png"/> ${cruise.numPorts} ${'ports' @ i18n}
@@ -50,11 +50,15 @@
             <sly data-sly-test.name="${itinerary.name}"/>
             <sly data-sly-test.country="${itinerary.countryIso3}"/>
             <sly data-sly-test.excursions="${itinerary.excursions}"/>
+            <sly data-sly-test.mid="${itinerary.mid}"/>
             <sly data-sly-test.iDate="${itinerary.date}"/>
             <sly data-sly-test.iDay="${itinerary.day}"/>
             <sly data-sly-test.arriveTime="${itinerary.arriveTime}"/>
             <sly data-sly-test.departTime="${itinerary.departTime}"/>
             <sly data-sly-test.hasExcursions="${itinerary.hasExcursions}"/>
+            <sly data-sly-test.hasMid="${!itinerary.mid.empty}"/>
+            <sly data-sly-test.shorexSize="${itinerary.shorexSize}"/>
+            <sly data-sly-test.hasShorex="${shorexSize>0}"/>
             <sly data-sly-test.excursionDescription="${itinerary.excursionDescription}"/>
             <sly data-sly-test.overnight="${itinerary.overnight}"/>
             <sly data-sly-test.expandable="${excursions || excursionDescription}"/>
@@ -64,7 +68,8 @@
 
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
-                    <a class="open-lightbox-port cruise-2018-link-open-modal" data-target=".lightbox" data-sly-test="${expandable}"
+                    <a class="open-lightbox-port cruise-2018-link-open-modal" data-target=".lightbox"
+                       data-sly-test="${expandable}"
                        href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-day-wrapper">
@@ -85,8 +90,15 @@
                             <div class="cruise-2018-itineraries-itinerary-row-text-country">
                                 ${country @ i18n}
                             </div>
-                            <div data-sly-test=${hasExcursions} class="cruise-2018-itineraries-itinerary-row-text-excursions">
-                                ${excursions.size} ${(excursions.size>1 ? 'excursions' : 'excursion') @i18n}
+                            <div data-sly-test="${hasShorex}" class="cruise-2018-itineraries-itinerary-row-text-excursions">
+                                <sly data-sly-test="${hasExcursions}">
+                                    ${excursions.size} ${(shorexSize>1 ? 'excursions' : 'excursion') @i18n}
+                                </sly>
+                                <sly data-sly-test="${hasMid && hasExcursions}">
+                                    &
+                                </sly>
+                                <sly data-sly-test="${hasMid}"> ${mid.size} ${'land-programmes'  @i18n}
+                                </sly>
                             </div>
                             <div class="cruise-2018-itineraries-itinerary-row-text-mobile-date">
                                 <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEE dd MMM', date=iDate}">
@@ -112,7 +124,7 @@
                             </div>
                         </div>
                         <div
-                             class="cruise-2018-itineraries-itinerary-row-date-lightbox ${expandable ? '' : 'ssc_hidden'}">
+                                class="cruise-2018-itineraries-itinerary-row-date-lightbox ${expandable ? '' : 'ssc_hidden'}">
                             <i class="material-icons"> zoom_out_map </i>
                         </div>
                         <div
@@ -127,14 +139,21 @@
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper ${itineraryList.last ? '' : 'bordered'}"
                          style="display:none;">
                         <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${excursionDescription @context='html'} </div>
-                        <div data-sly-test="${hasExcursions}"
+                        <div data-sly-test="${hasShorex}"
                              class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">
-                            ${excursions.size} ${(excursions.size>1 ? 'excursions' : 'excursion') @i18n}
+                            <sly data-sly-test="${hasExcursions}">
+                                ${excursions.size} ${(shorexSize>1 ? 'excursions' : 'excursion') @i18n}
+                            </sly>
+                            <sly data-sly-test="${hasMid && hasExcursions}">
+                                &
+                            </sly>
+                            <sly data-sly-test="${hasMid}"> ${mid.size} ${'land-programmes'  @i18n}
+                            </sly>
                         </div>
                     </div>
                     <sly
                             data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
-                            data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, cruise=cruise}"/>
+                            data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, mid=mid, size=shorexSize, cruise=cruise}"/>
                 </div>
             </div>
         </div>
