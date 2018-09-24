@@ -10,7 +10,7 @@
                         <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
                         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                         <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
-                        <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                        <div data-sly-test="${isVideo}" class="video-icon" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
                     </div>
                     <div data-sly-test="${asset.type == 'virtual-tour'}" id="ga-virtual-tour-${assetList.index}-container"></div>
                 </div>

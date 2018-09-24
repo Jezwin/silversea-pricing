@@ -496,7 +496,7 @@ public class Cruise2018Use extends EoHelper {
         }
         String map = firstNonNull(vmProperties.get("bigItineraryMap", String.class),
                 vmProperties.get("bigThumbnailItineraryMap", String.class),
-                vmProperties.get("smallItineraryMap", String.class));
+                vmProperties.get("smallItineraryMap", String.class), vmProperties.get("itinerary", String.class));
         if (map != null) {
             assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null));
         }
@@ -560,8 +560,9 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private List<CruiseModelLight> allSameShipCruises(CruiseModel cruiseModel) {
-        if(allSameShipCruises != null)
+        if (allSameShipCruises != null) {
             return allSameShipCruises;
+        }
 
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
         final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
