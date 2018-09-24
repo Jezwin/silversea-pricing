@@ -2,12 +2,14 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.components.beans.CruiseItinerary;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.joda.time.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,58 +43,72 @@ public class ItineraryModel {
     @Inject
     private Integer itineraryId;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private Date date; // TODO change by arriveDate
 
     private Calendar departDate; // used only when itineraries are compacted
+    private Calendar departDateInit;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private String arriveTime;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private String arriveAmPm;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private String departTime;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private String departAmPm;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private boolean overnight;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private String portReference;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private List<ItineraryExcursionModel> excursions = new ArrayList<>();
 
     private List<ItineraryExcursionModel> compactedExcursions = null;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private List<ItineraryHotelModel> hotels = new ArrayList<>();
 
-    @Inject @Named("land-programs") @Optional
+    @Inject
+    @Named("land-programs")
+    @Optional
     private List<ItineraryLandProgramModel> landPrograms = new ArrayList<>();
 
     private Integer cruiseId;
 
     private PortModel port;
-    
+
     private Boolean hasDedicatedShorex;
-    
+
     private Integer numberDays = 0;
 
     @PostConstruct
     private void init() {
         final Resource itinerariesContentResource = resource.getParent();
         hasDedicatedShorex = false;
-        
+
         if (itinerariesContentResource != null) {
             final Resource cruiseContentResource = itinerariesContentResource.getParent();
 
             if (cruiseContentResource != null) {
                 cruiseId = cruiseContentResource.getValueMap().get("cruiseId", Integer.class);
+                departDateInit = cruiseContentResource.getValueMap().get("startDate", Calendar.class);
+
             }
         }
 
@@ -106,43 +122,35 @@ public class ItineraryModel {
             }
         }
         List<ItineraryExcursionModel> excursionToShow = new ArrayList<>();
+
         for (ItineraryExcursionModel excursion : this.excursions) {
-        	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
-        		if(!excursionToShow.stream().anyMatch(dto -> dto.getExcursion().getCodeExcursion() == excursion.getExcursion().getCodeExcursion())){
-        			excursionToShow.add(excursion);
-        			hasDedicatedShorex = true;
-        		}
-        	}
+            if (excursion.getExcursion() != null &&
+                    StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
+                if (!excursionToShow.stream().anyMatch(
+                        dto -> dto.getExcursion().getCodeExcursion() == excursion.getExcursion().getCodeExcursion())) {
+                    excursionToShow.add(excursion);
+                }
+            }
         }
-        Collections.sort(excursionToShow, new Comparator<ItineraryExcursionModel>(){
-        	@Override
-        	  public int compare(ItineraryExcursionModel o1, ItineraryExcursionModel o2)
-        	  {
-        	     return o1.getTitle().compareTo(o2.getTitle());
-        	  }
-        	});
+        hasDedicatedShorex = Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 120;
+        excursionToShow.sort(Comparator.comparing(ItineraryExcursionModel::getTitle));
         this.excursions = excursionToShow;
-        
+
         List<ItineraryLandProgramModel> landProgramsToShow = new ArrayList<>();
-        for (ItineraryLandProgramModel  landProgram : this.landPrograms) {
-        	if(landProgram.getLandProgram() != null && StringUtils.isNotEmpty(landProgram.getLandProgram().getLandCode())) {
-        		landProgramsToShow.add(landProgram);
-        	}
+        for (ItineraryLandProgramModel landProgram : this.landPrograms) {
+            if (landProgram.getLandProgram() != null &&
+                    StringUtils.isNotEmpty(landProgram.getLandProgram().getLandCode())) {
+                landProgramsToShow.add(landProgram);
+            }
         }
-        Collections.sort(landProgramsToShow, new Comparator<ItineraryLandProgramModel>(){
-        	@Override
-        	  public int compare(ItineraryLandProgramModel o1, ItineraryLandProgramModel o2)
-        	  {
-        	     return o1.getTitle().compareTo(o2.getTitle());
-        	  }
-        	});
+        landProgramsToShow.sort(Comparator.comparing(ItineraryLandProgramModel::getTitle));
         this.landPrograms = landProgramsToShow;
-        
+
         List<ItineraryHotelModel> hotelsToShow = new ArrayList<>();
-        for (ItineraryHotelModel  hotel : this.hotels) {
-        	if(hotel.getHotel() != null && StringUtils.isNotEmpty(hotel.getHotel().getCode())) {
-        		hotelsToShow.add(hotel);
-        	}
+        for (ItineraryHotelModel hotel : this.hotels) {
+            if (hotel.getHotel() != null && StringUtils.isNotEmpty(hotel.getHotel().getCode())) {
+                hotelsToShow.add(hotel);
+            }
         }
         this.hotels = hotelsToShow;
     }
@@ -161,7 +169,7 @@ public class ItineraryModel {
 
         return calendar;
     }
-    
+
     public Date getRawDate() {
         return date;
     }
@@ -221,9 +229,9 @@ public class ItineraryModel {
     public PortModel getPort() {
         return port;
     }
-    
-    public Boolean getHasDedicatedShorex(){
-    	return hasDedicatedShorex;
+
+    public Boolean getHasDedicatedShorex() {
+        return hasDedicatedShorex;
     }
 
     public Integer getPortId() {
@@ -251,29 +259,31 @@ public class ItineraryModel {
 
         compactedExcursions = new ArrayList<>();
         for (ItineraryExcursionModel excursion : excursions) {
-        	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
-        		boolean found = false;
-        		
-        		for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {
-        			if (excursionForCompactedList.getCodeExcursion() != null
-        					&& excursion.getCodeExcursion() != null
-        					&& excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
-        				found = true;
-        			}
-        		}
-        		
-        		if (!found) {
-        			// trick to deep clone the itinerary item
-        			// without implementing java clone method
-        			final ItineraryExcursionModel excursionCopy = excursion.getResource().adaptTo(ItineraryExcursionModel.class);
-        			
-        			if (excursionCopy != null) {
-        				excursionCopy.setGeneralDepartureTime(null);
-        				compactedExcursions.add(excursionCopy);
-        			}
-        		}
-        	}
-        	
+            if (excursion.getExcursion() != null &&
+                    StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
+                boolean found = false;
+
+                for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {
+                    if (excursionForCompactedList.getCodeExcursion() != null
+                            && excursion.getCodeExcursion() != null
+                            && excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
+                        found = true;
+                    }
+                }
+
+                if (!found) {
+                    // trick to deep clone the itinerary item
+                    // without implementing java clone method
+                    final ItineraryExcursionModel excursionCopy =
+                            excursion.getResource().adaptTo(ItineraryExcursionModel.class);
+
+                    if (excursionCopy != null) {
+                        excursionCopy.setGeneralDepartureTime(null);
+                        compactedExcursions.add(excursionCopy);
+                    }
+                }
+            }
+
         }
 
         return compactedExcursions;
@@ -296,14 +306,14 @@ public class ItineraryModel {
     }
 
     public Integer getNumberDays() {
-		return numberDays;
-	}
+        return numberDays;
+    }
 
-	public void setNumberDays(Integer numberDays) {
-		this.numberDays = numberDays;
-	}
+    public void setNumberDays(Integer numberDays) {
+        this.numberDays = numberDays;
+    }
 
-	public void addLandPrograms(List<ItineraryLandProgramModel> landPrograms) {
+    public void addLandPrograms(List<ItineraryLandProgramModel> landPrograms) {
         this.landPrograms.addAll(landPrograms);
     }
 
@@ -320,11 +330,13 @@ public class ItineraryModel {
             return false;
         }
 
-        return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date) && this.port.getCityId().equals(cityId);
+        return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date) &&
+                this.port.getCityId().equals(cityId);
     }
 
     /**
      * Fallback for excursions
+     *
      * @param cruiseId
      * @param date
      * @return

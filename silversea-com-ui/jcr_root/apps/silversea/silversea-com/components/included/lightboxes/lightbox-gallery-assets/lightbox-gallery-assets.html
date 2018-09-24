@@ -1,0 +1,44 @@
+<template data-sly-template.default="${ @ list, cruiseTitle}">
+    <div class="modal-body">
+        <div class="lightbox-gallery-assets">
+            <div class="ga-slider ga-slider--main main-slider">
+                <div data-sly-repeat.asset="${list}" data-image="${asset.path}">
+                    <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour' : ''}"
+                         id="ga-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
+                         data-image-virtual-tour="${asset.path}"
+                         data-asset-label="${asset.label || asset.metadata.dc:title}" data-asset-credits="${asset.credits}" >
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                        <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                        <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                    </div>
+                    <div data-sly-test="${asset.type == 'virtual-tour'}" id="ga-virtual-tour-${assetList.index}-container"></div>
+                </div>
+            </div>
+            <div class="ga-slider ga-slider--nav hidden-xs navigation-slider">
+                <div data-sly-repeat.asset="${list}">
+                    <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour-thumbnail' : ''}">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                        <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="ga-info hidden-xs">
+                <div class="col-xs-12 ga-itinerary">
+                    <span>${cruiseTitle}</span>
+                </div>
+                <div class="col-sm-7">
+                    <span class="ga-label">
+                        <span id="ga-label-text-label"></span>
+                    </span>
+                </div>
+                <div class="col-sm-5">
+                    <span class="ga-credits">
+                        <span class="text-uppercase">${'credits' @ i18n}</span>: <span id="ga-label-text-credits"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

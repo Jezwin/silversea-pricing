@@ -138,7 +138,7 @@
 	<booking-number
         jcr:primaryType="sling:MessageEntry"
         sling:key="booking-number"
-        sling:message="Booking Number"/>	
+        sling:message="Booking Number"/>
     <brochure-text
         jcr:primaryType="sling:MessageEntry"
         sling:key="brochure-text"
@@ -163,6 +163,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="call-reservations-team-2"
         sling:message="or contact your travel agent"/>
+    <call-reservations-team-learn-excursion
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-learn-excursion"
+        sling:message="Call our Reservations Team to know more about our excursions"/>
     <check-phone-format
         jcr:primaryType="sling:MessageEntry"
         sling:key="check-phone-format"
@@ -227,6 +231,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="country-code"
         sling:message="Country code"/>
+    <credits
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="credits"
+        sling:message="credits"/>
     <crew
         jcr:primaryType="sling:MessageEntry"
         sling:key="crew"
@@ -266,11 +274,11 @@
     <cruise-itinerary-description-expedition
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary-description-expedition"
-        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>    
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>
     <cruise-itinerary-description-v2-expedition
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary-description-v2-expedition"
-        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>    
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>
     <cruise-itinerary-link
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary-link"
@@ -303,6 +311,46 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-suites-and-fares-descr-v2"
         sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
+    <dining-options
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="dining-options"
+            sling:message="Dining Options"/>
+    <number1
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number1"
+            sling:message="one"/>
+    <number2
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number2"
+            sling:message="two"/>
+    <number3
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number3"
+            sling:message="three"/>
+    <number4
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number4"
+            sling:message="four"/>
+    <number5
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number5"
+            sling:message="five"/>
+    <number6
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number6"
+            sling:message="six"/>
+    <number7
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number7"
+            sling:message="seven"/>
+    <number8
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number8"
+            sling:message="eight"/>
+    <number9
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number9"
+            sling:message="nine"/>
     <cruise-type
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-type"
@@ -331,6 +379,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="deck-plan-details"
         sling:message="Deck Plan and Details"/>
+    <deck-plans
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="deck-plans"
+        sling:message="Deck Plans"/>
     <depart
         jcr:primaryType="sling:MessageEntry"
         sling:key="depart"
@@ -639,6 +691,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="itinerary-and-fares"
         sling:message="itinerary and fares"/>
+    <is-available-on
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="is-available-on"
+            sling:message="is available on"/>
     <key-fact
         jcr:primaryType="sling:MessageEntry"
         sling:key="key-fact"
@@ -742,7 +798,7 @@
     <next
         jcr:primaryType="sling:MessageEntry"
         sling:key="next"
-        sling:message="Next page"/>
+        sling:message="Next"/>
     <next-voyage
         jcr:primaryType="sling:MessageEntry"
         sling:key="next-voyage"
@@ -767,6 +823,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
         sling:message="Offer"/>
+    <offers
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offers"
+            sling:message="Offers"/>
     <other-recent-journals
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-journals"
@@ -790,16 +850,16 @@
     <other-suites-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-suites-description"
-        sling:message="Silversea's suites offer one of the highest space-per-guest ratios of any luxury cruise accommodations. All of our suites feature ocean views, and many with a private teak veranda."/>	
+        sling:message="Silversea's suites offer one of the highest space-per-guest ratios of any luxury cruise accommodations. All of our suites feature ocean views, and many with a private teak veranda."/>
     <overview
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview"
         sling:message="Overview"/>
-    <overnight-in-port 
+    <overnight-in-port
     	jcr:primaryType="sling:MessageEntry"
         sling:key="overnight-in-port"
         sling:message="Overnight in port"/>
-    <overnights-in-port 
+    <overnights-in-port
     	jcr:primaryType="sling:MessageEntry"
         sling:key="overnights-in-port"
         sling:message="Overnights in port"/>
@@ -863,6 +923,19 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-hotels"
         sling:message="Pre-post hotels"/>
+    <pre-post-extensions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pre-post-extensions"
+        sling:message="Pre &amp; Post Cruise Extensions"/>
+    <night
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="night"
+        sling:message="night"/>
+    <nights
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="nights"
+        sling:message="nights"/>
+
     <pressure
         jcr:primaryType="sling:MessageEntry"
         sling:key="pressure"
@@ -1070,7 +1143,7 @@
 	<select-inquiry
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-inquiry"
-        sling:message="Select an Inquiry"/>	
+        sling:message="Select an Inquiry"/>
     <select-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-language"
@@ -1078,7 +1151,7 @@
 	<select-subject
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-subject"
-        sling:message="Select a Subject"/>	
+        sling:message="Select a Subject"/>
     <select-the-brochure-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-the-brochure-language"
@@ -1259,6 +1332,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all"
         sling:message="View all"/>
+    <view-all-excursions
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-all-excursions"
+            sling:message="View all excursions"/>
     <view-all-pictures
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all-pictures"
@@ -1350,7 +1427,7 @@
 	<vsnumber
         jcr:primaryType="sling:MessageEntry"
         sling:key="vsnumber"
-        sling:message="VS Number"/>	
+        sling:message="VS Number"/>
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"
@@ -1426,7 +1503,7 @@
 	<show-less
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
-	    sling:message="show Less"/>                        
+	    sling:message="show Less"/>
 	<show-all
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-all"
@@ -1463,8 +1540,323 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
 	    sling:message=" members of the Venetian Society enjoy an additional 5% saving on the cruise fare"/>
+    <map jcr:primaryType="sling:MessageEntry"
+         sling:key="map"
+         sling:message="Map"/>
     <tour-book
         jcr:primaryType="sling:MessageEntry"
         sling:key="download-tour-book"
         sling:message="Download the tour program"/>
+    <itinerary-and-excursions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="itinerary-and-excursions"
+        sling:message="Itinerary and excursions"/>
+    <itinerary
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="itinerary"
+            sling:message="Itinerary"/>
+    <specifications
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="specifications"
+        sling:message="specifications"/>
+    <officers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="officers"
+        sling:message="officers"/>
+    <width
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="width"
+        sling:message="width"/>
+    <speed
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="speed"
+        sling:message="speed"/>
+    <passenger-decks
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="passenger-decks"
+        sling:message="passenger decks"/>
+    <third-guest-capacity
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="third-guest-capacity"
+        sling:message="3rd guest capacity"/>
+    <connecting-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="connecting-suites"
+        sling:message="connecting suites"/>
+    <handicap-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="handicap-suites"
+        sling:message="handicap suites"/>
+    <built
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="built"
+        sling:message="built"/>
+    <registry
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="registry"
+        sling:message="registry"/>
+    <knots
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="knots"
+        sling:message="knots"/>
+    <download-pdf
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="download-pdf"
+        sling:message="download the pdf"/>
+    <up-to
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="up-to"
+        sling:message="Up to "/>
+    <ABW jcr:primaryType="sling:MessageEntry" sling:key="ABW" sling:message="Aruba" />
+    <AFG jcr:primaryType="sling:MessageEntry" sling:key="AFG" sling:message="Afghanistan" />
+    <AGO jcr:primaryType="sling:MessageEntry" sling:key="AGO" sling:message="Angola" />
+    <AIA jcr:primaryType="sling:MessageEntry" sling:key="AIA" sling:message="Anguilla" />
+    <ALA jcr:primaryType="sling:MessageEntry" sling:key="ALA" sling:message="Aland Islands" />
+    <ALB jcr:primaryType="sling:MessageEntry" sling:key="ALB" sling:message="Albania" />
+    <AND jcr:primaryType="sling:MessageEntry" sling:key="AND" sling:message="Andorra" />
+    <ANT jcr:primaryType="sling:MessageEntry" sling:key="ANT" sling:message="Netherlands Antilles" />
+    <ARE jcr:primaryType="sling:MessageEntry" sling:key="ARE" sling:message="United Arab Emirates" />
+    <ARG jcr:primaryType="sling:MessageEntry" sling:key="ARG" sling:message="Argentina" />
+    <ARM jcr:primaryType="sling:MessageEntry" sling:key="ARM" sling:message="Armenia" />
+    <ASM jcr:primaryType="sling:MessageEntry" sling:key="ASM" sling:message="American Samoa" />
+    <ATA jcr:primaryType="sling:MessageEntry" sling:key="ATA" sling:message="Antarctica" />
+    <ATF jcr:primaryType="sling:MessageEntry" sling:key="ATF" sling:message="French Southern Territories" />
+    <ATG jcr:primaryType="sling:MessageEntry" sling:key="ATG" sling:message="Antigua and Barbuda" />
+    <AUS jcr:primaryType="sling:MessageEntry" sling:key="AUS" sling:message="Australia" />
+    <AUT jcr:primaryType="sling:MessageEntry" sling:key="AUT" sling:message="Austria" />
+    <AZE jcr:primaryType="sling:MessageEntry" sling:key="AZE" sling:message="Azerbaijan" />
+    <BDI jcr:primaryType="sling:MessageEntry" sling:key="BDI" sling:message="Burundi" />
+    <BEL jcr:primaryType="sling:MessageEntry" sling:key="BEL" sling:message="Belgium" />
+    <BEN jcr:primaryType="sling:MessageEntry" sling:key="BEN" sling:message="Benin" />
+    <BES jcr:primaryType="sling:MessageEntry" sling:key="BES" sling:message="Bonaire, Saint Eustatius and Saba" />
+    <BFA jcr:primaryType="sling:MessageEntry" sling:key="BFA" sling:message="Burkina Faso" />
+    <BGD jcr:primaryType="sling:MessageEntry" sling:key="BGD" sling:message="Bangladesh" />
+    <BGR jcr:primaryType="sling:MessageEntry" sling:key="BGR" sling:message="Bulgaria" />
+    <BHR jcr:primaryType="sling:MessageEntry" sling:key="BHR" sling:message="Bahrain" />
+    <BHS jcr:primaryType="sling:MessageEntry" sling:key="BHS" sling:message="Bahamas" />
+    <BIH jcr:primaryType="sling:MessageEntry" sling:key="BIH" sling:message="Bosnia and Herzegovina" />
+    <BLM jcr:primaryType="sling:MessageEntry" sling:key="BLM" sling:message="Saint Barthelemy" />
+    <BLR jcr:primaryType="sling:MessageEntry" sling:key="BLR" sling:message="Belarus" />
+    <BLZ jcr:primaryType="sling:MessageEntry" sling:key="BLZ" sling:message="Belize" />
+    <BMU jcr:primaryType="sling:MessageEntry" sling:key="BMU" sling:message="Bermuda" />
+    <BOL jcr:primaryType="sling:MessageEntry" sling:key="BOL" sling:message="Bolivia" />
+    <BRA jcr:primaryType="sling:MessageEntry" sling:key="BRA" sling:message="Brazil" />
+    <BRB jcr:primaryType="sling:MessageEntry" sling:key="BRB" sling:message="Barbados" />
+    <BRN jcr:primaryType="sling:MessageEntry" sling:key="BRN" sling:message="Brunei" />
+    <BTN jcr:primaryType="sling:MessageEntry" sling:key="BTN" sling:message="Bhutan" />
+    <BVT jcr:primaryType="sling:MessageEntry" sling:key="BVT" sling:message="Bouvet Island" />
+    <BWA jcr:primaryType="sling:MessageEntry" sling:key="BWA" sling:message="Botswana" />
+    <CAF jcr:primaryType="sling:MessageEntry" sling:key="CAF" sling:message="Central African Republic" />
+    <CAN jcr:primaryType="sling:MessageEntry" sling:key="CAN" sling:message="Canada" />
+    <CCK jcr:primaryType="sling:MessageEntry" sling:key="CCK" sling:message="Cocos Islands" />
+    <CHE jcr:primaryType="sling:MessageEntry" sling:key="CHE" sling:message="Switzerland" />
+    <CHL jcr:primaryType="sling:MessageEntry" sling:key="CHL" sling:message="Chile" />
+    <CHN jcr:primaryType="sling:MessageEntry" sling:key="CHN" sling:message="China" />
+    <CIV jcr:primaryType="sling:MessageEntry" sling:key="CIV" sling:message="Ivory Coast" />
+    <CMR jcr:primaryType="sling:MessageEntry" sling:key="CMR" sling:message="Cameroon" />
+    <COD jcr:primaryType="sling:MessageEntry" sling:key="COD" sling:message="Democratic Republic of the Congo" />
+    <COG jcr:primaryType="sling:MessageEntry" sling:key="COG" sling:message="Republic of the Congo" />
+    <COK jcr:primaryType="sling:MessageEntry" sling:key="COK" sling:message="Cook Islands" />
+    <COL jcr:primaryType="sling:MessageEntry" sling:key="COL" sling:message="Colombia" />
+    <COM jcr:primaryType="sling:MessageEntry" sling:key="COM" sling:message="Comoros" />
+    <CPV jcr:primaryType="sling:MessageEntry" sling:key="CPV" sling:message="Cape Verde" />
+    <CRI jcr:primaryType="sling:MessageEntry" sling:key="CRI" sling:message="Costa Rica" />
+    <CUB jcr:primaryType="sling:MessageEntry" sling:key="CUB" sling:message="Cuba" />
+    <CUW jcr:primaryType="sling:MessageEntry" sling:key="CUW" sling:message="Curacao" />
+    <CXR jcr:primaryType="sling:MessageEntry" sling:key="CXR" sling:message="Christmas Island" />
+    <CYM jcr:primaryType="sling:MessageEntry" sling:key="CYM" sling:message="Cayman Islands" />
+    <CYP jcr:primaryType="sling:MessageEntry" sling:key="CYP" sling:message="Cyprus" />
+    <CZE jcr:primaryType="sling:MessageEntry" sling:key="CZE" sling:message="Czech Republic" />
+    <DEU jcr:primaryType="sling:MessageEntry" sling:key="DEU" sling:message="Germany" />
+    <DJI jcr:primaryType="sling:MessageEntry" sling:key="DJI" sling:message="Djibouti" />
+    <DMA jcr:primaryType="sling:MessageEntry" sling:key="DMA" sling:message="Dominica" />
+    <DNK jcr:primaryType="sling:MessageEntry" sling:key="DNK" sling:message="Denmark" />
+    <DOM jcr:primaryType="sling:MessageEntry" sling:key="DOM" sling:message="Dominican Republic" />
+    <DZA jcr:primaryType="sling:MessageEntry" sling:key="DZA" sling:message="Algeria" />
+    <ECU jcr:primaryType="sling:MessageEntry" sling:key="ECU" sling:message="Ecuador" />
+    <EGY jcr:primaryType="sling:MessageEntry" sling:key="EGY" sling:message="Egypt" />
+    <ERI jcr:primaryType="sling:MessageEntry" sling:key="ERI" sling:message="Eritrea" />
+    <ESH jcr:primaryType="sling:MessageEntry" sling:key="ESH" sling:message="Western Sahara" />
+    <ESP jcr:primaryType="sling:MessageEntry" sling:key="ESP" sling:message="Spain" />
+    <EST jcr:primaryType="sling:MessageEntry" sling:key="EST" sling:message="Estonia" />
+    <ETH jcr:primaryType="sling:MessageEntry" sling:key="ETH" sling:message="Ethiopia" />
+    <FIN jcr:primaryType="sling:MessageEntry" sling:key="FIN" sling:message="Finland" />
+    <FJI jcr:primaryType="sling:MessageEntry" sling:key="FJI" sling:message="Fiji" />
+    <FLK jcr:primaryType="sling:MessageEntry" sling:key="FLK" sling:message="Falkland Islands" />
+    <FRA jcr:primaryType="sling:MessageEntry" sling:key="FRA" sling:message="France" />
+    <FRO jcr:primaryType="sling:MessageEntry" sling:key="FRO" sling:message="Faroe Islands" />
+    <FSM jcr:primaryType="sling:MessageEntry" sling:key="FSM" sling:message="Micronesia" />
+    <GAB jcr:primaryType="sling:MessageEntry" sling:key="GAB" sling:message="Gabon" />
+    <GBR jcr:primaryType="sling:MessageEntry" sling:key="GBR" sling:message="United Kingdom" />
+    <GEO jcr:primaryType="sling:MessageEntry" sling:key="GEO" sling:message="Georgia" />
+    <GGY jcr:primaryType="sling:MessageEntry" sling:key="GGY" sling:message="Guernsey" />
+    <GHA jcr:primaryType="sling:MessageEntry" sling:key="GHA" sling:message="Ghana" />
+    <GIB jcr:primaryType="sling:MessageEntry" sling:key="GIB" sling:message="Gibraltar" />
+    <GIN jcr:primaryType="sling:MessageEntry" sling:key="GIN" sling:message="Guinea" />
+    <GLP jcr:primaryType="sling:MessageEntry" sling:key="GLP" sling:message="Guadeloupe" />
+    <GMB jcr:primaryType="sling:MessageEntry" sling:key="GMB" sling:message="Gambia" />
+    <GNB jcr:primaryType="sling:MessageEntry" sling:key="GNB" sling:message="Guinea-Bissau" />
+    <GNQ jcr:primaryType="sling:MessageEntry" sling:key="GNQ" sling:message="Equatorial Guinea" />
+    <GRC jcr:primaryType="sling:MessageEntry" sling:key="GRC" sling:message="Greece" />
+    <GRD jcr:primaryType="sling:MessageEntry" sling:key="GRD" sling:message="Grenada" />
+    <GRL jcr:primaryType="sling:MessageEntry" sling:key="GRL" sling:message="Greenland" />
+    <GTM jcr:primaryType="sling:MessageEntry" sling:key="GTM" sling:message="Guatemala" />
+    <GUF jcr:primaryType="sling:MessageEntry" sling:key="GUF" sling:message="French Guiana" />
+    <GUM jcr:primaryType="sling:MessageEntry" sling:key="GUM" sling:message="Guam" />
+    <GUY jcr:primaryType="sling:MessageEntry" sling:key="GUY" sling:message="Guyana" />
+    <HKG jcr:primaryType="sling:MessageEntry" sling:key="HKG" sling:message="Hong Kong" />
+    <HMD jcr:primaryType="sling:MessageEntry" sling:key="HMD" sling:message="Heard Island and McDonald Islands" />
+    <HND jcr:primaryType="sling:MessageEntry" sling:key="HND" sling:message="Honduras" />
+    <HRV jcr:primaryType="sling:MessageEntry" sling:key="HRV" sling:message="Croatia" />
+    <HTI jcr:primaryType="sling:MessageEntry" sling:key="HTI" sling:message="Haiti" />
+    <HUN jcr:primaryType="sling:MessageEntry" sling:key="HUN" sling:message="Hungary" />
+    <IDN jcr:primaryType="sling:MessageEntry" sling:key="IDN" sling:message="Indonesia" />
+    <IMN jcr:primaryType="sling:MessageEntry" sling:key="IMN" sling:message="Isle of Man" />
+    <IND jcr:primaryType="sling:MessageEntry" sling:key="IND" sling:message="India" />
+    <IOT jcr:primaryType="sling:MessageEntry" sling:key="IOT" sling:message="British Indian Ocean Territory" />
+    <IRL jcr:primaryType="sling:MessageEntry" sling:key="IRL" sling:message="Ireland" />
+    <IRN jcr:primaryType="sling:MessageEntry" sling:key="IRN" sling:message="Iran" />
+    <IRQ jcr:primaryType="sling:MessageEntry" sling:key="IRQ" sling:message="Iraq" />
+    <ISL jcr:primaryType="sling:MessageEntry" sling:key="ISL" sling:message="Iceland" />
+    <ISR jcr:primaryType="sling:MessageEntry" sling:key="ISR" sling:message="Israel" />
+    <ITA jcr:primaryType="sling:MessageEntry" sling:key="ITA" sling:message="Italy" />
+    <JAM jcr:primaryType="sling:MessageEntry" sling:key="JAM" sling:message="Jamaica" />
+    <JEY jcr:primaryType="sling:MessageEntry" sling:key="JEY" sling:message="Jersey" />
+    <JOR jcr:primaryType="sling:MessageEntry" sling:key="JOR" sling:message="Jordan" />
+    <JPN jcr:primaryType="sling:MessageEntry" sling:key="JPN" sling:message="Japan" />
+    <KAZ jcr:primaryType="sling:MessageEntry" sling:key="KAZ" sling:message="Kazakhstan" />
+    <KEN jcr:primaryType="sling:MessageEntry" sling:key="KEN" sling:message="Kenya" />
+    <KGZ jcr:primaryType="sling:MessageEntry" sling:key="KGZ" sling:message="Kyrgyzstan" />
+    <KHM jcr:primaryType="sling:MessageEntry" sling:key="KHM" sling:message="Cambodia" />
+    <KIR jcr:primaryType="sling:MessageEntry" sling:key="KIR" sling:message="Kiribati" />
+    <KNA jcr:primaryType="sling:MessageEntry" sling:key="KNA" sling:message="Saint Kitts and Nevis" />
+    <KOR jcr:primaryType="sling:MessageEntry" sling:key="KOR" sling:message="South Korea" />
+    <KWT jcr:primaryType="sling:MessageEntry" sling:key="KWT" sling:message="Kuwait" />
+    <LAO jcr:primaryType="sling:MessageEntry" sling:key="LAO" sling:message="Laos" />
+    <LBN jcr:primaryType="sling:MessageEntry" sling:key="LBN" sling:message="Lebanon" />
+    <LBR jcr:primaryType="sling:MessageEntry" sling:key="LBR" sling:message="Liberia" />
+    <LBY jcr:primaryType="sling:MessageEntry" sling:key="LBY" sling:message="Libya" />
+    <LCA jcr:primaryType="sling:MessageEntry" sling:key="LCA" sling:message="Saint Lucia" />
+    <LIE jcr:primaryType="sling:MessageEntry" sling:key="LIE" sling:message="Liechtenstein" />
+    <LKA jcr:primaryType="sling:MessageEntry" sling:key="LKA" sling:message="Sri Lanka" />
+    <LSO jcr:primaryType="sling:MessageEntry" sling:key="LSO" sling:message="Lesotho" />
+    <LTU jcr:primaryType="sling:MessageEntry" sling:key="LTU" sling:message="Lithuania" />
+    <LUX jcr:primaryType="sling:MessageEntry" sling:key="LUX" sling:message="Luxembourg" />
+    <LVA jcr:primaryType="sling:MessageEntry" sling:key="LVA" sling:message="Latvia" />
+    <MAC jcr:primaryType="sling:MessageEntry" sling:key="MAC" sling:message="Macao" />
+    <MAF jcr:primaryType="sling:MessageEntry" sling:key="MAF" sling:message="Saint Martin" />
+    <MAR jcr:primaryType="sling:MessageEntry" sling:key="MAR" sling:message="Morocco" />
+    <MCO jcr:primaryType="sling:MessageEntry" sling:key="MCO" sling:message="Monaco" />
+    <MDA jcr:primaryType="sling:MessageEntry" sling:key="MDA" sling:message="Moldova" />
+    <MDG jcr:primaryType="sling:MessageEntry" sling:key="MDG" sling:message="Madagascar" />
+    <MDV jcr:primaryType="sling:MessageEntry" sling:key="MDV" sling:message="Maldives" />
+    <MEX jcr:primaryType="sling:MessageEntry" sling:key="MEX" sling:message="Mexico" />
+    <MHL jcr:primaryType="sling:MessageEntry" sling:key="MHL" sling:message="Marshall Islands" />
+    <MKD jcr:primaryType="sling:MessageEntry" sling:key="MKD" sling:message="Macedonia" />
+    <MLI jcr:primaryType="sling:MessageEntry" sling:key="MLI" sling:message="Mali" />
+    <MLT jcr:primaryType="sling:MessageEntry" sling:key="MLT" sling:message="Malta" />
+    <MMR jcr:primaryType="sling:MessageEntry" sling:key="MMR" sling:message="Myanmar" />
+    <MNE jcr:primaryType="sling:MessageEntry" sling:key="MNE" sling:message="Montenegro" />
+    <MNG jcr:primaryType="sling:MessageEntry" sling:key="MNG" sling:message="Mongolia" />
+    <MNP jcr:primaryType="sling:MessageEntry" sling:key="MNP" sling:message="Northern Mariana Islands" />
+    <MOZ jcr:primaryType="sling:MessageEntry" sling:key="MOZ" sling:message="Mozambique" />
+    <MRT jcr:primaryType="sling:MessageEntry" sling:key="MRT" sling:message="Mauritania" />
+    <MSR jcr:primaryType="sling:MessageEntry" sling:key="MSR" sling:message="Montserrat" />
+    <MTQ jcr:primaryType="sling:MessageEntry" sling:key="MTQ" sling:message="Martinique" />
+    <MUS jcr:primaryType="sling:MessageEntry" sling:key="MUS" sling:message="Mauritius" />
+    <MWI jcr:primaryType="sling:MessageEntry" sling:key="MWI" sling:message="Malawi" />
+    <MYS jcr:primaryType="sling:MessageEntry" sling:key="MYS" sling:message="Malaysia" />
+    <MYT jcr:primaryType="sling:MessageEntry" sling:key="MYT" sling:message="Mayotte" />
+    <NAM jcr:primaryType="sling:MessageEntry" sling:key="NAM" sling:message="Namibia" />
+    <NCL jcr:primaryType="sling:MessageEntry" sling:key="NCL" sling:message="New Caledonia" />
+    <NER jcr:primaryType="sling:MessageEntry" sling:key="NER" sling:message="Niger" />
+    <NFK jcr:primaryType="sling:MessageEntry" sling:key="NFK" sling:message="Norfolk Island" />
+    <NGA jcr:primaryType="sling:MessageEntry" sling:key="NGA" sling:message="Nigeria" />
+    <NIC jcr:primaryType="sling:MessageEntry" sling:key="NIC" sling:message="Nicaragua" />
+    <NIU jcr:primaryType="sling:MessageEntry" sling:key="NIU" sling:message="Niue" />
+    <NLD jcr:primaryType="sling:MessageEntry" sling:key="NLD" sling:message="Netherlands" />
+    <NOR jcr:primaryType="sling:MessageEntry" sling:key="NOR" sling:message="Norway" />
+    <NPL jcr:primaryType="sling:MessageEntry" sling:key="NPL" sling:message="Nepal" />
+    <NRU jcr:primaryType="sling:MessageEntry" sling:key="NRU" sling:message="Nauru" />
+    <NZL jcr:primaryType="sling:MessageEntry" sling:key="NZL" sling:message="New Zealand" />
+    <OMN jcr:primaryType="sling:MessageEntry" sling:key="OMN" sling:message="Oman" />
+    <PAK jcr:primaryType="sling:MessageEntry" sling:key="PAK" sling:message="Pakistan" />
+    <PAN jcr:primaryType="sling:MessageEntry" sling:key="PAN" sling:message="Panama" />
+    <PCN jcr:primaryType="sling:MessageEntry" sling:key="PCN" sling:message="Pitcairn" />
+    <PER jcr:primaryType="sling:MessageEntry" sling:key="PER" sling:message="Peru" />
+    <PHL jcr:primaryType="sling:MessageEntry" sling:key="PHL" sling:message="Philippines" />
+    <PLW jcr:primaryType="sling:MessageEntry" sling:key="PLW" sling:message="Palau" />
+    <PNG jcr:primaryType="sling:MessageEntry" sling:key="PNG" sling:message="Papua New Guinea" />
+    <POL jcr:primaryType="sling:MessageEntry" sling:key="POL" sling:message="Poland" />
+    <PRI jcr:primaryType="sling:MessageEntry" sling:key="PRI" sling:message="Puerto Rico" />
+    <PRK jcr:primaryType="sling:MessageEntry" sling:key="PRK" sling:message="North Korea" />
+    <PRT jcr:primaryType="sling:MessageEntry" sling:key="PRT" sling:message="Portugal" />
+    <PRY jcr:primaryType="sling:MessageEntry" sling:key="PRY" sling:message="Paraguay" />
+    <PSE jcr:primaryType="sling:MessageEntry" sling:key="PSE" sling:message="Palestinian Territory" />
+    <PYF jcr:primaryType="sling:MessageEntry" sling:key="PYF" sling:message="French Polynesia" />
+    <QAT jcr:primaryType="sling:MessageEntry" sling:key="QAT" sling:message="Qatar" />
+    <REU jcr:primaryType="sling:MessageEntry" sling:key="REU" sling:message="Reunion" />
+    <ROU jcr:primaryType="sling:MessageEntry" sling:key="ROU" sling:message="Romania" />
+    <RUS jcr:primaryType="sling:MessageEntry" sling:key="RUS" sling:message="Russia" />
+    <RWA jcr:primaryType="sling:MessageEntry" sling:key="RWA" sling:message="Rwanda" />
+    <SAU jcr:primaryType="sling:MessageEntry" sling:key="SAU" sling:message="Saudi Arabia" />
+    <SCG jcr:primaryType="sling:MessageEntry" sling:key="SCG" sling:message="Serbia and Montenegro" />
+    <SDN jcr:primaryType="sling:MessageEntry" sling:key="SDN" sling:message="Sudan" />
+    <SEN jcr:primaryType="sling:MessageEntry" sling:key="SEN" sling:message="Senegal" />
+    <SGP jcr:primaryType="sling:MessageEntry" sling:key="SGP" sling:message="Singapore" />
+    <SGS jcr:primaryType="sling:MessageEntry" sling:key="SGS" sling:message="South Georgia and the South Sandwich Islands" />
+    <SHN jcr:primaryType="sling:MessageEntry" sling:key="SHN" sling:message="Saint Helena" />
+    <SJM jcr:primaryType="sling:MessageEntry" sling:key="SJM" sling:message="Svalbard and Jan Mayen" />
+    <SLB jcr:primaryType="sling:MessageEntry" sling:key="SLB" sling:message="Solomon Islands" />
+    <SLE jcr:primaryType="sling:MessageEntry" sling:key="SLE" sling:message="Sierra Leone" />
+    <SLV jcr:primaryType="sling:MessageEntry" sling:key="SLV" sling:message="El Salvador" />
+    <SMR jcr:primaryType="sling:MessageEntry" sling:key="SMR" sling:message="San Marino" />
+    <SOM jcr:primaryType="sling:MessageEntry" sling:key="SOM" sling:message="Somalia" />
+    <SPM jcr:primaryType="sling:MessageEntry" sling:key="SPM" sling:message="Saint Pierre and Miquelon" />
+    <SRB jcr:primaryType="sling:MessageEntry" sling:key="SRB" sling:message="Serbia" />
+    <SSD jcr:primaryType="sling:MessageEntry" sling:key="SSD" sling:message="South Sudan" />
+    <STP jcr:primaryType="sling:MessageEntry" sling:key="STP" sling:message="Sao Tome and Principe" />
+    <SUR jcr:primaryType="sling:MessageEntry" sling:key="SUR" sling:message="Suriname" />
+    <SVK jcr:primaryType="sling:MessageEntry" sling:key="SVK" sling:message="Slovakia" />
+    <SVN jcr:primaryType="sling:MessageEntry" sling:key="SVN" sling:message="Slovenia" />
+    <SWE jcr:primaryType="sling:MessageEntry" sling:key="SWE" sling:message="Sweden" />
+    <SWZ jcr:primaryType="sling:MessageEntry" sling:key="SWZ" sling:message="Swaziland" />
+    <SXM jcr:primaryType="sling:MessageEntry" sling:key="SXM" sling:message="Sint Maarten" />
+    <SYC jcr:primaryType="sling:MessageEntry" sling:key="SYC" sling:message="Seychelles" />
+    <SYR jcr:primaryType="sling:MessageEntry" sling:key="SYR" sling:message="Syria" />
+    <TCA jcr:primaryType="sling:MessageEntry" sling:key="TCA" sling:message="Turks and Caicos Islands" />
+    <TCD jcr:primaryType="sling:MessageEntry" sling:key="TCD" sling:message="Chad" />
+    <TGO jcr:primaryType="sling:MessageEntry" sling:key="TGO" sling:message="Togo" />
+    <THA jcr:primaryType="sling:MessageEntry" sling:key="THA" sling:message="Thailand" />
+    <TJK jcr:primaryType="sling:MessageEntry" sling:key="TJK" sling:message="Tajikistan" />
+    <TKL jcr:primaryType="sling:MessageEntry" sling:key="TKL" sling:message="Tokelau" />
+    <TKM jcr:primaryType="sling:MessageEntry" sling:key="TKM" sling:message="Turkmenistan" />
+    <TLS jcr:primaryType="sling:MessageEntry" sling:key="TLS" sling:message="East Timor" />
+    <TON jcr:primaryType="sling:MessageEntry" sling:key="TON" sling:message="Tonga" />
+    <TTO jcr:primaryType="sling:MessageEntry" sling:key="TTO" sling:message="Trinidad and Tobago" />
+    <TUN jcr:primaryType="sling:MessageEntry" sling:key="TUN" sling:message="Tunisia" />
+    <TUR jcr:primaryType="sling:MessageEntry" sling:key="TUR" sling:message="Turkey" />
+    <TUV jcr:primaryType="sling:MessageEntry" sling:key="TUV" sling:message="Tuvalu" />
+    <TWN jcr:primaryType="sling:MessageEntry" sling:key="TWN" sling:message="Taiwan" />
+    <TZA jcr:primaryType="sling:MessageEntry" sling:key="TZA" sling:message="Tanzania" />
+    <UGA jcr:primaryType="sling:MessageEntry" sling:key="UGA" sling:message="Uganda" />
+    <UKR jcr:primaryType="sling:MessageEntry" sling:key="UKR" sling:message="Ukraine" />
+    <UMI jcr:primaryType="sling:MessageEntry" sling:key="UMI" sling:message="United States Minor Outlying Islands" />
+    <URY jcr:primaryType="sling:MessageEntry" sling:key="URY" sling:message="Uruguay" />
+    <USA jcr:primaryType="sling:MessageEntry" sling:key="USA" sling:message="United States" />
+    <UZB jcr:primaryType="sling:MessageEntry" sling:key="UZB" sling:message="Uzbekistan" />
+    <VAT jcr:primaryType="sling:MessageEntry" sling:key="VAT" sling:message="Vatican" />
+    <VCT jcr:primaryType="sling:MessageEntry" sling:key="VCT" sling:message="Saint Vincent and the Grenadines" />
+    <VEN jcr:primaryType="sling:MessageEntry" sling:key="VEN" sling:message="Venezuela" />
+    <VGB jcr:primaryType="sling:MessageEntry" sling:key="VGB" sling:message="British Virgin Islands" />
+    <VIR jcr:primaryType="sling:MessageEntry" sling:key="VIR" sling:message="U.S. Virgin Islands" />
+    <VNM jcr:primaryType="sling:MessageEntry" sling:key="VNM" sling:message="Vietnam" />
+    <VUT jcr:primaryType="sling:MessageEntry" sling:key="VUT" sling:message="Vanuatu" />
+    <WLF jcr:primaryType="sling:MessageEntry" sling:key="WLF" sling:message="Wallis and Futuna" />
+    <WSM jcr:primaryType="sling:MessageEntry" sling:key="WSM" sling:message="Samoa" />
+    <XKX jcr:primaryType="sling:MessageEntry" sling:key="XKX" sling:message="Kosovo" />
+    <YEM jcr:primaryType="sling:MessageEntry" sling:key="YEM" sling:message="Yemen" />
+    <ZAF jcr:primaryType="sling:MessageEntry" sling:key="ZAF" sling:message="South Africa" />
+    <ZMB jcr:primaryType="sling:MessageEntry" sling:key="ZMB" sling:message="Zambia" />
+    <ZWE jcr:primaryType="sling:MessageEntry" sling:key="ZWE" sling:message="Zimbabwe" />
 </jcr:root>

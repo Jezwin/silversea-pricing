@@ -16,6 +16,9 @@
 	<filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-it"/>
 	<filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-ru"/>
 
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataschema/default/image"/>
+
+
     <filter root="/conf/silversea-com"/>
 
     <filter root="/content/elb.txt"/>

@@ -11,16 +11,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.silversea.aem.components.beans.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
 import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
-import com.silversea.aem.components.beans.EoBean;
-import com.silversea.aem.components.beans.EoConfigurationBean;
-import com.silversea.aem.components.beans.ExclusiveOfferItem;
-import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
@@ -178,8 +175,7 @@ public class CruiseUse extends EoHelper {
 
 		// init number of elements (excursions, hotels, land programs)
 		for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
-			excursionsNumber += itinerary.getHasDedicatedShorex() ? itinerary.getExcursions().size()
-					: itinerary.getPort().getExcursions().size();
+			excursionsNumber += CruiseItinerary.retrieveExcursions(itinerary).size();
 			hotelsNumber += itinerary.getHotels().size();
 			landProgramsNumber += itinerary.getLandPrograms().size();
 		}

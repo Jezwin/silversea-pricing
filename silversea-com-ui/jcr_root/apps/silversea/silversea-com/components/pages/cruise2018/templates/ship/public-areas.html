@@ -1,0 +1,20 @@
+<template data-sly-template.default="${ @ cruise }">
+    <div class="cruise-2018-ship-public hidden-xs" id="cruise2018ShipPublic">
+        <sly data-sly-test.publicAreas="${cruise.cruiseModel.ship.publicAreas}">
+            <h3 class="cruise-2018-ship-public-title">${'public-areas' @ i18n}</h3>
+        </sly>
+        <div class="cruise-2018-ship-public-content cruise-2018-slider activate-progressbar">
+            <sly data-sly-list.publicArea="${publicAreas}">
+                <div class="cruise-2018-ship-public-slide">
+                    <div class="cruise-2018-ship-public-slide-thumbnail">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                             data-sly-call="${imageTemplate.image @ imagePath=publicArea.thumbnail, width=400}"/>
+                    </div>
+                    <div class="cruise-2018-ship-public-slide-title">${publicArea.title}</div>
+                    <div class="cruise-2018-ship-public-slide-text">${publicArea.shortVoyageDescription @ context='html'}</div>
+                </div>
+
+            </sly>
+        </div>
+    </div>
+</template>

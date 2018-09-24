@@ -48,10 +48,14 @@ public class CruiseModel {
     @Optional
     private String apiTitle;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/tourBook") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/tourBook")
+    @Optional
     private String tourBook;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/importedDescription") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/importedDescription")
+    @Optional
     private String importedDescription;
 
     @Inject
@@ -93,6 +97,21 @@ public class CruiseModel {
     private String itinerary;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigItineraryMap")
+    @Optional
+    private String bigItineraryMap;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigThumbnailItineraryMap")
+    @Optional
+    private String bigThumbnailItineraryMap;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/smallItineraryMap")
+    @Optional
+    private String smallItineraryMap;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
     @Optional
     private String assetSelectionReference;
@@ -118,6 +137,11 @@ public class CruiseModel {
     @Named(JcrConstants.JCR_CONTENT + "/itineraries")
     @Optional
     private List<ItineraryModel> itinerariesStable;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigThumbnail")
+    @Optional
+    private String bigThumbnail;
 
     private List<ItineraryModel> compactedItineraries = null;
 
@@ -467,4 +491,19 @@ public class CruiseModel {
     }
 
 
+    public String getBigThumbnail() {
+        return bigThumbnail;
+    }
+
+    public String getBigItineraryMap() {
+        return bigItineraryMap;
+    }
+
+    public String getBigThumbnailItineraryMap() {
+        return bigThumbnailItineraryMap;
+    }
+
+    public String getSmallItineraryMap() {
+        return smallItineraryMap;
+    }
 }

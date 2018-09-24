@@ -1,22 +1,32 @@
 package com.silversea.aem.models;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.components.beans.DeckBean;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Model(adaptables = Page.class)
 public class ShipModel {
+
+    static final private Logger LOGGER = LoggerFactory.getLogger(ShipModel.class);
 
     @Inject
     @Self
@@ -72,6 +82,11 @@ public class ShipModel {
     private String guestsCapacity;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/shortVoyageDescription")
+    @Optional
+    private String shortVoyageDescription;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/crewCapacity")
     @Optional
     private String crewCapacity;
@@ -102,9 +117,14 @@ public class ShipModel {
     private String lengthM;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/width")
+    @Named(JcrConstants.JCR_CONTENT + "/widthFt")
     @Optional
-    private String width;
+    private String widthFt;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/widthM")
+    @Optional
+    private String widthM;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/speed")
@@ -133,15 +153,78 @@ public class ShipModel {
     @Named("suites")
     private List<SuiteModel> suites;
 
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/officersCapacity")
+    @Optional
+    private String officersCapacity;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/connectingSuites")
+    @Optional
+    private String connectingSuites;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/handicapSuites")
+    @Optional
+    private String handicapSuites;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/thirdGuestCapacity")
+    @Optional
+    private String thirdGuestCapacity;
+
+    @Reference
+    private ResourceResolverFactory resolverFactory;
+
     private String path;
 
     private String name;
+
+    private List<DeckBean> deckInfoList;
 
     @PostConstruct
     private void init() {
         path = page.getPath();
         name = page.getName();
     }
+
+    private List<DeckBean> transformDeckInformationFromNodeToList(String nodeToTransformName) {
+        LOGGER.debug("ShipModelTransformDeckInfo start transform deck info from node to list for {}", this.name);
+        try {
+            if (this.page.getContentResource("deckInfoNode") != null) {
+                Node nodeToTransform = this.page.getContentResource("deckInfoNode").adaptTo(Node.class);
+                if (nodeToTransform != null && nodeToTransform.hasNodes()) {
+                    List<DeckBean> listResult = new ArrayList<>();
+                    Iterator<Node> nodeIterator = nodeToTransform.getNodes();
+                    while (nodeIterator.hasNext()) {
+                        DeckBean deckBean = new DeckBean();
+                        Node node = nodeIterator.next();
+                        if (node.hasProperty("deckLevel") && node.getProperty("deckLevel") != null) {
+                            String propertyDeckLevel = node.getProperty("deckLevel").getString();
+                            deckBean.setLevel(propertyDeckLevel);
+                        }
+                        if (node.hasProperty("deckImageTop") && node.getProperty("deckImageTop") != null) {
+                            String propertyImageTopPath = node.getProperty("deckImageTop").getString();
+                            deckBean.setImageTopPath(propertyImageTopPath);
+                        }
+                        if (node.hasProperty("deckImageSide") && node.getProperty("deckImageSide") != null) {
+                            String propertyImageSidePath = node.getProperty("deckImageSide").getString();
+                            deckBean.setImageSidePath(propertyImageSidePath);
+                        }
+                        listResult.add(deckBean);
+                        LOGGER.debug("ShipModelTransformDeckInfo name: {} add new deck bean {}", this.name, deckBean.toString());
+                    }
+                    LOGGER.debug("ShipModelTransformDeckInfo name: {}  list of  {} elements", listResult.size());
+                    return listResult;
+                }
+            }
+        } catch (RepositoryException e) {
+            LOGGER.error("RepositoryException in Ship Model during get deckInfoNode {}", e.getMessage());
+        }
+        LOGGER.debug("ShipModelTransformDeckInfo completed function name :{}", this.name);
+        return null;
+    }
+
 
     public Page getPage() {
         return page;
@@ -219,10 +302,6 @@ public class ShipModel {
         return lengthM;
     }
 
-    public String getWidth() {
-        return width;
-    }
-
     public String getSpeed() {
         return speed;
     }
@@ -247,6 +326,38 @@ public class ShipModel {
         return name;
     }
 
+    public String getOfficersCapacity() {
+        return officersCapacity;
+    }
+
+    public void setOfficersCapacity(String officersCapacity) {
+        this.officersCapacity = officersCapacity;
+    }
+
+    public String getConnectingSuites() {
+        return connectingSuites;
+    }
+
+    public void setConnectingSuites(String connectingSuites) {
+        this.connectingSuites = connectingSuites;
+    }
+
+    public String getHandicapSuites() {
+        return handicapSuites;
+    }
+
+    public void setHandicapSuites(String handicapSuites) {
+        this.handicapSuites = handicapSuites;
+    }
+
+    public String getThirdGuestCapacity() {
+        return thirdGuestCapacity;
+    }
+
+    public void setThirdGuestCapacity(String thirdGuestCapacity) {
+        this.thirdGuestCapacity = thirdGuestCapacity;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -264,5 +375,28 @@ public class ShipModel {
         final ShipModel objShipModel = (ShipModel) obj;
 
         return objShipModel.getPath().equals(getPath());
+    }
+
+    public List<DeckBean> getDeckInfoList() {
+        if (deckInfoList == null) {
+            deckInfoList = transformDeckInformationFromNodeToList("deckInfoNode");
+        }
+        return deckInfoList;
+    }
+
+    public void setDeckInfoList(List<DeckBean> deckInfoList) {
+        this.deckInfoList = deckInfoList;
+    }
+
+    public String getShortVoyageDescription() {
+        return shortVoyageDescription;
+    }
+
+    public String getWidthFt() {
+        return widthFt;
+    }
+
+    public String getWidthM() {
+        return widthM;
     }
 }
