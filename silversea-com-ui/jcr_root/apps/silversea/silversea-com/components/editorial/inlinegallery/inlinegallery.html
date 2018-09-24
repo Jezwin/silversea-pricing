@@ -1,16 +1,11 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Inline Gallery - DEPRECATED"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
 <div id="c-inline-gallery-${properties.sscUUID}"  class="c-slider c-inline-gallery  ${properties.enableVersionB ? 'ab-test-inline-gallery-to-hide' : ''}"
-    data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference || pageProperties.assetSelectionReference}"
-    data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+     data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference || pageProperties.assetSelectionReference}"
+     data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
     <div data-sly-repeat.asset="${setImage.renditionList}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
         <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.defaultNoRetina @ imagePath=asset.path}"></div>
         <a class="automatic-gallery-modal ${isVideo ? 'video-link' : ''}" data-target=".bs-modal-lg" href="${asset.path}"><i data-sly-test="${isVideo}" class="fa fa-play"></i></a>
     </div>
 </div>
-<sly data-sly-test="${properties.enableVersionB}"> 
-<div class="ab-test-inline-gallery-to-show">
-    <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/inlineGallery/inlineGallery.html" />
-</div>
-</sly>
