@@ -99,7 +99,7 @@ $(function () {
         var $modalContent = '<div class="modal-content modal-content--transparent modal-content--single">'
             + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
             + '<div class="modal-body automatic-modal-body">'
-             + '<div class="ow-slider ow-slider--main main-slider">'
+             + '<div class="cruise-video-lightbox">'
                 +'<div class="ratio">'
                     +'<div class="video-itinerary" id="currentIdNode" data-video-asset="assetPath" data-video-autoplay="1"></div>'
                 +'</div>'
@@ -120,6 +120,13 @@ $(function () {
         $('.modal').on('shown.bs.modal', function (e) {
             $(this).find('.modal-dialog').empty().append($modalContent);
             $(".video-itinerary").initVideo();
+        });
+
+        $(document).on('hide.bs.modal', function (e) {
+            if ($("body").hasClass("cruise") && $(".cruise-2018").length > 0 && $(".modal.lightbox .cruise-video-lightbox").length > 0) {
+                var $video = $(".modal.lightbox .cruise-video-lightbox").find('.s7container');
+                $video.find('.s7playpausebutton[selected="false"]').trigger('click');
+            }
         });
     });
 
