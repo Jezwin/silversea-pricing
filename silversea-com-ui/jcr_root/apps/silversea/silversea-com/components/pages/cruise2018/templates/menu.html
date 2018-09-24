@@ -1,5 +1,5 @@
 <template data-sly-template.navigation="${ @ cruise }">
-    <div class="cruise-2018-menu-container-wrapper">
+    <div class="cruise-2018-menu-container-wrapper" id="cruise2018menu">
         <div class="cruise-2018-menu-container">
             <div class="cruise-2018-menu ssc-table-full-width">
                 <div class="row-menu-overview">
@@ -34,7 +34,7 @@
 </template>
 
 <template data-sly-template.overview="${ @ cruise }">
-    <div class="menu-overview-fixed">
+    <div class="menu-overview-fixed" id="cruise2018menufixed">
         <div class="menu-container">
             <div class="menu-overview-destination col-sm-6 col-md-4">
                 <span class="departurePort">${cruise.cruiseModel.departurePortName}</span>

@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ itinerary, excursions, cruise }">
-    <div style="display:none;" class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion">
+    <div style="display:none;" class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion" id="cruise2018itineraryexcursion">
         <sly data-sly-list.excursion="${excursions}" data-sly-test.isDedicate="${itinerary.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}">
             <div class="${excursionList.index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion ${excursion.description  ? '' : 'cruise-2018-itineraries-port-excursions-excursion-no-content'}">
                 <a
