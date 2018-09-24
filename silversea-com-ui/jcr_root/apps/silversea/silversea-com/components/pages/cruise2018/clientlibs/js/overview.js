@@ -40,7 +40,9 @@ function createOverviewGallerySlider() {
     $mainSlider.find('.video-link').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $(this).next('.video-itinerary').startVideo();
+        if(typeof s7viewers !== 'undefined'){
+            $(this).next('.video-itinerary').startVideo();
+        }
     });
 
     $mainSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {

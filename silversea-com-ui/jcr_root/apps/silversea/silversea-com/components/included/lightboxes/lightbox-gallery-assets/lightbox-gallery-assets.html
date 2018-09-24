@@ -3,7 +3,7 @@
         <div class="lightbox-gallery-assets">
             <div class="ga-slider ga-slider--main main-slider">
                 <div data-sly-repeat.asset="${list}" data-image="${asset.path}">
-                    <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour' : ''}"
+                    <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour' : ''} ${asset.type == 'itinerary' ? 'ga-itinerary' : ''}"
                          id="ga-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
                          data-image-virtual-tour="${asset.path}"
                          data-asset-label="${asset.label || asset.metadata.dc:title}" data-asset-credits="${asset.credits}" >

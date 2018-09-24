@@ -33,7 +33,7 @@
         </div>
         <div class="ow-slider ow-slider--main main-slider visible-xs">
             <div data-sly-repeat.asset="${cruise.assetsGallery}" data-image="${asset.path}">
-                <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}"
+                <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"
                      id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
                      data-image-virtual-tour="${asset.path}"
                      data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
