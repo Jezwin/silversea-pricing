@@ -504,7 +504,7 @@ public class Cruise2018Use extends EoHelper {
         if (map != null) {
             assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, "itinerary"));
         }
-
+        this.labelAssetGallery = vmProperties.get("apiTitle", String.class);
         return assetsListResult.stream().distinct().collect(toList());
     }
 
