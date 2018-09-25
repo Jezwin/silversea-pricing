@@ -93,8 +93,7 @@ $(function () {
     function setModalNavigation($modal, uri, itineraryId, excursionId) {
         try {
             var excursion = window['it' + itineraryId][excursionId];
-            console.log(excursion);
-            if (excursion.prevId === excursionId) {
+            if (excursion.prevId == excursionId) {
                 return false;
             }
             var subUri = uri.substring(0, uri.lastIndexOf('.')+1);
