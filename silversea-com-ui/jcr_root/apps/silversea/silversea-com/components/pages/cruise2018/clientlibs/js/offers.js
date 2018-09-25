@@ -82,7 +82,6 @@ $(function () {
         var $slider = $(".offers .offer-slider");
         if ($slider) {
             $slider.slick({
-                centerMode: true,
                 dots: false,
                 draggable: true,
                 infinite: true,
