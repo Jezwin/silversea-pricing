@@ -102,7 +102,9 @@ $(function () {
             var nextLink = $modal.find('.lightbox-next-link');
             var prevLink = $modal.find('.lightbox-prev-link');
             prev.html(excursion.prevLabel);
+            prev.attr('title', excursion.prevLabel);
             next.html(excursion.nextLabel);
+            next.attr('title', excursion.nextLabel);
 
             prevLink.data('target', $modal.attr('id'));
             prevLink.data('itinerary-id', itineraryId);
