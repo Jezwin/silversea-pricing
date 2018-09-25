@@ -33,14 +33,15 @@
         </div>
         <div class="ow-slider ow-slider--main main-slider visible-xs">
             <div data-sly-repeat.asset="${cruise.assetsGallery}" data-image="${asset.path}">
-                <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}"
+                <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"
                      id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
                      data-image-virtual-tour="${asset.path}"
                      data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
                     <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
-                    <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
-                    <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                    <sly data-sly-test.isVideo="${isVideo}">
+                        <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
+                    </sly>
                 </div>
                 <div data-sly-test="${asset.type == 'virtual-tour'}" id="ow-virtual-tour-${assetList.index}-container"></div>
             </div>

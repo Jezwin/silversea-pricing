@@ -14,7 +14,12 @@
                         </a>
                         <a href="#cruise2018itinerary"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-second">
-                            <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
+                            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
+                                <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
+                            </sly>
+                            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+                                <span class="cruise-2018-menu-tab-text-big">${'expedition-itinerary' @ i18n}</span>
+                            </sly>
                             <span class="cruise-2018-menu-tab-text-small">${'itinerary' @ i18n}</span>
                         </a>
                         <a href="#cruise2018suites"

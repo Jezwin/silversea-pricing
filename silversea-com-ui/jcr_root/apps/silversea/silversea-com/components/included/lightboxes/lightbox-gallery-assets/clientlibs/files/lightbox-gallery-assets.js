@@ -47,7 +47,9 @@ $(function () {
         $('.lightbox-gallery-assets .video-link').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            $(this).next('.c-video').initVideo();
+            if(typeof s7viewers !== 'undefined'){
+                $(this).next('.video-icon').initVideo();
+            }
         });
 
         $modal.find(".ga-virtual-tour").on('click', function (event) {
