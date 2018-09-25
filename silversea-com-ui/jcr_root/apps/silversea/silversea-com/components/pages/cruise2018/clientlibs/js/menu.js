@@ -56,7 +56,6 @@ Menu.prototype = {
                     }
                 });
             });
-            //$stickyTop.css('top', ($(".c-header__container").height() + $(".c-main-nav__bottom").height() - 50) + "px");
         }
     },
 
@@ -83,7 +82,7 @@ $(function () {
         e.preventDefault();
         $target = $($(this).attr("href"));
         $([document.documentElement, document.body]).animate({
-            scrollTop: $target.position().top - menu.headerHeight(),
+            scrollTop: $target.position().top - menu.headerHeight() - 50 + parseInt($target.css('margin-top')),
             duration: 500,
             easing: 'linear'
         });
