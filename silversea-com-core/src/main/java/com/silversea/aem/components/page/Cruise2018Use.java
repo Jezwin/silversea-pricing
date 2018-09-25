@@ -60,6 +60,7 @@ public class Cruise2018Use extends EoHelper {
     private boolean showCruiseBeforeName;
 
     private List<SuitePrice> prices;
+    private Collection<CruisePrePost> prePosts;
 
     private PriceModel lowestPrice;
     private boolean waitlist;
@@ -158,6 +159,7 @@ public class Cruise2018Use extends EoHelper {
         numPorts = retrieveNumberOfPorts(cruiseModel);
         numCountries = retrieveNumberOfCountries(cruiseModel);
 
+        prePosts = retrievePrePosts(itinerary);
         prices = retrievePrices(cruiseModel);
         lowestPrice = retrieveLowestPrice(prices);
         if (lowestPrice != null) {
@@ -180,6 +182,13 @@ public class Cruise2018Use extends EoHelper {
         });
     }
 
+    private Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
+        Set<CruisePrePost> uniqueValues = new HashSet<>();
+        for (CruiseItinerary cruiseItinerary : itinerary) {
+            uniqueValues.addAll(cruiseItinerary.getPrePosts());
+        }
+        return uniqueValues.stream().sorted(Comparator.comparing(CruisePrePost::getPrePost)).collect(toList());
+    }
 
 
     private boolean retrieveShowCruiseBeforeName(Locale locale) {
@@ -493,7 +502,7 @@ public class Cruise2018Use extends EoHelper {
             map = vmProperties.get("itinerary", String.class);
         }
         if (map != null) {
-            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null,"itinerary"));
+            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, "itinerary"));
         }
 
         return assetsListResult.stream().distinct().collect(toList());
@@ -782,11 +791,7 @@ public class Cruise2018Use extends EoHelper {
     }
 
     public Collection<CruisePrePost> getPrePost() {
-        Set<CruisePrePost> uniqueValues = new HashSet<>();
-        for (CruiseItinerary cruiseItinerary : getItinerary()) {
-            uniqueValues.addAll(cruiseItinerary.getPrePosts());
-        }
-        return uniqueValues;
+        return prePosts;
     }
 
     public ExcursionModel getShorexExcursionLightbox() {
