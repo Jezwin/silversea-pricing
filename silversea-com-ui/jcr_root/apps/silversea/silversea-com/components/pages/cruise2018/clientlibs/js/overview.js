@@ -2,22 +2,20 @@ function pdfInit(uri, countryCode, ccpt) {
     var printWin = {};
     $('#cruise-2018-pdf-print').on('click', function (e) {
         e.preventDefault();
-        if (!window.voyagePdfPrintClicked) {
-            window.voyagePdfPrintClicked = true;
-            $.ajax({
-                url: uri + '.rendition.print.' + countryCode + ccpt + '.pdf',
-                beforeSend: function () {
-                    $('.cruise-2018-pdf-print-link').toggle();
-                    printWin = window.open('', '_blank');
-                },
-                success: function () {
-                    $('.cruise-2018-pdf-print-link').toggle();
-                    printWin.location = uri + '.rendition.print.' + countryCode + ccpt + '.pdf';
-                    printWin.focus();
-                    window.voyagePdfPrintClicked = false;
-                }
-            });
-        }
+        $.ajax({
+            url: uri + '.rendition.print.' + countryCode + ccpt + '.pdf',
+            beforeSend: function () {
+                $('.cruise-2018-pdf-print-link').toggle();
+                printWin = window.open('', '_blank');
+            },
+            complete: function () {
+                $('.cruise-2018-pdf-print-link').toggle();
+            },
+            success: function () {
+                printWin.location =  uri + '.rendition.print.' + countryCode + ccpt + '.pdf';
+                printWin.focus();
+            }
+        });
     });
 }
 
@@ -99,11 +97,11 @@ $(function () {
         var $modalContent = '<div class="modal-content modal-content--transparent modal-content--single">'
             + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
             + '<div class="modal-body automatic-modal-body">'
-             + '<div class="cruise-video-lightbox">'
-                +'<div class="ratio">'
-                    +'<div class="video-itinerary" id="currentIdNode" data-video-asset="assetPath" data-video-autoplay="1"></div>'
-                +'</div>'
-            +'</div>'+
+            + '<div class="cruise-video-lightbox">'
+            + '<div class="ratio">'
+            + '<div class="video-itinerary" id="currentIdNode" data-video-asset="assetPath" data-video-autoplay="1"></div>'
+            + '</div>'
+            + '</div>' +
             '</div>' + '</div>';
 
         var $link = $(this);
