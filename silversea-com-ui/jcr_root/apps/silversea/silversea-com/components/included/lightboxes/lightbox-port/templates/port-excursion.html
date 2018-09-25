@@ -1,12 +1,24 @@
 <template data-sly-template.default="${@ model}">
     <div class="lg-port-excursion">
         <sly data-sly-test.excursions="${model.excursions }"/>
-        <sly data-sly-test="${excursions.size > 0}">
+        <sly data-sly-test.mid="${model.mid }"/>
+
+        <sly data-sly-test.hasExcursions="${excursions.size > 0}"></sly>
+        <sly data-sly-test.hasMid="${mid.size > 0}"></sly>
+
+        <sly data-sly-test="${hasExcursions || hasMid}">
             <div class="lg-port-excursion-title">
-                ${excursions.size} ${'excursion-s' @ i18n}
+                <sly data-sly-test="${hasExcursions}">
+                    ${excursions.size} ${(excursions.size>1 ? 'excursions' : 'excursion') @i18n}
+                </sly>
+                <sly data-sly-test="${hasMid && hasExcursions}">
+                    &
+                </sly>
+                <sly data-sly-test="${hasMid}"> ${mid.size} ${'land-programmes'  @i18n}
+                </sly>
             </div>
             <div class="lg-port-excursion-list">
-                <div class="lg-port-excursion-list--item" data-sly-repeat.excursion="${excursions}">
+                <div class="lg-port-excursion-list--item" data-sly-repeat.excursion="${model.shorex}">
                     <div class="lg-port-excursion-list--item-inner">
                         <div class="icon-part">
                             <i class="material-icons icon">
@@ -14,7 +26,7 @@
                             </i>
                         </div>
                         <div class="content-part">
-                            ${excursion.title}
+                            ${excursion}
                         </div>
                         <div class="clearfix"></div>
                     </div>

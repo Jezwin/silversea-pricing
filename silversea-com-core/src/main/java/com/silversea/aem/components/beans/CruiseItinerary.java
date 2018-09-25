@@ -1,7 +1,10 @@
 package com.silversea.aem.components.beans;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.silversea.aem.components.beans.CruisePrePost.PREPOSTMID;
+import com.silversea.aem.components.page.Cruise2018Use;
 import com.silversea.aem.models.*;
 
 import java.util.Calendar;
@@ -26,7 +29,9 @@ public class CruiseItinerary {
 
     private final String excursionsLabel;
     private final List<CruisePrePost> prePosts;
+    private final List<LandProgramModel> mid;
     private final List<LandProgramModel> landPrograms;
+    private final int shorexSize;
 
     private final List<HotelModel> hotels;
     private final boolean hasExcursions;
@@ -47,22 +52,13 @@ public class CruiseItinerary {
         this.countryIso3 = itinerary.getPort().getCountryIso3();
         this.excursions = retrieveExcursions(isEmbark, isDebark, itinerary);
         this.hasExcursions = excursions != null && !excursions.isEmpty();
-        JsonObject map = new JsonObject();
         if (hasExcursions) {
             excursions.sort(Comparator.comparing(ex -> ex.getTitle().trim()));
-            int size = excursions.size();
-            for (int i = 0; i < size; i++) {
-                JsonObject labels = new JsonObject();
-                ExcursionModel prev = excursions.get(Math.floorMod(i - 1, size));
-                ExcursionModel next = excursions.get((i + 1) % size);
-                labels.addProperty("prevLabel", prev.getTitle());
-                labels.addProperty("nextLabel", next.getTitle());
-                labels.addProperty("prevId", prev.getShorexId());
-                labels.addProperty("nextId", next.getShorexId());
-                map.add(excursions.get(i).getShorexId() + "", labels);
-            }
         }
-        excursionsLabel = map.toString();
+        this.mid = landPrograms.stream()
+                .filter(landProgram -> PREPOSTMID.MID.equals(PREPOSTMID.retrieve(landProgram.getLandCode())))
+                .collect(toList());
+        excursionsLabel = retrieveMap(this.mid, this.excursions).toString();
         this.date = itinerary.getDate();
         this.arriveTime = itinerary.getArriveTime();
         this.departTime = itinerary.getDepartTime();
@@ -75,17 +71,50 @@ public class CruiseItinerary {
                                 hotel)),
                 landPrograms.stream()
                         .map(land -> new CruisePrePost(itinerary.getItineraryId(), itinerary.getPort().getThumbnail(),
-                                land)))
+                                land))).filter(prepost -> !"MID".equals(prepost.getPrePost()))
                 .collect(toList());
+        this.shorexSize = mid.size() + (excursions != null ? excursions.size() : 0);
     }
 
-    public List<CruisePrePost> getPrePosts() {
-        return prePosts;
+    private JsonObject retrieveMap(List<LandProgramModel> mid, List<ExcursionModel> excursions) {
+        JsonArray array = new JsonArray();
+        for (LandProgramModel landProgram : mid) {
+            JsonObject element = new JsonObject();
+            element.addProperty("title", landProgram.getTitle());
+            element.addProperty("id", landProgram.getLandId());
+            element.addProperty("kind", Cruise2018Use.Lightbox.MIDLAND.getSelector());
+            array.add(element);
+        }
+        if (excursions != null) {
+            for (ExcursionModel excursion : excursions) {
+                JsonObject element = new JsonObject();
+                element.addProperty("title", excursion.getTitle());
+                element.addProperty("id", excursion.getShorexId());
+                element.addProperty("kind", Cruise2018Use.Lightbox.SHOREX_EXCURSION.getSelector());
+                array.add(element);
+            }
+        }
+        JsonObject map = new JsonObject();
+        int size = array.size();
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject prev = array.get(Math.floorMod(i - 1, size)).getAsJsonObject();
+            JsonObject next = array.get((i + 1) % size).getAsJsonObject();
+            JsonObject labels = new JsonObject();
+            labels.addProperty("prevLabel", prev.get("title").getAsString());
+            labels.addProperty("nextLabel", next.get("title").getAsString());
+            labels.addProperty("prevId", prev.get("id").getAsString());
+            labels.addProperty("nextId", next.get("id").getAsString());
+            labels.addProperty("prevKind", prev.get("kind").getAsString());
+            labels.addProperty("nextKind", next.get("kind").getAsString());
+            map.add(array.get(i).getAsJsonObject().get("id").getAsString() + "", labels);
+        }
+        return map;
     }
 
     public static List<ExcursionModel> retrieveExcursions(ItineraryModel itinerary) {
         return retrieveExcursions(false, false, itinerary);
     }
+
 
     public static List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark,
                                                           ItineraryModel itinerary) {
@@ -134,7 +163,7 @@ public class CruiseItinerary {
         return excursionDescription;
     }
 
-    public List<?> getExcursions() {
+    public List<ExcursionModel> getExcursions() {
         return excursions;
     }
 
@@ -164,5 +193,17 @@ public class CruiseItinerary {
 
     public String getExcursionsLabel() {
         return excursionsLabel;
+    }
+
+    public List<LandProgramModel> getMid() {
+        return mid;
+    }
+
+    public List<CruisePrePost> getPrePosts() {
+        return prePosts;
+    }
+
+    public int getShorexSize() {
+        return shorexSize;
     }
 }
