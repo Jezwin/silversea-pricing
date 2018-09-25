@@ -187,7 +187,7 @@ public class Cruise2018Use extends EoHelper {
         for (CruiseItinerary cruiseItinerary : itinerary) {
             uniqueValues.addAll(cruiseItinerary.getPrePosts());
         }
-        return uniqueValues.stream().sorted(Comparator.comparing(CruisePrePost::getPrePost)).collect(toList());
+        return uniqueValues.stream().sorted(Comparator.comparing(CruisePrePost::getPrePost).reversed()).collect(toList());
     }
 
 
