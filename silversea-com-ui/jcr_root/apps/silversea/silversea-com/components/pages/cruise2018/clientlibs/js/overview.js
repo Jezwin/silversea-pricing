@@ -115,17 +115,20 @@ $(function () {
         $($(this).data('target')).modal('show');
 
         // Append image inside Modal
-        $('.modal').on('shown.bs.modal', function (e) {
-            $(this).find('.modal-dialog').empty().append($modalContent);
-            $(".video-itinerary").initVideo();
-        });
+        $('.modal.lightbox').on('shown.bs.modal',createVideo);
 
         $(document).on('hide.bs.modal', function (e) {
             if ($("body").hasClass("cruise") && $(".cruise-2018").length > 0 && $(".modal.lightbox .cruise-video-lightbox").length > 0) {
-                var $video = $(".modal.lightbox .cruise-video-lightbox").find('.s7container');
-                $video.find('.s7playpausebutton[selected="false"]').trigger('click');
+                //var $video = $(".modal.lightbox .cruise-video-lightbox").find('.s7container');
+               // $video.find('.s7playpausebutton[selected="false"]').trigger('click');
+                $('.modal.lightbox').off('shown.bs.modal',createVideo);
             }
         });
+
+        function createVideo(e) {
+            $(this).find('.modal-dialog').empty().append($modalContent);
+            $(".video-itinerary").initVideo();
+        }
     });
 
 });
