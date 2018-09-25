@@ -94,7 +94,7 @@ $(function () {
         e && e.stopPropagation();
         $('body').addClass('modal-open');
         // HTML layout
-        var $modalContent = '<div class="modal-content modal-content--transparent modal-content--single">'
+        var $modalContent = '<div class="modal-content modal-content--transparent modal-content--single cruise-video-lightbox">'
             + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
             + '<div class="modal-body automatic-modal-body">'
             + '<div class="cruise-video-lightbox">'
@@ -117,17 +117,20 @@ $(function () {
         // Append image inside Modal
         $('.modal.lightbox').on('shown.bs.modal',createVideo);
 
-        $(document).on('hide.bs.modal', function (e) {
-            if ($("body").hasClass("cruise") && $(".cruise-2018").length > 0 && $(".modal.lightbox .cruise-video-lightbox").length > 0) {
-                //var $video = $(".modal.lightbox .cruise-video-lightbox").find('.s7container');
-               // $video.find('.s7playpausebutton[selected="false"]').trigger('click');
-                $('.modal.lightbox').off('shown.bs.modal',createVideo);
-            }
-        });
+        $(document).on('hide.bs.modal', destroyVideo);
 
         function createVideo(e) {
             $(this).find('.modal-dialog').empty().append($modalContent);
             $(".video-itinerary").initVideo();
+        }
+
+        function destroyVideo (e) {
+            if ($("body").hasClass("cruise") && $(".cruise-2018").length > 0) {
+                var $video = $(".modal.lightbox .cruise-video-lightbox").find('.s7container');
+                $video.find('.s7playpausebutton[selected="false"]').trigger('click');
+                $('.modal.lightbox').off('shown.bs.modal',createVideo);
+                $(document).off('hide.bs.modal', destroyVideo);
+            }
         }
     });
 
