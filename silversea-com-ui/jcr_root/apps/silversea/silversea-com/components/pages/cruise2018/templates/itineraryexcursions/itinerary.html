@@ -36,7 +36,6 @@
         <div class="cruise-2018-itineraries-pdf hidden-xs">
             <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
                 <a class="btn btn-thin btn-white cruise-2018-itineraries-btn" href="${cruise.cruiseModel.tourBook}" target="_blank" data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
-                    <i class="fa fa-angle-right fa-lg"></i>
                 </a>
             </sly>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
