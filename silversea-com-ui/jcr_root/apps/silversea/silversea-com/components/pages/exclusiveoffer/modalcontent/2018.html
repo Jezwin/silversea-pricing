@@ -7,9 +7,10 @@
                 <!--<sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxes.html"/>-->
                 <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxes.html"/>
             </sly>
-            <div class="cruise-2018-modal-exclusive-offer-description">${exclusiveOffer.exclusiveOfferItem.longDescription @ context='html'}
+            <div class="cruise-2018-modal-exclusive-offer-description">
+                ${exclusiveOffer.exclusiveOfferItem.longDescription @ context='html'}
+                <div class="cruise-2018-modal-footnotes">${exclusiveOffer.exclusiveOfferItem.footnote @ context='html'}</div>
             </div>
-            <span class="cruise-2018-modal-footnotes">${exclusiveOffer.exclusiveOfferItem.footnote @ context='html'}</span>
             <div class="cruise-2018-modal-exclusive-offer-btn-container">
                 <a class="cruise-2018-modal-exclusive-offer-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
                    href="${exclusiveOffer.requestQuotePagePath @ extension='html'}">${'request-quote' @ i18n }</a>
