@@ -79,7 +79,7 @@ $(function () {
         if (this.hash) {
             var hash = this.hash.substr(1);
             var $toElement = $("[id=" + hash + "]");
-            var toPosition = $toElement.offset().top - 120;
+            var toPosition = $toElement.offset().top - 100;
             //scroll to element
             $("body,html").animate({
                 scrollTop: toPosition
