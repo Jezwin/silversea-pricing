@@ -50,7 +50,9 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
             if (StringUtils.isNotEmpty(ship.getSpeed())) {
                 spec.add(new SpecBean("speed", ship.getSpeed()));
             }
-            spec.add(new SpecBean("passenger-decks", null));
+            if (!ship.getDeckInfoList().isEmpty()){
+                spec.add(new SpecBean("passenger-decks", null));
+            }
             if (StringUtils.isNotEmpty(ship.getThirdGuestCapacity())) {
                 spec.add(new SpecBean("third-guest-capacity", ship.getThirdGuestCapacity()));
             }
