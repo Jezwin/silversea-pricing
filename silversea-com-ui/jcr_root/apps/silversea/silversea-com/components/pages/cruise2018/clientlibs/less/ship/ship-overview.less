@@ -51,6 +51,10 @@
 }
 
 @media screen and (min-width: @screen-sm) {
+
+  #cruise2018ship{
+    margin-top:50px;
+  }
   .cruise-2018-ship-overview {
     .cruise-2018-ship-overview-title {
       font-size: 30px;
@@ -86,6 +90,10 @@
   .ship-slider {
     visibility: hidden;
 
+    .slick-slide.slick-cloned .video-link {
+      pointer-events: none;
+    }
+
     &.slick-initialized {
       visibility: visible !important;
     }
@@ -106,6 +114,9 @@
       > * {
         margin-bottom: 0 !important;
       }
+    }
+    .slick-slide:not(.slick-current) img {
+      opacity: 0.5;
     }
 
     &:not(.ga-slider--full-width) .slick-slide > * {
@@ -142,27 +153,48 @@
         border-right: 2px solid #171d47 !important;
         border-bottom: 2px solid #171d47 !important;
         border-top: 0 solid transparent;
-        opacity: 0.6;
       }
     }
 
     .slick-prev {
+      left: -376px;
+      @media (min-width: 1920px) {
+        left: -410px;
+      }
+      @media (max-width: 1920px) and (min-width: 1510px) {
+        left: -376px;
+      }
+      @media (max-width: 1510px) and (min-width: 991px) {
+        left: -88px;
+
+      }
       &:before,
       &:after {
-        left: -305px;
-        -webkit-transform: translate(-50%, -50%) rotateZ(135deg);
-        -ms-transform: translate(-50%, -50%) rotateZ(135deg);
-        transform: translate(-50%, -50%) rotateZ(135deg);
+
+        -webkit-transform: translate(50%, -50%) rotateZ(135deg);
+        -ms-transform: translate(50%, -50%) rotateZ(135deg);
+        transform: translate(50%, -50%) rotateZ(135deg);
       }
     }
 
     .slick-next {
+      right: -376px;
+      @media (min-width: 1920px) {
+        right: -410px;
+      }
+      @media (max-width: 1920px) and (min-width: 1510px) {
+        right: -376px;
+      }
+      @media (max-width: 1510px) and (min-width: 991px) {
+        right: -88px;
+
+      }
       &:before,
       &:after {
-        left: 376px;
-        -webkit-transform: translate(-50%, -50%) rotateZ(-45deg);
-        -ms-transform: translate(-50%, -50%) rotateZ(-45deg);
-        transform: translate(-50%, -50%) rotateZ(-45deg);
+
+        -webkit-transform: translate(50%, -50%) rotateZ(-45deg);
+        -ms-transform: translate(50%, -50%) rotateZ(-45deg);
+        transform: translate(50%, -50%) rotateZ(-45deg);
       }
     }
 
@@ -326,9 +358,9 @@
 @media (max-width: @screen-sm) {
   .ship-slider-overview {
     .ship-slider {
-      width: 85%;
+      margin-left: 7%;
+      margin-right: 7%;
       padding-bottom: 10px;
-      margin: auto;
     }
   }
 }

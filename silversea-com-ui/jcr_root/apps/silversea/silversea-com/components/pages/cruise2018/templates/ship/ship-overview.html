@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ cruise, externalizerHelper }">
-    <div class="cruise-2018-ship-overview" data-sly-test.ship="${cruise.cruiseModel.ship}">
+    <div class="cruise-2018-ship-overview" data-sly-test.ship="${cruise.cruiseModel.ship}" >
         <div class="cruise-2018-ship-overview-title">
             <span class="cruise-2018-ship-overview-title-ship">${'ship' @ i18n}</span> - <span
                 class="cruise-2018-ship-overview-title-title">${ship.title}</span>
@@ -21,9 +21,9 @@
                              data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}"/>
                         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
                              data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
-                        <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
-                        <div data-sly-test="${isVideo}" class="c-video" data-video-asset="${asset.path}"
-                             data-video-autoplay="1"></div>
+                        <sly data-sly-test.isVideo="${isVideo}">
+                            <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
+                        </sly>
                     </div>
                 </div>
             </div>

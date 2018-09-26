@@ -1,11 +1,11 @@
 <template data-sly-template.default="${ @ bigMap, smallMap}">
     <div class="modal-body">
         <div class="lightbox-map">
-            <div class="ratio-big-itinerary">
+            <div class="ratio-big-itinerary" data-sly-test="${smallMap}">
                 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                      data-sly-call="${imageTemplate.resp @ imagePath=smallMap}"/>
             </div>
-            <div class="ratio-small-itinerary">
+            <div class="ratio-small-itinerary" data-sly-test="${bigMap}">
                 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                      data-sly-call="${imageTemplate.resp @ imagePath=bigMap}"/>
             </div>

@@ -47,7 +47,9 @@ $(function () {
         $('.lightbox-gallery-assets .video-link').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            $(this).next('.c-video').initVideo();
+            if(typeof s7viewers !== 'undefined'){
+                $(this).next('.video-icon').initVideo();
+            }
         });
 
         $modal.find(".ga-virtual-tour").on('click', function (event) {
@@ -76,22 +78,32 @@ $(function () {
     };//createLigthboxGallerySlider
 
     function loadLazyImage($slider) {
-        var $sliderActive = $slider.closest('.lightbox-gallery-assets').find('.slick-active');
+        var $sliderActiveMain = $slider.closest('.lightbox-gallery-assets').find('.ga-slider--main .slick-active');
+        var $sliderActiveNav = $slider.closest('.lightbox-gallery-assets ').find('.ga-slider--nav .slick-active');
         $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "draggable", true, false);
         $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "swipe", true, false);
-        // call lazy loading for active image
-        $sliderActive.find('.lazy').lazy();
 
-        // call lazy loading for 2 previous and next images active
-        $sliderActive.prev().find('.lazy').lazy();
-        $sliderActive.prev().prev().find('.lazy').lazy();
-        $sliderActive.next().find('.lazy').lazy();
-        $sliderActive.next().next().find('.lazy').lazy();
+        lazyLazy($sliderActiveMain);
+        lazyLazy($sliderActiveNav);
+        lazyLazy($sliderActiveNav.prev());
+        lazyLazy($sliderActiveNav.next());
+
         setTimeout(function () {
-            $sliderActive.find('.lazy').lazy();
+            lazyLazy($sliderActiveMain)
         }, 50);
 
     };//loadLazyImage
+
+    function lazyLazy(slider) {
+        if (slider != null) {
+            slider.find('.lazy').lazy();
+            // call lazy loading for 2 previous and next images active
+            slider.prev().find('.lazy').lazy();
+            slider.prev().prev().find('.lazy').lazy();
+            slider.next().find('.lazy').lazy();
+            slider.next().next().find('.lazy').lazy();
+        }
+    }
 
     function createInfoAssetSection($slider) {
         var $sliderActive = $slider.find(".slick-slide.slick-current.slick-active div");
@@ -125,12 +137,12 @@ $(function () {
 
         if (window.hasOwnProperty('virtualTourID') && window.virtualTourID != null) {
             $(window.virtualTourID).empty();
-            $(window.virtualTourID).css("height","0px");
+            $(window.virtualTourID).css("height", "0px");
             window.virtualTourID = null;
         }
 
         if (window.hasOwnProperty('virtualTourImage') && window.virtualTourImage != null) {
-            $(window.virtualTourImage).css("display","block");
+            $(window.virtualTourImage).css("display", "block");
             window.virtualTourImage = null;
         }
 

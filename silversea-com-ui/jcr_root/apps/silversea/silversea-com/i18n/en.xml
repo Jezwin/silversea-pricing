@@ -163,6 +163,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="call-reservations-team-2"
         sling:message="or contact your travel agent"/>
+    <call-reservations-team-learn-excursion
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-learn-excursion"
+        sling:message="Call our Reservations Team to know more about our excursions"/>
     <check-phone-format
         jcr:primaryType="sling:MessageEntry"
         sling:key="check-phone-format"
@@ -511,6 +515,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-code"
         sling:message="Excursion Code"/>
+    <excursion
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="excursion"
+            sling:message="Excursion"/>
     <excursion-s
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"
@@ -523,6 +531,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-cruise"
         sling:message="expedition cruise"/>
+    <expedition-itinerary
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-itinerary"
+        sling:message="expedition itinerary"/>
     <expedition-team
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-team"
@@ -823,6 +835,10 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="offers"
             sling:message="Offers"/>
+    <offers-for-this-cruise
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offers-for-this-cruise"
+            sling:message="Offers for this cruise"/>
     <other-recent-journals
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-journals"
@@ -919,6 +935,19 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-hotels"
         sling:message="Pre-post hotels"/>
+    <pre-post-extensions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pre-post-extensions"
+        sling:message="Pre &amp; Post Cruise Extensions"/>
+    <night
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="night"
+        sling:message="night"/>
+    <nights
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="nights"
+        sling:message="nights"/>
+
     <pressure
         jcr:primaryType="sling:MessageEntry"
         sling:key="pressure"
@@ -1230,7 +1259,7 @@
     <suites-and-fares
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-and-fares"
-        sling:message="Suites and fares"/>
+        sling:message="Suites &amp; fares"/>
     <suites-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-descr"
@@ -1315,6 +1344,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all"
         sling:message="View all"/>
+    <view-all-excursions
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-all-excursions"
+            sling:message="View all excursions"/>
     <view-all-pictures
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all-pictures"
@@ -1526,6 +1559,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="download-tour-book"
         sling:message="Download the tour program"/>
+    <itinerary-and-excursions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="itinerary-and-excursions"
+        sling:message="Itinerary &amp; excursions"/>
+    <itinerary
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="itinerary"
+            sling:message="Itinerary"/>
     <specifications
         jcr:primaryType="sling:MessageEntry"
         sling:key="specifications"
@@ -1574,6 +1615,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="download-pdf"
         sling:message="download the pdf"/>
+    <up-to
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="up-to"
+        sling:message="Up to "/>
     <ABW jcr:primaryType="sling:MessageEntry" sling:key="ABW" sling:message="Aruba" />
     <AFG jcr:primaryType="sling:MessageEntry" sling:key="AFG" sling:message="Afghanistan" />
     <AGO jcr:primaryType="sling:MessageEntry" sling:key="AGO" sling:message="Angola" />

@@ -58,6 +58,8 @@ public class PortModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/countryIso2")
     private String countryIso2;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/countryIso3")
+    private String countryIso3;
     private Tag country;
 
     private List<ExcursionModel> excursions = new ArrayList<>();
@@ -200,6 +202,10 @@ public class PortModel {
 
     public String getName() {
         return name;
+    }
+
+    public String getCountryIso3() {
+        return countryIso3;
     }
 
     @Override

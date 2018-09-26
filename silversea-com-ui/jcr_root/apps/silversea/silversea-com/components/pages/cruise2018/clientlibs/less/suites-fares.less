@@ -6,6 +6,7 @@
   .cruise-2018-suites-fares-title {
     font-family: @freight;
     letter-spacing: 0.5px;
+    text-transform: capitalize;
   }
   .cruise-2018-suites-fares-description {
     font-family: @suisse;
@@ -81,7 +82,10 @@
     text-transform: uppercase;
     line-height: 20px;
     font-size: 18px;
+  }
 
+  .cruise-2018-suites-fares-price {
+    height: 30px;
   }
 
   .cruise-2018-suites-fares-price-from {
@@ -174,7 +178,7 @@
     list-style: none;
     margin-left: 0;
     padding-left: 0;
-    margin-top:5px;
+    margin-top:15px;
   }
 
   .cruise-2018-suites-fares-included-eo {
@@ -253,19 +257,19 @@
     }
 
     .cruise-2018-suites-fares-description-title {
-      font-size: 18px;
+      font-size: 24px;
       line-height: 20px;
     }
 
     .cruise-2018-suites-fares-description-upto {
-      font-size: 9px;
+      font-size: 11px;
       line-height: 11px;
       letter-spacing: 1px;
 
     }
 
     .cruise-2018-suites-fares-price-from {
-      font-size: 9px;
+      font-size: 10px;
       line-height: 11px;
     }
 
@@ -276,7 +280,7 @@
     }
 
     .cruise-2018-suites-fares-price-bonus {
-      font-size: 9px;
+      font-size: 10px;
       line-height: 11px;
     }
 
@@ -286,7 +290,7 @@
 
     .cruise-2018-suites-fares-footnote {
       text-align: center;
-      font-size: 9px;
+      font-size: 10px;
       line-height: 11px;
       letter-spacing: 1px;
       margin-bottom: 30px;
@@ -305,6 +309,7 @@
 
   //sm-->md
   .cruise-2018-suites-fares {
+    margin-top: 50px;
     .cruise-2018-suites-fares-title {
       font-size: 30px;
       line-height: 32px;
@@ -313,6 +318,15 @@
       padding-left: @padding-fares !important;
       padding-right: @padding-fares !important;
     }
+    .cruise-2018-suites-fares-col:nth-child(even) {
+      padding-right: 18px !important;
+    }
+
+    .cruise-2018-suites-fares-col:nth-child(odd) {
+      padding-left: 18px !important;
+
+    }
+
     .cruise-2018-suites-fares-container:not(first) {
       margin-top: @padding-fares*2 !important;
     }
@@ -322,6 +336,7 @@
 @media screen and (min-width: @screen-md-max) {
   //md-->
   .cruise-2018-suites-fares {
+    margin-top: 50px;
     .cruise-2018-suites-fares-title {
       font-size: 30px;
       line-height: 32px;

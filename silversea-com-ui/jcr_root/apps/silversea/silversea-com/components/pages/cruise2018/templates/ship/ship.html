@@ -1,10 +1,12 @@
 <template data-sly-template.default="${ @ cruise, externalizerHelper }">
-    <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/ship-overview.html"
-         data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
-    <hr />
-    <sly data-sly-use.dining="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/dining.html"
-         data-sly-call="${dining.default @ cruise=cruise}"/>
-    <hr />
-    <sly data-sly-use.publicarea="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/public-areas.html"
-         data-sly-call="${publicarea.default @ cruise=cruise}"/>
+    <div id="cruise2018ship">
+        <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/ship-overview.html"
+             data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+        <hr/>
+        <sly data-sly-use.dining="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/dining.html"
+             data-sly-call="${dining.default @ cruise=cruise}"/>
+        <hr/>
+        <sly data-sly-use.publicarea="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/public-areas.html"
+             data-sly-call="${publicarea.default @ cruise=cruise}"/>
+    </div>
 </template>

@@ -28,9 +28,9 @@
       opacity: 1 !important;
     }
     .slick-next:after {
-      width: 25px;
-      height: 25px;
-      padding: 10px;
+      width: 15px;
+      height: 15px;
+      padding: 5px;
       border-left: 0 solid @transparent;
       border-right: 2px solid @color-second !important;
       border-bottom: 2px solid @color-second !important;
@@ -53,9 +53,9 @@
       transform: rotateZ(-45deg);
     }
     .slick-prev:after {
-      width: 20px;
-      padding: 10px;
-      height: 20px;
+      width: 15px;
+      height: 15px;
+      padding: 5px;
       border-left: 0 solid @transparent;
       border-right: 2px solid @color-second !important;
       border-bottom: 2px solid @color-second !important;
@@ -80,6 +80,7 @@
     color: @grey--3;
     font-family: @freight;
     font-size: 24px;
+    margin-top: 50px;
     letter-spacing: 0.5px;
     line-height: 26px;
     text-align: center;
@@ -88,11 +89,28 @@
 
   .cruise-2018-ship-public-slide-thumbnail {
     height: 172px;
+    .ratio {
+      cursor: pointer;
+      height: 172px;
+      margin: 0;
+      position: relative;
+      width: 100%;
+
+      .c-video {
+        height: 0;
+
+        &.s7videoviewer {
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%
+        }
+      }
+    }
   }
 
   .cruise-2018-ship-public-slide-thumbnail img {
     height: 172px;
-    object-fit: cover;
   }
 
   .cruise-2018-ship-public-slide-title {

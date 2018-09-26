@@ -4,18 +4,20 @@
     <sly data-sly-use.header="/apps/silversea/silversea-com/components/pages/cruise2018/templates/header.html"
          data-sly-call="${header.default @ cruise=cruise}"/>
     <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise2018/templates/overview.html"
-         data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+        data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+    <sly data-sly-use.menu="/apps/silversea/silversea-com/components/pages/cruise2018/templates/menu.html"
+         data-sly-call="${menu.navigation @ cruise=cruise}"/>
     <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise2018/templates/offers.html"
-         data-sly-call="${offers.default @ offers = cruise.exclusiveOffers}"/>
-    <hr />
+         data-sly-call="${offers.default @ offers = cruise.exclusiveOffers, offersNumber = cruise.totalNumberOfOffers, isVenetian=cruise.isVenetianSociety, odd = cruise.areOffersOdd}"/>
+    <hr data-sly-test="${cruise.totalNumberOfOffers != 0}"/>
     <sly data-sly-use.itineraryexcursions="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/itineraryexcursions.html"
-         data-sly-call="${itineraryexcursions.default @ cruise=cruise}"/>
-    <hr />
+         data-sly-call="${itineraryexcursions.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+    <hr/>
     <sly data-sly-use.expeditions="/apps/silversea/silversea-com/components/pages/cruise2018/templates/expeditions.html"
          data-sly-call="${expeditions.default @ cruise=cruise}"/>
     <sly data-sly-use.suitesfares="/apps/silversea/silversea-com/components/pages/cruise2018/templates/suites-fares.html"
          data-sly-call="${suitesfares.default @ cruise=cruise}"/>
-    <hr />
+    <hr/>
     <sly data-sly-use.ship="/apps/silversea/silversea-com/components/pages/cruise2018/templates/ship/ship.html"
          data-sly-call="${ship.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise2018/templates/pre-post.html"

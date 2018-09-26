@@ -17,7 +17,7 @@ public class PriceHelper extends WCMUsePojo {
     }
 
     public static String getValue(Locale locale, Long value) {
-        return NumberFormat.getNumberInstance(locale).format(value);
+        return value!=null ? NumberFormat.getNumberInstance(locale).format(value) : "";
     }
 
     /**

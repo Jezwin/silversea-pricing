@@ -15,12 +15,13 @@
 	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
 	        </p>
         </sly>
-        
+
 
         <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"
              data-sly-test="${cruise.cruiseModel.compactedItineraries}"
              data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}">
             <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.compactedExcursions : itinerary.port.excursions }" />
+            <sly data-sly-test.excursions="${excursions.isEmpty ?  itinerary.port.excursions : excursions }" />
             <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.landPrograms  }" />
 
             <div class="c-cruise-itinerary-list__item panel">
@@ -42,15 +43,15 @@
                         <li class="c-cruise-itinerary-list__headline__date__time hidden-xs">
                             <span data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=itinerary.arriveTime}" data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTimeFormat.value}</span><sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
                             <span data-sly-use.departTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=itinerary.departTime}" data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTimeFormat.value}</span>
-                        </li> 
+                        </li>
                          <li class="c-cruise-itinerary-list__headline_overnight hidden-xs" data-sly-test="${itinerary.numberDays > 0 && itinerary.port.cityId != 299}">
                          	<sly data-sly-use.loopOvernight="${'com.silversea.aem.helper.ListHelper' @ sizeLoop=itinerary.numberDays}" data-sly-repeat="${loopOvernight.objectListLoop}">
                          		<span><i class="fa fa-moon-o"></i></span>
                          	</sly>
                             <span data-sly-test="${itinerary.numberDays == 1}">${'overnight-in-port' @ i18n }</span>
                             <span data-sly-test="${itinerary.numberDays > 1}">${'overnights-in-port' @ i18n }</span>
-                        </li>                        	
-                        
+                        </li>
+
                     </ul>
                     <div class="c-cruise-itinerary-list__headline__expand">
                         <span class="btn-more"><span>${'more' @ i18n}</span> <i class="fa fa-angle-down"></i></span>
@@ -89,5 +90,5 @@
 	 	<sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
 	       		data-sly-call="${suitelist.default @ cruise=cruise}" />
    	</div>
-  	
+
 </template>

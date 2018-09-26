@@ -92,6 +92,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 					+ "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]");
 
 			// cities mapping
+
 			final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils
 					.getItemsPageMapping(resourceResolver,
 							"/jcr:root/content/silversea-com//element(*,cq:PageContent)"
@@ -179,6 +180,8 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 							excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
 							excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
 							excursionPageContentNode.setProperty("note", shorex.getNote());
+
+
 
 							if (StringUtils.isNotBlank(shorex.getSymbols())) {
 								final String[] symbolsIDs = shorex.getSymbols().split(",");
@@ -614,6 +617,10 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 			excursionContentNode.setProperty("pois", excursion.getPointsOfInterests());
 			excursionContentNode.setProperty("shorexId", excursion.getShorexId());
 			excursionContentNode.setProperty("note", excursion.getNote());
+
+			excursionContentNode.setProperty("okForDebarks", excursion.isOkForDebarks());
+			excursionContentNode.setProperty("okForEmbarks", excursion.isOkForEmbarks());
+			excursionContentNode.setProperty("shorexCategory", excursion.getShorexCategory());
 
 			if (StringUtils.isNotBlank(excursion.getSymbols())) {
 				final String[] symbolsIDs = excursion.getSymbols().split(",");
