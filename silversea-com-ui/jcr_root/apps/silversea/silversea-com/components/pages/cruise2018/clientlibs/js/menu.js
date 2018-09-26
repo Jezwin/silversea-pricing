@@ -63,7 +63,7 @@ Menu.prototype = {
         var menu = this;
         $(".cruise-2018-menu-tab").each(function () {
             target = $(this).attr("href");
-            if ($(target).position() && men.isScrolledIntoView(target, 60)) {
+            if ($(target).position() && menu.isScrolledIntoView(target, 60)) {
                 $(".cruise-2018-menu-tab").removeClass('active');
                 $(this).addClass("active");
                 return false;//this stops the cycle!
