@@ -35,15 +35,14 @@
         </div>
         <div class="cruise-2018-itineraries-pdf hidden-xs">
             <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
-                <a href="${cruise.cruiseModel.tourBook}" target="_blank" data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
+                <a class="btn btn-thin btn-white cruise-2018-itineraries-btn" href="${cruise.cruiseModel.tourBook}" target="_blank" data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
                     <i class="fa fa-angle-right fa-lg"></i>
                 </a>
             </sly>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
                 <div data-lightbox-highlights="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-highlights'}">
-                    <a class="open-lightbox-highlights" data-target=".lightbox" href="#">
+                    <a class="btn btn-thin btn-white cruise-2018-itineraries-btn open-lightbox-highlights" data-target=".lightbox" href="#">
                         <span>${'voyage-highlights' @ i18n}</span>
-                        <i class="fa fa-angle-right fa-lg"></i>
                     </a>
                 </div>
             </sly>
