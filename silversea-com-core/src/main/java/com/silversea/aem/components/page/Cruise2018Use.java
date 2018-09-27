@@ -499,11 +499,13 @@ public class Cruise2018Use extends EoHelper {
         String map = firstNonNull(vmProperties.get("bigItineraryMap", String.class),
                 vmProperties.get("bigThumbnailItineraryMap", String.class),
                 vmProperties.get("smallItineraryMap", String.class));
+        String type = null;
         if (map == null) {
             map = vmProperties.get("itinerary", String.class);
+            type = "itinerary";
         }
         if (map != null) {
-            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, "itinerary"));
+            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, type));
         }
 
         return assetsListResult.stream().distinct().collect(toList());
