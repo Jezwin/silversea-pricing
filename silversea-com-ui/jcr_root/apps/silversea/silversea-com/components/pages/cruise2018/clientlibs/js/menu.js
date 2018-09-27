@@ -81,8 +81,11 @@ $(function () {
     $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
         e.preventDefault();
         $target = $($(this).attr("href"));
+        var number = $target.position().top - menu.headerHeight() - 50 + parseInt($target.css('margin-top'));
+        console.log(number);
+        console.log($target.position().top);
         $([document.documentElement, document.body]).animate({
-            scrollTop: $target.position().top - menu.headerHeight() - 50 + parseInt($target.css('margin-top')),
+            scrollTop: $target.position().top-100,
             duration: 500,
             easing: 'linear'
         });
