@@ -1,5 +1,4 @@
 @media (max-width: @screen-sm) {
-
   .findyourcruise.mobile-version-2 {
     .c-fyc__result-wrapper.clearfix.v2 {
       .c-fyc__results__wrapper {
@@ -113,11 +112,22 @@
       }
     }
   }
+}
+
+@media screen and (max-width: @screen-sm) {
 
   .findyourcruise.mobile-version-2 {
+    .c-fyc-v1-filter-mobile-hide {
+      display: none !important;
+    }
+    .c-fyc-v1-filter-mobile-show {
+      display: block !important;
+    }
     .c-fyc-filter {
-      margin-top: 14px;
-      .c-fyc-mobile-filter {
+      margin-top: 0px;
+      .c-fyc-v1-filter {
+        padding-left: 24px;
+        padding-right: 24px;
         &__text.results {
           .result-label {
             display: none;
@@ -174,11 +184,14 @@
 
       .c-fyc-btn {
         background-color: @color-dark-bg;
-        margin-top: 8px;
+        margin-top: 0px;
         float: right;
         font-weight: normal;
-        letter-spacing: 0.5px;
-
+        font-family: @suisse;
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        padding-right: 0px;
         .fa-close {
           margin-left: 0px;
         }
@@ -194,20 +207,23 @@
         &[aria-expanded="true"] {
           &:before {
             content: attr(data-text-opened);
+            right: 43px;
+            position: absolute;
+            top: 19px;
           }
-          .fa-close {
+          .fyc-close-i {
             display: inline-block;
           }
-          .fa-sliders {
+          .fyc-tune-i {
             display: none;
           }
         }
 
         &[aria-expanded="false"] {
-          .fa-sliders {
+          .fyc-tune-i {
             display: inline-block;
           }
-          .fa-close {
+          .fyc-close-i {
             display: none;
           }
         }
