@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ list, cruiseTitle}">
+<template data-sly-template.default="${ @ list, cruise}">
     <div class="modal-body">
         <div class="lightbox-gallery-assets">
             <div class="ga-slider ga-slider--main main-slider">
@@ -26,7 +26,7 @@
             </div>
             <div class="ga-info hidden-xs">
                 <div class="col-xs-12 ga-itinerary">
-                    <span>${cruiseTitle}</span>
+                    <span>${cruise.departurePortName} ${'to' @ i18n} ${cruise.arrivalPortName}</span>
                 </div>
                 <div class="col-sm-7">
                     <span class="ga-label">

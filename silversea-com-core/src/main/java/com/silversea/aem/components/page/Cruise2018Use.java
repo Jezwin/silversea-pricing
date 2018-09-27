@@ -76,7 +76,8 @@ public class Cruise2018Use extends EoHelper {
     private long numCountries;
 
     private List<SilverseaAsset> assetsGallery;
-    private String labelAssetGallery;
+    private String departurePortName;
+    private String arrivalPortName;
     private List<SilverseaAsset> shipAssetGallery;
     private String bigItineraryMap;
     private String bigThumbnailItineraryMap;
@@ -498,13 +499,15 @@ public class Cruise2018Use extends EoHelper {
         String map = firstNonNull(vmProperties.get("bigItineraryMap", String.class),
                 vmProperties.get("bigThumbnailItineraryMap", String.class),
                 vmProperties.get("smallItineraryMap", String.class));
+        String type = null;
         if (map == null) {
             map = vmProperties.get("itinerary", String.class);
+            type = "itinerary";
         }
         if (map != null) {
-            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, "itinerary"));
+            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, type));
         }
-        this.labelAssetGallery = vmProperties.get("apiTitle", String.class);
+
         return assetsListResult.stream().distinct().collect(toList());
     }
 
@@ -520,6 +523,10 @@ public class Cruise2018Use extends EoHelper {
                 itineraryModel = it.adaptTo(ItineraryModel.class);
                 if (itineraryModel != null && itineraryModel.getPort() != null) {
                     PortModel portModel = itineraryModel.getPort();
+                    if (StringUtils.isEmpty(this.departurePortName)) {
+                        this.departurePortName = portModel.getApiTitle();
+                    }
+                    this.arrivalPortName = portModel.getApiTitle();
                     String assetSelectionReference = portModel.getAssetSelectionReference();
                     if (StringUtils.isNotBlank(assetSelectionReference)) {
                         List<SilverseaAsset> portAssets = AssetUtils
@@ -655,12 +662,16 @@ public class Cruise2018Use extends EoHelper {
         return numPorts;
     }
 
-    public String getLabelAssetGallery() {
-        return labelAssetGallery;
-    }
-
     public boolean getAreOffersOdd() {
         return this.totalNumberOfOffers % 2 != 0;
+    }
+
+    public String getDeparturePortName() {
+        return departurePortName;
+    }
+
+    public String getArrivalPortName() {
+        return arrivalPortName;
     }
 
     public enum Lightbox {

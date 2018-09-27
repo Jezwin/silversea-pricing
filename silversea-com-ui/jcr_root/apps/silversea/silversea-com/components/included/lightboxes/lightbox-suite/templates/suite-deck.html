@@ -10,9 +10,9 @@
                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"/>
                 <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
             </div>
-            <div class="lg-suite-deck-number" data-sly-test.asset="${suite.plan}">
+            <div class="lg-suite-deck-number lg-suite-deck-plan" data-sly-test.asset="${suite.plan}">
                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=suite.plan}"/>
-                <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"> ${'plan' @ i18n } </span>
+                <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"> ${'suite-plan' @ i18n } </span>
             </div>
         </div>
 

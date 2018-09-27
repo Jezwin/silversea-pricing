@@ -799,6 +799,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Offers for this cruise"/>
+    <offer-for-this-cruise
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Offer for this cruise"/>
     <other-recent-journals
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

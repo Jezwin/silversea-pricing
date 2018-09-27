@@ -839,6 +839,10 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="offers-for-this-cruise"
             sling:message="Offers for this cruise"/>
+    <offer-for-this-cruise
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offer-for-this-cruise"
+            sling:message="Offer for this cruise"/>
     <other-recent-journals
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-journals"
