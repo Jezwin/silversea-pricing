@@ -2,12 +2,12 @@
     <div class="offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer" id="cruise2018offers"
          data-sly-test="${offersNumber!=0}">
         <div class="offers-title">
-            <sly data-sly-test="${(isVenetian && offersNumber == 0)  || (offersNumber == 1 && !isVenetian)}">${ 'offer-for-this-cruise' @ i18n}</sly>
-            <sly data-sly-test="${offersNumber > 1  || (offersNumber == 1 && isVenetian)}">${ 'offers-for-this-cruise' @ i18n}</sly>
+            <sly data-sly-test="${offersNumber == 1}">${ 'offer-for-this-cruise' @ i18n}</sly>
+            <sly data-sly-test="${offersNumber > 1}">${ 'offers-for-this-cruise' @ i18n}</sly>
         </div>
-        <div class="row offer-slider ${offersNumber > 1  || (offersNumber == 1 && isVenetian) ? 'offer-slider-padding' : ''}">
+        <div class="row offer-slider ${offersNumber > 1  ? 'offer-slider-padding' : ''}">
             <sly data-sly-list.offer="${offers}">
-                <div class="col-sm-6 offer-item  ${offerList.last && !isVenetian && offerList.odd ? 'col-sm-offset-3' : ''} ${offerList.index > 1 ? 'offers-hide' : ''} ${offersNumber == 1  && !isVenetian ? 'offer-item-single' : ''}">
+                <div class="col-sm-6 offer-item  ${offerList.last && !isVenetian && offerList.odd ? 'col-sm-offset-3' : ''} ${offerList.index > 1 ? 'offers-hide' : ''} ${offersNumber == 1  ? 'offer-item-single' : ''}">
                     <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
                          href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
                          rel="nofollow"

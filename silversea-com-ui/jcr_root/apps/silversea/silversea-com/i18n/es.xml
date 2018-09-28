@@ -489,7 +489,7 @@
     <expedition-itinerary
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="expedition itinerary"/>
+            sling:message="Itinerario de la expedición"/>
     <expedition-team
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -790,19 +790,19 @@
     <offer
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offer"/>
+            sling:message="oferta"/>
     <offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offers"/>
+            sling:message="ofertas"/>
     <offers-for-this-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offers for this cruise"/>
+            sling:message="Ofertas para este crucero"/>
     <offer-for-this-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offer for this cruise"/>
+            sling:message="Oferta para este crucero"/>
     <other-recent-journals
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1320,7 +1320,7 @@
     <view-all-excursions
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="View all excursions"/>
+            sling:message="Ver todas las excursiones"/>
     <view-all-pictures
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1532,7 +1532,7 @@
     <itinerary
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Itinerary"/>
+            sling:message="itinerario"/>
     <specifications
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
@@ -1584,7 +1584,7 @@
     <up-to
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Up to "/>
+            sling:message="Hasta"/>
     <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mapa"/>
     <dining-options
             jcr:primaryType="nt:folder"
