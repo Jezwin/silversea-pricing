@@ -295,7 +295,7 @@
     <cruise-suites-and-fares-descr
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix. "/>
+        sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix."/>
     <cruise-suites-and-fares-descr-v2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

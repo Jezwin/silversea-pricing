@@ -306,7 +306,7 @@
     <cruise-suites-and-fares-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-suites-and-fares-descr"
-        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
+        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite."/>
     <cruise-suites-and-fares-descr-v2
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-suites-and-fares-descr-v2"

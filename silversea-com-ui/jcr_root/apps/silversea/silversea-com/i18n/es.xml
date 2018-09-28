@@ -296,7 +296,7 @@
     <cruise-suites-and-fares-descr
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Las suites con vistas al océano de Silversea se encuentran entre las más espaciosa de los cruceros de lujo. Todas incluyen servicio de mayordomo gracias a la mayor proporción por huésped de este servicio en el mar y casi todas ofrecen terraza privada en la que poder respirar el aire fresco del mar simplemente asomándose a la puerta. Seleccione su suite y solicite un presupuesto - los huéspedes que reserven pronto disfrutarán de las mejores tarifas y de la posibilidad de seleccionar su suite preferida"/>
+            sling:message="Las suites con vistas al océano de Silversea se encuentran entre las más espaciosa de los cruceros de lujo. Todas incluyen servicio de mayordomo gracias a la mayor proporción por huésped de este servicio en el mar y casi todas ofrecen terraza privada en la que poder respirar el aire fresco del mar simplemente asomándose a la puerta. Seleccione su suite y solicite un presupuesto - los huéspedes que reserven pronto disfrutarán de las mejores tarifas y de la posibilidad de seleccionar su suite preferida."/>
     <cruise-suites-and-fares-descr-v2
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
