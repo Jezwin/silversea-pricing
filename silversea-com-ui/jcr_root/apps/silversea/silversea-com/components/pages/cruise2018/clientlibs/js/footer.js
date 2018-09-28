@@ -12,6 +12,29 @@ Utils.prototype = {
     },
     headerHeight: function headerHeight() {
         return $("#header").height() + $(".c-main-nav__bottom").height();
+    },
+    isElementInView: function (element, fullyInView) {
+        if (element != null && element.length > 0) {
+            var isVisible = false;
+            for (var i = 0; i < element.length; i++) {
+                var item = element[i];
+                var pageTop = $(window).scrollTop();
+                var pageBottom = pageTop + $(window).height();
+                if ($(item).offset() != null) {
+                    var elementTop = $(item).offset().top;
+                    var elementBottom = elementTop + $(item).height();
+                    if (fullyInView === true) {
+                        isVisible = ((pageTop < elementTop) && (pageBottom > elementBottom));
+                    } else {
+                        isVisible = ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+                    }
+                    if (isVisible && fullyInView) {
+                        return isVisible;
+                    }
+                }
+            }
+            return isVisible;
+        }
     }
 };
 
@@ -19,14 +42,19 @@ var utils = new Utils();
 
 function onScrollFixedFooter() {
     if ($(window).width() < 768) {
-        var $selectForAllRaq = $("[data-sscclicktype=clic-RAQ]:not(#fixed-footer-2018-raq), #cruise2018overview");
+        var $selectForAllRaq = $("[data-sscclicktype=clic-RAQ]:not(#fixed-footer-2018-raq)");
         //different behaviour if we want to play only witht the first raq
         var $selectTheFirstRaq = $("#cruise-2018-rqa:not(#fixed-footer-2018-raq)");
-        var isElementInView = utils.isScrolledIntoView($selectForAllRaq, 50);
+        var isRaqInView = utils.isElementInView($selectForAllRaq, true);
+        var isHeaderInView = utils.isElementInView($("#header", false));
+        var visibleFooter = !isHeaderInView && !isRaqInView;
+        var notVisibleFooter = isRaqInView || isHeaderInView;
         var $footerfixed = $(".fixed-footer-cruise");
-        if (!isElementInView && !$footerfixed.is(":visible")) {
+        if (visibleFooter && !$footerfixed.is(":visible")) {
+            //SHOW
             $footerfixed.slideDown();
-        } else if (isElementInView && $footerfixed.is(":visible")) {
+        } else if (notVisibleFooter && $footerfixed.is(":visible")) {
+            //HIDE
             $footerfixed.slideUp();
         }
     }

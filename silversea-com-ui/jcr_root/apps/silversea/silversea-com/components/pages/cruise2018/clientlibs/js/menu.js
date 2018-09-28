@@ -33,6 +33,10 @@ Menu.prototype = {
                 }, {
                     progress: function (now, fx) {
                         $(".menu-overview-fixed").hide(0);
+                    },
+                    complete: function(){
+                        var $footerfixed = $(".fixed-footer-cruise");
+                        $footerfixed.slideUp();
                     }
                 });
                 $(".cruise-2018-menu-tab").removeClass('active');
@@ -55,6 +59,7 @@ Menu.prototype = {
                         $(".cruise-2018-menu-container.ssc-sticky-top").css('top', "-50px");
                     }
                 });
+
             });
         }
     },
