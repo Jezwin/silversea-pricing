@@ -8,9 +8,10 @@
                 </div>
                 <div class="row-menu-navigation">
                     <div class="cruise-2018-menu-tab-wrapper">
-                        <a href="#cruise2018offers" data-sly-test="${cruise.exclusiveOffers.size>0}"
+                        <a href="#cruise2018offers" data-sly-test="${cruise.totalNumberOfOffers >0}"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-first">
-                            <span class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
+                            <span data-sly-test="${cruise.totalNumberOfOffers == 1}" class="cruise-2018-menu-tab-text">${'offer' @i18n}</span>
+                            <span data-sly-test="${cruise.totalNumberOfOffers > 1}" class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
                         </a>
                         <a href="#cruise2018itinerary"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-second">

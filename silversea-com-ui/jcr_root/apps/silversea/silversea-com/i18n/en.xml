@@ -1622,7 +1622,7 @@
     <up-to
         jcr:primaryType="sling:MessageEntry"
         sling:key="up-to"
-        sling:message="Up to "/>
+        sling:message="Up to"/>
     <ABW jcr:primaryType="sling:MessageEntry" sling:key="ABW" sling:message="Aruba" />
     <AFG jcr:primaryType="sling:MessageEntry" sling:key="AFG" sling:message="Afghanistan" />
     <AGO jcr:primaryType="sling:MessageEntry" sling:key="AGO" sling:message="Angola" />
