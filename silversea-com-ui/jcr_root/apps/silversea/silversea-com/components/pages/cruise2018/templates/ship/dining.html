@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-xs-6 cruise-2018-ship-dining-area-text">
                         <div class="cruise-2018-ship-dining-area-text-wrapper">
-                            <div class="cruise-2018-ship-dining-area-text-title">${item.title}</div>
+                            <div class="cruise-2018-ship-dining-area-text-title">${item.navigationTitle || item.title}</div>
                             <div class="cruise-2018-ship-dining-area-text-description">${item.shortVoyageDescription @ context='html'}</div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="cruise-2018-ship-dining-area-slide-text">
                         <div class="cruise-2018-ship-dining-area-slide-title">
-                            ${item.title}
+                            ${item.navigationTitle || item.title}
                         </div>
                         <div class="cruise-2018-ship-dining-area-slide-description">
                             ${item.shortVoyageDescription @ context='html'}
