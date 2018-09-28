@@ -51,7 +51,7 @@
                         data-sly-use.dateStartDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}"
                         data-sly-use.dateEndDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.endDate}"
                         data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
-                    ${dateStartDay.value} ${'to' @ i18n} ${dateEndDay.value} ,${dateYear.value}
+                    ${dateStartDay.value} ${'to-date' @ i18n} ${dateEndDay.value} ,${dateYear.value}
                 </div>
                 ${cruise.cruiseModel.duration}
                 ${'days' @ i18n}

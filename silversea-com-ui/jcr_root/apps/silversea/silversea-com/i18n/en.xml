@@ -1308,6 +1308,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="to"
         sling:message="To"/>
+    <to-date
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="to"
+            sling:message="To"/>
     <tonnage
         jcr:primaryType="sling:MessageEntry"
         sling:key="tonnage"
