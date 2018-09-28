@@ -576,7 +576,7 @@
     <from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="a partir de"/>
+        sling:message="à partir de"/>
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1263,7 +1263,7 @@
     <to
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="A"/>
+        sling:message="À"/>
     <to-date
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

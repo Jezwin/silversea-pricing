@@ -34,7 +34,7 @@
                             <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'} style-${spec.label}">
                                 <div class="lg-deck-spec">
                                     <div class="label-spec">${spec.label @ i18n }</div>
-                                    <div class="dots-spec" data-sly-test="${spec.label != 'third-guest-capacity'}">..............................................................................................................................................</div>
+                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ? 'cruise-invisible' : ''}">..............................................................................................................................................</div>
                                     <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">
                                         <sly data-sly-test="${spec.label != 'third-guest-capacity'}">
                                             ${spec.value}
