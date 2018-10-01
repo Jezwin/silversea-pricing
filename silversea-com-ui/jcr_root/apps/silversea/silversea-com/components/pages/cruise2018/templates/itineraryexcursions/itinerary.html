@@ -35,12 +35,15 @@
         </div>
         <div class="cruise-2018-itineraries-pdf hidden-xs">
             <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
-                <a class="btn btn-thin btn-white cruise-2018-itineraries-btn" href="${cruise.cruiseModel.tourBook}" target="_blank" data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
+                <a class="btn btn-thin btn-white cruise-2018-itineraries-btn" href="${cruise.cruiseModel.tourBook}"
+                   target="_blank"
+                   data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
                 </a>
             </sly>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
                 <div data-lightbox-highlights="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-highlights'}">
-                    <a class="btn btn-thin btn-white cruise-2018-itineraries-btn open-lightbox-highlights" data-target=".lightbox" href="#">
+                    <a class="btn btn-thin btn-white cruise-2018-itineraries-btn open-lightbox-highlights"
+                       data-target=".lightbox" href="#">
                         <span>${'voyage-highlights' @ i18n}</span>
                     </a>
                 </div>
@@ -93,7 +96,8 @@
                             <div class="cruise-2018-itineraries-itinerary-row-text-country">
                                 ${country @ i18n}
                             </div>
-                            <div data-sly-test="${hasShorex}" class="cruise-2018-itineraries-itinerary-row-text-excursions">
+                            <div data-sly-test="${hasShorex}"
+                                 class="cruise-2018-itineraries-itinerary-row-text-excursions">
                                 <sly data-sly-test="${hasExcursions}">
                                     ${excursions.size} ${(shorexSize>1 ? 'excursions' : 'excursion') @i18n}
                                 </sly>
@@ -162,7 +166,9 @@
         </div>
         <div class="cruise-2018-itineraries-call visible-xs">
             <div class="cruise-2018-itineraries-call-section">
-                <p class="cruise-2018-itineraries-call-section-text-1">${'call-reservations-team-learn-excursion' @ i18n}</p>
+                <p class="cruise-2018-itineraries-call-section-text-1">
+                    ${'call-reservations-team-1' @ i18n} ${'call-reservations-team-2' @ i18n}
+                </p>
                 <span class="cruise-2018-itineraries-call-section-number">
                     <i class="fa fa-phone fa-stack-1x"></i>
                     <sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html"/>
