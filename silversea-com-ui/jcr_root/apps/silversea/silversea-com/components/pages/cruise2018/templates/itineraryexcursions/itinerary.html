@@ -49,6 +49,21 @@
                 </div>
             </sly>
         </div>
+        <div class="cruise-2018-itinerary-slider-wrapper hidden-xs">
+            <div class="cruise-2018-itinerary-slider cruise-2018-itinerary-slider--main cruise-2018-slider">
+                <sly data-sly-list.portImage="${cruise.portsGallery}">
+                    <div class="cruise-2018-itinerary-slide cruise-2018-slide">
+                        <div class="cruise-2018-itinerary-slide-thumbnail cruise-2018-slide-thumbnail">
+                            <div class="ratio">
+                                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=portImage.path, Width='300'}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </sly>
+            </div>
+        </div>
         <div class="cruise-2018-itineraries-day-label hidden-xs">${ 'day' @ i18n }</div>
         <sly data-sly-test.list="${cruise.itinerary}"/>
         <div data-sly-list.itinerary="${list}">
