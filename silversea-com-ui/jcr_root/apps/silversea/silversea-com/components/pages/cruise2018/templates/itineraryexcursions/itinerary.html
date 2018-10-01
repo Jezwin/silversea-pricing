@@ -5,7 +5,7 @@
                 <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
             </sly>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
-                <div class="cruise-2018-itineraries-title">${'expedition-itinerary' @ i18n}</div>
+                <div class="cruise-2018-itineraries-title">${'itinerary' @ i18n}</div>
             </sly>
             <div class="cruise-2018-itineraries-info">
             <span class="itineraries-info" data-sly-test="${cruise.cruiseModel.duration}">
@@ -41,7 +41,7 @@
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
                 <div data-lightbox-highlights="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-highlights'}">
                     <a class="btn btn-thin btn-white cruise-2018-itineraries-btn open-lightbox-highlights" data-target=".lightbox" href="#">
-                        <span>${'voyage-highlights' @ i18n}</span>
+                        <span>${'view-voyage-highlights' @ i18n}</span>
                     </a>
                 </div>
             </sly>
