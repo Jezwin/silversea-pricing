@@ -1356,22 +1356,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all-offers"
         sling:message="View all offers"/>
-    <view-less-offers
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="view-less-offers"
-        sling:message="View less offers"/>
-    <view-less-excursions
-            jcr:primaryType="sling:MessageEntry"
-            sling:key="view-less-excursions"
-            sling:message="View less excursions"/>
     <view-all-dining-options
             jcr:primaryType="sling:MessageEntry"
             sling:key="view-all-dining-options"
             sling:message="View all dining options"/>
-    <view-less-dining-options
-            jcr:primaryType="sling:MessageEntry"
-            sling:key="view-less-dining-options"
-            sling:message="View less dining options"/>
 	<view-voyage-highlights
             jcr:primaryType="sling:MessageEntry"
             sling:key="view-voyage-highlights"
