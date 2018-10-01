@@ -70,6 +70,9 @@ $(function () {
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
                 createSlider($modal, $link);
+
+                showSuiteFeatures($(".lightbox-suite .lg-suite-features .lg-suite-features-expand"));
+
                 $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });

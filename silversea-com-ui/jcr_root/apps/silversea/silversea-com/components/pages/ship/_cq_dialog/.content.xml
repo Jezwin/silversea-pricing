@@ -269,15 +269,9 @@
                                                             fieldLabel="Deck level"
                                                             name="./deckLevel"
                                                             sling:resourceType="granite/ui/components/foundation/form/textfield" />
-                                                        <deckImageSide
-                                                                jcr:primaryType="nt:unstructured"
-                                                                fieldLabel="Deck image side"
-                                                                name="./deckImageSide"
-                                                                rootPath="/content/dam/silversea-com"
-                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                                                         <deckImageTop
                                                                 jcr:primaryType="nt:unstructured"
-                                                                fieldLabel="Deck image top"
+                                                                fieldLabel="Deck image"
                                                                 name="./deckImageTop"
                                                                 rootPath="/content/dam/silversea-com"
                                                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />

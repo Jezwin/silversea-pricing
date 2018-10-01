@@ -8,19 +8,23 @@
             <div class="lg-content">
                 <sly data-sly-use.templateOverview="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-overview.html"
                      data-sly-call="${templateOverview.default @ model= model}"/>
+                <sly data-sly-test="${model.suitePrice.suite.features}"
+                     data-sly-use.templateFeatures="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-features.html"
+                     data-sly-call="${templateFeatures.default @ suite= model.suitePrice.suite}"/>
                 <hr data-sly-test="${model.suitePrice.suite.locationImage}" />
                 <div class="visible-xs">
                     <sly data-sly-use.templateCta="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-cta.html"
                          data-sly-call="${templateCta.default @ model= model}"/>
                 </div>
                 <sly data-sly-test="${model.suitePrice.suite.locationImage}"
+                     data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-plan.html"
+                     data-sly-call="${templateDeck.default @ suite= model.suitePrice.suite}"/>
+                <hr class="lg-suite-separator lg-suite-separator-1 hidden-xs"/>
+                <sly data-sly-test="${model.suitePrice.suite.locationImage}"
                      data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-deck.html"
                      data-sly-call="${templateDeck.default @ suite= model.suitePrice.suite}"/>
                 <hr class="lg-suite-separator lg-suite-separator-1"/>
-                <sly data-sly-test="${model.suitePrice.suite.features}"
-                     data-sly-use.templateFeatures="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-features.html"
-                     data-sly-call="${templateFeatures.default @ suite= model.suitePrice.suite}"/>
-                <hr class="lg-suite-separator lg-suite-separator-2"/>
+                <!-- <hr class="lg-suite-separator lg-suite-separator-2"/>  -->
                 <sly data-sly-use.templateCta="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-cta.html"
                      data-sly-call="${templateCta.default @ model= model}"/>
             </div>

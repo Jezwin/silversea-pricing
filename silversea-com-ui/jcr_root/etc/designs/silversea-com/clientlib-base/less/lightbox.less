@@ -3,8 +3,9 @@
   .lightbox-close {
     display: none;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.37);
-    height: 59px;
+    /*background-color: rgba(0, 0, 0, 0.37);*/
+    background-color: @nd-dark;
+    height: 45px;
     width: 768px;
     cursor: pointer;
     z-index: 2001;
@@ -199,8 +200,8 @@
       }
       .lightbox-close {
         position: absolute;
-        background-color: black;
-        height: 59px;
+        background-color: @nd-dark;
+        height: 42px;
         width: 100%;
         cursor: pointer;
         z-index: 2001;
@@ -291,7 +292,7 @@
     .modal-dialog {
       padding-top: 0;
       .modal-content {
-        top: 0;
+        top: 49px;
       }
     }
   }
@@ -339,7 +340,7 @@
 
 @media (min-width: @screen-md-min) {
   .modal.lightbox .modal-content {
-    top: 0;
+    top: 45px;
   }
 }
 

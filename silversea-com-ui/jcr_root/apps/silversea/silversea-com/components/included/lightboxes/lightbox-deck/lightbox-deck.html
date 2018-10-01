@@ -13,17 +13,14 @@
                     <div class="lg-deck-tab" data-sly-test="${model.ship.deckInfoList}">
                         <div class="lg-deck-number ${itemList.first ? 'lg-active-deck lg-active-first' : ''}"
                              data-sly-repeat.item="${model.ship.deckInfoList}">
-                            <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageTopPath}"/>
-                            <sly data-sly-use.assetHelperSide="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageSidePath}"/>
-                            <span data-deck-number="${item.level}" data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain"
-                                  data-image-src-side="${assetHelperSide.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain">
+                            <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imagePath}"/>
+                            <span data-deck-number="${item.level}" data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain">
                                 ${'deck' @ i18n} ${item.level}
                             </span>
                         </div>
                     </div>
                     <div class="lg-deck-image" data-sly-test="${model.ship.deckInfoList}">
                         <img id="image-deck-plan-top" src="" alt="location top" title="Location top" class="o-img"/>
-                        <img id="image-deck-plan-side" src="" alt="location side" title="Location side" class="o-img"/>
                     </div>
                     <hr/>
                     <div class="row">
