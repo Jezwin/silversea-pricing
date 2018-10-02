@@ -241,6 +241,39 @@
   transform: rotateZ(135deg);
 }
 
+  .slick-dots {
+    width: 98% !important;
+    margin-left: 1%;
+    position: absolute;
+    border-bottom: none !important;
+    white-space: nowrap;
+    bottom: -30px !important;
+
+    li {
+      height: 2px !important;
+      margin: 0px !important;
+      vertical-align: bottom;
+      button::before {
+        background-color: @black;
+        -webkit-border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        border-radius: 0 !important;
+      }
+    }
+    li:not(.slick-active) {
+      button::before {
+        background-color: @grey--c3 !important;
+      }
+    }
+    li.slick-active {
+      border: 1px solid @color-second !important;
+    }
+    .fa {
+      color: @color-second;
+      padding-bottom: 3.5px;
+      padding-left: 8px;
+    }
+  }
 }
 
 @media screen and (max-width: @screen-sm) {
@@ -376,6 +409,10 @@
       content: " ";
       right: 0;
       transform: rotateZ(135deg);
+    }
+
+    .slick-dots {
+      bottom: -13px !important;
     }
   }
 }

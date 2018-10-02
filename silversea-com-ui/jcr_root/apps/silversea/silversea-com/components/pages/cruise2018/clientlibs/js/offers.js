@@ -54,9 +54,7 @@ $(function () {
             $galleries.each(function () {
                 var $this = $(this);
                 var widthSlider = $this.parent().find(".slick-dots").width();
-                if (widthSlider > 768) {
-                    widthSlider = 630;
-                }
+
                 var $dots = $this.parent().find("ul.slick-dots li");
                 var liItem = $dots.length;
                 var liWidth = Math.floor(widthSlider / liItem) - 1;
@@ -77,12 +75,13 @@ $(function () {
             $sliderActive.find('.lazy').lazy();
         }, 50);
     }
+    wofferC= $(window).width();
 
     function initSliderOffer() {
         var $slider = $(".offers .offer-slider");
         if ($slider) {
             $slider.slick({
-                dots: false,
+                dots: true,
                 draggable: true,
                 infinite: true,
                 slidesPerRow: 2,
@@ -102,6 +101,11 @@ $(function () {
         $(".offers .offer-slider").css("visibility","visible");
         $slider.on('afterChange', function (event, slick, currentSlide) {
             loadLazyImage($(this));
+        });
+        $( window ).resize(function() {
+            if ($(window).width()==wofferC) return;
+            wofferC = $(window).width();
+            createLineProgressBar();
         });
     }
 });
