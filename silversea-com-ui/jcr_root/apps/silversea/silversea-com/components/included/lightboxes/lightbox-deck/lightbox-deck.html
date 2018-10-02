@@ -41,7 +41,7 @@
                                         </sly>
                                         <sly data-sly-test="${spec.label == 'width' || spec.label == 'length'}">
                                             <sly data-sly-test="${spec.isFeet}">${'feet' @ i18n }</sly>
-                                            <sly data-sly-test="${spec.isFeet}">${'meters' @ i18n }</sly>
+                                            <sly data-sly-test="${!spec.isFeet}">${'meters' @ i18n }</sly>
                                         </sly>
                                         <sly data-sly-test="${spec.label == 'speed'}">${'knots' @ i18n }</sly>
                                     </div>
