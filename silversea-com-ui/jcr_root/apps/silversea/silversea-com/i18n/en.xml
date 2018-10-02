@@ -942,7 +942,7 @@
     <pre-post-extensions
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-extensions"
-        sling:message="Pre &amp; Post Cruise Extensions"/>
+        sling:message="Pre and Post Cruise Extensions"/>
     <night
         jcr:primaryType="sling:MessageEntry"
         sling:key="night"
@@ -1310,7 +1310,7 @@
         sling:message="To"/>
     <to-date
             jcr:primaryType="sling:MessageEntry"
-            sling:key="to"
+            sling:key="to-date"
             sling:message="To"/>
     <tonnage
         jcr:primaryType="sling:MessageEntry"
