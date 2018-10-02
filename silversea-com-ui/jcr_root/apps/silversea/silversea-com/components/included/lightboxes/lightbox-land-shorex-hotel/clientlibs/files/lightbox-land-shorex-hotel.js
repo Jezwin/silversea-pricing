@@ -63,6 +63,9 @@ $(function () {
                 if ($("body").hasClass("viewport-sm")) {
                     $(".modal.lightbox").css("padding-left", "0px");
                 }
+                if ($(".lsh-title") != null && $(".lsh-title").html() != null) {
+                    $(".lsh-title").html($(".lsh-title").html().toLowerCase());
+                }
                 callback && callback();
             });
         };

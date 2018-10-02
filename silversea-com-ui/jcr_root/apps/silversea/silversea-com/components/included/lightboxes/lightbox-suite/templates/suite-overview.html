@@ -26,7 +26,7 @@
         <div class="row lg-row-bed-cta">
             <div class="col-sm-7">
                 <div class="lg-suite-bedrooms">
-                    ${model.suitePrice.suite.bedroomsInformation @ context="html"}
+                    ${(model.isFeetSquare ? model.suitePrice.suite.bedroomsInformationFeet : model.suitePrice.suite.bedroomsInformationMeter) || model.suitePrice.suite.bedroomsInformation @ context="html"}
                 </div>
             </div>
             <div class="col-sm-5 hidden-xs">

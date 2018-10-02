@@ -98,7 +98,7 @@ $(function () {
         var $mainSlider = $modal.find('.lightbox-suite .lg-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
