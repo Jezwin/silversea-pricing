@@ -17,14 +17,13 @@ $('.modal.lightbox').on('hidden.bs.modal', function (e) {
 });
 
 function setTopLightboxModal() {
-    if ($(window).width() > 767) {
-        var $modalLightbox = $(".modal.lightbox");
-        var $lightboxClose = $modalLightbox.find(".lightbox-close");
-        var $modalDialog = $modalLightbox.find(".modal-dialog");
-        var $modalContent = $modalLightbox.find(".modal-content");
-        var $modalContenHeight = $modalContent.height();
-        var $windowHeight = $(window).height();
-
+    var $modalLightbox = $(".modal.lightbox");
+    var $lightboxClose = $modalLightbox.find(".lightbox-close");
+    var $modalDialog = $modalLightbox.find(".modal-dialog");
+    var $modalContent = $modalLightbox.find(".modal-content");
+    var $modalContenHeight = $modalContent.height();
+    var $windowHeight = $(window).height();
+    if ($(window).width() > 768) {
         try {
             var topModalContent = ($modalContenHeight / $windowHeight);
             var topModalContent = topModalContent > 0.5 ? 1 - topModalContent : topModalContent;
@@ -39,5 +38,8 @@ function setTopLightboxModal() {
         } catch (e) {
             console.log(e);
         }
+    } else {
+        $lightboxClose.css("top", "0px");
+        $modalContent.css("top", "45px");
     }
 };//setTopLightboxModal
