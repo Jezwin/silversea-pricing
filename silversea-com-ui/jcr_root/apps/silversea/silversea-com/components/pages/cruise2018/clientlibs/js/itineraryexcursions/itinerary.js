@@ -21,11 +21,11 @@ $(function () {
         if ($arrow.data('ssc-accordion') === 'show') {
             $this.parent().find('.cruise-2018-itineraries-excursions-accordion').slideDown(200, 'linear');
             $arrow.data('ssc-accordion', 'hide');
-            $this.css("border-bottom-color", "transparent");
+            $this.css("border-bottom-style", "none");
         } else if ($arrow.data('ssc-accordion') === 'hide') {
             $this.parent().find('.cruise-2018-itineraries-excursions-accordion').slideUp();
             $arrow.data('ssc-accordion', 'show');
-            $this.css("border-bottom-color", "rgba(152, 152, 155, 0.5)");
+            $this.css("border-bottom-style", "solid");
         }
         $arrow.blur();
         $arrow.find('i').toggle();
