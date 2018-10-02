@@ -1420,6 +1420,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage"
         sling:message="Voyage"/>
+    <voyage-number
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="voyage-number"
+            sling:message="Voyage Number"/>
     <voyage-highlights
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
@@ -1559,7 +1563,7 @@
 	<VS-EO-Message
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
-	    sling:message=" members of the Venetian Society enjoy an additional 5% saving on the cruise fare"/>
+	    sling:message=" Members of the Venetian Society enjoy an additional 5% saving on the cruise fare"/>
     <map jcr:primaryType="sling:MessageEntry"
          sling:key="map"
          sling:message="Map"/>
