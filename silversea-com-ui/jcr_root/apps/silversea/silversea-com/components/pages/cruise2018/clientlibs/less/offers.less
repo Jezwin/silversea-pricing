@@ -1,6 +1,10 @@
 @iconSize: 60px;
 .offers {
   margin-top: 25px;
+  .offer-slider:not(.slick-initialized){
+    display:none;
+  }
+
   textarea:focus, input:focus {
     outline: none;
   }
@@ -53,7 +57,7 @@
   .offer-slider-description {
     font-family: @freight;
     letter-spacing: 0.5px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 24px;
     padding-left: 10px;
     padding-right: 10px;
@@ -73,6 +77,7 @@
     width: @iconSize;
     border-radius: @iconSize/2;
     margin: 20px auto;
+    margin-top:30px;
     i {
       font-size: 60px;
       line-height: @iconSize;
@@ -161,6 +166,81 @@
     line-height: 20px;
   }
 
+  .slick-prev, .slick-next {
+    color: transparent;
+    height: 100% !important;;
+    padding-bottom: 10% !important;;
+    width: 80px !important;;
+    font-size: 40px !important;;
+    z-index: 100 !important;;
+  }
+
+  .slick-next {
+    right:-65px;
+    &:before {
+      background-color: transparent;
+      position: absolute;
+      top:50%;
+    }
+
+    &:after {
+      position: absolute;
+      top:50%;
+    }
+  }
+
+  .slick-prev {
+    left:-80px;
+    &:before {
+      background-color: transparent;
+      position: absolute;
+      top:50%;
+    }
+
+    &:after {
+      position: absolute;
+      top:50%;
+    }
+  }
+
+
+  .slick-prev:before, .slick-next:before {
+    border: 0px solid @transparent;
+    content: " ";
+  }
+
+.slick-next:before, .slick-prev:before {
+  border: none;
+}
+
+.slick-next:after {
+  width: 25px;
+  height: 25px;
+  border-left: 0px solid @transparent;
+  border-right: 2px solid @color-second !important;
+  border-bottom: 2px solid @color-second !important;
+  border-top: 0px solid @transparent;
+  opacity: 0.6;
+  content: " ";
+  right: 53%;
+  left: initial !important;
+  transform: rotateZ(-45deg);
+
+}
+
+.slick-prev:after {
+  width: 25px;
+  height: 25px;
+  border-left: 0px solid @transparent;
+  border-right: 2px solid @color-second !important;
+  border-bottom: 2px solid @color-second !important;
+  border-top: 0px solid @transparent;
+  opacity: 0.6;
+  content: " ";
+  right: 0;
+  transform: rotateZ(135deg);
+}
+
 }
 
 @media screen and (max-width: @screen-sm) {
@@ -205,7 +285,7 @@
     }
     .offer-slider-icon {
       margin: 10px;
-
+      margin-top:30px;
     }
     .offer-slider-title {
       font-size: 20px !important;
@@ -218,7 +298,7 @@
       min-height: 256px;
     }
     .offer-slider-description {
-      font-size: 18px !important;
+      font-size: 16px !important;
       line-height: 24px !important;
       padding-bottom: 20px;
     }
@@ -260,13 +340,50 @@
       font-size: 12px;
     }
 
+    .slick-next {
+      right:-35px;
+
+    }
+
+    .slick-prev {
+      left:-48px;
+
+    }
+
+    .slick-next:after {
+      width: 25px;
+      height: 25px;
+      border-left: 0px solid @transparent;
+      border-right: 2px solid white !important;
+      border-bottom: 2px solid white!important;
+      border-top: 0px solid @transparent;
+      opacity: 0.6;
+      content: " ";
+      right: 53%;
+      left: initial !important;
+      transform: rotateZ(-45deg);
+
+    }
+
+    .slick-prev:after {
+      width: 25px;
+      height: 25px;
+      border-left: 0px solid @transparent;
+      border-right: 2px solid white !important;
+      border-bottom: 2px solid white !important;
+      border-top: 0px solid @transparent;
+      opacity: 0.6;
+      content: " ";
+      right: 0;
+      transform: rotateZ(135deg);
+    }
   }
 }
 
 @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
   .offers {
     .offers-hide {
-      display: none;
+      //display: none;
     }
     .offer-icon {
       margin-left: auto;
@@ -302,7 +419,7 @@
   .offers {
 
     .offers-hide {
-      display: none;
+      //display: none;
     }
 
     .offer-icon {
@@ -483,7 +600,6 @@
 
 @media (min-width: @screen-md-min) {
   .cruise-2018-offers {
-
     .c-exclusive-offer-boxes {
       padding-bottom: 40px;
       padding-top: 35px;
@@ -534,6 +650,13 @@
           text-align: center;
         }
       }
+    }
+    .slick-next {
+      right: -80px !important;
+    }
+
+    .slick-prev {
+      left: -80px !important;
     }
   }
 }

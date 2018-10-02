@@ -41,9 +41,9 @@ $(function () {
 
     $(document).ready(function () {
         if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".offers").length > 0) {
-            if ($(window).width() < 768) {
+           // if ($(window).width() < 768) {
                 initSliderOffer();
-            }
+           //}
         }
     });
 
@@ -85,9 +85,16 @@ $(function () {
                 dots: false,
                 draggable: true,
                 infinite: true,
-                slidesPerRow: 1,
-                slidesToShow: 1,
-                centerPadding: '30px'
+                slidesPerRow: 2,
+                slidesToShow: 2,
+                responsive : [  {
+                    breakpoint : 768,
+                    settings : {
+                        slidesToShow : 1,
+                        slidesToScroll : 1
+                    }
+                } ]
+               // centerPadding: '30px'
             });
         }
         createLineProgressBar();
