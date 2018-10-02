@@ -46,6 +46,7 @@ $(function () {
     });
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
+
         if (itineraryId && excursionId) {
             if (setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
                 $(".lightbox-prev-link, .lightbox-next-link").show();
@@ -54,6 +55,7 @@ $(function () {
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
+                setTopLightboxModal();
                 //history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
                 createSlider($modal);
                 //avoid ios issue
