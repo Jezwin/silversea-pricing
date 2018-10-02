@@ -15,7 +15,8 @@
                              data-sly-repeat.item="${model.ship.deckInfoList}">
                             <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageTopPath}"/>
                             <sly data-sly-use.assetHelperSide="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageSidePath}"/>
-                            <span data-deck-number="${item.level}" data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain"
+                            <span data-deck-number="${item.level}"
+                                  data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain"
                                   data-image-src-side="${assetHelperSide.imageUrl}?hei=930&wid=930&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain">
                                 ${'deck' @ i18n} ${item.level}
                             </span>
@@ -31,10 +32,13 @@
                     </div>
                     <div class="row">
                         <sly data-sly-list.spec="${model.specifications}">
-                            <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'} style-${spec.label}">
+                            <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'} style-${spec.label}"
+                                 data-sly-test="${spec.label!='connecting-suites'}">
                                 <div class="lg-deck-spec">
                                     <div class="label-spec">${spec.label @ i18n }</div>
-                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ? 'cruise-invisible' : ''}">..............................................................................................................................................</div>
+                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ? 'cruise-invisible' : ''}">
+                                        ..............................................................................................................................................
+                                    </div>
                                     <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">
                                         <sly data-sly-test="${spec.label != 'third-guest-capacity'}">
                                             ${spec.value}
@@ -47,10 +51,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-12  full-row style-${spec.label}"
+                                 data-sly-test="${spec.label=='connecting-suites'}">
+                                <div class="lg-deck-spec">
+                                    <div class="label-spec">${spec.label @ i18n }:</div>
+                                    <div class="value-spec"> ${spec.value} </div>
+                                </div>
+                            </div>
                         </sly>
                     </div>
                     <div class="row lg-deck-download">
-                        <a data-sly-test.deckPlan="${model.ship.deckPlan}" href="${model.ship.deckPlan}" target="_blank">
+                        <a data-sly-test.deckPlan="${model.ship.deckPlan}" href="${model.ship.deckPlan}"
+                           target="_blank">
                             <i class="fa fa-file-o" aria-hidden="true"></i>
                             <strong>${'download-pdf' @ i18n}</strong>
                         </a>
