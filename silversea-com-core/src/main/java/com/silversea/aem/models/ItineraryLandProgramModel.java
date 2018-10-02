@@ -43,6 +43,9 @@ public class ItineraryLandProgramModel {
     public String getTitle() {
         return landProgram != null ? landProgram.getTitle() : null;
     }
+    public String getCustomTitle() {
+        return landProgram != null ? landProgram.getCustomTitle() : null;
+    }
 
     public String getDescription() {
         return landProgram != null ? landProgram.getDescription() : null;
@@ -65,8 +68,8 @@ public class ItineraryLandProgramModel {
     }
 
     public LandProgramModel getLandProgram() {
-		return landProgram;
-	}
+        return landProgram;
+    }
 
     public String getAssetSelectionReference() {
         return landProgram != null ? landProgram.getAssetSelectionReference() : null;

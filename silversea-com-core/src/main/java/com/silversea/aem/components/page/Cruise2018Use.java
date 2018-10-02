@@ -284,18 +284,16 @@ public class Cruise2018Use extends EoHelper {
                 .map(props -> props.get("voyageHighlights", String.class)).orElse("");
     }
 
-
-    private ItineraryHotelModel retrieveHotelModel(String[] selectors) {
+    private <T> T retrieveFromList(String[] selectors, Function<ItineraryModel, List<T>> listFactory,
+                                   BiFunction<Long, T, Boolean> test) {
         if (selectors != null && selectors.length > 4) {
             Long itineraryID = Long.valueOf(selectors[3]);
-            Long hotelID = Long.valueOf(selectors[4]);
-
+            Long objectId = Long.valueOf(selectors[4]);
             ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
             if (itineraryModel != null) {
-                List<ItineraryHotelModel> hotels = itineraryModel.getHotels();
-                for (ItineraryHotelModel hotel : hotels) {
-                    if (hotel.getHotelId().equals(hotelID)) {
-                        return hotel;
+                for (T element : listFactory.apply(itineraryModel)) {
+                    if (test.apply(objectId, element)) {
+                        return element;
                     }
                 }
             }
@@ -303,22 +301,8 @@ public class Cruise2018Use extends EoHelper {
         return null;
     }
 
-
-    private <T> T retrieveFromList(String[] selectors, Function<ItineraryModel, List<T>> listFactory,
-                                   BiFunction<Long, T, Boolean> test) {
-        if (selectors != null && selectors.length > 4) {
-            Long itineraryID = Long.valueOf(selectors[3]);
-            Long shorexID = Long.valueOf(selectors[4]);
-            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
-            if (itineraryModel != null) {
-                for (T element : listFactory.apply(itineraryModel)) {
-                    if (test.apply(shorexID, element)) {
-                        return element;
-                    }
-                }
-            }
-        }
-        return null;
+    private ItineraryHotelModel retrieveHotelModel(String[] selectors) {
+        return retrieveFromList(selectors, ItineraryModel::getHotels, (id, hotel) -> hotel.getHotelId().equals(id));
     }
 
     private ExcursionModel retrieveShorexExcursion(String[] selectors) {
