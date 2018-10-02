@@ -143,7 +143,7 @@
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper ${itineraryList.last ? '' : 'bordered'}"
                          style="display:none;">
                         <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${excursionDescription @context='html'} </div>
-                        <div data-sly-test="${hasShorex && cruise.cruiseModel.cruiseType == 'silversea-expedition'}"
+                        <div data-sly-test="${hasShorex}"
                              class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">
                             <sly data-sly-test="${hasExcursions}">
                                 ${excursions.size} ${(shorexSize>1 ? 'excursions' : 'excursion') @i18n}
@@ -155,8 +155,7 @@
                             </sly>
                         </div>
                     </div>
-                    <sly  data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}"
-                            data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
+                    <sly     data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
                             data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, mid=mid, size=shorexSize, cruise=cruise}"/>
                 </div>
             </div>
