@@ -422,13 +422,10 @@ public class MultiCruisesImporterImpl implements MultiCruisesImporter {
 					cruiseContentNode.getParent().getParent().getName(), cruise.getMap4Url(), "bigItineraryMap",mimeTypeService, resourceResolver);
 		}
 
-		/*
-            TODO: check with SMA the name of the field
-            if (StringUtils.isNotEmpty(cruise.getMap5Url())){
+            if (StringUtils.isNotEmpty(cruise.getMapPos())){
                 CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
-                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap5Url(), "smallItineraryMap",mimeTypeService, resourceResolver);
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMapPos(), "smallItineraryMap",mimeTypeService, resourceResolver);
             }
-        */
 
 		final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
 		final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
