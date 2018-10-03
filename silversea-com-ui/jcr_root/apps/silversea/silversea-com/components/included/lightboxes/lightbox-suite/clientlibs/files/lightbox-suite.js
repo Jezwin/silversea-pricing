@@ -69,7 +69,11 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
+                setTopLightboxModal();
                 createSlider($modal, $link);
+
+                showSuiteFeatures($(".lightbox-suite .lg-suite-features .lg-suite-features-expand"));
+
                 $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
@@ -95,12 +99,12 @@ $(function () {
         var $mainSlider = $modal.find('.lightbox-suite .lg-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
                     settings: {
-                        arrows: false
+                        arrows: true
                     }
                 }
             ]

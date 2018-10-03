@@ -5,7 +5,7 @@
                 <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
             </sly>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
-                <div class="cruise-2018-itineraries-title">${'expedition-itinerary' @ i18n}</div>
+                <div class="cruise-2018-itineraries-title">${'itinerary' @ i18n}</div>
             </sly>
             <div class="cruise-2018-itineraries-info">
             <span class="itineraries-info" data-sly-test="${cruise.cruiseModel.duration}">
@@ -42,9 +42,8 @@
             </sly>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
                 <div data-lightbox-highlights="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-highlights'}">
-                    <a class="btn btn-thin btn-white cruise-2018-itineraries-btn open-lightbox-highlights"
-                       data-target=".lightbox" href="#">
-                        <span>${'voyage-highlights' @ i18n}</span>
+                    <a class="btn btn-thin btn-white cruise-2018-itineraries-btn open-lightbox-highlights" data-target=".lightbox" href="#">
+                        <span>${'view-voyage-highlights' @ i18n}</span>
                     </a>
                 </div>
             </sly>
@@ -93,8 +92,9 @@
                        data-sly-test="${expandable}"
                        href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
-                        <div class="cruise-2018-itineraries-itinerary-row-day-wrapper">
-                            <span class="cruise-2018-itineraries-itinerary-row-day-content"> ${iDay}</span>
+                        <div class="cruise-2018-itineraries-itinerary-row-day-wrapper ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-wrapper-debark' : ''}">
+                            <span data-sly-test="${!itineraryList.last}" class="cruise-2018-itineraries-itinerary-row-day-content"> ${iDay}</span>
+                            <span data-sly-test="${itineraryList.last}" class="cruise-2018-itineraries-itinerary-row-day-content"> ${ 'debark' @ i18n }</span>
                         </div>
                     </div>
 
@@ -173,8 +173,7 @@
                             </sly>
                         </div>
                     </div>
-                    <sly
-                            data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
+                    <sly     data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
                             data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, mid=mid, size=shorexSize, cruise=cruise}"/>
                 </div>
             </div>
