@@ -33,7 +33,8 @@ public class LightboxPortUse extends AbstractGeolocationAwareUse {
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         portItinerary = retrievePortItineraryModel(selectors);
         if (portItinerary != null) {
-            excursions = CruiseItinerary.retrieveExcursions(portItinerary);
+            excursions = "silversea-expedition".equals(portItinerary.getCruiseType()) ? Collections.emptyList() :
+                    CruiseItinerary.retrieveExcursions(portItinerary);
             excursions.sort(Comparator.comparing(ex -> ex.getTitle().trim()));
             mid = portItinerary.getLandPrograms().stream().map(ItineraryLandProgramModel::getLandProgram)
                     .filter(landProgram -> CruisePrePost.PREPOSTMID.MID
