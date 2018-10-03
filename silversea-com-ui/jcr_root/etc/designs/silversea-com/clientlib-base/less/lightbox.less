@@ -1,7 +1,6 @@
 .lightbox {
 
   .lightbox-close {
-    display: none;
     position: fixed;
     /*background-color: rgba(0, 0, 0, 0.37);*/
     background-color: @nd-dark;
@@ -186,6 +185,7 @@
 
 @media (min-width: @screen-lg-min) {
   .lightbox {
+    visibility: hidden;
     .lightbox-width-732 {
       max-width: 732px !important;
     }

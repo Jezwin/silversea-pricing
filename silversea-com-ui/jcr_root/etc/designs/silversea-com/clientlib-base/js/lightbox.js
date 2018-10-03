@@ -1,4 +1,5 @@
-$('.modal.lightbox').on('shown.bs.modal', function (e) {
+$(document).on('shown.bs.modal', function (e) {
+    var $modalLightbox = $(".modal.lightbox");
     var $modalBody = $(this).find(".modal-body");
     var $modalContent = $(this).find(".modal-content");
     var $lightboxClose = $(this).find(".lightbox-close");
@@ -8,17 +9,19 @@ $('.modal.lightbox').on('shown.bs.modal', function (e) {
         $(".cruise-2018-modal-exclusive-offer-title .open, .cruise-2018-modal-exclusive-offer-title .times").each(function () {
             $(this).html($(this).html().toLowerCase());
         });
-
-
     }
+
 
 });
 $('.modal.lightbox').on('hidden.bs.modal', function (e) {
-
+    var $modalLightbox = $(".modal.lightbox");
     var $lightboxClose = $(this).find(".lightbox-close");
     var $modalContent = $(this).find(".modal-content");
     $modalContent.removeAttr("style");
     $lightboxClose.removeAttr("style");
+    $modalLightbox.css("visibility", "hidden");
+
+
 });
 
 function setTopLightboxModal() {
@@ -47,4 +50,5 @@ function setTopLightboxModal() {
         $lightboxClose.css("top", "0px");
         $modalContent.css("top", "45px");
     }
+    $modalLightbox.css("visibility", "visible");
 };//setTopLightboxModal
