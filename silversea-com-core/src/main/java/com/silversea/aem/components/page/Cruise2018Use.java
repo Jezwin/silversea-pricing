@@ -188,8 +188,8 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private List<SilverseaAsset> retrievePortsGallery(CruiseModel cruiseModel) {
-        Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries());
-        return cruiseModel.getItineraries().stream()
+        Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false);
+        return cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
                 .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> {
                     SilverseaAsset sscAsset = new SilverseaAsset();
                     sscAsset.setPath(path);
@@ -236,7 +236,7 @@ public class Cruise2018Use extends EoHelper {
         List<CruiseItinerary> result = new ArrayList<>();
         List<ItineraryModel> itineraries = cruiseModel.getItineraries();
         int size = itineraries.size();
-        Map<Integer, LinkedList<String>> portAssets = retrievePortsAssets(itineraries);
+        Map<Integer, LinkedList<String>> portAssets = retrievePortsAssets(itineraries, true);
         Set<Calendar> days = new HashSet<>();
         for (int counter = 0; counter < size; counter++) {
             ItineraryModel itinerary = itineraries.get(counter);
@@ -253,16 +253,22 @@ public class Cruise2018Use extends EoHelper {
         return result;
     }
 
-    private Map<Integer, LinkedList<String>> retrievePortsAssets(List<ItineraryModel> itineraries) {
+    private Map<Integer, LinkedList<String>> retrievePortsAssets(List<ItineraryModel> itineraries,
+                                                                 boolean withDayAtSea) {
         return itineraries.stream().map(ItineraryModel::getPort).distinct()
+                .filter(port -> withDayAtSea || isNotDayAtSea(port))
                 .collect(Collectors.toMap(PortModel::getCityId, this::portAssets, (l1, l2) -> l1));
+    }
+
+    private static boolean isNotDayAtSea(PortModel port) {
+        return !"day-at-sea".equals(port.getName());
     }
 
     private long retrieveNumberOfPorts(CruiseModel cruiseModel) {
         Set<PortModel> uniqueValues = new HashSet<>();
         for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
             PortModel port = itineraryModel.getPort();
-            if (!(port.getCountry() == null || "day-at-sea".equals(port.getName()))) {
+            if (isNotDayAtSea(port)) {
                 uniqueValues.add(port);
             }
         }
@@ -408,7 +414,7 @@ public class Cruise2018Use extends EoHelper {
 
     private String retrieveVenetianSocietyLBPath() {
         String pathLB = "/content/silversea-com/" + LanguageHelper.getLanguage(getCurrentPage()) + "/VSLB";
-        if(getResourceResolver().getResource(pathLB) == null){
+        if (getResourceResolver().getResource(pathLB) == null) {
             return null;
         }
         return pathLB;
@@ -739,7 +745,9 @@ public class Cruise2018Use extends EoHelper {
         return venetianSociety;
     }
 
-    public String getVSLBPath() { return VSLBPath; }
+    public String getVSLBPath() {
+        return VSLBPath;
+    }
 
     public boolean isFeetSquare() {
         return isFeetSquare;
