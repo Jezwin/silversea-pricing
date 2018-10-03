@@ -151,7 +151,7 @@
     <call-reservations-team-learn-excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Call our Reservations Team to know more about our excursions"/>
+            sling:message="Rufen Sie unser Reservierungsteam an, um mehr über unsere Exkursionen zu erfahren."/>
     <check-phone-format
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1270,7 +1270,7 @@
     <to-date
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="A"/>
+            sling:message="bis"/>
     <tonnage
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1319,15 +1319,15 @@
     <view-all-offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="View all offers"/>
+            sling:message="Alle Angebote anzeigen"/>
     <view-all-dining-options
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="View all dining options"/>
+            sling:message="Weniger Speiseoptionen anzeigen"/>
 	<view-voyage-highlights
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="View voyage highlights"/>
+            sling:message="Reise-Höhepunkte anzeigen"/>
     <view-all-excursions
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
