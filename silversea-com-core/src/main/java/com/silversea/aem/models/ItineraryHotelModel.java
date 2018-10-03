@@ -44,6 +44,9 @@ public class ItineraryHotelModel {
         return hotel != null ? hotel.getName() : null;
     }
 
+    public String getCustomTitle() {
+        return hotel != null ? hotel.getCustomTitle() : null;
+    }
     public String getDescription() {
         return hotel != null ? hotel.getDescription() : null;
     }

@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </sly>
-            <div class="col-sm-6 offer-item ${ (odd)  ? 'col-sm-offset-3' : ''} ${(offersNumber > 2)  ? 'offers-hide' : ''}"
+            <div class="col-sm-6 offer-item  ${(offersNumber > 2)  ? 'offers-hide' : ''}"
                  data-sly-test="${isVenetian}">
                 <div class="offer-slider-container">
                     <div class="offer-slider-icon-container">
@@ -40,11 +40,11 @@
                 </div>
             </div>
         </div>
-        <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
+       <!--/* <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
             <a data-ssc-accordion="show" class="btn btn-thin btn-white offers-show-btn" href="#">
                 <span class="offers-accordion-button">${'view-all-offers' @ i18n}</span>
                 <span class="offers-accordion-button" style="display:none">${'view-less' @ i18n}</span>
             </a>
-        </div>
+        </div>*/-->
     </div>
 </template>

@@ -190,6 +190,9 @@
     text-align: center;
     width: 260px;
     white-space: nowrap;
+    img {
+      width:16px;
+    }
   }
 
   .cruise-2018-overview-quote-icons div, .cruise-2018-overview-quote-icons a {
@@ -254,6 +257,15 @@
     }
   }
 
+  .cruise-2018-overview-fares-footnote {
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 11px;
+    letter-spacing: .5px;
+    line-height: 18px;
+    margin-top: 25px;
+    text-align: left;
+  }
 }
 
 @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max){
@@ -363,6 +375,12 @@
     .cruise-2018-overview-description-date-boxes-box.bordered::after {
       height: 55px;
 
+    }
+    .cruise-2018-overview-fares-footnote {
+      font-size: 10px;
+      line-height: 11px;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
     }
     .ow-slider {
       visibility: hidden;

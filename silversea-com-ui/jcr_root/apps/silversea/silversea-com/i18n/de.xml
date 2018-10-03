@@ -1396,6 +1396,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Reise"/>
+    <voyage-number
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Reise"/>
     <voyage-highlights
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

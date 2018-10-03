@@ -368,6 +368,14 @@ window.briteVerify = function(email){
     catch(error) {
         console.error(error);
     }
+    try {
+        $('.cruise-2018-itineraries-itinerary-row-text-name').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 
     try {
         $('.c-ship-teaser__caption .c-ship-teaser__title').each(function () {

@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="lg-content">
-                <div class="lsh-title">${model.title || model.name}</div>
+                <div class="lsh-title">${model.customTitle || model.title || model.name}</div>
                 <div class="lsh-code" data-sly-test="${model.code}">
                     <span>${'code' @ i18n }:</span>
                     ${model.code}

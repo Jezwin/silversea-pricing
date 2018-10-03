@@ -28,26 +28,37 @@
                     </div>
                     <div class="row">
                         <sly data-sly-list.spec="${model.specifications}">
-                            <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'} style-${spec.label}">
+                            <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'} style-${spec.label}"
+                                 data-sly-test="${spec.label!='connecting-suites'}">
                                 <div class="lg-deck-spec">
                                     <div class="label-spec">${spec.label @ i18n }</div>
-                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ? 'cruise-invisible' : ''}">..............................................................................................................................................</div>
+                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ? 'cruise-invisible' : ''}">
+                                        ..............................................................................................................................................
+                                    </div>
                                     <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">
                                         <sly data-sly-test="${spec.label != 'third-guest-capacity'}">
                                             ${spec.value}
                                         </sly>
                                         <sly data-sly-test="${spec.label == 'width' || spec.label == 'length'}">
                                             <sly data-sly-test="${spec.isFeet}">${'feet' @ i18n }</sly>
-                                            <sly data-sly-test="${spec.isFeet}">${'meters' @ i18n }</sly>
+                                            <sly data-sly-test="${!spec.isFeet}">${'meters' @ i18n }</sly>
                                         </sly>
                                         <sly data-sly-test="${spec.label == 'speed'}">${'knots' @ i18n }</sly>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-12  full-row style-${spec.label}"
+                                 data-sly-test="${spec.label=='connecting-suites'}">
+                                <div class="lg-deck-spec">
+                                    <div class="label-spec">${spec.label @ i18n }:</div>
+                                    <div class="value-spec"> ${spec.value} </div>
+                                </div>
+                            </div>
                         </sly>
                     </div>
                     <div class="row lg-deck-download">
-                        <a data-sly-test.deckPlan="${model.ship.deckPlan}" href="${model.ship.deckPlan}" target="_blank">
+                        <a data-sly-test.deckPlan="${model.ship.deckPlan}" href="${model.ship.deckPlan}"
+                           target="_blank">
                             <i class="fa fa-file-o" aria-hidden="true"></i>
                             <strong>${'download-pdf' @ i18n}</strong>
                         </a>
