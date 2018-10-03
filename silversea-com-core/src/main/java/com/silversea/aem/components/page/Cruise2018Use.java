@@ -53,6 +53,7 @@ public class Cruise2018Use extends EoHelper {
     private List<ExclusiveOfferItem> exclusiveOffers;
     private List<String> exclusiveOffersCruiseFareAdditions;
     private boolean venetianSociety;
+    private String VSLBPath;
 
     private boolean isFeetSquare;
     private int totalNumberOfOffers;
@@ -148,6 +149,7 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
+        VSLBPath = retrieveVenetianSocietyLBPath();
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
@@ -402,6 +404,14 @@ public class Cruise2018Use extends EoHelper {
             }
         }
         return false;
+    }
+
+    private String retrieveVenetianSocietyLBPath() {
+        String pathLB = "/content/silversea-com/" + LanguageHelper.getLanguage(getCurrentPage()) + "/VSLB";
+        if(getResourceResolver().getResource(pathLB) == null){
+            return null;
+        }
+        return pathLB;
     }
 
     private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
@@ -728,6 +738,8 @@ public class Cruise2018Use extends EoHelper {
     public boolean isVenetianSociety() {
         return venetianSociety;
     }
+
+    public String getVSLBPath() { return VSLBPath; }
 
     public boolean isFeetSquare() {
         return isFeetSquare;
