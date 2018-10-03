@@ -14,7 +14,7 @@
                     <video style="display: none;"><![endif]-->
                     <source srcset="${assetHelperMobile.imageUrl}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1"
                             media="(max-width: 767px)"/>
-                    <source srcset="${assetHelperDesktop.imageUrl}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1"
+                    <source srcset="${assetHelperDesktop.imageUrl}?wid=700&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1"
                             media="(min-width: 768px)"/>
                     <!--[if IE 9]></video><![endif]-->
                     <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
@@ -37,7 +37,7 @@
                      id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
                      data-image-virtual-tour="${asset.path}"
                      data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
-                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=asset.path, Width=700}" />
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                     <sly data-sly-test.isVideo="${isVideo}">
                         <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
