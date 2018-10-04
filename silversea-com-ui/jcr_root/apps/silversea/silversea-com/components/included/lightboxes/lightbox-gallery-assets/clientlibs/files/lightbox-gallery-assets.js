@@ -24,6 +24,7 @@ $(function () {
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
                 createLigthboxGallerySlider($modal, $link);
+                setTopLightboxModal();
             });
         });
     });
@@ -61,9 +62,9 @@ $(function () {
             $(".lightbox-gallery-assets .ga-credits").hide();
             var $slider = $(this);
             // Kill video if current slide contains video
-            var $video = $slider.find('.slick-current .c-video');
+            var $video = $slider.find('.slick-current .video-icon');
             $video.find('.s7playpausebutton[selected="false"]').trigger('click');
-            $video.attr('class', 'c-video').empty();
+            $video.attr('class', 'video-icon').empty();
             // Call lazy load for 2 previous and 2 next slides
             destroyVirtualTour();
         }).on('afterChange', function (event, slick, currentSlide) {

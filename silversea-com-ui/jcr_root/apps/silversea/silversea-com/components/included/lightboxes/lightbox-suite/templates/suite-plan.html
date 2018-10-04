@@ -1,0 +1,12 @@
+<template data-sly-template.default="${ @ suite}">
+    <div class="lg-suite-deck lg-suite-plan" data-sly-test="${suite.plan}">
+        <div class="lg-suite-deck-label">
+            <span>${'suite-plan' @ i18n }</span>
+        </div>
+
+        <div class="lg-suite-deck-image">
+            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=suite.plan}"/>
+            <img src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain" alt="plan" title="Plan" class="o-img"/>
+        </div>
+    </div>
+</template>

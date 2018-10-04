@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ cruise }">
+.distinct()<template data-sly-template.default="${ @ cruise }">
     <div class="cruise-2018-prepost-wrapper hidden-xs" id="cruise2018prepost">
         <div class="cruise-2018-prepost">
             <sly data-sly-test.prePosts="${cruise.prePost}">
@@ -15,7 +15,7 @@
                                      data-sly-call="${imageTemplate.image @ imagePath=prePost.thumbnail, width=350}"/>
                             </div>
                             <div class="cruise-2018-prepost-slide-prepost">${prePost.prePost}</div>
-                            <div class="cruise-2018-prepost-slide-title">${prePost.title}</div>
+                            <div class="cruise-2018-prepost-slide-title">${prePost.customTitle ? prePost.customTitle : prePost.title}</div>
                             <div data-sly-test=${prePost.nights} class="cruise-2018-prepost-slide-days">${prePost.nights} ${prePost.nights> 1 ? 'nights' : 'night' @ i18n}</div>
                             <div data-sly-test=${prePost.category} class="cruise-2018-prepost-slide-collection">${prePost.category}</div>
                             <div class="cruise-2018-prepost-slide-moredetails">${'view-more-details' @ i18n}</div>

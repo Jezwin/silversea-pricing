@@ -102,6 +102,16 @@
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
                                             name="./suitesubtitleUpTo"
                                             fieldLabel="Suite sub title (Up to...)" />
+                                    <bedroomsInformationMeter
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            fieldLabel="Bedrooms Information meter"
+                                            name="./bedroomsInformationMeter"/>
+                                    <bedroomsInformationFeet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            fieldLabel="Bedrooms Information feet"
+                                            name="./bedroomsInformationFeet"/>
                                     <suiteSizeFeet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"

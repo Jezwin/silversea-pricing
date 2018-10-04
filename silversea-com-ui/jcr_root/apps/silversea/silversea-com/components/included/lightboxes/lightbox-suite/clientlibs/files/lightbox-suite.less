@@ -49,7 +49,7 @@
     .lg-suite-prices {
       text-align: center;
       text-transform: uppercase;
-      padding-left: 10%;
+      padding-left: 28%;
       margin-top: 5px;
     }
     .lg-suite-prices-from {
@@ -337,6 +337,10 @@
         }
       }
     }
+    .lg-suite-deck-plan span:after {
+      margin-left: 22% !important;
+      width: 80% !important;
+    }
     .lg-suite-deck-number.lg-suite-active-first {
       span {
         margin-left: 0px;
@@ -385,7 +389,7 @@
       li {
         margin-top: 5px;
         padding-left: 1em;
-        text-indent: -1em;
+        text-indent: -0.8em;
         text-align: left;
         -webkit-column-break-inside: avoid;
         page-break-inside: avoid;
@@ -466,6 +470,12 @@
       font-size: 13px;
       .lg-suite-features-list {
         -webkit-columns: 2;
+      }
+    }
+
+    .lg-suite-plan {
+      .lg-suite-deck-label {
+        margin-bottom: 15px !important;
       }
     }
 
@@ -593,13 +603,17 @@
     }
 
     //style applied only to suite-deck.html templates
+    .lg-suite-deck.lg-suite-plan {
+      padding-top: 0px;
+    }
     .lg-suite-deck {
       padding-bottom: 25px;
       padding-top: 25px;
       position: relative;
       z-index: 1;
       &::before {
-        background-color: @grey--f4;
+        /*background-color: @grey--f4;*/
+        background-color: white;
         left: 50%;
         width: 100vw;
         bottom: 0;
@@ -653,7 +667,8 @@
     .visible-xs {
       .lg-suite-cta {
         .lg-suite-raq {
-          margin-bottom: 60px;
+          margin-bottom: 30px;
+          min-height: 0px;
         }
       }
     }
@@ -661,6 +676,7 @@
     //style applied only to the second suite-cta.html templates
     .lg-suite-cta {
       .lg-suite-raq {
+        min-height: 200px;
         margin-bottom: 60px;
       }
     }
@@ -668,9 +684,9 @@
     //style applied only to suite-features.html templates
     .lg-suite-features {
       font-size: 12px;
+      margin-top: 20px;
       .lg-suite-features-list {
         -webkit-columns: 1;
-        display: none;
       }
 
       .lg-suite-features-expand {

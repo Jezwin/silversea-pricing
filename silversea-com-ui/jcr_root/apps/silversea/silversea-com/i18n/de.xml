@@ -151,7 +151,7 @@
     <call-reservations-team-learn-excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Call our Reservations Team to know more about our excursions"/>
+            sling:message="Rufen Sie unser Reservierungsteam an, um mehr über unsere Exkursionen zu erfahren."/>
     <check-phone-format
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -488,7 +488,7 @@
     <expedition-itinerary
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="expedition itinerary"/>
+            sling:message="Expeditionsroute"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -789,15 +789,19 @@
     <offer
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Offer"/>
+        sling:message="Angebot"/>
     <offers
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Offers"/>
+        sling:message="Angebote"/>
     <offers-for-this-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offers for this cruise"/>
+            sling:message="Angebote für diese Kreuzfahrt"/>
+    <offer-for-this-cruise
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Angebot für diese Kreuzfahrt"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1263,6 +1267,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Nach"/>
+    <to-date
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="bis"/>
     <tonnage
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1308,10 +1316,22 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Alle ansehen"/>
+    <view-all-offers
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Alle Angebote anzeigen"/>
+    <view-all-dining-options
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Weniger Speiseoptionen anzeigen"/>
+	<view-voyage-highlights
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Reise-Höhepunkte anzeigen"/>
     <view-all-excursions
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="View all excursions"/>
+        sling:message="Alle Ausflüge anzeigen"/>
 	<view-all-pictures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1376,6 +1396,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Reise"/>
+    <voyage-number
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Reise"/>
     <voyage-highlights
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1527,7 +1551,7 @@
     <itinerary
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Itinerary"/>
+            sling:message="Route"/>
     <specifications
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
@@ -1579,7 +1603,7 @@
     <up-to
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Up to "/>
+            sling:message="Bis"/>
     <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Karte"/>
     <dining-options
             jcr:primaryType="nt:folder"

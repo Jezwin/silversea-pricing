@@ -46,14 +46,16 @@ $(function () {
     });
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
+
         if (itineraryId && excursionId) {
-            if (setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
+            if ($(window).width()>1024 && setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
                 $(".lightbox-prev-link, .lightbox-next-link").show();
             }
         }
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
+                setTopLightboxModal();
                 //history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
                 createSlider($modal);
                 //avoid ios issue
@@ -62,6 +64,9 @@ $(function () {
                 }
                 if ($("body").hasClass("viewport-sm")) {
                     $(".modal.lightbox").css("padding-left", "0px");
+                }
+                if ($(".lsh-title") != null && $(".lsh-title").html() != null) {
+                    $(".lsh-title").html($(".lsh-title").html().toLowerCase());
                 }
                 callback && callback();
             });
@@ -129,12 +134,12 @@ $(function () {
         var $mainSlider = $modal.find('.lightbox-land-shorex-hotel .lsh-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
                     settings: {
-                        arrows: false
+                        arrows: true
                     }
                 }
             ]

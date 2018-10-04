@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-xs-6 cruise-2018-ship-dining-area-text">
                         <div class="cruise-2018-ship-dining-area-text-wrapper">
-                            <div class="cruise-2018-ship-dining-area-text-title">${item.title}</div>
+                            <div class="cruise-2018-ship-dining-area-text-title">${item.navigationTitle || item.title}</div>
                             <div class="cruise-2018-ship-dining-area-text-description">${item.shortVoyageDescription @ context='html'}</div>
                         </div>
                     </div>
@@ -18,8 +18,8 @@
             </div>
             <div class="cruise-2018-ship-dining-area-btns hidden-xs" data-sly-test="${dinings.size > 2}">
                 <a data-ssc-accordion="show" class="btn btn-thin btn-white cruise-2018-dining-show-btn " href="#">
-                    <span class="cruise-2018-accordion-button">${'view-all' @ i18n}</span>
-                    <span class="cruise-2018-accordion-button" style="display:none">${'close' @ i18n}</span>
+                    <span class="cruise-2018-accordion-button">${'view-all-dining-options' @ i18n}</span>
+                    <span class="cruise-2018-accordion-button" style="display:none">${'view-less' @ i18n}</span>
                 </a>
             </div>
             <sly data-sly-test.numberOfRestaurants="number${dinings.size}"/>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="cruise-2018-ship-dining-area-slide-text">
                         <div class="cruise-2018-ship-dining-area-slide-title">
-                            ${item.title}
+                            ${item.navigationTitle || item.title}
                         </div>
                         <div class="cruise-2018-ship-dining-area-slide-description">
                             ${item.shortVoyageDescription @ context='html'}

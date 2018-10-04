@@ -14,7 +14,7 @@
                 data-sly-list.itinerary="${cruise.cruiseModel.ItinerariesStable}"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.Excursions : itinerary.port.excursions }" />
-
+                 <sly data-sly-test.excursions="${excursions.isEmpty ?  itinerary.port.excursions : excursions }" />
                 <div class="panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
                     <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.itineraryId}" aria-expanded="false"  aria-controls="ex-${itinerary.itineraryId}">
                         <div class="panel__heading__image">

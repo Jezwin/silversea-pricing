@@ -249,6 +249,20 @@
                                         fieldLabel="ID"
                                         disabled="{Boolean}true"
                                         name="./hotelId" />
+                                    <assetselectionreference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="assetSelectionReference"
+                                            fieldLabel="Extra Media Gallery"
+                                            rootPath="/content/dam/silversea-com"
+                                            name="./assetSelectionReference"/>
+                                    <customTitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            fieldLabel="Custom Title"
+                                            name="./customTitle"
+                                            />
                                 </items>
                             </column>
                         </items>

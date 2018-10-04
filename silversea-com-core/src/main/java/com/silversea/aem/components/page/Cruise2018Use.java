@@ -53,6 +53,7 @@ public class Cruise2018Use extends EoHelper {
     private List<ExclusiveOfferItem> exclusiveOffers;
     private List<String> exclusiveOffersCruiseFareAdditions;
     private boolean venetianSociety;
+    private String VSLBPath;
 
     private boolean isFeetSquare;
     private int totalNumberOfOffers;
@@ -76,7 +77,9 @@ public class Cruise2018Use extends EoHelper {
     private long numCountries;
 
     private List<SilverseaAsset> assetsGallery;
-    private String labelAssetGallery;
+    private List<SilverseaAsset> portsGallery;
+    private String departurePortName;
+    private String arrivalPortName;
     private List<SilverseaAsset> shipAssetGallery;
     private String bigItineraryMap;
     private String bigThumbnailItineraryMap;
@@ -146,10 +149,12 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
+        VSLBPath = retrieveVenetianSocietyLBPath();
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
         itinerary = retrieveItinerary(cruiseModel);
+        portsGallery = retrievePortsGallery(cruiseModel);
 
         showCruiseBeforeName = retrieveShowCruiseBeforeName(locale);
 
@@ -182,12 +187,24 @@ public class Cruise2018Use extends EoHelper {
         });
     }
 
+    private List<SilverseaAsset> retrievePortsGallery(CruiseModel cruiseModel) {
+        Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false);
+        return cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
+                .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> {
+                    SilverseaAsset sscAsset = new SilverseaAsset();
+                    sscAsset.setPath(path);
+                    sscAsset.setName(port.getPort().getTitle());
+                    return sscAsset;
+                })).distinct().collect(toList());
+    }
+
     private Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
         Set<CruisePrePost> uniqueValues = new HashSet<>();
         for (CruiseItinerary cruiseItinerary : itinerary) {
             uniqueValues.addAll(cruiseItinerary.getPrePosts());
         }
-        return uniqueValues.stream().sorted(Comparator.comparing(CruisePrePost::getPrePost).reversed()).collect(toList());
+        return uniqueValues.stream().sorted(Comparator.comparing(CruisePrePost::getPrePost).reversed())
+                .collect(toList());
     }
 
 
@@ -214,12 +231,12 @@ public class Cruise2018Use extends EoHelper {
         return concat(Stream.of(portModel.getThumbnail()), assets).distinct().collect(toCollection(LinkedList::new));
     }
 
+
     private List<CruiseItinerary> retrieveItinerary(CruiseModel cruiseModel) {
         List<CruiseItinerary> result = new ArrayList<>();
         List<ItineraryModel> itineraries = cruiseModel.getItineraries();
         int size = itineraries.size();
-        Map<Integer, LinkedList<String>> portAssets = itineraries.stream().map(ItineraryModel::getPort).distinct()
-                .collect(Collectors.toMap(PortModel::getCityId, this::portAssets, (l1, l2) -> l1));
+        Map<Integer, LinkedList<String>> portAssets = retrievePortsAssets(itineraries, true);
         Set<Calendar> days = new HashSet<>();
         for (int counter = 0; counter < size; counter++) {
             ItineraryModel itinerary = itineraries.get(counter);
@@ -230,17 +247,28 @@ public class Cruise2018Use extends EoHelper {
             result.add(
                     new CruiseItinerary(days.size(), counter == 0, counter == size - 1,
                             ofNullable(portAssets.get(portId).poll()).orElse(itinerary.getPort().getThumbnail()),
-                            isNextDaySamePort, itinerary));
+                            isNextDaySamePort, itinerary, cruiseModel.getCruiseType()));
         }
         result.sort(comparing(CruiseItinerary::getDate));
         return result;
+    }
+
+    private Map<Integer, LinkedList<String>> retrievePortsAssets(List<ItineraryModel> itineraries,
+                                                                 boolean withDayAtSea) {
+        return itineraries.stream().map(ItineraryModel::getPort).distinct()
+                .filter(port -> withDayAtSea || isNotDayAtSea(port))
+                .collect(Collectors.toMap(PortModel::getCityId, this::portAssets, (l1, l2) -> l1));
+    }
+
+    private static boolean isNotDayAtSea(PortModel port) {
+        return !"day-at-sea".equals(port.getName());
     }
 
     private long retrieveNumberOfPorts(CruiseModel cruiseModel) {
         Set<PortModel> uniqueValues = new HashSet<>();
         for (ItineraryModel itineraryModel : cruiseModel.getItineraries()) {
             PortModel port = itineraryModel.getPort();
-            if (!(port.getCountry() == null || "day-at-sea".equals(port.getName()))) {
+            if (isNotDayAtSea(port)) {
                 uniqueValues.add(port);
             }
         }
@@ -264,18 +292,16 @@ public class Cruise2018Use extends EoHelper {
                 .map(props -> props.get("voyageHighlights", String.class)).orElse("");
     }
 
-
-    private ItineraryHotelModel retrieveHotelModel(String[] selectors) {
+    private <T> T retrieveFromList(String[] selectors, Function<ItineraryModel, List<T>> listFactory,
+                                   BiFunction<Long, T, Boolean> test) {
         if (selectors != null && selectors.length > 4) {
             Long itineraryID = Long.valueOf(selectors[3]);
-            Long hotelID = Long.valueOf(selectors[4]);
-
+            Long objectId = Long.valueOf(selectors[4]);
             ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
             if (itineraryModel != null) {
-                List<ItineraryHotelModel> hotels = itineraryModel.getHotels();
-                for (ItineraryHotelModel hotel : hotels) {
-                    if (hotel.getHotelId().equals(hotelID)) {
-                        return hotel;
+                for (T element : listFactory.apply(itineraryModel)) {
+                    if (test.apply(objectId, element)) {
+                        return element;
                     }
                 }
             }
@@ -283,22 +309,8 @@ public class Cruise2018Use extends EoHelper {
         return null;
     }
 
-
-    private <T> T retrieveFromList(String[] selectors, Function<ItineraryModel, List<T>> listFactory,
-                                   BiFunction<Long, T, Boolean> test) {
-        if (selectors != null && selectors.length > 4) {
-            Long itineraryID = Long.valueOf(selectors[3]);
-            Long shorexID = Long.valueOf(selectors[4]);
-            ItineraryModel itineraryModel = retrieveItineraryModel(itineraryID);
-            if (itineraryModel != null) {
-                for (T element : listFactory.apply(itineraryModel)) {
-                    if (test.apply(shorexID, element)) {
-                        return element;
-                    }
-                }
-            }
-        }
-        return null;
+    private ItineraryHotelModel retrieveHotelModel(String[] selectors) {
+        return retrieveFromList(selectors, ItineraryModel::getHotels, (id, hotel) -> hotel.getHotelId().equals(id));
     }
 
     private ExcursionModel retrieveShorexExcursion(String[] selectors) {
@@ -400,6 +412,14 @@ public class Cruise2018Use extends EoHelper {
         return false;
     }
 
+    private String retrieveVenetianSocietyLBPath() {
+        String pathLB = "/content/silversea-com/" + LanguageHelper.getLanguage(getCurrentPage()) + "/VSLB";
+        if (getResourceResolver().getResource(pathLB) == null) {
+            return null;
+        }
+        return pathLB;
+    }
+
     private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
         List<String> list = new ArrayList<>();
         for (ExclusiveOfferItem offer : offers) {
@@ -498,13 +518,15 @@ public class Cruise2018Use extends EoHelper {
         String map = firstNonNull(vmProperties.get("bigItineraryMap", String.class),
                 vmProperties.get("bigThumbnailItineraryMap", String.class),
                 vmProperties.get("smallItineraryMap", String.class));
+        String type = null;
         if (map == null) {
             map = vmProperties.get("itinerary", String.class);
+            type = "itinerary";
         }
         if (map != null) {
-            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, "itinerary"));
+            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, type));
         }
-        this.labelAssetGallery = vmProperties.get("apiTitle", String.class);
+
         return assetsListResult.stream().distinct().collect(toList());
     }
 
@@ -520,6 +542,10 @@ public class Cruise2018Use extends EoHelper {
                 itineraryModel = it.adaptTo(ItineraryModel.class);
                 if (itineraryModel != null && itineraryModel.getPort() != null) {
                     PortModel portModel = itineraryModel.getPort();
+                    if (StringUtils.isEmpty(this.departurePortName)) {
+                        this.departurePortName = portModel.getApiTitle();
+                    }
+                    this.arrivalPortName = portModel.getApiTitle();
                     String assetSelectionReference = portModel.getAssetSelectionReference();
                     if (StringUtils.isNotBlank(assetSelectionReference)) {
                         List<SilverseaAsset> portAssets = AssetUtils
@@ -631,6 +657,10 @@ public class Cruise2018Use extends EoHelper {
         return hotelLightbox;
     }
 
+    public List<SilverseaAsset> getPortsGallery() {
+        return portsGallery;
+    }
+
     public ItineraryLandProgramModel getLandProgramLightbox() {
         return landProgramLightbox;
     }
@@ -655,12 +685,16 @@ public class Cruise2018Use extends EoHelper {
         return numPorts;
     }
 
-    public String getLabelAssetGallery() {
-        return labelAssetGallery;
-    }
-
     public boolean getAreOffersOdd() {
         return this.totalNumberOfOffers % 2 != 0;
+    }
+
+    public String getDeparturePortName() {
+        return departurePortName;
+    }
+
+    public String getArrivalPortName() {
+        return arrivalPortName;
     }
 
     public enum Lightbox {
@@ -709,6 +743,10 @@ public class Cruise2018Use extends EoHelper {
 
     public boolean isVenetianSociety() {
         return venetianSociety;
+    }
+
+    public String getVSLBPath() {
+        return VSLBPath;
     }
 
     public boolean isFeetSquare() {

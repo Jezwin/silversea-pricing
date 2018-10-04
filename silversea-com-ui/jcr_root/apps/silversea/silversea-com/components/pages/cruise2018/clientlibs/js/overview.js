@@ -79,7 +79,7 @@ $(function () {
         if (this.hash) {
             var hash = this.hash.substr(1);
             var $toElement = $("[id=" + hash + "]");
-            var toPosition = $toElement.offset().top - 120;
+            var toPosition = $toElement.position().top - 100;
             //scroll to element
             $("body,html").animate({
                 scrollTop: toPosition
@@ -119,7 +119,10 @@ $(function () {
         $(document).on('hide.bs.modal', destroyVideo);
 
         function createVideo(e) {
+            $(this).find(".modal-dialog").addClass("custom-lightbox-width");
+            $(this).find(".modal-dialog").addClass("lightbox-width-1200");
             $(this).find('.modal-dialog .modal-content').html($modalContent);
+            $(this).find('.lightbox-close').addClass("lightbox-close-1200");
             $(".video-itinerary").initVideo();
         }
 
@@ -129,6 +132,7 @@ $(function () {
                 $video.find('.s7playpausebutton[selected="false"]').trigger('click');
                 $('.modal.lightbox').off('shown.bs.modal',createVideo);
                 $(document).off('hide.bs.modal', destroyVideo);
+                $(this).find('.lightbox-close').removeClass("lightbox-close-1200");
             }
         }
     });

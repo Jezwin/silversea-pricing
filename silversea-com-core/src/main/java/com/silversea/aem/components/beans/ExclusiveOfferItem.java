@@ -42,6 +42,8 @@ public class ExclusiveOfferItem {
 
     private String imageLBPath;
 
+    private String footnote;
+
     private Boolean isLBGreyBoxActivated;
 
     private String positionDescriptionDesktopLB;
@@ -90,6 +92,7 @@ public class ExclusiveOfferItem {
             positionDescriptionMobileLB = exclusiveOffer.getPositionDescriptionMobileLB();
             voyageIcon = result.getIcon();
             priorityWeight = result.getPriorityWeight();
+            footnote =  result.getFootnote();
             if (StringUtils.isNotEmpty(result.getFootnote())) {
                 footnotes.add(result.getFootnote());
             }
@@ -241,5 +244,9 @@ public class ExclusiveOfferItem {
 
     public String getVoyageIcon() {
         return voyageIcon;
+    }
+
+    public String getFootnote() {
+        return footnote;
     }
 }

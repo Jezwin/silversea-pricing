@@ -25,6 +25,7 @@ public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
         super.activate();
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         suitePrice = retrieveSuitePriceModel(selectors);
+
     }
 
     private SuitePrice retrieveSuitePriceModel(String[] selectors) {
@@ -83,5 +84,9 @@ public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
 
     public String getSuffixUrl() {
         return suffixUrl;
+    }
+
+    public boolean isFeetSquare() {
+        return "US".equalsIgnoreCase(this.countryCode);
     }
 }

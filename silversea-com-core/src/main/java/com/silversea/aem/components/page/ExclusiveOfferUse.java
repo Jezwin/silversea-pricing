@@ -28,7 +28,8 @@ public class ExclusiveOfferUse extends EoHelper {
         	EoConfigurationBean eoConfig = new EoConfigurationBean();
     		eoConfig.setTitleLigthbox(true);
     		eoConfig.setDescriptionLigthbox(true);
-    		eoConfig.setFootnotesMain(true);
+            eoConfig.setFootnotesMain(true);
+    		eoConfig.setFootnoteVoyage(true);
     		eoConfig.setActiveSystem(exclusiveOfferModel.getActiveSystem());
     		EoBean result = super.parseExclusiveOffer(eoConfig, exclusiveOfferModel);
             exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode, null, result);

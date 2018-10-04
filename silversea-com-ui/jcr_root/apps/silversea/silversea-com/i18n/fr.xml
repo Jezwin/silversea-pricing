@@ -151,7 +151,7 @@
     <call-reservations-team-learn-excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Call our Reservations Team to know more about our excursions"/>
+            sling:message="Appelez notre équipe de réservation pour en savoir plus au sujet de nos excursions"/>
     <check-phone-format
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -295,7 +295,7 @@
     <cruise-suites-and-fares-descr
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix. "/>
+        sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix."/>
     <cruise-suites-and-fares-descr-v2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -488,7 +488,7 @@
     <expedition-itinerary
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="expedition itinerary"/>
+        sling:message="Itinéraire de l'expédition"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -576,7 +576,7 @@
     <from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="a partir de"/>
+        sling:message="à partir de"/>
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -789,15 +789,19 @@
     <offer
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offer"/>
+            sling:message="offre"/>
     <offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offers"/>
+            sling:message="offres"/>
     <offers-for-this-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Offers for this cruise"/>
+            sling:message="Offres pour cette croisière"/>
+    <offer-for-this-cruise
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Offre pour cette croisière"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1259,7 +1263,11 @@
     <to
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="A"/>
+        sling:message="À"/>
+    <to-date
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="au"/>
     <tonnage
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1309,10 +1317,22 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Voir tout"/>
+    <view-all-offers
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir toutes les offres"/>
+    <view-all-dining-options
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir moins d'options de restauration"/>
+	<view-voyage-highlights
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir les temps forts de la croisière"/>
     <view-all-excursions
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="View all excursions"/>
+        sling:message="Voir toutes les excursions"/>
 	<view-all-pictures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1374,6 +1394,10 @@
         jcr:primaryType="nt:folder"
         sling:message="Tour virtuel"/>
     <voyage
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Voyage"/>
+    <voyage-number
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Voyage"/>
@@ -1524,7 +1548,7 @@
     <itinerary
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Itinerary"/>
+            sling:message="itinéraire"/>
     <specifications
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
@@ -1576,12 +1600,12 @@
     <up-to
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:message="Up to "/>
+            sling:message="Jusqu'à"/>
     <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Carte"/>
     <dining-options
             jcr:primaryType="nt:folder"
             sling:key="dining-options"
-            sling:message="Dining Options"/>
+            sling:message="options de restauration"/>
     <number1
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"

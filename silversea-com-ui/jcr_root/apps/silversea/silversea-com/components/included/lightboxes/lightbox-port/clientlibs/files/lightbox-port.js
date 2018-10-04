@@ -30,6 +30,7 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
+                setTopLightboxModal();
                 createSlider($modal, $link);
 
             });
@@ -40,12 +41,12 @@ $(function () {
         var $mainSlider = $modal.find('.lightbox-port .lg-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
                     settings: {
-                        arrows: false
+                        arrows: true
                     }
                 }
             ]
