@@ -17,11 +17,18 @@ var createLineProgressBar = (function () {
 })();
 function loadLazyImageInSlider($slider) {
     var $sliderActive = $slider.find('.slick-active');
-    $sliderActive.find('.lazy').lazy();
-    $sliderActive.prev().find('.lazy').lazy();
-    $sliderActive.prev().prev().find('.lazy').lazy();
-    $sliderActive.next().find('.lazy').lazy();
-    $sliderActive.next().next().find('.lazy').lazy();
+    var slideToLoad = $slider.data('ssc-slides') || 3;
+    var i;
+    var $sliderI = $sliderActive;
+    for( i = 0 ;i<slideToLoad+1;i++){
+        $sliderI.find('.lazy').lazy();
+        $sliderI = $sliderI.prev();
+    }
+    $sliderI = $sliderActive.next();
+    for( i = 0 ;i<slideToLoad;i++){
+        $sliderI.find('.lazy').lazy();
+        $sliderI = $sliderI.next();
+    }
     setTimeout(function () {
         $sliderActive.find('.lazy').lazy();
     }, 50);
