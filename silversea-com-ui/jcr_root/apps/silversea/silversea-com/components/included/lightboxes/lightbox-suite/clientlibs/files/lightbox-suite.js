@@ -72,19 +72,14 @@ $(function () {
                 setTopLightboxModal();
                 createSlider($modal, $link);
 
-                showSuiteFeatures($(".lightbox-suite .lg-suite-features .lg-suite-features-expand"));
-
                 $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
-                });
-                $(".lightbox-suite .lg-suite-features .lg-suite-features-expand").on("click", function (e) {
-                    showSuiteFeatures(this, e);
                 });
                 $(".lightbox-suite .lg-suite-overview .lg-suite-description-expand").on("click", function (e) {
                     showDescription(this, e);
                 });
 
-                var $deckActive = $modal.find(".lightbox-suite .lg-suite-deck-number.lg-suite-active-deck span");
+                var $deckActive = $modal.find(".lightbox-suite .lg-suite-deck-numbers.lg-suite-active-deck span");
                 if ($deckActive != null && $deckActive.length > 0) {
                     showImageDeckPlan($deckActive);
                 }
