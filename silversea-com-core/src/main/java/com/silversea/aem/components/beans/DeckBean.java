@@ -2,32 +2,19 @@ package com.silversea.aem.components.beans;
 
 public class DeckBean {
     private String level;
-    private String imageTopPath;
-    private String imageSidePath;
+
+    private String imagePath;
 
     public DeckBean() {
     }
 
-    public DeckBean(String level, String imageTopPath, String imageSidePath) {
+    public DeckBean(String level, String imagePath) {
         this.level = level;
-        this.imageTopPath = imageTopPath;
-        this.imageSidePath = imageSidePath;
+        this.imagePath = imagePath;
     }
 
-    public String getImageSidePath() {
-        return imageSidePath;
-    }
-
-    public void setImageSidePath(String imageSidePath) {
-        this.imageSidePath = imageSidePath;
-    }
-
-    public String getImageTopPath() {
-        return imageTopPath;
-    }
-
-    public void setImageTopPath(String imageSideTopPath) {
-        this.imageTopPath = imageSideTopPath;
+    public String getImagePath() {
+        return imagePath;
     }
 
     public String getLevel() {
@@ -38,8 +25,12 @@ public class DeckBean {
         this.level = level;
     }
 
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public String toString() {
-        return "Level: " + level + " Image Top: " + imageTopPath + " Image Side: " + imageSidePath ;
+        return "Level: " + level + " Image: " + imagePath;
     }
 }

@@ -205,11 +205,7 @@ public class ShipModel {
                         }
                         if (node.hasProperty("deckImageTop") && node.getProperty("deckImageTop") != null) {
                             String propertyImageTopPath = node.getProperty("deckImageTop").getString();
-                            deckBean.setImageTopPath(propertyImageTopPath);
-                        }
-                        if (node.hasProperty("deckImageSide") && node.getProperty("deckImageSide") != null) {
-                            String propertyImageSidePath = node.getProperty("deckImageSide").getString();
-                            deckBean.setImageSidePath(propertyImageSidePath);
+                            deckBean.setImagePath(propertyImageTopPath);
                         }
                         listResult.add(deckBean);
                         LOGGER.debug("ShipModelTransformDeckInfo name: {} add new deck bean {}", this.name, deckBean.toString());

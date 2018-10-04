@@ -1,18 +1,22 @@
-<template data-sly-template.default="${ @ offers, offersNumber, isVenetian, odd }">
+<template data-sly-template.default="${ @ offers, offersNumber, isVenetian, odd, VSLBPath }">
     <div class="offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer" id="cruise2018offers"
          data-sly-test="${offersNumber!=0}">
-        <div class="offers-title"> ${ 'offers' @ i18n} </div>
-        <div class="row offer-slider">
+        <div class="offers-title">
+            <sly data-sly-test="${offersNumber == 1}">${ 'offer-for-this-cruise' @ i18n}</sly>
+            <sly data-sly-test="${offersNumber > 1}">${ 'offers-for-this-cruise' @ i18n}</sly>
+        </div>
+        <div class="row offer-slider ${offersNumber > 1  ? 'offer-slider-padding' : ''}">
             <sly data-sly-list.offer="${offers}">
-                <div class="col-sm-6 offer-item  ${offerList.last && !isVenetian && offerList.odd ? 'col-sm-offset-3' : ''} ${offerList.index > 1 ? 'offers-hide' : ''}">
+                <div class="col-sm-6 offer-item ">
                     <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
                          href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
                          rel="nofollow"
                          data-toggle="modal" class="offer-slider-container open-lightbox-offer"
                          data-target=".lightbox">
                         <div class="offer-slider-icon-container">
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = offer.voyageIcon}" />
                             <div class="offer-slider-icon"><img
-                                    src="${offer.voyageIcon @ context='uri'}"/>
+                                    src="${assetHelper.imageUrl @ context='uri'}?fmt=png-alpha&wid=60"/>
                             </div>
                         </div>
                         <div class="offer-slider-text">
@@ -23,9 +27,13 @@
                     </div>
                 </div>
             </sly>
-            <div class="col-sm-6 offer-item ${ (odd)  ? 'col-sm-offset-3' : ''} ${(offersNumber > 2)  ? 'offers-hide' : ''}"
+            <div class="col-sm-6 offer-item"
                  data-sly-test="${isVenetian}">
-                <div class="offer-slider-container">
+                <div data-sly-element="${VSLBPath ? 'a' : 'div'}"
+                     href="${VSLBPath  @ extension='html', selectors=['modalcontent']}"
+                     rel="nofollow"
+                     data-toggle="${VSLBPath ? 'modal' : ''}" class="offer-slider-container  ${VSLBPath ? 'open-lightbox-offer' : ''}"
+                     data-target="${VSLBPath ? '.lightbox' : ''}">
                     <div class="offer-slider-icon-container">
                         <div class="offer-slider-icon"><i class="icon-shield-v"></i></div>
                     </div>
@@ -36,11 +44,11 @@
                 </div>
             </div>
         </div>
-        <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
+       <!--/* <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
             <a data-ssc-accordion="show" class="btn btn-thin btn-white offers-show-btn" href="#">
-                <span class="offers-accordion-button">${'view-all' @ i18n}</span>
-                <span class="offers-accordion-button" style="display:none">${'close' @ i18n}</span>
+                <span class="offers-accordion-button">${'view-all-offers' @ i18n}</span>
+                <span class="offers-accordion-button" style="display:none">${'view-less' @ i18n}</span>
             </a>
-        </div>
+        </div>*/-->
     </div>
 </template>

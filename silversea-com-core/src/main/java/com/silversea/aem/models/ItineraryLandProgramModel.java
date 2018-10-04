@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
@@ -30,7 +31,7 @@ public class ItineraryLandProgramModel {
     private void init() {
         final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
-        if (pageManager != null) {
+        if (pageManager != null && StringUtils.isNotEmpty(landProgramReference)) {
             final Page landProgramPage = pageManager.getPage(landProgramReference);
 
             if (landProgramPage != null) {
@@ -41,6 +42,9 @@ public class ItineraryLandProgramModel {
 
     public String getTitle() {
         return landProgram != null ? landProgram.getTitle() : null;
+    }
+    public String getCustomTitle() {
+        return landProgram != null ? landProgram.getCustomTitle() : null;
     }
 
     public String getDescription() {
@@ -64,8 +68,8 @@ public class ItineraryLandProgramModel {
     }
 
     public LandProgramModel getLandProgram() {
-		return landProgram;
-	}
+        return landProgram;
+    }
 
     public String getAssetSelectionReference() {
         return landProgram != null ? landProgram.getAssetSelectionReference() : null;

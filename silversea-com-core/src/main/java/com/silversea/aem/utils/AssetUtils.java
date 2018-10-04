@@ -151,7 +151,7 @@ public class AssetUtils {
         return renditionList;
     }
 
-    public static SilverseaAsset buildSilverseaAsset(String setPath, ResourceResolver resourceResolver, String label) {
+    public static SilverseaAsset buildSilverseaAsset(String setPath, ResourceResolver resourceResolver, String label, String type) {
         if (setPath != null) {
             Resource member = resourceResolver.getResource(setPath);
 
@@ -161,6 +161,7 @@ public class AssetUtils {
                     SilverseaAsset sscAsset = new SilverseaAsset();
                     sscAsset.setPath(asset.getPath());
                     sscAsset.setName(asset.getName());
+                    sscAsset.setType(type);
                     if (StringUtils.isNotEmpty(label)) {
                         sscAsset.setLabel(label);
                     } else {

@@ -46,13 +46,16 @@ $(function () {
     });
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
+
         if (itineraryId && excursionId) {
-            $(".lightbox-prev-link, .lightbox-next-link").show();
-            setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId);
+            if ($(window).width()>1024 && setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
+                $(".lightbox-prev-link, .lightbox-next-link").show();
+            }
         }
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
+                setTopLightboxModal();
                 //history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
                 createSlider($modal);
                 //avoid ios issue
@@ -62,6 +65,9 @@ $(function () {
                 if ($("body").hasClass("viewport-sm")) {
                     $(".modal.lightbox").css("padding-left", "0px");
                 }
+                if ($(".lsh-title") != null && $(".lsh-title").html() != null) {
+                    $(".lsh-title").html($(".lsh-title").html().toLowerCase());
+                }
                 callback && callback();
             });
         };
@@ -70,11 +76,13 @@ $(function () {
             (function c(direction, opposite) {
                 var obj = {};
                 obj[direction] = '-100vw';
+                $('.lightbox-close').hide();
                 $modalContent.animate(obj, 400, function () {//this move it out of view from one side
                     loadContent(function () {
                         $modalContent.animate({left: '', right: ''}, 500, function () {//this bring back to view from the other side
                             $modalContent.css('left', '');//this is just to rest left && right because previous line put them to 0
                             $modalContent.css('right', '');
+                            $('.lightbox-close').fadeIn();
                         });
                     });
                     $modalContent.css(opposite, '-100vw');//this move it on the other side of the screen
@@ -90,35 +98,48 @@ $(function () {
     function setModalNavigation($modal, uri, itineraryId, excursionId) {
         try {
             var excursion = window['it' + itineraryId][excursionId];
+            if (excursion.prevId == excursionId) {
+                return false;
+            }
+            var subUri = uri.substring(0, uri.lastIndexOf('.')+1);
             var prev = $modal.find('.lightbox-prev-label');
             var next = $modal.find('.lightbox-next-label');
             var nextLink = $modal.find('.lightbox-next-link');
             var prevLink = $modal.find('.lightbox-prev-link');
             prev.html(excursion.prevLabel);
+            prev.attr('title', excursion.prevLabel);
             next.html(excursion.nextLabel);
+            next.attr('title', excursion.nextLabel);
+
             prevLink.data('target', $modal.attr('id'));
             prevLink.data('itinerary-id', itineraryId);
             prevLink.data('excursion-id', excursion.prevId);
-            prevLink.attr('href', uri);
+
+            var prevUri = subUri+excursion.prevKind;
+            prevLink.attr('href', prevUri);
+
             nextLink.data('target', $modal.attr('id'));
             nextLink.data('itinerary-id', itineraryId);
             nextLink.data('excursion-id', excursion.nextId);
-            nextLink.attr('href', uri);
+
+            var nextUri = subUri+excursion.nextKind;
+            nextLink.attr('href', nextUri);
         } catch (e) {
 
         }
+        return true;
     }
 
     function createSlider($modal) {
         var $mainSlider = $modal.find('.lightbox-land-shorex-hotel .lsh-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
                     settings: {
-                        arrows: false
+                        arrows: true
                     }
                 }
             ]

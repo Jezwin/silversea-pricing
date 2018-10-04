@@ -407,11 +407,25 @@ public class MultiCruisesImporterImpl implements MultiCruisesImporter {
 		 * String[]{"apiTitle", "importedDescription", "jcr:title", "sling:alias"}); } }
 		 */
 
-		if (StringUtils.isNotEmpty(cruise.getMapUrl())) {
+		if (StringUtils.isNotEmpty(cruise.getMapUrl())){
 			CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
-					cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(),"itinerary" ,mimeTypeService,
-					resourceResolver);
+					cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), "itinerary",mimeTypeService, resourceResolver);
 		}
+
+		if (StringUtils.isNotEmpty(cruise.getMap3Url())){
+			CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+					cruiseContentNode.getParent().getParent().getName(), cruise.getMap3Url(), "bigThumbnailItineraryMap",mimeTypeService, resourceResolver);
+		}
+
+		if (StringUtils.isNotEmpty(cruise.getMap4Url())){
+			CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+					cruiseContentNode.getParent().getParent().getName(), cruise.getMap4Url(), "bigItineraryMap",mimeTypeService, resourceResolver);
+		}
+
+            if (StringUtils.isNotEmpty(cruise.getMapPos())){
+                CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMapPos(), "smallItineraryMap",mimeTypeService, resourceResolver);
+            }
 
 		final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
 		final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();

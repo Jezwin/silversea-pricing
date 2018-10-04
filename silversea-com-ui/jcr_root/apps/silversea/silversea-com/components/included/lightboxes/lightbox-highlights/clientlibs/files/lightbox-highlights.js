@@ -23,6 +23,7 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
+                setTopLightboxModal();
             });
         });
     });

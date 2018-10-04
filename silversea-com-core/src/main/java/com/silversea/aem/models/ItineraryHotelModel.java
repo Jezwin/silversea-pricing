@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
@@ -30,7 +31,7 @@ public class ItineraryHotelModel {
     private void init() {
         final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
-        if (pageManager != null) {
+        if (pageManager != null && StringUtils.isNotEmpty(hotelReference)) {
             final Page hotelPage = pageManager.getPage(hotelReference);
 
             if (hotelPage != null) {
@@ -43,6 +44,9 @@ public class ItineraryHotelModel {
         return hotel != null ? hotel.getName() : null;
     }
 
+    public String getCustomTitle() {
+        return hotel != null ? hotel.getCustomTitle() : null;
+    }
     public String getDescription() {
         return hotel != null ? hotel.getDescription() : null;
     }

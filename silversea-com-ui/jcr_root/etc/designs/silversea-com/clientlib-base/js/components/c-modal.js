@@ -24,9 +24,8 @@ $(function () {
             //history.back();
         });
 
-        if ($modalBodyLightbox.hasClass("cruise-2018-offers")) {
-            $modalLightbox.find(".modal-dialog").find(".lightbox-close .lightbox-close-div i").addClass("lightbox-close-dark");
-        }
+
+
     });
 
     /***************************************************************************
@@ -130,6 +129,8 @@ $(function () {
                 window.virtualTour = null;
             }
         }
+
+
 
     });
 

@@ -1,11 +1,9 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.drew.lang.StringUtil;
+import org.apache.cxf.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -124,6 +122,10 @@ public class CruiseModelLight {
     }
 
     public String getTitle() {
+        if(!StringUtils.isEmpty(departurePortName) && !StringUtils.isEmpty(arrivalPortName) && !StringUtils.isEmpty(cruiseCode)){
+            String delimiter = "to";
+            return cruiseCode + " - " + getDeparturePortName() + " "+ delimiter + " " + getArrivalPortName();
+        }
         return title;
     }
 

@@ -33,6 +33,10 @@ Menu.prototype = {
                 }, {
                     progress: function (now, fx) {
                         $(".menu-overview-fixed").hide(0);
+                    },
+                    complete: function(){
+                        var $footerfixed = $(".fixed-footer-cruise");
+                        $footerfixed.slideUp();
                     }
                 });
                 $(".cruise-2018-menu-tab").removeClass('active');
@@ -55,8 +59,8 @@ Menu.prototype = {
                         $(".cruise-2018-menu-container.ssc-sticky-top").css('top', "-50px");
                     }
                 });
+
             });
-            //$stickyTop.css('top', ($(".c-header__container").height() + $(".c-main-nav__bottom").height() - 50) + "px");
         }
     },
 
@@ -82,8 +86,11 @@ $(function () {
     $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
         e.preventDefault();
         $target = $($(this).attr("href"));
+        var number = $target.position().top - menu.headerHeight() - 50 + parseInt($target.css('margin-top'));
+        console.log(number);
+        console.log($target.position().top);
         $([document.documentElement, document.body]).animate({
-            scrollTop: $target.position().top - menu.headerHeight(),
+            scrollTop: $target.position().top-100,
             duration: 500,
             easing: 'linear'
         });

@@ -8,12 +8,38 @@ import java.util.List;
 import java.util.Objects;
 
 public class CruisePrePost {
+    public enum PREPOSTMID {
+        PRE("PRE"), POST("POST"), MID("MID"), NONE("");
+        String name;
+
+        PREPOSTMID(String name) {
+            this.name = name;
+        }
+
+        public static PREPOSTMID retrieve(String code) {
+            if (code.matches(".*PO?ST.*")) {
+                return POST;
+            } else if (code.matches(".*PRE.*")) {
+                return PRE;
+            } else if (code.matches(".*MID.*")) {
+                return MID;
+            } else {
+                return NONE;
+            }
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
     private final String thumbnail;
-    private final String prePost;
+    private final PREPOSTMID prePost;
     private final String category;
     private final String id;
     private final String code;
     private final String title;
+    private final String customTitle;
     private final Integer nights;
     private final String type;
     private final Integer itineraryId;
@@ -30,7 +56,8 @@ public class CruisePrePost {
         this.id = hotel.getHotelId().toString();
         this.code = hotel.getCode();
         this.nights = 0;
-        this.prePost = hotel.getCode().matches(".*PO?ST.*") ? "POST" : "PRE";
+        this.customTitle = hotel.getCustomTitle();
+        this.prePost = PREPOSTMID.retrieve(hotel.getCode());
         this.type = "hotel";
         this.itineraryId = itineraryId;
     }
@@ -41,8 +68,9 @@ public class CruisePrePost {
         this.id = land.getLandId().toString();
         this.code = land.getLandCode();
         this.category = coutoureCollectoinCodes.contains(code) ? "Couture Collection" : "";
-        this.prePost = land.getLandCode().substring(3, 7).matches(".*PO?ST.*") ? "POST" : "PRE";
+        this.prePost = PREPOSTMID.retrieve(land.getLandCode().substring(2, 6));
         this.nights = numberOfNights(code);
+        this.customTitle = land.getCustomTitle();
         this.type = "land";
         this.itineraryId = itineraryId;
     }
@@ -74,7 +102,7 @@ public class CruisePrePost {
     }
 
     public String getPrePost() {
-        return prePost;
+        return prePost.getName();
     }
 
     public String getCategory() {
@@ -91,6 +119,10 @@ public class CruisePrePost {
 
     public String getId() {
         return id;
+    }
+
+    public String getCustomTitle() {
+        return customTitle;
     }
 
     public String getType() {

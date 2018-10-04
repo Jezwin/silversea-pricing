@@ -96,5 +96,4 @@ public class SuiteVariationModel {
    public String getShipId() {
 		return shipId;
    }
-
 }

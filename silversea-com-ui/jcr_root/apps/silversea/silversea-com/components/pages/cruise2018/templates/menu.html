@@ -8,13 +8,19 @@
                 </div>
                 <div class="row-menu-navigation">
                     <div class="cruise-2018-menu-tab-wrapper">
-                        <a href="#cruise2018offers" data-sly-test="${cruise.exclusiveOffers.size>0}"
+                        <a href="#cruise2018offers" data-sly-test="${cruise.totalNumberOfOffers >0}"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-first">
-                            <span class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
+                            <span data-sly-test="${cruise.totalNumberOfOffers == 1}" class="cruise-2018-menu-tab-text">${'offer' @i18n}</span>
+                            <span data-sly-test="${cruise.totalNumberOfOffers > 1}" class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
                         </a>
                         <a href="#cruise2018itinerary"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-second">
-                            <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
+                            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
+                                <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
+                            </sly>
+                            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+                                <span class="cruise-2018-menu-tab-text-big">${'itinerary' @ i18n}</span>
+                            </sly>
                             <span class="cruise-2018-menu-tab-text-small">${'itinerary' @ i18n}</span>
                         </a>
                         <a href="#cruise2018suites"
@@ -34,7 +40,7 @@
 </template>
 
 <template data-sly-template.overview="${ @ cruise }">
-    <div class="menu-overview-fixed" id="cruise2018menufixed">
+    <div class="menu-overview-fixed  hidden-xs" id="cruise2018menufixed">
         <div class="menu-container">
             <div class="menu-overview-destination col-sm-6 col-md-4">
                 <span class="departurePort">${cruise.cruiseModel.departurePortName}</span>
@@ -45,10 +51,12 @@
                         data-sly-use.dateStartDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}"
                         data-sly-use.dateEndDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.endDate}"
                         data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
-                    ${dateStartDay.value} ${'to' @ i18n} ${dateEndDay.value} ,${dateYear.value}
+                    ${dateStartDay.value}
+                    <span class="menu-date-days-to">${'to-date' @ i18n} </span>
+                    ${dateEndDay.value}, ${dateYear.value}
                 </div>
                 ${cruise.cruiseModel.duration}
-                ${'days' @ i18n}
+                <span class="menu-date-days-days">${'days' @ i18n}</span>
             </div>
             <div class="menu-price-raq col-sm-6 col-md-5 hidden-xs">
                 <div class="menu-quote-price col-sm-5 col-md-6">

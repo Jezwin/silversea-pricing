@@ -1,6 +1,7 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
@@ -8,6 +9,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.utils.CruiseUtils;
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
@@ -20,10 +22,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Model(adaptables = Page.class)
 public class CruiseModel {
@@ -169,6 +168,20 @@ public class CruiseModel {
 
     private String lang;
 
+    public static String cruiseType(TagManager tagManager, Resource cruise) {
+        if (tagManager != null) {
+            final Tag[] tags = tagManager.getTags(cruise);
+
+            for (final Tag tag : tags) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
+                    return tag.getName();
+                }
+            }
+            return tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
+        }
+        return null;
+    }
+
     @PostConstruct
     private void init() {
         if (itineraries == null) {
@@ -198,23 +211,17 @@ public class CruiseModel {
 
         // init cruise type and features
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        cruiseType = cruiseType(tagManager, page.getContentResource());
+
         if (tagManager != null) {
             final Tag[] tags = tagManager.getTags(page.getContentResource());
-
             for (final Tag tag : tags) {
-                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
-                    cruiseType = tag.getName();
-                } else if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
                     final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
-
                     if (featureModel != null) {
                         features.add(featureModel);
                     }
                 }
-            }
-
-            if (cruiseType == null) {
-                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
             }
         }
 
@@ -257,6 +264,26 @@ public class CruiseModel {
      * @return cruise title
      */
     public String getTitle() {
+        if (!StringUtils.isEmpty(getDeparturePortName()) && !StringUtils.isEmpty(getArrivalPortName()) &&
+                !StringUtils.isEmpty(cruiseCode)) {
+            final Locale pageLocale = page.getLanguage(false);
+            String delimiter = "to";
+            switch (pageLocale.getLanguage().toLowerCase()) {
+                case "es":
+                    delimiter = "a";
+                    break;
+                case "pt-br":
+                    delimiter = "a";
+                    break;
+                case "fr":
+                    delimiter = "à";
+                    break;
+                case "de":
+                    delimiter = "nach";
+                    break;
+            }
+            return cruiseCode + " - " + getDeparturePortName() + " " + delimiter + " " + getArrivalPortName();
+        }
         return title;
     }
 

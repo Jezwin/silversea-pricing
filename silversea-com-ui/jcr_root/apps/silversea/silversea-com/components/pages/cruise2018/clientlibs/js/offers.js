@@ -24,26 +24,11 @@ $(function () {
         });
     }
     
-    $(".offers .open-lightbox-offer").click(function () {
-        $(document).on('shown.bs.modal', function (e) {
-            var $modalBody = $(".modal.lightbox .modal-body");
-            if ($modalBody.hasClass("cruise-2018-offers")) {
-                $(".modal.lightbox .lightbox-close").addClass("lightbox-close-offer");
-            }
-        });
-        $(document).on('hidden.bs.modal', function (e) {
-            var $modalClose = $(".modal.lightbox .lightbox-close");
-            if ($modalClose.hasClass("lightbox-close-offer")) {
-                $(".modal.lightbox .lightbox-close").removeClass("lightbox-close-offer");
-            }
-        });
-    });
-
     $(document).ready(function () {
         if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".offers").length > 0) {
-            if ($(window).width() < 768) {
+           // if ($(window).width() < 768) {
                 initSliderOffer();
-            }
+           //}
         }
     });
 
@@ -54,9 +39,7 @@ $(function () {
             $galleries.each(function () {
                 var $this = $(this);
                 var widthSlider = $this.parent().find(".slick-dots").width();
-                if (widthSlider > 768) {
-                    widthSlider = 630;
-                }
+
                 var $dots = $this.parent().find("ul.slick-dots li");
                 var liItem = $dots.length;
                 var liWidth = Math.floor(widthSlider / liItem) - 1;
@@ -77,25 +60,37 @@ $(function () {
             $sliderActive.find('.lazy').lazy();
         }, 50);
     }
+    wofferC= $(window).width();
 
     function initSliderOffer() {
         var $slider = $(".offers .offer-slider");
         if ($slider) {
             $slider.slick({
-                centerMode: true,
-                dots: false,
+                dots: true,
                 draggable: true,
                 infinite: true,
-                slidesPerRow: 1,
-                slidesToShow: 1,
-                centerPadding: '30px'
+                slidesPerRow: 2,
+                slidesToShow: 2,
+                responsive : [  {
+                    breakpoint : 768,
+                    settings : {
+                        slidesToShow : 1,
+                        slidesToScroll : 1
+                    }
+                } ]
+               // centerPadding: '30px'
             });
         }
         createLineProgressBar();
         loadLazyImage($slider);
-        $(".offers .offer-slider").css("visibility","visible");
+        $(".offers .offer-slider").css("visibility", "visible");
         $slider.on('afterChange', function (event, slick, currentSlide) {
             loadLazyImage($(this));
+        });
+        $( window ).resize(function() {
+            if ($(window).width()==wofferC) return;
+            wofferC = $(window).width();
+            createLineProgressBar();
         });
     }
 });

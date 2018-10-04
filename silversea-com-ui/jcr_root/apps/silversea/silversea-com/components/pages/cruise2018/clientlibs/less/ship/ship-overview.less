@@ -23,8 +23,8 @@
     margin-bottom: 30px;
   }
   .cruise-2018-ship-overview-view-deck-plan-btn {
-    border-radius: @nd-button-border-radius;
-    border-width: 1px;
+    border-radius: @nd-button-border-radius !important;
+    border-width: 1px !important;
     border-color: @color-second;
     display: inline-block;
     font-family: @suisse;
@@ -51,8 +51,11 @@
 }
 
 @media screen and (min-width: @screen-sm) {
+
+  #cruise2018ship{
+    margin-top:50px;
+  }
   .cruise-2018-ship-overview {
-    margin-top: 50px;
     .cruise-2018-ship-overview-title {
       font-size: 30px;
       line-height: 32px;
@@ -71,7 +74,7 @@
     margin-top: 25px;
     margin-bottom: 25px;
     .cruise-2018-ship-overview-title {
-      font-size: 22px;
+      font-size: 25px;
       line-height: 24px;
     }
 
@@ -86,6 +89,10 @@
 .ship-slider-overview {
   .ship-slider {
     visibility: hidden;
+
+    .slick-slide.slick-cloned .video-link {
+      pointer-events: none;
+    }
 
     &.slick-initialized {
       visibility: visible !important;
@@ -150,17 +157,7 @@
     }
 
     .slick-prev {
-      left: -376px;
-      @media (min-width: 1920px) {
-        left: -410px;
-      }
-      @media (max-width: 1920px) and (min-width: 1510px) {
-        left: -376px;
-      }
-      @media (max-width: 1510px) and (min-width: 991px) {
         left: -88px;
-
-      }
       &:before,
       &:after {
 
@@ -171,17 +168,7 @@
     }
 
     .slick-next {
-      right: -376px;
-      @media (min-width: 1920px) {
-        right: -410px;
-      }
-      @media (max-width: 1920px) and (min-width: 1510px) {
-        right: -376px;
-      }
-      @media (max-width: 1510px) and (min-width: 991px) {
         right: -88px;
-
-      }
       &:before,
       &:after {
 
@@ -225,7 +212,6 @@
 
       .slick-slide {
         .ratio {
-          cursor: pointer;
           height: 435px;
           margin: 0;
           position: relative;

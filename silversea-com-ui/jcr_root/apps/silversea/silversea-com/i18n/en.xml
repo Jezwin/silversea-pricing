@@ -306,7 +306,7 @@
     <cruise-suites-and-fares-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-suites-and-fares-descr"
-        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
+        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite."/>
     <cruise-suites-and-fares-descr-v2
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-suites-and-fares-descr-v2"
@@ -515,6 +515,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-code"
         sling:message="Excursion Code"/>
+    <excursion
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="excursion"
+            sling:message="Excursion"/>
     <excursion-s
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"
@@ -527,6 +531,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-cruise"
         sling:message="expedition cruise"/>
+    <expedition-itinerary
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-itinerary"
+        sling:message="expedition itinerary"/>
     <expedition-team
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-team"
@@ -827,6 +835,14 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="offers"
             sling:message="Offers"/>
+    <offers-for-this-cruise
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offers-for-this-cruise"
+            sling:message="Offers for this cruise"/>
+    <offer-for-this-cruise
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offer-for-this-cruise"
+            sling:message="Offer for this cruise"/>
     <other-recent-journals
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-journals"
@@ -926,7 +942,7 @@
     <pre-post-extensions
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-extensions"
-        sling:message="Pre &amp; Post Cruise Extensions"/>
+        sling:message="Pre and Post Cruise Extensions"/>
     <night
         jcr:primaryType="sling:MessageEntry"
         sling:key="night"
@@ -1247,7 +1263,7 @@
     <suites-and-fares
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-and-fares"
-        sling:message="Suites and fares"/>
+        sling:message="Suites &amp; fares"/>
     <suites-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-descr"
@@ -1292,6 +1308,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="to"
         sling:message="To"/>
+    <to-date
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="to-date"
+            sling:message="To"/>
     <tonnage
         jcr:primaryType="sling:MessageEntry"
         sling:key="tonnage"
@@ -1332,6 +1352,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all"
         sling:message="View all"/>
+    <view-all-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-offers"
+        sling:message="View all offers"/>
+    <view-all-dining-options
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-all-dining-options"
+            sling:message="View all dining options"/>
+	<view-voyage-highlights
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-voyage-highlights"
+            sling:message="View voyage highlights"/>
     <view-all-excursions
             jcr:primaryType="sling:MessageEntry"
             sling:key="view-all-excursions"
@@ -1400,6 +1432,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage"
         sling:message="Voyage"/>
+    <voyage-number
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="voyage-number"
+            sling:message="Voyage Number"/>
     <voyage-highlights
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
@@ -1539,7 +1575,7 @@
 	<VS-EO-Message
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
-	    sling:message=" members of the Venetian Society enjoy an additional 5% saving on the cruise fare"/>
+	    sling:message=" Members of the Venetian Society enjoy an additional 5% saving on the cruise fare"/>
     <map jcr:primaryType="sling:MessageEntry"
          sling:key="map"
          sling:message="Map"/>
@@ -1550,7 +1586,7 @@
     <itinerary-and-excursions
         jcr:primaryType="sling:MessageEntry"
         sling:key="itinerary-and-excursions"
-        sling:message="Itinerary and excursions"/>
+        sling:message="Itinerary &amp; excursions"/>
     <itinerary
             jcr:primaryType="sling:MessageEntry"
             sling:key="itinerary"
@@ -1606,7 +1642,7 @@
     <up-to
         jcr:primaryType="sling:MessageEntry"
         sling:key="up-to"
-        sling:message="Up to "/>
+        sling:message="Up to"/>
     <ABW jcr:primaryType="sling:MessageEntry" sling:key="ABW" sling:message="Aruba" />
     <AFG jcr:primaryType="sling:MessageEntry" sling:key="AFG" sling:message="Afghanistan" />
     <AGO jcr:primaryType="sling:MessageEntry" sling:key="AGO" sling:message="Angola" />

@@ -5,12 +5,14 @@
         </sly>
         <div class="cruise-2018-ship-public-content cruise-2018-slider activate-progressbar">
             <sly data-sly-list.publicArea="${publicAreas}">
-                <div class="cruise-2018-ship-public-slide">
-                    <div class="cruise-2018-ship-public-slide-thumbnail">
-                        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                             data-sly-call="${imageTemplate.image @ imagePath=publicArea.thumbnail, width=400}"/>
+                <div class="cruise-2018-ship-public-slide cruise-2018-slide">
+                    <div class="cruise-2018-ship-public-slide-thumbnail cruise-2018-slide-thumbnail">
+                        <div class="ratio">
+                            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                                 data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=publicArea.thumbnail, Width='300'}"/>
+                        </div>
                     </div>
-                    <div class="cruise-2018-ship-public-slide-title">${publicArea.title}</div>
+                    <div class="cruise-2018-ship-public-slide-title">${publicArea.navigationTitle}</div>
                     <div class="cruise-2018-ship-public-slide-text">${publicArea.shortVoyageDescription @ context='html'}</div>
                 </div>
 

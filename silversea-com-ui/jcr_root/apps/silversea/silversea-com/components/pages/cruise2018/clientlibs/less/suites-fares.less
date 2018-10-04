@@ -6,6 +6,7 @@
   .cruise-2018-suites-fares-title {
     font-family: @freight;
     letter-spacing: 0.5px;
+    text-transform: capitalize;
   }
   .cruise-2018-suites-fares-description {
     font-family: @suisse;
@@ -101,7 +102,7 @@
     line-height: 20px;
   }
   .cruise-2018-suites-fares-waiting-list {
-    font-size: 13px !important;
+    font-size: 18px !important;
     letter-spacing: 1.5px !important;
     line-height: 16px !important;
   }
@@ -163,6 +164,7 @@
     line-height: 18px;
     margin-top: 25px;
     text-align: left;
+    font-style: italic;
   }
   .cruise-2018-suites-fares-included {
     display: block;
@@ -239,7 +241,7 @@
     }
 
     .cruise-2018-suites-fares-title {
-      font-size: 22px;
+      font-size: 25px;
       line-height: 24px;
     }
 
@@ -256,7 +258,7 @@
     }
 
     .cruise-2018-suites-fares-description-title {
-      font-size: 24px;
+      font-size: 23px;
       line-height: 20px;
     }
 
@@ -273,7 +275,7 @@
     }
 
     .cruise-2018-suites-fares-price-text {
-      font-size: 18px;
+      font-size: 20px;
       letter-spacing: 0.43px;
       line-height: 25px;
     }
@@ -288,7 +290,8 @@
     }
 
     .cruise-2018-suites-fares-footnote {
-      text-align: center;
+      text-align: left;
+      margin-left: 5%;
       font-size: 10px;
       line-height: 11px;
       letter-spacing: 1px;
@@ -308,6 +311,7 @@
 
   //sm-->md
   .cruise-2018-suites-fares {
+    margin-top: 50px;
     .cruise-2018-suites-fares-title {
       font-size: 30px;
       line-height: 32px;
@@ -316,6 +320,15 @@
       padding-left: @padding-fares !important;
       padding-right: @padding-fares !important;
     }
+    .cruise-2018-suites-fares-col:nth-child(even) {
+      padding-right: 18px !important;
+    }
+
+    .cruise-2018-suites-fares-col:nth-child(odd) {
+      padding-left: 18px !important;
+
+    }
+
     .cruise-2018-suites-fares-container:not(first) {
       margin-top: @padding-fares*2 !important;
     }
