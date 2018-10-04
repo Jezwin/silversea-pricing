@@ -11,8 +11,12 @@ $(document).on('shown.bs.modal', function (e) {
         });
     }
 
-
+    if ($("body").hasClass("cruise") && $modalLightbox.find(".aem-Grid").length > 0) {
+        setTopLightboxModal();
+        $modalLightbox.find(".modal-header").hide();
+    }
 });
+
 $('.modal.lightbox').on('hidden.bs.modal', function (e) {
     var $modalLightbox = $(".modal.lightbox");
     var $lightboxClose = $(this).find(".lightbox-close");
@@ -20,8 +24,6 @@ $('.modal.lightbox').on('hidden.bs.modal', function (e) {
     $modalContent.removeAttr("style");
     $lightboxClose.removeAttr("style");
     $modalLightbox.css("visibility", "hidden");
-
-
 });
 
 function setTopLightboxModal() {
