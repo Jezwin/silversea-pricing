@@ -48,7 +48,7 @@ $(function () {
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
 
         if (itineraryId && excursionId) {
-            if (setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
+            if ($(window).width()>1024 && setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
                 $(".lightbox-prev-link, .lightbox-next-link").show();
             }
         }

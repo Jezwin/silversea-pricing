@@ -147,7 +147,7 @@
     <call-reservations-team-learn-excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Call our Reservations Team to know more about our excursions"/>
+            sling:message="Ligue à nossa Equipa de Reservas para saber mais sobre as nossas excursões."/>
     <check-phone-format
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1323,15 +1323,15 @@
     <view-all-offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="View all offers"/>
+            sling:message="Ver todas as ofertas"/>
     <view-all-dining-options
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="View all dining options"/>
+            sling:message="Ver todas as opções de refeição"/>
 	<view-voyage-highlights
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="View voyage highlights"/>
+            sling:message="Ver as atrações principais do cruzeiro"/>
     <view-all-excursions
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
