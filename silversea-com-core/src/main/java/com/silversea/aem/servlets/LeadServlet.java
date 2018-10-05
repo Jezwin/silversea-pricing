@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
 import com.silversea.aem.components.beans.Lead;
+import com.silversea.aem.utils.DateUtils;
 import com.silversea.aem.utils.LeadUtils;
 import com.silversea.aem.ws.lead.service.LeadService;
 
@@ -203,6 +206,11 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			LOGGER.debug("Lead service request {}", e);
 			String tempId = StringUtils.EMPTY;
 			try {
+				if (lead != null) {
+					lead.setSubmitDate(DateUtils.formatDate("yyyy-MM-dd hh:mm:ss zzz", new Date()));
+					Gson gson = new Gson();
+					body = gson.toJson(lead);
+				}
 				tempId = LeadUtils.generateLeadDataFile(resourceResolverFactory, request, body, getEmailAddress(body));
 			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e1) {
 				LOGGER.error("The temporary ID couldn't be generated. Please check your settings. {} {}", e,

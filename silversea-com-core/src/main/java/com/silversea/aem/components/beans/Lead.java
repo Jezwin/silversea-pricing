@@ -45,6 +45,8 @@ public class Lead {
     private String from_email;
     private String bookingnumber;
     private String vsnumber;
+    // Lead Arrival Date
+    private String submitDate;
 
     public String getPostaladdress() {
         return postaladdress;
@@ -388,6 +390,13 @@ public class Lead {
 	public void setFrom_email(String from_email) {
 		this.from_email = from_email;
 	}
-	
+
+	public String getSubmitDate() {
+		return submitDate;
+	}
+
+	public void setSubmitDate(String submitDate) {
+		this.submitDate = submitDate;
+	}
 	
 }
