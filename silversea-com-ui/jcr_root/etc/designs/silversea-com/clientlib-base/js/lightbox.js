@@ -33,17 +33,19 @@ function setTopLightboxModal() {
     var $modalContent = $modalLightbox.find(".modal-content");
     var $modalContenHeight = $modalContent.height();
     var $windowHeight = $(window).height();
+
     if ($(window).width() > 768) {
         try {
-            var topModalContent = ($modalContenHeight / $windowHeight);
-            var topModalContent = topModalContent > 0.5 ? 1 - topModalContent : topModalContent;
-            if (($modalContenHeight > $windowHeight) || (topModalContent < 0.16)) {
+            var topModalContent = Math.round(($modalContenHeight / $windowHeight)*100) / 100;
+            if ($modalContenHeight > $windowHeight || topModalContent >= 0.6 ){
                 $lightboxClose.css("top", "0px");
                 $modalContent.css("top", "45px");
-            } else {
-                topModalContent = Math.round($modalContenHeight * topModalContent) - 45;
-                $modalContent.css("top", topModalContent + "px");
-                $lightboxClose.css("top", topModalContent - 45 + "px");
+                //console.log("0px", " 45px","because $modalContenHeight > $windowHeight");
+            } else if (topModalContent < 0.6) {
+                var top = Math.round($windowHeight * 0.3) - 45;
+                $modalContent.css("top", top + "px");
+                $lightboxClose.css("top", top - 45 + "px");
+                //console.log(top, "px", (top - 45), " px", "topModalContent < 0.5");
             }
         } catch (e) {
             console.log(e);
@@ -53,4 +55,8 @@ function setTopLightboxModal() {
         $modalContent.css("top", "45px");
     }
     $modalLightbox.css("visibility", "visible");
+
+    //debug
+    console.log("topModalContent", topModalContent);
+    console.log("$modalContenHeight", $modalContenHeight, " $windowHeight", $windowHeight);
 };//setTopLightboxModal
