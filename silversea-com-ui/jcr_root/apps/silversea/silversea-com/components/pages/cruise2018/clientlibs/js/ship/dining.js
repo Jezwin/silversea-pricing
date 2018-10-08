@@ -6,6 +6,11 @@ $(function () {
 
     function viewLess(e) {
         $('.cruise-2018-accordion').slideUp();
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $('#cruise2018shipdining').position().top-100,
+            duration: 500,
+            easing: 'linear'
+        });
     }
 
     function displayLazy() {
