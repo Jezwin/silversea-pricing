@@ -41,11 +41,11 @@ function setTopLightboxModal(height) {
                 $modalContenHeight = $modalContenHeight + height;
             }
             var topModalContent = Math.round(($modalContenHeight / $windowHeight)*100) / 100;
-            if ($modalContenHeight > $windowHeight || topModalContent >= 0.6 ){
+            if ($modalContenHeight > $windowHeight || topModalContent >= 0.62 ){
                 $lightboxClose.css("top", "0px");
                 $modalContent.css("top", "45px");
                 //console.log("0px", " 45px","because $modalContenHeight > $windowHeight");
-            } else if (topModalContent < 0.6) {
+            } else if (topModalContent < 0.62) {
                 var top = Math.round($windowHeight * 0.3) - 45;
                 $modalContent.css("top", top + "px");
                 $lightboxClose.css("top", top - 45 + "px");
