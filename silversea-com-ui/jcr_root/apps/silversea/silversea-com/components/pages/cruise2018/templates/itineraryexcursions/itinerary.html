@@ -160,7 +160,7 @@
 
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper ${itineraryList.last ? '' : 'bordered'}"
                          style="display:none;">
-                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${excursionDescription @context='html'} </div>
+                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description ${itineraryList.last ? 'cruise-2018-itineraries-excursions-accordion-last' : ''}">${excursionDescription @context='html'} </div>
                         <div data-sly-test="${hasShorex}"
                              class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">
                             <sly data-sly-test="${hasExcursions}">
