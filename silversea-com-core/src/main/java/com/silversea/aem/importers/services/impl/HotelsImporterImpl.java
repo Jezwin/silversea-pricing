@@ -646,8 +646,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 LOGGER.info("HOTEL IMPORT IMAGES update hotel {}",pathNodeResource.getPath());
                                 successNumber++;
                             } else {
-                                LOGGER.warn("Error during updating of {} with value ", pathNodeResource.getPath(),
-                                        setName);
+                                LOGGER.warn("Error during updating of {} with value ");
                                 errorNumber++;
                             }
                         }
