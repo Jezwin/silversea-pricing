@@ -174,14 +174,14 @@
     position: relative;
   }
   .cruise-2018-itineraries-port-excursions-moredetails {
+    display: table;
     cursor: pointer;
     position: absolute;
     z-index: 10;
-    height: calc(100% + 1px);
+    height: calc(100% + 2px);
     width: 100%;
     left: 0;
     top: -1px;
-    padding: 30px 0px;
     vertical-align: middle;
     text-align: center;
     color: transparent;
@@ -194,6 +194,10 @@
     font-size: 13px;
     letter-spacing: 1.5px;
     line-height: 16px;
+    span{
+      display:table-cell;
+      vertical-align:middle;
+    }
   }
   .cruise-2018-itineraries-port-excursions::after {
     content: " ";

@@ -32,9 +32,10 @@
                 class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
                 data-itinerary-id="${itinerary.itineraryId}" data-excursion-id="${id}"
                 href="${request.requestURI @ extension='', selectors=['lightboxes.lg-land-shorex-hotel',lightbox]}">
-                    <span class="cruise-2018-itineraries-port-excursions-moredetails">
+            <div class="cruise-2018-itineraries-port-excursions-moredetails">
+                    <span>
                         ${'view-more-details' @ i18n}
-                    </span>
+                    </span></div>
         </a>
         ${title}
         <div class="cruise-2018-itineraries-port-excursions-excursion-features" data-sly-list.feature="${features}"
