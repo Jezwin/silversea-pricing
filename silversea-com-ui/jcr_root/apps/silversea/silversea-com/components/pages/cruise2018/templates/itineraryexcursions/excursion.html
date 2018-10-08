@@ -1,6 +1,6 @@
-<template data-sly-template.default="${ @ itinerary, excursions, mid, size, cruise }">
+<template data-sly-template.default="${ @ itinerary, excursions, mid, size, cruise,itineraryLast }">
     <div style="display:none;"
-         class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion"
+         class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion  ${itineraryLast ? 'cruise-2018-itineraries-port-excursions-last' : ''}"
          id="cruise2018itineraryexcursion">
         <sly data-sly-list.midEx="${mid}">
             <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
