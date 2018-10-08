@@ -214,7 +214,7 @@ var v1 = function () {
 
             var $matchingValueND = $('#matching-value-nd');
 
-            $matchingValueND.closest('.c-fyc-filter__text').toggleClass('results', parseInt($('#matching-value-nd').text()) > 1);
+            $matchingValueND.closest('.c-fyc-v1-filter__text').toggleClass('results', parseInt($('#matching-value-nd').text()) > 1);
 
             return resultLabel;
         })();
@@ -606,7 +606,7 @@ var v2 = function () {
 
             var $matchingValueND = $('#v2-matching-value-nd');
 
-            $matchingValueND.closest('.c-fyc-v2-filter__text').toggleClass('results', parseInt($('#v2-matching-value-nd').text()) > 1);
+            $matchingValueND.closest('.c-fyc-v1-filter__text').toggleClass('results', parseInt($('#v2-matching-value-nd').text()) > 1);
 
             return resultLabel;
         })();
