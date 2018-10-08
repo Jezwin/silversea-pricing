@@ -75,6 +75,11 @@ $(function () {
                 $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
+
+                $(".lightbox-suite .lg-suite-features .lg-suite-features-expand").on("click", function (e) {
+                    showSuiteFeatures(this, e);
+                });
+
                 $(".lightbox-suite .lg-suite-overview .lg-suite-description-expand").on("click", function (e) {
                     showDescription(this, e);
                 });
