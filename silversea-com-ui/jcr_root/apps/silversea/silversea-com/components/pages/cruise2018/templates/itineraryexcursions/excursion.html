@@ -5,7 +5,7 @@
         <sly data-sly-list.midEx="${mid}">
             <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
                  data-sly-call="${subExcursion.sub @ itinerary=itinerary, index = midExList.index, id = midEx.landId,
-                 description = midEx.description, lightbox= 'lg-midShorex', title = midEx.title, isMid=true}">
+                 description = midEx.description, lightbox= 'lg-midShorex', title = midEx.title, isMid=true, features =null, isLast=midExList.last}">
             </sly>
         </sly>
         <sly data-sly-list.excursion="${excursions}"
@@ -13,7 +13,7 @@
             <sly data-sly-test.description="${excursion.longDescription || excursion.apiLongDescription || excursion.description }"/>
             <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
                  data-sly-call="${subExcursion.sub @ itinerary=itinerary, index = excursionList.index, id = excursion.shorexId,
-                 description = description, lightbox= lightbox, title = excursion.title, isMid=false,features= excursion.features}">
+                 description = description, lightbox= lightbox, title = excursion.title, isMid=false,features= excursion.features, isLast=excursionList.last}">
             </sly>
         </sly>
 
@@ -26,8 +26,8 @@
         </div>
     </div>
 </template>
-<template data-sly-template.sub="${ @itinerary, index, id,description,  lightbox, title, isMid, features}">
-    <div class="${index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion ${description  ? '' : 'cruise-2018-itineraries-port-excursions-excursion-no-content'}">
+<template data-sly-template.sub="${ @ itinerary, index, id,description,  lightbox, title, isMid, features, isLast}">
+    <div class="${index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion ${description  ? '' : 'cruise-2018-itineraries-port-excursions-excursion-no-content'} ${isLast == true ? 'cruise-2018-itineraries-port-excursions-excursion-last' : ''}">
         <a
                 class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
                 data-itinerary-id="${itinerary.itineraryId}" data-excursion-id="${id}"
