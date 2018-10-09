@@ -89,7 +89,7 @@ $(function () {
         var number= $("body").hasClass("mobile") ? 65 : 100;
         $([document.documentElement, document.body]).animate({
             scrollTop: $target.position().top - number,
-            duration: 500,
+            duration: 1200,
             easing: 'linear'
         });
     });

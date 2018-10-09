@@ -74,17 +74,20 @@ $(function () {
     if ($(window).width() < 768) {
         createOverviewGallerySlider();
     }
-    $("a.coolanchorminussmall").click(function () {
+    $("a.coolanchorminussmall").click(function (e) {
         //check if it has a hash (i.e. if it's an anchor link)
         if (this.hash) {
             var hash = this.hash.substr(1);
             var $toElement = $("[id=" + hash + "]");
-            var number= $("body").hasClass("mobile") ? 65 : 100;
+            var $body = $('body');
+            var number= $body.hasClass("mobile") ? 65 : 100;
             var toPosition = $toElement.position().top - number;
             //scroll to element
             $("body,html").animate({
                 scrollTop: toPosition
-            }, 1000);
+            }, 1500);
+
+            $body.focus();
             return false;
         }
     });
