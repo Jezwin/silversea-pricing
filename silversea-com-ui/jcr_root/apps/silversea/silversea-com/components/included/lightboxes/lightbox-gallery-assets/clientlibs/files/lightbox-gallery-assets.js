@@ -24,7 +24,7 @@ $(function () {
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
                 createLigthboxGallerySlider($modal, $link);
-                setTopLightboxModal();
+                setTopLightboxModal(0);
             });
         });
     });

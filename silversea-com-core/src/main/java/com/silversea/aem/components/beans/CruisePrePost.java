@@ -34,6 +34,7 @@ public class CruisePrePost {
     }
 
     private final String thumbnail;
+    private final String fallbackThumbnail;
     private final PREPOSTMID prePost;
     private final String category;
     private final String id;
@@ -49,8 +50,9 @@ public class CruisePrePost {
                     "09PSTCAOBR"
             );//Mario dixit
 
-    public CruisePrePost(Integer itineraryId, String thumbnail, HotelModel hotel) {
+    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, HotelModel hotel) {
         this.thumbnail = thumbnail;
+        this.fallbackThumbnail = fallbackThumbnail;
         this.category = hotel.getCategory();
         this.title = hotel.getPage().getTitle();
         this.id = hotel.getHotelId().toString();
@@ -62,8 +64,9 @@ public class CruisePrePost {
         this.itineraryId = itineraryId;
     }
 
-    public CruisePrePost(Integer itineraryId, String thumbnail, LandProgramModel land) {
+    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, LandProgramModel land) {
         this.thumbnail = thumbnail;
+        this.fallbackThumbnail = fallbackThumbnail;
         this.title = land.getTitle();
         this.id = land.getLandId().toString();
         this.code = land.getLandCode();
@@ -131,6 +134,10 @@ public class CruisePrePost {
 
     public Integer getItineraryId() {
         return itineraryId;
+    }
+
+    public String getFallbackThumbnail() {
+        return fallbackThumbnail;
     }
 
     public String getCode() {

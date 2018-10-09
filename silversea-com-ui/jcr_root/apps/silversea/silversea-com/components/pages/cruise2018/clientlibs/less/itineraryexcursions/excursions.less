@@ -24,6 +24,12 @@
 
   }
 
+  .cruise-2018-itineraries-port-excursions-last {
+    .cruise-2018-itineraries-port-excursions-excursion-last {
+      border-bottom: none !important;
+    }
+  }
+
   .cruise-2018-itineraries-port-excursions-excursion {
     width: 100%;
     padding-right: 30px;
@@ -54,6 +60,7 @@
     padding-bottom: 15px;
     padding-top: 15px;
   }
+
   .cruise-2018-itineraries-port-excursions-excursion-view-all {
     display: none;
   }
@@ -173,14 +180,14 @@
     position: relative;
   }
   .cruise-2018-itineraries-port-excursions-moredetails {
+    display: table;
     cursor: pointer;
     position: absolute;
     z-index: 10;
-    height: calc(100% + 1px);
+    height: calc(100% + 2px);
     width: 100%;
     left: 0;
     top: -1px;
-    padding: 30px 0px;
     vertical-align: middle;
     text-align: center;
     color: transparent;
@@ -193,6 +200,10 @@
     font-size: 13px;
     letter-spacing: 1.5px;
     line-height: 16px;
+    span{
+      display:table-cell;
+      vertical-align:middle;
+    }
   }
   .cruise-2018-itineraries-port-excursions::after {
     content: " ";

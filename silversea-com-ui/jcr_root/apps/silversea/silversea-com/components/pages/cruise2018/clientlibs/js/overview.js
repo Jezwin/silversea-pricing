@@ -79,7 +79,8 @@ $(function () {
         if (this.hash) {
             var hash = this.hash.substr(1);
             var $toElement = $("[id=" + hash + "]");
-            var toPosition = $toElement.position().top - 100;
+            var number= $("body").hasClass("mobile") ? 65 : 100;
+            var toPosition = $toElement.position().top - number;
             //scroll to element
             $("body,html").animate({
                 scrollTop: toPosition

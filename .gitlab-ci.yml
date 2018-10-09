@@ -206,7 +206,7 @@ mvn_build_mig_publish1_prod:
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.1877:4503
+        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.187:4503
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-MIGP$/
 

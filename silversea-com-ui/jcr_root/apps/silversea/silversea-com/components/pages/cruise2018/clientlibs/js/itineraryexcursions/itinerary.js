@@ -21,11 +21,9 @@ $(function () {
         if ($arrow.data('ssc-accordion') === 'show') {
             $this.parent().find('.cruise-2018-itineraries-excursions-accordion').slideDown(200, 'linear');
             $arrow.data('ssc-accordion', 'hide');
-            $this.css("border-bottom-style", "none");
         } else if ($arrow.data('ssc-accordion') === 'hide') {
             $this.parent().find('.cruise-2018-itineraries-excursions-accordion').slideUp();
             $arrow.data('ssc-accordion', 'show');
-            $this.css("border-bottom-style", "solid");
         }
         $arrow.blur();
         $arrow.find('i').toggle();
@@ -36,11 +34,19 @@ $(function () {
     $(".cruise-2018-itineraries-itinerary-row-container-with-excursion").on('click', toggleExcursions);
 
     $(".cruise-2018-itineraries-itinerary-row-container.cruise-2018-itineraries-itinerary-row-container-with-excursion").mouseover(function (e) {
-        $(this).closest('.cruise-2018-itineraries-itinerary').prev().prev()
-            .find('.cruise-2018-itineraries-itinerary-row-container').css('border-bottom-color', 'rgb(214, 5, 36)');
-    }).mouseout(function(e){
-        $(this).closest('.cruise-2018-itineraries-itinerary').prev().prev()
-            .find('.cruise-2018-itineraries-itinerary-row-container').css('border-bottom-color', 'rgba(152, 152, 155, 0.5)');
+        var prev = $(this).closest('.cruise-2018-itineraries-itinerary').prev().prev();
+        var find = prev.find('.bordered:visible:last');
+        if (find.length == 0) {
+            find = prev.find('.cruise-2018-itineraries-itinerary-row-container')
+        }
+        find.css('border-bottom-color', 'rgb(214, 5, 36)');
+    }).mouseout(function (e) {
+        var prev = $(this).closest('.cruise-2018-itineraries-itinerary').prev().prev();
+        var find = prev.find('.bordered:visible');
+        if (find.length == 0) {
+            find = prev.find('.cruise-2018-itineraries-itinerary-row-container')
+        }
+        find.css('border-bottom-color', 'rgba(152, 152, 155, 0.5)');
     });
 
     $(document).ready(function () {
