@@ -35,7 +35,7 @@ $(function () {
 
     $(".cruise-2018-itineraries-itinerary-row-container.cruise-2018-itineraries-itinerary-row-container-with-excursion").mouseover(function (e) {
         var prev = $(this).closest('.cruise-2018-itineraries-itinerary').prev().prev();
-        var find = prev.find('.bordered:visible');
+        var find = prev.find('.bordered:visible:last');
         if (find.length == 0) {
             find = prev.find('.cruise-2018-itineraries-itinerary-row-container')
         }
