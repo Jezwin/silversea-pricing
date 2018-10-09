@@ -131,15 +131,10 @@
     position: relative;
   }
   .cruise-2018-itineraries-itinerary-row-day-wrapper-debark {
-    line-height: 0;
-    border: 1px solid @white;
-    font-size: 32px;
-    display: inline-block;
-    vertical-align: top;
-    background: @white;
 
     .cruise-2018-itineraries-itinerary-row-day-content {
-      margin-left: 0px;
+      padding-bottom: 10px;
+      padding-top: 10px;
     }
   }
   .cruise-2018-itineraries-itinerary-row-day::after {
@@ -160,6 +155,7 @@
   .cruise-2018-itineraries-itinerary-row-day-last::after {
     display: none;
   }
+
   .cruise-2018-itineraries-itinerary-row-day-content {
     font-size: 10px;
     display: inline-block;
@@ -254,8 +250,10 @@
   .cruise-2018-itineraries-show-more-wrapper {
     display: table;
     padding-bottom: 14px;
+    margin-bottom: 14px;
     &.bordered {
-      border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+      border-bottom: 1px solid;
+      border-bottom-color: rgba(152, 152, 155, 0.5);
     }
   }
 
@@ -279,7 +277,7 @@
     max-width: 1152px;
     left: 50%;
     transform: translateX(-50%);
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
 
   .cruise-2018-itinerary-slider {
@@ -531,7 +529,7 @@
       margin-bottom: 5px;
 
     }
-    .cruise-2018-itineraries-itinerary-row-container{
+    .cruise-2018-itineraries-itinerary-row-container {
       pointer-events: none;
 
     }

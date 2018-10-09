@@ -247,7 +247,7 @@ public class Cruise2018Use extends EoHelper {
             result.add(
                     new CruiseItinerary(days.size(), counter == 0, counter == size - 1,
                             ofNullable(portAssets.get(portId).poll()).orElse(itinerary.getPort().getThumbnail()),
-                            isNextDaySamePort, itinerary, cruiseModel.getCruiseType()));
+                            isNextDaySamePort, itinerary, cruiseModel.getCruiseType(), getResourceResolver()));
         }
         result.sort(comparing(CruiseItinerary::getDate));
         return result;

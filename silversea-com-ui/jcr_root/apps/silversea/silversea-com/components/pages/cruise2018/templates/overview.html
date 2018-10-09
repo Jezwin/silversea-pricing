@@ -4,8 +4,12 @@
         <div class="cruise-2018-overview-big-pic col-sm-6 col-xs-12"
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
              data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
-            <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"/>
-            <sly data-sly-test.cruiseMobileImg="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"/>
+            <sly data-sly-list.asset="${cruise.assetsGallery}">
+                <sly data-sly-test="${asset.path && assetList.index < 1}" data-sly-test.firstAssetGalleryImg="${asset.path}" />
+            </sly>
+
+            <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary || firstAssetGalleryImg}"/>
+            <sly data-sly-test.cruiseMobileImg="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary || firstAssetGalleryImg}"/>
             <div class="open-lightbox-gallery-assets" data-target=".lightbox">
                 <picture data-sly-test="${cruiseDesktopImg || cruiseMobileImg}">
                     <sly data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseDesktopImg}"/>
@@ -32,19 +36,21 @@
             </a>
         </div>
         <div class="ow-slider ow-slider--main main-slider visible-xs">
-            <div data-sly-repeat.asset="${cruise.assetsGallery}" data-image="${asset.path}">
-                <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"
-                     id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
-                     data-image-virtual-tour="${asset.path}"
-                     data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
-                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=asset.path, Width=700}" />
-                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
-                    <sly data-sly-test.isVideo="${isVideo}">
-                        <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
-                    </sly>
+            <sly data-sly-repeat.asset="${cruise.assetsGallery}">
+                <div data-image="${asset.path}" data-sly-test="${asset.path}">
+                    <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"
+                         id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
+                         data-image-virtual-tour="${asset.path}"
+                         data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=asset.path, Width=700}" />
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                        <sly data-sly-test.isVideo="${isVideo}">
+                            <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
+                        </sly>
+                    </div>
+                    <div data-sly-test="${asset.type == 'virtual-tour'}" id="ow-virtual-tour-${assetList.index}-container"></div>
                 </div>
-                <div data-sly-test="${asset.type == 'virtual-tour'}" id="ow-virtual-tour-${assetList.index}-container"></div>
-            </div>
+            </sly>
         </div>
         <div class="cruise-2018-overview-description col-sm-6 col-xs-12">
             <div class="cruise-2018-overview-description-cruise">

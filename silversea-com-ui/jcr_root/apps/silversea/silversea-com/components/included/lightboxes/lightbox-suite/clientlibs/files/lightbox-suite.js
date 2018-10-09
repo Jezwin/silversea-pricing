@@ -69,12 +69,17 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
-                setTopLightboxModal();
+                setTopLightboxModal(432);
                 createSlider($modal, $link);
 
                 $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
+
+                $(".lightbox-suite .lg-suite-features .lg-suite-features-expand").on("click", function (e) {
+                    showSuiteFeatures(this, e);
+                });
+
                 $(".lightbox-suite .lg-suite-overview .lg-suite-description-expand").on("click", function (e) {
                     showDescription(this, e);
                 });

@@ -45,7 +45,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
         excursionsDisactive, landProgramsDisactive, hotelsDisactive, citiesDisactive,
 
-        importAllPortImages, portsGeneration, FYCCacheRebuild
+        importAllPortImages, portsGeneration, FYCCacheRebuild, hotelImagesGeneration
     }
 
     @Reference
@@ -213,6 +213,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 portsImporter.importAllItems();
             }else if(mode.equals(Mode.FYCCacheRebuild)) {
                     cruisesCacheService.buildCruiseCache();                
+            } else if (mode.equals(Mode.hotelImagesGeneration)) {
+                hotelsImporter.importHotelImages();
             }
 
         } catch (ImporterException e) {

@@ -132,7 +132,7 @@
 
   @media screen and (max-width: @screen-sm) {
     .ssc-table-full-width {
-      width: 94vw;
+      width: 93vw;
     }
 
     .cruise-2018-menu {
@@ -148,10 +148,17 @@
         display: none;
       }
       .ssc-sticky-top {
-        width: 94vw !important;
+        width: 34vw !important;
       }
     }
 
+  }
+
+  @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max ) {
+    .ssc-table-full-width {
+      width: 96% !important;
+      min-width: 96% !important;
+    }
   }
   @media screen and (min-width: @screen-sm) {
     .ssc-table-full-width {
@@ -302,7 +309,7 @@
 
 @media (max-width: @screen-sm) {
   .row-menu-navigation {
-    width: 95%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
