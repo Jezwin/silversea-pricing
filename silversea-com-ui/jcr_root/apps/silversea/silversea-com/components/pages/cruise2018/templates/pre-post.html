@@ -2,7 +2,7 @@
     <div class="cruise-2018-prepost-wrapper hidden-xs" id="cruise2018prepost">
         <div class="cruise-2018-prepost">
             <sly data-sly-test.prePosts="${cruise.prePost}">
-                <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n} & ${'hotels' @i18n}</div>
+                <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n} ${'and' @i18n} ${'hotels' @i18n}</div>
                 <div data-ssc-slides="4" data-ssc-breakpoint="1024"
                      class="cruise-2018-prepost-content cruise-2018-slider">
                     <sly data-sly-list.prePost="${cruise.prePost}">

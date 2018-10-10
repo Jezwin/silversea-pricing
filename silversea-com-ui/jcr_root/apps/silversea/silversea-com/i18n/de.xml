@@ -901,7 +901,7 @@
     <pre-post-extensions
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Verlängerungen vor und nach der Kreuzfahrt"/>
+        sling:message="Verlängerungen vor &amp; nach der Kreuzfahrt"/>
     <night
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
