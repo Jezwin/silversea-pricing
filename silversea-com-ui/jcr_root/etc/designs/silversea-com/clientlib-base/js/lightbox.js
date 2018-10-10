@@ -6,7 +6,7 @@ $(document).on('shown.bs.modal', function (e) {
 
     if ($modalBody.hasClass("cruise-2018-offers")) {
         setTopLightboxModal(0);
-        $(".cruise-2018-modal-exclusive-offer-title .open, .cruise-2018-modal-exclusive-offer-title .times").each(function () {
+        $(".cruise-2018-modal-exclusive-offer-title .open, .cruise-2018-modal-exclusive-offer-title .times, .cruise-2018-offers .title").each(function () {
             $(this).html($(this).html().toLowerCase());
         });
     }
