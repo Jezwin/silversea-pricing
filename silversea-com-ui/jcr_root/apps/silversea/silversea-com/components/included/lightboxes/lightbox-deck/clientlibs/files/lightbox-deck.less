@@ -6,7 +6,7 @@
 
 .lightbox-deck {
 
-  .cruise-invisible{
+  .cruise-invisible {
     visibility: hidden;
   }
   .lg-content {
@@ -31,12 +31,12 @@
       width: 100% !important;
       padding-left: 0px !important;
 
-      .label-spec{
-          position: relative !important;
-          display: inline !important;
-          height: 100% !important;
-          width: 100% !important;
-          float: unset !important;
+      .label-spec {
+        position: relative !important;
+        display: inline !important;
+        height: 100% !important;
+        width: 100% !important;
+        float: unset !important;
       }
       .value-spec {
         position: relative !important;
@@ -46,7 +46,7 @@
         float: unset !important;
       }
     }
-    
+
     .row {
       margin-left: 0px;
       margin-right: 0px;
@@ -110,6 +110,15 @@
     }
     .lg-deck-tab {
       text-align: center;
+    }
+    .lg-deck-number:first-of-type {
+      span {
+        margin-left: 0;
+        &:after {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
     }
     .lg-deck-number {
       display: inline-block;
@@ -201,7 +210,7 @@
           font-size: 13px;
           letter-spacing: 1.5px;
           line-height: 16px;
-          margin-left: 30px;
+          margin-left: 27px;
         }
         span::after {
           margin-left: 32%;
@@ -227,7 +236,7 @@
       padding-top: 25px;
       position: relative;
 
-      .row-right, .row-left{
+      .row-right, .row-left {
         padding-left: 0px;
         padding-right: 0px
       }
