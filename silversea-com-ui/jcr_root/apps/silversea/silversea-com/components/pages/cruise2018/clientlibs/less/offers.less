@@ -1,13 +1,13 @@
 @iconSize: 60px;
 .offers {
   margin-top: 25px;
-  .offer-slider:not(.slick-initialized){
-    display:none;
+  .offer-slider:not(.slick-initialized) {
+    display: none;
   }
 
-  .offer-slider{
+  .offer-slider {
     .slick-track {
-      margin:auto;
+      margin: auto;
     }
   }
 
@@ -83,7 +83,7 @@
     width: @iconSize;
     border-radius: @iconSize/2;
     margin: 20px auto;
-    margin-top:30px;
+    margin-top: 30px;
     i {
       font-size: 60px;
       line-height: @iconSize;
@@ -182,70 +182,69 @@
   }
 
   .slick-next {
-    right:-65px;
+    right: -65px;
     &:before {
       background-color: transparent;
       position: absolute;
-      top:50%;
+      top: 50%;
     }
 
     &:after {
       position: absolute;
-      top:50%;
+      top: 50%;
     }
   }
 
   .slick-prev {
-    left:-80px;
+    left: -80px;
     &:before {
       background-color: transparent;
       position: absolute;
-      top:50%;
+      top: 50%;
     }
 
     &:after {
       position: absolute;
-      top:50%;
+      top: 50%;
     }
   }
-
 
   .slick-prev:before, .slick-next:before {
     border: 0px solid @transparent;
     content: " ";
   }
 
-.slick-next:before, .slick-prev:before {
-  border: none;
-}
+  .slick-next:before, .slick-prev:before {
+    border: none;
+  }
 
-.slick-next:after {
-  width: 25px;
-  height: 25px;
-  border-left: 0px solid @transparent;
-  border-right: 2px solid @color-second !important;
-  border-bottom: 2px solid @color-second !important;
-  border-top: 0px solid @transparent;
-  opacity: 0.6;
-  content: " ";
-  right: 53%;
-  left: initial !important;
-  transform: rotateZ(-45deg);
+  .slick-next:after {
+    width: 25px;
+    height: 25px;
+    border-left: 0px solid @transparent;
+    border-right: 2px solid @color-second !important;
+    border-bottom: 2px solid @color-second !important;
+    border-top: 0px solid @transparent;
+    opacity: 0.6;
+    content: " ";
+    right: 53%;
+    left: initial !important;
+    transform: rotateZ(-45deg);
 
-}
+  }
 
-.slick-prev:after {
-  width: 25px;
-  height: 25px;
-  border-left: 0px solid @transparent;
-  border-right: 2px solid @color-second !important;
-  border-bottom: 2px solid @color-second !important;
-  border-top: 0px solid @transparent;
-  opacity: 0.6;
-  content: " ";
-  right: 0;
-  transform: rotateZ(135deg);
-}
+  .slick-prev:after {
+    width: 25px;
+    height: 25px;
+    border-left: 0px solid @transparent;
+    border-right: 2px solid @color-second !important;
+    border-bottom: 2px solid @color-second !important;
+    border-top: 0px solid @transparent;
+    opacity: 0.6;
+    content: " ";
+    right: 0;
+    transform: rotateZ(135deg);
+  }
 
   .slick-dots {
     width: 98% !important;
@@ -324,7 +323,7 @@
     }
     .offer-slider-icon {
       margin: 10px;
-      margin-top:30px;
+      margin-top: 30px;
     }
     .offer-slider-title {
       font-size: 20px !important;
@@ -380,12 +379,12 @@
     }
 
     .slick-next {
-      right:-35px;
+      right: -35px;
 
     }
 
     .slick-prev {
-      left:-48px;
+      left: -48px;
 
     }
 
@@ -394,7 +393,7 @@
       height: 25px;
       border-left: 0px solid @transparent;
       border-right: 2px solid white !important;
-      border-bottom: 2px solid white!important;
+      border-bottom: 2px solid white !important;
       border-top: 0px solid @transparent;
       opacity: 0.6;
       content: " ";
@@ -515,6 +514,10 @@
     font-size: 13px;
   }
 
+  .c-eo_maininfo-new-title .open {
+    margin-bottom: 20px !important;
+  }
+
   .cruise-2018-modal-exclusive-offer-subtitle {
     text-transform: capitalize;
     color: @grey--3;
@@ -560,9 +563,11 @@
   .cruise-2018-modal-exclusive-offer-box-text {
     letter-spacing: 0.5px;
     text-align: center;
-    margin-top: 10px;
     font-family: @suisse;
     color: @grey--3;
+  }
+  .c-exclusive-offer-boxes{
+    margin-top: 15px !important;
   }
 
   .cruise-2018-modal-exclusive-offer-description {
@@ -775,7 +780,6 @@
       font-style: italic;
       font-size: 11.0px;
     }
-
     .cruise-2018-modal-exclusive-offer-title {
       margin-top: 10px;
     }
@@ -790,6 +794,7 @@
       line-height: 18px;
       margin-top: 15px;
       margin-bottom: 0px;
+
     }
 
     .cruise-2018-modal-exclusive-offer-including-title {
@@ -800,6 +805,7 @@
       width: 100%;
       display: inline-block;
       padding-bottom: 30px;
+      margin-top: 10px;
     }
 
     .cruise-2018-modal-exclusive-offer-box-icon {
@@ -889,5 +895,5 @@
 
 //Specific VS LB - hide close button
 body.cruise .modal-dialog .modal-content button.close {
-  display:none;
+  display: none;
 }
