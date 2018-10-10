@@ -26,22 +26,22 @@ $('.modal.lightbox').on('hidden.bs.modal', function (e) {
     $modalLightbox.css("visibility", "hidden");
 });
 
-function setTopLightboxModal(height) {
+function setTopLightboxModal(height, imgId) {
     var $modalLightbox = $(".modal.lightbox");
     var $lightboxClose = $modalLightbox.find(".lightbox-close");
     var $modalDialog = $modalLightbox.find(".modal-dialog");
     var $modalContent = $modalLightbox.find(".modal-content");
     var $modalContenHeight = $modalContent.height();
     var $windowHeight = $(window).height();
-    var $picture = $modalLightbox.find(".modal-content").find("picture");
+    var $picture = $modalLightbox.find(".modal-content").find("picture, " + imgId);
 
     if ($(window).width() > 768) {
         try {
-            if ($picture.length > 0 && height > 0){
+            if ($picture.length > 0 && height > 0) {
                 $modalContenHeight = $modalContenHeight + height;
             }
-            var topModalContent = Math.round(($modalContenHeight / $windowHeight)*100) / 100;
-            if ($modalContenHeight > $windowHeight || topModalContent >= 0.62 ){
+            var topModalContent = Math.round(($modalContenHeight / $windowHeight) * 100) / 100;
+            if ($modalContenHeight > $windowHeight || topModalContent >= 0.62) {
                 $lightboxClose.css("top", "0px");
                 $modalContent.css("top", "45px");
                 //console.log("0px", " 45px","because $modalContenHeight > $windowHeight");
