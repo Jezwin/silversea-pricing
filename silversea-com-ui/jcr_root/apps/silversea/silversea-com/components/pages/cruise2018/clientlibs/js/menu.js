@@ -88,7 +88,6 @@ $(function () {
         $target = $($(this).attr("href"));
 
         var number = window.innerWidth < 768 ? 65 : 100;
-        alert(window.innerWidth);
         $([document.documentElement, document.body]).animate({
             scrollTop: $target.position().top - number,
             duration: 1200,
