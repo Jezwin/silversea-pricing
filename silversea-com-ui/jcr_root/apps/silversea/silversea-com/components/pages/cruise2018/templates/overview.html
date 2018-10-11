@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="cruise-2018-overview-quote">
+            <div class="cruise-2018-overview-quote ${cruise.lowestPrice.earlyBookingBonus ? 'cruise-2018-overview-quote-with-bb' : ''}">
                 <span data-sly-test="${cruise.isWaitlist}"
                       class="cruise-2018-overview-quote-price-number">${'waitlist' @ i18n}</span>
                 <div class="cruise-2018-overview-quote-price" data-sly-test="${!cruise.isWaitlist}">
