@@ -4,8 +4,11 @@
 <div class="findyourcruise2018">
 
     <div
-            data-sly-use.fyc="${'com.silversea.aem.components.editorial.FindYourCruise2018Use' @ psize='15'}"
+            data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='15'}"
             id="findyourcruise2018-wrapper" class="findyourcruise2018-wrapper">
+        <script lang="javascript">
+            var filters = JSON.parse(${fyc.filters @context='scriptString'});
+        </script>
 
         <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
              data-sly-call="${filterTemplate.default @ fyc=fyc}"/>
