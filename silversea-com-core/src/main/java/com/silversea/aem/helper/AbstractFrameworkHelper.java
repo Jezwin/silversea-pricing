@@ -12,7 +12,7 @@ public abstract class AbstractFrameworkHelper extends WCMUsePojo {
     private static final String[] DEVICES = new String[]{"Desktop", "Tablet", "Mobile"};
 
     private String[] cssAttributes;
-    private ValueMap componentProperties;
+    private Map<String, Object> componentProperties;
 
     @Override
     public void activate() throws Exception {
@@ -29,7 +29,7 @@ public abstract class AbstractFrameworkHelper extends WCMUsePojo {
     }
 
     protected String getString(String key) {
-        return componentProperties.get(key, String.class);
+        return (String) componentProperties.get(key);
     }
 
     protected String getMethod(String property, String device) {
@@ -57,4 +57,12 @@ public abstract class AbstractFrameworkHelper extends WCMUsePojo {
     }
 
     public abstract String generateOutput(String property, String device, String method);
+
+    public Map<String, Object> getComponentProperties() {
+        return componentProperties;
+    }
+
+    protected void setComponentProperties(Map<String, Object> componentProperties) {
+        this.componentProperties = componentProperties;
+    }
 }

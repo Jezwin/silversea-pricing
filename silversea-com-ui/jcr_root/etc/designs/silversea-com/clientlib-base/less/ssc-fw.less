@@ -1,5 +1,5 @@
-@needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, maring-top, margin-right, margin-bottom, margin-left;
-@double-needed-properties: height, width;
+@needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, maring-top, margin-right, margin-bottom, margin-left, background-color, display, text-align, color;
+@double-needed-properties: height, width, display, text-align;
 
 .for ( @array ) when (default()) {
   .for-impl_(length(@array))
@@ -35,5 +35,5 @@
 
 .for( @double-needed-properties );
 .-each( @property ) {
-  .generate-class( @property,  ~'-2');
+  .generate-class( @property,  ~'-snd');
 }

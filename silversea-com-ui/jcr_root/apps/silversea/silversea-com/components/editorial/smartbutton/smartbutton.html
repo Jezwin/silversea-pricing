@@ -1,0 +1,18 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder"
+     data-emptytext="SSC - Smart Button - (#smartbtn-${properties.sscUUID})"></div>
+
+<sly data-sly-use.sb="${'com.silversea.aem.components.editorial.SmartButtonUse'}"/>
+<sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=sb.sbProperties, property='sscFwBackgroundColor,sscFwColor,sscFwDisplay,sscFwDisplaySnd,sscFwTextAlign,sscFwTextAlignSnd,sscFwFontSize,sscFwWidth,sscFwMarginTop,sscFwMarginBottom,sscFwMarginLeft,sscFwMarginRight,sscFwPaddingTop,sscFwPaddingBottom,sscFwPaddingLeft,sscFwPaddingRight'}"/>
+<div class="ssc-fw-text-align">
+    <a id="smartbtn-${properties.sscUUID}"
+       class="smartbtn ssc-fw-text-align-snd  ssc-fw-background-color ssc-fw-display ssc-fw-font-size ssc-fw-width ssc-fw-margin-top ssc-fw-margin-bottom ssc-fw-margin-left ssc-fw-margin-right ssc-fw-padding-top ssc-fw-padding-bottom ssc-fw-padding-left ssc-fw-padding-right"
+       style="${fw.allDevices @ context='unsafe'}" data-ie-style="${fw.allDevices @ context='unsafe'}"
+       data-sscclicktype="--analytic-type: ${sb.analyticTypeDesktop @ context='html'}">
+        <span class="ssc-fw-color">TEXT</span>
+        <i class="fa fa-lg fa-angle-right ssc-fw-display-snd ssc-fw-color ssc-fw-font-snd-size"></i>
+    </a>
+</div>
+
+
+
+
