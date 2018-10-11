@@ -12,12 +12,12 @@ import com.silversea.aem.services.CruisesCacheService;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.Filter.selectedFilter;
+import static com.silversea.aem.components.editorial.findyourcruise2018.Filter.buildSelectedFilter;
 
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private Collection<CruiseItem> cruises;
-    private Map<FilterLabel, Filter> filters;
+    private FilterBar filterBar;
     private List<CruiseModelLight> allCruises;
     private Locale locale;
 
@@ -26,57 +26,44 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         super.activate();
         CruisesCacheService service = getSlingScriptHelper().getService(CruisesCacheService.class);
         if (service != null) {
-            setFilters(service);
-            search();
-            updateFilters();
+            fetchCruises(service);
+            setFilters();//set filters with values selected by user
+            searchCruises();
+            updateFilters();//update filters based on cruises found
         }
+    }
+
+    private void fetchCruises(CruisesCacheService service) {
+        final String lang = LanguageHelper.getLanguage(getCurrentPage());
+        locale = getCurrentPage().getLanguage(false);
+        allCruises = service.getCruises(lang);
     }
 
     @SuppressWarnings("unchecked")
-    private void setFilters(CruisesCacheService cruisesCacheService) {
-        final String lang = LanguageHelper.getLanguage(getCurrentPage());
-        locale = getCurrentPage().getLanguage(false);
-        allCruises = cruisesCacheService.getCruises(lang);
-        Map<FilterLabel, Set<String>> allFiltersValues = retrieveAllFiltersValues(allCruises);
+    private void setFilters() {
+        Map<FilterLabel, Set<String>> allFiltersValues = retrieveAllFiltersValues(FilterLabel.values(), allCruises);
+        filterBar = new FilterBar();
         filters = retrieveSetFilters(allFiltersValues, (Map<String, String[]>) getRequest().getParameterMap());
     }
 
-    private Map<FilterLabel, Set<String>> retrieveAllFiltersValues(List<CruiseModelLight> allCruises) {
-        Map<FilterLabel, Set<String>> result = new HashMap<>();
-        for (FilterLabel label : FilterLabel.values()) {
-            Set<String> values = new HashSet<>();
-            result.put(label, values);
-        }
-        for (CruiseModelLight cruise : allCruises) {
-            for (FilterLabel filter : FilterLabel.values()) {
-                switch (filter) {
-                    case DESTINATION:
-                    case DEPARTURE:
-                    case DURATION:
-                    case SHIP:
-                    case TYPE:
-                        result.get(filter).add(filter.getMapper().apply(cruise));
-                        break;
-                    case PORT:
-                    case FEATURES:
-                        result.get(filter).addAll(Arrays.asList(filter.getMapper().apply(cruise).split(":")));
-                        break;
-                }
-            }
-        }
-        return result;
-    }
 
-    private void search() {
+    private void searchCruises() {
         cruises = retrieveCruises(allCruises, filters, locale);
     }
 
     private Collection<CruiseItem> retrieveCruises(List<CruiseModelLight> allCruises,
                                                    Map<FilterLabel, Filter> filters,
                                                    Locale locale) {
-        //TODO
-        return allCruises.stream().map(cruise -> new CruiseItem(cruise, geomarket, currency, locale))
+        return allCruises.stream()
+                .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale))
+                .filter(cruise -> filters.values().stream()
+                        .anyMatch(filter -> isCruiseToBeKept(cruise.getCruiseModel(), filter)))
                 .collect(Collectors.toList());
+    }
+
+    private boolean isCruiseToBeKept(CruiseModelLight cruise, Filter filter) {
+        //TODO departure date && features duration...
+        return filter.availableValues().contains(filter.getLabel().getMapper().apply(cruise));
     }
 
     private void updateFilters() {
@@ -90,7 +77,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         for (FilterLabel filterLabel : FilterLabel.values()) {
             if (paramMap.containsKey(filterLabel.getLabel())) {
                 Set<String> values = retrieveFromParam(filterLabel, paramMap.get(filterLabel.getLabel()));
-                filters.put(filterLabel, selectedFilter(filterLabel, allValues.get(filterLabel), values));
+                filters.put(filterLabel, buildSelectedFilter(filterLabel, allValues.get(filterLabel), values));
             }
         }
         return filters;
@@ -103,7 +90,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private Map<FilterLabel, Filter> retrieveUnsetFilters(Collection<CruiseItem> leftCruises) {
         Map<FilterLabel, Filter> unsetFilters = new HashMap<>();
-        //TODO
+
+        retrieveAllFiltersValues(FilterLabel.values(),
+                leftCruises.stream().map(CruiseItem::getCruiseModel).collect(Collectors.toList()));
         return unsetFilters;
     }
 

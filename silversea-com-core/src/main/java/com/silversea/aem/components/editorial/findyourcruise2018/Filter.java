@@ -3,9 +3,11 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Filter {
 
@@ -17,15 +19,15 @@ public class Filter {
         this.values = values;
     }
 
-    public static Filter selectedFilter(FilterLabel label, Set<String> allValues,
-                                        Set<String> selectedValues) {
+    public static Filter buildSelectedFilter(FilterLabel label, Set<String> allValues,
+                                             Set<String> selectedValues) {
         return buildFilter(label, allValues, selectedValues, FilterState.CHOSEN,
                 FilterState.ENABLED);
     }
 
 
-    public static Filter filter(FilterLabel label, Set<String> allValues,
-                                Set<String> availableOptions) {
+    public static Filter buildDefaultFilter(FilterLabel label, Set<String> allValues,
+                                            Set<String> availableOptions) {
         return buildFilter(label, allValues, availableOptions, FilterState.ENABLED,
                 FilterState.DISABLED);
     }
@@ -52,6 +54,11 @@ public class Filter {
 
     public Map<String, FilterState> getValues() {
         return values;
+    }
+
+    public Set<String> availableValues() {
+        return values.entrySet().stream().filter(entry -> !entry.getValue().equals(FilterState.DISABLED))
+                .map(Map.Entry::getKey).collect(Collectors.toSet());
     }
 
     @Override
