@@ -34,7 +34,7 @@ Menu.prototype = {
                     progress: function (now, fx) {
                         $(".menu-overview-fixed").hide(0);
                     },
-                    complete: function(){
+                    complete: function () {
                         var $footerfixed = $(".fixed-footer-cruise");
                         $footerfixed.slideUp();
                     }
@@ -86,7 +86,9 @@ $(function () {
     $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
         e.preventDefault();
         $target = $($(this).attr("href"));
-        var number= $("body").hasClass("mobile") ? 65 : 100;
+
+        var number = window.innerWidth < 768 ? 65 : 100;
+        alert(window.innerWidth);
         $([document.documentElement, document.body]).animate({
             scrollTop: $target.position().top - number,
             duration: 1200,

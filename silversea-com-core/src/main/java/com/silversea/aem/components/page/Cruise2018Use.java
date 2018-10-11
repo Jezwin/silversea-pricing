@@ -225,10 +225,16 @@ public class Cruise2018Use extends EoHelper {
 
     private LinkedList<String> portAssets(PortModel portModel) {
         String assetSelectionReference = portModel.getAssetSelectionReference();
-        Stream<String> assets =
+        LinkedList<String> assets =
                 ofNullable(emptyToNull(assetSelectionReference)).map(reference -> buildAssetList(reference,
-                        getResourceResolver())).map(list -> list.stream().map(Asset::getPath)).orElseGet(Stream::empty);
-        return concat(Stream.of(portModel.getThumbnail()), assets).distinct().collect(toCollection(LinkedList::new));
+                        getResourceResolver())).map(list -> list.stream().map(Asset::getPath)).orElseGet(Stream::empty)
+                        .distinct()
+                        .collect(toCollection(LinkedList::new));
+        if (assets.isEmpty()) {
+            assets.add(portModel.getThumbnail());
+
+        }
+        return assets;
     }
 
 
