@@ -17,18 +17,11 @@ var createLineProgressBar = (function () {
 })();
 function loadLazyImageInSlider($slider) {
     var $sliderActive = $slider.find('.slick-active');
-    var slideToLoad = $slider.data('ssc-slides') || 3;
-    var i;
-    var $sliderI = $sliderActive;
-    for( i = 0 ;i<slideToLoad+1;i++){
-        $sliderI.find('.lazy').lazy();
-        $sliderI = $sliderI.prev();
-    }
-    $sliderI = $sliderActive.next();
-    for( i = 0 ;i<slideToLoad;i++){
-        $sliderI.find('.lazy').lazy();
-        $sliderI = $sliderI.next();
-    }
+    $sliderActive.find('.lazy').lazy();
+    $sliderActive.prev().find('.lazy').lazy();
+    $sliderActive.prev().prev().find('.lazy').lazy();
+    $sliderActive.next().find('.lazy').lazy();
+    $sliderActive.next().next().find('.lazy').lazy();
     setTimeout(function () {
         $sliderActive.find('.lazy').lazy();
     }, 50);
@@ -47,17 +40,28 @@ function initSlider() {
                 draggable: true,
                 slidesToShow: $slider.data('ssc-slides') || 3,
                 slidesToScroll: $slider.data('ssc-slides') || 3,
+                responsive: []
             };
             var breakpoint = $slider.data('ssc-breakpoint');
             if (breakpoint) {
-                options.responsive =
-                    [{
+                options.responsive.push(
+                    {
                         breakpoint: breakpoint,
                         settings: {
                             slidesToShow: $slider.data('ssc-slides') - 1 || 3,
                             slidesToScroll: $slider.data('ssc-slides') - 1 || 3
                         }
-                    }];
+                    });
+            }
+            var breakpointTablet = $slider.data('ssc-breakpoint-tablet');
+            if (breakpointTablet) {
+                options.responsive.push({
+                    breakpoint: breakpointTablet,
+                    settings: {
+                        slidesToShow: $slider.data('ssc-slides-to-show-tablet') || 1,
+                        slidesToScroll: $slider.data('ssc-slides-to-scroll-tablet') || 1
+                    }
+                });
             }
             $slider.slick(options);
             $slider.on('afterChange', function (event, slick, currentSlide) {
