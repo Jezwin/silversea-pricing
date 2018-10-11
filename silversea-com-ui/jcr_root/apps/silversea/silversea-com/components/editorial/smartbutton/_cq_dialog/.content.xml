@@ -105,6 +105,12 @@
                                             value="rgba(244,244,244,1)"
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorDesktop"/>
+                                    <isTrasparentButtonDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Trasparent button"
+                                            name="./isTrasparentButtonDesktop"
+                                            value="true"
+                                            sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <enableToScrollElementDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -336,6 +342,12 @@
                                                                     value=""
                                                                     freestylePaletteType="{Boolean}true"
                                                                     name="./sscFwColorDesktopGeo"/>
+                                                            <isTrasparentButtonDesktopGeo
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="Trasparent button"
+                                                                name="./isTrasparentButtonDesktopGeo"
+                                                                value="true"
+                                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                             <enableToScrollElementDesktopGeo
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -578,6 +590,12 @@
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorTablet"/>
+                                    <isTrasparentButtonTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Trasparent button"
+                                            name="./isTrasparentButtonTablet"
+                                            value="true"
+                                            sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <enableToScrollElementTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -809,6 +827,12 @@
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
                                                                 name="./sscFwColorTabletGeo"/>
+                                                        <isTrasparentButtonTabletGeo
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="Trasparent button"
+                                                                name="./isTrasparentButtonTabletGeo"
+                                                                value="true"
+                                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                         <enableToScrollElementTabletGeo
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1051,6 +1075,12 @@
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorMobile"/>
+                                    <isTrasparentButtonMobile
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Trasparent button"
+                                            name="./isTrasparentButtonMobile"
+                                            value="true"
+                                            sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <enableToScrollElementMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1282,6 +1312,12 @@
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
                                                                 name="./sscFwColorMobileGeo"/>
+                                                        <isTrasparentButtonMobileGeo
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="Trasparent button"
+                                                                name="./isTrasparentButtonMobileGeo"
+                                                                value="true"
+                                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                         <enableToScrollElementMobileGeo
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"

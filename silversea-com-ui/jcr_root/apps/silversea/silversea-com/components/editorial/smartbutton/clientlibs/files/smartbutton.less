@@ -19,4 +19,29 @@
     -ms-user-select: none;
     user-select: none;
   }
+  .trasparent-desktop {
+    background-color: transparent !important;
+  }
+  .smartbtn-icon {
+    text-align: right;
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+
+@media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+  smartbutton {
+    .smartbtn.trasparent-tablet {
+      background-color: transparent !important;
+    }
+  }
+}
+
+@media (max-width: @screen-sm) {
+  smartbutton {
+    .smartbtn.trasparent-mobile {
+      background-color: transparent !important;
+    }
+  }
 }
