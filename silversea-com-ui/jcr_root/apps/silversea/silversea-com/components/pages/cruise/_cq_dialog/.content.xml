@@ -143,6 +143,15 @@
                                             renderReadOnly="{Boolean}true"
                                             name="./bigItineraryMap"
                                             rootPath="/content/dam/silversea-com" />
+                                    <bigThumbnailItineraryMap
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="bigThumbnailItineraryMap"
+                                            fieldLabel="Big Thumbnail Itinerary map"
+                                            renderReadOnly="{Boolean}true"
+                                            name="./bigThumbnailItineraryMap"
+                                            rootPath="/content/dam/silversea-com" />
                                     <smallItineraryMap
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
