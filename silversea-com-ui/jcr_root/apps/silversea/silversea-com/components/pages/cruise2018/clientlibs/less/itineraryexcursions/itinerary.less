@@ -86,12 +86,6 @@
     vertical-align: top;
     display: table;
   }
-  .cruise-2018-itineraries-itinerary-row-container.cruise-2018-itineraries-itinerary-row-container-with-excursion:hover {
-    div {
-      color: @red !important;
-    }
-    border-bottom-color: @red !important;
-  }
 
   .cruise-2018-itineraries-itinerary-row-container-with-excursion {
     cursor: pointer;
@@ -809,5 +803,16 @@
 
   .open-lightbox-port {
     display: none;
+  }
+}
+
+@media (min-width: @screen-md-max) {
+  .cruise-2018-itineraries-container {
+    .cruise-2018-itineraries-itinerary-row-container.cruise-2018-itineraries-itinerary-row-container-with-excursion:hover {
+      div {
+        color: @red !important;
+      }
+      border-bottom-color: @red !important;
+    }
   }
 }
