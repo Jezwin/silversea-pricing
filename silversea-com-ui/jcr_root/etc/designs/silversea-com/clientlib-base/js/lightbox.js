@@ -18,7 +18,7 @@ $(document).on('shown.bs.modal', function (e) {
     if ($("body").hasClass("cruise") && $(".cruise-2018-overview").height() > 0) {
         setTimeout(function () {
             $(".modal.lightbox").css("visibility", "visible");
-        },2000);
+        },1500);
     }
 });
 
