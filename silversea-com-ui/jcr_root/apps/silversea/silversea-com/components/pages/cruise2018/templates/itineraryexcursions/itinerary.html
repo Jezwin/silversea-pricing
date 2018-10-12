@@ -94,7 +94,7 @@
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-day-wrapper ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-wrapper-debark' : ''}">
                             <span data-sly-test="${!itineraryList.last}" class="cruise-2018-itineraries-itinerary-row-day-content"> ${iDay}</span>
-                            <span data-sly-test="${itineraryList.last}" class="cruise-2018-itineraries-itinerary-row-day-content"> ${ 'debark' @ i18n }</span>
+                            <span data-sly-test="${itineraryList.last}" class="cruise-2018-itineraries-itinerary-row-day-content"> <i class="fa fa-lg fa-anchor" aria-hidden="true"></i> </span>
                         </div>
                     </div>
 
@@ -110,7 +110,7 @@
                             </div>
                             <div class="cruise-2018-itineraries-itinerary-row-text-country">
                                 ${country @ i18n}
-                            </div>
+                            </div>H
                             <div data-sly-test="${hasShorex}"
                                  class="cruise-2018-itineraries-itinerary-row-text-excursions">
                                 <sly data-sly-test="${hasExcursions}">
