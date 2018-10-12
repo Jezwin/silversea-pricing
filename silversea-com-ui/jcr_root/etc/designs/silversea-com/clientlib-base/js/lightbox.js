@@ -15,6 +15,11 @@ $(document).on('shown.bs.modal', function (e) {
         setTopLightboxModal(0);
         $modalLightbox.find(".modal-header").hide();
     }
+    if ($("body").hasClass("cruise") && $(".cruise-2018-overview").height() > 0) {
+        setTimeout(function () {
+            $(".modal.lightbox").css("visibility", "visible");
+        },2000);
+    }
 });
 
 $('.modal.lightbox').on('hidden.bs.modal', function (e) {
