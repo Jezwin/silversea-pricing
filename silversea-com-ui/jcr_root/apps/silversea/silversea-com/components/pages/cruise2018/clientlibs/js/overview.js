@@ -80,7 +80,7 @@ $(function () {
             var hash = this.hash.substr(1);
             var $toElement = $("[id=" + hash + "]");
             var $body = $('body');
-            var number= $body.hasClass("mobile") ? 65 : 100;
+            var number = window.innerWidth < 768 ? 65 : 100;
             var toPosition = $toElement.position().top - number;
             //scroll to element
             $("body,html").animate({
