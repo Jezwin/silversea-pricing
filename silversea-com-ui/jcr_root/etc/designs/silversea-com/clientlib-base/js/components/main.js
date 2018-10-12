@@ -433,6 +433,28 @@ if (/MSIE|Trident/.test(navigator.userAgent)){
                 }
             }
         });
+
+        $('.cruise-2018-prepost-slide-thumbnail').each(function () {
+            var $container = $(this),
+                imgUrl = $container.find('img').prop('src');
+
+            if (imgUrl && imgUrl.indexOf('base64') == -1) {
+                $container
+                    .css('backgroundImage', 'url(' + imgUrl + ')')
+                    .addClass('compat-object-fit');
+                $container.find('img').remove();
+            }else {
+                imgUrl = $container.find('img').prop('data-src');
+                if (imgUrl) {
+                    $container
+                        .css('backgroundImage', 'url(' + imgUrl + ')')
+                        .addClass('compat-object-fit');
+                    $container.find('img').remove();
+                }
+            }
+
+
+        });
     },1000);
     setTimeout(function() {
         $('picture').each(function () {
