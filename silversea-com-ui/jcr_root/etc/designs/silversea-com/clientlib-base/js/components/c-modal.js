@@ -398,7 +398,15 @@ $('.automatic-gallery-modal-fullscreen').on('click', function(e) {
 
         });
       var modeldialog = document.getElementsByClassName("modal-dialog")[0];
-      modeldialog.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        if(modeldialog.requestFullscreen){
+            modeldialog.requestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if(modeldialog.mozRequestFullScreen){
+            modeldialog.mozRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if(modeldialog.webkitRequestFullScreen){
+            modeldialog.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if(modeldialog.msRequestFullscreen){
+           modeldialog.msRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
 
     });
 
