@@ -897,7 +897,7 @@
     <pre-post-extensions
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Extensões Pré- e Pós-Cruzeiro"/>
+            sling:message="Extensões Pré- &amp; Pós-Cruzeiro"/>
     <night
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

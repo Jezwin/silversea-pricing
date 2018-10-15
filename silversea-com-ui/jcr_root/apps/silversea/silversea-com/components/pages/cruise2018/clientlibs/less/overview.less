@@ -133,7 +133,7 @@
   .cruise-2018-overview-description-date-boxes-ship {
     color: @grey--3;
     font-family: @suisse;
-    white-space: initial;
+    white-space: normal;
     letter-spacing: 1px;
   }
 
@@ -536,10 +536,30 @@
 @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
   .cruise-2018-overview {
     margin-top: 20px;
+    min-height: 0px;
 
     .cruise-2018-overview-quote-icons {
       display: none;
     }
+    .cruise-2018-overview-big-pic {
+      height: 400px !important;
+    }
+    .cruise-2018-overview-big-pic picture img {
+      height: 80% !important;
+    }
+    .cruise-2018-overview-description-cruise {
+      margin-top: 2px !important;
+    }
+    .cruise-2018-overview-quote {
+      margin-top: 34px !important;
+    }
+    .cruise-2018-overview-photos-videos-btn {
+      font-size: 11px !important;
+    }
+  }
+
+  .cruise-2018-overview .cruise-2018-overview-quote-with-bb {
+    margin-top: 22px !important;
   }
 }
 

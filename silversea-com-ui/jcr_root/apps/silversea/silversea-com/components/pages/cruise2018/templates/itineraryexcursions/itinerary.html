@@ -49,7 +49,7 @@
             </sly>
         </div>
         <div class="cruise-2018-itinerary-slider-wrapper hidden-xs">
-            <div class="cruise-2018-itinerary-slider cruise-2018-itinerary-slider--main cruise-2018-slider activate-progressbar">
+            <div class="cruise-2018-itinerary-slider cruise-2018-itinerary-slider--main cruise-2018-slider activate-progressbar" data-ssc-breakpoint-tablet="991" data-ssc-slides-to-scroll-tablet="1" data-ssc-slides-to-show-tablet="3">
                 <sly data-sly-list.portImage="${cruise.portsGallery}">
                     <div class="cruise-2018-itinerary-slide cruise-2018-slide">
                         <div class="cruise-2018-itinerary-slide-thumbnail cruise-2018-slide-thumbnail">
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                     <sly  data-sly-test="${hasShorex}"   data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
-                            data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, mid=mid, size=shorexSize, cruise=cruise, itineraryLast=itineraryList.last}"/>
+                          data-sly-call="${excursion.default @ itinerary=itinerary, excursions=excursions, mid=mid, size=shorexSize, cruise=cruise}"/>
                 </div>
             </div>
         </div>
