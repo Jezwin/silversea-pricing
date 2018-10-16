@@ -55,8 +55,8 @@ public class Filter {
                         .collect(toSet());
         if (!selectedValues.isEmpty()) {
             Set<String> cruiseValues = label.getMapper().apply(cruise);
-            cruiseValues.retainAll(selectedValues);
-            return !cruiseValues.isEmpty();
+            selectedValues.retainAll(cruiseValues);
+            return !selectedValues.isEmpty();
         }
         return true;
     }
