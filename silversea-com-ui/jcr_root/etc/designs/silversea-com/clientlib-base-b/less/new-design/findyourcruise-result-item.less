@@ -67,12 +67,13 @@
               margin: 4px 0 !important;
             }
             .c-fyc__result__content__summary__item--ship > dl > dd > strong {
-              font-size: 9px !important;
               letter-spacing: 1px !important;
-              line-height: 11px !important;
               text-align: center !important;
               font-style: normal !important;
               text-transform: uppercase !important;
+              font-size: 13px !important;
+              line-height: 14px !important;
+              white-space: pre-line;
             }
             .c-fyc__result__content__summary__item > dl > dd {
               font-family: @suisse !important;
@@ -123,6 +124,11 @@
     .c-fyc-v1-filter-mobile-show {
       display: block !important;
     }
+
+    .single-filter.feature-tracking {
+      display: none !important;
+    }
+
     .c-fyc-filter {
       margin-top: 0px;
       .c-fyc-v1-filter {
@@ -179,6 +185,7 @@
           background-color: @color-dark-bg;
           border-bottom: solid @white 5px;
           color: @white;
+
         }
       }
 
@@ -238,6 +245,25 @@
       .c-fyc-v1-filter__header {
         padding-left: 10px;
         padding-right: 10px;
+      }
+    }
+  }
+}
+
+
+
+@media (max-width: 320px) {
+  .find-your-cruise-component.mobile-version-2 {
+    .c-fyc__result-wrapper.clearfix.v2 {
+      .c-fyc__results__wrapper {
+        .c-fyc__result {
+          .c-fyc__result__content__inner {
+            .c-fyc__result__content__summary__item--ship > dl > dd > strong {
+              font-size: 9px !important;
+              white-space: pre-line;
+            }
+          }
+        }
       }
     }
   }
