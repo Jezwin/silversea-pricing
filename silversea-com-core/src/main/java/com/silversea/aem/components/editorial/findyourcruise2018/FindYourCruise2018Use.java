@@ -19,22 +19,28 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private List<CruiseModelLight> cruisesModelLight;
     private List<CruiseItem> cruises;
     private FilterBar filterBar;
+    private String lang;
 
     @Override
     public void activate() throws Exception {
         super.activate();
+        locale = getCurrentPage().getLanguage(false);
+        lang = LanguageHelper.getLanguage(getCurrentPage());
         CruisesCacheService service = getSlingScriptHelper().getService(CruisesCacheService.class);
         if (service != null) {
-            locale = getCurrentPage().getLanguage(false);
-            cruisesModelLight = retrieveAllCruises(service);
-            filterBar = initFilters(cruisesModelLight);
-            cruisesModelLight = applyFilters(cruisesModelLight, filterBar);
-            updateNonSelectedFilters(cruisesModelLight, filterBar);
+            init(service);
         }
     }
 
+    public void init(CruisesCacheService service) {
+        cruisesModelLight = retrieveAllCruises(service);
+        filterBar = initFilters(cruisesModelLight);
+        cruisesModelLight = applyFilters(cruisesModelLight, filterBar);
+        updateNonSelectedFilters(cruisesModelLight, filterBar);
+
+    }
+
     private List<CruiseModelLight> retrieveAllCruises(CruisesCacheService service) {
-        final String lang = LanguageHelper.getLanguage(getCurrentPage());
         return service.getCruises(lang);
     }
 
@@ -45,7 +51,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<FilterLabel, Set<String>> fromRequest() {
+    protected Map<FilterLabel, Set<String>> fromRequest() {
         Map<String, String[]> parameterMap = getRequest().getParameterMap();
         return FilterLabel.VALUES.stream().filter(label -> parameterMap.containsKey(label.getLabel()))
                 .collect(toMap(label -> label, label -> new HashSet<>(asList(parameterMap.get(label.getLabel())))));
