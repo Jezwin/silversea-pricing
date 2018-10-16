@@ -28,8 +28,7 @@ public class FilterBar {
     }
 
     boolean isCruiseMatching(CruiseModelLight cruiseModelLight) {
-        return filters.values().stream()
-                .allMatch(filter -> filter.matches(filter.getLabel().getMapper().apply(cruiseModelLight)));
+        return filters.values().stream().allMatch(filter -> filter.matches(cruiseModelLight));
     }
 
     private Map<FilterLabel, Set<String>> initAllValues(List<CruiseModelLight> cruises) {
