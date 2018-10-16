@@ -3,13 +3,17 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 import com.google.common.base.Objects;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.silversea.aem.models.CruiseModelLight;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 public class Filter {
     private FilterLabel label;
@@ -22,7 +26,7 @@ public class Filter {
     }
 
     public static Filter buildSelectedFilter(FilterLabel label, Set<String> allValues, Set<String> selectedValues) {
-        return buildFilter(label, allValues, selectedValues, FilterRowState.CHOSEN, ENABLED);
+        return buildFilter(label, allValues, selectedValues, CHOSEN, ENABLED);
     }
 
     public static Filter buildUnselectedFilter(FilterLabel label, Set<String> allValues) {
@@ -41,11 +45,19 @@ public class Filter {
     }
 
     public boolean isSelected() {
-        return rows.values().stream().anyMatch(FilterRowState.CHOSEN::equals);
+        return rows.values().stream().anyMatch(CHOSEN::equals);
     }
 
-    public boolean matches(Set<String> matchingValues) {
-        //TODO
+    public boolean matches(CruiseModelLight cruise) {
+        //check if is selected is redundant
+        Set<String> selectedValues =
+                rows.entrySet().stream().filter(entry -> CHOSEN.equals(entry.getValue())).map(Map.Entry::getKey)
+                        .collect(toSet());
+        if (!selectedValues.isEmpty()) {
+            Set<String> cruiseValues = label.getMapper().apply(cruise);
+            cruiseValues.retainAll(selectedValues);
+            return !cruiseValues.isEmpty();
+        }
         return true;
     }
 
