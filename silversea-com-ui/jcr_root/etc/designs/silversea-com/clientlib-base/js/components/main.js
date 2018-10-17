@@ -294,14 +294,15 @@ if(currentReferrer != ""){
 window.answerBrite = "";
 //BriteVerify Basic Implementation
 window.briteVerify = function(email){
-	/*var url = "https://bpi.briteverify.com/emails.json?apikey=1847206e-0e64-45a9-bb0a-224260bd2b9a";
+	var url = "https://bpi.briteverify.com/emails.json";
 
 	 $.ajax({
 		    url: url,
 		    dataType: 'jsonp',
 		    cache:true,
 		    data: {
-		      address: email
+		      address: email,
+		      username: "1847206e-0e64-45a9-bb0a-224260bd2b9a"
 		    },
 		    success: function(response) {
 		    	var valid = response["status"];
@@ -313,7 +314,7 @@ window.briteVerify = function(email){
 		    	}
 		    	$("[name='email']").blur();
 	        }
-	});*/
+	});
 	
 };
 
@@ -336,235 +337,323 @@ window.briteVerify = function(email){
 
 })();
 
-/*
- * Phone Number in function geolocation and source
- * Should save locally the json to avoid multiple call 
- * Cache should be valid for 24 hours maximum
- */
+//Fix FYC port all caps + dest +
 (function () {
 
-	try {
-			var currentCountry = dataLayer[0].user_country;
-			if(currentCountry != null){
-				var d = new Date();
-				var selectedPhoneNumber = "";
-				var dataJson;
-				var currentSource = getCookie("marketingEffortValue");
-				//TODO Before doing the call, make sure that we dont have any recent value in our local cache
-				if(localStorage.getItem("phoneNumberDate") == null || localStorage.getItem("phoneNumber"+currentCountry) == null || d.getTime() - localStorage.getItem("phoneNumberDate") > 72000000){
-				$.getJSON( "/bin/phoneCustom?country="+currentCountry, function( data ) {
-					  dataJson = data;
-					  localStorage.setItem("phoneNumber"+currentCountry,JSON.stringify(data));
-					  localStorage.setItem("phoneNumberDate",d.getTime());
-					});
-				}else {
-					dataJson = JSON.parse(localStorage.getItem("phoneNumber"+currentCountry));
-				}
-				
-				//From cookie marketingeffort - run all regex to categorize in 
-				//Native - Brand - Generic - competition - GDN-DCO - GDN-REM - RTB - Facebook - Others - organic - direct - email - referrer - social organic
-				var SocialRegex = '^social:\s(.*)';
-				var ReferralsRegex = '^referrer:\s(.*)';
-				var EmailRegex = '_dem$|#dem$|^em_';
-				var EmailRegex2 = '^(?!.*(_con_|_agn_).*).*dem$|^em_(?!.*(_con_|_agn_).*).*$';
-				var EmailRegex3 = '^em_(.*)_(con)|_con_dem$';
-				var EmailRegex4 = '^em_(.*)_(agn)|_agn_dem$$';
-				var OrganicRegex = '^organic:\s(.*)';
-				var DirectRegex = '^direct$';
-				var BrandRegex = '^ps_(.*)__(.*)(_br_)(.*)';
-				var BrandRegex2 = '^al!(843|844|845)!105!';
-				var GenericRegex = '^ps_(.*)__(.*)(_gen_)(.*)';
-				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
-				var competitorRegex = '^ps_(.*)__(.*)(_comp_)(.*)';
-				var otherDisplayRegex = '^dis_(.*)'; //Native
-				var GDNDCORegex = '^dis_(.*)(proadw)(.*)__(.*)(d_pro_dco)(.*)';
-				var GDNRemRegex = '^dis_(.*)(remadw)(.*)__(.*)(d_rem_rmk)(.*)';
-				var YoutubeRegex = '^ps_(.*)(sy)(.*)__(.*)(_yt_)(.*)';
-				var YoutubeRMRegex = '^ps_(.*)(sy)(.*)__(.*)(d_rem_yt_)(.*)';
-				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
-				var RTBAdaraRegex = '^dis_(.*)(_proext_)(.*)__(.*)(adara)(.*)';
-				var OtherSocialRegex = '^soc_(.*)';
-				var FaceBookRegex = '^soc_(.*)(_sf_)(.*)__(socf)(.*)';
-				
-				if(typeof dataJson != undefined){
-					if(currentSource.match(SocialRegex)){
-						if(dataJson["social"] != undefined){
-							selectedPhoneNumber = dataJson["social"];
-						}
-					}else if (currentSource.match(ReferralsRegex)){
-						if(dataJson["referral"] != undefined){
-							selectedPhoneNumber = dataJson["referral"];
-						} 
-					}else if (currentSource.toLowerCase().match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.toLowerCase().match(EmailRegex3) || currentSource.toLowerCase().match(EmailRegex4)){
-						if(dataJson["email"] != undefined){
-							selectedPhoneNumber = dataJson["email"];
-						} 
-					}else if (currentSource.match(OrganicRegex)){
-						if(dataJson["organic"] != undefined){
-							selectedPhoneNumber = dataJson["organic"];
-						} 
-					}else if (currentSource.match(DirectRegex)){
-						if(dataJson["direct"] != undefined){
-							selectedPhoneNumber = dataJson["direct"];
-						} 
-					}else if (currentSource.toLowerCase().match(BrandRegex) || currentSource.toLowerCase().match(BrandRegex2)){
-						if(dataJson["brand"] != undefined){
-							selectedPhoneNumber = dataJson["brand"];
-						} 
-					}else if (currentSource.toLowerCase().match(GenericRegex)){
-						if(dataJson["generic"] != undefined){
-							selectedPhoneNumber = dataJson["generic"];
-						} 
-					}else if (currentSource.toLowerCase().match(RTBRegex)){
-						if(dataJson["rtb"] != undefined){
-							selectedPhoneNumber = dataJson["rtb"];
-						} 
-					}else if (currentSource.toLowerCase().match(competitorRegex)){
-						if(dataJson["competitor"] != undefined){
-							selectedPhoneNumber = dataJson["competitor"];
-						} 
-					}else if (currentSource.toLowerCase().match(otherDisplayRegex)){
-						if(dataJson["native"] != undefined){
-							selectedPhoneNumber = dataJson["native"];
-						} 
-					}else if (currentSource.toLowerCase().match(GDNDCORegex)){
-						if(dataJson["gdndco"] != undefined){
-							selectedPhoneNumber = dataJson["gdndco"];
-						} 
-					}else if (currentSource.toLowerCase().match(GDNRemRegex)){
-						if(dataJson["gdnrem"] != undefined){
-							selectedPhoneNumber = dataJson["gdnrem"];
-						} 
-					}else if (currentSource.toLowerCase().match(YoutubeRegex) || currentSource.toLowerCase().match(YoutubeRMRegex)){
-						if(dataJson["youtube"] != undefined){
-							selectedPhoneNumber = dataJson["youtube"];
-						} 
-					}else if (currentSource.toLowerCase().match(RTBRegex) || currentSource.toLowerCase().match(RTBAdaraRegex)){
-						if(dataJson["rtb"] != undefined){
-							selectedPhoneNumber = dataJson["rtb"];
-						} 
-					}else if (currentSource.toLowerCase().match(OtherSocialRegex)){
-						if(dataJson["othersocial"] != undefined){
-							selectedPhoneNumber = dataJson["othersocial"];
-						} 
-					}else if (currentSource.toLowerCase().match(FaceBookRegex)){
-						if(dataJson["facebook"] != undefined){
-							selectedPhoneNumber = dataJson["facebook"];
-						} 
-					}
-				}
-				
-				//If selectedPhoneNumber is here let's try to replace all the good id href and display (take a look to googleforwadingnumber.html)
-				  if(selectedPhoneNumber != ""){
-					  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
-					  $(".phoneSpanSource").text(selectedPhoneNumber);
-				  }
-			}
-		}
-		catch(error) {
-		  console.error(error);
-		}
-		
+    try {
+        $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+            var currentPort = $(this).text();
+            currentPort = currentPort.toLowerCase();
+            $(this).text(currentPort);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 
-	
 })();
 
-// FIX Object-fit for IE 11 
-this.fitie = function (node) {
-	// restrict to valid object-fit value
-	var objectFit = node.currentStyle ? node.currentStyle['object-fit'] : null;
+//Fix B version all caps
+(function () {
+    function lowerCaseContent(thisEl){
+        var currentPort = $(thisEl).html();
+        currentPort = currentPort.toLowerCase();
+        $(thisEl).html(currentPort);
+    }
+    try {
+        $('.c-destination-teaser__caption .c-destination-teaser__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+    try {
+        $('.cruise-2018-itineraries-itinerary-row-text-name').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 
-	if (!objectFit || !/^(contain|cover|fill)$/.test(objectFit)) return;
+    try {
+        $('.c-ship-teaser__caption .c-ship-teaser__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 
-	// prepare container styles
-	var outerWidth  = node.clientWidth;
-	var outerHeight = node.clientHeight;
-	var outerRatio  = outerWidth / outerHeight;
 
-	var name = node.nodeName.toLowerCase();
+    try {
+        $('.c-destinationSlider-slide-small-inner__description .c-destinationSlider-slide-small-inner__description-title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 
-	var setCSS = node.runtimeStyle;
-	var getCSS = node.currentStyle;
+    try {
+        $('.c-eolist__caption .c-eolist__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 
-	var addEventListener = node.addEventListener || node.attachEvent;
-	var removeEventListener = node.removeEventListener || node.detachEvent;
-	var on = node.addEventListener ? '' : 'on';
-	var img = name === 'img';
-	var type = img ? 'load' : 'loadedmetadata';
+})();
 
-	addEventListener.call(node, on + type, onload);
+// FIX Object-fit for IE 11
 
-	if (node.complete) onload();
+if (/MSIE|Trident/.test(navigator.userAgent)){
+    setTimeout(function() {
+        $('picture').each(function () {
+            var $container = $(this),
+                imgUrl = $container.find('img').prop('src');
+            if($container.find('img').attr("style")){
+                if($container.find('img').attr("style").indexOf("cover") != -1 && $container.find('img').attr("style").indexOf("object-fit") != -1 ) {
+                    if (imgUrl && imgUrl.indexOf('base64') == -1) {
+                        $container
+                            .css('backgroundImage', 'url(' + imgUrl + ')')
+                            .addClass('compat-object-fit');
+                        $container.find('img').remove();
+                    }else {
+                        imgUrl = $container.find('img').prop('data-src');
+                        if (imgUrl) {
+                            $container
+                                .css('backgroundImage', 'url(' + imgUrl + ')')
+                                .addClass('compat-object-fit');
+                            $container.find('img').remove();
+                        }
+                    }
+                }
+            }
+        });
+    },1000);
+    setTimeout(function() {
+        $('picture').each(function () {
+            var $container = $(this),
+                imgUrl = $container.find('img').prop('src');
+            if($container.find('img').attr("style")){
+                if($container.find('img').attr("style").indexOf("cover") != -1 && $container.find('img').attr("style").indexOf("object-fit") != -1 ) {
+                    if (imgUrl && imgUrl.indexOf('base64') == -1) {
+                        $container
+                            .css('backgroundImage', 'url(' + imgUrl + ')')
+                            .addClass('compat-object-fit');
+                        $container.find('img').remove();
+                    }else {
+                        imgUrl = $container.find('img').prop('data-src');
+                        if (imgUrl) {
+                            $container
+                                .css('backgroundImage', 'url(' + imgUrl + ')')
+                                .addClass('compat-object-fit');
+                            $container.find('img').remove();
+                        }
+                    }
+                }
+            }
+        });
+    },12000);
 
-	function onload() {
-		removeEventListener.call(node, on + type, onload);
+//fix IE VAR
+    window.allInlineStyle = [];
+    window.relatedCSSRule = [];
+    window.currentViewportWidth = $(window).width();
 
-		// prepare container styles
-		var imgCSS = {
-			boxSizing: 'content-box',
-			display:   'inline-block',
-			overflow:  'hidden'
-		};
+    function listAllChildrenInlineStyle(target) {
+        $(target).children().each(function(el) {
+            var element = this;
+            var elStyle = $(this).attr("data-ie-style");
+            if (typeof elStyle != 'undefined') {
+                var elStyleArray = elStyle.split(';');
+                $(elStyleArray).each(function() {
+                    str = this + ';';
+                    if (str.match(/(--.+:.+;)/g)) {
+                        var currArr = [];
+                        currArr.push(element, this);
+                        allInlineStyle.push(currArr);
 
-		'backgroundColor backgroundImage borderColor borderStyle borderWidth bottom fontSize lineHeight height left opacity margin position right top visibility width'.replace(/\w+/g, function (key) {
-			imgCSS[key] = getCSS[key];
-		});
+                    }
+                });
+            }
 
-		// prepare image styles
-		setCSS.border = setCSS.margin = setCSS.padding = 0;
-		setCSS.display = 'block';
-		setCSS.height = setCSS.width = 'auto';
-		setCSS.opacity = 1;
+            //Enter this in allInlineStyle with scope of parent css ??? how to define the scope
+            listAllChildrenInlineStyle(this);
+        });
+    }
 
-		var innerWidth  = node.videoWidth || node.width;
-		var innerHeight = node.videoHeight || node.height;
-		var innerRatio  = innerWidth / innerHeight;
+    function ParseCSSAndFindVar() {
+        var styleBlocks = document.querySelectorAll('link[type="text/css"]');
+        styleCount = styleBlocks.length;
+        styleParsed = 0;
+        // we need to track the order of the style/link elements when we save off the CSS, set a counter
+        counter = 1;
 
-		// style container
-		var imgx = document.createElement('object-fit');
+        // loop through all CSS blocks looking for CSS variables being set
+        [].forEach.call(styleBlocks, function(block) {
 
-		imgx.appendChild(node.parentNode.replaceChild(imgx, node));
+            if (block.nodeName === 'LINK') {
 
-		for (var key in imgCSS) imgx.runtimeStyle[key] = imgCSS[key];
 
-		// style image
-		var newSize;
+                getLink(block.getAttribute('href'), counter, function(counter, request) {
 
-		if (objectFit === 'fill') {
-			if (img) {
-				setCSS.width = outerWidth;
-				setCSS.height = outerHeight;
-			} else {
-				setCSS['-ms-transform-origin'] = '0% 0%';
-				setCSS['-ms-transform'] = 'scale(' + outerWidth / innerWidth + ',' + outerHeight / innerHeight + ')';
-			}
-		} else if (innerRatio < outerRatio ? objectFit === 'contain' : objectFit === 'cover') {
-			newSize = outerHeight * innerRatio;
+                    var resultCSS = request.responseText;
+                    var regex = /@media[^{]+\{([\s\S]+?})\s*}/g;
+                    var m;
+                    var isDesktop = true;
+                    while ((m = regex.exec(request.responseText)) !== null) {
+                        // This is necessary to avoid infinite loops with zero-width matches
+                        if (m.index === regex.lastIndex) {
+                            regex.lastIndex++;
+                        }
 
-			setCSS.width  = Math.round(newSize) + 'px';
-			setCSS.height = outerHeight + 'px';
-			setCSS.marginLeft = Math.round((outerWidth - newSize) / 2) + 'px';
-		} else {
-			newSize = outerWidth / innerRatio;
+                        // The result can be accessed through the `m`-variable.
+                        m.forEach(function (match, groupIndex) {
+                            //group 0 -- test the fucking media query
+                            //group 1 is the current css that shold be processed or not inf function of the group 0
 
-			setCSS.width  = outerWidth + 'px';
-			setCSS.height = Math.round(newSize) + 'px';
-			setCSS.marginTop = Math.round((outerHeight - newSize) / 2) + 'px';
-		}
-	}
+                            if(groupIndex == 1 && isDesktop) {
+
+                                var splittedCSS = match.split("\n");
+                                splittedCSS.forEach(function(value) {
+                                    //test if we have max-width or min-width - test if we are on desktop - only take desktop one
+                                    value = value.replace("}", "");
+                                    if (value.indexOf("var(--") != -1) {
+                                        var splVal = value.split('{');
+                                        var curArr = [];
+                                        var cssArr = [];
+                                        var splValCss = splVal[1].split(';');
+                                        splValCss.forEach(function(va) {
+                                            if (va.indexOf("var(--") != -1) {
+                                                cssArr.push(va);
+                                            }
+                                        });
+                                        curArr.push(splVal[0], cssArr);
+                                        window.relatedCSSRule.push(curArr);
+                                    }
+
+                                });
+                            }else if(groupIndex == 0) {
+
+                                isDesktop = true;
+                                resultCSS = resultCSS.replace(match, "");
+                                if(match.indexOf("(min-width") != -1){
+                                    isDesktop = true;
+                                }
+                                if (match.indexOf("(max-width") != -1){
+                                    isDesktop = false;
+                                }
+                            }
+                        });
+                    }
+
+
+                    var splittedCSS = resultCSS.split("\n");
+                    splittedCSS.forEach(function(value) {
+                        //test if we have max-width or min-width - test if we are on desktop - only take desktop one
+                        value = value.replace("}", "");
+                        if (value.indexOf("var(--") != -1) {
+                            var splVal = value.split('{');
+                            var curArr = [];
+                            var cssArr = [];
+                            var splValCss = splVal[1].split(';');
+                            splValCss.forEach(function(va) {
+                                if (va.indexOf("var(--") != -1) {
+                                    cssArr.push(va);
+                                }
+                            });
+                            curArr.push(splVal[0], cssArr);
+                            window.relatedCSSRule.push(curArr);
+                        }
+
+                    });
+
+
+                    styleParsed++;
+                });
+
+
+            }
+
+            counter++;
+        });
+    }
+
+    function InjectInlineCSS() {
+        intervalIE11Var = setInterval(function(){
+            if(styleParsed == styleCount){
+                clearInterval(intervalIE11Var);
+                window.allInlineStyle.forEach(function(valueInline) {
+                    var dictionnary = valueInline[1].trim('{').trim('}').trim('"').split(":");
+                    //for each rules - check if we have the var in the scope and inject css inline
+
+                    window.relatedCSSRule.forEach(function(valueCSS) {
+
+                        valueCSS[1].forEach(function(rule) {
+                            if (rule.indexOf(dictionnary[0]) != -1) {
+                                var re = new RegExp('var\\('+dictionnary[0]+'.{0,5}\\)', 'g');
+                                var ruleProcessed = rule.replace("var("+dictionnary[0]+")", dictionnary[1]);
+                                ruleProcessed = ruleProcessed.replace(re, dictionnary[1]);
+                                //Should be replaced with a global selector that will test if it's a child node or current node of the scope
+                                $(valueCSS[0]).each(function(){
+                                    if($(valueInline[0]).has($(this)).length > 0 || $(valueInline[0])[0] == $(this)[0]){
+                                        var currentStyle = $(this).attr("style");
+                                        if(currentStyle == "undefined" || currentStyle == null) {
+                                            currentStyle = "";
+                                            $(this).attr("style",  ruleProcessed);
+                                        }else {
+                                            $(this).attr("style", currentStyle + ";" + ruleProcessed);
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                });
+            }
+        }, 250);
+
+    }
+
+    function getLink(url, counter, success) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.overrideMimeType('text/css;');
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                // Success!
+                if (typeof success === 'function') {
+                    success(counter, request);
+                }
+            } else {
+                // We reached our target server, but it returned an error
+                console.warn('an error was returned from:', url);
+            }
+        };
+
+        request.onerror = function() {
+            // There was a connection error of some sort
+            console.warn('we could not get anything from:', url);
+        };
+
+        request.send();
+    }
+
+    function initIEVar() {
+        listAllChildrenInlineStyle('body');
+        ParseCSSAndFindVar();
+        InjectInlineCSS();
+    }
+    initIEVar();
+
 };
-this.fitie.init = function () {
-	if (document.body) {
-		var all = document.querySelectorAll('img,video');
-		var index = -1;
 
-		while (all[++index]) fitie(all[index]);
-	} else {
-		setTimeout(fitie.init);
-	}
-};
-
-if (/MSIE|Trident/.test(navigator.userAgent)) this.fitie.init();
 
 //KONAMI CODE
 $(function() {

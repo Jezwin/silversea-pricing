@@ -1,34 +1,40 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Search hero"></div>
-<div class="c-search-hero">
-    <form class="row c-fyc-light__form c-search-hero__form" action="${properties.pageReference @ extension='html'}"
-        data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
-        <div class="col-sm-3">
-            <a class="hidden fragment-feedback" href="${currentNode.path @selectors='result', extension='html'}"></a>
-            <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destination">
-                <option value="all">${'all-destinations' @ i18n}</option>
-                <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
-                <option value="wc">${'world-cruises' @ i18n}</option>
-                <option value="gv">${'grand-voyages' @ i18n}</option>
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <select class="chosen form-control" data-placeholder="${'all-departure-dates' @ i18n}" name="date">
-                <option value="all">${'all-departure-dates' @i18n}</option>
-                <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
-                    <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue.toString}" />
-                    ${month.value} ${item.year}
-                </option>
-            </select>
-        </div>
-        <div class="col-sm-3" data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
-            <select class="chosen form-control" data-placeholder="${'all-ships' @ i18n}" name="ship">
-                <option value="all">${'all-ships' @ i18n}</option>
-                <option data-sly-repeat="${fyc.ships}" value="${item.name}">${item.title}</option>
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
-        </div>
-    </form>
-    <sly data-sly-include="result.html" />
-</div>
+<sly data-sly-use.searchHeroTemplate="silversea/silversea-com/components/editorial/searchhero/searchhero.html" data-sly-call="${searchHeroTemplate.v2}"/>
+
+<template data-sly-template.v2>
+    <div class="c-search-hero-v2">
+        <form class="row c-fyc-light__form c-search-hero__form" action="${properties.pageReference @ extension='html'}"
+              data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+            <div class="col-sm-3">
+                <a class="hidden fragment-feedback"
+                   href="${currentNode.path @selectors='result', extension='html'}"></a>
+                <select class="chosen form-control" data-placeholder="${'destination' @ i18n}" name="destination">
+                    <option value="all">${'destination' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
+                    <option value="wc">${'world-cruises' @ i18n}</option>
+                    <option value="gv">${'grand-voyages' @ i18n}</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <select class="chosen form-control" data-placeholder="${'departure-date' @ i18n}" name="date">
+                    <option value="all">${'departure-date' @i18n}</option>
+                    <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
+                        <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue.toString}"/>
+                        ${month.value} ${item.year}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-3 ships"
+                 data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
+                <select class="chosen form-control" data-placeholder="${'ship' @ i18n}" name="ship">
+                    <option value="all">${'ship' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.ships}" value="${item.name}">${item.title}</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} </button>
+            </div>
+        </form>
+        <sly data-sly-include="result.html"/>
+    </div>
+</template>

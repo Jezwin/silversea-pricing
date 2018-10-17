@@ -1,0 +1,2 @@
+#base=files
+lightbox-gallery-assets.less

@@ -1,6 +1,7 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.i18n.I18n;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
@@ -8,6 +9,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.utils.CruiseUtils;
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
@@ -20,70 +22,126 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Model(adaptables = Page.class)
 public class CruiseModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseModel.class);
 
-    @Inject @Self
+    @Inject
+    @Self
     private Page page;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
+    @Optional
     private String description;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiTitle") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/apiTitle")
+    @Optional
     private String apiTitle;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/importedDescription") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/tourBook")
+    @Optional
+    private String tourBook;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/importedDescription")
+    @Optional
     private String importedDescription;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/startDate") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/startDate")
+    @Optional
     private Calendar startDate;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/endDate") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/endDate")
+    @Optional
     private Calendar endDate;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/duration") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/duration")
+    @Optional
     private String duration;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipReference")
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/customDestination")
+    @Optional
+    private String customDestination;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/shipReference")
     private String shipReference;
 
     private ShipModel ship;
 
-    private DestinationModel destination;
+    private CruiseDestinationModel destination;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseCode") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/cruiseCode")
+    @Optional
     private String cruiseCode;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/itinerary") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/itinerary")
+    @Optional
     private String itinerary;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigItineraryMap")
+    @Optional
+    private String bigItineraryMap;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigThumbnailItineraryMap")
+    @Optional
+    private String bigThumbnailItineraryMap;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/smallItineraryMap")
+    @Optional
+    private String smallItineraryMap;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
+    @Optional
     private String assetSelectionReference;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/keypeople") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/keypeople")
+    @Optional
     private String[] keyPeople;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions")
+    @Optional
     private String cruiseFareAdditions;
 
     private List<String> splitCruiseFareAdditions = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/itineraries")
+    @Optional
     private List<ItineraryModel> itineraries;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/itineraries")
+    @Optional
     private List<ItineraryModel> itinerariesStable;
-    
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigThumbnail")
+    @Optional
+    private String bigThumbnail;
+
     private List<ItineraryModel> compactedItineraries = null;
 
     private String cruiseType;
@@ -94,17 +152,35 @@ public class CruiseModel {
 
     private List<FeatureModel> features = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/offer") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/offer")
+    @Optional
     private String[] exclusiveOffersReferences;
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/isVisible") @Default(booleanValues = true)
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/isVisible")
+    @Default(booleanValues = true)
     private boolean isVisible;
 
     private String path;
 
     private String lang;
+
+    public static String cruiseType(TagManager tagManager, Resource cruise) {
+        if (tagManager != null) {
+            final Tag[] tags = tagManager.getTags(cruise);
+
+            for (final Tag tag : tags) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
+                    return tag.getName();
+                }
+            }
+            return tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
+        }
+        return null;
+    }
 
     @PostConstruct
     private void init() {
@@ -122,7 +198,7 @@ public class CruiseModel {
         }
 
         // init destination
-        destination = page.getParent().adaptTo(DestinationModel.class);
+        destination = new CruiseDestinationModel(page.getParent().adaptTo(DestinationModel.class), customDestination);
 
         // init cruise fare additions
         if (cruiseFareAdditions != null) {
@@ -135,23 +211,17 @@ public class CruiseModel {
 
         // init cruise type and features
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        cruiseType = cruiseType(tagManager, page.getContentResource());
+
         if (tagManager != null) {
             final Tag[] tags = tagManager.getTags(page.getContentResource());
-
             for (final Tag tag : tags) {
-                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
-                    cruiseType = tag.getName();
-                } else if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
                     final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
-
                     if (featureModel != null) {
                         features.add(featureModel);
                     }
                 }
-            }
-
-            if (cruiseType == null) {
-                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
             }
         }
 
@@ -186,10 +256,34 @@ public class CruiseModel {
         }
     }
 
+    public String getTourBook() {
+        return tourBook;
+    }
+
     /**
      * @return cruise title
      */
     public String getTitle() {
+        if (!StringUtils.isEmpty(getDeparturePortName()) && !StringUtils.isEmpty(getArrivalPortName()) &&
+                !StringUtils.isEmpty(cruiseCode)) {
+            final Locale pageLocale = page.getLanguage(false);
+            String delimiter = "to";
+            switch (pageLocale.getLanguage().toLowerCase()) {
+                case "es":
+                    delimiter = "a";
+                    break;
+                case "pt-br":
+                    delimiter = "a";
+                    break;
+                case "fr":
+                    delimiter = "à";
+                    break;
+                case "de":
+                    delimiter = "nach";
+                    break;
+            }
+            return cruiseCode + " - " + getDeparturePortName() + " " + delimiter + " " + getArrivalPortName();
+        }
         return title;
     }
 
@@ -269,13 +363,14 @@ public class CruiseModel {
     public List<ItineraryModel> getItineraries() {
         return itineraries;
     }
-    
+
     public List<ItineraryModel> getItinerariesStable() {
         return itinerariesStable;
     }
 
     /**
      * TODO compacted itineraries cause inconsistencies in itineraries
+     *
      * @return list of compacted itineraries (consecutive days are grouped)
      */
     public List<ItineraryModel> getCompactedItineraries() {
@@ -369,17 +464,17 @@ public class CruiseModel {
      * @return arrival port name
      */
     public String getArrivalPortName() {
-    	try{
-        if (itineraries.size() > 0) {
-            final ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
+        try {
+            if (itineraries.size() > 0) {
+                final ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
 
-            if (itinerary.getPort() != null) {
-                return itinerary.getPort().getApiTitle();
+                if (itinerary.getPort() != null) {
+                    return itinerary.getPort().getApiTitle();
+                }
             }
+        } catch (Exception e) {
+
         }
-    	}catch(Exception e){
-    		
-    	}
         return null;
     }
 
@@ -422,4 +517,20 @@ public class CruiseModel {
         return lang;
     }
 
+
+    public String getBigThumbnail() {
+        return bigThumbnail;
+    }
+
+    public String getBigItineraryMap() {
+        return bigItineraryMap;
+    }
+
+    public String getBigThumbnailItineraryMap() {
+        return bigThumbnailItineraryMap;
+    }
+
+    public String getSmallItineraryMap() {
+        return smallItineraryMap;
+    }
 }

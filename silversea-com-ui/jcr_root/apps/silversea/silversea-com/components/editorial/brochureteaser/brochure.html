@@ -15,7 +15,7 @@
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
                 <a data-sly-test="${currentStyle.onlineRequestFormReference}"
                    href="${externalizedOnlinePath.externalizedTranslatedUrl @ selectors=['modalcontent'] , extension='html'}${brochure.brochurePath}.html"
-                   class="btn btn-dark c-brochure__btn effect" data-toggle="modal"
+                   class="btn btn-dark c-brochure__btn effect trackviewonlinebro" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                     <i class="fa fa-search"></i>
                     <strong>${'view-online' @i18n}</strong>
@@ -25,7 +25,7 @@
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.printedRequestFormReference}">
                 <a data-sly-test="${currentStyle.printedRequestFormReference && !brochure.isBrochureDigitalOnly}"
                    href="${externalizedPrintedPath.externalizedTranslatedUrl @ selectors=['modalcontent'], extension='html'}${brochure.brochurePath}.html"
-                   class="btn btn-dark c-brochure__btn effect" data-toggle="modal"
+                   class="btn btn-dark c-brochure__btn effect trackmailmebro" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                     <i class="fa envelope"></i>
                     <strong>${'mail-me-brochure' @ i18n}</strong>

@@ -2,7 +2,11 @@
     .c-single-suite-slider-property-display {       
         .o-single-suite-slider-title {        
             font-size: 24px;
-            font-family: @freight-bold;          
+            font-family: @freight;
+            text-transform: capitalize;
+            @media (max-width: @screen-sm){
+                font-size: 26px;
+            }
         }
 
         .o-single-suite-slider-description {
@@ -16,14 +20,17 @@
             @media screen and (max-width: @screen-sm) {
                 &__mobile {
                     font-size: 26px;                    
-                    font-family: @freight-bold;
+                    font-family: @freight;
+                    text-transform: capitalize !important;
                 }
             }         
-            font-family: @freight-bold;
+            font-family: @freight;
             font-size: 18px;        
         }          
         &__label {
-            font-size: 11px;        
+            font-size: 13px;
+            color: #171d47;
+            font-weight: normal;
         }
     }
 

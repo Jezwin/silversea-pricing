@@ -55,8 +55,22 @@
     }
 }
 
-.video {
-    .c-video {
+.video, .videoCustomThumbnail {
+    .full-width-video {
+        left: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        position: relative;
+        right: 50% !important;
+        width: 100vw !important;
+    }
+    @media (max-width: @screen-sm) {
+        .fullWidthVideoMobile {
+            .full-width-video();
+        }
+    }
+
+    .c-video, .video-custom-thumbnail {
         .s7container {
             video {
                 width: 100% !important;
@@ -64,6 +78,10 @@
             .s7controlbar {
                 //opacity:1 !important;
             }
+        }
+
+        .s7videoviewer .s7videoplayer .s7iconeffect[state] {
+            background-image: url(/etc/designs/silversea-com/clientlib-base/images/icons/play-icon.png);
         }
     }
 }

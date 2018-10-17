@@ -73,9 +73,11 @@
                     <div class="cruisehighlights__eo__title"><span class="fa">&#xf005;</span> ${'feature-exclusive-offers' @ i18n}:</div>
                     <sly data-sly-list="${cruise.exclusiveOffers}" data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
                         <p><strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}</p>
+						<p data-sly-test="${cruise.isVS && itemList.last}"><strong><i class="icon-shield-v"></i> ${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
                     </sly>
                     <sly data-sly-test="${!isEo}">
                         <p><strong>${'feature-no-exclusive-offers-title' @ i18n}&nbsp;</strong>${'feature-no-exclusive-offers-description' @ i18n}</p>
+						<p data-sly-test="${cruise.isVS}"><strong><i class="icon-shield-v"></i> ${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
                     </sly>
                 </div>
             </div>
@@ -223,6 +225,16 @@
 	        <li data-sly-repeat="${includesItems.includedInFareSecondList}">${item}</li>
 	    </ul>
 	</div>
+    <div class="included__footnotes">
+        <ul>
+            <sly data-sly-list.eo="${cruise.exclusiveOffers}">
+                <li data-sly-repeat.footnote="${eo.footNotes}">
+                    <i>${footnote @ context='html'}</i>
+                </li>
+            </sly>
+            <li data-sly-test="${cruise.cruiseModel.destination.footnote}"><i>${cruise.cruiseModel.destination.footnote  @ context='html' }</i></li>
+        </ul>
+    </div>
 </div>
 	<div class="section ship ship__block">
     <div data-sly-test.ship="${cruise.cruiseModel.ship}" class="section__header">

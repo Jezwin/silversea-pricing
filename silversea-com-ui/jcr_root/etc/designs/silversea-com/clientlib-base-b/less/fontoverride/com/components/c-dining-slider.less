@@ -4,7 +4,11 @@
 
         .o-single-dining-slider-title {           
             font-size: @h4-desktop-fontsize-24;
-            font-family: @freight-bold;         
+            font-family: @freight;
+            text-transform: capitalize;
+            @media (max-width: @screen-sm){
+                font-size: 26px;
+            }
         }
 
         .o-single-dining-slider-description {
@@ -21,16 +25,20 @@
         &__title {
             @media screen and (max-width: @screen-sm) {               
                 &__mobile {
-                    font-size: @h3-mobile-fontsize-24;                   
-                    font-family: @freight-bold;
+                    font-size: 26px;
+                    font-family: @freight;
+                    text-transform: capitalize !important;
                 }
             }
             
-            font-family: @freight-bold;
+            font-family: @freight;
             font-size: @kicker-desktop-fontsize-18;    
         }    
         &__label {
-            font-size: @label-desktop-fontsize-12;
+                    font-size: 13px;
+                    color: #171d47;
+                    font-weight: normal;
+
         }
     }
 

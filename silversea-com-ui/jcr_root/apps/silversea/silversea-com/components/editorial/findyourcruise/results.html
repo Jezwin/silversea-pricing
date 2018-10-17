@@ -2,7 +2,7 @@
 <div class="clearfix c-fyc__results__wrapper" >
     <div class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
         <div class="c-fyc__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseItem.cruiseModel.thumbnail}">
-            <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=360" />
+            <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=450&fmt=pjpeg&pscan=5&qlt=80" />
             <sly data-sly-test.thumbnailFallback="${currentDesign.path}/clientlib-base/images/cruise-thumbnail.jpg" />
             <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail ? thumbnail : thumbnailFallback @ context='uri'})"> 
                 <span  data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag">
@@ -88,7 +88,7 @@
                 </p>
                 <p class="c-fyc__result__content__button text-center">
                     <a data-sly-test.suffix="${'{0}{1}' @ format=[cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"
-                        class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+                        class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span> <i class="fa fa-lg fa-angle-right"></i></a>
                    	<a href="${cruiseItem.cruiseModel.path @ extension='html'}" class="btn effect c-fyc-btn-discover-more ab-test-v2-show" data-sscclicktype="clic-results-viewmore"
                         >${'view-more' @ i18n} </a>
                 </p>

@@ -2,7 +2,10 @@
     .c-suite-display {      
         .o-title {         
             font-size: @h1-desktop-fontsize-48;
-            font-family: @freight-bold;          
+            font-family: @freight;
+            @media(max-width:@screen-sm){
+                font-size: @h1-mobile-fontsize-34;
+            }
         }
 
         .o-description {
@@ -28,7 +31,7 @@
         &__title {
             font-size: 17px;          
             @media screen and (min-width: @screen-sm) {
-                font-family: @freight-bold;
+                font-family: @freight;
             }
         }            
     }

@@ -9,6 +9,8 @@
     <h2 class="c-tabbedmozaic__title" data-sly-test="${properties.jcr:title}"><span>${properties.jcr:title @ context="html"}</span></h2>
     <a class="c-tabbedmozaic__link--block" data-sly-test=${properties.reference} title="${properties.jcr:title}" href="${properties.reference @ extension='html'}"></a>
 </section>
+
+	
 <style data-sly-test="${properties.desktopHeight != '0' && properties.desktopHeight}">
 @media (min-width: 992px) {
 	#c-tabbedmozaic-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-tabbedmozaic  {

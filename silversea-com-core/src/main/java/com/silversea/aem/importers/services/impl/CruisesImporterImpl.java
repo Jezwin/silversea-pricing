@@ -193,7 +193,9 @@ public class CruisesImporterImpl implements CruisesImporter {
                                         "jcr:title", "sling:alias"});
                             }
 
-                            CruisesImportUtils.associateMapAsset(session, cruiseContentNode, destinationPage.getName(), cruise.getMapUrl(), mimeTypeService, resourceResolver);
+                            if (StringUtils.isNotEmpty(cruise.getMapUrl())) {
+                                CruisesImportUtils.associateMapAsset(session, cruiseContentNode, destinationPage.getName(), cruise.getMapUrl(),"itinerary",mimeTypeService, resourceResolver);
+                            }
 
                             successNumber++;
                             itemsWritten++;
@@ -511,7 +513,8 @@ public class CruisesImporterImpl implements CruisesImporter {
         cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
         cruiseContentNode.setProperty("isVisible", BooleanUtils.isTrue(cruise.getIsVisible()));
         cruiseContentNode.setProperty("isCombo", BooleanUtils.isTrue(cruise.getIsCombo()));
-        
+        cruiseContentNode.setProperty("tourBook", cruise.getTourBook());
+
         //SSC-2406 Wrong Cruise URL + Global Search Title
         //set sling:alias and jcr:title to match voyage name
         final String alias = JcrUtil.createValidName(StringUtils
@@ -526,7 +529,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             cruiseContentNode.setProperty("sling:alias", alias);
         }
         cruiseContentNode.setProperty("jcr:title", cruise.getVoyageCod() + " - " + cruiseTitle );
-        
+
         // TODO temporary not write livecopy informations to be compliant with PROD content
         // Set livecopy mixin
         /* if (!language.equals("en")) {
@@ -539,8 +542,25 @@ public class CruisesImporterImpl implements CruisesImporter {
             }
         } */
 
-        CruisesImportUtils.associateMapAsset(session, cruiseContentNode, 
-                cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService, resourceResolver);
+        if (StringUtils.isNotEmpty(cruise.getMapUrl())){
+            CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), "itinerary",mimeTypeService, resourceResolver);
+        }
+
+        if (StringUtils.isNotEmpty(cruise.getMap3Url())){
+            CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap3Url(), "bigThumbnailItineraryMap",mimeTypeService, resourceResolver);
+        }
+
+        if (StringUtils.isNotEmpty(cruise.getMap4Url())){
+            CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMap4Url(), "bigItineraryMap",mimeTypeService, resourceResolver);
+        }
+
+            if (StringUtils.isNotEmpty(cruise.getMapPos())){
+                CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+                    cruiseContentNode.getParent().getParent().getName(), cruise.getMapPos(), "smallItineraryMap", mimeTypeService, resourceResolver);
+            }
 
         final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
         final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();

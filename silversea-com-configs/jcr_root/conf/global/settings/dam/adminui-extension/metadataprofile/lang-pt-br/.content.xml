@@ -38,7 +38,7 @@
                                     name="./jcr:content/metadata/cq:tags"
                                     renderReadOnly="{Boolean}true"
                                     showEmptyInReadOnly="true"
-                                    value="[languages:pt-br]">
+                                    value="[languages:pt-BR]">
                                     <datasource
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="cq/gui/components/common/datasources/tags"/>

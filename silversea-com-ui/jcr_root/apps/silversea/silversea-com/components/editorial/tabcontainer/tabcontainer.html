@@ -2,9 +2,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="c-tab c-tab__accordion ${isEdit ? 'c-tab__edit' : ''}">
+            <div class="c-tab ${isEdit ? 'c-tab__edit' : ''}">
 
-                <ul class="c-tab__nav c-tab__nav--regular5 dropdown-menu" data-toggle="dropdown" aria-expanded="false"
+                <ul class="c-tab__nav  ab-test-tab-accordion c-tab__nav--regular5 dropdown-menu c-tab-2__nav c-tab__nav-mobile-v2" data-toggle="dropdown" aria-expanded="false"
                     data-sly-test="${!isEdit}"
                     data-sly-use.TabContainerUse="com.silversea.aem.components.editorial.TabContainerUse" >
 
@@ -13,7 +13,7 @@
                     </li>
                 </ul>
 
-                <div class="c-tab__body">
+                <div class="c-tab__body c-tab__body-mobile-v2">
                     <sly data-sly-resource="${'parTabcontainer' @ resourceType='wcm/foundation/components/responsivegrid'}" />
                 </div>
             </div>

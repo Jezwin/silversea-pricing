@@ -1,0 +1,723 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+
+.lightbox .modal-content .modal-body.lightbox-suite-body {
+  padding-top: 0px;
+}
+
+.lightbox-suite {
+
+  //common style across templates
+  .lg-content {
+    margin: 0px 60px 0px 60px;
+    hr {
+      border: 1px solid rgba(152, 152, 155, 0.2);
+    }
+
+    .lg-suite-raq {
+      float: right;
+
+      a {
+        border-radius: @nd-button-border-radius;
+        border-width: @nd-button-border-width;
+        display: inline-block;
+        font-family: @suisse;
+        font-size: @nd-button-font-size;
+        font-weight: normal;
+        letter-spacing: @nd-button-letter-spacing;
+        line-height: @nd-button-line-height;
+        padding: @nd-button-padding-lightbox;
+        text-align: center ! important;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: normal;
+        span {
+          padding-right: 0 ! important;
+        }
+
+        &-red {
+          background-color: @nd-red;
+          color: @white;
+          &:hover, &:focus, &:active {
+            background-color: @nd-red-darker ! important;
+            color: @white ! important;
+          }
+        }
+      }
+    }
+
+    .lg-suite-prices {
+      text-align: center;
+      text-transform: uppercase;
+      padding-left: 28%;
+      margin-top: 5px;
+    }
+    .lg-suite-prices-from {
+      font-family: @suisse;
+    }
+    .lg-suite-prices-text {
+      font-family: @suisse;
+    }
+    .lg-suite-waiting-list {
+      text-transform: uppercase;
+    }
+
+    .lg-suite-prices-bonus {
+      display: block;
+    }
+  }
+
+  //style applied only to suite-overview.html template
+  .lg-suite-overview {
+    .lg-row-bed-cta {
+      margin-top: 15px;
+    }
+
+    .lg-suite-name {
+      font-family: @freight;
+    }
+
+    .lg-suite-bedrooms {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      p {
+        margin: 0px;
+      }
+    }
+
+    .lg-suite-description {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      .lg-suite-descr-label {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  //style applied only to suite-gallery.html templates
+  .lg-asset-slider {
+    visibility: hidden;
+    min-height: 60px;
+
+    &.slick-initialized {
+      visibility: visible !important;
+    }
+    .parbase {
+      margin-bottom: 0 !important;
+    }
+
+    .slick-cloned .o-img {
+      display: none;
+    }
+
+    .slick-slide {
+      &,
+      a:focus {
+        outline: 0;
+      }
+
+      > * {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    &:not(.lg-slider--full-width) .slick-slide > * {
+      margin: 0 5px;
+      @media (max-width: @screen-sm) {
+        margin: 0 10px;
+      }
+    }
+
+    .slick-prev,
+    .slick-next {
+      height: 100%;
+      width: 80px;
+      z-index: 1;
+
+      &:before,
+      &:after {
+        content: " ";
+        display: block;
+        height: 20px;
+        position: absolute;
+        top: 50%;
+        width: 20px;
+      }
+
+      &:before {
+        border: 1px solid @grey--9;
+        border-width: 0 1px 1px 0;
+        opacity: .7;
+        top: calc(~"50% + 2px");
+      }
+
+      &:after {
+        border: 2px solid @white;
+        border-width: 0 1px 1px 0;
+      }
+    }
+
+    .slick-prev {
+      &:before,
+      &:after {
+        left: 60%;
+        -webkit-transform: translate(-50%, -50%) rotateZ(135deg);
+        -ms-transform: translate(-50%, -50%) rotateZ(135deg);
+        transform: translate(-50%, -50%) rotateZ(135deg);
+      }
+    }
+
+    .slick-next {
+      &:before,
+      &:after {
+        left: 40%;
+        -webkit-transform: translate(-50%, -50%) rotateZ(-45deg);
+        -ms-transform: translate(-50%, -50%) rotateZ(-45deg);
+        transform: translate(-50%, -50%) rotateZ(-45deg);
+      }
+    }
+
+    .slick-dots {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+      width: auto;
+      bottom: 30px;
+    }
+
+    &--main {
+      .lazy {
+        &:after {
+          background-image: url('/etc/designs/silversea-com/clientlib-base/images/loader.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          content: ' ';
+          height: 50px;
+          left: calc(~'50% - 25px');
+          position: absolute;
+          top: calc(~'50% - 25px');
+          width: 50px;
+          z-index: -1;
+        }
+      }
+    }
+
+    &--main {
+      .slick-prev,
+      .slick-next {
+        height: 100px;
+      }
+
+      .slick-slide {
+        .ratio {
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          cursor: pointer;
+          height: 0;
+          margin: 0;
+          position: relative;
+          width: 100%;
+
+          .c-video {
+            height: 0;
+
+            &.s7videoviewer {
+              height: 100%;
+              left: 0;
+              position: absolute;
+              top: 0;
+              width: 100%
+            }
+          }
+        }
+      }
+    }
+    .slick-dots li.slick-active {
+      padding:1px;
+    }
+
+    .slick-dots {
+      width: 100%;
+      max-width: 150px;
+    }
+
+    .slick-dots li {
+      height: 1px;
+      margin: 0;
+    }
+
+    .slick-dots li button {
+      height: 2px;
+    }
+
+    .slick-dots li.slick-active button:before {
+      background-color: @white;
+      opacity: .8;
+    }
+    .slick-dots li button:before {
+      border-radius: 0;
+    }
+    .slick-slide[data-slide-type^="video"] {
+      position: relative;
+    }
+    .lg-virtual-tour {
+      &:not(:required):after {
+        content: '360\00b0';
+        font-size: 100px;
+        z-index: 3243;
+        background-image: none;
+        color: @white;
+        font-family: @f-serif;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        position: absolute;
+      }
+      &:before {
+        content: "";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        background-color: @grey--04;
+      }
+    }
+  }
+
+  //style applied only to suite-deck.html templates
+  .lg-suite-deck {
+    .lg-suite-deck-label {
+      text-align: center;
+      font-family: @suisse;
+      text-transform: uppercase;
+    }
+    .lg-suite-deck-tab {
+      text-align: center;
+    }
+    .lg-suite-deck-number {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      span {
+        cursor: pointer;
+        font-family: @suisse;
+        opacity: 0.6;
+        text-transform: uppercase;
+      }
+
+      span::after {
+        content: "";
+        position: absolute;
+        width: 68%;
+        display: block;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+      }
+
+      &:hover {
+        span {
+          opacity: 1;
+          color: @color-second;
+        }
+        span:after {
+          border-top: 0.12em solid @color-second;
+        }
+      }
+    }
+    .lg-suite-deck-plan span:after {
+      margin-left: 22% !important;
+      width: 80% !important;
+    }
+    .lg-suite-deck-number.lg-suite-active-first {
+      span {
+        margin-left: 0px;
+      }
+      span:after {
+        margin-left: 0px;
+        width: 100%;
+      }
+    }
+
+    .lg-suite-active-deck {
+      span {
+        opacity: 1;
+        color: @color-second;
+      }
+      span:after {
+        border-top: 0.12em solid @color-second;
+      }
+    }
+
+    .lg-suite-deck-image {
+      text-align: center;
+    }
+  }
+
+  //style applied only to suite-features.html templates
+  .lg-suite-features {
+    font-family: "Suisse Int'l";
+    letter-spacing: 1px;
+    line-height: 18px;
+    font-family: @suisse;
+    .lg-suite-features-label {
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .lg-suite-features-list {
+      -moz-columns: 2;
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+
+      .features-first {
+        margin-top: 0px;
+      }
+
+      li {
+        margin-top: 5px;
+        padding-left: 1em;
+        text-indent: -0.8em;
+        text-align: left;
+        -webkit-column-break-inside: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+  }
+
+  .lg-suite-cta {
+    .lg-suite-prices {
+      padding-left: 0px;
+    }
+    .lg-suite-raq {
+      float: none;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 52px;
+    }
+  }
+
+}
+
+//Desktop and Tablet
+@media screen and (min-width: @screen-md-min) {
+  .lightbox-suite {
+    .lg-content {
+      margin: 0 60px 0 60px;
+
+      hr.lg-suite-separator {
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+
+      .lg-suite-prices-from {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        line-height: 18px;
+      }
+      .lg-suite-prices-text {
+        font-size: 20px;
+        letter-spacing: 1px;
+        line-height: 24px;
+      }
+      .lg-suite-waiting-list {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        line-height: 16px;
+      }
+
+      .lg-suite-prices-bonus {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        line-height: 18px;
+      }
+
+    }
+    //style applied only to suite-overview.html template
+    .lg-suite-overview {
+      .lg-suite-name {
+        font-size: 30px;
+        letter-spacing: 0.5px;
+        line-height: 32px;
+      }
+
+      .lg-row-descr {
+        margin-top: 50px;
+        margin-bottom: 10px;
+      }
+    }
+    //style applied only to suite-gallery.html templates
+    .lg-asset-slider--main {
+      .slick-slide .ratio {
+        height: 432px;
+      }
+    }
+    //style applied only to suite-features.html templates
+    .lg-suite-features {
+      font-size: 13px;
+      .lg-suite-features-list {
+        -webkit-columns: 2;
+      }
+    }
+
+    .lg-suite-plan {
+      .lg-suite-deck-label {
+        margin-bottom: 15px !important;
+      }
+    }
+
+    //style applied only to suite-deck.html templates
+    .lg-suite-deck {
+      .lg-suite-deck-label {
+        font-size: 13px;
+        letter-spacing: 1px;
+        line-height: 20px;
+        margin-top: 33px;
+        margin-bottom: 30px;
+      }
+      .lg-suite-deck-number {
+        span {
+          font-size: 13px;
+          letter-spacing: 1.5px;
+          line-height: 16px;
+          margin-left: 30px;
+        }
+        span::after {
+          margin-left: 32%;
+          margin-top: 4px;
+        }
+      }
+      .lg-suite-deck-tab {
+        margin-bottom: 36px;
+      }
+    }
+  }
+}
+
+//Mobile
+@media screen and (max-width: @screen-sm) {
+  .lightbox-suite {
+    .lg-content {
+      margin: 0 25px 0 25px;
+
+      .lg-suite-prices-from {
+        font-size: 8px;
+        letter-spacing: 0.8px;
+        line-height: 11px;
+      }
+      .lg-suite-prices-text {
+        font-size: 18px;
+        letter-spacing: 0.43px;
+        line-height: 25px;
+      }
+      .lg-suite-waiting-list {
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+      }
+
+      .lg-suite-prices-bonus {
+        font-size: 8px;
+        letter-spacing: 0.8px;
+        line-height: 11px;
+      }
+
+      hr.lg-suite-separator {
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+
+      hr.lg-suite-separator-1 {
+        margin-top: 0px;
+        border: none;
+      }
+    }
+
+    //style applied only to suite-overview.html template
+    .lg-suite-overview {
+
+      .lg-suite-description-expand {
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        font-family: @suisse;
+        color: @color-second;
+        text-transform: uppercase;
+      }
+      .lg-suite-name {
+        font-size: 22px;
+        letter-spacing: 0.5px;
+        line-height: 24px;
+      }
+      .lg-row-title-price {
+        margin-top: 30px;
+      }
+      .lg-row-descr {
+        margin-top: 15px;
+        margin-bottom: 5px;
+
+        .lg-suite-description p {
+          margin-bottom: 0px;
+        }
+
+        /* styles for '...' */
+        .lg-suite-description-truncate {
+          overflow: hidden;
+          position: relative;
+          max-height: 3.4em;
+          text-align: justify;
+          margin-right: -1em;
+          padding-right: 1em;
+        }
+        /* create the ... */
+        .lg-suite-description-truncate:before {
+          content: '...';
+          position: absolute;
+          right: 0;
+          bottom: 3px;
+        }
+        /* hide ... if we have text, which is less than or equal to max lines */
+        .lg-suite-description-truncate:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          width: 1em;
+          height: 1em;
+          margin-top: 0.2em;
+          background: @white;
+        }
+      }
+    }
+
+    //style applied only to suite-deck.html templates
+    .lg-suite-deck.lg-suite-plan {
+      padding-top: 0px;
+    }
+    .lg-suite-deck {
+      padding-bottom: 25px;
+      padding-top: 25px;
+      position: relative;
+      z-index: 1;
+      &::before {
+        /*background-color: @grey--f4;*/
+        background-color: white;
+        left: 50%;
+        width: 100vw;
+        bottom: 0;
+        content: ' ';
+        display: block;
+        top: 0;
+        z-index: -1;
+        max-width: 1920px;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        position: absolute;
+        margin: auto;
+      }
+      .lg-suite-deck-label {
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        margin-top: 0px;
+        margin-bottom: 25px;
+      }
+      .lg-suite-deck-number {
+        span {
+          font-size: 12px;
+          letter-spacing: 1px;
+          line-height: 18px;
+          margin-left: 20px;
+        }
+        span:after {
+          margin-left: 28%;
+          margin-top: 1px;
+        }
+      }
+      .lg-suite-deck-tab {
+        margin-bottom: 25px;
+      }
+    }
+
+    //style applied only to suite-gallery.html templates
+    .lg-asset-slider--main {
+      .slick-slide .ratio {
+        height: 210px;
+      }
+    }
+    .lg-asset-slider {
+      .slick-dots {
+        bottom: 20px;
+      }
+    }
+
+    //style applied only to the first suite-cta.html templates
+    .visible-xs {
+      .lg-suite-cta {
+        .lg-suite-raq {
+          margin-bottom: 30px;
+          min-height: 0px;
+        }
+      }
+    }
+
+    //style applied only to the second suite-cta.html templates
+    .lg-suite-cta {
+      .lg-suite-raq {
+        min-height: 200px;
+        margin-bottom: 60px;
+      }
+    }
+
+    //style applied only to suite-features.html templates
+    .lg-suite-features {
+      font-size: 12px;
+      margin-top: 20px;
+      .lg-suite-features-list {
+        -webkit-columns: 1;
+        display: none;
+      }
+
+      .lg-suite-features-expand {
+        float: right;
+        i {
+          font-size: 29px;
+          line-height: 0.6;
+        }
+      }
+    }
+  }
+}
+
+//Style other lang
+.es, .pt-BR {
+  .lightbox-suite {
+    .lg-suite-raq a {
+      padding: 12px 19px 10px 20px !important;
+    }
+
+    @media (max-width: 374px) {
+      .lg-suite-raq a {
+        padding: 12px 28px 10px 29px;
+      }
+    }
+  }
+}
+
+
+
+
+
+

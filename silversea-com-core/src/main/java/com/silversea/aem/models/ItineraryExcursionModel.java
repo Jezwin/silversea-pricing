@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
@@ -26,6 +27,7 @@ public class ItineraryExcursionModel {
     private int excursionId;
 
     @Inject
+    @Optional
     private String excursionReference;
 
     @Inject @Optional
@@ -44,7 +46,7 @@ public class ItineraryExcursionModel {
     private void init() {
         final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
-        if (pageManager != null) {
+        if (pageManager != null && StringUtils.isNotEmpty(excursionReference)) {
             final Page excursionPage = pageManager.getPage(excursionReference);
 
             if (excursionPage != null) {
@@ -124,7 +126,19 @@ public class ItineraryExcursionModel {
 		return excursion;
 	}
 
-	public class Duration {
+    public String getAssetSelectionReference() {
+        return excursion != null ? excursion.getAssetSelectionReference() : null;
+    }
+
+    public Long getShorexId() {
+        return excursion != null ? excursion.getShorexId() : null;
+    }
+
+    public String getCode() {
+        return excursion != null ? excursion.getCodeExcursion() : null;
+    }
+
+    public class Duration {
         int hours;
         int minutes;
 

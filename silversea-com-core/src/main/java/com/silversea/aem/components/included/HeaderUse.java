@@ -26,6 +26,7 @@ public class HeaderUse extends WCMUsePojo {
     private Page link1Page;
     private Page link2Page;
     private Page link3Page;
+    private Page link4Page;
     private Page link3MobilePage;
     private Page searchPage;
     private Page homePage;
@@ -44,12 +45,14 @@ public class HeaderUse extends WCMUsePojo {
         final String link1Reference = properties.getInherited("link1Reference", "");
         final String link2Reference = properties.getInherited("link2Reference", "");
         final String link3Reference = properties.getInherited("link3Reference", "");
+        final String link4Reference = properties.getInherited("link4Reference", "");
         final String link3MobileReference = properties.getInherited("link3MobileReference", "");
         final String searchPageReference = properties.getInherited("searchPageReference", "");
 
         link1Page = getPageManager().getPage(link1Reference);
         link2Page = getPageManager().getPage(link2Reference);
         link3Page = getPageManager().getPage(link3Reference);
+        link4Page = getPageManager().getPage(link4Reference);
         link3MobilePage = getPageManager().getPage(link3MobileReference);
         searchPage = getPageManager().getPage(searchPageReference);
 
@@ -119,6 +122,9 @@ public class HeaderUse extends WCMUsePojo {
      */
     public Page getLink3Page() {
         return link3Page;
+    }
+    public Page getLink4Page() {
+        return link4Page;
     }
 
     /**

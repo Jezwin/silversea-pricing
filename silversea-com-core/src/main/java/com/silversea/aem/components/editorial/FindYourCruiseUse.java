@@ -1,16 +1,5 @@
 package com.silversea.aem.components.editorial;
 
-import java.time.YearMonth;
-import java.time.format.DateTimeParseException;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.ValueMap;
-
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
@@ -20,25 +9,19 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.models.DestinationItem;
-import com.silversea.aem.models.DestinationModelLight;
-import com.silversea.aem.models.ExclusiveOfferModel;
-import com.silversea.aem.models.FeatureModel;
-import com.silversea.aem.models.FeatureModelLight;
-import com.silversea.aem.models.PortItem;
-import com.silversea.aem.models.PortModelLight;
-import com.silversea.aem.models.ShipItem;
-import com.silversea.aem.models.ShipModelLight;
+import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.FindYourCruiseUtils;
 import com.silversea.aem.utils.PathUtils;
 import com.silversea.aem.ws.client.factory.WorldAndGrandVoyageCache;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.ValueMap;
 
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.IntStream.concat;
-import static java.util.stream.IntStream.of;
-import static java.util.stream.IntStream.range;
+import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * selectors : destination_all date_all duration_all ship_all cruisetype_all
@@ -509,7 +492,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
             if (!exclusiveOfferFilter.equals(FILTER_ALL)) {
                 boolean exclusiveOfferInCruise = false;
-                for (final ExclusiveOfferModel exclusiveOffer : cruise.getExclusiveOffers()) {
+                for (ExclusiveOfferModelLight exclusiveOffer : cruise.getExclusiveOffers()) {
                     if (exclusiveOffer.getPath().equals(exclusiveOfferFilter)) {
                         exclusiveOfferInCruise = true;
                         break;

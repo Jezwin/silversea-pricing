@@ -18,47 +18,92 @@ import java.util.List;
 @Model(adaptables = Page.class)
 public class SuiteModel implements ShipAreaModel {
 
-    @Inject @Self
+    @Inject
+    @Self
     private Page page;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Optional
     private String title;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
+    @Optional
     private String longDescription;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
+    @Optional
     private String assetSelectionReference;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/bedroomsInformation") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bedroomsInformation")
+    @Optional
     private String bedroomsInformation;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/plan") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bedroomsInformationMeter")
+    @Optional
+    private String bedroomsInformationMeter;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bedroomsInformationFeet")
+    @Optional
+    private String bedroomsInformationFeet;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/plan")
+    @Optional
     private String plan;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/locationImage") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/locationImage")
+    @Optional
     private String locationImage;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/virtualTour")
+    @Optional
     private String virtualTour;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/image/fileReference")
+    @Optional
     private String thumbnail;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteFeature") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/suiteFeature")
+    @Optional
     private String[] features;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteReference") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/suiteReference")
+    @Optional
     private String suiteReference;
 
-	// TODO replace by injector
+    // TODO replace by injector
     private SuiteModel genericSuite;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSubTitle") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/suiteSubTitle")
+    @Optional
     private String suiteSubTitle;
-    
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/suitesubtitleUpTo") @Optional
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/suitesubtitleUpTo")
+    @Optional
     private String suitesubtitleUpTo;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/suiteSizeFeet")
+    @Optional
+    private String suiteSizeFeet;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/suiteSizeMeter")
+    @Optional
+    private String suiteSizeMeter;
 
     private List<Asset> assets = new ArrayList<>();
 
@@ -89,10 +134,18 @@ public class SuiteModel implements ShipAreaModel {
     }
 
     public String getSuitesubtitleUpTo() {
-		return suitesubtitleUpTo;
-	}
+        return suitesubtitleUpTo;
+    }
 
-	public String getLongDescription() {
+    public String getSuiteSizeFeet() {
+        return suiteSizeFeet;
+    }
+
+    public String getSuiteSizeMeter() {
+        return suiteSizeMeter;
+    }
+
+    public String getLongDescription() {
         return longDescription != null ? longDescription :
                 (genericSuite != null ? genericSuite.getLongDescription() : null);
     }
@@ -113,15 +166,15 @@ public class SuiteModel implements ShipAreaModel {
     public String[] getFeatures() {
         return features;
     }
-    
+
     public String getFeaturesString() {
-    	StringBuilder featuresString = new StringBuilder();
-    	for(int i=0; i < features.length; i++) {
-    		featuresString.append(features[i]);
-    		if (i < features.length -1) {
-    			featuresString.append("#next#");
-    		}
-    	}
+        StringBuilder featuresString = new StringBuilder();
+        for (int i = 0; i < features.length; i++) {
+            featuresString.append(features[i]);
+            if (i < features.length - 1) {
+                featuresString.append("#next#");
+            }
+        }
         return featuresString.toString();
     }
 
@@ -156,8 +209,16 @@ public class SuiteModel implements ShipAreaModel {
     public String getName() {
         return name;
     }
-    
+
     public String getSuiteReference() {
-		return suiteReference;
-	}
+        return suiteReference;
+    }
+
+    public String getBedroomsInformationMeter() {
+        return bedroomsInformationMeter;
+    }
+
+    public String getBedroomsInformationFeet() {
+        return bedroomsInformationFeet;
+    }
 }

@@ -1,7 +1,7 @@
 <template data-sly-template.filterv1="${@ fyc}">
 <div class="c-fyc-filter"
     data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
-    <div class="c-fyc-filter__header text-center text-uppercase">
+    <div class="c-fyc-filter__header text-center text-uppercase c-fyc-v1-filter-mobile-hide">
         <p class="c-fyc-filter__action">
             <i class="fa fa-mail-reply"></i> <a href="#" onclick="history.go(-1);return false">${'perform-a-new-search' @ i18n}</a>
         </p>
@@ -18,6 +18,24 @@
             <a href="#"><i class="fa fa-undo"></i> <span class="text-capitalize">${'clear-all-filters' @ i18n}</span></a>
         </p>
     </div>
+
+    <div class="c-fyc-v1-filter__header text-uppercase c-fyc-v1-filter-mobile-show fyc-filter-hidden">
+        <div class="c-fyc-v1-filter__text container">
+            <div class="c-fyc-v1-filter__text-header" id="matching-value-nd">${fyc.totalMatches}</div>
+            <div class="c-fyc-v1-filter__text-header result-label" >${'result' @ i18n}</div>
+            <div class="c-fyc-v1-filter__text-header results-label">${'results' @ i18n}</div>
+            <button class="btn c-fyc-btn" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false"
+                    aria-controls="filter-collapse" data-text-opened="${'close' @ i18n}">
+                <i class="material-icons fyc-tune-i">
+                    tune
+                </i>
+                <i class="material-icons fyc-close-i">
+                    clear
+                </i>
+            </button>
+        </div>
+    </div>
+
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
     <sly data-sly-use.externalizerHelperWC="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.worldCruisesPagePath }" />
     <sly data-sly-use.externalizerHelperGV="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.grandVoyagesPagePath  }" />
@@ -94,7 +112,7 @@
                 </div>
             </div>
         </div>
-        <div class="c-fyc-filter__button visible-xs text-center">
+        <div class="c-fyc-filter__button visible-xs text-center c-fyc-v1-filter-mobile-hide">
             <button class="btn btn-dark effect" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false"
                 aria-controls="filter-collapse"
                 data-text-closed="${'refine-your-search' @ i18n}"
@@ -109,19 +127,36 @@
 <template data-sly-template.filterv2="${@ fyc}">
 <div class="c-fyc-v2-filter" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
 
-    <div class="c-fyc-v2-filter__header text-uppercase">
+    <div class="c-fyc-v2-filter__header text-uppercase c-fyc-v1-filter-mobile-hide">
         <div class="c-fyc-v2-filter__text container">
         <div class="c-fyc-v2-filter__text-header">${properties.jcr:title || 'your-search-results' @ i18n}</div>
             <div class="c-fyc-v2-filter__text-header" id="v2-matching-value">${fyc.totalMatches}</div>
             <div class="c-fyc-v2-filter__text-header result-label" >${'cruise' @ i18n}</div>
             <div class="c-fyc-v2-filter__text-header results-label">${'cruises' @ i18n}</div>
-            
+
             <div class="c-fyc-v2-filter__text-header c-fyc-v2-filter__reset hidden-xs">
                 <a href="#"><i class="fa fa-undo"></i> <span class="text-uppercase">${'clear-all-filters' @ i18n}</span></a>
             </div>
         </div>
     </div>
 
+
+    <div class="c-fyc-v1-filter__header text-uppercase c-fyc-v1-filter-mobile-show fyc-filter-hidden">
+        <div class="c-fyc-v1-filter__text container">
+            <div class="c-fyc-v1-filter__text-header" id="v2-matching-value-nd">${fyc.totalMatches}</div>
+            <div class="c-fyc-v1-filter__text-header result-label" >${'result' @ i18n}</div>
+            <div class="c-fyc-v1-filter__text-header results-label">${'results' @ i18n}</div>
+            <button class="btn c-fyc-btn" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false"
+                    aria-controls="filter-collapse" data-text-opened="${'close' @ i18n}">
+                <i class="material-icons fyc-tune-i">
+                    tune
+                </i>
+                <i class="material-icons fyc-close-i">
+                    clear
+                </i>
+            </button>
+        </div>
+    </div>
 
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
     <sly data-sly-use.externalizerHelperWC="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.worldCruisesPagePath }" />
@@ -199,7 +234,7 @@
                 </div>
             </div>
         </div>
-        <div class="c-fyc-v2-filter__button visible-xs text-center">
+        <div class="c-fyc-v2-filter__button visible-xs text-center c-fyc-v1-filter-mobile-hide">
             <button class="btn btn-dark effect" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false" aria-controls="filter-collapse" data-text-closed="${'refine-your-search' @ i18n}" data-text-opened="${'close' @ i18n}">
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>

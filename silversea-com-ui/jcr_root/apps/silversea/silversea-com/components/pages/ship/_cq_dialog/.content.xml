@@ -28,6 +28,11 @@
                                             fieldLabel="Long Description"
                                             name="./longDescription"
                                             renderReadOnly="{Boolean}true"/>
+                                    <excerpt
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            fieldLabel="Excerpt"
+                                            name="./excerpt"/>
                                     <shipcode
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textfield"
@@ -87,6 +92,15 @@
                                             name="./photoVideoSuiteSelectionReference"
                                             rootPath="/content/dam/silversea-com"
                                             renderReadOnly="{Boolean}true"/>
+                                    <shortVoyageDescription
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="shortVoyageDescription"
+                                        rows="10"
+                                        fieldLabel="Short Voyage Description"
+                                        name="./shortVoyageDescription"
+                                        renderReadOnly="{Boolean}true"/>
                                 </items>
                             </column>
                         </items>
@@ -120,6 +134,14 @@
                                             cq-msm-lockable="crewCapacity"
                                             fieldLabel="Crew Capacity"
                                             name="./crewCapacity"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <officersCapacity
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="officersCapacity"
+                                            fieldLabel="Officers Capacity"
+                                            name="./officersCapacity"
                                             renderReadOnly="{Boolean}true"/>
                                     <builtDate
                                             jcr:primaryType="nt:unstructured"
@@ -167,13 +189,21 @@
                                             fieldLabel="Length m"
                                             name="./lengthM"
                                             renderReadOnly="{Boolean}true"/>
-                                    <width
+                                    <widthFt
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textfield"
                                             allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="width"
-                                            fieldLabel="Width"
-                                            name="./width"
+                                            cq-msm-lockable="widthFt"
+                                            fieldLabel="WidthFt"
+                                            name="./widthFt"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <widthM
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="widthM"
+                                            fieldLabel="WidthM"
+                                            name="./widthM"
                                             renderReadOnly="{Boolean}true"/>
                                     <speed
                                             jcr:primaryType="nt:unstructured"
@@ -191,6 +221,65 @@
                                             fieldLabel="Registry"
                                             name="./registry"
                                             renderReadOnly="{Boolean}true"/>
+                                    <connectingSuites
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="connectingSuites"
+                                            fieldLabel="Connectings suties"
+                                            name="./connectingSuites"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <handicapSuites
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="handicapSuites"
+                                            fieldLabel="Handicap suties"
+                                            name="./handicapSuites"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <thirdGuestCapacity
+                                            jcr:primaryType="nt:unstructured"
+                                            text="3rd Guest Capacity"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="thirdGuestCapacity"
+                                            name="./thirdGuestCapacity"
+                                            value="true"
+                                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                    <deckInfoNode
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                            class="full-width"
+                                            fieldLabel="Deck Info">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                            acs-commons-nested="NODE_STORE"
+                                            name="./deckInfoNode">
+                                            <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                method="absolute"/>
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <column
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/container">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <deckLevel
+                                                            jcr:primaryType="nt:unstructured"
+                                                            fieldLabel="Deck level"
+                                                            name="./deckLevel"
+                                                            sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                                                        <deckImageTop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                fieldLabel="Deck image"
+                                                                name="./deckImageTop"
+                                                                rootPath="/content/dam/silversea-com"
+                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                                                    </items>
+                                                </column>
+                                            </items>
+                                        </field>
+                                    </deckInfoNode>
                                 </items>
                             </column>
                         </items>

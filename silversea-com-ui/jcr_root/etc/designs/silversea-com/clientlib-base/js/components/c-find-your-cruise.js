@@ -212,6 +212,10 @@ var v1 = function () {
 
             $matchingValue.closest('.c-fyc-filter__text').toggleClass('results', parseInt($('#matching-value').text()) > 1);
 
+            var $matchingValueND = $('#matching-value-nd');
+
+            $matchingValueND.closest('.c-fyc-v1-filter__text').toggleClass('results', parseInt($('#matching-value-nd').text()) > 1);
+
             return resultLabel;
         })();
 
@@ -348,6 +352,7 @@ var v1 = function () {
 
                             // Update result count
                             $('#matching-value').text($('#count-filter').val());
+                            $('#matching-value-nd').text($('#count-filter').val());
                             resultLabel();
 
                             // Update filter
@@ -358,6 +363,17 @@ var v1 = function () {
 
                             // Set data layer key according to the current result
                             searchAnalytics();
+
+                            try {
+                                $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+                                    var currentPort = $(this).text();
+                                    currentPort = currentPort.toLowerCase();
+                                    $(this).text(currentPort);
+                                });
+                            }
+                            catch(error) {
+                                console.error(error);
+                            }
                         }
                     });
                 }
@@ -547,9 +563,10 @@ var v2 = function () {
 
                         // Scroll to filter
                         $('html, body').animate({
-                            scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height()
+                            scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height() -51
                         }, 800);
                     }
+
                 }
             });
             return pagination;
@@ -586,6 +603,10 @@ var v2 = function () {
             var $matchingValue = $('#v2-matching-value');
 
             $matchingValue.closest('.c-fyc-v2-filter__text').toggleClass('results', parseInt($('#v2-matching-value').text()) > 1);
+
+            var $matchingValueND = $('#v2-matching-value-nd');
+
+            $matchingValueND.closest('.c-fyc-v1-filter__text').toggleClass('results', parseInt($('#v2-matching-value-nd').text()) > 1);
 
             return resultLabel;
         })();
@@ -723,6 +744,7 @@ var v2 = function () {
 
                             // Update result count
                             $('#v2-matching-value').text($('#v2-count-filter').val());
+                            $('#v2-matching-value-nd').text($('#v2-count-filter').val());
                             resultLabel();
 
                             // Update filter
@@ -733,6 +755,17 @@ var v2 = function () {
 
                             // Set data layer key according to the current result
                             searchAnalytics();
+
+                            try {
+                                $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+                                    var currentPort = $(this).text();
+                                    currentPort = currentPort.toLowerCase();
+                                    $(this).text(currentPort);
+                                });
+                            }
+                            catch(error) {
+                                console.error(error);
+                            }
                         }
                     });
                 }

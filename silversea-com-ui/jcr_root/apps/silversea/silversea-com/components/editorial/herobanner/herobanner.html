@@ -4,6 +4,7 @@
 	<sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default @ banner=banner}" />
 	<sly data-sly-test="${properties.type == 'home'}" data-sly-call="${heroBannerTemplate.home @ banner=banner}" />
 	<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer @ banner=banner}" />
+
 	<style>
 		@media (min-width: 768px){
 			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture img, #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image {
@@ -101,4 +102,5 @@
 		}
 	</style>
 </sly>
+
 

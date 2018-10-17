@@ -28,7 +28,7 @@
                    name="email"
                    placeholder="${'your-email-address' @ i18n}"
                    type="email"
-                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                   pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
                    data-required-error="${'required-email-address' @ i18n}"
                    data-error="${'incorrect-email-address' @ i18n}" required 
                    data-email-error="${'incorrect-email-address' @ i18n}"
@@ -36,7 +36,7 @@
         </div>
         <div class="col-xs-3">
             <button class="btn  btn-default pull-right c-btn--lg" type="submit" data-sscclicktype="clic-SFO">
-                ${'sign-up-button' @ i18n}
+                <span class="sign-up-button-label">${'sign-up-button' @ i18n}</span>
                 <i class="fa fa-lg fa-angle-right"></i>
             </button>
         </div>

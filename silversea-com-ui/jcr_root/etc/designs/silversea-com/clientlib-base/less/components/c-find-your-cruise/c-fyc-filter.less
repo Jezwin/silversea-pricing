@@ -3,9 +3,13 @@
         margin-top: 45px;
     }
 }
+.fyc-filter-hidden {
+    display: none;
+}
 
 .c-fyc-filter {
     margin-top: 14px;
+
 
     &__header {
         position: relative;
@@ -103,6 +107,10 @@
                 text-decoration: underline;
             }
         }
+    }
+
+    button.btn.btn-dark.effect, button.btn.btn-block.dropdown-toggle {
+        border-radius: 0px;
     }
 
     &__button {
@@ -217,7 +225,7 @@
                 }
             }
 
-            .chosen-drop, {
+            .chosen-drop {
                 background: @grey--eb;
 
                 .chosen-search {
@@ -626,6 +634,11 @@
                 }
             }
         }
+    }
+}
+@media screen and (max-width: @screen-sm) {
+    .mobile .c-find-your-cruise-filter .single-filter select {
+        border-radius: 0px;
     }
 }
 

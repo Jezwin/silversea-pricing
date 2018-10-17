@@ -3,15 +3,21 @@
     font-size: @body-desktop-fontsize-14 !important;
 }
 .port_v2__section_title {
-    font-family: @freight-bold;    
+    font-family: @freight;    
     font-size: @subheader-desktop-fontsize-28;
+}
+.port_v2__desc_text, port_v2__imagetext_text{
+    font-size:@body-desktop-fontsize-14
 }
 .port_v2__section_desc {
     font-size: @body-desktop-fontsize-14;
 }
 .port_v2__header_title {
-    font-family: @freight-bold;   
-    font-size: @h1-desktop-fontsize-48;   
+    font-family: @freight;   
+    font-size: @h1-desktop-fontsize-48;
+    @media (max-width:@screen-sm){
+        font-size: @h1-mobile-fontsize-34;
+    }
 }
 .port_v2__stats_num {
     font-size: 45px;
@@ -33,7 +39,7 @@
 }
 .sv_v3__subtitle {   
     font-size: 30px !important;
-    font-family: @freight-bold !important;
+    font-family: @freight !important;
 }
 @media (max-width: @screen-md-max) {
     .port_v2__stats_num {

@@ -1,0 +1,176 @@
+.cruise-2018 {
+  @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+  @import "cruise.less";
+  @import "expeditions.less";
+  @import "itineraryexcursions/excursions.less";
+  @import "itineraryexcursions/itinerary.less";
+  @import "footer.less";
+  @import "header.less";
+  @import "offers.less";
+  @import "overview.less";
+  @import "menu.less";
+  @import "pre-post.less";
+  @import "next-prev.less";
+  @import "ship/ship-overview.less";
+  @import "ship/dining.less";
+  @import "ship/public-areas.less";
+  @import "suites-fares.less";
+
+  hr {
+    margin-bottom: 0px;
+    margin-top: 50px;
+
+    @media (max-width: @screen-sm) {
+      display: none;
+    }
+  }
+}
+
+.cruise-2018-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+
+/*Style other lang for MENU*/
+.es, .pt-BR {
+  .cruise-2018 {
+
+    .menu-overview-fixed {
+      @media (min-width: 768px) {
+        .menu-raq a {
+          font-size: 10px !important;
+          padding: 12px 5px 10px 6px !important;
+        }
+      }
+    }
+  }
+}
+
+.de, .fr {
+  .cruise-2018 {
+
+    .menu-overview-fixed {
+      @media (min-width: 768px) {
+        .menu-raq a {
+          padding: 12px 6px 10px 7px !important;
+        }
+      }
+    }
+  }
+}
+
+.pt-BR, .es {
+  .cruise-2018 {
+
+    .menu-overview-fixed {
+      @media (min-width: 768px) {
+        div.early-booking {
+          font-size: 7px !important;
+        }
+      }
+    }
+  }
+}
+
+/*Style other lang for FOOTER*/
+.es, .pt-BR {
+  .cruise-2018 {
+
+    .fixed-footer-cruise {
+      @media (max-width: 767px) {
+        .fixed-footer-overview-quote-btn {
+          font-size: 8px !important;
+        }
+      }
+      @media (max-width: 374px) {
+        a#fixed-footer-2018-raq {
+          font-size: 7px !important;
+          padding-left: 6px !important;
+          padding-right: 5px !important;
+        }
+
+        .fixed-footer-quote-price-bonus {
+          font-size: 7px !important;
+        }
+      }
+    }
+  }
+}
+
+.es {
+  .cruise-2018 {
+
+    .fixed-footer-cruise {
+      @media (max-width: 767px) {
+        .fixed-footer-quote-price-bonus {
+          font-size: 7px !important;
+        }
+      }
+    }
+  }
+}
+
+.de {
+  .cruise-2018 {
+    .fixed-footer-cruise {
+
+      @media (max-width: 767px) {
+        .fixed-footer-overview-quote-btn {
+          font-size: 10px !important;
+        }
+      }
+      @media (max-width: 374px) {
+        a#fixed-footer-2018-raq {
+          font-size: 9px !important;
+          padding-left: 9px !important;
+          padding-right: 8px !important;
+        }
+      }
+    }
+  }
+}
+
+.fr {
+  .cruise-2018 {
+
+    .fixed-footer-cruise {
+      @media (max-width: 767px) {
+        .fixed-footer-overview-quote-btn {
+          font-size: 11px !important;
+        }
+      }
+      @media (max-width: 374px) {
+        a#fixed-footer-2018-raq {
+          font-size: 9px !important;
+        }
+      }
+    }
+  }
+}
+
+/*Style other lang for CTA*/
+.es {
+  .cruise-2018 .cruise-2018-overview .cruise-2018-overview-quote-btn.btn-white {
+    min-width: 253px !important;
+  }
+}
+
+.pt-BR {
+  .cruise-2018 .cruise-2018-overview .cruise-2018-overview-quote-btn.btn-white {
+    min-width: 240px !important;
+  }
+}
+
+//offers container
+.de {
+  .cruise-2018 {
+    .offers {
+      .offer-slider-container {
+        min-height: 270px !important;
+      }
+    }
+  }
+}
+

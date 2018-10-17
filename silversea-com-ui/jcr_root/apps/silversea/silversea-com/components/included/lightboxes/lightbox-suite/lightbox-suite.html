@@ -1,0 +1,33 @@
+<template data-sly-template.default="${ @ cruise}">
+    <sly data-sly-use.model="com.silversea.aem.components.included.lightboxes.LightboxSuiteUse"/>
+    <div class="modal-body lightbox-suite-body">
+        <div class="lightbox-suite">
+            <sly data-sly-test="${ model.suitePrice.suite.assetSelectionReference }"
+                 data-sly-use.templateGallery="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-gallery.html"
+                 data-sly-call="${templateGallery.default @ suite = model.suitePrice.suite}"/>
+            <div class="lg-content">
+                <sly data-sly-use.templateOverview="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-overview.html"
+                     data-sly-call="${templateOverview.default @ model= model}"/>
+                <sly data-sly-test="${model.suitePrice.suite.features}"
+                     data-sly-use.templateFeatures="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-features.html"
+                     data-sly-call="${templateFeatures.default @ suite= model.suitePrice.suite}"/>
+                <hr data-sly-test="${model.suitePrice.suite.locationImage}" />
+                <div class="visible-xs" data-sly-test="${model.suitePrice.suite.locationImage || model.suitePrice.suite.plan}">
+                    <sly data-sly-use.templateCta="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-cta.html"
+                         data-sly-call="${templateCta.default @ model= model}"/>
+                </div>
+                <sly data-sly-test="${model.suitePrice.suite.plan}"
+                     data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-plan.html"
+                     data-sly-call="${templateDeck.default @ suite= model.suitePrice.suite}"/>
+                <hr class="lg-suite-separator lg-suite-separator-1 hidden-xs"/>
+                <sly data-sly-test="${model.suitePrice.suite.locationImage}"
+                     data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-deck.html"
+                     data-sly-call="${templateDeck.default @ suite= model.suitePrice.suite}"/>
+                <hr data-sly-test="${model.suitePrice.suite.locationImage && model.suitePrice.suite.plan}" class="lg-suite-separator lg-suite-separator-1"/>
+                <!-- <hr class="lg-suite-separator lg-suite-separator-2"/>  -->
+                <sly  data-sly-use.templateCta="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-cta.html"
+                     data-sly-call="${templateCta.default @ model= model}"/>
+            </div>
+        </div>
+    </div>
+</template>

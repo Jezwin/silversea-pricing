@@ -1,11 +1,9 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.drew.lang.StringUtil;
+import org.apache.cxf.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +43,7 @@ public class CruiseModelLight {
 
     private List<FeatureModelLight> features = new ArrayList<>();
 
-    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+    private List<ExclusiveOfferModelLight> exclusiveOffers = new ArrayList<>();
     
     private List<String> portPaths = new ArrayList<>();
     
@@ -84,8 +82,11 @@ public class CruiseModelLight {
 		}
         features = tmpFeatLight;
         tmpFeat = null;
-       
-        exclusiveOffers = cruiseModel.getExclusiveOffers();
+
+        for(ExclusiveOfferModel eoModel : cruiseModel.getExclusiveOffers()) {
+            ExclusiveOfferModelLight eoModelLight =  new ExclusiveOfferModelLight(eoModel);
+            exclusiveOffers.add(eoModelLight);
+        }
 
         isVisible = cruiseModel.isVisible();
         
@@ -121,6 +122,10 @@ public class CruiseModelLight {
     }
 
     public String getTitle() {
+        if(!StringUtils.isEmpty(departurePortName) && !StringUtils.isEmpty(arrivalPortName) && !StringUtils.isEmpty(cruiseCode)){
+            String delimiter = "to";
+            return cruiseCode + " - " + getDeparturePortName() + " "+ delimiter + " " + getArrivalPortName();
+        }
         return title;
     }
 
@@ -163,7 +168,7 @@ public class CruiseModelLight {
     /**
      * @return exclusive offers attached to the cruise
      */
-    public List<ExclusiveOfferModel> getExclusiveOffers() {
+    public List<ExclusiveOfferModelLight> getExclusiveOffers() {
         return exclusiveOffers;
     }
 
