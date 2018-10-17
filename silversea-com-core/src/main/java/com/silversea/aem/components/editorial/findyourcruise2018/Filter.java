@@ -49,7 +49,6 @@ public class Filter {
     }
 
     public boolean matches(CruiseModelLight cruise) {
-        //check if is selected is redundant
         Set<String> selectedValues =
                 rows.entrySet().stream().filter(entry -> CHOSEN.equals(entry.getValue())).map(Map.Entry::getKey)
                         .collect(toSet());

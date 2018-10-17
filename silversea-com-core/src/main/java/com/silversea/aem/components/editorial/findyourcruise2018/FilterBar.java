@@ -45,7 +45,19 @@ public class FilterBar {
 
     void updateFilters(List<CruiseModelLight> cruises) {
         Map<FilterLabel, Set<String>> validValues = initAllValues(cruises);
-        filters.values().forEach(filter -> filter.newValidValues(validValues.get(filter.getLabel())));
+        filters.values().forEach(filter -> {
+            if (!filter.isSelected()) {
+                filter.newValidValues(validValues.get(filter.getLabel()));
+            }
+        });
+    }
+
+    public Map<FilterLabel, Filter> getFilters() {
+        return filters;
+    }
+
+    Filter getFilter(FilterLabel label) {
+        return filters.get(label);
     }
 
     @Override
