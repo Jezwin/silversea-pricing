@@ -78,4 +78,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return filterBar.toString();
     }
 
+    FilterBar getFilterBar() {
+        return filterBar;
+    }
 }
