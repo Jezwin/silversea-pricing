@@ -1,54 +1,70 @@
+.fyc-to-show {
+  display: none;
+}
+
 @media (max-width: @screen-sm) {
   .find-your-cruise-component.mobile-version-2 {
 
-    .c-fyc-pagination li {
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-family: 'Suisse Regular', sans-serif;
-      font-size: 14px;
-      display: inline-block;
-      color: black;
-      a {
-        display: none !important;
-        pointer-events: none;
-        border: none !important;
-
-        &:hover {
-          color: black;
-          background-color: transparent;
-        }
-      }
-      span.previous-label {
-        display: none;
-      }
-      span.prev-label {
-        display: initial;
-        pointer-events: initial !important;
-      }
-      a.summary-pag {
-        margin-left: 50px !important;
-        margin-right: 50px !important;
+    .c-fyc-pagination {
+      position: relative;
+      span.summary-pag {
         font-weight: bold !important;
         text-transform: lowercase !important;
-        display: initial;
-        pointer-events: none;
-      }
-      a.next {
-        display: block !important;
-        pointer-events: initial !important;
-        &:after {
-          content: "\f054" !important;
-          font-family: FontAwesome;
-          margin-left: 1px !important;
-        }
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: -3px;
+        display: block;
+        font-size: 15px;
       }
 
-      a.previous {
-        display: block !important;
-        &:before {
-          content: "\f053" !important;
-          font-family: FontAwesome;
-          margin-right: 1px !important;
+      li {
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: 'Suisse Regular', sans-serif;
+        font-size: 14px;
+        display: inline-block;
+        color: black;
+        .previous-nd {
+        }
+        a {
+          border: none !important;
+          &:hover {
+            color: black;
+            background-color: transparent;
+          }
+        }
+        .disable-action {
+          opacity: 0.5;
+          pointer-events: none !important;
+        }
+
+        .fyc-to-show {
+          display: inline;
+        }
+        .fyc-to-hide {
+          display: none;
+        }
+        a.next {
+          position: absolute;
+          right: 0px;
+          bottom: -11px;
+          &:after {
+            content: "\f054" !important;
+            font-family: FontAwesome;
+            margin-left: 1px !important;
+          }
+        }
+
+        a.previous {
+          position: absolute;
+          left: 0px;
+          bottom: -12px;
+          &:before {
+            content: "\f053" !important;
+            font-family: FontAwesome;
+            margin-right: 1px !important;
+          }
         }
       }
     }
