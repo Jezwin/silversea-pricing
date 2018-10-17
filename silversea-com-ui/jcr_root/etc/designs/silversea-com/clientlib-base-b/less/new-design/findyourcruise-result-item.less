@@ -1,5 +1,58 @@
 @media (max-width: @screen-sm) {
   .find-your-cruise-component.mobile-version-2 {
+
+    .c-fyc-pagination li {
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Suisse Regular', sans-serif;
+      font-size: 14px;
+      display: inline-block;
+      color: black;
+      a {
+        display: none !important;
+        pointer-events: none;
+        border: none !important;
+
+        &:hover {
+          color: black;
+          background-color: transparent;
+        }
+      }
+      span.previous-label {
+        display: none;
+      }
+      span.prev-label {
+        display: initial;
+        pointer-events: initial !important;
+      }
+      a.summary-pag {
+        margin-left: 50px !important;
+        margin-right: 50px !important;
+        font-weight: bold !important;
+        text-transform: lowercase !important;
+        display: initial;
+        pointer-events: none;
+      }
+      a.next {
+        display: block !important;
+        pointer-events: initial !important;
+        &:after {
+          content: "\f054" !important;
+          font-family: FontAwesome;
+          margin-left: 1px !important;
+        }
+      }
+
+      a.previous {
+        display: block !important;
+        &:before {
+          content: "\f053" !important;
+          font-family: FontAwesome;
+          margin-right: 1px !important;
+        }
+      }
+    }
+
     .c-fyc__result-wrapper.clearfix.v2 {
       .c-fyc__results__wrapper {
         .c-fyc__result {
@@ -108,7 +161,6 @@
               line-height: 25px !important;
             }
           }
-
         }
       }
     }
@@ -249,8 +301,6 @@
     }
   }
 }
-
-
 
 @media (max-width: 320px) {
   .find-your-cruise-component.mobile-version-2 {

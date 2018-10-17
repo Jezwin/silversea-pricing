@@ -1,7 +1,7 @@
 <template data-sly-template.pagination="${@ fyc}">
     <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
     <nav class="c-fyc-pagination" data-sly-test="${fyc.pagesNumber > 1}">
-        <ul data-sly-list.page="${fyc.pagination}">
+        <ul data-sly-list.page="${fyc.pagination}" data-sly-test="${false}">
             <li data-sly-test.currentPage="${page}">
                 <a href="#" data-page="${currentPage}" title="${currentPage}"
                    class="${pageList.count == 2 ? 'previous': ''} ${pageList.count == 8 ? 'next': ''} ${page == fyc.activePage && pageList.count > 2 && pageList.count < 8 ? 'active' : ''}">
@@ -11,6 +11,24 @@
                     <sly data-sly-test="${pageList.count == 9}">${'last' @ i18n}</sly>
                     <sly data-sly-test="${pageList.count > 2 && pageList.count < 8}">${page @ i18n}</sly>
                 </a>
+            </li>
+        </ul>
+        <ul data-sly-list.page="${fyc.pagination}">
+            <li data-sly-test.currentPage="${page}">
+                <sly data-sly-test="${pageList.count < 4}">
+                    <sly data-sly-test="${pageList.count != 2}">
+                        <a href="#" data-page="${currentPage}" title="${currentPage}"
+                           class="${pageList.count == 1 ? 'previous': ''} ${pageList.count == 2 ? 'summary-pag': ''}  ${pageList.count == 3 ? 'next': ''} ${page == fyc.activePage && pageList.count > 2 && pageList.count < 8 ? 'active' : ''}">
+                            <sly data-sly-test="${pageList.count == 1}">${'prev2' @ i18n}</sly>
+                            <sly data-sly-test="${pageList.count == 2}">1 / ${fyc.pagesNumber}</sly>
+                            <sly data-sly-test="${pageList.count == 3}">${'next' @ i18n}</sly>
+                        </a>
+                    </sly>
+                    <sly data-sly-test="${pageList.count == 2}">
+                        <sly data-sly-test="${pageList.count == 2}">1 / ${fyc.pagesNumber}</sly>
+                    </sly>
+                </sly>
+
             </li>
         </ul>
     </nav>
