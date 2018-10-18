@@ -1,2 +1,6 @@
 <template data-sly-template.default="${@ fyc}">
+    <select class="destination-filter" name="destination">
+        <option value="all">${'destination' @ i18n}</option>
+        <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
+    </select>
 </template>
