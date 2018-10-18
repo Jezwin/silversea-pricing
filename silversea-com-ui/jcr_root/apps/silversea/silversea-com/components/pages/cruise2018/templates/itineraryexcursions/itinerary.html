@@ -18,7 +18,7 @@
                 <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/country.png"/> ${cruise.numCountries} ${ (cruise.numCountries> 1 ? 'countries' : 'country') @ i18n}
             </span>
             </div>
-            <div class="cruise-2018-itineraries-description">${cruise.cruiseModel.description @ i18n}</div>
+            <div class="cruise-2018-itineraries-description">${cruise.cruiseModel.description @ context="html"}</div>
             <div class="cruise-2018-itineraries-voyage-code hidden-xs">${'voyage-number' @ i18n}: ${cruise.cruiseModel.cruiseCode}</div>
             <!--/*            <div class="cruise-2018-itineraries-map">
                 <div class="ratio-big-itinerary"
