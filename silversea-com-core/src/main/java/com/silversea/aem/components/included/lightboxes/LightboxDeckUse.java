@@ -18,6 +18,7 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
 
     @Override
     public void activate() throws Exception {
+        super.activate();
         ship = retrieveShipModel();
         specifications = retrieveSpecification();
     }
