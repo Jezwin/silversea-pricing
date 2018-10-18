@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,13 +20,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterLabel.*;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterBar.*;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
+import static org.junit.Assert.*;
 
 public class FindYourCruise2018UseTest {
 
@@ -62,16 +57,15 @@ public class FindYourCruise2018UseTest {
 
         //test filters
         FilterBar filters = use.getFilterBar();
-        assertTrue(filters.getFilter(DESTINATION).isSelected());
+        assertTrue(DESTINATION.isSelected());
         //only africa is chosen others are enabled
-        assertTrue(filters.getFilter(DESTINATION).getRows().entrySet().stream()
-                .allMatch(entry -> ENABLED.equals(entry.getValue()) ||
-                        (africa.equals(entry.getKey()) && CHOSEN.equals(entry.getValue()))));
-        assertFalse(filters.getFilter(PORT).isSelected());
+        assertTrue(DESTINATION.getRows().stream()
+                .allMatch(row -> row.isEnabled() || (africa.equals(row.getLabel()) && row.isChosen())));
+        assertFalse(PORT.isSelected());
         //silver galapagos doesn't cruise africa
-        assertEquals(DISABLED, filters.getFilter(SHIP).getRows().get("silver-galapagos"));
+        assertEquals(DISABLED, SHIP.retrieveState("silver-galapagos"));
         //silver muse does cruise africa
-        assertEquals(ENABLED, filters.getFilter(SHIP).getRows().get("silver-muse"));
+        assertEquals(ENABLED, SHIP.retrieveState(("silver-muse")));
     }
 
     @Test
@@ -90,20 +84,20 @@ public class FindYourCruise2018UseTest {
 
         //test filters
         FilterBar filters = use.getFilterBar();
-        assertTrue(filters.getFilter(DESTINATION).isSelected());
+        assertTrue(DESTINATION.isSelected());
         //only africa and asia is chosen others are enabled
-        assertTrue(filters.getFilter(DESTINATION).getRows().entrySet().stream()
-                .allMatch(entry -> {
-                    if (africa.equals(entry.getKey()) || asia.equals(entry.getKey())) {
-                        return CHOSEN.equals(entry.getValue());
+        assertTrue(DESTINATION.getRows().stream()
+                .allMatch(row -> {
+                    if (africa.equals(row.getLabel()) || asia.equals(row.getLabel())) {
+                        return row.isChosen();
                     }
-                    return ENABLED.equals(entry.getValue());
+                    return row.isEnabled();
                 }));
-        assertFalse(filters.getFilter(PORT).isSelected());
+        assertFalse(PORT.isSelected());
         //silver galapagos doesn't cruise africa
-        assertEquals(DISABLED, filters.getFilter(SHIP).getRows().get("silver-galapagos"));
+        assertEquals(DISABLED, SHIP.retrieveState("silver-galapagos"));
         //silver muse does cruise africa
-        assertEquals(ENABLED, filters.getFilter(SHIP).getRows().get("silver-muse"));
+        assertEquals(ENABLED, SHIP.retrieveState("silver-muse"));
 
     }
 
@@ -129,28 +123,28 @@ public class FindYourCruise2018UseTest {
 
         //test filters
         FilterBar filters = use.getFilterBar();
-        assertTrue(filters.getFilter(DESTINATION).isSelected());
-        assertTrue(filters.getFilter(PORT).isSelected());
+        assertTrue(DESTINATION.isSelected());
+        assertTrue(PORT.isSelected());
         //only africa and asia is chosen others are enabled
-        assertTrue(filters.getFilter(DESTINATION).getRows().entrySet().stream()
-                .allMatch(entry -> {
-                    if (africa.equals(entry.getKey()) || asia.equals(entry.getKey())) {
-                        return CHOSEN.equals(entry.getValue());
+        assertTrue(DESTINATION.getRows().stream()
+                .allMatch(row -> {
+                    if (africa.equals(row.getLabel()) || asia.equals(row.getLabel())) {
+                        return row.isChosen();
                     }
-                    return ENABLED.equals(entry.getValue());
+                    return row.isEnabled();
                 }));
         //only ohchiminh and danang is chosen others are enabled
-        assertTrue(filters.getFilter(PORT).getRows().entrySet().stream()
-                .allMatch(entry -> {
-                    if (ohchiminh.equals(entry.getKey()) || danang.equals(entry.getKey())) {
-                        return CHOSEN.equals(entry.getValue());
+        assertTrue(PORT.getRows().stream()
+                .allMatch(row -> {
+                    if (ohchiminh.equals(row.getLabel()) || danang.equals(row.getLabel())) {
+                        return row.isChosen();
                     }
-                    return ENABLED.equals(entry.getValue());
+                    return row.isEnabled();
                 }));
-        assertFalse(filters.getFilter(TYPE).isSelected());
-        assertEquals(DISABLED, filters.getFilter(TYPE).getRows().get("silversea-expedition"));//no expeditions at danang
+        assertFalse(TYPE.isSelected());
+        assertEquals(DISABLED, TYPE.retrieveState("silversea-expedition"));//no expeditions at danang
         //silver galapagos doesn't cruise africa nor asia
-        assertEquals(DISABLED, filters.getFilter(SHIP).getRows().get("silver-galapagos"));
+        assertEquals(DISABLED, SHIP.retrieveState("silver-galapagos"));
 
     }
 
@@ -187,54 +181,53 @@ public class FindYourCruise2018UseTest {
     }
 
     class TestFindYourCruise2018Use extends FindYourCruise2018Use {
-        final Map<FilterLabel, Set<String>> filtersRequest;
+        final Map<String, String[]> filtersRequest;
 
-        TestFindYourCruise2018Use(Map<FilterLabel, Set<String>> filtersRequest) {
+        TestFindYourCruise2018Use(Map<String, String[]> filtersRequest) {
             this.filtersRequest = filtersRequest;
         }
 
         @Override
-        protected Map<FilterLabel, Set<String>> fromRequest() {
+        protected Map<String, String[]> getFromWebRequest() {
             return filtersRequest;
         }
-
     }
 
     class UseBuilder {
 
-        final Map<FilterLabel, Set<String>> filtersRequest;
+        final Map<String, String[]> filtersRequest;
 
         UseBuilder() {
             filtersRequest = new HashMap<>();
         }
 
-        private UseBuilder with(FilterLabel label, String... values) {
-            filtersRequest.put(label, new HashSet<>(Arrays.asList(values)));
+        private UseBuilder with(String label, String... values) {
+            filtersRequest.put(label, values);
             return this;
         }
 
         UseBuilder withPorts(String... ports) {
-            return with(PORT, ports);
+            return with(PORT.getKind(), ports);
         }
 
         UseBuilder withDestinations(String... destinations) {
-            return with(DESTINATION, destinations);
+            return with(DESTINATION.getKind(), destinations);
         }
 
         UseBuilder withType(String... types) {
-            return with(TYPE, types);
+            return with(TYPE.getKind(), types);
         }
 
         UseBuilder withFeature(String... features) {
-            return with(FilterLabel.FEATURES, features);
+            return with(FEATURES.getKind(), features);
         }
 
         UseBuilder withShip(String... ships) {
-            return with(FilterLabel.SHIP, ships);
+            return with(SHIP.getKind(), ships);
         }
 
         UseBuilder withDuration(String... durations) {
-            return with(FilterLabel.DURATION, durations);
+            return with(DURATION.getKind(), durations);
         }
 
         FindYourCruise2018Use build() {

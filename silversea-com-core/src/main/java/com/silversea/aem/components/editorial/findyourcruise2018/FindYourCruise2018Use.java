@@ -6,11 +6,11 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
@@ -46,15 +46,13 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private FilterBar initFilters(List<CruiseModelLight> allCruises) {
         FilterBar filterBar = new FilterBar(allCruises);
-        fromRequest().forEach(filterBar::addSelectedFilter);
+        getFromWebRequest().forEach(filterBar::addSelectedFilter);
         return filterBar;
     }
 
     @SuppressWarnings("unchecked")
-    protected Map<FilterLabel, Set<String>> fromRequest() {
-        Map<String, String[]> parameterMap = getRequest().getParameterMap();
-        return FilterLabel.VALUES.stream().filter(label -> parameterMap.containsKey(label.getLabel()))
-                .collect(toMap(label -> label, label -> new HashSet<>(asList(parameterMap.get(label.getLabel())))));
+    protected Map<String, String[]> getFromWebRequest(){
+        return getRequest().getParameterMap();
     }
 
     private List<CruiseModelLight> applyFilters(List<CruiseModelLight> allCruises, FilterBar filterBar) {
