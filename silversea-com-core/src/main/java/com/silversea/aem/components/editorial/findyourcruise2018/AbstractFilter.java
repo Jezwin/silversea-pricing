@@ -19,7 +19,7 @@ public abstract class AbstractFilter<T> {
         this.kind = kind;
     }
 
-    protected abstract Collection<FilterRow<T>> rows(CruiseModelLight cruiseModelLight);
+    protected abstract Collection<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
 
 
     public Collection<FilterRow<T>> getRows() {
@@ -58,7 +58,7 @@ public abstract class AbstractFilter<T> {
 
     final void initAllValues(List<CruiseModelLight> cruises) {
         this.rows =
-                cruises.stream().flatMap(cruise -> rows(cruise).stream())
+                cruises.stream().flatMap(cruise -> projection(cruise).stream())
                         .collect(Collectors.toCollection(() -> new TreeSet<>(comparator())));//keep the order
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractFilter<T> {
     }
 
     private boolean matches(Set<FilterRow<T>> selectedRows, CruiseModelLight cruiseModelLight) {
-        Collection<FilterRow<T>> cruiseRows = rows(cruiseModelLight);
+        Collection<FilterRow<T>> cruiseRows = projection(cruiseModelLight);
         for (FilterRow<T> cruiseRow : cruiseRows) {
             if (selectedRows.contains(cruiseRow)) {
                 return true;
@@ -77,7 +77,7 @@ public abstract class AbstractFilter<T> {
     }
 
     private boolean cruiseMatchesTheRow(Collection<CruiseModelLight> cruises, FilterRow<T> row) {
-        return cruises.stream().flatMap(cruise -> rows(cruise).stream()).map(FilterRow::getKey)
+        return cruises.stream().flatMap(cruise -> projection(cruise).stream()).map(FilterRow::getKey)
                 .anyMatch(row.getKey()::equals);
     }
 
