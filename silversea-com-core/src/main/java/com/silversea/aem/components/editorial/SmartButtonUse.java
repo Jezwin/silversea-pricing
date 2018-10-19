@@ -5,11 +5,13 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
+import java.util.LinkedHashMap;
 import java.util.Optional;
 
 public class SmartButtonUse extends AbstractGeolocationAwareUse {
@@ -20,22 +22,19 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
     static private final String SEPARATOR = "~";
 
     private ValueMap sbProperties;
-    private StringBuilder dataProperties = new StringBuilder();
 
     @Override
     public void activate() throws Exception {
         super.activate();
-        sbProperties = get(WCMBindings.PROPERTIES, ValueMap.class);
-
+        ValueMap dataProperties = get(WCMBindings.PROPERTIES, ValueMap.class);
+        sbProperties = new ValueMapDecorator(new LinkedHashMap<>());
         //use the key and value here
-        sbProperties.entrySet().forEach(e -> {
-            if (!(e.getKey().contains("jcr") || e.getKey().contains("sling") || e.getKey().contains("cq") || e.getKey().contains("sscFw") || e.getKey().contains("sscUUID"))) {
-                dataProperties.append(e.getKey());
-                dataProperties.append("=" + e.getValue().toString()+ SEPARATOR);
+        dataProperties.entrySet().forEach(e -> {
+            if (!(e.getKey().contains("jcr") || e.getKey().contains("sling") || e.getKey().contains("cq") || e.getKey().contains("sscUUID"))) {
+                sbProperties.put(e.getKey(), e.getValue());
             }
         });
 
-        LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " create dataProperties {}", dataProperties.toString());
         LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " start geolocation process");
 
         setGeolocationProperties(GEO_PROP + "Desktop", GEO_NODE + "Desktop").ifPresent(desktop -> {
@@ -54,10 +53,10 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
 
     private Optional<ValueMap> setGeolocationProperties(String propName, String nodeName) {
         if (getResource().hasChildren() && getResource().getChild(nodeName) != null) {
+            ValueMap geoProperties = new ValueMapDecorator(new LinkedHashMap<>());
             for (Resource child : getResource().getChild(nodeName).getChildren()) {
-                ValueMap geoProperties = getResource().getValueMap();
                 Node node = child.adaptTo(Node.class);
-                getProp(node, propName).ifPresent(geoTagProperty -> {
+                getProp(child.getValueMap(), propName).ifPresent(geoTagProperty -> {
                     for (String tag : geoTagProperty.split(",")) {
                         String[] geoTag = tag.split(WcmConstants.GEOLOCATION_TAGS_PREFIX);
                         if (geoTag.length > 1 && isBestMatch(geoTag[1])) {
@@ -72,22 +71,18 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
                     }
                 });
             }
+            return Optional.of(geoProperties);
         }
         return Optional.empty();
     }
 
-    private Optional<String> getProp(Node node, String key) {
+    private Optional<String> getProp(ValueMap valueMap, String key) {
         try {
-            return Optional.ofNullable(node.getProperty(key)).map(property -> {
-                try {
-                    return property.getString();
-                } catch (RepositoryException exception) {
-                    LOGGER.error("Error retrieving {} from {}", key, node, exception);
-                    return null;
-                }
+            return Optional.ofNullable(valueMap.get(key)).map(property -> {
+                return property.toString();
             });
-        } catch (RepositoryException exception) {
-            LOGGER.error("Error retrieving {} from {}", key, node, exception);
+        } catch (Exception exception) {
+            LOGGER.error("Error retrieving {} from {}", key, valueMap, exception);
             return Optional.empty();
         }
     }
@@ -96,8 +91,4 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         return sbProperties;
     }
 
-
-    public String getDataProperties() {
-        return dataProperties.toString();
-    }
 }
