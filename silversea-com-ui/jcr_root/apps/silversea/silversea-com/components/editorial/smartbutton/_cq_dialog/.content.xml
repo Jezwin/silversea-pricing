@@ -83,14 +83,14 @@
                                             fieldLabel="Link url"
                                             name="./linkUrlDesktop"
                                             fieldDescription="Link valid for any type"
-                                            rootPath="/content/dam/silversea-com"/>
-                                    <textDesktop
+                                            rootPath="/content/silversea-com"/>
+                                    <sscFwContentDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text of the button"
                                             fieldLabel="Text"
                                             value="text"
-                                            name="./textDesktop"/>
+                                            name="./sscFwContentDesktop"/>
                                     <sscFwBackgroundColorDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
@@ -146,6 +146,7 @@
                                             text="Show arrow"
                                             name="./sscFwDisplaySndDesktop"
                                             value="inline-block"
+                                            uncheckedValue="none"
                                             sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <sscFwTextAlignDesktop
                                             jcr:primaryType="nt:unstructured"
@@ -320,14 +321,14 @@
                                                                     fieldLabel="Link url"
                                                                     name="./linkUrlDesktopGeo"
                                                                     fieldDescription="Link valid for any type"
-                                                                    rootPath="/content/dam/silversea-com"/>
-                                                            <textDesktopGeo
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                    fieldDescription="Text of the button"
-                                                                    fieldLabel="Text"
-                                                                    value=""
-                                                                    name="./textDesktopGeo"/>
+                                                                    rootPath="/content/silversea-com"/>
+                                                            <sscFwContentDesktopGeo
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldDescription="Text of the button"
+                                                                fieldLabel="Text"
+                                                                value="text"
+                                                                name="./sscFwContentDesktopGeo"/>
                                                             <sscFwBackgroundColorDesktopGeo
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
@@ -383,6 +384,7 @@
                                                                     text="Show arrow"
                                                                     name="./sscFwDisplaySndDesktopGeo"
                                                                     value="inline-block"
+                                                                    uncheckedValue="none"
                                                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                             <sscFwTextAlignDesktopGeo
                                                                     jcr:primaryType="nt:unstructured"
@@ -568,14 +570,14 @@
                                             fieldLabel="Link url"
                                             name="./linkUrlTablet"
                                             fieldDescription="Link valid for any type"
-                                            rootPath="/content/dam/silversea-com"/>
-                                    <textTablet
+                                            rootPath="/content/silversea-com"/>
+                                    <sscFwContentTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text of the button"
                                             fieldLabel="Text"
-                                            value=""
-                                            name="./textTablet"/>
+                                            value="text"
+                                            name="./sscFwContentTablet"/>
                                     <sscFwBackgroundColorTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
@@ -631,6 +633,7 @@
                                             text="Show arrow"
                                             name="./sscFwDisplaySndTablet"
                                             value="inline-block"
+                                            uncheckedValue="none"
                                             sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <sscFwTextAlignTablet
                                             jcr:primaryType="nt:unstructured"
@@ -805,14 +808,14 @@
                                                                 fieldLabel="Link url"
                                                                 name="./linkUrlTabletGeo"
                                                                 fieldDescription="Link valid for any type"
-                                                                rootPath="/content/dam/silversea-com"/>
-                                                        <textTabletGeo
+                                                                rootPath="/content/silversea-com"/>
+                                                        <sscFwContentTabletGeo
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
-                                                                value=""
-                                                                name="./textTabletGeo"/>
+                                                                value="text"
+                                                                name="./sscFwContentTabletGeo"/>
                                                         <sscFwBackgroundColorTabletGeo
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
@@ -868,6 +871,7 @@
                                                                 text="Show arrow"
                                                                 name="./sscFwDisplaySndTabletGeo"
                                                                 value="inline-block"
+                                                                uncheckedValue="none"
                                                                 sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                         <sscFwTextAlignTabletGeo
                                                                 jcr:primaryType="nt:unstructured"
@@ -1053,14 +1057,14 @@
                                             fieldLabel="Link url"
                                             name="./linkUrlMobile"
                                             fieldDescription="Link valid for any type"
-                                            rootPath="/content/dam/silversea-com"/>
-                                    <textMobile
+                                            rootPath="/content/silversea-com"/>
+                                    <sscFwContentMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text of the button"
                                             fieldLabel="Text"
-                                            value=""
-                                            name="./textMobile"/>
+                                            value="text"
+                                            name="./sscFwContentMobile" />
                                     <sscFwBackgroundColorMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
@@ -1116,6 +1120,7 @@
                                             text="Show arrow"
                                             name="./sscFwDisplaySndMobile"
                                             value="inline-block"
+                                            uncheckedValue="none"
                                             sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <sscFwTextAlignMobile
                                             jcr:primaryType="nt:unstructured"
@@ -1290,14 +1295,14 @@
                                                                 fieldLabel="Link url"
                                                                 name="./linkUrlMobileGeo"
                                                                 fieldDescription="Link valid for any type"
-                                                                rootPath="/content/dam/silversea-com"/>
-                                                        <textMobileGeo
+                                                                rootPath="/content/silversea-com"/>
+                                                        <sscFwContentMobileGeo
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
-                                                                value=""
-                                                                name="./textMobileGeo"/>
+                                                                value="text"
+                                                                name="./sscFwContentMobileGeo"/>
                                                         <sscFwBackgroundColorMobileGeo
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
@@ -1353,6 +1358,7 @@
                                                                 text="Show arrow"
                                                                 name="./sscFwDisplaySndMobileGeo"
                                                                 value="inline-block"
+                                                                uncheckedValue="none"
                                                                 sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                         <sscFwTextAlignMobileGeo
                                                                 jcr:primaryType="nt:unstructured"
