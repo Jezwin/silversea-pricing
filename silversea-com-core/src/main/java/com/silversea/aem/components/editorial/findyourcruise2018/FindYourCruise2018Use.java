@@ -9,7 +9,6 @@ import com.silversea.aem.services.CruisesCacheService;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
@@ -72,6 +71,12 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                     .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale)).collect(toList());
         }
         return cruises;
+    }
+
+    public List<CruiseItem> getCruisesPaginated(int pag, int pagSize) {//pag starts from 1, just an idea, TODO...
+        return lightCruises.stream().sorted(Comparator.comparing(CruiseModelLight::getStartDate))
+                .skip((pag - 1) * pagSize).limit(pagSize)
+                .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale)).collect(toList());
     }
 
     public String getFilters() {
