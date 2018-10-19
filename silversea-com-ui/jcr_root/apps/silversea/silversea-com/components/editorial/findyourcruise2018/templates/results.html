@@ -94,6 +94,8 @@
 
                             <div class="c-fyc-v2__result__content__button text-center">
 
+                                <a data-sly-test.suffix="${'{0}{1}' @ format=[cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n}
+                                </a> <a href="${cruiseItem.cruiseModel.path @ extension='html'}" class="btn effect c-fyc-btn-discover-more ab-test-v2-show" data-sscclicktype="clic-results-viewmore">${'view-more' @i18n} </a>
                             </div>
 
                         </div>

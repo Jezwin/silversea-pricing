@@ -17,7 +17,7 @@ public class FilterBar {
     public static final AbstractFilter<DestinationItem> DESTINATION =
             new AbstractFilter<DestinationItem>("destination") {
                 @Override
-                protected Collection<FilterRow<DestinationItem>> rows(CruiseModelLight cruiseModelLight) {
+                protected Collection<FilterRow<DestinationItem>> projection(CruiseModelLight cruiseModelLight) {
                     DestinationItem destination = cruiseModelLight.getDestination();
                     return singleton(destination, destination.getTitle(), destination.getName());
                 }
@@ -25,7 +25,7 @@ public class FilterBar {
     public static final AbstractFilter<String> TYPE =
             new AbstractFilter<String>("type") {
                 @Override
-                protected Collection<FilterRow<String>> rows(CruiseModelLight cruiseModelLight) {
+                protected Collection<FilterRow<String>> projection(CruiseModelLight cruiseModelLight) {
                     return singleton(cruiseModelLight.getCruiseType());
                 }
             };
@@ -33,7 +33,7 @@ public class FilterBar {
     public static final AbstractFilter<PortItem> PORT =
             new AbstractFilter<PortItem>("port") {
                 @Override
-                protected Collection<FilterRow<PortItem>> rows(CruiseModelLight cruise) {
+                protected Collection<FilterRow<PortItem>> projection(CruiseModelLight cruise) {
                     return cruise.getPorts().stream()
                             .map(port -> new FilterRow<>(port, port.getTitle(), ENABLED))
                             .collect(toList());
@@ -43,7 +43,7 @@ public class FilterBar {
     public static final AbstractFilter<FeatureModelLight> FEATURES =
             new AbstractFilter<FeatureModelLight>("feature") {
                 @Override
-                protected Collection<FilterRow<FeatureModelLight>> rows(CruiseModelLight cruise) {
+                protected Collection<FilterRow<FeatureModelLight>> projection(CruiseModelLight cruise) {
                     return cruise.getFeatures().stream().filter(feature -> feature.getTitle() != null)
                             .map(feature -> new FilterRow<>(feature, feature.getTitle(), ENABLED))
                             .collect(toList());
@@ -53,7 +53,7 @@ public class FilterBar {
     public static final AbstractFilter<Integer> DURATION =
             new AbstractFilter<Integer>("duration") {
                 @Override
-                protected Collection<FilterRow<Integer>> rows(CruiseModelLight cruise) {
+                protected Collection<FilterRow<Integer>> projection(CruiseModelLight cruise) {
                     return singleton(parseInt(cruise.getDuration()), cruise.getDuration());
                 }
 
@@ -66,7 +66,7 @@ public class FilterBar {
     public static final AbstractFilter<Calendar> DEPARTURE =
             new AbstractFilter<Calendar>("departure") {
                 @Override
-                protected Collection<FilterRow<Calendar>> rows(CruiseModelLight cruise) {
+                protected Collection<FilterRow<Calendar>> projection(CruiseModelLight cruise) {
                     return singleton(cruise.getStartDate(), "TODO", cruise.getStartDate().getTimeInMillis() + "");
                 }
             };
@@ -74,7 +74,7 @@ public class FilterBar {
     public static final AbstractFilter<ShipItem> SHIP =
             new AbstractFilter<ShipItem>("ship") {
                 @Override
-                protected Collection<FilterRow<ShipItem>> rows(CruiseModelLight cruise) {
+                protected Collection<FilterRow<ShipItem>> projection(CruiseModelLight cruise) {
                     return singleton(cruise.getShip(), cruise.getShip().getTitle(), cruise.getShip().getId());
                 }
             };

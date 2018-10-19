@@ -5,6 +5,7 @@ import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
+import com.silversea.aem.utils.PathUtils;
 
 import java.util.*;
 
@@ -85,5 +86,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     public FilterBar getFilterBar() {
         return filterBar;
+    }
+
+    public String getRequestQuotePagePath() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 }
