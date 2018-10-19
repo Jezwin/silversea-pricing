@@ -1,12 +1,12 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.silversea.aem.models.*;
 
 import java.util.*;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.AbstractFilter.ValueLabel.singleton;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -17,23 +17,25 @@ public class FilterBar {
     public static final AbstractFilter<DestinationItem> DESTINATION =
             new AbstractFilter<DestinationItem>("destination") {
                 @Override
-                protected Collection<ValueLabel<DestinationItem>> valueLabels(CruiseModelLight cruiseModelLight) {
-                    return singleton(cruiseModelLight.getDestination().getName(), cruiseModelLight.getDestination());
+                protected Collection<FilterRow<DestinationItem>> rows(CruiseModelLight cruiseModelLight) {
+                    DestinationItem destination = cruiseModelLight.getDestination();
+                    return singleton(destination, destination.getTitle(), destination.getName());
                 }
             };
     public static final AbstractFilter<String> TYPE =
             new AbstractFilter<String>("type") {
                 @Override
-                protected Collection<ValueLabel<String>> valueLabels(CruiseModelLight cruiseModelLight) {
-                    return ValueLabel.singleton(cruiseModelLight.getCruiseType());
+                protected Collection<FilterRow<String>> rows(CruiseModelLight cruiseModelLight) {
+                    return singleton(cruiseModelLight.getCruiseType());
                 }
             };
 
     public static final AbstractFilter<PortItem> PORT =
             new AbstractFilter<PortItem>("port") {
                 @Override
-                protected Collection<ValueLabel<PortItem>> valueLabels(CruiseModelLight cruise) {
-                    return cruise.getPorts().stream().map(port -> new ValueLabel<>(port.getName(), port))
+                protected Collection<FilterRow<PortItem>> rows(CruiseModelLight cruise) {
+                    return cruise.getPorts().stream()
+                            .map(port -> new FilterRow<>(port, port.getTitle(), ENABLED))
                             .collect(toList());
                 }
             };
@@ -41,8 +43,9 @@ public class FilterBar {
     public static final AbstractFilter<FeatureModelLight> FEATURES =
             new AbstractFilter<FeatureModelLight>("feature") {
                 @Override
-                protected Collection<ValueLabel<FeatureModelLight>> valueLabels(CruiseModelLight cruise) {
-                    return cruise.getFeatures().stream().map(feature -> new ValueLabel<>(feature.getName(), feature))
+                protected Collection<FilterRow<FeatureModelLight>> rows(CruiseModelLight cruise) {
+                    return cruise.getFeatures().stream().filter(feature -> feature.getTitle() != null)
+                            .map(feature -> new FilterRow<>(feature, feature.getTitle(), ENABLED))
                             .collect(toList());
                 }
             };
@@ -50,32 +53,29 @@ public class FilterBar {
     public static final AbstractFilter<Integer> DURATION =
             new AbstractFilter<Integer>("duration") {
                 @Override
-                protected Collection<ValueLabel<Integer>> valueLabels(CruiseModelLight cruise) {
-                    if (cruise.getDuration() == null) {
-                        return Collections.emptyList();
-                    }
-                    return ValueLabel
-                            .singleton(cruise.getDuration(), parseInt(cruise.getDuration()));
+                protected Collection<FilterRow<Integer>> rows(CruiseModelLight cruise) {
+                    return singleton(parseInt(cruise.getDuration()), cruise.getDuration());
                 }
 
+                @Override
+                protected Comparator<FilterRow<Integer>> comparator() {
+                    return Comparator.comparing(FilterRow::getValue);
+                }
             };
 
     public static final AbstractFilter<Calendar> DEPARTURE =
             new AbstractFilter<Calendar>("departure") {
                 @Override
-                protected Collection<ValueLabel<Calendar>> valueLabels(CruiseModelLight cruise) {
-                    if (cruise.getStartDate() == null) {
-                        return Collections.emptyList();
-                    }
-                    return ValueLabel.singleton("TODO", firstNonNull(cruise.getStartDate(), Calendar.getInstance()));
+                protected Collection<FilterRow<Calendar>> rows(CruiseModelLight cruise) {
+                    return singleton(cruise.getStartDate(), "TODO", cruise.getStartDate().getTimeInMillis() + "");
                 }
             };
 
     public static final AbstractFilter<ShipItem> SHIP =
             new AbstractFilter<ShipItem>("ship") {
                 @Override
-                protected Collection<ValueLabel<ShipItem>> valueLabels(CruiseModelLight cruise) {
-                    return ValueLabel.singleton(cruise.getShip().getName(), cruise.getShip());
+                protected Collection<FilterRow<ShipItem>> rows(CruiseModelLight cruise) {
+                    return singleton(cruise.getShip(), cruise.getShip().getTitle(), cruise.getShip().getId());
                 }
             };
 
@@ -93,10 +93,11 @@ public class FilterBar {
         filter.initAllValues(cruises);
     }
 
-    void addSelectedFilter(String label, String[] selectedValues) {
+    void addSelectedFilter(String label, String[] selectedKeys) {
         for (AbstractFilter<?> filter : FILTERS) {
             if (filter.getKind().equals(label)) {
-                filter.setLabels(new HashSet<>(Arrays.asList(selectedValues)));
+                filter.setEnabled(new HashSet<>(Arrays.asList(selectedKeys)));
+                return;
             }
         }
     }
@@ -116,7 +117,8 @@ public class FilterBar {
 
     @Override
     public String toString() {
-        Gson gson = new GsonBuilder().create();
-        return gson.toJson(FILTERS);
+        JsonArray array = new JsonArray();
+        FILTERS.forEach(filter -> array.add(filter.toJson()));
+        return array.toString();
     }
 }

@@ -29,6 +29,14 @@ public class FindYourCruise2018UseTest {
     private List<CruiseModelLight> cruises;
     CruisesCacheService cacheService;
 
+    private static final String AFRICA_LABEL = "Africa and Indian Ocean";
+    private static final String ASIA_LABEL = "Asia";
+    private static final String SILVER_GALAPAGOS = "Silver Galapagos";
+    private static final String SILVER_MUSE = "Silver Muse";
+    private static final String SILVER_EXPEDITION = "silversea-expedition";
+    private static final String HO_CHI_MINH_CITY = "Ho Chi Minh City";
+    private static final String DA_NANG = "Da Nang";
+
     @Before
     public void before() throws IOException {
         cruises = new ArrayList<>();
@@ -43,38 +51,34 @@ public class FindYourCruise2018UseTest {
 
     @Test
     public void testOneDestination() {
-        final String africa = "africa-indian-ocean-cruise";
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(africa).build();
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL).build();
         use.init(cacheService);
 
         //test results
         assertTrue(use.getCruises().stream().allMatch(
-                cruise -> africa.equals(cruise.getCruiseModel().getDestination().getName())));
+                cruise -> AFRICA_LABEL.equals(cruise.getCruiseModel().getDestination().getTitle())));
         long expectedCruises = cruises.stream()
-                .filter(cruise -> africa.equals(cruise.getDestination().getName()))
+                .filter(cruise -> AFRICA_LABEL.equals(cruise.getDestination().getTitle()))
                 .count();
         assertEquals(expectedCruises, use.getCruises().size());
 
         //test filters
-        FilterBar filters = use.getFilterBar();
         assertTrue(DESTINATION.isSelected());
         //only africa is chosen others are enabled
         assertTrue(DESTINATION.getRows().stream()
-                .allMatch(row -> row.isEnabled() || (africa.equals(row.getLabel()) && row.isChosen())));
+                .allMatch(row -> row.isEnabled() || (AFRICA_LABEL.equals(row.getLabel()) && row.isChosen())));
         assertFalse(PORT.isSelected());
         //silver galapagos doesn't cruise africa
-        assertEquals(DISABLED, SHIP.retrieveState("silver-galapagos"));
+        assertEquals(DISABLED, SHIP.retrieveState(SILVER_GALAPAGOS));
         //silver muse does cruise africa
-        assertEquals(ENABLED, SHIP.retrieveState(("silver-muse")));
+        assertEquals(ENABLED, SHIP.retrieveState((SILVER_MUSE)));
     }
 
     @Test
     public void testTwoDestinations() {
-        String africa = "africa-indian-ocean-cruise";
-        String asia = "asia-cruise";
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(africa, asia).build();
-        Predicate<CruiseModelLight> test = cruise -> africa.equals(cruise.getDestination().getName()) ||
-                asia.equals(cruise.getDestination().getName());
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL).build();
+        Predicate<CruiseModelLight> test = cruise -> AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
+                ASIA_LABEL.equals(cruise.getDestination().getTitle());
         use.init(cacheService);
 
         //test results
@@ -88,32 +92,29 @@ public class FindYourCruise2018UseTest {
         //only africa and asia is chosen others are enabled
         assertTrue(DESTINATION.getRows().stream()
                 .allMatch(row -> {
-                    if (africa.equals(row.getLabel()) || asia.equals(row.getLabel())) {
+                    if (AFRICA_LABEL.equals(row.getLabel()) || ASIA_LABEL.equals(row.getLabel())) {
                         return row.isChosen();
                     }
                     return row.isEnabled();
                 }));
         assertFalse(PORT.isSelected());
         //silver galapagos doesn't cruise africa
-        assertEquals(DISABLED, SHIP.retrieveState("silver-galapagos"));
+        assertEquals(DISABLED, SHIP.retrieveState(SILVER_GALAPAGOS));
         //silver muse does cruise africa
-        assertEquals(ENABLED, SHIP.retrieveState("silver-muse"));
+        assertEquals(ENABLED, SHIP.retrieveState(SILVER_MUSE));
 
     }
 
     @Test
     public void testMultipleFilters() {
-        String africa = "africa-indian-ocean-cruise";
-        String asia = "asia-cruise";
-        String ohchiminh = "ho-chi-minh-city";
-        String danang = "da-nang";
         FindYourCruise2018Use use =
-                new UseBuilder().withDestinations(africa, asia).withPorts(ohchiminh, danang)
+                new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL).withPorts(HO_CHI_MINH_CITY, DA_NANG)
                         .build();
 
-        Predicate<CruiseModelLight> test = cruise -> (africa.equals(cruise.getDestination().getName()) ||
-                asia.equals(cruise.getDestination().getName())) && (cruise.getPorts().stream().map(PortItem::getName)
-                .anyMatch(name -> ohchiminh.equals(name) || danang.equals(name)));
+        Predicate<CruiseModelLight> test = cruise -> (AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
+                ASIA_LABEL.equals(cruise.getDestination().getTitle())) &&
+                (cruise.getPorts().stream().map(PortItem::getTitle)
+                        .anyMatch(name -> HO_CHI_MINH_CITY.equals(name) || DA_NANG.equals(name)));
         use.init(cacheService);
 
         //test results
@@ -124,11 +125,13 @@ public class FindYourCruise2018UseTest {
         //test filters
         FilterBar filters = use.getFilterBar();
         assertTrue(DESTINATION.isSelected());
+        assertEquals(15, DESTINATION.getRows().size());//world cruise..
         assertTrue(PORT.isSelected());
+        assertEquals(777, PORT.getRows().size());
         //only africa and asia is chosen others are enabled
         assertTrue(DESTINATION.getRows().stream()
                 .allMatch(row -> {
-                    if (africa.equals(row.getLabel()) || asia.equals(row.getLabel())) {
+                    if (AFRICA_LABEL.equals(row.getLabel()) || ASIA_LABEL.equals(row.getLabel())) {
                         return row.isChosen();
                     }
                     return row.isEnabled();
@@ -136,15 +139,15 @@ public class FindYourCruise2018UseTest {
         //only ohchiminh and danang is chosen others are enabled
         assertTrue(PORT.getRows().stream()
                 .allMatch(row -> {
-                    if (ohchiminh.equals(row.getLabel()) || danang.equals(row.getLabel())) {
+                    if (HO_CHI_MINH_CITY.equals(row.getLabel()) || DA_NANG.equals(row.getLabel())) {
                         return row.isChosen();
                     }
                     return row.isEnabled();
                 }));
         assertFalse(TYPE.isSelected());
-        assertEquals(DISABLED, TYPE.retrieveState("silversea-expedition"));//no expeditions at danang
+        assertEquals(DISABLED, TYPE.retrieveState(SILVER_EXPEDITION));//no expeditions at danang
         //silver galapagos doesn't cruise africa nor asia
-        assertEquals(DISABLED, SHIP.retrieveState("silver-galapagos"));
+        assertEquals(DISABLED, SHIP.retrieveState(SILVER_GALAPAGOS));
 
     }
 
@@ -152,12 +155,14 @@ public class FindYourCruise2018UseTest {
         TestCruiseModel cruiseModel = new TestCruiseModel();
         Function<String, String> stringOrEmpty =
                 key -> Optional.ofNullable(json.get(key)).map(JsonElement::getAsString).orElse("");
-        cruiseModel.setShip(json.getAsJsonObject("ship").getAsJsonPrimitive("name").getAsString());
-        cruiseModel.setDestination(json.getAsJsonObject("destination").getAsJsonPrimitive("name").getAsString());
+        cruiseModel.setShip(json.getAsJsonObject("ship").getAsJsonPrimitive("title").getAsString());
+        cruiseModel.setDestination(json.getAsJsonObject("destination").getAsJsonPrimitive("title").getAsString());
         cruiseModel.setCruiseType(json.get("cruiseType").getAsString());
         cruiseModel.setArrivalPortName(stringOrEmpty.apply("arrivalPortName"));
         cruiseModel.setDeparturePortName(stringOrEmpty.apply("departurePortName"));
         cruiseModel.setItineraries(Collections.emptyList());
+        cruiseModel.setDuration(json.getAsJsonPrimitive("duration").getAsString());
+        cruiseModel.setStartDate(Calendar.getInstance());
         List<PortItem> ports = StreamSupport.stream(json.getAsJsonArray("ports").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(jsonElement -> new PortItem(jsonElement.get("name").getAsString(),
@@ -166,6 +171,11 @@ public class FindYourCruise2018UseTest {
         List<FeatureModel> features = StreamSupport.stream(json.getAsJsonArray("features").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(jsonObject -> new FeatureModel() {
+                    @Override
+                    public String getTitle() {
+                        return jsonObject.get("title").getAsString();
+                    }
+
                     @Override
                     public String getName() {
                         return jsonObject.get("name").getAsString();
@@ -247,6 +257,7 @@ public class FindYourCruise2018UseTest {
         private List<ItineraryModel> itineraries;
         private String departurePortName;
         private String arrivalPortName;
+        private String duration;
 
         public void setDeparturePortName(String departurePortName) {
             this.departurePortName = departurePortName;
@@ -256,13 +267,22 @@ public class FindYourCruise2018UseTest {
             this.arrivalPortName = arrivalPortName;
         }
 
-        public void setShip(String shipName) {
+        public void setShip(String shipTitle) {
             this.ship = new ShipModel() {
                 @Override
-                public String getName() {
-                    return shipName;
+                public String getTitle() {
+                    return shipTitle;
+                }
+
+                @Override
+                public String getShipId() {
+                    return shipTitle;
                 }
             };
+        }
+
+        public void setDuration(String duration) {
+            this.duration = duration;
         }
 
         public void setCruiseType(String cruiseType) {
@@ -275,6 +295,11 @@ public class FindYourCruise2018UseTest {
 
         public void setDestination(String destination) {
             this.destination = new DestinationModel() {
+                @Override
+                public String getTitle() {
+                    return destination;
+                }
+
                 @Override
                 public String getName() {
                     return destination;
@@ -328,6 +353,11 @@ public class FindYourCruise2018UseTest {
         @Override
         public String getArrivalPortName() {
             return arrivalPortName;
+        }
+
+        @Override
+        public String getDuration() {
+            return duration;
         }
     }
 

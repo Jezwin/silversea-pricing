@@ -6,17 +6,16 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
 
     private Locale locale;
-    private List<CruiseModelLight> cruisesModelLight;
+    private List<CruiseModelLight> lightCruises;
     private List<CruiseItem> cruises;
     private FilterBar filterBar;
     private String lang;
@@ -33,10 +32,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     public void init(CruisesCacheService service) {
-        cruisesModelLight = retrieveAllCruises(service);
-        filterBar = initFilters(cruisesModelLight);
-        cruisesModelLight = applyFilters(cruisesModelLight, filterBar);
-        updateNonSelectedFilters(cruisesModelLight, filterBar);
+        lightCruises = retrieveAllCruises(service);
+        filterBar = initFilters(lightCruises);
+        lightCruises = applyFilters(lightCruises, filterBar);
+        updateNonSelectedFilters(lightCruises, filterBar);
 
     }
 
@@ -51,8 +50,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     @SuppressWarnings("unchecked")
-    protected Map<String, String[]> getFromWebRequest(){
-        return getRequest().getParameterMap();
+    protected Map<String, String[]> getFromWebRequest() {
+        Map<String, String[]> map = new HashMap(((Map<String, String[]>) getRequest().getParameterMap()));
+        map.replaceAll((key, value) -> value[0].split("\\."));
+        return map;
     }
 
     private List<CruiseModelLight> applyFilters(List<CruiseModelLight> allCruises, FilterBar filterBar) {
@@ -66,7 +67,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     public List<CruiseItem> getCruises() {
         if (cruises == null) {
-            cruises = cruisesModelLight.stream()
+            cruises = lightCruises.stream()
+                    .sorted(Comparator.comparing(CruiseModelLight::getStartDate))
                     .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale)).collect(toList());
         }
         return cruises;
@@ -76,7 +78,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return filterBar.toString();
     }
 
-    FilterBar getFilterBar() {
+    public FilterBar getFilterBar() {
         return filterBar;
     }
 }

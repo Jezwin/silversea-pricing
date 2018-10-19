@@ -1,6 +1,42 @@
 <template data-sly-template.default="${@ fyc}">
-    <select class="destination-filter" name="destination">
-        <option value="all">${'destination' @ i18n}</option>
-        <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
-    </select>
+    <script lang="javascript">
+        function submit() {
+            var url = "";
+            $(".fyc2018-filter").each(function () {
+                var $this = $(this);
+                if ($this.val()) {
+                    url += $this.attr('name') + "=" + $this.val().join('.') + "&";
+                }
+            });
+            var current = window.location.href;
+            window.location.href = current.substr(0, current.indexOf("?") + 1) + url;
+            return false;
+        }
+    </script>
+    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+         data-sly-call="${filterTemplate.select @ name='destination', filter=fyc.filterBar.DESTINATION}"/>
+    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+         data-sly-call="${filterTemplate.select @ name='duration', filter=fyc.filterBar.DURATION}"/>
+    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+         data-sly-call="${filterTemplate.select @ name='ship', filter=fyc.filterBar.SHIP}"/>
+    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+         data-sly-call="${filterTemplate.select @ name='features', filter=fyc.filterBar.FEATURES}"/>
+    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+         data-sly-call="${filterTemplate.select @ name='type', filter=fyc.filterBar.TYPE}"/>
+    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+         data-sly-call="${filterTemplate.select @ name='ports', filter=fyc.filterBar.PORT}"/>
+    <button type="button" onclick="submit()">SUBMIT</button>
+</template>
+<template data-sly-template.select="${@ name, filter}">
+    <label>${name @ i18n}
+        <select multiple="multiple" class="fyc2018-filter ${name}-filter" name="${name}" autocomplete="off">
+            <option value="all" onselect="">${name @ i18n}</option>
+
+            <sly data-sly-repeat="${filter.rows}">
+                <option data-sly-test="${item.isEnabled}" value="${item.key}">${item.label}</option>
+                <option data-sly-test="${item.isChosen}" selected value="${item.key}">${item.label}</option>
+                <option data-sly-test="${item.isDisabled}" disabled value="${item.key}">${item.label}</option>
+            </sly>
+        </select>
+    </label>
 </template>
