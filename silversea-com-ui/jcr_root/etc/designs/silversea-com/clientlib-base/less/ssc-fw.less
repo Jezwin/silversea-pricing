@@ -1,6 +1,7 @@
 @needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, maring-top, margin-right, margin-bottom, margin-left, background-color, display, text-align, color;
 @double-needed-properties: height, width, display, text-align;
 
+
 .for ( @array ) when (default()) {
   .for-impl_(length(@array))
 }
@@ -36,4 +37,21 @@
 .for( @double-needed-properties );
 .-each( @property ) {
   .generate-class( @property,  ~'-snd');
+}
+
+
+.ssc-fw-content::before {
+  content: ~"var(--ssc-fw-content-desktop);"
+}
+
+@media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+  .ssc-fw-content::before {
+    content: ~"var(--ssc-fw-content-tablet);"
+  }
+}
+
+@media (max-width: @screen-sm) {
+  .ssc-fw-content::before {
+    content: ~"var(--ssc-fw-content-mobile);"
+  }
 }
