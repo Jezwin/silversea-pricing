@@ -14,8 +14,8 @@
   .-each(extract(@array, @i))
 }
 
-@ffw-media-tablet: ~"(min-width:@screen-md-min) and (max-width:@screen-md-max)";
-@ffw-media-mobile: ~"(max-width:@screen-md-min)";
+@ffw-media-tablet: ~"(min-width:768px) and (max-width:991px)";
+@ffw-media-mobile: ~"(max-width:767px)";
 
 .generate-class(@property, @suffix) {
   .ssc-fw-@{property}@{suffix} {
