@@ -40,9 +40,12 @@ public class FrameworkVarHelper extends AbstractFrameworkHelper {
 
     @Override
     public String generateOutput(String property, String device, String method) {
-        String valueWithUnit = getString(property + device);
+        String valueWithUnit = getString((property + device).trim());
         if (valueWithUnit == null) {
             return "";
+        }
+        if ("sscFwContent".equalsIgnoreCase(property)) {
+            valueWithUnit = "'"+valueWithUnit+"'";
         }
         property = property.replace("2", "-2");
         return "--" + LOWER_CAMEL.to(LOWER_HYPHEN, property + device) + ": " + valueWithUnit + ";" + lineSeparator();
