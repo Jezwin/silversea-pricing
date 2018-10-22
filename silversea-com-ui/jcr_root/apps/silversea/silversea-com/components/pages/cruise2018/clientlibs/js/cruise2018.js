@@ -15,17 +15,18 @@ var createLineProgressBar = (function () {
         });
     }
 })();
+
 function loadLazyImageInSlider($slider) {
     var $sliderActive = $slider.find('.slick-active');
     var slideToLoad = $slider.data('ssc-slides') || 3;
     var i;
     var $sliderI = $sliderActive;
-    for( i = 0 ;i<slideToLoad+1;i++){
+    for (i = 0; i < slideToLoad + 1; i++) {
         $sliderI.find('.lazy').lazy();
         $sliderI = $sliderI.prev();
     }
     $sliderI = $sliderActive.next();
-    for( i = 0 ;i<slideToLoad;i++){
+    for (i = 0; i < slideToLoad; i++) {
         $sliderI.find('.lazy').lazy();
         $sliderI = $sliderI.next();
     }
@@ -73,9 +74,9 @@ function initSlider() {
 $(function () {
     initSlider();
     window.widthCruise2018 = $(window).width();
-    $(window).resize(function () {
+    $(window).resize(sscThrottled(function () {
         if ($(window).width() == window.widthCruise2018) return;
         window.widthCruise2018 = $(window).width();
         createLineProgressBar();
-    });
+    }));
 });
