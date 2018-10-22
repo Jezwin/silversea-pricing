@@ -53,7 +53,6 @@ public class FindYourCruise2018UseTest {
 
 
     @Test
-    @Ignore
     public void performance() throws InterruptedException {
         double nOfRun = 4000;
         ExecutorService executor = Executors.newFixedThreadPool(4);
