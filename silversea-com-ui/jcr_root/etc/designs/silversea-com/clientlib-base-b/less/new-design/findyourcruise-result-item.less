@@ -1,5 +1,74 @@
+.fyc-to-show {
+  display: none;
+}
+
 @media (max-width: @screen-sm) {
   .find-your-cruise-component.mobile-version-2 {
+
+    .c-fyc-pagination {
+      position: relative;
+      span.summary-pag {
+        font-weight: bold !important;
+        text-transform: lowercase !important;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: -3px;
+        display: block;
+        font-size: 15px;
+      }
+
+      li {
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: 'Suisse Regular', sans-serif;
+        font-size: 14px;
+        display: inline-block;
+        color: black;
+        .previous-nd {
+        }
+        a {
+          border: none !important;
+          &:hover {
+            color: black;
+            background-color: transparent;
+          }
+        }
+        .disable-action {
+          opacity: 0.5;
+          pointer-events: none !important;
+        }
+
+        .fyc-to-show {
+          display: inline;
+        }
+        .fyc-to-hide {
+          display: none;
+        }
+        a.next {
+          position: absolute;
+          right: 0px;
+          bottom: -11px;
+          &:after {
+            content: "\f054" !important;
+            font-family: FontAwesome;
+            margin-left: 1px !important;
+          }
+        }
+
+        a.previous {
+          position: absolute;
+          left: 0px;
+          bottom: -12px;
+          &:before {
+            content: "\f053" !important;
+            font-family: FontAwesome;
+            margin-right: 1px !important;
+          }
+        }
+      }
+    }
+
     .c-fyc__result-wrapper.clearfix.v2 {
       .c-fyc__results__wrapper {
         .c-fyc__result {
@@ -108,7 +177,6 @@
               line-height: 25px !important;
             }
           }
-
         }
       }
     }
@@ -249,8 +317,6 @@
     }
   }
 }
-
-
 
 @media (max-width: 320px) {
   .find-your-cruise-component.mobile-version-2 {
