@@ -757,7 +757,7 @@ $(function() {
 
 $(".heroBannerDestinationND, .herobannerDCO").each(function() {
     var $banner = $(this);
-    var $a  = $banner.find("a:visible");
+    var $a  = $banner.find(".parbase a:visible");
 
     if ($a.length == 1) {
         $banner.css("cursor","pointer");
