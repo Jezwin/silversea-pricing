@@ -3,6 +3,7 @@ package com.silversea.aem.components.editorial;
 import com.adobe.cq.sightly.WCMBindings;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
@@ -29,6 +30,14 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         ValueMap dataProperties = get(WCMBindings.PROPERTIES, ValueMap.class);
         sbProperties = new ValueMapDecorator(new LinkedHashMap<>());
         //use the key and value here
+        String contentDesktop = dataProperties.get("sscFwContentDesktop", String.class);
+        if (StringUtils.isEmpty(dataProperties.get("sscFwContentTablet", String.class))) {
+            sbProperties.put("sscFwContentTablet",contentDesktop);
+        }
+        if (StringUtils.isEmpty(dataProperties.get("contentMobile", String.class))) {
+            sbProperties.put("sscFwContentMobile",contentDesktop);
+        }
+
         dataProperties.entrySet().forEach(e -> {
             if (!(e.getKey().contains("jcr") || e.getKey().contains("sling") || e.getKey().contains("cq") || e.getKey().contains("sscUUID"))) {
                 sbProperties.put(e.getKey(), e.getValue());

@@ -8,7 +8,7 @@
 <sly data-sly-test.modalUrlDesktop="${urlDesktop.externalizedUrl @ selectors='modalcontent'}" />
 <sly data-sly-test.modalUrlTablet="${urlTablet.externalizedUrl @ selectors='modalcontent'}" />
 <sly data-sly-test.modalUrlMobile="${urlMobile.externalizedUrl @ selectors='modalcontent'}" />
-<sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=sb.sbProperties, property='sscFwContent,sscFwBackgroundColor,sscFwColor,sscFwDisplay,sscFwDisplaySnd,sscFwTextAlign,sscFwTextAlignSnd,sscFwFontSize,sscFwFontSizeSnd,sscFwWidth,sscFwMarginTop,sscFwMarginBottom,sscFwMarginLeft,sscFwMarginRight,sscFwPaddingTop,sscFwPaddingBottom,sscFwPaddingLeft,sscFwPaddingRight'}"/>
+<sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=sb.sbProperties, property='sscFwContent,sscFwBackgroundColor,sscFwColor,sscFwDisplay,sscFwDisplaySnd,sscFwTextAlign,sscFwTextAlignSnd,sscFwFontSize,sscFwFontSizeSnd,sscFwWidth,sscFwWidthSnd,sscFwMarginTop,sscFwMarginBottom,sscFwMarginLeft,sscFwMarginRight,sscFwPaddingTop,sscFwPaddingBottom,sscFwPaddingLeft,sscFwPaddingRight'}"/>
 
 <div class="ssc-fw-text-align">
     <a id="smartbtn-${properties.sscUUID}"
@@ -19,14 +19,16 @@
        data-video-href="${currentNode.path @ selectors='video', extension='html'}"
        data-target-video=".bs-modal-lg"
        data-sscclicktype="${sb.sbProperties.analyticTypeDesktop}"
-       data-sscfwjs-desktop-enableModal="${sb.sbProperties.enableLightboxDesktop}" data-sscfwjs-tablet-enableModal="${sb.sbProperties.enableLightboxTablet}" data-sscfwjs-mobile-enableModal="${sb.sbProperties.enableLightboxMobile}"
+       data-sscfwjs-desktop-enableLightbox="${sb.sbProperties.enableLightboxDesktop}" data-sscfwjs-tablet-enableLightbox="${sb.sbProperties.enableLightboxTablet}" data-sscfwjs-mobile-enableLightbox="${sb.sbProperties.enableLightboxMobile}"
        data-sscfwjs-desktop-externallink="${sb.sbProperties.isExternalLinkDesktop}" data-sscfwjs-tablet-externallink="${sb.sbProperties.isExternalLinkTablet}" data-sscfwjs-mobile-externallink="${sb.sbProperties.isExternalLinkMobile}"
        data-sscfwjs-desktop-sscclicktype="${sb.analyticTypeDesktop}" data-sscfwjs-tablet-sscclicktype="${sb.sbProperties.analyticTypeTablet}" data-sscfwjs-mobile-sscclicktype="${sb.sbProperties.analyticTypeMobile}"
        data-sscfwjs-desktop-href="${urlDesktop.externalizedUrl}" data-sscfwjs-tablet-href="${urlTablet.externalizedUrl}" data-sscfwjs-mobile-href="${urlMobile.externalizedUrl}"
        data-sscfwjs-desktop-hrefModal="${modalUrlDesktop}" data-sscfwjs-tablet-hrefModal="${modalUrlTablet}" data-sscfwjs-mobile-hrefModal="${modalUrlMobile}"
+       data-sscfwjs-desktop-target="${sb.sbProperties.openNewTabDesktop}" data-sscfwjs-tablet-target="${sb.sbProperties.openNewTabTablet}" data-sscfwjs-mobile-target="${sb.sbProperties.openNewTabMobile}"
+       data-sscfwjs-desktop-scrollElement="${sb.sbProperties.enableToScrollElementDesktop}" data-sscfwjs-tablet-scrollElement="${sb.sbProperties.enableToScrollElementTablet}" data-sscfwjs-mobile-scrollElement="${sb.sbProperties.enableToScrollElementMobile}"
        data-sscfwjs-desktop-type="${sb.sbProperties.typeDesktop}" data-sscfwjs-tablet-type="${sb.sbProperties.typeTablet}" data-sscfwjs-mobile-type="${sb.sbProperties.typeMobile}">
         <span class="ssc-fw-color ssc-fw-content"></span>
-        <span class="ssc-fw-display-snd ssc-fw-color ssc-fw-font-size-snd smartbtn-icon">
+        <span class="ssc-fw-display-snd ssc-fw-color ssc-fw-font-size-snd smartbtn-icon ssc-fw-width-snd">
             <i class="fa fa-lg fa-angle-right"></i>
         </span>
     </a>

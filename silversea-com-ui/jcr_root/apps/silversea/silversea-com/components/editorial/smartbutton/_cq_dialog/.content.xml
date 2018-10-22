@@ -143,11 +143,21 @@
                                             sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <sscFwDisplaySndDesktop
                                             jcr:primaryType="nt:unstructured"
-                                            text="Show arrow"
-                                            name="./sscFwDisplaySndDesktop"
-                                            value="inline-block"
-                                            uncheckedValue="none"
-                                            sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Arrow"
+                                            fieldDescription="Arrow"
+                                            name="./sscFwDisplaySndDesktop">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <none
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="hide"
+                                                    value="none"/>
+                                            <inlineBlock
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="inline-block (show)"
+                                                    value="inline-block"/>
+                                        </items>
+                                    </sscFwDisplaySndDesktop>
                                     <sscFwTextAlignDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -183,6 +193,13 @@
                                             fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Width Button (px, em, %, pt)"
                                             name="./sscFwWidthDesktop"/>
+                                    <sscFwWidthSndDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            value="10%"
+                                            fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
+                                            fieldLabel="Width arrow (px, em, %, pt)"
+                                            name="./sscFwWidthSndDesktop"/>
                                     <sscFwMarginTopDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -242,7 +259,7 @@
                                     <cssDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                            fieldLabel="Custom css Desktop (automatic add mediaquery and component sscuuid)"
+                                            fieldLabel="Custom css Desktop "
                                             rows="2"
                                             fieldDescription="Custom css only Desktop"
                                             name="./cssDesktop"/>
@@ -331,7 +348,7 @@
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
-                                                                value="text"
+                                                                value=""
                                                                 name="./sscFwContentDesktop"/>
                                                             <sscFwBackgroundColorDesktop
                                                                     jcr:primaryType="nt:unstructured"
@@ -385,11 +402,25 @@
                                                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                             <sscFwDisplaySndDesktop
                                                                     jcr:primaryType="nt:unstructured"
-                                                                    text="Show arrow"
-                                                                    name="./sscFwDisplaySndDesktop"
-                                                                    value="inline-block"
-                                                                    uncheckedValue="none"
-                                                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                    fieldLabel="Arrow"
+                                                                    fieldDescription="Arrow"
+                                                                    name="./sscFwDisplaySndDesktop">
+                                                                <items jcr:primaryType="nt:unstructured">
+                                                                    <empty
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            text=""
+                                                                            value=""/>
+                                                                    <none
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            text="hide"
+                                                                            value="none"/>
+                                                                    <inlineBlock
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            text="inline-block (show)"
+                                                                            value="inline-block"/>
+                                                                </items>
+                                                            </sscFwDisplaySndDesktop>
                                                             <sscFwTextAlignDesktop
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -425,6 +456,13 @@
                                                                     fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
                                                                     fieldLabel="Width Button (px, em, %, pt)"
                                                                     name="./sscFwWidthDesktop"/>
+                                                            <sscFwWidthSndDesktop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                value=""
+                                                                fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
+                                                                fieldLabel="Width arrow (px, em, %, pt)"
+                                                                name="./sscFwWidthSndDesktop"/>
                                                             <sscFwMarginTopDesktop
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -484,7 +522,7 @@
                                                             <cssDesktop
                                                                     jcr:primaryType="nt:unstructured"
                                                                     sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                                                    fieldLabel="Custom css Desktop (automatic add mediaquery and component sscuuid)"
+                                                                    fieldLabel="Custom css Desktop"
                                                                     rows="2"
                                                                     fieldDescription="Custom css only Desktop"
                                                                     name="./cssDesktop"/>
@@ -584,7 +622,7 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text of the button"
                                             fieldLabel="Text"
-                                            value="text"
+                                            value=""
                                             name="./sscFwContentTablet"/>
                                     <sscFwBackgroundColorTablet
                                             jcr:primaryType="nt:unstructured"
@@ -638,11 +676,25 @@
                                             sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <sscFwDisplaySndTablet
                                             jcr:primaryType="nt:unstructured"
-                                            text="Show arrow"
-                                            name="./sscFwDisplaySndTablet"
-                                            value="inline-block"
-                                            uncheckedValue="none"
-                                            sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Arrow"
+                                            fieldDescription="Arrow"
+                                            name="./sscFwDisplaySndTablet">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <empty
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text=""
+                                                    value=""/>
+                                            <none
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="hide"
+                                                    value="none"/>
+                                            <inlineBlock
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="inline-block (show)"
+                                                    value="inline-block"/>
+                                        </items>
+                                    </sscFwDisplaySndTablet>
                                     <sscFwTextAlignTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -678,6 +730,13 @@
                                             fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Width Button (px, em, %, pt)"
                                             name="./sscFwWidthTablet"/>
+                                    <sscFwWidthSndTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            value=""
+                                            fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
+                                            fieldLabel="Width arrow (px, em, %, pt)"
+                                            name="./sscFwWidthSndTablet"/>
                                     <sscFwMarginTopTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -737,7 +796,7 @@
                                     <cssTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                            fieldLabel="Custom css Tablet (automatic add mediaquery and component sscuuid)"
+                                            fieldLabel="Custom css Tablet"
                                             rows="2"
                                             fieldDescription="Custom css only Tablet"
                                             name="./cssTablet"/>
@@ -826,7 +885,7 @@
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
-                                                                value="text"
+                                                                value=""
                                                                 name="./sscFwContentTablet"/>
                                                         <sscFwBackgroundColorTablet
                                                                 jcr:primaryType="nt:unstructured"
@@ -880,11 +939,25 @@
                                                                 sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                         <sscFwDisplaySndTablet
                                                                 jcr:primaryType="nt:unstructured"
-                                                                text="Show arrow"
-                                                                name="./sscFwDisplaySndTablet"
-                                                                value="inline-block"
-                                                                uncheckedValue="none"
-                                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Arrow"
+                                                                fieldDescription="Arrow"
+                                                                name="./sscFwDisplaySndTablet">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <none
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="hide"
+                                                                        value="none"/>
+                                                                <inlineBlock
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="inline-block (show)"
+                                                                        value="inline-block"/>
+                                                            </items>
+                                                        </sscFwDisplaySndTablet>
                                                         <sscFwTextAlignTablet
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -920,6 +993,13 @@
                                                                 fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
                                                                 fieldLabel="Width Button (px, em, %, pt)"
                                                                 name="./sscFwWidthTablet"/>
+                                                        <sscFwWidthSndTablet
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                value=""
+                                                                fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
+                                                                fieldLabel="Width arrow (px, em, %, pt)"
+                                                                name="./sscFwWidthSndTablet"/>
                                                         <sscFwMarginTopTablet
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -979,7 +1059,7 @@
                                                         <cssTablet
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                                                fieldLabel="Custom css Tablet (automatic add mediaquery and component sscuuid)"
+                                                                fieldLabel="Custom css Tablet"
                                                                 rows="2"
                                                                 fieldDescription="Custom css only Tablet"
                                                                 name="./cssTablet"/>
@@ -1079,7 +1159,7 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text of the button"
                                             fieldLabel="Text"
-                                            value="text"
+                                            value=""
                                             name="./sscFwContentMobile" />
                                     <sscFwBackgroundColorMobile
                                             jcr:primaryType="nt:unstructured"
@@ -1133,11 +1213,25 @@
                                             sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                     <sscFwDisplaySndMobile
                                             jcr:primaryType="nt:unstructured"
-                                            text="Show arrow"
-                                            name="./sscFwDisplaySndMobile"
-                                            value="inline-block"
-                                            uncheckedValue="none"
-                                            sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Arrow"
+                                            fieldDescription="Arrow"
+                                            name="./sscFwDisplaySndMobile">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <empty
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text=""
+                                                    value=""/>
+                                            <none
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="hide"
+                                                    value="none"/>
+                                            <inlineBlock
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="inline-block (show)"
+                                                    value="inline-block"/>
+                                        </items>
+                                    </sscFwDisplaySndMobile>
                                     <sscFwTextAlignMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1173,6 +1267,13 @@
                                             fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Width Button (px, em, %, pt)"
                                             name="./sscFwWidthMobile"/>
+                                    <sscFwWidthSndMobile
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            value=""
+                                            fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
+                                            fieldLabel="Width arrow (px, em, %, pt)"
+                                            name="./sscFwWidthSndMobile"/>
                                     <sscFwMarginTopMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1232,7 +1333,7 @@
                                     <cssMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                            fieldLabel="Custom css Mobile (automatic add mediaquery and component sscuuid)"
+                                            fieldLabel="Custom css Mobile "
                                             rows="2"
                                             fieldDescription="Custom css only Mobile"
                                             name="./cssMobile"/>
@@ -1321,7 +1422,7 @@
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
-                                                                value="text"
+                                                                value=""
                                                                 name="./sscFwContentMobile"/>
                                                         <sscFwBackgroundColorMobile
                                                                 jcr:primaryType="nt:unstructured"
@@ -1375,11 +1476,25 @@
                                                                 sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                                                         <sscFwDisplaySndMobile
                                                                 jcr:primaryType="nt:unstructured"
-                                                                text="Show arrow"
-                                                                name="./sscFwDisplaySndMobile"
-                                                                value="inline-block"
-                                                                uncheckedValue="none"
-                                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Arrow"
+                                                                fieldDescription="Arrow"
+                                                                name="./sscFwDisplaySndMobile">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <none
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="hide"
+                                                                        value="none"/>
+                                                                <inlineBlock
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="inline-block (show)"
+                                                                        value="inline-block"/>
+                                                            </items>
+                                                        </sscFwDisplaySndMobile>
                                                         <sscFwTextAlignMobile
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1415,6 +1530,13 @@
                                                                 fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
                                                                 fieldLabel="Width Button (px, em, %, pt)"
                                                                 name="./sscFwWidthMobile"/>
+                                                        <sscFwWidthSndMobile
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                value=""
+                                                                fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
+                                                                fieldLabel="Width arrow (px, em, %, pt)"
+                                                                name="./sscFwWidthSndMobile"/>
                                                         <sscFwMarginTopMobile
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1474,7 +1596,7 @@
                                                         <cssMobile
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                                                fieldLabel="Custom css Mobile (automatic add mediaquery and component sscuuid)"
+                                                                fieldLabel="Custom css Mobile "
                                                                 rows="2"
                                                                 fieldDescription="Custom css only Mobile"
                                                                 name="./cssMobile"/>
