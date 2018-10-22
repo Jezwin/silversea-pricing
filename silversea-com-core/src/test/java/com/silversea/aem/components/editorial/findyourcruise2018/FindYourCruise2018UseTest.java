@@ -8,6 +8,7 @@ import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.YearMonth;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -48,6 +50,38 @@ public class FindYourCruise2018UseTest {
                 .forEach(jsonElement -> cruises.add(toCruise(jsonElement.getAsJsonObject())));
         cacheService = new TestCacheService();
     }
+
+
+    @Test
+    @Ignore
+    public void performance() throws InterruptedException {
+        double nOfRun = 4000;
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+        List<UseBuilder> builders = new ArrayList<>();
+        for (int i = 0; i < nOfRun; i++) {
+            builders.add(new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL));
+            builders.add(new UseBuilder().withType(SILVER_EXPEDITION));
+            builders.add(new UseBuilder().withDuration("8"));
+            builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_LABEL));
+            builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_LABEL));
+        }
+        Function<UseBuilder, Callable<Double>> test = useBuilder -> () -> {
+            long current = System.currentTimeMillis();
+            useBuilder.build().init(cacheService);
+            return (System.currentTimeMillis() - current) / 1000.0;
+        };
+        double average = executor.invokeAll(builders.stream().map(test).collect(Collectors.toList())).stream()
+                .mapToDouble(future -> {
+                    try {
+                        return future.get();
+                    } catch (InterruptedException | ExecutionException e) {
+                    }
+                    return 0L;
+                }).average().orElse(0);
+        System.out.println("******" + average + "s*****");
+        //on my pc 0.02844835s
+    }
+
 
     @Test
     public void testOneDestination() {
