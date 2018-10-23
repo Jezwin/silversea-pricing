@@ -755,15 +755,3 @@ $(function() {
 	});
 });
 
-$(".heroBannerDestinationND, .herobannerDCO").each(function() {
-    var $banner = $(this);
-    var $a  = $banner.find(".parbase a:visible");
-
-    if ($a.length == 1) {
-        $banner.css("cursor","pointer");
-
-        $banner.click(function(e) {
-            window.location = $a.attr("href");
-        });
-    }
-});
