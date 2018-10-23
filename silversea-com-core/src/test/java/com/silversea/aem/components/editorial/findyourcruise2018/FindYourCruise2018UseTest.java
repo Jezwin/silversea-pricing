@@ -53,9 +53,10 @@ public class FindYourCruise2018UseTest {
 
 
     @Test
+    @Ignore
     public void performance() throws InterruptedException {
-        double nOfRun = 4000;
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        double nOfRun = 2000;
+        ExecutorService executor = Executors.newFixedThreadPool(2);
         List<UseBuilder> builders = new ArrayList<>();
         for (int i = 0; i < nOfRun; i++) {
             builders.add(new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL));
@@ -64,21 +65,23 @@ public class FindYourCruise2018UseTest {
             builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_LABEL));
             builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_LABEL));
         }
-        Function<UseBuilder, Callable<Double>> test = useBuilder -> () -> {
+        Function<UseBuilder, Callable<Long>> test = useBuilder -> () -> {
             long current = System.currentTimeMillis();
             useBuilder.build().init(cacheService);
-            return (System.currentTimeMillis() - current) / 1000.0;
+            return (System.currentTimeMillis() - current);
         };
         double average = executor.invokeAll(builders.stream().map(test).collect(Collectors.toList())).stream()
-                .mapToDouble(future -> {
+                .mapToLong(future -> {
                     try {
                         return future.get();
                     } catch (InterruptedException | ExecutionException e) {
                     }
                     return 0L;
                 }).average().orElse(0);
-        System.out.println("******" + average + "s*****");
-        //on my pc 0.02844835s
+        System.out.println("******" + average / 1000.0 + "s*****");
+        //on my pc
+        //MAX ******0.0175052s*****
+        //MIN ******0.0151021s*****
     }
 
 
@@ -158,9 +161,9 @@ public class FindYourCruise2018UseTest {
         //test filters
         FilterBar filters = use.getFilterBar();
         assertTrue(DESTINATION.isSelected());
-        assertEquals(15, DESTINATION.getRows().size());//world cruise..
+        assertEquals(16, DESTINATION.getRows().size());//world cruise..
         assertTrue(PORT.isSelected());
-        assertEquals(777, PORT.getRows().size());
+        assertEquals(821, PORT.getRows().size());
         //only africa and asia is chosen others are enabled
         assertTrue(DESTINATION.getRows().stream()
                 .allMatch(row -> {
@@ -242,6 +245,8 @@ public class FindYourCruise2018UseTest {
 
         UseBuilder() {
             filtersRequest = new HashMap<>();
+            filtersRequest.put("pag", new String[]{"1"});
+            filtersRequest.put("pagSize", new String[]{"1000"});//avoid pagination
         }
 
         private UseBuilder with(String label, String... values) {

@@ -1,16 +1,12 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
 import com.google.common.base.Objects;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
 
 public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
@@ -67,16 +63,16 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
         this.state = state;
     }
 
-    static <T> Set<FilterRow<T>> singleton(T value, String label) {
+    static <T> Stream<FilterRow<T>> singleton(T value, String label) {
         return singleton(value, label, label);
     }
 
-    static Set<FilterRow<String>> singleton(String value) {
+    static Stream<FilterRow<String>> singleton(String value) {
         return singleton(value, value, value);
     }
 
-    static <T> Set<FilterRow<T>> singleton(T value, String label, String key) {
-        return Collections.singleton(new FilterRow<>(value, label, key, ENABLED));
+    static <T> Stream<FilterRow<T>> singleton(T value, String label, String key) {
+        return Stream.of(new FilterRow<>(value, label, key, ENABLED));
     }
 
 
@@ -90,15 +86,15 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(key);
+        return key.hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FilterRow<?> filterRow = (FilterRow<?>) o;
-        return Objects.equal(key, filterRow.key);
+        String anotherKey = ((FilterRow<?>) o).key;
+        return key.hashCode() == anotherKey.hashCode() && key.equals(anotherKey);
     }
 
     @Override
