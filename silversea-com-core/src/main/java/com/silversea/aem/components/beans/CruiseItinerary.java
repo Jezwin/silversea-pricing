@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.silversea.aem.components.beans.CruisePrePost.PREPOSTMID;
 import com.silversea.aem.components.page.Cruise2018Use;
 import com.silversea.aem.models.*;
-import com.silversea.aem.utils.AssetUtils;
 import org.apache.sling.api.resource.ResourceResolver;
 
 import java.util.*;

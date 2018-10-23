@@ -467,7 +467,12 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 												"Cannot set properties for excursion " + excursionName);
 									}
 
+
 									excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+									excursionContentNode.setProperty("image", excursion.getImageUrl());
+									excursionContentNode.setProperty("image2", excursion.getImageUrl2());
+									excursionContentNode.setProperty("image3", excursion.getImageUrl3());
+									excursionContentNode.setProperty("image4", excursion.getImageUrl4());
 
 									LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
 								} else {

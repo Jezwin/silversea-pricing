@@ -419,6 +419,8 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     }
 
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                                    hotelContentNode.setProperty("image", hotel.getImageUrl());
+                                    hotelContentNode.setProperty("image2", hotel.getImageUrl2());
 
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {

@@ -298,6 +298,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     }
 
                                     landProgramContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                                    landProgramContentNode.setProperty("image", landProgram.getImageUrl());
+                                    landProgramContentNode.setProperty("image2", landProgram.getImageUrl2());
+                                    landProgramContentNode.setProperty("image3", landProgram.getImageUrl3());
+                                    landProgramContentNode.setProperty("image4", landProgram.getImageUrl4());
+                                    landProgramContentNode.setProperty("image5", landProgram.getImageUrl5());
+                                    landProgramContentNode.setProperty("image6", landProgram.getImageUrl6());
 
                                     LOGGER.trace("Land program {} is marked to be deactivated", landProgramName);
                                 } else {
