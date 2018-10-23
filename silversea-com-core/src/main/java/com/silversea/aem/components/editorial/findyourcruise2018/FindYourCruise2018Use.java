@@ -8,17 +8,24 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+import static java.lang.Integer.parseInt;
+import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
 
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
 
+    private static final int PAG_SIZE = 20;
+
     private Locale locale;
-    private List<CruiseModelLight> lightCruises;
     private List<CruiseItem> cruises;
     private FilterBar filterBar;
     private String lang;
+    private int pagNumber = 1;
+    private int pagSize = 20;
+    private int totalResults;
 
     @Override
     public void activate() throws Exception {
@@ -32,10 +39,13 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     public void init(CruisesCacheService service) {
+        List<CruiseModelLight> lightCruises;
         lightCruises = retrieveAllCruises(service);
         filterBar = initFilters(lightCruises);
-        lightCruises = applyFilters(lightCruises, filterBar);
+        lightCruises = applyFilters(lightCruises, filterBar); //if non filter is selected...
+        totalResults = lightCruises.size();
         updateNonSelectedFilters(lightCruises, filterBar);
+        cruises = retrieveCruises(lightCruises);
 
     }
 
@@ -45,7 +55,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private FilterBar initFilters(List<CruiseModelLight> allCruises) {
         FilterBar filterBar = new FilterBar(allCruises);
-        getFromWebRequest().forEach(filterBar::addSelectedFilter);
+        Map<String, String[]> map = getFromWebRequest();
+        map.forEach(filterBar::addSelectedFilter);
+        pagNumber = parseInt(map.getOrDefault("pag", new String[]{"1"})[0]);
+        pagSize = parseInt(map.getOrDefault("pagSize", new String[]{"" + PAG_SIZE})[0]);
         return filterBar;
     }
 
@@ -57,7 +70,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     private List<CruiseModelLight> applyFilters(List<CruiseModelLight> allCruises, FilterBar filterBar) {
-        return allCruises.stream().filter(filterBar::isCruiseMatching).collect(toList());
+        return allCruises.parallelStream().filter(filterBar::isCruiseMatching).collect(toCollection(LinkedList::new));
     }
 
     private void updateNonSelectedFilters(List<CruiseModelLight> cruises, FilterBar filterBar) {
@@ -65,19 +78,21 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
 
+    private List<CruiseItem> retrieveCruises(List<CruiseModelLight> lightCruises) {
+        return lightCruises.stream()
+                .sorted(Comparator.comparing(CruiseModelLight::getStartDate))
+                .skip((pagNumber - 1) * pagSize)
+                .limit(pagSize)
+                .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale))
+                .collect(toCollection(() -> new ArrayList<>(pagSize)));
+    }
+
     public List<CruiseItem> getCruises() {
-        if (cruises == null) {
-            cruises = lightCruises.stream()
-                    .sorted(Comparator.comparing(CruiseModelLight::getStartDate))
-                    .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale)).collect(toList());
-        }
         return cruises;
     }
 
-    public List<CruiseItem> getCruisesPaginated(int pag, int pagSize) {//pag starts from 1, just an idea, TODO...
-        return lightCruises.stream().sorted(Comparator.comparing(CruiseModelLight::getStartDate))
-                .skip((pag - 1) * pagSize).limit(pagSize)
-                .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale)).collect(toList());
+    public int getTotalResults() {
+        return totalResults;
     }
 
     public String getFilters() {

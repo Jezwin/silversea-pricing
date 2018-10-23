@@ -10,7 +10,7 @@
             });
             var current = window.location.href;
             var firstParamPos = current.indexOf("html");
-            window.location.href = current.substr(0, current.indexOf("html") + 4) + "?" + url;
+            window.location.href = encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url);
             return false;
         }
     </script>

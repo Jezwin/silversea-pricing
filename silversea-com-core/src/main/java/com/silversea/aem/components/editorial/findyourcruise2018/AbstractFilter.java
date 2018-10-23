@@ -1,14 +1,14 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
-import com.google.common.base.Objects;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.silversea.aem.models.CruiseModelLight;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
+import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toSet;
 
 public abstract class AbstractFilter<T> {
@@ -19,7 +19,7 @@ public abstract class AbstractFilter<T> {
         this.kind = kind;
     }
 
-    protected abstract Collection<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
+    protected abstract Stream<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
 
 
     public Collection<FilterRow<T>> getRows() {
@@ -52,33 +52,40 @@ public abstract class AbstractFilter<T> {
     }
 
     void disableMissingLabels(Collection<CruiseModelLight> cruises) {
-        rows.forEach(row -> row.setState(cruiseMatchesTheRow(cruises, row) ? ENABLED : DISABLED));
+        rows.forEach(row -> row.setState(rowShouldBeEnabled(cruises, row) ? ENABLED : DISABLED));
 
     }
 
     final void initAllValues(List<CruiseModelLight> cruises) {
         this.rows =
-                cruises.stream().flatMap(cruise -> projection(cruise).stream())
-                        .collect(Collectors.toCollection(() -> new TreeSet<>(comparator())));//keep the order
+                cruises.stream().flatMap(this::projection)
+                        .distinct()
+                        .collect(toCollection(() -> new TreeSet<>(this.comparator())));//keep the order
     }
 
-    protected Comparator<FilterRow<T>> comparator() {
+    protected Comparator<FilterRow<T>> comparator() {//this is overridden when needed
         return Comparator.naturalOrder();
     }
 
-    private boolean matches(Set<FilterRow<T>> selectedRows, CruiseModelLight cruiseModelLight) {
-        Collection<FilterRow<T>> cruiseRows = projection(cruiseModelLight);
-        for (FilterRow<T> cruiseRow : cruiseRows) {
-            if (selectedRows.contains(cruiseRow)) {
-                return true;
-            }
-        }
-        return false;
+    /**
+     * Matching a single Filter
+     *
+     * @param selectedFilterRows The selected rows of a filter.
+     * @param cruiseModelLight   A cruise.
+     * @return True if the cruise matches that filter.
+     */
+    private boolean matches(Set<FilterRow<T>> selectedFilterRows, CruiseModelLight cruiseModelLight) {
+        return projection(cruiseModelLight).anyMatch(selectedFilterRows::contains);
     }
 
-    private boolean cruiseMatchesTheRow(Collection<CruiseModelLight> cruises, FilterRow<T> row) {
-        return cruises.stream().flatMap(cruise -> projection(cruise).stream()).map(FilterRow::getKey)
-                .anyMatch(row.getKey()::equals);
+    /**
+     * Should the row be enabled?
+     * @param cruises All the cruises left.
+     * @param row The row.
+     * @return True is any cruise matches the row.
+     */
+    private boolean rowShouldBeEnabled(Collection<CruiseModelLight> cruises, FilterRow<T> row) {
+        return cruises.parallelStream().flatMap(this::projection).anyMatch(row::equals);
     }
 
     @Override
@@ -91,7 +98,7 @@ public abstract class AbstractFilter<T> {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(kind);
+        return kind.hashCode();
     }
 
     @Override
