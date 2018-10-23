@@ -26,7 +26,7 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
     static private final String GEO_PROP = "geoTag";
     static private final String GEO_NODE = "geoList";
     static private final String SEPARATOR = "~";
-    static private final String LIST_PROPERTIES = "data-sscclicktype,href,target,scrollElement,type, data-toggle, data-target";
+    static private final String LIST_PROPERTIES = "data-sscclicktype,href,target,data-scrollElement,type, data-toggle, data-target";
 
     private ValueMap sbProperties;
 
@@ -77,14 +77,14 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
             if (!device.equalsIgnoreCase("desktop")) {
                 value = StringUtils.isEmpty(value) ? sbProperties.get(prop + "Desktop", String.class) : value;
             }
-            value = prop.equals("openNewTab") ? "_blank" : value;
+            value = prop.equals("openNewTab") ? (Boolean.valueOf(value) ? "_blank" : "" ) : value;
             sbProperties.put(prop + device, value);
         }
 
         String enableLightbox = sbProperties.get("enableLightbox" + device, String.class);
         String linkUrl = sbProperties.get("linkUrl" + device, String.class);
         String isExternalLink = sbProperties.get("isExternalLink" + device, String.class);
-        String type = sbProperties.get("isExternalLink" + device, String.class);
+        String type = sbProperties.get("type" + device, String.class);
         if (Boolean.valueOf(enableLightbox)) {
             linkUrl = linkUrl + ".modalcontent";
             sbProperties.put("dataToggle" + device, "modal");

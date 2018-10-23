@@ -7,7 +7,7 @@
 <div class="ssc-fw-text-align">
     <a id="smartbtn-${properties.sscUUID}"
        href="${sb.sbProperties.linkUrlDesktop @ extension='html'}"
-       class="smartbtn  scc-fw-not-parsed ssc-fw-text-align-snd ${sb.sbProperties.isTrasparentButtonDesktop ? 'trasparent-desktop' : ''}  ${sb.sbProperties.isTrasparentButtonTablet ? 'trasparent-tablet' : ''} ${sb.sbProperties.isTrasparentButtonMobile ? 'trasparent-mobile' : ''}  ssc-fw-background-color ssc-fw-display ssc-fw-font-size ssc-fw-width ssc-fw-margin-top ssc-fw-margin-bottom ssc-fw-margin-left ssc-fw-margin-right ssc-fw-padding-top ssc-fw-padding-bottom ssc-fw-padding-left ssc-fw-padding-right"
+       class="smartbtn ssc-fw-text-align-snd ${sb.sbProperties.isTrasparentButtonDesktop ? 'trasparent-desktop' : ''}  ${sb.sbProperties.isTrasparentButtonTablet ? 'trasparent-tablet' : ''} ${sb.sbProperties.isTrasparentButtonMobile ? 'trasparent-mobile' : ''}  ssc-fw-background-color ssc-fw-display ssc-fw-font-size ssc-fw-width ssc-fw-margin-top ssc-fw-margin-bottom ssc-fw-margin-left ssc-fw-margin-right ssc-fw-padding-top ssc-fw-padding-bottom ssc-fw-padding-left ssc-fw-padding-right"
        style="${fw.allDevices @ context='unsafe'}" data-ie-style="${fw.allDevices @ context='unsafe'}"
        target="${sb.sbProperties.openNewTabDesktop ? '_blank' : ''}"
        data-sscclicktype="${sb.sbProperties.analyticTypeDesktop}"
@@ -17,8 +17,7 @@
        data-sscfwjs-desktop-data-sscclicktype="${sb.sbProperties.analyticTypeDesktop}" data-sscfwjs-tablet-data-sscclicktype="${sb.sbProperties.analyticTypeTablet}" data-sscfwjs-mobile-data-sscclicktype="${sb.sbProperties.analyticTypeMobile}"
        data-sscfwjs-desktop-href="${sb.sbProperties.linkUrlDesktop}" data-sscfwjs-tablet-href="${sb.sbProperties.linkUrlTablet}" data-sscfwjs-mobile-href="${sb.sbProperties.linkUrlMobile}"
        data-sscfwjs-desktop-target="${sb.sbProperties.openNewTabDesktop}" data-sscfwjs-tablet-target="${sb.sbProperties.openNewTabTablet}" data-sscfwjs-mobile-target="${sb.sbProperties.openNewTabMobile}"
-       data-sscfwjs-desktop-scrollElement="${sb.sbProperties.enableToScrollElementDesktop}" data-sscfwjs-tablet-scrollElement="${sb.sbProperties.enableToScrollElementTablet}" data-sscfwjs-mobile-scrollElement="${sb.sbProperties.enableToScrollElementMobile}"
-       data-sscfwjs-desktop-type="${sb.sbProperties.typeDesktop}" data-sscfwjs-tablet-type="${sb.sbProperties.typeTablet}" data-sscfwjs-mobile-type="${sb.sbProperties.typeMobile}">
+       data-sscfwjs-desktop-data-scrollElement="${sb.sbProperties.enableToScrollElementDesktop}" data-sscfwjs-tablet-data-scrollElement="${sb.sbProperties.enableToScrollElementTablet}" data-sscfwjs-mobile-data-scrollElement="${sb.sbProperties.enableToScrollElementMobile}">
         <span class="ssc-fw-color ssc-fw-content"></span>
         <span class="ssc-fw-display-snd ssc-fw-color ssc-fw-font-size-snd smartbtn-icon ssc-fw-width-snd">
             <i class="fa fa-lg fa-angle-right"></i>

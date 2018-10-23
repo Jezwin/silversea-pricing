@@ -1,7 +1,26 @@
 $(function () {
     "use strict";
+
     $(document).ready(function () {
         parsedSscFeJsElement();
+
+        $(".smartbtn").on("click touchstart", function (e) {
+            var $smartbutton = $(this);
+            var idSmartButton = $smartbutton.attr("id");
+            var elementToScroll = $smartbutton.data("scrollelement")
+
+            if (elementToScroll != null) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                var target = $(elementToScroll).offset().top;
+                $('html, body').animate({
+                    scrollTop: target - 100
+                }, 1500);
+                return false;
+            }
+        });
+
     });
 
     function parsedSscFeJsElement() {
@@ -29,5 +48,4 @@ $(function () {
     function isTablet() {
         return $("body").hasClass("viewport-sm");
     };//isTablet
-
 });
