@@ -92,7 +92,7 @@ $(function () {
             scrollTop: $target.position().top - number,
             duration: 1200,
             easing: 'linear'
-        });
+        },1500);
     });
     if ($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0) {
         menu.onScroll();
