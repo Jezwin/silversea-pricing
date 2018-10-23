@@ -1,60 +1,26 @@
 $(function () {
     "use strict";
-
-    var wdest = $(window).width();
-    var mapCompProp = {};
-
-    $(window).resize(function () {
-        if ($(window).width() == wdest) return;
-        wdest = $(window).width();
-       // initializeButton();
+    $(document).ready(function () {
+        parsedSscFeJsElement();
     });
 
-    $(document).ready(function() {
-        //initializeButton();
-    });
-
-    function initializeButton() {
-        var $smartButtonList = $(".smartbtn");
-        if ($smartButtonList.length > 0) {
-            $smartButtonList.each(function (e) {
-                var $smartButton = $(this);
-                var id = $smartButton.attr("id");
-                var dataCompProp = $smartButton.data("componentproperties");
-                if (dataCompProp != null) {
-                    dataCompProp = dataCompProp.split("~");
-                    for (var i in dataCompProp) {
-                        var propSplit = dataCompProp[i].split("=");
-                        var key = propSplit[0];
-                        var value = propSplit[1];
-                        mapCompProp[key] = value;
-                    }
-                    setText($smartButton);
-                }
-            });
-        }
-    };//initializeButton
-
-    function getGoodValue(propName) {
-        var value = mapCompProp[propName];
-        if (isTablet()) {
-           // text = mapCompProp["textTablet"] != null ? mapCompProp["textTablet"] : text;
-        }
-        if (isMobile()) {
-            //text = mapCompProp["textMobile"] != null ? mapCompProp["textMobile"] : text;
-        }
-    };//getGoodValue
-
-    function setText(smartButton) {
-        var text = mapCompProp["textDesktop"];
-        if (isTablet()) {
-            text = mapCompProp["textTablet"] != null ? mapCompProp["textTablet"] : text;
-        }
-        if (isMobile()) {
-            text = mapCompProp["textMobile"] != null ? mapCompProp["textMobile"] : text;
-        }
-        smartButton.find("span").text(text);
-    };//setText
+    function parsedSscFeJsElement() {
+        $("[data-sscfwjs-properties]").each(function (e) {
+            var $element = $(this);
+            var typeDevices = isDesktop() ? 'desktop' : isTablet() ? 'tablet' : 'mobile';
+            var dataProperties = $element.data("sscfwjs-properties").split(",");
+            for (var i in dataProperties) {
+                var valueProp = dataProperties[i].trim();
+                var key = "data-sscfwjs-" + typeDevices + "-" + valueProp;
+                var value = $element.attr(key);
+                $element.attr(valueProp, value);
+                $element.removeAttr("data-sscfwjs-desktop-" + valueProp);
+                $element.removeAttr("data-sscfwjs-tablet-" + valueProp);
+                $element.removeAttr("data-sscfwjs-mobile-" + valueProp);
+            }
+            $element.removeAttr("data-sscfwjs-properties");
+        });
+    };//parsedSscFeJsElement
 
     function isDesktop() {
         return $("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg");
@@ -64,7 +30,4 @@ $(function () {
         return $("body").hasClass("viewport-sm");
     };//isTablet
 
-    function isMobile() {
-        return $("body").hasClass("viewport-xs");
-    };//isMobile
 });

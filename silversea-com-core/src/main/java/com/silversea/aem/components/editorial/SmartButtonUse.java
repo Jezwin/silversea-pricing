@@ -1,8 +1,10 @@
 package com.silversea.aem.components.editorial;
 
 import com.adobe.cq.sightly.WCMBindings;
+import com.day.cq.commons.Externalizer;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.ExternalizerHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
@@ -10,17 +12,21 @@ import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.jcr.Node;
-import javax.jcr.RepositoryException;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
 public class SmartButtonUse extends AbstractGeolocationAwareUse {
 
+    @Inject
+    private ExternalizerHelper externalizerHelper;
+
     static private final Logger LOGGER = LoggerFactory.getLogger(SmartButtonUse.class);
     static private final String GEO_PROP = "geoTag";
     static private final String GEO_NODE = "geoList";
     static private final String SEPARATOR = "~";
+    static private final String LIST_PROPERTIES = "data-sscclicktype,href,target,scrollElement,type, data-toggle, data-target";
 
     private ValueMap sbProperties;
 
@@ -32,12 +38,11 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         //use the key and value here
         String contentDesktop = dataProperties.get("sscFwContentDesktop", String.class);
         if (StringUtils.isEmpty(dataProperties.get("sscFwContentTablet", String.class))) {
-            sbProperties.put("sscFwContentTablet",contentDesktop);
+            sbProperties.put("sscFwContentTablet", contentDesktop);
         }
         if (StringUtils.isEmpty(dataProperties.get("contentMobile", String.class))) {
-            sbProperties.put("sscFwContentMobile",contentDesktop);
+            sbProperties.put("sscFwContentMobile", contentDesktop);
         }
-
         dataProperties.entrySet().forEach(e -> {
             if (!(e.getKey().contains("jcr") || e.getKey().contains("sling") || e.getKey().contains("cq") || e.getKey().contains("sscUUID"))) {
                 sbProperties.put(e.getKey(), e.getValue());
@@ -49,15 +54,53 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         setGeolocationProperties(GEO_PROP + "Desktop", GEO_NODE + "Desktop").ifPresent(desktop -> {
             LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " geo desktop process {}", desktop.size());
             sbProperties.putAll(desktop);
+            setPropByDevices(sbProperties, "Desktop");
         });
         setGeolocationProperties(GEO_PROP + "Tablet", GEO_NODE + "Tablet").ifPresent(tablet -> {
             LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " geo tablet process {}", tablet.size());
             sbProperties.putAll(tablet);
+            setPropByDevices(sbProperties, "Tablet");
         });
         setGeolocationProperties(GEO_PROP + "Mobile", GEO_NODE + "Mobile").ifPresent(mobile -> {
             LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " geo mobile process {}", mobile.size());
             sbProperties.putAll(mobile);
+            setPropByDevices(sbProperties, "Mobile");
         });
+
+    }
+
+    private void setPropByDevices(ValueMap sbProperties, String device) {
+
+        String[] propertiesByDevices = {"linkUrl", "enableLightbox", "isExternalLink", "type", "analyticType" , "enableToScrollElement", "openNewTab"};
+        for(String prop : propertiesByDevices) {
+            String value = sbProperties.get(prop + device, String.class);
+            if (!device.equalsIgnoreCase("desktop")) {
+                value = StringUtils.isEmpty(value) ? sbProperties.get(prop + "Desktop", String.class) : value;
+            }
+            value = prop.equals("openNewTab") ? "_blank" : value;
+            sbProperties.put(prop + device, value);
+        }
+
+        String enableLightbox = sbProperties.get("enableLightbox" + device, String.class);
+        String linkUrl = sbProperties.get("linkUrl" + device, String.class);
+        String isExternalLink = sbProperties.get("isExternalLink" + device, String.class);
+        String type = sbProperties.get("isExternalLink" + device, String.class);
+        if (Boolean.valueOf(enableLightbox)) {
+            linkUrl = linkUrl + ".modalcontent";
+            sbProperties.put("dataToggle" + device, "modal");
+            sbProperties.put("dataTarget" + device, ".bs-modal-lg");
+
+        } else if (StringUtils.isNotEmpty(type) && type.equalsIgnoreCase("video")) {
+            linkUrl = getCurrentPage().getPath() + ".video";
+            sbProperties.put("dataTarget" + device, ".bs-modal-lg");
+        }
+
+        if (!Boolean.valueOf(isExternalLink) || (StringUtils.isNotEmpty(type) && type.equalsIgnoreCase("file"))) {
+            Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+            linkUrl = externalizer.relativeLink(getRequest(), linkUrl) + ".html";
+        }
+        sbProperties.put("linkUrl" + device, linkUrl);
+
     }
 
     private Optional<ValueMap> setGeolocationProperties(String propName, String nodeName) {
@@ -98,6 +141,10 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
 
     public ValueMap getSbProperties() {
         return sbProperties;
+    }
+
+    public String getListProperties() {
+        return LIST_PROPERTIES;
     }
 
 }
