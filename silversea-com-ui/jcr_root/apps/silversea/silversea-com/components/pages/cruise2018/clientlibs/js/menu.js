@@ -95,6 +95,6 @@ $(function () {
     });
     if ($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0) {
         menu.onScroll();
-        $(document).on('scroll resize touchmove gesturechange', sscThrottled(menu.onScroll.bind(menu)));
+        $(document).on('scroll resize touchmove gesturechange', menu.onScroll.bind(menu));
     }
 });

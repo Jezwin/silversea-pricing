@@ -62,5 +62,5 @@ function onScrollFixedFooter() {
 
 $(function () {
     onScrollFixedFooter();
-    $(document).on('scroll resize touchmove gesturechange', sscThrottled(onScrollFixedFooter));
+    $(document).on('scroll resize touchmove gesturechange', onScrollFixedFooter);
 });
