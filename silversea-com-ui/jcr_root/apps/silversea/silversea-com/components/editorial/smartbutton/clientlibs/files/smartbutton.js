@@ -7,9 +7,15 @@ $(function () {
         $(".smartbtn").on("click touchstart", function (e) {
             var $smartbutton = $(this);
             var idSmartButton = $smartbutton.attr("id");
-            var elementToScroll = $smartbutton.data("scrollelement")
+            var elementToScroll = $smartbutton.data("scrollelement");
+            var type = $smartbutton.data("type");
 
-            if (elementToScroll != null) {
+            if (type == "video") {
+                e.stopPropagation();
+                e.preventDefault();
+                openVideoModal($smartbutton)
+
+            } else if (elementToScroll != null) {
                 e.stopPropagation();
                 e.preventDefault();
 
@@ -20,8 +26,38 @@ $(function () {
                 return false;
             }
         });
-
     });
+
+    function openVideoModal($smartbutton) {
+
+        var $modalContent =
+            '<div class="modal-content modal-content--transparent">'
+            + '<div class="modal-header">'
+            + ' <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>'
+            + '</div>'
+            + '<div class="modal-body">'
+            + ' <div id="currentNode" class="c-video cq-dd-image" data-video-asset="assetPath" data-video-autoplay="1"></div>'
+            + '</div>'
+            + '</div>';
+
+        var linkVideo = $smartbutton.data('video'),
+            currentNode = $smartbutton.data("currentnode"),
+            modalTarget = $smartbutton.data('target'),
+            $modal = $(modalTarget);
+
+        $modalContent = $modalContent.replace("currentNode", currentNode);
+        $modalContent = $modalContent.replace("assetPath", linkVideo);
+
+        $modal.modal('show');
+        $modal.find('.modal-dialog').html($modalContent);
+
+        $modal.on('shown.bs.modal', function (e) {
+            var $modalOpen = $(this);
+            $modalOpen.off('shown.bs.modal');
+            $modalOpen.find('.c-video').initVideo();
+        });
+
+    };//openVideoModal
 
     function parsedSscFeJsElement() {
         $("[data-sscfwjs-properties]").each(function (e) {

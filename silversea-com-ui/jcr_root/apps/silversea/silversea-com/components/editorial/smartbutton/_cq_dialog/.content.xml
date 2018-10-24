@@ -83,7 +83,7 @@
                                             fieldLabel="Link url"
                                             name="./linkUrlDesktop"
                                             fieldDescription="Link valid for any type"
-                                            rootPath="/content/silversea-com"/>
+                                            rootPath="/content/"/>
                                     <sscFwContentDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -342,7 +342,7 @@
                                                                     fieldLabel="Link url"
                                                                     name="./linkUrlDesktop"
                                                                     fieldDescription="Link valid for any type"
-                                                                    rootPath="/content/silversea-com"/>
+                                                                    rootPath="/content/"/>
                                                             <sscFwContentDesktop
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -616,7 +616,7 @@
                                             fieldLabel="Link url"
                                             name="./linkUrlTablet"
                                             fieldDescription="Link valid for any type"
-                                            rootPath="/content/silversea-com"/>
+                                            rootPath="/content/"/>
                                     <sscFwContentTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -879,7 +879,7 @@
                                                                 fieldLabel="Link url"
                                                                 name="./linkUrlTablet"
                                                                 fieldDescription="Link valid for any type"
-                                                                rootPath="/content/silversea-com"/>
+                                                                rootPath="/content/"/>
                                                         <sscFwContentTablet
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1153,7 +1153,7 @@
                                             fieldLabel="Link url"
                                             name="./linkUrlMobile"
                                             fieldDescription="Link valid for any type"
-                                            rootPath="/content/silversea-com"/>
+                                            rootPath="/content/"/>
                                     <sscFwContentMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -1416,7 +1416,7 @@
                                                                 fieldLabel="Link url"
                                                                 name="./linkUrlMobile"
                                                                 fieldDescription="Link valid for any type"
-                                                                rootPath="/content/silversea-com"/>
+                                                                rootPath="/content/"/>
                                                         <sscFwContentMobile
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"

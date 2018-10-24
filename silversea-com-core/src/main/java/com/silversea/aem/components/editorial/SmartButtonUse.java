@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
@@ -26,13 +27,15 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
     static private final String GEO_PROP = "geoTag";
     static private final String GEO_NODE = "geoList";
     static private final String SEPARATOR = "~";
-    static private final String LIST_PROPERTIES = "data-sscclicktype,href,target,data-scrollElement,type, data-toggle, data-target";
+    static private final String LIST_PROPERTIES = "data-sscclicktype,href,target,data-scrollElement,data-type,data-toggle,data-target,data-video";
 
     private ValueMap sbProperties;
+    private Externalizer externalizer;
 
     @Override
     public void activate() throws Exception {
         super.activate();
+        externalizer = getResourceResolver().adaptTo(Externalizer.class);
         ValueMap dataProperties = get(WCMBindings.PROPERTIES, ValueMap.class);
         sbProperties = new ValueMapDecorator(new LinkedHashMap<>());
         //use the key and value here
@@ -91,12 +94,13 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
             sbProperties.put("dataTarget" + device, ".bs-modal-lg");
 
         } else if (StringUtils.isNotEmpty(type) && type.equalsIgnoreCase("video")) {
-            linkUrl = getCurrentPage().getPath() + ".video";
+            sbProperties.put("dataVideo" + device, linkUrl);
             sbProperties.put("dataTarget" + device, ".bs-modal-lg");
+            sbProperties.put("dataToggle" + device, "modal");
+            linkUrl = "#";
         }
 
-        if (!Boolean.valueOf(isExternalLink) || (StringUtils.isNotEmpty(type) && type.equalsIgnoreCase("file"))) {
-            Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+        if (!Boolean.valueOf(isExternalLink) && (StringUtils.isNotEmpty(type) && !type.equalsIgnoreCase("file"))) {
             linkUrl = externalizer.relativeLink(getRequest(), linkUrl) + ".html";
         }
         sbProperties.put("linkUrl" + device, linkUrl);

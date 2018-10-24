@@ -12,12 +12,15 @@
        target="${sb.sbProperties.openNewTabDesktop ? '_blank' : ''}"
        data-sscclicktype="${sb.sbProperties.analyticTypeDesktop}"
        data-sscfwjs-properties="${sb.listProperties}"
+       data-currentnode="${currentNode.identifier}"
        data-sscfwjs-desktop-data-toggle="${sb.sbProperties.dataToggleDesktop}" data-sscfwjs-tablet-data-toggle="${sb.sbProperties.dataToggleTablet}" data-sscfwjs-mobile-data-toggle="${sb.sbProperties.dataToggleMobile}"
+       data-sscfwjs-desktop-data-video="${sb.sbProperties.dataVideoDesktop}" data-sscfwjs-tablet-data-video="${sb.sbProperties.dataVideoTablet}" data-sscfwjs-mobile-data-video="${sb.sbProperties.dataVideoMobile}"
        data-sscfwjs-desktop-data-target="${sb.sbProperties.dataTargetDesktop}" data-sscfwjs-tablet-data-target="${sb.sbProperties.dataTargetTablet}" data-sscfwjs-mobile-data-target="${sb.sbProperties.dataTargetMobile}"
        data-sscfwjs-desktop-data-sscclicktype="${sb.sbProperties.analyticTypeDesktop}" data-sscfwjs-tablet-data-sscclicktype="${sb.sbProperties.analyticTypeTablet}" data-sscfwjs-mobile-data-sscclicktype="${sb.sbProperties.analyticTypeMobile}"
        data-sscfwjs-desktop-href="${sb.sbProperties.linkUrlDesktop}" data-sscfwjs-tablet-href="${sb.sbProperties.linkUrlTablet}" data-sscfwjs-mobile-href="${sb.sbProperties.linkUrlMobile}"
        data-sscfwjs-desktop-target="${sb.sbProperties.openNewTabDesktop}" data-sscfwjs-tablet-target="${sb.sbProperties.openNewTabTablet}" data-sscfwjs-mobile-target="${sb.sbProperties.openNewTabMobile}"
-       data-sscfwjs-desktop-data-scrollElement="${sb.sbProperties.enableToScrollElementDesktop}" data-sscfwjs-tablet-data-scrollElement="${sb.sbProperties.enableToScrollElementTablet}" data-sscfwjs-mobile-data-scrollElement="${sb.sbProperties.enableToScrollElementMobile}">
+       data-sscfwjs-desktop-data-scrollElement="${sb.sbProperties.enableToScrollElementDesktop}" data-sscfwjs-tablet-data-scrollElement="${sb.sbProperties.enableToScrollElementTablet}" data-sscfwjs-mobile-data-scrollElement="${sb.sbProperties.enableToScrollElementMobile}"
+       data-sscfwjs-desktop-data-type="${sb.sbProperties.typeDesktop}" data-sscfwjs-tablet-data-type="${sb.sbProperties.typeTablet}" data-sscfwjs-mobile-data-type="${sb.sbProperties.typeMobile}">
         <span class="ssc-fw-color ssc-fw-content"></span>
         <span class="ssc-fw-display-snd ssc-fw-color ssc-fw-font-size-snd smartbtn-icon ssc-fw-width-snd">
             <i class="fa fa-lg fa-angle-right"></i>
@@ -25,6 +28,21 @@
     </a>
 </div>
 
+<style data-sly-test="${sb.sbProperties.cssDesktop}">
+    @media (min-width: 991px) {
+    ${sb.sbProperties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media (max-width: 990px) and (min-width: 768px) {
+    ${sb.sbProperties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+    ${sb.sbProperties.cssMobile @ context='html'}
+    }
+</style>
 
 
 
