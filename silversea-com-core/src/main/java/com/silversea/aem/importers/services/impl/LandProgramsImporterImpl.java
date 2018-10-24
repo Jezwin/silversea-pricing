@@ -2,6 +2,7 @@ package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.dam.api.s7dam.set.MediaSet;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -27,10 +28,7 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.*;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +42,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static com.silversea.aem.constants.WcmConstants.PATH_DAM_SILVERSEA;
+import static com.silversea.aem.importers.services.impl.BaseImporter.createMediaSet;
 
 @Service
 @Component
@@ -81,7 +82,8 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory
+                .getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -134,7 +136,8 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             // Creating subpage "land-programs" if not present
                             Page landProgramsPage;
                             if (portPage.hasChild(WcmConstants.NN_LAND_PROGRAMS)) {
-                                landProgramsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
+                                landProgramsPage =
+                                        pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
                             } else {
                                 landProgramsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_LAND_PROGRAMS,
                                         WcmConstants.PAGE_TEMPLATE_PAGE, "Land Programs", false);
@@ -236,7 +239,8 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory
+                .getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -247,7 +251,8 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             }
 
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-            final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateLandPrograms");
+            final String lastModificationDate =
+                    ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateLandPrograms");
 
             LOGGER.debug("Last import date for land programs {}", lastModificationDate);
 
@@ -257,20 +262,24 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
 
             // land programs mapping
-            final Map<Integer, Map<String, Page>> landProgramsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
-                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
-                            "[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]", "landId");
+            final Map<Integer, Map<String, Page>> landProgramsMapping =
+                    ImportersUtils.getItemsPageMapping(resourceResolver,
+                            "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                                    "[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]",
+                            "landId");
 
             int itemsWritten = 0;
             List<Land77> landPrograms;
 
             do {
-                final ApiResponse<List<Land77>> apiResponse = landsApi.landsGetChangesWithHttpInfo(lastModificationDate, null,
-                        apiPage , pageSize, null);
+                final ApiResponse<List<Land77>> apiResponse =
+                        landsApi.landsGetChangesWithHttpInfo(lastModificationDate, null,
+                                apiPage, pageSize, null);
                 landPrograms = apiResponse.getData();
 
                 // TODO replace by header
-                LOGGER.trace("Total landPrograms : {}, page : {}, landPrograms for this page : {}", landPrograms.size(), apiPage, landPrograms.size());
+                LOGGER.trace("Total landPrograms : {}, page : {}, landPrograms for this page : {}", landPrograms.size(),
+                        apiPage, landPrograms.size());
 
                 for (Land77 landProgram : landPrograms) {
                     final String landProgramName = landProgram.getLandName();
@@ -280,7 +289,8 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     try {
                         if (landProgramsMapping.containsKey(landProgram.getLandId())) {
                             // if landPrograms are found, update it
-                            for (Map.Entry<String, Page> landProgramsPages : landProgramsMapping.get(landProgram.getLandId()).entrySet()) {
+                            for (Map.Entry<String, Page> landProgramsPages : landProgramsMapping
+                                    .get(landProgram.getLandId()).entrySet()) {
                                 final Page landProgramPage = landProgramsPages.getValue();
 
                                 LOGGER.trace("Updating landProgram {}", landProgramName);
@@ -291,10 +301,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
                                 // depending of the city status, mark the page to be activated or deactivated
                                 if (BooleanUtils.isTrue(landProgram.getIsDeleted())) {
-                                    final Node landProgramContentNode = landProgramPage.getContentResource().adaptTo(Node.class);
+                                    final Node landProgramContentNode =
+                                            landProgramPage.getContentResource().adaptTo(Node.class);
 
                                     if (landProgramContentNode == null) {
-                                        throw new ImporterException("Cannot set properties for landProgram " + landProgramName);
+                                        throw new ImporterException(
+                                                "Cannot set properties for landProgram " + landProgramName);
                                     }
 
                                     landProgramContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
@@ -305,9 +317,17 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     landProgramContentNode.setProperty("image5", landProgram.getImageUrl5());
                                     landProgramContentNode.setProperty("image6", landProgram.getImageUrl6());
 
+                                    landProgramContentNode.setProperty("assetSelectionReference_api",
+                                            createMediaSet(resourceResolver, resourceResolver
+                                                            .resolve(PATH_DAM_SILVERSEA + "/other-resources/landPrograms/"),
+                                                    landProgramName, landProgram.getImageUrl(),
+                                                    landProgram.getImageUrl2(),
+                                                    landProgram.getImageUrl3(), landProgram.getImageUrl4(),
+                                                    landProgram.getImageUrl5(), landProgram.getImageUrl6()).getPath());
                                     LOGGER.trace("Land program {} is marked to be deactivated", landProgramName);
                                 } else {
-                                    final Node landProgramContentNode = updateLandProgramContentNode(landProgram, landProgramPage);
+                                    final Node landProgramContentNode =
+                                            updateLandProgramContentNode(landProgram, landProgramPage, resourceResolver);
                                     landProgramContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Land program {} is marked to be activated", landProgramName);
@@ -315,7 +335,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             }
                         } else {
                             // Getting cities with the city id read from the landProgram
-                            Integer cityId = landProgram.getCities().size() > 0 ? landProgram.getCities().get(0).getCityId() : null;
+                            Integer cityId =
+                                    landProgram.getCities().size() > 0 ? landProgram.getCities().get(0).getCityId() :
+                                            null;
 
                             if (cityId == null) {
                                 throw new ImporterException("Land program have no city");
@@ -338,10 +360,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 // Creating subpage "landProgram" if not present
                                 Page landProgramsPage;
                                 if (portPage.hasChild(WcmConstants.NN_LAND_PROGRAMS)) {
-                                    landProgramsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
+                                    landProgramsPage = pageManager
+                                            .getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
                                 } else {
-                                    landProgramsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_LAND_PROGRAMS,
-                                            WcmConstants.PAGE_TEMPLATE_PAGE, "Land programs", false);
+                                    landProgramsPage =
+                                            pageManager.create(portPage.getPath(), WcmConstants.NN_LAND_PROGRAMS,
+                                                    WcmConstants.PAGE_TEMPLATE_PAGE, "Land programs", false);
 
                                     LOGGER.trace("{} page is not existing, creating it", landProgramsPage.getPath());
                                 }
@@ -361,7 +385,8 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                             "Cannot create landProgram page for landProgram " + landProgramName);
                                 }
 
-                                final Node landProgramContentNode = updateLandProgramContentNode(landProgram, landProgramPage);
+                                final Node landProgramContentNode =
+                                        updateLandProgramContentNode(landProgram, landProgramPage, resourceResolver);
                                 landProgramContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Land program {} successfully created", landProgramPage.getPath());
@@ -380,7 +405,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 session.refresh(true);
                             }
                         }
-                    } catch (RepositoryException | ImporterException | WCMException e) {
+                    } catch (RepositoryException | ImporterException | WCMException | PersistenceException e) {
                         errorNumber++;
 
                         LOGGER.warn("Import error {}", e.getMessage());
@@ -390,8 +415,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                 apiPage++;
             } while (landPrograms.size() > 0);
 
-            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDateLandPrograms", true);
-            
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"),
+                    "lastModificationDateLandPrograms", true);
+
             if (session.hasPendingChanges()) {
                 try {
                     session.save();
@@ -409,124 +435,125 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             LOGGER.error("Error writing data", e);
         }
 
-        LOGGER.debug("Ending land programs update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.debug("Ending land programs update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber,
+                apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }
-    
-	public ImportResult disactiveAllItemDeltaByAPI() {
-		LOGGER.debug("Starting land programs disactive delta API");
 
-		int successNumber = 0, errorNumber = 0;
+    public ImportResult disactiveAllItemDeltaByAPI() {
+        LOGGER.debug("Starting land programs disactive delta API");
 
-		Map<String, Object> authenticationParams = new HashMap<>();
-		authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+        int successNumber = 0, errorNumber = 0;
 
-		try (ResourceResolver resourceResolver = resourceResolverFactory
-				.getServiceResourceResolver(authenticationParams)) {
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-			LandsApi landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
+        try (ResourceResolver resourceResolver = resourceResolverFactory
+                .getServiceResourceResolver(authenticationParams)) {
+            PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            Session session = resourceResolver.adaptTo(Session.class);
 
-			if (pageManager == null || session == null) {
-				throw new ImporterException("Cannot initialize pageManager and session");
-			}
+            LandsApi landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
 
-	        Map<Integer, Map<String, Page>> landProgramsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+            if (pageManager == null || session == null) {
+                throw new ImporterException("Cannot initialize pageManager and session");
+            }
+
+            Map<Integer, Map<String, Page>> landProgramsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]", "landId");
 
-			int itemsWritten = 0, page = 1, perPage = 1000;
-			Land landItem = null;
-			List<Land> landAPI = landsApi.landsGet(null, page, perPage, null);
-			List<Land> landListAPI = new ArrayList<>();
-			
-			while(landAPI.size() != 0){
-				landListAPI.addAll(landAPI);
-				page++;
-				landAPI = landsApi.landsGet(null, page, perPage, null);
-			}
-						
-			LOGGER.debug("Check all land programs in jcr: {}", landProgramsMapping.size());
-			
-			for (Map.Entry<Integer, Map<String, Page>> land : landProgramsMapping.entrySet()) {
-				landItem = null;
-				Integer landID = land.getKey();
+            int itemsWritten = 0, page = 1, perPage = 1000;
+            Land landItem = null;
+            List<Land> landAPI = landsApi.landsGet(null, page, perPage, null);
+            List<Land> landListAPI = new ArrayList<>();
 
-				for (Land lAPI : landListAPI) {
-					
-					if (landID.intValue() == lAPI.getLandId().intValue()) {
-						landItem = lAPI;
-					}
-				}
-				if (landItem == null) {
-					LOGGER.debug("Check landId: {}", landID);
-					for (Map.Entry<String, Page> landPages : landProgramsMapping
-							.get(landID).entrySet()) {
-						Page landPage = landPages.getValue();
+            while (landAPI.size() != 0) {
+                landListAPI.addAll(landAPI);
+                page++;
+                landAPI = landsApi.landsGet(null, page, perPage, null);
+            }
 
-						LOGGER.debug("Updating landing {}", landID);
+            LOGGER.debug("Check all land programs in jcr: {}", landProgramsMapping.size());
 
-						if (landPage == null) {
-							throw new ImporterException(
-									"Cannot set land page " + landID);
-						}
+            for (Map.Entry<Integer, Map<String, Page>> land : landProgramsMapping.entrySet()) {
+                landItem = null;
+                Integer landID = land.getKey();
 
-						Node landProgramContentNode = landPage.getContentResource().adaptTo(Node.class);
+                for (Land lAPI : landListAPI) {
 
-						if (landProgramContentNode == null) {
-							throw new ImporterException(
-									"Cannot set properties for land " + landPages);
-						}
+                    if (landID.intValue() == lAPI.getLandId().intValue()) {
+                        landItem = lAPI;
+                    }
+                }
+                if (landItem == null) {
+                    LOGGER.debug("Check landId: {}", landID);
+                    for (Map.Entry<String, Page> landPages : landProgramsMapping
+                            .get(landID).entrySet()) {
+                        Page landPage = landPages.getValue();
 
-						landProgramContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                        LOGGER.debug("Updating landing {}", landID);
 
-						LOGGER.trace("Land program {} is marked to be deactivated", landID);
-					}
-					successNumber++;
-					itemsWritten++;
+                        if (landPage == null) {
+                            throw new ImporterException(
+                                    "Cannot set land page " + landID);
+                        }
 
-				} 
-				try {
-					if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-						try {
-							session.save();
+                        Node landProgramContentNode = landPage.getContentResource().adaptTo(Node.class);
 
-							LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
-						} catch (RepositoryException e) {
-							session.refresh(true);
-						}
-					}
-				} catch (RepositoryException e) {
-					errorNumber++;
+                        if (landProgramContentNode == null) {
+                            throw new ImporterException(
+                                    "Cannot set properties for land " + landPages);
+                        }
 
-					LOGGER.warn("Import error {}", e.getMessage());
-				}
-			}
+                        landProgramContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+
+                        LOGGER.trace("Land program {} is marked to be deactivated", landID);
+                    }
+                    successNumber++;
+                    itemsWritten++;
+
+                }
+                try {
+                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        try {
+                            session.save();
+
+                            LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+                        } catch (RepositoryException e) {
+                            session.refresh(true);
+                        }
+                    }
+                } catch (RepositoryException e) {
+                    errorNumber++;
+
+                    LOGGER.warn("Import error {}", e.getMessage());
+                }
+            }
 
 
-			if (session.hasPendingChanges()) {
-				try {
-					session.save();
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
 
-					LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
-				} catch (RepositoryException e) {
-					session.refresh(false);
-				}
-			}
-		} catch (LoginException | ImporterException e) {
-			LOGGER.error("Cannot create resource resolver", e);
-		} catch (ApiException e) {
-			LOGGER.error("Cannot read excursions from API", e);
-		} catch (RepositoryException e) {
-			LOGGER.error("Error writing data", e);
-		}
+                    LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read excursions from API", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Error writing data", e);
+        }
 
-		LOGGER.debug("Ending land programs disactive update, success: {}, error: {}", +successNumber, +errorNumber);
+        LOGGER.debug("Ending land programs disactive update, success: {}, error: {}", +successNumber, +errorNumber);
 
-		return new ImportResult(successNumber, errorNumber);
-	}
+        return new ImportResult(successNumber, errorNumber);
+    }
 
 
     @Override
@@ -537,12 +564,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
     /**
      * Update land program properties from API
      *
-     * @param landProgram landProgram object from API
+     * @param landProgram     landProgram object from API
      * @param landProgramPage page of the landProgram
      * @return the content node of the landProgram page, updated
      * @throws ImporterException if the landProgram page cannot be updated
      */
-    private Node updateLandProgramContentNode(Land77 landProgram, Page landProgramPage) throws ImporterException {
+    private Node updateLandProgramContentNode(Land77 landProgram, Page landProgramPage, ResourceResolver resolver) throws ImporterException {
         final Node landProgramPageContentNode = landProgramPage.getContentResource().adaptTo(Node.class);
 
         if (landProgramPageContentNode == null) {
@@ -555,12 +582,25 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     landProgram.getDescription());
             landProgramPageContentNode.setProperty("landId", landProgram.getLandId());
             landProgramPageContentNode.setProperty("landCode", landProgram.getLandCod());
+            landProgramPageContentNode.setProperty("image", landProgram.getImageUrl());
+            landProgramPageContentNode.setProperty("image2", landProgram.getImageUrl2());
+            landProgramPageContentNode.setProperty("image3", landProgram.getImageUrl3());
+            landProgramPageContentNode.setProperty("image4", landProgram.getImageUrl4());
+            landProgramPageContentNode.setProperty("image5", landProgram.getImageUrl5());
+            landProgramPageContentNode.setProperty("image6", landProgram.getImageUrl6());
+            landProgramPageContentNode.setProperty("assetSelectionReference_api",
+                    createMediaSet(resolver, resolver
+                                    .resolve(PATH_DAM_SILVERSEA + "/other-resources/landPrograms/"),
+                            landProgram.getLandName(), landProgram.getImageUrl(),
+                            landProgram.getImageUrl2(),
+                            landProgram.getImageUrl3(), landProgram.getImageUrl4(),
+                            landProgram.getImageUrl5(), landProgram.getImageUrl6()).getPath());
 
             // Set livecopy mixin
             if (!LanguageHelper.getLanguage(landProgramPage).equals("en")) {
                 landProgramPageContentNode.addMixin("cq:LiveRelationship");
             }
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | PersistenceException e) {
             throw new ImporterException("Cannot set properties for landProgram " + landProgram.getLandName(), e);
         }
 

@@ -2,7 +2,6 @@ package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.s7dam.set.MediaSet;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -39,8 +38,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.day.cq.dam.commons.util.S7SetHelper.createS7MixedMediaSet;
 import static com.day.cq.dam.commons.util.S7SetHelper.isS7Set;
+import static com.silversea.aem.constants.WcmConstants.PATH_DAM_SILVERSEA;
+import static com.silversea.aem.importers.services.impl.BaseImporter.createMediaSet;
+import static org.apache.commons.lang3.StringUtils.isAnyEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Service
 @Component
@@ -84,7 +86,8 @@ public class HotelsImporterImpl implements HotelsImporter {
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory
+                .getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -359,7 +362,8 @@ public class HotelsImporterImpl implements HotelsImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory
+                .getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -370,7 +374,8 @@ public class HotelsImporterImpl implements HotelsImporter {
             }
 
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-            final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateHotels");
+            final String lastModificationDate =
+                    ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateHotels");
 
             LOGGER.debug("Last import date for hotels {}", lastModificationDate);
 
@@ -388,12 +393,14 @@ public class HotelsImporterImpl implements HotelsImporter {
             List<Hotel77> hotels;
 
             do {
-                final ApiResponse<List<Hotel77>> apiResponse = hotelsApi.hotelsGetChangesWithHttpInfo(lastModificationDate,
-                        apiPage, pageSize, null);
+                final ApiResponse<List<Hotel77>> apiResponse =
+                        hotelsApi.hotelsGetChangesWithHttpInfo(lastModificationDate,
+                                apiPage, pageSize, null);
                 hotels = apiResponse.getData();
 
                 // TODO replace by header
-                LOGGER.trace("Total hotels : {}, page : {}, hotels for this page : {}", hotels.size(), apiPage, hotels.size());
+                LOGGER.trace("Total hotels : {}, page : {}, hotels for this page : {}", hotels.size(), apiPage,
+                        hotels.size());
 
                 for (Hotel77 hotel : hotels) {
                     LOGGER.debug("Updating hotel: {}", hotel.getHotelName());
@@ -401,7 +408,8 @@ public class HotelsImporterImpl implements HotelsImporter {
                     try {
                         if (hotelsMapping.containsKey(hotel.getHotelId())) {
                             // if hotels are found, update it
-                            for (Map.Entry<String, Page> hotelsPages : hotelsMapping.get(hotel.getHotelId()).entrySet()) {
+                            for (Map.Entry<String, Page> hotelsPages : hotelsMapping.get(hotel.getHotelId())
+                                    .entrySet()) {
                                 final Page hotelPage = hotelsPages.getValue();
 
                                 LOGGER.trace("Updating hotel {}", hotel.getHotelName());
@@ -415,16 +423,18 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     final Node hotelContentNode = hotelPage.getContentResource().adaptTo(Node.class);
 
                                     if (hotelContentNode == null) {
-                                        throw new ImporterException("Cannot set properties for hotel " + hotel.getHotelName());
+                                        throw new ImporterException(
+                                                "Cannot set properties for hotel " + hotel.getHotelName());
                                     }
 
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    hotelContentNode.setProperty("image", hotel.getImageUrl());
-                                    hotelContentNode.setProperty("image2", hotel.getImageUrl2());
+                                    MediaSet mediaSet = updateMediaSet(resourceResolver, hotel);
+                                    hotelContentNode.setProperty("assetSelectionReference_api", mediaSet.getPath());
 
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {
-                                    final Node hotelContentNode = updateHotelContentNode(hotel, hotelPage);
+                                    final Node hotelContentNode =
+                                            updateHotelContentNode(hotel, hotelPage, resourceResolver);
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Hotel {} is marked to be activated", hotel.getHotelName());
@@ -432,7 +442,8 @@ public class HotelsImporterImpl implements HotelsImporter {
                             }
                         } else {
                             // else create port page for each language
-                            final Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
+                            final Integer cityId =
+                                    hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
 
                             if (cityId == null) {
                                 throw new ImporterException("Hotel have no city");
@@ -478,7 +489,8 @@ public class HotelsImporterImpl implements HotelsImporter {
                                             "Cannot create hotel page for hotel " + hotel.getHotelName());
                                 }
 
-                                final Node hotelContentNode = updateHotelContentNode(hotel, hotelPage);
+                                final Node hotelContentNode =
+                                        updateHotelContentNode(hotel, hotelPage, resourceResolver);
                                 hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
@@ -497,7 +509,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 session.refresh(true);
                             }
                         }
-                    } catch (RepositoryException | ImporterException | WCMException e) {
+                    } catch (RepositoryException | PersistenceException | ImporterException | WCMException e) {
                         errorNumber++;
 
                         LOGGER.warn("Import error {}", e.getMessage());
@@ -507,7 +519,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                 apiPage++;
             } while (hotels.size() > 0);
 
-            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDateHotels", true);
+            ImportersUtils
+                    .setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDateHotels",
+                            true);
 
             if (session.hasPendingChanges()) {
                 try {
@@ -526,9 +540,17 @@ public class HotelsImporterImpl implements HotelsImporter {
             LOGGER.error("Error writing data", e);
         }
 
-        LOGGER.debug("Ending hotels update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.debug("Ending hotels update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber,
+                apiPage);
 
         return new ImportResult(successNumber, errorNumber);
+    }
+
+    private MediaSet updateMediaSet(ResourceResolver resourceResolver, Hotel77 hotel)
+            throws PersistenceException, RepositoryException {
+        return createMediaSet(resourceResolver,
+                resourceResolver.getResource(PATH_DAM_SILVERSEA + "/other-resources/hotels/"),
+                hotel.getHotelName(), hotel.getImageUrl(), hotel.getImageUrl2());
     }
 
     @Override
@@ -544,7 +566,8 @@ public class HotelsImporterImpl implements HotelsImporter {
      * @return the content node of the hotel page, updated
      * @throws ImporterException if the hotel page cannot be updated
      */
-    private Node updateHotelContentNode(Hotel77 hotel, Page hotelPage) throws ImporterException {
+    private Node updateHotelContentNode(Hotel77 hotel, Page hotelPage, ResourceResolver resourceResolver)
+            throws ImporterException {
         final Node hotelContentNode = hotelPage.getContentResource().adaptTo(Node.class);
 
         if (hotelContentNode == null) {
@@ -555,6 +578,8 @@ public class HotelsImporterImpl implements HotelsImporter {
             hotelContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
             hotelContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
             hotelContentNode.setProperty("image", hotel.getImageUrl());
+            hotelContentNode.setProperty("image", hotel.getImageUrl2());
+            updateMediaSet(resourceResolver, hotel);
             hotelContentNode.setProperty("code", hotel.getHotelCod());
             hotelContentNode.setProperty("hotelId", hotel.getHotelId());
 
@@ -562,7 +587,7 @@ public class HotelsImporterImpl implements HotelsImporter {
             if (!LanguageHelper.getLanguage(hotelPage).equals("en")) {
                 hotelContentNode.addMixin("cq:LiveRelationship");
             }
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | PersistenceException e) {
             throw new ImporterException("Cannot set properties for hotel " + hotel.getHotelName(), e);
         }
 
@@ -608,44 +633,33 @@ public class HotelsImporterImpl implements HotelsImporter {
         return new ImportResult(successNumber, errorNumber);
     }
 
-    private ImportResult updateHotelImages(ResourceResolver resolver, Iterable<HotelCSV> hotels) throws RepositoryException {
+    private ImportResult updateHotelImages(ResourceResolver resolver, Iterable<HotelCSV> hotels)
+            throws RepositoryException {
 
         for (HotelCSV hotel : hotels) {
-            String[] pathImages = StringUtils.isNoneEmpty(hotel.getPathImages()) ? hotel.getPathImages().split(",") : null;
+            String[] pathImages =
+                    StringUtils.isNoneEmpty(hotel.getPathImages()) ? hotel.getPathImages().split(",") : null;
             String pathFolder = hotel.getPathFolder();
             String pathNode = hotel.getPathNode();
-            Resource pathFolderResource = StringUtils.isNotEmpty(pathFolder) ? resolver.getResource(pathFolder) : null;
+            Resource pathFolderResource = isNotEmpty(pathFolder) ? resolver.getResource(pathFolder) : null;
             String setName = hotel.getName() + "-assetSelection";
             try {
                 if (pathImages != null && pathFolderResource != null) {
                     Resource mixMediaSetResource = resolver.getResource(pathFolder + "/" + setName);
                     if (mixMediaSetResource == null || !isS7Set(mixMediaSetResource)) {
-                        final MediaSet s7MixedMediaSet = createS7MixedMediaSet(pathFolderResource, setName, new HashMap<>());
-                        LOGGER.info("HOTEL IMPORT IMAGES create mix mediaset {}",s7MixedMediaSet.getPath());
-                        Asset asset = null;
-                        for (String pathImage : pathImages) {
-                            asset = resolver.getResource(pathImage) != null ? resolver.getResource(pathImage).adaptTo(Asset.class) : null;
-                            if (asset != null) {
-                                s7MixedMediaSet.add(asset);
-                                final Resource setMetadata = s7MixedMediaSet.getChild("jcr:content/metadata");
-                                if (setMetadata != null) {
-                                    final Node setMetadataNode = setMetadata.adaptTo(Node.class);
-
-                                    if (setMetadataNode != null) {
-                                        setMetadataNode.setProperty("dc:title", setName);
-                                    }
-                                }
-
-                            }
-                        }
+                        final MediaSet s7MixedMediaSet =
+                                createMediaSet(resolver, pathFolderResource, setName, pathImages);
+                        LOGGER.info("HOTEL IMPORT IMAGES create mix mediaset {}", s7MixedMediaSet.getPath());
                         Resource pathNodeResource = null;
                         for (String locale : LOCALIZATIONS) {
-                            pathNodeResource = resolver.getResource("/content/silversea-com/" + locale + "/other-resources/find-a-port" + pathNode + "/jcr:content");
+                            pathNodeResource = resolver.getResource(
+                                    "/content/silversea-com/" + locale + "/other-resources/find-a-port" + pathNode +
+                                            "/jcr:content");
                             Node node = pathNodeResource != null ? pathNodeResource.adaptTo(Node.class) : null;
                             if (node != null) {
                                 node.setProperty("assetSelectionReference", s7MixedMediaSet.getPath());
                                 node.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
-                                LOGGER.info("HOTEL IMPORT IMAGES update hotel {}",pathNodeResource.getPath());
+                                LOGGER.info("HOTEL IMPORT IMAGES update hotel {}", pathNodeResource.getPath());
                                 successNumber++;
                             } else {
                                 LOGGER.warn("Error during updating of {} with value ");
@@ -676,7 +690,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                         LOGGER.warn("Line starting with {} does not have enough entries", line[0]);
                         errorNumber++;
                     }
-                    return line.length == 3 && StringUtils.isNotEmpty(line[0]) && StringUtils.isNotEmpty(line[1]) && StringUtils.isNotEmpty(line[2]);
+                    return line.length == 3 && !isAnyEmpty(line[0], line[1], line[2]);
                 })
                 .map(line -> new HotelCSV(line[0].trim(), line[1].trim(), line[2]))
                 .collect(Collectors.toList());
@@ -694,7 +708,9 @@ public class HotelsImporterImpl implements HotelsImporter {
             this.pathNode = pathNode;
             String[] names = StringUtils.isNoneEmpty(pathNode) ? pathNode.split("/") : null;
             this.name =
-                    (names != null && names.length > 1) ? Optional.ofNullable(names[names.length - 1]).orElse(Optional.ofNullable(names[names.length - 2]).orElse("autogenerated")) : "autogenerated";
+                    (names != null && names.length > 1) ? Optional.ofNullable(names[names.length - 1])
+                            .orElse(Optional.ofNullable(names[names.length - 2]).orElse("autogenerated")) :
+                            "autogenerated";
         }
 
         public String getPathFolder() {

@@ -10,6 +10,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static com.google.common.base.Objects.firstNonNull;
 import static com.silversea.aem.utils.AssetUtils.buildAssetList;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
@@ -67,11 +68,13 @@ public class CruiseItinerary {
         this.itineraryId = itinerary.getItineraryId();
         this.prePosts = concat(
                 hotels.stream().map(hotel -> new CruisePrePost(itinerary.getItineraryId(),
-                        Optional.ofNullable(buildAssetList(hotel.getAssetSelectionReference(), resolver))
+                        ofNullable(buildAssetList(firstNonNull(hotel.getAssetSelectionReference(),
+                                hotel.getAssetSelectionReferenceApi()), resolver))
                                 .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
                         itinerary.getPort().getThumbnail(), hotel)),
                 landPrograms.stream().map(land -> new CruisePrePost(itinerary.getItineraryId(),
-                        Optional.ofNullable(buildAssetList(land.getAssetSelectionReference(), resolver))
+                        ofNullable(buildAssetList(firstNonNull(land.getAssetSelectionReference(),
+                                land.getAssetSelectionReferenceApi()), resolver))
                                 .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
                         itinerary.getPort().getThumbnail(), land)))
                 .filter(prepost -> !"MID".equals(prepost.getPrePost()))

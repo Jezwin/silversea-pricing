@@ -95,6 +95,9 @@ public class ExcursionModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String  assetSelectionReference;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference_api") @Optional
+    private String  assetSelectionReferenceApi;
+
     @PostConstruct
     private void init() throws Exception {
         String html = description.trim().replaceAll("\\n ", "").replaceAll("<[^>]*>", "");
@@ -207,6 +210,10 @@ public class ExcursionModel {
         return shorexCategory;
     }
 
+    public String getAssetSelectionReferenceApi() {
+        return assetSelectionReferenceApi;
+    }
+
     public Long getShorexId() {
         return shorexId;
     }
@@ -220,6 +227,7 @@ public class ExcursionModel {
      */
     @Deprecated
     public static class Duration {
+
 
         double hours;
 

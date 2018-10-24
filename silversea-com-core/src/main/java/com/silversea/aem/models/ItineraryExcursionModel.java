@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -17,7 +18,8 @@ import java.util.List;
 @Model(adaptables = Resource.class)
 public class ItineraryExcursionModel {
 
-    @Inject @Self
+    @Inject
+    @Self
     private Resource resource;
 
     @Inject
@@ -30,13 +32,16 @@ public class ItineraryExcursionModel {
     @Optional
     private String excursionReference;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private Double duration;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private String plannedDepartureTime;
 
-    @Inject @Optional
+    @Inject
+    @Optional
     private String generalDepartureTime;
 
     // TODO create custom injector
@@ -57,7 +62,7 @@ public class ItineraryExcursionModel {
 
     public Duration getDuration() {
         int hours = duration.intValue();
-        int minutes = (int)((duration - hours) * 60);
+        int minutes = (int) ((duration - hours) * 60);
 
         return new Duration(hours, minutes);
     }
@@ -75,8 +80,8 @@ public class ItineraryExcursionModel {
     }
 
     /**
-     * @see #getGeneralDepartureTime()
      * @return same as generalDepartureTime, used for existing html compat
+     * @see #getGeneralDepartureTime()
      */
     public String schedule() {
         return generalDepartureTime;
@@ -89,7 +94,7 @@ public class ItineraryExcursionModel {
     public String getDescription() {
         return excursion != null ? excursion.getDescription() : null;
     }
-    
+
     public String getNote() {
         return excursion != null ? excursion.getNote() : null;
     }
@@ -123,11 +128,12 @@ public class ItineraryExcursionModel {
     }
 
     public ExcursionModel getExcursion() {
-		return excursion;
-	}
+        return excursion;
+    }
 
     public String getAssetSelectionReference() {
-        return excursion != null ? excursion.getAssetSelectionReference() : null;
+        return excursion != null ? Objects.firstNonNull(excursion.getAssetSelectionReference(),
+                excursion.getAssetSelectionReferenceApi()) : null;
     }
 
     public Long getShorexId() {
