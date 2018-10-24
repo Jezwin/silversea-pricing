@@ -57,19 +57,19 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         setGeolocationProperties(GEO_PROP + "Desktop", GEO_NODE + "Desktop").ifPresent(desktop -> {
             LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " geo desktop process {}", desktop.size());
             sbProperties.putAll(desktop);
-            setPropByDevices(sbProperties, "Desktop");
         });
+        setPropByDevices(sbProperties, "Desktop");
+
         setGeolocationProperties(GEO_PROP + "Tablet", GEO_NODE + "Tablet").ifPresent(tablet -> {
             LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " geo tablet process {}", tablet.size());
             sbProperties.putAll(tablet);
-            setPropByDevices(sbProperties, "Tablet");
         });
+        setPropByDevices(sbProperties, "Tablet");
         setGeolocationProperties(GEO_PROP + "Mobile", GEO_NODE + "Mobile").ifPresent(mobile -> {
             LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " geo mobile process {}", mobile.size());
             sbProperties.putAll(mobile);
-            setPropByDevices(sbProperties, "Mobile");
         });
-
+        setPropByDevices(sbProperties, "Mobile");
     }
 
     private void setPropByDevices(ValueMap sbProperties, String device) {
@@ -88,21 +88,23 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         String linkUrl = sbProperties.get("linkUrl" + device, String.class);
         String isExternalLink = sbProperties.get("isExternalLink" + device, String.class);
         String type = sbProperties.get("type" + device, String.class);
-        if (Boolean.valueOf(enableLightbox)) {
-            linkUrl = linkUrl + ".modalcontent";
-            sbProperties.put("dataToggle" + device, "modal");
-            sbProperties.put("dataTarget" + device, ".bs-modal-lg");
 
-        } else if (StringUtils.isNotEmpty(type) && type.equalsIgnoreCase("video")) {
+        if (StringUtils.isNotEmpty(type) && type.equalsIgnoreCase("video")) {
             sbProperties.put("dataVideo" + device, linkUrl);
             sbProperties.put("dataTarget" + device, ".bs-modal-lg");
             sbProperties.put("dataToggle" + device, "modal");
             linkUrl = "#";
+        } else {
+            linkUrl = externalizer.relativeLink(getRequest(), linkUrl);
+            if (Boolean.valueOf(enableLightbox)) {
+                sbProperties.put("dataToggle" + device, "modal");
+                sbProperties.put("dataTarget" + device, ".bs-modal-lg");
+            }
+            if (!Boolean.valueOf(isExternalLink)) {
+                linkUrl = linkUrl + ".html";
+            }
         }
 
-        if (!Boolean.valueOf(isExternalLink) && (StringUtils.isNotEmpty(type) && !type.equalsIgnoreCase("file"))) {
-            linkUrl = externalizer.relativeLink(getRequest(), linkUrl) + ".html";
-        }
         sbProperties.put("linkUrl" + device, linkUrl);
 
     }

@@ -1,4 +1,4 @@
-@needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, maring-top, margin-right, margin-bottom, margin-left, background-color, display, text-align, color;
+@needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, margin-top, margin-right, margin-bottom, margin-left, background-color, display, text-align, color;
 @double-needed-properties: height, width, display, text-align;
 
 
@@ -19,12 +19,12 @@
 
 .generate-class(@property, @suffix) {
   .ssc-fw-@{property}@{suffix} {
-      @{property}: ~"var(--ssc-fw-@{property}@{suffix}-desktop)";
+    @{property}: ~"var(--ssc-fw-@{property}@{suffix}-desktop)";
     @media @ffw-media-tablet{
-        @{property}: ~"var(--ssc-fw-@{property}@{suffix}-tablet)";
+        @{property}: ~"var(--ssc-fw-@{property}@{suffix}-tablet, var(--ssc-fw-@{property}@{suffix}-desktop))";
     }
     @media @ffw-media-mobile{
-        @{property}: ~"var(--ssc-fw-@{property}@{suffix}-mobile)";
+        @{property}: ~"var(--ssc-fw-@{property}@{suffix}-mobile, var(--ssc-fw-@{property}@{suffix}-desktop))";
     }
   }
 };
