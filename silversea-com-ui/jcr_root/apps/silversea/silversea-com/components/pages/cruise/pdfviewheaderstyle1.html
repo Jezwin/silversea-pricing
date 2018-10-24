@@ -1,0 +1,35 @@
+<sly data-sly-use.externalizerFontsHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/css/fonts',absolute=true}" />
+<link type="text/css" rel="stylesheet" href="${externalizerFontsHelper.externalizedUrl @ extension='css'}">
+<sly data-sly-use.externalizerCSSHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/css/svv3',absolute=true}" />
+<link type="text/css" rel="stylesheet" href="${externalizerCSSHelper.externalizedUrl @ extension='css'}">
+
+<sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-logo',absolute=true}" />
+<sly data-sly-use.externalizerHelperExpedition="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
+
+<div class="header__style1" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
+	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
+		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.title || currentPage.title}" />
+	</div>
+	<div data-sly-test="${!silverExpedition}" class="header__logo__style1 cruise_logo">
+		<img src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.title  || currentPage.title}" />
+	</div>
+    <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
+      <sly data-sly-test.isCcpt="${header.ccptAvailable}">
+      <sly data-sly-test="${!header.taSelected}">
+	       <div class="header__call">
+	        <div class="header__call__title">${header.header_title}</div>
+	        <div class="header__call__aftertitle">${header.header_afterTitle}</div>
+	       </div>
+       </sly>
+      </sly>
+      <sly data-sly-test="${!isCcpt}">
+	      <sly data-sly-test="${!header.taSelected}">
+		       <div class="header__call" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+		        <div class="header__call__title">${countryHelper.localizedPhone}</div>
+		        <div class="header__call__aftertitle">${'call-reservations-team-2' @ i18n}</div>
+		       </div>
+	       </sly>
+      </sly>
+     </sly>
+	 <div class="header__rule"></div>
+</div>
