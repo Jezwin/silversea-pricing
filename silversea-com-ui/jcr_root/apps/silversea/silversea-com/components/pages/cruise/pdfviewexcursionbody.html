@@ -20,7 +20,7 @@
             <div class="col_left">
                 <div class="cruisehighlights__map" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
                 <div data-sly-test="${cruise.mapOverHead}" class="cruisehighlights__map__title">${cruise.mapOverHead}</div>
-                    <sly data-sly-test.imageUrl="${cruise.cruiseModel.itinerary}">
+                    <sly data-sly-test.imageUrl="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}">
                         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                         <div class="cruisehighlights__map__img">
                             <img src="${assetHelper.imageUrl}?hei=900&wid=900&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
