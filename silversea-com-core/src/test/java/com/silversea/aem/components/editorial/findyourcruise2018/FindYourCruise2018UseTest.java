@@ -1,6 +1,7 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
 
+import com.google.common.base.Strings;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,14 +17,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.YearMonth;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterBar.*;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static org.junit.Assert.*;
 
 public class FindYourCruise2018UseTest {
@@ -35,7 +40,8 @@ public class FindYourCruise2018UseTest {
     private static final String ASIA_LABEL = "Asia";
     private static final String SILVER_GALAPAGOS = "Silver Galapagos";
     private static final String SILVER_MUSE = "Silver Muse";
-    private static final String SILVER_EXPEDITION = "silversea-expedition";
+    private static final String SILVERSEA_EXPEDITION = "silversea-expedition";
+    private static final String SILVERSEA_CRUISE = "silversea-cruise";
     private static final String HO_CHI_MINH_CITY = "Ho Chi Minh City";
     private static final String DA_NANG = "Da Nang";
 
@@ -59,11 +65,16 @@ public class FindYourCruise2018UseTest {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         List<UseBuilder> builders = new ArrayList<>();
         for (int i = 0; i < nOfRun; i++) {
+            builders.add(new UseBuilder());
             builders.add(new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL));
-            builders.add(new UseBuilder().withType(SILVER_EXPEDITION));
+            builders.add(new UseBuilder().withType(SILVERSEA_EXPEDITION));
             builders.add(new UseBuilder().withDuration("8"));
             builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_LABEL));
             builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_LABEL));
+            builders.add(new UseBuilder().withShip(SILVER_GALAPAGOS).withDestinations(ASIA_LABEL)
+                    .withPorts(HO_CHI_MINH_CITY, DA_NANG));
+            builders.add(new UseBuilder(
+                    "destination=asia-cruise&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
         }
         Function<UseBuilder, Callable<Long>> test = useBuilder -> () -> {
             long current = System.currentTimeMillis();
@@ -79,9 +90,7 @@ public class FindYourCruise2018UseTest {
                     return 0L;
                 }).average().orElse(0);
         System.out.println("******" + average / 1000.0 + "s*****");
-        //on my pc
-        //MAX ******0.0175052s*****
-        //MIN ******0.0151021s*****
+        //on my pc ~0.02s
     }
 
 
@@ -170,7 +179,7 @@ public class FindYourCruise2018UseTest {
                     if (AFRICA_LABEL.equals(row.getLabel()) || ASIA_LABEL.equals(row.getLabel())) {
                         return row.isChosen();
                     }
-                    return row.isEnabled();
+                    return row.isDisabled();//both ports are in asia
                 }));
         //only ohchiminh and danang is chosen others are enabled
         assertTrue(PORT.getRows().stream()
@@ -178,10 +187,10 @@ public class FindYourCruise2018UseTest {
                     if (HO_CHI_MINH_CITY.equals(row.getLabel()) || DA_NANG.equals(row.getLabel())) {
                         return row.isChosen();
                     }
-                    return row.isEnabled();
+                    return !row.isChosen();//some ports should be enabled some not...
                 }));
         assertFalse(TYPE.isSelected());
-        assertEquals(DISABLED, TYPE.retrieveState(SILVER_EXPEDITION));//no expeditions at danang
+        assertEquals(DISABLED, TYPE.retrieveState(SILVERSEA_EXPEDITION));//no expeditions at danang
         //silver galapagos doesn't cruise africa nor asia
         assertEquals(DISABLED, SHIP.retrieveState(SILVER_GALAPAGOS));
 
@@ -249,9 +258,29 @@ public class FindYourCruise2018UseTest {
             filtersRequest.put("pagSize", new String[]{"1000"});//avoid pagination
         }
 
+        UseBuilder(String request) {
+            filtersRequest = new HashMap<>();
+
+            for (String param : request.split("&")) {
+                if (!Strings.isNullOrEmpty(param) && param.contains("=")) {
+                    String[] split = param.split("=");
+                    filtersRequest.put(split[0], split[1].split("\\."));
+                }
+
+            }
+
+            filtersRequest.put("pag", new String[]{"1"});
+            filtersRequest.put("pagSize", new String[]{"1000"});//avoid pagination
+        }
+
         private UseBuilder with(String label, String... values) {
             filtersRequest.put(label, values);
             return this;
+        }
+
+        UseBuilder withUrl(String url) {
+            return new UseBuilder(url);
+
         }
 
         UseBuilder withPorts(String... ports) {

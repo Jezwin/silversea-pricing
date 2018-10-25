@@ -25,7 +25,7 @@
     <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
          data-sly-call="${filterTemplate.select @ name='type', filter=fyc.filterBar.TYPE}"/>
     <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='ports', filter=fyc.filterBar.PORT}"/>
+         data-sly-call="${filterTemplate.select @ name='port', filter=fyc.filterBar.PORT}"/>
     <button type="button" onclick="submit()">SUBMIT</button>
 </template>
 <template data-sly-template.select="${@ name, filter}">

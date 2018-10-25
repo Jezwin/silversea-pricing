@@ -4,9 +4,11 @@ import com.google.gson.JsonArray;
 import com.silversea.aem.models.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
@@ -76,23 +78,17 @@ public class FilterBar {
             };
 
 
-    private final List<CruiseModelLight> cruises;
     public static final Collection<AbstractFilter<?>> FILTERS =
             asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE);
 
-    FilterBar(List<CruiseModelLight> cruises) {
-        this.cruises = cruises;
-        FILTERS.forEach(this::addUnselectedFilter);
-    }
-
-    private void addUnselectedFilter(AbstractFilter<?> filter) {
-        filter.initAllValues(cruises);
+    void init(List<CruiseModelLight> cruises) {
+        FILTERS.forEach(filter -> filter.initAllValues(cruises));
     }
 
     void addSelectedFilter(String label, String[] selectedKeys) {
         for (AbstractFilter<?> filter : FILTERS) {
             if (filter.getKind().equals(label)) {
-                filter.setEnabled(new HashSet<>(Arrays.asList(selectedKeys)));
+                filter.setChosen(new HashSet<>(Arrays.asList(selectedKeys)), ENABLED);
                 return;
             }
         }
@@ -107,13 +103,46 @@ public class FilterBar {
         return true;
     }
 
+    void updateFilters(List<CruiseModelLight> allCruises, List<CruiseModelLight> filteredCruises) {
+        updateNonSelectedFilters(filteredCruises);
+        updateSelectedFilters(allCruises);
+    }
 
-    void updateFilters(List<CruiseModelLight> cruises) {
+    private void updateNonSelectedFilters(List<CruiseModelLight> cruises) {
         FILTERS.forEach(filter -> {
             if (!filter.isSelected()) {
                 filter.disableMissingLabels(cruises);
             }
         });
+    }
+
+    private void updateSelectedFilters(List<CruiseModelLight> allCruises) {
+        FILTERS.forEach(filter -> {
+            if (filter.isSelected()) {
+                Set<? extends FilterRow<?>> possibleRows = complementaryProjection(allCruises, filter);
+                filter.getRows().forEach(row -> {
+                    if (!row.isChosen() && !possibleRows.contains(row)) {
+                        //if necessary we can do the revers and set ENABLED if the setChosen put DISABLED by default
+                        row.setState(DISABLED);
+                    }
+                });
+            }
+        });
+    }
+
+    private <T> Set<FilterRow<T>> complementaryProjection(List<CruiseModelLight> allCruises,
+                                                          AbstractFilter<T> selectedFilter) {
+        Stream<CruiseModelLight> stream = allCruises.stream();
+        for (AbstractFilter<?> filter : FILTERS) {
+            if (!filter.equals(selectedFilter) && filter.isSelected()) {
+                stream = stream.filter(filter::matches);
+            }
+        }
+        return stream.flatMap(selectedFilter::projection).collect(Collectors.toSet());
+    }
+
+    boolean anyFilterSelected() {
+        return FILTERS.stream().anyMatch(AbstractFilter::isSelected);
     }
 
     @Override
