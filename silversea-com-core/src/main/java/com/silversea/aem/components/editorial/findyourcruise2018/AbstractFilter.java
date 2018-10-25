@@ -47,8 +47,8 @@ public abstract class AbstractFilter<T> {
         return true;
     }
 
-    void setEnabled(Set<String> enabledKeys) {
-        rows.forEach(row -> row.setState(enabledKeys.contains(row.getKey()) ? CHOSEN : ENABLED));
+    void setChosen(Set<String> enabledKeys, FilterRowState complementaryState) {
+        rows.forEach(row -> row.setState(enabledKeys.contains(row.getKey()) ? CHOSEN : complementaryState));
     }
 
     void disableMissingLabels(Collection<CruiseModelLight> cruises) {
