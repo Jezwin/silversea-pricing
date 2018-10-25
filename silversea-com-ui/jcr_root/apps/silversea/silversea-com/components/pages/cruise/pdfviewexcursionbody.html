@@ -1,6 +1,6 @@
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientLib.css @ categories='apps.silversea-ssc-pdf'}" />
 
-<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.pdfInfo="com.silversea.ssc.aem.models.PDFCruiseUse" class="page ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
+<div data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use" data-sly-use.pdfInfo="com.silversea.ssc.aem.models.PDFCruiseUse" class="page ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
     <div class="page__header">
     <sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
     <img style="display:none" src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.ship.title  || currentPage.title}" />
@@ -58,7 +58,7 @@
                             </sly>
                             <sly data-sly-test="${!cruise.isWaitList}">
                                 <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}">
-                                    ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
+                                    ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
                                 </div>
                                 <div data-sly-test="${early}" class="cruisehighlights__table__aftertitle aftertitlesmall${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}">
                                     ${'with-early' @ i18n}${'booking-bonus' @ i18n}
@@ -74,20 +74,19 @@
     </div>
 	<div class="pagebreak section excursion">
 		<div class="section__header">
-			<h1 class="section__header__title">${cruise.cruiseModel.excursionSize} ${'excursions' @ i18n}</h1>
+			<h1 class="section__header__title">${cruise.cruiseModel.excursionSize} ${'excursions' @ i18n} </h1>
 		</div>
 		
 		<div id="excursion-collapse" class="c-cruise-itinerary-2__list" role="tablist"
-                data-sly-list.itinerary="${cruise.cruiseModel.ItinerariesStable}"
+                data-sly-list.itinerary="${cruise.itinerary}"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-                <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.Excursions : itinerary.port.excursions }" />
-
+                <sly data-sly-test.excursions="${itinerary.excursions}" />
                 <div class="${itineraryList.first ? '' : 'pagebreak'} panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
                     <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.itineraryId}" aria-expanded="false"  aria-controls="ex-${itinerary.itineraryId}">                        
                         <div class="panel__heading__item panel__heading__description">
-                            <h3><strong>${itinerary.port.apiTitle}</strong></h3>
+                            <h3><strong>${itinerary.name}</strong></h3>
                             <p>
-                                <span>${itinerary.port.country}</span>      
+                                <span>${itinerary.countryIso3 @ i18n}</span>
                             </p>
 							<p>
                                 <span>
@@ -97,7 +96,7 @@
                             <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
 							<br /></span>
                             </p>
-							<span>${excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} ${itinerary.port.apiTitle}</span>
+							<span>${excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} ${itinerary.name}</span>
                         </div>
                     </div>
                     <div id="ex-${itinerary.itineraryId}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false">
