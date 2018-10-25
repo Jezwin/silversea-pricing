@@ -2,7 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.google.common.base.Objects;
+import com.silversea.aem.utils.CruiseUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -132,7 +132,7 @@ public class ItineraryExcursionModel {
     }
 
     public String getAssetSelectionReference() {
-        return excursion != null ? Objects.firstNonNull(excursion.getAssetSelectionReference(),
+        return excursion != null ? CruiseUtils.firstNonNull(excursion.getAssetSelectionReference(),
                 excursion.getAssetSelectionReferenceApi()) : null;
     }
 

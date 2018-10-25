@@ -2,7 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.google.common.base.Objects;
+import com.silversea.aem.utils.CruiseUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -74,7 +74,7 @@ public class ItineraryLandProgramModel {
     }
 
     public String getAssetSelectionReference() {
-        return landProgram != null ? Objects.firstNonNull(landProgram.getAssetSelectionReference(),
+        return landProgram != null ? CruiseUtils.firstNonNull(landProgram.getAssetSelectionReference(),
                 landProgram.getAssetSelectionReferenceApi()) : null;
     }
 }

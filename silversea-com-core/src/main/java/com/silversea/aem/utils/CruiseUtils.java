@@ -31,4 +31,14 @@ public class CruiseUtils {
             }
         }
     }
+
+    @SafeVarargs
+    public static <T> T firstNonNull(T... args) {
+        for (T arg : args) {
+            if (arg != null) {
+                return arg;
+            }
+        }
+        return null;
+    }
 }
