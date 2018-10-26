@@ -181,6 +181,10 @@ public class ItineraryModel {
         return calendar;
     }
 
+    public boolean isOvernight() {
+        return overnight;
+    }
+
     public Date getRawDate() {
         return date;
     }
