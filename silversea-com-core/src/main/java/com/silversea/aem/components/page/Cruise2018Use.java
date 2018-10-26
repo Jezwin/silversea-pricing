@@ -242,12 +242,10 @@ public class Cruise2018Use extends EoHelper {
             ItineraryModel itinerary = itineraries.get(counter);
             days.add(itinerary.getDate());
             Integer portId = itinerary.getPortId();
-            boolean isNextDaySamePort =
-                    counter != size - 1 && itineraries.get(counter + 1).getPortId().equals(portId);
             result.add(
                     new CruiseItinerary(days.size(), counter == 0, counter == size - 1,
                             ofNullable(portAssets.get(portId).poll()).orElse(itinerary.getPort().getThumbnail()),
-                            isNextDaySamePort, itinerary, cruiseModel.getCruiseType(), getResourceResolver()));
+                            itinerary.isOvernight(), itinerary, cruiseModel.getCruiseType(), getResourceResolver()));
         }
         result.sort(comparing(CruiseItinerary::getDate));
         return result;
