@@ -50,7 +50,7 @@ Menu.prototype = {
                 $stickyTop2.addClass("ssc-sticky-top").fadeIn(0);
                 $overviewMenu.show(200);
                 $(".cruise-2018-menu").addClass("ssc-table-full-width-with-overview");
-                $("#header").animate({
+                $("#header:not(.c-main-nav--nav-expanded)").animate({
                     top: '-110px',
                     duration: 200,
                     easing: 'linear'
