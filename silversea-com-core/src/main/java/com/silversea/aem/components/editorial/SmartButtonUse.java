@@ -2,9 +2,11 @@ package com.silversea.aem.components.editorial;
 
 import com.adobe.cq.sightly.WCMBindings;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.ExternalizerHelper;
+import com.silversea.aem.helper.UrlHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
@@ -27,10 +29,12 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
     static private final String GEO_PROP = "geoTag";
     static private final String GEO_NODE = "geoList";
     static private final String SEPARATOR = "~";
-    static private final String LIST_PROPERTIES = "data-sscclicktype,href,target,data-scrollElement,data-type,data-toggle,data-target,data-video";
+    static private final String LIST_PROPERTIES = "data-sscclicktype,href,target,data-scrollElement,data-type,data-toggle,data-target,data-video,data-selectors,data-suffix";
 
     private ValueMap sbProperties;
     private Externalizer externalizer;
+    private String selectorUrl;
+    private String suffixUrl;
 
     @Override
     public void activate() throws Exception {
@@ -38,6 +42,12 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         externalizer = getResourceResolver().adaptTo(Externalizer.class);
         ValueMap dataProperties = get(WCMBindings.PROPERTIES, ValueMap.class);
         sbProperties = new ValueMapDecorator(new LinkedHashMap<>());
+
+        Page currentPage = getCurrentPage();
+        String[] selectorSuffixUrl = UrlHelper.createSuffixAndSelectorUrl(currentPage);
+        this.selectorUrl = selectorSuffixUrl != null ? selectorSuffixUrl[0] : null;
+        this.suffixUrl = selectorSuffixUrl != null ? selectorSuffixUrl[1] : null;
+
         //use the key and value here
         String contentDesktop = dataProperties.get("sscFwContentDesktop", String.class);
         if (StringUtils.isEmpty(dataProperties.get("sscFwContentTablet", String.class))) {
@@ -94,7 +104,7 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
             sbProperties.put("dataTarget" + device, ".bs-modal-lg");
             sbProperties.put("dataToggle" + device, "modal");
             linkUrl = "#";
-        } else {
+        } else if (StringUtils.isNotEmpty(linkUrl)) {
             linkUrl = externalizer.relativeLink(getRequest(), linkUrl);
             if (Boolean.valueOf(enableLightbox)) {
                 sbProperties.put("dataToggle" + device, "modal");
@@ -153,4 +163,11 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         return LIST_PROPERTIES;
     }
 
+    public String getSelectorUrl() {
+        return selectorUrl;
+    }
+
+    public String getSuffixUrl() {
+        return suffixUrl;
+    }
 }

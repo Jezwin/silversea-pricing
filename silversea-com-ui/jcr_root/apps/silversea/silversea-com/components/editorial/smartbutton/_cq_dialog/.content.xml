@@ -281,28 +281,28 @@
                                     <sscFwPaddingTopDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value="12px"
+                                            value="14px"
                                             fieldDescription="Padding top of  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding top (px, em, %, pt)"
                                             name="./sscFwPaddingTopDesktop"/>
                                     <sscFwPaddingBottomDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value="12px"
+                                            value="11px"
                                             fieldDescription="Padding bottom of  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding bottom (px, em, %, pt)"
                                             name="./sscFwPaddingBottomDesktop"/>
                                     <sscFwPaddingLeftDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value="53px"
+                                            value="20px"
                                             fieldDescription="Padding left of  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding left (px, em, %, pt)"
                                             name="./sscFwPaddingLeftDesktop"/>
                                     <sscFwPaddingRightDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value="52px"
+                                            value="20px"
                                             fieldDescription="Padding right  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding right (px, em, %, pt)"
                                             name="./sscFwPaddingRightDesktop"/>

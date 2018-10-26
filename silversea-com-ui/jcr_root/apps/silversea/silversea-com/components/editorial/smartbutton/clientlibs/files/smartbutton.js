@@ -2,7 +2,7 @@ $(function () {
     "use strict";
 
     $(document).ready(function () {
-        parsedSscFeJsElement();
+        parsedSscFeJsElement(setSuffixSelector);
 
         $(".smartbtn").on("click touchstart", function (e) {
             var $smartbutton = $(this);
@@ -27,6 +27,21 @@ $(function () {
             }
         });
     });
+
+    function setSuffixSelector() {
+        $(".smartbtn").each(function () {
+            var $element = $(this),
+                type = $element.data("type"),
+                scclicktype = $element.data("sscclicktype"),
+                href = $element.attr("href"),
+                selectors = $element.data("selectors"),
+                suffix = $element.data("suffix");
+            if (type == "page" && scclicktype == "clic-RAQ") {
+                href = href.replace("html", selectors + ".html") + "/" + suffix;
+                $element.attr("href",href);
+            }
+        });
+    };//setSuffixSelector
 
     function openVideoModal($smartbutton) {
 
@@ -59,7 +74,7 @@ $(function () {
 
     };//openVideoModal
 
-    function parsedSscFeJsElement() {
+    function parsedSscFeJsElement(callback) {
         $("[data-sscfwjs-properties]").each(function (e) {
             var $element = $(this);
             var typeDevices = isDesktop() ? 'desktop' : isTablet() ? 'tablet' : 'mobile';
@@ -74,6 +89,7 @@ $(function () {
                 $element.removeAttr("data-sscfwjs-mobile-" + valueProp);
             }
             $element.removeAttr("data-sscfwjs-properties");
+            callback && callback();
         });
     };//parsedSscFeJsElement
 
