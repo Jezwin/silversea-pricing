@@ -11,20 +11,15 @@
             </a>
         </li>
         <sly data-sly-test.page3Mobile="${navTop.link3MobilePage}" />
-        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right ${!page3Mobile ? 'c-main-nav__top__item--empty' : ''}">
+        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right c-main-nav__top__item--small-md ${!page3Mobile ? 'c-main-nav__top__item--empty' : ''}">
             <a href="${page3Mobile.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3Mobile.navigationTitle || page3Mobile.title}</span>
             </a>
         </li>
         <sly data-sly-test.page4Mobile="${navTop.link4Page}" />
-        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--left ${!page4Mobile ? 'c-main-nav__top__item--empty' : ''}">
+        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--left c-main-nav__top__item--small-md ${!page4Mobile ? 'c-main-nav__top__item--empty' : ''}">
             <a href="${page4Mobile.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page4Mobile.navigationTitle || page4Mobile.title}</span>
-            </a>
-        </li>
-        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right c-main-nav__top__item--empty">
-            <a href="#" class="c-main-nav__top__link">
-                <span></span>
             </a>
         </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
