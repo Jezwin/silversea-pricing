@@ -1,6 +1,8 @@
 package com.silversea.aem.components.page;
 
 import com.day.cq.commons.Externalizer;
+import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
+import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -233,6 +235,8 @@ public class Cruise2018Use extends EoHelper {
 
 
     private List<CruiseItinerary> retrieveItinerary(CruiseModel cruiseModel) {
+        final InheritanceValueMap propertiesInherited = new HierarchyNodeInheritanceValueMap(cruiseModel.getPage().getAbsoluteParent(2).getContentResource());
+        String thumbnailInherited = propertiesInherited.getInherited("image/fileReference", String.class);
         List<CruiseItinerary> result = new ArrayList<>();
         List<ItineraryModel> itineraries = cruiseModel.getItineraries();
         int size = itineraries.size();
@@ -244,7 +248,7 @@ public class Cruise2018Use extends EoHelper {
             Integer portId = itinerary.getPortId();
             result.add(
                     new CruiseItinerary(days.size(), counter == 0, counter == size - 1,
-                            ofNullable(portAssets.get(portId).poll()).orElse(itinerary.getPort().getThumbnail()),
+                            ofNullable(portAssets.get(portId).poll()).orElse(ofNullable(itinerary.getPort().getThumbnail()).orElse(thumbnailInherited)),
                             itinerary.isOvernight(), itinerary, cruiseModel.getCruiseType(), getResourceResolver()));
         }
         result.sort(comparing(CruiseItinerary::getDate));
