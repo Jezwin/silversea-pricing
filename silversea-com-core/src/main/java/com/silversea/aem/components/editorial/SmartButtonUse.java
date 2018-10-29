@@ -80,6 +80,8 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
             sbProperties.putAll(mobile);
         });
         setPropByDevices(sbProperties, "Mobile");
+
+        sbProperties.put("sscFwBackgroundColorHoverDesktop",sbProperties.get("sscFwBackgroundColorDesktop"));
     }
 
     private void setPropByDevices(ValueMap sbProperties, String device) {
@@ -116,7 +118,6 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         }
 
         sbProperties.put("linkUrl" + device, linkUrl);
-
     }
 
     private Optional<ValueMap> setGeolocationProperties(String propName, String nodeName) {

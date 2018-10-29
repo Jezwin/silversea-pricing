@@ -38,7 +38,7 @@ $(function () {
                 suffix = $element.data("suffix");
             if (type == "page" && scclicktype == "clic-RAQ") {
                 href = href.replace("html", selectors + ".html") + "/" + suffix;
-                $element.attr("href",href);
+                $element.attr("href", href);
             }
         });
     };//setSuffixSelector
