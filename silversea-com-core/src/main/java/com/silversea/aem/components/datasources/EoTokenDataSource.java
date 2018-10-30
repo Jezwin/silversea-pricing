@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.iterators.TransformIterator;
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceMetadata;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -84,6 +85,10 @@ public class EoTokenDataSource extends WCMUsePojo {
 
 				// Allocating memory to Map
 				ValueMap vm = new ValueMapDecorator(new HashMap<String, Object>());
+
+				if(!StringUtils.isEmpty("author_by_prefix") && "author_by_prefix".equals(tokens.get(country))) {
+					vm.put("selected", true);
+				}
 
 				// Populate the Map
 				vm.put("value", country);
