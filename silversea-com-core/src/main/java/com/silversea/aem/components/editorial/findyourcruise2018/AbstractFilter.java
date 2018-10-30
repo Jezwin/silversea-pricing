@@ -57,10 +57,9 @@ public abstract class AbstractFilter<T> {
     }
 
     final void initAllValues(List<CruiseModelLight> cruises) {
-        this.rows =
-                cruises.stream().flatMap(this::projection)
-                        .distinct()
-                        .collect(toCollection(() -> new TreeSet<>(this.comparator())));//keep the order
+        this.rows = cruises.stream().flatMap(this::projection).distinct()
+                .collect(toCollection(() -> new TreeSet<>(this.comparator())));
+
     }
 
     protected Comparator<FilterRow<T>> comparator() {//this is overridden when needed
@@ -80,8 +79,9 @@ public abstract class AbstractFilter<T> {
 
     /**
      * Should the row be enabled?
+     *
      * @param cruises All the cruises left.
-     * @param row The row.
+     * @param row     The row.
      * @return True is any cruise matches the row.
      */
     private boolean rowShouldBeEnabled(Collection<CruiseModelLight> cruises, FilterRow<T> row) {
