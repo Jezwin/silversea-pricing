@@ -1,8 +1,13 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeSet;
+import com.google.common.collect.TreeRangeSet;
 import com.google.gson.JsonArray;
 import com.silversea.aem.models.*;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +25,7 @@ public class FilterBar {
                 @Override
                 protected Stream<FilterRow<DestinationItem>> projection(CruiseModelLight cruiseModelLight) {
                     DestinationItem destination = cruiseModelLight.getDestination();
-                    return FilterRow.singleton(destination, destination.getTitle(), destination.getName());
+                    return FilterRow.singleton(destination, DestinationItem::getTitle, destination.getName());
                 }
             };
     public static final AbstractFilter<String> TYPE =
@@ -49,37 +54,53 @@ public class FilterBar {
                 }
             };
 
-    public static final AbstractFilter<Integer> DURATION =
-            new AbstractFilter<Integer>("duration") {
+    private static final RangeSet<Integer> DURATIONS = TreeRangeSet.create();
+
+    static {
+        DURATIONS.add(Range.closed(1, 8));
+        DURATIONS.add(Range.closed(9, 12));
+        DURATIONS.add(Range.closed(13, 18));
+        DURATIONS.add(Range.atLeast(19));
+    }
+
+    public static final AbstractFilter<Range<Integer>> DURATION =
+            new AbstractFilter<Range<Integer>>("duration") {
                 @Override
-                protected Stream<FilterRow<Integer>> projection(CruiseModelLight cruise) {
-                    return singleton(parseInt(cruise.getDuration()), cruise.getDuration());
+                protected Stream<FilterRow<Range<Integer>>> projection(CruiseModelLight cruise) {
+                    Range<Integer> integerRange = DURATIONS.rangeContaining(parseInt(cruise.getDuration()));
+                    return singleton(integerRange, range -> range.toString(), integerRange.lowerEndpoint().toString());
                 }
 
-                protected Comparator<FilterRow<Integer>> comparator() {
-                    return Comparator.comparing(FilterRow::getValue);
+                protected Comparator<FilterRow<Range<Integer>>> comparator() {
+                    return Comparator.comparing(row -> row.getValue().lowerEndpoint());
                 }
             };
 
-    public static final AbstractFilter<Calendar> DEPARTURE =
-            new AbstractFilter<Calendar>("departure") {
+    public static final AbstractFilter<YearMonth> DEPARTURE =
+            new AbstractFilter<YearMonth>("departure") {
+
                 @Override
-                protected Stream<FilterRow<Calendar>> projection(CruiseModelLight cruise) {
-                    return singleton(cruise.getStartDate(), "TODO", cruise.getStartDate().getTimeInMillis() + "");
+                protected Stream<FilterRow<YearMonth>> projection(CruiseModelLight cruise) {
+                    Calendar startDate = cruise.getStartDate();
+                    YearMonth yearMonth = YearMonth.of(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH));
+                    return singleton(yearMonth, param -> param.format(DEPARTURE_FORMATTER), yearMonth.toString());
                 }
+
             };
 
     public static final AbstractFilter<ShipItem> SHIP =
             new AbstractFilter<ShipItem>("ship") {
                 @Override
                 protected Stream<FilterRow<ShipItem>> projection(CruiseModelLight cruise) {
-                    return singleton(cruise.getShip(), cruise.getShip().getTitle(), cruise.getShip().getId());
+                    return singleton(cruise.getShip(), ShipItem::getTitle, cruise.getShip().getId());
                 }
             };
 
 
     public static final Collection<AbstractFilter<?>> FILTERS =
             asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE);
+    private static final DateTimeFormatter DEPARTURE_FORMATTER =
+            DateTimeFormatter.ofPattern("LLLL yyyy", Locale.ENGLISH);
 
     void init(List<CruiseModelLight> cruises) {
         FILTERS.forEach(filter -> filter.initAllValues(cruises));

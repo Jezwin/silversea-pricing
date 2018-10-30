@@ -1,9 +1,9 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
-import com.google.common.base.Objects;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
@@ -11,19 +11,19 @@ import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRo
 public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
     private final T value;
-    private final String label;
+    private final Function<T, String> label;
     private final String key;
 
     private FilterRowState state;
 
     public FilterRow(T value, String label, FilterRowState state) {
         this.value = value;
-        this.label = label;
+        this.label = notUsed -> label;
         this.key = label;
         this.state = state;
     }
 
-    public FilterRow(T value, String label, String key, FilterRowState state) {
+    public FilterRow(T value, Function<T, String> label, String key, FilterRowState state) {
         this.value = value;
         this.label = label;
         this.key = key;
@@ -40,7 +40,7 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
     }
 
     public String getLabel() {
-        return label;
+        return label.apply(value);
     }
 
     public String getKey() {
@@ -64,21 +64,21 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
     }
 
     static <T> Stream<FilterRow<T>> singleton(T value, String label) {
-        return singleton(value, label, label);
+        return singleton(value, notUsed -> label, label);
     }
 
     static Stream<FilterRow<String>> singleton(String value) {
-        return singleton(value, value, value);
+        return singleton(value, notUsed -> value, value);
     }
 
-    static <T> Stream<FilterRow<T>> singleton(T value, String label, String key) {
+    static <T> Stream<FilterRow<T>> singleton(T value, Function<T, String> label, String key) {
         return Stream.of(new FilterRow<>(value, label, key, ENABLED));
     }
 
 
     public JsonElement toJson() {
         JsonObject json = new JsonObject();
-        json.addProperty("label", label);
+        json.addProperty("label", getLabel());
         json.addProperty("key", key);
         json.addProperty("state", state.toString());
         return json;
