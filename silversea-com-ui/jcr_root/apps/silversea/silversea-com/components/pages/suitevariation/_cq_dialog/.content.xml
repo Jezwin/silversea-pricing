@@ -86,6 +86,7 @@
                                     <bedroomsinformation
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                            useFixedInlineToolbar="{Boolean}true"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="bedroomsInformation"
                                             fieldLabel="Bedrooms Information"
