@@ -37,8 +37,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     public void init(CruisesCacheService service) {
-        List<CruiseModelLight> allCruises;
-        allCruises = retrieveAllCruises(service);
+        List<CruiseModelLight> allCruises = service.getCruises(lang);
         filterBar = initFilters(allCruises);
         if (filterBar.anyFilterSelected()) {
             List<CruiseModelLight> filteredCruises = applyFilters(allCruises, filterBar);
@@ -49,11 +48,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             cruises = retrievePaginatedCruises(allCruises);
         }
 
-    }
-
-
-    private List<CruiseModelLight> retrieveAllCruises(CruisesCacheService service) {
-        return service.getCruises(lang);
     }
 
     private FilterBar initFilters(List<CruiseModelLight> allCruises) {
@@ -93,10 +87,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     public int getTotalResults() {
         return totalResults;
-    }
-
-    public String getFilters() {
-        return filterBar.toString();
     }
 
     public FilterBar getFilterBar() {
