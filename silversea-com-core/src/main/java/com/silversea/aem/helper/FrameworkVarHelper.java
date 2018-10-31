@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.LOWER_HYPHEN;
+import static java.lang.Integer.valueOf;
 import static java.lang.System.lineSeparator;
 
 /*
@@ -30,6 +31,9 @@ import static java.lang.System.lineSeparator;
  * note that the property value must contain the unit type. */
 public class FrameworkVarHelper extends AbstractFrameworkHelper {
 
+    private static final Pattern COLOR_PATTERN =
+            Pattern.compile("rgba *\\( *([0-9]+), *([0-9]+), *([0-9]+), *([0.1-1]+) *\\)");
+
     @Override
     public void activate() throws Exception {
         super.activate();
@@ -48,30 +52,28 @@ public class FrameworkVarHelper extends AbstractFrameworkHelper {
         if (valueWithUnit == null) {
             return "";
         }
+        valueWithUnit = specialCases(property, valueWithUnit);
+        return "--" + LOWER_CAMEL.to(LOWER_HYPHEN, property + device) + ": " + valueWithUnit + ";" + lineSeparator();
+    }
+
+    private String specialCases(String property, String valueWithUnit) {
         //special exception for hover and before
         if ("sscFwContent".equalsIgnoreCase(property)) {
             valueWithUnit = "'" + valueWithUnit + "'";
         }
         if (property.contains("Hover")) {
-            Optional<Color> color = parseAndDarker(valueWithUnit);
-            if(color.isPresent()) {
-                valueWithUnit = "rgb(" + color.get().getRed() + "," + color.get().getGreen() + "," + color.get().getBlue() + ")";
-            }
+            valueWithUnit = hoverColor(valueWithUnit).orElse(valueWithUnit);
         }
-        property = property.replace("2", "-2");
-        return "--" + LOWER_CAMEL.to(LOWER_HYPHEN, property + device) + ": " + valueWithUnit + ";" + lineSeparator();
+        return valueWithUnit;
     }
 
-    private Optional<Color> parseAndDarker(String input) {
-        Pattern c = Pattern.compile("rgba *\\( *([0-9]+), *([0-9]+), *([0-9]+), *([0.1-1]+) *\\)");
-        Matcher m = c.matcher(input);
-
+    private Optional<String> hoverColor(String input) {
+        Matcher m = COLOR_PATTERN.matcher(input);
         if (m.matches()) {
-            return Optional.of(new Color(Integer.valueOf(m.group(1)),  // r
-                    Integer.valueOf(m.group(2)),  // g
-                    Integer.valueOf(m.group(3))).darker()); // b
+            return Optional.of(
+                    new Color(valueOf(m.group(1)), valueOf(m.group(2)), valueOf(m.group(3))).darker())
+                    .map(color -> "rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")");
         }
-
         return Optional.empty();
     }
 }
