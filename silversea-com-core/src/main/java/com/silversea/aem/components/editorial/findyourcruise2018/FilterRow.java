@@ -31,10 +31,6 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
     }
 
-    public T getValue() {
-        return value;
-    }
-
     public FilterRowState getState() {
         return state;
     }
