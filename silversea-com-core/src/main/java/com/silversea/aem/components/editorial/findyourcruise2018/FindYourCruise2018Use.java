@@ -24,6 +24,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private int pagNumber = 1;
     private int pagSize = 20;
     private int totalResults;
+    private boolean onlyResults = false;
+    private boolean onlyFilters = false;
 
     @Override
     public void activate() throws Exception {
@@ -41,9 +43,13 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         filterBar = initFilters(allCruises);
         if (filterBar.anyFilterSelected()) {
             List<CruiseModelLight> filteredCruises = applyFilters(allCruises, filterBar);
-            filterBar.updateFilters(allCruises, filteredCruises);
-            totalResults = filteredCruises.size();
-            cruises = retrievePaginatedCruises(filteredCruises);
+            if (!onlyResults) {
+                filterBar.updateFilters(allCruises, filteredCruises);
+            }
+            if (!onlyFilters) {
+                totalResults = filteredCruises.size();
+                cruises = retrievePaginatedCruises(filteredCruises);
+            }
         } else {
             cruises = retrievePaginatedCruises(allCruises);
         }
@@ -57,6 +63,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         map.forEach(filterBar::addSelectedFilter);
         pagNumber = parseInt(map.getOrDefault("pag", new String[]{"1"})[0]);
         pagSize = parseInt(map.getOrDefault("pagSize", new String[]{"" + PAG_SIZE})[0]);
+        onlyResults = "true".equals(map.getOrDefault("onlyResults", new String[]{"false"})[0]);
+        onlyFilters = "true".equals(map.getOrDefault("onlyFilters", new String[]{"false"})[0]);
         return filterBar;
     }
 
