@@ -24,7 +24,7 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.observation.ResourceChange;
 import org.apache.sling.api.resource.observation.ResourceChangeListener;
 import org.apache.sling.event.jobs.JobManager;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
+import org.apache.sling.jcr.resource.api.JcrResourceConstants;
 import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
@@ -71,25 +71,8 @@ public class ReplicateThumbnailEventListenerServiceImpl implements ResourceChang
 				for (ResourceChange resourceChange : changes) {
 					//check if thumbnail has been changed or not
 					if(resourceChange.getPath().contains("jcr:content/image") ){ // we are talking about a thumbnail
-						Set<String> listPropsChanged = resourceChange.getChangedPropertyNames();
-						if(listPropsChanged == null){
-							if(resourceChange.getAddedPropertyNames() != null){
-								listPropsChanged = resourceChange.getAddedPropertyNames();
-							}
-						}else{
-							if(resourceChange.getAddedPropertyNames() != null){
-								listPropsChanged.addAll(resourceChange.getAddedPropertyNames());
-							}
-						}
-						boolean updateThumbnail = false;
-						if (listPropsChanged != null) {
-							Iterator<String> iterator = listPropsChanged.iterator();
-							while (iterator.hasNext()) {
-								if(iterator.next().toString().equalsIgnoreCase("fileReference")){
-									updateThumbnail = true;
-								}
-							}
-						}
+						boolean updateThumbnail = true;
+
 						if (updateThumbnail) {
 							Resource resource = resourceResolver.getResource(resourceChange.getPath());
 							Resource parent = resource.getParent();

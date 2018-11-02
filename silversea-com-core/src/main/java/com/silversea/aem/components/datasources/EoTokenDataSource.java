@@ -1,11 +1,13 @@
 package com.silversea.aem.components.datasources;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.iterators.TransformIterator;
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceMetadata;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -32,21 +34,7 @@ public class EoTokenDataSource extends WCMUsePojo {
 
 		final Map<String, String> tokens = new LinkedHashMap<String, String>();
 		
-		String pageUrl = null;
-		if(getRequest().getQueryString().contains("%2F")) {
-			/*
-			 * item=%2Fcontent%2Fsilversea-com%2Fen%2Fexclusive-offers%2Fsilver-select-program
-			 * */
-			pageUrl = getRequest().getQueryString().replace("%2F", "/").replace("item=", "");
-		} else {
-			/*/
-			 * mnt/override/apps/silversea/silversea-com/components/pages/exclusiveoffer/_cq_dialog.html/content/silversea-com/en/exclusive-offers/silver-select-program/jcr:content
-			 * */
-			String[] splitURL = getRequest().getPathInfo().split("_cq_dialog.html");
-			if (splitURL != null && splitURL.length > 0) {
-				pageUrl = splitURL[1].replace("/jcr:content", "");
-			}
-		}
+		String pageUrl = getRequest().getParameter("item");
 
 
 		if (pageUrl != null) {

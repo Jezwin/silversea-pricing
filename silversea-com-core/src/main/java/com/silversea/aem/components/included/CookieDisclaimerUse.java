@@ -1,13 +1,11 @@
 package com.silversea.aem.components.included;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.TagConstants;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.services.GeolocationTagService;
 import org.apache.sling.api.resource.Resource;
 
 /**

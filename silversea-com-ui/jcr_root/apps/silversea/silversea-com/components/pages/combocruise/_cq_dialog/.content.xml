@@ -46,6 +46,7 @@
                                     <overview
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                        useFixedInlineToolbar="{Boolean}true"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="overview"
                                         fieldLabel="Overview"
