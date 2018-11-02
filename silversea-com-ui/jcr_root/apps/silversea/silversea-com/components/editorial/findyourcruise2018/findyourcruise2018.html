@@ -11,8 +11,8 @@
         </script>
 
         <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-             data-sly-call="${filterTemplate.filter @ fyc=fyc}"/>
-        <div class="c-fyc-v2__result-wrapper ">
+             data-sly-call="${filterTemplate.default @ fyc=fyc}"/>
+        <div class="c-fyc-v2__result-wrapper fyc2018-results-div">
             <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/results.html"
                  data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
         </div>

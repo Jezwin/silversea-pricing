@@ -44,6 +44,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         if (filterBar.anyFilterSelected()) {
             List<CruiseModelLight> filteredCruises = applyFilters(allCruises, filterBar);
             if (!onlyResults) {
+                totalResults = filteredCruises.size();
                 filterBar.updateFilters(allCruises, filteredCruises);
             }
             if (!onlyFilters) {
