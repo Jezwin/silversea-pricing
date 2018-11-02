@@ -69,7 +69,7 @@
           cursor: auto;
 
           .filter-value {
-            padding: 0px;
+            /*padding: 0px;*/
           }
         }
 
@@ -183,6 +183,10 @@
       }
     }
 
+    .filter-departure .fyc2018-filter-label {
+      margin-bottom: -25px;
+    }
+
     .filter-cruise-type.fyc2018-filter-value-clicked {
       min-width: 286px !important;
       min-height: 200px !important;
@@ -206,11 +210,11 @@
     .filter-port.fyc2018-filter-value-clicked {
       position: absolute !important;
       right: 136px;
-      width: 600px !important;
+      width: 560px !important;
     }
 
     .filter-ship.fyc2018-filter-value-clicked {
-      min-width: 480px !important;
+      min-width: 497px !important;
       .filter-value span {
         width: 210px;
       }
@@ -224,10 +228,11 @@
       }
     }
     .filter-port.fyc2018-filter-value-clicked {
-      overflow-y: scroll !important;
       .filter-value span {
         height: 59px;
-        padding-top: 24px;
+        height: 59px;
+        vertical-align: middle;
+        display: table-cell;
       }
     }
 
@@ -284,6 +289,7 @@
 
       .filter-disabled span {
         opacity: 0.5;
+        cursor: auto;
 
         &:hover {
           background-color: white;
@@ -291,6 +297,11 @@
           border: 1px solid;
           border-color: #171d474f;
         }
+      }
+
+      .fyc2018-filter-year {
+        margin-top: 20px;
+        font-weight: 600;
       }
 
       .filter-value span {
