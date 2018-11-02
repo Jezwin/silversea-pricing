@@ -3,6 +3,7 @@ $(function () {
 
     $(document).ready(function() {
         setNumberAllFilterSelected();
+        separateYears();
     });
 
     $(".findyourcruise2018").on("click touhcstart", ".fyc2018-filter .fyc2018-filter-content span", function (e) {
@@ -11,18 +12,17 @@ $(function () {
         var $filter = $(this),
             classShowElement = "." + $filter.attr("id"),
             $parent = $filter.parent();
+        var urlTemplate = $("#filter-url-request").data("url");
+        var url = createUrl(urlTemplate);
+        url += "&onlyFilters=true";
 
         if ($parent.hasClass("fyc2018-filter-content-clicked")) {
             $parent.removeClass("fyc2018-filter-content-clicked");
             $(classShowElement).removeClass("fyc2018-filter-value-clicked");
-            var urlTemplate = $("#filter-url-request").data("url");
-            var url = createUrl(urlTemplate);
-            url += "&onlyFilters=true";
             updateFilters(url);
         } else {
+            updateFilters(url, classShowElement, $parent);
             closeAllFiltersDiv();
-            $(classShowElement).addClass("fyc2018-filter-value-clicked");
-            $parent.addClass("fyc2018-filter-content-clicked");
         }
     });
 
@@ -63,6 +63,18 @@ $(function () {
         }
     });
 
+    function separateYears() {
+        var year = null;
+        $(".filter-departure .filter-value").each(function () {
+            var currentYear = $(this).data("value").split("-")[0];
+            console.log(currentYear);
+            if (currentYear != year) {
+                $(this).before("<div class='col-xs-12 fyc2018-filter-year'>"+currentYear+"</div>");
+                year = currentYear;
+            }
+        });
+    };//separateYears
+
     function createUrl(urlTemplate) {
         var url = "";
         var j = 0;
@@ -82,8 +94,7 @@ $(function () {
             }
         });
         var current = window.location.href;
-        //window.location.href = encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url);
-        console.log(encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
+        history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
         return urlTemplate + ".html?" + url;
     };//createUrl
 
@@ -100,13 +111,18 @@ $(function () {
         });
     };//updateCruises
 
-    function updateFilters(url) {
+    function updateFilters(url, classElement, parent) {
         $.ajax({
             type: 'GET',
             url: url,
             success: function (result) {
                 $(".findyourcruise2018-header").replaceWith(result);
                 setNumberAllFilterSelected();
+                separateYears();
+                if (classElement != null && parent != null) {
+                    $(classElement).addClass("fyc2018-filter-value-clicked");
+                    parent.addClass("fyc2018-filter-content-clicked");
+                }
             }
         });
     };//updateFilters
