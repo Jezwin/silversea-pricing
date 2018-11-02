@@ -4,7 +4,8 @@
     </div>
 </template>
 <template data-sly-template.default="${@ fyc}">
-    <div class="clearfix c-fyc-v2__results__wrapper" >
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+    <div class="clearfix c-fyc-v2__results__wrapper" data-totals="${fyc.totalResults}" data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.results'}" id="results-url-request">
         <div class="c-fyc-v2__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
             <div class="c-fyc-v2__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseItem.cruiseModel.thumbnail}">
                 <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=450&fmt=pjpeg&pscan=5&qlt=80" />

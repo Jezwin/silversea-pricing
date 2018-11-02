@@ -11,7 +11,7 @@
     </label>
 </template>
 
-<template data-sly-template.filter="${@ fyc}">
+<template data-sly-template.default="${@ fyc}">
     <div class="findyourcruise2018-header">
         <div class="fyc2018-header-container container">
             <div class="fyc2018-header-text">${properties.jcr:title || 'your-search-results' @ i18n} </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="fyc2018-filters-container">
             <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
-            <div class="fyc2018-filters-wrapper" data-url="${ externalizerHelper.externalizedUrl @ selectors='results'}" id="filter-url-request">
+            <div class="fyc2018-filters-wrapper" data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.filter'}" id="filter-url-request">
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DESTINATION.rows, type='filter-destination', singular='destination', plural='destinations', name='destination'}"/>
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
@@ -44,3 +44,6 @@
     </div>
 </template>
 
+<sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+     data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='9'}"
+     data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
