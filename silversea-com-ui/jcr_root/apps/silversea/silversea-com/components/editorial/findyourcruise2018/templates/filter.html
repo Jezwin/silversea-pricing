@@ -1,40 +1,7 @@
-<template data-sly-template.default="${@ fyc}">
-    <script lang="javascript">
-        function submit() {
-            var url = "";
-            $(".fyc2018-filter").each(function () {
-                var $this = $(this);
-                if ($this.val()) {
-                    url += $this.attr('name') + "=" + $this.val().join('.') + "&";
-                }
-            });
-            var current = window.location.href;
-            var firstParamPos = current.indexOf("html");
-            window.location.href = encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url);
-            return false;
-        }
-    </script>
-    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='destination', filter=fyc.filterBar.DESTINATION}"/>
-    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='duration', filter=fyc.filterBar.DURATION}"/>
-    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='ship', filter=fyc.filterBar.SHIP}"/>
-    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='features', filter=fyc.filterBar.FEATURES}"/>
-    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='type', filter=fyc.filterBar.TYPE}"/>
-    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='port', filter=fyc.filterBar.PORT}"/>
-    <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-         data-sly-call="${filterTemplate.select @ name='departure', filter=fyc.filterBar.DEPARTURE}"/>
-    <button type="button" onclick="submit()">SUBMIT</button>
-</template>
 <template data-sly-template.select="${@ name, filter}">
     <label>${name @ i18n}
         <select multiple="multiple" class="fyc2018-filter ${name}-filter" name="${name}" autocomplete="off">
             <option value="all" onselect="">${name @ i18n}</option>
-
             <sly data-sly-repeat="${filter.rows}">
                 <option data-sly-test="${item.isEnabled}" value="${item.key}">${item.label}</option>
                 <option data-sly-test="${item.isChosen}" selected value="${item.key}">${item.label}</option>
@@ -43,3 +10,37 @@
         </select>
     </label>
 </template>
+
+<template data-sly-template.filter="${@ fyc}">
+    <div class="findyourcruise2018-header">
+        <div class="fyc2018-header-container container">
+            <div class="fyc2018-header-text">${properties.jcr:title || 'your-search-results' @ i18n} </div>
+            <div class="fyc2018-header-text fyc2018-header-total-num">${fyc.totalResults} </div>
+            <div class="fyc2018-header-text">
+                <sly data-sly-test="${fyc.totalResults == 1}">${'cruise' @ i18n}</sly>
+                <sly data-sly-test="${fyc.totalResults > 1}">${'cruises' @ i18n}</sly>
+            </div>
+        </div>
+        <div class="fyc2018-filters-container">
+            <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+            <div class="fyc2018-filters-wrapper" data-url="${ externalizerHelper.externalizedUrl @ selectors='results'}" id="filter-url-request">
+                <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DESTINATION.rows, type='filter-destination', singular='destination', plural='destinations', name='destination'}"/>
+                <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DEPARTURE.rows, type='filter-departure', class='col-md-4', singular='departure', plural='departures', name='departure'}"/>
+                <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DURATION.rows, type='filter-duration', singular='duration', plural='durations', label='days', name='duration'}"/>
+                <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.SHIP.rows, type='filter-ship', singular='ship', plural='ships', name='ship'}"/>
+                <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.TYPE.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type'}"/>
+                <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', singular='port', plural='ports', name='port'}"/>
+                <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='features', plural='features', name='features'}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+

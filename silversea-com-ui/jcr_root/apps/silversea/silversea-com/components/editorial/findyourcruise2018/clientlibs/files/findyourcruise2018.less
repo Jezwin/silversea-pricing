@@ -1,0 +1,318 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+.findyourcruise2018 {
+
+  .c-fyc-v2__result-wrapper {
+    margin-top: 60px;
+  }
+
+  .findyourcruise2018-header {
+    position: relative;
+    height: 60px;
+    left: 0;
+    background-color: @nd-dark;
+    color: @white;
+    width: 100%;
+    font-family: @freight;
+    font-size: 22px;
+
+    .fyc2018-header-container {
+      font-weight: bold;
+      padding-top: 13px;
+      padding-bottom: 13px;
+    }
+
+    .fyc2018-header-text {
+      display: inline-block;
+      vertical-align: middle;
+      font-family: @freight;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+    .fyc2018-header-total-num {
+      font-family: @freight-bold;
+    }
+  }
+
+  .fyc2018-filters-container {
+    padding-top: 8px;
+
+    .fyc2018-filters-wrapper {
+      table-layout: fixed;
+      width: 100%;
+      display: table !important;
+      height: auto !important;
+
+      .fyc2018-filter {
+        display: table-cell;
+        vertical-align: top;
+        width: 100%;
+        text-transform: uppercase;
+        font-family: @suisse;
+        font-weight: 400;
+        font-size: 13px;
+        border-right: 4px solid @white;
+        cursor: pointer;
+
+        .fyc2018-filter-value-clicked {
+          z-index: 1000;
+          display: block !important;
+          background-color: #f4f4f4;
+        }
+        .fyc2018-filter-value {
+          position: relative;
+          color: @nd-dark;
+          max-height: 250px;
+          overflow-y: scroll;
+          display: none;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          cursor: auto;
+
+          .filter-value {
+            padding: 0px;
+          }
+        }
+
+        .fyc2018-filter-content-clicked {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+          span {
+            &::after {
+              content: "\f106" !important;
+            }
+          }
+        }
+
+        .fyc2018-filter-content {
+          display: block;
+          width: 100%;
+          position: relative;
+          vertical-align: middle;
+          background-color: #f4f4f4;
+          box-shadow: none;
+          height: 50px;
+          border-radius: 0;
+          border: 0;
+          line-height: 19px;
+          padding: 3px 20px 3px 7px;
+          z-index: 2;
+
+          span {
+            line-height: 27px;
+            padding-top: 10px;
+            margin: 0px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: @black;
+
+            &::after {
+              position: absolute;
+              right: 10px;
+              top: 45%;
+              transform: translateY(-45%);
+              color: #666;
+              content: "\f107";
+              font-family: FontAwesome;
+              font-size: 22px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+
+    .fyc2018-filter-value-clicked {
+      .fyc2018-filter-label {
+        text-align: right !important;
+        border: none !important;
+        margin-top: 0px !important;
+        cursor: pointer;
+        padding-top: 2px;
+        margin-bottom: -10px;
+
+        .fyc2018-filter-label-content {
+          background-color: transparent;
+          font-size: 21px ;
+          width: 100%;
+          font-family: @suisse;
+          text-align: left;
+          color: white;
+          white-space: normal;
+          display: inline-block;
+          text-transform: uppercase;
+          vertical-align: middle;
+          padding: 14px 5px 11px 5px;
+          line-height: 16px;
+          font-weight: normal;
+          letter-spacing: 0;
+          text-align: center;
+
+
+          .fyc2018-filter-label-close {
+            float: right;
+            color: #263133;
+          }
+
+          .fyc2018-filter-clear {
+            color: #263133;
+            cursor: text;
+            font-size: 13px;
+            width: 150px;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            margin-left: 15px;
+            font-weight: 600;
+
+            i{
+              font-size: 13px;
+            }
+          }
+
+          i {
+            font-size: 23px;
+            line-height: 0.6;
+            cursor: pointer;
+          }
+
+          &:hover {
+            color: white !important;
+            background-color: transparent !important;
+          }
+        }
+      }
+    }
+
+    .filter-cruise-type.fyc2018-filter-value-clicked {
+      min-width: 286px !important;
+      min-height: 200px !important;
+    }
+
+    .filter-destination.fyc2018-filter-value-clicked {
+      min-width: 560px !important;
+      min-height: 385px !important;
+    }
+
+    .filter-features.fyc2018-filter-value-clicked {
+      position: absolute !important;
+      right: 4px;
+      min-width: 0px;
+      width: 305px;
+      .filter-value span {
+        width: 268px;
+      }
+    }
+
+    .filter-port.fyc2018-filter-value-clicked {
+      position: absolute !important;
+      right: 136px;
+      width: 600px !important;
+    }
+
+    .filter-ship.fyc2018-filter-value-clicked {
+      min-width: 480px !important;
+      .filter-value span {
+        width: 210px;
+      }
+
+      .col-sm-6:nth-child(even) {
+        padding-right: 0px;
+      }
+
+      .col-sm-6:nth-child(odd) {
+        padding-left: 0px;
+      }
+    }
+    .filter-port.fyc2018-filter-value-clicked {
+      overflow-y: scroll !important;
+      .filter-value span {
+        height: 59px;
+        padding-top: 24px;
+      }
+    }
+
+    .filter-duration.fyc2018-filter-value-clicked {
+      min-width: 412px !important;
+      .filter-value span {
+        width: 180px;
+      }
+    }
+
+    .filter-departure.fyc2018-filter-value-clicked {
+      min-width: 537px !important;
+      .filter-value span {
+        width: 150px;
+      }
+    }
+
+    .fyc2018-filter-value-clicked {
+      overflow-y: hidden !important;
+      max-height: 800px !important;
+      padding-top: 10px;
+      padding-bottom: 25px;
+      padding-left: 0px;
+      padding-right: 0px;
+
+      .filter-value {
+        margin-top: 15px;
+        text-align: center !important;
+        cursor: pointer;
+      }
+
+      .filter-value.filter-selected span {
+        color: white;
+        border: 1px solid white;
+        background-color: #263133;
+      }
+
+      .filter-selected.filter-selected-hover span {
+        &:hover {
+          background-color: white;
+          color: #171D47;
+          border: 1px solid;
+          border-color: #171d474f;
+        }
+      }
+
+      .filter-no-selected.filter-no-selected-hover span {
+        &:hover {
+          color: white;
+          border: 1px solid white;
+          background-color: #263133;
+        }
+      }
+
+      .filter-disabled span {
+        opacity: 0.6;
+
+        &:hover {
+          background-color: white;
+          color: #171D47;
+          border: 1px solid;
+          border-color: #171d474f;
+        }
+      }
+
+      .filter-value span {
+        white-space: normal;
+        display: inline-block;
+        text-transform: uppercase;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 0;
+        border-radius: 0 !important;
+        padding: 14px 5px 11px 5px;
+        line-height: 16px;
+        font-size: 13px;
+        font-family: @suisse;
+        font-weight: normal;
+        letter-spacing: 0px;
+        background-color: white;
+        color: #171D47;
+        width: 250px;
+        border: 1px solid;
+        border-color: #171d474f;
+      }
+    }
+  }
+}

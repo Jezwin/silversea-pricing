@@ -51,6 +51,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 cruises = retrievePaginatedCruises(filteredCruises);
             }
         } else {
+            totalResults = allCruises.size();
             cruises = retrievePaginatedCruises(allCruises);
         }
 
