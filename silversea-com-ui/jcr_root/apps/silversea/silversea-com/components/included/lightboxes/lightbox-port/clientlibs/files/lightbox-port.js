@@ -122,7 +122,7 @@ $(function () {
 
     var wdest = $(window).width();
 
-    $(window).resize(function () {
+    $(window).resize(sscThrottled(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
         var $modal = $(".modal.lightbox");
@@ -130,5 +130,5 @@ $(function () {
             $modal.css("padding-left", "0px");
         }*/
         createLineProgressBarPortGallery($modal);
-    });
+    }));
 });

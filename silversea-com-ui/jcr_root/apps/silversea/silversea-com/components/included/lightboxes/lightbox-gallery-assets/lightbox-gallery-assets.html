@@ -7,7 +7,7 @@
                         <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour' : ''} ${asset.type == 'itinerary' ? 'ga-itinerary' : ''}"
                              id="ga-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
                              data-image-virtual-tour="${asset.path}"
-                             data-asset-label="${asset.label || asset.metadata.dc:title}" data-asset-credits="${asset.credits}" >
+                             data-asset-label="${asset.metadata.dc:title || asset.label}" data-asset-credits="${asset.credits}" >
                             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                             <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>

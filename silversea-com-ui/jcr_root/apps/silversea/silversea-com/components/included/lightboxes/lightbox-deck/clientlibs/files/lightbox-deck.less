@@ -131,26 +131,12 @@
         text-transform: uppercase;
       }
 
-      span::after {
-        content: "";
-        position: absolute;
-        width: 68%;
-        display: block;
-        border-radius: 4px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-      }
-
       &:hover {
         span {
           opacity: 1;
           color: @color-second;
-        }
-        span:after {
-          border-top: 0.12em solid @color-second;
+          border-bottom: 2px solid @color-second;
+          padding-bottom: 5px;
         }
       }
     }
@@ -168,9 +154,8 @@
       span {
         opacity: 1;
         color: @color-second;
-      }
-      span:after {
-        border-top: 0.12em solid @color-second;
+        border-bottom: 2px solid @color-second;
+        padding-bottom: 5px;
       }
     }
 
