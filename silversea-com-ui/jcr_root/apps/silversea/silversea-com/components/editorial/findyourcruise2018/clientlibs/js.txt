@@ -1,2 +1,2 @@
-#base=js
+#base=files
 findyourcruise2018.js
