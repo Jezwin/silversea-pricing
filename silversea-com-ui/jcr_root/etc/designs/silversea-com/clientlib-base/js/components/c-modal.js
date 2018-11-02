@@ -71,7 +71,7 @@ $(function () {
                 $modalDialogLightbox.removeClass("custom-lightbox-width");
                 var clazzList = $modalDialogLightbox.attr("class").split(/\s+/);
                 for (i in clazzList) {
-                    if (clazzList[i].startsWith("lightbox-width-")) {
+                    if (clazzList[i].lastIndexOf("lightbox-width-")==0) {
                         $modalDialogLightbox.removeClass(clazzList[i]);
                     }
                 }

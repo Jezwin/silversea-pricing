@@ -227,10 +227,16 @@ public class Cruise2018Use extends EoHelper {
 
     private LinkedList<String> portAssets(PortModel portModel) {
         String assetSelectionReference = portModel.getAssetSelectionReference();
-        Stream<String> assets =
+        LinkedList<String> assets =
                 ofNullable(emptyToNull(assetSelectionReference)).map(reference -> buildAssetList(reference,
-                        getResourceResolver())).map(list -> list.stream().map(Asset::getPath)).orElseGet(Stream::empty);
-        return concat(Stream.of(portModel.getThumbnail()), assets).distinct().collect(toCollection(LinkedList::new));
+                        getResourceResolver())).map(list -> list.stream().map(Asset::getPath)).orElseGet(Stream::empty)
+                        .distinct()
+                        .collect(toCollection(LinkedList::new));
+        if (assets.isEmpty()) {
+            assets.add(portModel.getThumbnail());
+
+        }
+        return assets;
     }
 
 
@@ -544,17 +550,19 @@ public class Cruise2018Use extends EoHelper {
                 itineraryModel = it.adaptTo(ItineraryModel.class);
                 if (itineraryModel != null && itineraryModel.getPort() != null) {
                     PortModel portModel = itineraryModel.getPort();
-                    if (StringUtils.isEmpty(this.departurePortName)) {
-                        this.departurePortName = portModel.getApiTitle();
-                    }
-                    this.arrivalPortName = portModel.getApiTitle();
-                    String assetSelectionReference = portModel.getAssetSelectionReference();
-                    if (StringUtils.isNotBlank(assetSelectionReference)) {
-                        List<SilverseaAsset> portAssets = AssetUtils
-                                .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                        portModel.getTitle());
-                        if (portAssets != null && !portAssets.isEmpty()) {
-                            portsAssetsList.addAll(portAssets);
+                    if (!"day-at-sea".equals(portModel.getName())) {
+                        if (StringUtils.isEmpty(this.departurePortName)) {
+                            this.departurePortName = portModel.getApiTitle();
+                        }
+                        this.arrivalPortName = portModel.getApiTitle();
+                        String assetSelectionReference = portModel.getAssetSelectionReference();
+                        if (StringUtils.isNotBlank(assetSelectionReference)) {
+                            List<SilverseaAsset> portAssets = AssetUtils
+                                    .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                                            portModel.getTitle());
+                            if (portAssets != null && !portAssets.isEmpty()) {
+                                portsAssetsList.addAll(portAssets);
+                            }
                         }
                     }
                 }

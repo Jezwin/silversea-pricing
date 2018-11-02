@@ -173,15 +173,18 @@
         }
       }
 
-      .video-link .fa-play {
-        -webkit-transform: translate(-45%, -50%) scale(0.5);
-        -ms-transform: translate(-45%, -50%) scale(0.5);
-        transform: translate(-45%, -50%) scale(0.5);
+      .video-link {
+        pointer-events: none;
+        .fa-play {
+          -webkit-transform: translate(-45%, -50%) scale(0.5);
+          -ms-transform: translate(-45%, -50%) scale(0.5);
+          transform: translate(-45%, -50%) scale(0.5);
 
-        @media screen and (min-width: @screen-lg-min) {
-          -webkit-transform: translate(-45%, -50%) scale(0.8);
-          -ms-transform: translate(-45%, -50%) scale(0.8);
-          transform: translate(-45%, -50%) scale(0.8);
+          @media screen and (min-width: @screen-lg-min) {
+            -webkit-transform: translate(-45%, -50%) scale(0.8);
+            -ms-transform: translate(-45%, -50%) scale(0.8);
+            transform: translate(-45%, -50%) scale(0.8);
+          }
         }
       }
     }
@@ -193,9 +196,9 @@
       }
       .ga-itinerary {
         background-color: black;
-         img {
-           object-fit: contain !important;
-         }
+        img {
+          object-fit: contain !important;
+        }
       }
 
       .slick-slide {

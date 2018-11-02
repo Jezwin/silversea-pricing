@@ -34,7 +34,7 @@ Menu.prototype = {
                     progress: function (now, fx) {
                         $(".menu-overview-fixed").hide(0);
                     },
-                    complete: function(){
+                    complete: function () {
                         var $footerfixed = $(".fixed-footer-cruise");
                         $footerfixed.slideUp();
                     }
@@ -50,7 +50,7 @@ Menu.prototype = {
                 $stickyTop2.addClass("ssc-sticky-top").fadeIn(0);
                 $overviewMenu.show(200);
                 $(".cruise-2018-menu").addClass("ssc-table-full-width-with-overview");
-                $("#header").animate({
+                $("#header:not(.c-main-nav--nav-expanded)").animate({
                     top: '-110px',
                     duration: 200,
                     easing: 'linear'
@@ -86,12 +86,13 @@ $(function () {
     $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
         e.preventDefault();
         $target = $($(this).attr("href"));
-        var number= $("body").hasClass("mobile") ? 65 : 100;
+
+        var number = window.innerWidth < 768 ? 65 : 100;
         $([document.documentElement, document.body]).animate({
             scrollTop: $target.position().top - number,
-            duration: 500,
+            duration: 1200,
             easing: 'linear'
-        });
+        },1500);
     });
     if ($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0) {
         menu.onScroll();
