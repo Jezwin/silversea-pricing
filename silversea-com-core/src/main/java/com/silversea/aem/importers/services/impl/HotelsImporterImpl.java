@@ -13,6 +13,7 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelsImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
@@ -26,6 +27,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +43,8 @@ import java.util.stream.Stream;
 import static com.day.cq.dam.commons.util.S7SetHelper.isS7Set;
 import static com.silversea.aem.constants.WcmConstants.PATH_DAM_SILVERSEA;
 import static com.silversea.aem.importers.services.impl.BaseImporter.createMediaSet;
+import static com.silversea.aem.importers.utils.ImportersUtils.upsertAsset;
+import static com.silversea.aem.utils.CruiseUtils.firstNonNull;
 import static org.apache.commons.lang3.StringUtils.isAnyEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -55,6 +59,9 @@ public class HotelsImporterImpl implements HotelsImporter {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private MimeTypeService mimeTypeService;
+
     private static String PATH_PORTS = "/etc/tags/ports";
     private static String HOTEL_DATA = "hotelCSVData";
     private static String SEPARATOR = ";";
@@ -428,13 +435,14 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     }
 
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    MediaSet mediaSet = updateMediaSet(resourceResolver, hotel);
+                                    MediaSet mediaSet = updateMediaSet(resourceResolver, session, hotel,
+                                            hotelContentNode);
                                     hotelContentNode.setProperty("assetSelectionReference_api", mediaSet.getPath());
 
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {
                                     final Node hotelContentNode =
-                                            updateHotelContentNode(hotel, hotelPage, resourceResolver);
+                                            updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Hotel {} is marked to be activated", hotel.getHotelName());
@@ -490,7 +498,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 }
 
                                 final Node hotelContentNode =
-                                        updateHotelContentNode(hotel, hotelPage, resourceResolver);
+                                        updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
                                 hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
@@ -546,11 +554,15 @@ public class HotelsImporterImpl implements HotelsImporter {
         return new ImportResult(successNumber, errorNumber);
     }
 
-    private MediaSet updateMediaSet(ResourceResolver resourceResolver, Hotel77 hotel)
+    private MediaSet updateMediaSet(ResourceResolver resourceResolver, Session session, Hotel77 hotel,
+                                    Node hotelContentNode)
             throws PersistenceException, RepositoryException {
-        return createMediaSet(resourceResolver,
-                resourceResolver.getResource(PATH_DAM_SILVERSEA + "/other-resources/hotels/"),
-                hotel.getHotelName(), hotel.getImageUrl(), hotel.getImageUrl2());
+        String path = PATH_DAM_SILVERSEA + "/other-resources/hotels/";
+        String imageUrl = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl(), damPath(hotel));
+        String imageUrl2 = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl2(), damPath(hotel));
+
+        return createMediaSet(resourceResolver, resourceResolver.getResource(path), hotel.getHotelName(), imageUrl,
+                imageUrl2);
     }
 
     @Override
@@ -566,22 +578,30 @@ public class HotelsImporterImpl implements HotelsImporter {
      * @return the content node of the hotel page, updated
      * @throws ImporterException if the hotel page cannot be updated
      */
-    private Node updateHotelContentNode(Hotel77 hotel, Page hotelPage, ResourceResolver resourceResolver)
+    private Node updateHotelContentNode(Hotel77 hotel, Page hotelPage, ResourceResolver resourceResolver,
+                                        Session session)
             throws ImporterException {
         final Node hotelContentNode = hotelPage.getContentResource().adaptTo(Node.class);
 
         if (hotelContentNode == null) {
-            throw new ImporterException("Cannot set properties for hotel " + hotel.getHotelName());
+            throw new ImporterException("Cannl" +
+                    "ot set properties for hotel " + hotel.getHotelName());
         }
 
         try {
             hotelContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
             hotelContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
-            hotelContentNode.setProperty("image", hotel.getImageUrl());
-            hotelContentNode.setProperty("image", hotel.getImageUrl2());
-            updateMediaSet(resourceResolver, hotel);
+            hotelContentNode.setProperty("image",
+                    ImportersUtils.upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl(),
+                            damPath(hotel)));
+            hotelContentNode.setProperty("image2",
+                    ImportersUtils
+                            .upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl2(),
+                                    damPath(hotel)));
+            updateMediaSet(resourceResolver, session, hotel, hotelContentNode);
             hotelContentNode.setProperty("code", hotel.getHotelCod());
             hotelContentNode.setProperty("hotelId", hotel.getHotelId());
+
 
             // Set livecopy mixin
             if (!LanguageHelper.getLanguage(hotelPage).equals("en")) {
@@ -592,6 +612,10 @@ public class HotelsImporterImpl implements HotelsImporter {
         }
 
         return hotelContentNode;
+    }
+
+    private String damPath(Hotel77 hotel) {
+        return PATH_DAM_SILVERSEA + "/other-resources/hotels/" + hotel.getHotelName();
     }
 
     public ImportResult importHotelImages() {

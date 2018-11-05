@@ -2,6 +2,8 @@ package com.silversea.aem.utils;
 
 import com.silversea.aem.models.PriceModel;
 import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.List;
@@ -10,10 +12,12 @@ import java.util.List;
  * @author aurelienolivier
  */
 public class CruiseUtils {
+    static final private Logger LOGGER = LoggerFactory.getLogger(CruiseUtils.class);
 
     /**
      * Recursive collection of prices for this cruise
-     * @param prices the list of prices
+     *
+     * @param prices   the list of prices
      * @param resource resource from where to get the prices
      */
     public static void collectPrices(final List<PriceModel> prices, final Resource resource) {
@@ -41,4 +45,5 @@ public class CruiseUtils {
         }
         return null;
     }
+
 }

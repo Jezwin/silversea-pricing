@@ -30,6 +30,7 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
     private int sessionRefresh = 100;
     private int pageSize = 100;
+
+    @Reference
+    private MimeTypeService mimeService;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -470,25 +474,32 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                         throw new ImporterException(
                                                 "Cannot set properties for excursion " + excursionName);
                                     }
-
-
                                     excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    excursionContentNode.setProperty("image", excursion.getImageUrl());
-                                    excursionContentNode.setProperty("image2", excursion.getImageUrl2());
-                                    excursionContentNode.setProperty("image3", excursion.getImageUrl3());
-                                    excursionContentNode.setProperty("image4", excursion.getImageUrl4());
+                                    String destinationPath = assetPath(excursion);
+                                    String imageDam = ImportersUtils
+                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl(), destinationPath);
+                                    String image2Dam = ImportersUtils
+                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl2(), destinationPath);
+                                    String image3Dam = ImportersUtils
+                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl3(), destinationPath);
+                                    String image4Dam = ImportersUtils
+                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
+
+
+                                    excursionContentNode.setProperty("image", imageDam);
+                                    excursionContentNode.setProperty("image2", image2Dam);
+                                    excursionContentNode.setProperty("image3", image3Dam);
+                                    excursionContentNode.setProperty("image4", image4Dam);
                                     excursionContentNode.setProperty("assetSelectionReference_api",
                                             BaseImporter.createMediaSet(resourceResolver,
                                                     resourceResolver
                                                             .resolve(PATH_DAM_SILVERSEA + "/other-resources/shorex/"),
-                                                    excursionName,
-                                                    excursion.getImageUrl(), excursion.getImageUrl2(),
-                                                    excursion.getImageUrl3(), excursion.getImageUrl4()).getPath());
+                                                    excursionName, imageDam, image2Dam, image3Dam, image4Dam).getPath());
 
                                     LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
                                 } else {
                                     final Node excursionContentNode = updateExcursionContentNode(excursion,
-                                            excursionPage, featuresMapping, resourceResolver);
+                                            excursionPage, featuresMapping, resourceResolver, session);
                                     excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Excursion {} is marked to be activated", excursionName);
@@ -545,7 +556,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                 }
 
                                 final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage,
-                                        featuresMapping, resourceResolver);
+                                        featuresMapping, resourceResolver, session);
                                 excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Excursion {} successfully created", excursionPage.getPath());
@@ -601,6 +612,10 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
         return new ImportResult(successNumber, errorNumber);
     }
 
+    private String assetPath(Shorex77 shorex77) {
+        return PATH_DAM_SILVERSEA + "/other-resources/shorex/" + shorex77.getShorexName();
+    }
+
     @Override
     public void importOneShoreExcursion(String shoreExcursionId) {
         // TODO implement
@@ -615,7 +630,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
      * @throws ImporterException if the excursion page cannot be updated
      */
     private Node updateExcursionContentNode(final Shorex77 excursion, final Page excursionPage,
-                                            Map<Integer, String> featuresMapping, ResourceResolver resourceResolver)
+                                            Map<Integer, String> featuresMapping, ResourceResolver resourceResolver, Session session)
             throws ImporterException, PersistenceException {
         final Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
 
@@ -635,17 +650,26 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             excursionContentNode.setProperty("okForDebarks", excursion.isOkForDebarks());
             excursionContentNode.setProperty("okForEmbarks", excursion.isOkForEmbarks());
             excursionContentNode.setProperty("shorexCategory", excursion.getShorexCategory());
+            String destinationPath = assetPath(excursion);
 
-            excursionContentNode.setProperty("image", excursion.getImageUrl());
-            excursionContentNode.setProperty("image2", excursion.getImageUrl2());
-            excursionContentNode.setProperty("image3", excursion.getImageUrl3());
-            excursionContentNode.setProperty("image4", excursion.getImageUrl4());
+            String imageDam = ImportersUtils
+                    .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl(), destinationPath);
+            String image2Dam = ImportersUtils
+                    .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl2(), destinationPath);
+            String image3Dam = ImportersUtils
+                    .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl3(), destinationPath);
+            String image4Dam = ImportersUtils
+                    .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
+
+
+            excursionContentNode.setProperty("image", imageDam);
+            excursionContentNode.setProperty("image2", image2Dam);
+            excursionContentNode.setProperty("image3", image3Dam);
+            excursionContentNode.setProperty("image4", image4Dam);
             excursionContentNode
                     .setProperty("assetSelectionReference_api", BaseImporter.createMediaSet(resourceResolver,
                             resourceResolver.resolve(PATH_DAM_SILVERSEA + "/other-resources/shorex/"),
-                            excursion.getShorexName(),
-                            excursion.getImageUrl(), excursion.getImageUrl2(),
-                            excursion.getImageUrl3(), excursion.getImageUrl4()).getPath());
+                            excursion.getShorexName(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
             if (StringUtils.isNotBlank(excursion.getSymbols())) {
                 final String[] symbolsIDs = excursion.getSymbols().split(",");
 

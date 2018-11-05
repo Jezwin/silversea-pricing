@@ -2,7 +2,6 @@ package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.dam.api.s7dam.set.MediaSet;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -12,23 +11,20 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramsImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
-import com.silversea.aem.models.LandProgramModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.LandsApi;
-import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.model.Land;
 import io.swagger.client.model.Land77;
-import io.swagger.client.model.Shorex;
-
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,15 +32,11 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.silversea.aem.constants.WcmConstants.PATH_DAM_SILVERSEA;
 import static com.silversea.aem.importers.services.impl.BaseImporter.createMediaSet;
+import static com.silversea.aem.importers.utils.ImportersUtils.upsertAsset;
 
 @Service
 @Component
@@ -54,6 +46,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
     private int sessionRefresh = 100;
     private int pageSize = 100;
+
+    @Reference
+    private MimeTypeService mimeService;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -239,10 +234,10 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        try (final ResourceResolver resourceResolver = resourceResolverFactory
+        try (final ResourceResolver resolver = resourceResolverFactory
                 .getServiceResourceResolver(authenticationParams)) {
-            final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            final Session session = resourceResolver.adaptTo(Session.class);
+            final PageManager pageManager = resolver.adaptTo(PageManager.class);
+            final Session session = resolver.adaptTo(Session.class);
 
             final LandsApi landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
 
@@ -257,13 +252,13 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             LOGGER.debug("Last import date for land programs {}", lastModificationDate);
 
             // cities mapping
-            final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+            final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
 
             // land programs mapping
             final Map<Integer, Map<String, Page>> landProgramsMapping =
-                    ImportersUtils.getItemsPageMapping(resourceResolver,
+                    ImportersUtils.getItemsPageMapping(resolver,
                             "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                                     "[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]",
                             "landId");
@@ -281,16 +276,16 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                 LOGGER.trace("Total landPrograms : {}, page : {}, landPrograms for this page : {}", landPrograms.size(),
                         apiPage, landPrograms.size());
 
-                for (Land77 landProgram : landPrograms) {
-                    final String landProgramName = landProgram.getLandName();
+                for (Land77 land : landPrograms) {
+                    final String landProgramName = land.getLandName();
 
                     LOGGER.debug("Updating landProgram: {}", landProgramName);
 
                     try {
-                        if (landProgramsMapping.containsKey(landProgram.getLandId())) {
+                        if (landProgramsMapping.containsKey(land.getLandId())) {
                             // if landPrograms are found, update it
                             for (Map.Entry<String, Page> landProgramsPages : landProgramsMapping
-                                    .get(landProgram.getLandId()).entrySet()) {
+                                    .get(land.getLandId()).entrySet()) {
                                 final Page landProgramPage = landProgramsPages.getValue();
 
                                 LOGGER.trace("Updating landProgram {}", landProgramName);
@@ -300,34 +295,38 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 }
 
                                 // depending of the city status, mark the page to be activated or deactivated
-                                if (BooleanUtils.isTrue(landProgram.getIsDeleted())) {
-                                    final Node landProgramContentNode =
+                                if (BooleanUtils.isTrue(land.getIsDeleted())) {
+                                    final Node landNode =
                                             landProgramPage.getContentResource().adaptTo(Node.class);
 
-                                    if (landProgramContentNode == null) {
+                                    if (landNode == null) {
                                         throw new ImporterException(
                                                 "Cannot set properties for landProgram " + landProgramName);
                                     }
 
-                                    landProgramContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    landProgramContentNode.setProperty("image", landProgram.getImageUrl());
-                                    landProgramContentNode.setProperty("image2", landProgram.getImageUrl2());
-                                    landProgramContentNode.setProperty("image3", landProgram.getImageUrl3());
-                                    landProgramContentNode.setProperty("image4", landProgram.getImageUrl4());
-                                    landProgramContentNode.setProperty("image5", landProgram.getImageUrl5());
-                                    landProgramContentNode.setProperty("image6", landProgram.getImageUrl6());
+                                    landNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                                    String assetPath = getAssetPath(land);
+                                    String imageDam = upsertAsset(session, resolver, mimeService, land.getImageUrl(), assetPath);
+                                    String image2Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl2(), assetPath);
+                                    String image3Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl3(), assetPath);
+                                    String image4Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl4(), assetPath);
+                                    String image5Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl5(), assetPath);
+                                    String image6Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl6(), assetPath);
+                                    landNode.setProperty("image", imageDam);
+                                    landNode.setProperty("image2", image2Dam);
+                                    landNode.setProperty("image3", image3Dam);
+                                    landNode.setProperty("image4", image4Dam);
+                                    landNode.setProperty("image5", image5Dam);
+                                    landNode.setProperty("image6", image6Dam);
 
-                                    landProgramContentNode.setProperty("assetSelectionReference_api",
-                                            createMediaSet(resourceResolver, resourceResolver
-                                                            .resolve(PATH_DAM_SILVERSEA + "/other-resources/landPrograms/"),
-                                                    landProgramName, landProgram.getImageUrl(),
-                                                    landProgram.getImageUrl2(),
-                                                    landProgram.getImageUrl3(), landProgram.getImageUrl4(),
-                                                    landProgram.getImageUrl5(), landProgram.getImageUrl6()).getPath());
+                                    landNode.setProperty("assetSelectionReference_api",
+                                            createMediaSet(resolver, resolver.resolve(PATH_DAM_SILVERSEA + "/other-resources/landPrograms/"),
+                                                    landProgramName, imageDam, image2Dam, image3Dam, image4Dam,
+                                                    image5Dam, image6Dam).getPath());
                                     LOGGER.trace("Land program {} is marked to be deactivated", landProgramName);
                                 } else {
                                     final Node landProgramContentNode =
-                                            updateLandProgramContentNode(landProgram, landProgramPage, resourceResolver);
+                                            updateLandProgramContentNode(land, landProgramPage, resolver, session);
                                     landProgramContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Land program {} is marked to be activated", landProgramName);
@@ -336,7 +335,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                         } else {
                             // Getting cities with the city id read from the landProgram
                             Integer cityId =
-                                    landProgram.getCities().size() > 0 ? landProgram.getCities().get(0).getCityId() :
+                                    land.getCities().size() > 0 ? land.getCities().get(0).getCityId() :
                                             null;
 
                             if (cityId == null) {
@@ -386,7 +385,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 }
 
                                 final Node landProgramContentNode =
-                                        updateLandProgramContentNode(landProgram, landProgramPage, resourceResolver);
+                                        updateLandProgramContentNode(land, landProgramPage, resolver, session);
                                 landProgramContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Land program {} successfully created", landProgramPage.getPath());
@@ -439,6 +438,10 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                 apiPage);
 
         return new ImportResult(successNumber, errorNumber);
+    }
+
+    private String getAssetPath(Land77 landProgram) {
+        return PATH_DAM_SILVERSEA + "/other-resources/landPrograms" + "/" + landProgram.getLandId();
     }
 
     public ImportResult disactiveAllItemDeltaByAPI() {
@@ -564,46 +567,51 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
     /**
      * Update land program properties from API
      *
-     * @param landProgram     landProgram object from API
+     * @param land            landProgram object from API
      * @param landProgramPage page of the landProgram
      * @return the content node of the landProgram page, updated
      * @throws ImporterException if the landProgram page cannot be updated
      */
-    private Node updateLandProgramContentNode(Land77 landProgram, Page landProgramPage, ResourceResolver resolver) throws ImporterException {
-        final Node landProgramPageContentNode = landProgramPage.getContentResource().adaptTo(Node.class);
+    private Node updateLandProgramContentNode(Land77 land, Page landProgramPage, ResourceResolver resolver, Session session)
+            throws ImporterException {
+        final Node landNode = landProgramPage.getContentResource().adaptTo(Node.class);
 
-        if (landProgramPageContentNode == null) {
-            throw new ImporterException("Cannot set properties for landProgram " + landProgram.getLandName());
+        if (landNode == null) {
+            throw new ImporterException("Cannot set properties for landProgram " + land.getLandName());
         }
 
         try {
-            landProgramPageContentNode.setProperty(JcrConstants.JCR_TITLE, landProgram.getLandName());
-            landProgramPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
-                    landProgram.getDescription());
-            landProgramPageContentNode.setProperty("landId", landProgram.getLandId());
-            landProgramPageContentNode.setProperty("landCode", landProgram.getLandCod());
-            landProgramPageContentNode.setProperty("image", landProgram.getImageUrl());
-            landProgramPageContentNode.setProperty("image2", landProgram.getImageUrl2());
-            landProgramPageContentNode.setProperty("image3", landProgram.getImageUrl3());
-            landProgramPageContentNode.setProperty("image4", landProgram.getImageUrl4());
-            landProgramPageContentNode.setProperty("image5", landProgram.getImageUrl5());
-            landProgramPageContentNode.setProperty("image6", landProgram.getImageUrl6());
-            landProgramPageContentNode.setProperty("assetSelectionReference_api",
+            landNode.setProperty(JcrConstants.JCR_TITLE, land.getLandName());
+            landNode.setProperty(JcrConstants.JCR_DESCRIPTION,
+                    land.getDescription());
+            landNode.setProperty("landId", land.getLandId());
+            landNode.setProperty("landCode", land.getLandCod());
+            String assetPath = getAssetPath(land);
+            String imageDam = upsertAsset(session, resolver, mimeService, land.getImageUrl(), assetPath);
+            String image2Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl2(), assetPath);
+            String image3Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl3(), assetPath);
+            String image4Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl4(), assetPath);
+            String image5Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl5(), assetPath);
+            String image6Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl6(), assetPath);
+            landNode.setProperty("image", imageDam);
+            landNode.setProperty("image2", image2Dam);
+            landNode.setProperty("image3", image3Dam);
+            landNode.setProperty("image4", image4Dam);
+            landNode.setProperty("image5", image5Dam);
+            landNode.setProperty("image6", image6Dam);
+            landNode.setProperty("assetSelectionReference_api",
                     createMediaSet(resolver, resolver
                                     .resolve(PATH_DAM_SILVERSEA + "/other-resources/landPrograms/"),
-                            landProgram.getLandName(), landProgram.getImageUrl(),
-                            landProgram.getImageUrl2(),
-                            landProgram.getImageUrl3(), landProgram.getImageUrl4(),
-                            landProgram.getImageUrl5(), landProgram.getImageUrl6()).getPath());
+                            land.getLandName(), imageDam, image2Dam, image3Dam, image4Dam, image5Dam, image6Dam).getPath());
 
             // Set livecopy mixin
             if (!LanguageHelper.getLanguage(landProgramPage).equals("en")) {
-                landProgramPageContentNode.addMixin("cq:LiveRelationship");
+                landNode.addMixin("cq:LiveRelationship");
             }
         } catch (RepositoryException | PersistenceException e) {
-            throw new ImporterException("Cannot set properties for landProgram " + landProgram.getLandName(), e);
+            throw new ImporterException("Cannot set properties for landProgram " + land.getLandName(), e);
         }
 
-        return landProgramPageContentNode;
+        return landNode;
     }
 }

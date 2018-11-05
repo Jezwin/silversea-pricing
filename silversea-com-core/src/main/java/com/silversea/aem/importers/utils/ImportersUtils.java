@@ -6,22 +6,32 @@ import com.burgstaller.okhttp.digest.CachingAuthenticator;
 import com.burgstaller.okhttp.digest.Credentials;
 import com.burgstaller.okhttp.digest.DigestAuthenticator;
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.day.jcr.vault.util.SHA1;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,11 +39,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ImportersUtils {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ImportersUtils.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ImportersUtils.class);
 
     /**
      * @param pageManager
-     *
      * @return
      */
     public static List<String> getSiteLocales(final PageManager pageManager) {
@@ -59,7 +68,6 @@ public class ImportersUtils {
      * @param pageManager
      * @param masterPage
      * @param locale
-     *
      * @return
      */
     public static Page getPagePathByLocale(final PageManager pageManager, final Page masterPage, final String locale) {
@@ -80,14 +88,14 @@ public class ImportersUtils {
      * <p>
      * Set the last modification date on the defined <code>rootPath</code>
      *
-     * @param pageManager the page manager
-     * @param session the session
-     * @param rootPath path of the page where to set the last modification date property
+     * @param pageManager  the page manager
+     * @param session      the session
+     * @param rootPath     path of the page where to set the last modification date property
      * @param propertyName the property name to write
      */
     @Deprecated
     public static void setLastModificationDate(PageManager pageManager, Session session,
-            final String rootPath, final String propertyName) {
+                                               final String rootPath, final String propertyName) {
         // Setting modification date for each language
         final Page rootPage = pageManager.getPage(rootPath);
 
@@ -116,11 +124,10 @@ public class ImportersUtils {
     /**
      * Set the last modification date on the defined <code>rootPath</code>
      *
-     * @param session the session
-     * @param rootPath path of the page where to set the last modification date property
+     * @param session      the session
+     * @param rootPath     path of the page where to set the last modification date property
      * @param propertyName the property name to write
-     * @param autoSave save the session if true
-     *
+     * @param autoSave     save the session if true
      * @throws RepositoryException
      */
     public static void setLastModificationDate(final Session session, final String rootPath, final String
@@ -135,7 +142,6 @@ public class ImportersUtils {
 
     /**
      * @param apiConfigurationService the api configuration
-     *
      * @return a configured API client
      */
     public static ApiClient getApiClient(ApiConfigurationService apiConfigurationService) {
@@ -165,13 +171,11 @@ public class ImportersUtils {
      * @param resourceResolver
      * @param sessionRefresh
      * @param query
-     *
      * @return
-     *
      * @throws RepositoryException
      */
     public static int deleteResources(final ResourceResolver resourceResolver, final int sessionRefresh,
-            final String query) throws RepositoryException {
+                                      final String query) throws RepositoryException {
         final Session session = resourceResolver.adaptTo(Session.class);
 
         if (session == null) {
@@ -226,7 +230,6 @@ public class ImportersUtils {
      * TODO javadoc TODO generify
      *
      * @param resourceResolver
-     *
      * @return
      */
     public static List<ItineraryModel> getItineraries(ResourceResolver resourceResolver) {
@@ -254,13 +257,12 @@ public class ImportersUtils {
      * Build a Map with : <ul> <li>id of the element</li> <li>lang</li> <li>path of the element (page)</li> </ul>
      *
      * @param resourceResolver the resource resolver
-     * @param query xpath query searching for cq:PageContent items
-     * @param propertyId property name of the element id
-     *
+     * @param query            xpath query searching for cq:PageContent items
+     * @param propertyId       property name of the element id
      * @return items mapping
      */
     public static Map<Integer, Map<String, String>> getItemsMapping(final ResourceResolver resourceResolver,
-            final String query, final String propertyId) {
+                                                                    final String query, final String propertyId) {
         final Iterator<Resource> itemsForMapping = resourceResolver.findResources(query, "xpath");
 
         final Map<Integer, Map<String, String>> itemsMapping = new HashMap<>();
@@ -293,13 +295,12 @@ public class ImportersUtils {
      * Build a Map with : <ul> <li>id of the element</li> <li>lang</li> <li>page</li> </ul>
      *
      * @param resourceResolver the resource resolver
-     * @param query xpath query searching for cq:PageContent items
-     * @param propertyId property name of the element id
-     *
+     * @param query            xpath query searching for cq:PageContent items
+     * @param propertyId       property name of the element id
      * @return items mapping
      */
     public static Map<Integer, Map<String, Page>> getItemsPageMapping(final ResourceResolver resourceResolver,
-            final String query, final String propertyId) {
+                                                                      final String query, final String propertyId) {
         final Iterator<Resource> itemsForMapping = resourceResolver.findResources(query, "xpath");
 
         final Map<Integer, Map<String, Page>> itemsMapping = new HashMap<>();
@@ -329,9 +330,8 @@ public class ImportersUtils {
     }
 
     /**
-     * @param page the page from where to get the date
+     * @param page         the page from where to get the date
      * @param propertyName name of the date property to retrieve
-     *
      * @return simplified date from property defined by <code>propertyName</code>
      */
     public static String getDateFromPageProperties(final Page page, final String propertyName) {
@@ -348,5 +348,68 @@ public class ImportersUtils {
         }
 
         return null;
+    }
+
+
+    /**
+     * Create a new asset if not already existent.
+     *
+     * @param resourceResolver The resource resolver.
+     * @param mimeTypeService  The mime type service.
+     * @param assetUrl         The URL of the asset to be saved.
+     * @param destinationPath  The destination for the new asset. The filename will be retrieved from the assetUrl and
+     *                         appended.
+     * @return The created or already existing asset.
+     */
+    public static String upsertAsset(Session session, ResourceResolver resourceResolver,
+                                     MimeTypeService mimeTypeService, String assetUrl,
+                                     String destinationPath) {
+        final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
+        String fileName = assetUrl.substring(assetUrl.lastIndexOf("/") + 1);
+        String finalDestination = destinationPath + "/" + fileName;
+        try {
+            if (!session.itemExists(finalDestination) ||
+                    isResourceToBeUpdated(resourceResolver, finalDestination, new URL(assetUrl))) {
+                LOGGER.info("Creating itinerary asset {}", finalDestination);
+                try (InputStream mapStream = new URL(assetUrl).openStream()) {
+                    final Asset asset = assetManager.createAsset(finalDestination, mapStream,
+                            mimeTypeService.getMimeType(assetUrl), false);
+                    LOGGER.info("Creating {} SAVED.", finalDestination);
+                    // setting to activate flag on asset
+                    final Node assetNode = asset.adaptTo(Node.class);
+                    if (assetNode != null && assetNode.hasNode(JcrConstants.JCR_CONTENT)) {
+                        final Node assetContentNode = assetNode.getNode(JcrConstants.JCR_CONTENT);
+                        if (assetContentNode != null) {
+                            assetContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                        }
+                    }
+                }
+                return finalDestination;
+
+            }
+        } catch (RepositoryException | IOException e) {
+            LOGGER.error("Error during creation of {}", assetUrl);
+        }
+        return finalDestination;
+
+    }
+
+
+    public static boolean isResourceToBeUpdated(ResourceResolver resourceResolver, String existingResource,
+                                                URL remoteUrl) {
+        Resource existingAsset = resourceResolver.getResource(existingResource);
+        String existingSha1 =
+                existingAsset.getChild("jcr:content/metadata").adaptTo(ValueMap.class).get("dam:sha1", String.class);
+        try (InputStream is = remoteUrl.openStream()) {
+            if (existingSha1 != null) {
+                SHA1 newSha1 = SHA1.digest(is);
+                String newChecksum = newSha1.toString();
+                return !existingSha1.equals(newChecksum);
+            }
+        } catch (IOException e) {
+            LOGGER.error("Error comparing {} with {}", existingResource, remoteUrl);
+        }
+        return true;
+
     }
 }

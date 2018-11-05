@@ -1,6 +1,8 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -10,14 +12,20 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
 import com.day.cq.dam.api.s7dam.set.MediaSet;
+import com.day.jcr.vault.util.JcrConstants;
+import com.day.jcr.vault.util.SHA1;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
