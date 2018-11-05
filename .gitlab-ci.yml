@@ -17,7 +17,7 @@ analysis_sonar:
         - develop
 
 ### Migration Build
-mvn_build_mig_author:
+mvn_build_author:
     stage: build-author-stage
     environment:
         name: Migration
@@ -30,7 +30,7 @@ mvn_build_mig_author:
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
-mvn_build_mig_publish1:
+mvn_build_publish1:
     stage: build-publishes-stage
     environment:
         name: Migration
@@ -42,7 +42,7 @@ mvn_build_mig_publish1:
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
-mvn_build_mig_publish2:
+mvn_build_publish2:
     stage: build-publishes-stage
     environment:
         name: Migration
@@ -55,7 +55,7 @@ mvn_build_mig_publish2:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
         
 ### Migration PROD Build
-mvn_build_mig_author_prod:
+mvn_build_author_prod:
     stage: build-author-prod
     environment:
         name: Migration_prod
@@ -68,7 +68,7 @@ mvn_build_mig_author_prod:
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-GA$/
 
-mvn_build_mig_publish1_prod:
+mvn_build_publish1_prod:
     stage: build-publishes-prod
     environment:
         name: Migration_prod
@@ -80,7 +80,7 @@ mvn_build_mig_publish1_prod:
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-GA$/
 
-mvn_build_mig_publish2_prod:
+mvn_build_publish2_prod:
     stage: build-publishes-prod
     environment:
         name: Migration_prod
