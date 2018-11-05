@@ -72,11 +72,15 @@ word-break:break-word;
                             <tr>
                                 <td colspan="1"><strong>S.No.</strong></td>
                                 <td colspan="2"><strong>File Name</strong></td>
+                                <td colspan="2"><strong>Type of Lead</strong></td>
+                                <td colspan="2"><strong>Date of Submission</strong></td>
                             </tr>
                             <div data-sly-list.notlist = "${notfuse.leadData}">
                                 <tr>
                                     <td colspan="1"><strong>${notlistList.count}</strong></td>
-                                    <td colspan="2">${notlist}</td>                                    
+                                    <td colspan="2">${notlist.fileName}</td>  
+									<td colspan="2">${notlist.type}</td>
+									<td colspan="2">${notlist.dateOfSubmission}</td>  
                                 </tr>
                             </div>
                         </tbody>

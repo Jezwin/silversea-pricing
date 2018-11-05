@@ -6,7 +6,7 @@
 
 .lightbox-deck {
 
-  .cruise-invisible{
+  .cruise-invisible {
     visibility: hidden;
   }
   .lg-content {
@@ -31,12 +31,12 @@
       width: 100% !important;
       padding-left: 0px !important;
 
-      .label-spec{
-          position: relative !important;
-          display: inline !important;
-          height: 100% !important;
-          width: 100% !important;
-          float: unset !important;
+      .label-spec {
+        position: relative !important;
+        display: inline !important;
+        height: 100% !important;
+        width: 100% !important;
+        float: unset !important;
       }
       .value-spec {
         position: relative !important;
@@ -46,7 +46,7 @@
         float: unset !important;
       }
     }
-    
+
     .row {
       margin-left: 0px;
       margin-right: 0px;
@@ -111,6 +111,15 @@
     .lg-deck-tab {
       text-align: center;
     }
+    .lg-deck-number:first-of-type {
+      span {
+        margin-left: 0;
+        &:after {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+    }
     .lg-deck-number {
       display: inline-block;
       vertical-align: top;
@@ -122,26 +131,12 @@
         text-transform: uppercase;
       }
 
-      span::after {
-        content: "";
-        position: absolute;
-        width: 68%;
-        display: block;
-        border-radius: 4px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-      }
-
       &:hover {
         span {
           opacity: 1;
           color: @color-second;
-        }
-        span:after {
-          border-top: 0.12em solid @color-second;
+          border-bottom: 2px solid @color-second;
+          padding-bottom: 5px;
         }
       }
     }
@@ -159,9 +154,8 @@
       span {
         opacity: 1;
         color: @color-second;
-      }
-      span:after {
-        border-top: 0.12em solid @color-second;
+        border-bottom: 2px solid @color-second;
+        padding-bottom: 5px;
       }
     }
 
@@ -180,7 +174,7 @@
 @media screen and (min-width: @screen-md-min) {
   .lightbox-deck {
     .lg-content {
-      margin: 0 60px 0 60px;
+      margin: 0px 48px;
 
       hr {
         margin-top: 30px;
@@ -201,7 +195,7 @@
           font-size: 13px;
           letter-spacing: 1.5px;
           line-height: 16px;
-          margin-left: 30px;
+          margin-left: 27px;
         }
         span::after {
           margin-left: 32%;
@@ -227,7 +221,7 @@
       padding-top: 25px;
       position: relative;
 
-      .row-right, .row-left{
+      .row-right, .row-left {
         padding-left: 0px;
         padding-right: 0px
       }

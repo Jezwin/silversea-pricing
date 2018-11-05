@@ -74,6 +74,22 @@
                                         value="textfirst"/>
                                 </items>
                             </order>
+                            <displayas
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Display Type"
+                                name="./displayas">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <normal
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Normal"
+                                        value="automatic-gallery-modal"/>
+                                    <fullscreen
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Full Screen"
+                                        value="automatic-gallery-modal-fullscreen"/>
+                                </items>
+                            </displayas>
                             <desktopContentWidth
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/numberfield"
@@ -86,65 +102,71 @@
                     </column>
                 </items>
             </steveandsilversea>
-             <desktop
-               jcr:primaryType="nt:unstructured"
-               jcr:title="Desktop options"
-               sling:resourceType="granite/ui/components/foundation/container">
-                 <layout jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-                 <items jcr:primaryType="nt:unstructured">
-                    <column jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+            <desktop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <cssDesktop
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                fieldLabel="Custom css desktop"
-                                rows="20"
                                 fieldDescription="Custom css only desktop"
-                                name="./cssDesktop" />
+                                fieldLabel="Custom css desktop"
+                                name="./cssDesktop"
+                                rows="20"/>
                         </items>
                     </column>
                 </items>
             </desktop>
             <tablet
-               jcr:primaryType="nt:unstructured"
-               jcr:title="Tablet options"
-               sling:resourceType="granite/ui/components/foundation/container">
-                 <layout jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-                 <items jcr:primaryType="nt:unstructured">
-                    <column jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Tablet options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <cssTablet
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                fieldLabel="Custom css tablet"
-                                rows="20"
                                 fieldDescription="Custom css only tablet"
-                                name="./cssTablet" />
+                                fieldLabel="Custom css tablet"
+                                name="./cssTablet"
+                                rows="20"/>
                         </items>
                     </column>
                 </items>
             </tablet>
             <mobile
-               jcr:primaryType="nt:unstructured"
-               jcr:title="Mobile options"
-               sling:resourceType="granite/ui/components/foundation/container">
-                 <layout jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
-                 <items jcr:primaryType="nt:unstructured">
-                    <column jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Mobile options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <cssMobile
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                fieldLabel="Custom css mobile"
-                                rows="20"
                                 fieldDescription="Custom css only mobile"
-                                name="./cssMobile" />
+                                fieldLabel="Custom css mobile"
+                                name="./cssMobile"
+                                rows="20"/>
                         </items>
                     </column>
                 </items>

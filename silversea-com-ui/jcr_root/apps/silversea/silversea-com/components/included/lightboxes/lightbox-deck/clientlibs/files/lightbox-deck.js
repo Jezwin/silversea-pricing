@@ -5,7 +5,7 @@ $(function () {
         e && e.preventDefault();
         e && e.stopPropagation();
         var $element = $(myThat),
-            deckNumber= $element.data("deck-number"),
+            deckNumber = $element.data("deck-number"),
             srcImageTop = $element.data("image-src-top"),
             srcImageSide = $element.data("image-src-side"),
             $imgTop = $("#image-deck-plan-top"),
@@ -46,7 +46,7 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
-                setTopLightboxModal();
+                setTopLightboxModal(400, "#image-deck-plan-top");
                 $(".lightbox-deck  .lg-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });

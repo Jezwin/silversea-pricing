@@ -135,10 +135,10 @@ public class AssetUtils {
                         sscAsset = new SilverseaAsset();
                         sscAsset.setPath(asset.getPath());
                         sscAsset.setName(asset.getName());
-                        if (StringUtils.isNotEmpty(label)) {
-                            sscAsset.setLabel(label);
-                        } else {
+                        if (StringUtils.isNotEmpty(asset.getMetadataValue("dc:title"))) {
                             sscAsset.setLabel(asset.getMetadataValue("dc:title"));
+                        } else {
+                            sscAsset.setLabel(label);
                         }
                         String metadataValue = asset.getMetadataValue("dam:credit");
                         sscAsset.setCredits(metadataValue);

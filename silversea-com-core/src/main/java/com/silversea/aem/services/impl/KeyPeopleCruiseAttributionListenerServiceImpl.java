@@ -1,7 +1,6 @@
 package com.silversea.aem.services.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,7 +27,7 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.observation.ResourceChange;
 import org.apache.sling.api.resource.observation.ResourceChangeListener;
 import org.apache.sling.event.jobs.JobManager;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
+import org.apache.sling.jcr.resource.api.JcrResourceConstants;
 import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
@@ -66,6 +65,8 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 	@Override
 	public void onChange(@Nonnull List<ResourceChange> changes) {
 		if (slingSettingsService.getRunModes().contains("author")) {
+			// TO BE RESTARTED FROM SCRATCH DUE TO THE 6.4
+			/*
 			Map<String, Object> authenticationParams = new HashMap<>();
 			authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 			Session session = null;
@@ -349,7 +350,7 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 				if (session != null) {
 					session.logout();
 				}
-			}
+			}*/
 		}
 	}
 }

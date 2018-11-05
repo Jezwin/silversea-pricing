@@ -331,9 +331,8 @@
         span {
           opacity: 1;
           color: @color-second;
-        }
-        span:after {
-          border-top: 0.12em solid @color-second;
+          border-bottom: 2px solid @color-second;
+          padding-bottom: 5px;
         }
       }
     }
@@ -355,9 +354,8 @@
       span {
         opacity: 1;
         color: @color-second;
-      }
-      span:after {
-        border-top: 0.12em solid @color-second;
+        border-bottom: 2px solid @color-second;
+        padding-bottom: 5px;
       }
     }
 
@@ -628,7 +626,7 @@
         margin: auto;
       }
       .lg-suite-deck-label {
-        font-size: 12px;
+        font-size: 13px;
         letter-spacing: 1px;
         line-height: 18px;
         margin-top: 0px;
@@ -685,8 +683,12 @@
     .lg-suite-features {
       font-size: 12px;
       margin-top: 20px;
+      .lg-suite-features-label{
+        margin-bottom: 20px !important;
+      }
       .lg-suite-features-list {
         -webkit-columns: 1;
+        display: none;
       }
 
       .lg-suite-features-expand {

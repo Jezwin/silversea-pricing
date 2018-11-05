@@ -184,7 +184,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         // Get type from configuration
         final Conf confRes = getResource().adaptTo(Conf.class);
         if (confRes != null) {
-            final ValueMap fycConf = confRes.getItem("/findyourcruise/findyourcruise");
+            final ValueMap fycConf = confRes.getItem("findyourcruise/findyourcruise");
 
             if (fycConf != null) {
                 type = fycConf.get("type", String.class);
