@@ -24,7 +24,11 @@ public class Activator implements BundleActivator, BundleListener {
         if (event.getType() == BundleEvent.STARTED
                 && event.getBundle().getSymbolicName().equals("com.silversea.aem.silversea-com-core")) {
 
-            Thread.sleep(20000);
+            try {
+                Thread.sleep(20000);
+            } catch (InterruptedException e) {
+               // e.printStackTrace();
+            }
             final BundleContext context = event.getBundle().getBundleContext();
 
             final ServiceReference serviceReference = context.getServiceReference(CruisesCacheService.class.getName());
