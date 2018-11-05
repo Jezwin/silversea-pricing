@@ -1,4 +1,4 @@
-<template data-sly-template.default="${@ filter, type, class, singular, plural, label, name }">
+<template data-sly-template.default="${@ filter, type, class, singular, plural, label, name, autocomplete,placeholder }">
     <div class="fyc2018-filter">
         <div class="fyc2018-filter-content">
             <span id="${type}" data-singular="${singular @ i18n}" data-plural="${plural @ i18n}">
@@ -8,18 +8,21 @@
         <div class="${type} fyc2018-filter-value" data-filter="${type}" data-name="${name}">
             <div class="fyc2018-filter-label col-xs-12">
                 <span class="fyc2018-filter-clear"><i class="material-icons">close</i></span>
+                <input data-sly-test="${autocomplete}" id="filter-autocomplete" class="form-control fyc2018-filter-autocomplete" placeholder="${placeholder}" />
             </div>
-            <sly data-sly-repeat="${filter}">
-                <div class="${class || 'col-sm-6'} filter-value filter-no-selected" data-sly-test="${item.isEnabled}" data-value="${item.key}">
-                    <span>${item.label} ${label @ i18n}</span>
-                </div>
-                <div  class="${class || 'col-sm-6'} filter-value filter-selected" data-sly-test="${item.isChosen}" data-value="${item.key}">
-                    <span>${item.label} ${label @ i18n}</span>
-                </div>
-                <div class="${class || 'col-sm-6'} filter-value filter-disabled" data-sly-test="${item.isDisabled}" data-value="${item.key}">
-                    <span>${item.label} ${label @ i18n}</span>
-                </div>
-            </sly>
+            <div data-sly-list="${filter}" class="${autocomplete ?  'fyc2018-filter-autocomplete-content' : ''}">
+                <sly data-sly-test="${(autocomplete && itemList.index < 101) || !autocomplete}">
+                    <div class="${class || 'col-sm-6'} filter-value filter-no-selected" data-sly-test="${item.isEnabled}" data-value="${item.key}">
+                        <span>${item.label} ${label @ i18n}</span>
+                    </div>
+                    <div  class="${class || 'col-sm-6'} filter-value filter-selected" data-sly-test="${item.isChosen}" data-value="${item.key}">
+                        <span>${item.label} ${label @ i18n}</span>
+                    </div>
+                    <div class="${class || 'col-sm-6'} filter-value filter-disabled" data-sly-test="${item.isDisabled}" data-value="${item.key}">
+                        <span>${item.label} ${label @ i18n}</span>
+                    </div>
+                </sly>
+            </div>
         </div>
     </div>
 </template>

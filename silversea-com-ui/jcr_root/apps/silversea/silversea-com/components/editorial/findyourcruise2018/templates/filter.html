@@ -20,6 +20,9 @@
                 <sly data-sly-test="${fyc.totalResults == 1}">${'cruise' @ i18n}</sly>
                 <sly data-sly-test="${fyc.totalResults > 1}">${'cruises' @ i18n}</sly>
             </div>
+            <script>
+                window.portsList = '${fyc.filterBar.PORT.toString @ context="scriptString" }';
+            </script>
         </div>
         <div class="fyc2018-filters-container">
             <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
@@ -35,7 +38,7 @@
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.TYPE.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type'}"/>
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', singular='port', plural='ports', name='port'}"/>
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='Search port'}"/>
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='features', plural='features', name='features'}"/>
                 </div>

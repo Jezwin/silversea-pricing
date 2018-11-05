@@ -2,6 +2,7 @@
 
 .findyourcruise2018 {
 
+  min-height: 500px;
   .c-fyc-v2__result-wrapper {
     margin-top: 60px;
   }
@@ -122,6 +123,10 @@
       }
     }
 
+    .easy-autocomplete-container {
+      display: none;
+    }
+
     .fyc2018-filter-value-clicked {
       .fyc2018-filter-label {
         text-align: right !important;
@@ -133,7 +138,7 @@
 
         .fyc2018-filter-label-content {
           background-color: transparent;
-          font-size: 21px ;
+          font-size: 21px;
           width: 100%;
           font-family: @suisse;
           text-align: left;
@@ -147,7 +152,6 @@
           font-weight: normal;
           letter-spacing: 0;
           text-align: center;
-
 
           .fyc2018-filter-label-close {
             float: right;
@@ -164,7 +168,7 @@
             margin-left: 15px;
             font-weight: 600;
 
-            i{
+            i {
               font-size: 13px;
             }
           }
@@ -189,7 +193,7 @@
 
     .filter-cruise-type.fyc2018-filter-value-clicked {
       min-width: 286px !important;
-      min-height: 200px !important;
+      min-height: 172px !important;
     }
 
     .filter-destination.fyc2018-filter-value-clicked {
@@ -207,10 +211,33 @@
       }
     }
 
+    .easy-autocomplete-container {
+      ul {
+        background-color: white;
+        text-align: left;
+        padding: 0px;
+        position: absolute;
+        z-index: 1000;
+        width: 90%;
+        top: 66px;
+        border: 1px solid rgba(85, 85, 85, 0.38);
+        border-top: none !important;
+        display: none;
+        .eac-item {
+          padding: 10px;
+        }
+
+        li:hover {
+          background-color: #263133;
+          color: white
+        }
+      }
+    }
+
     .filter-port.fyc2018-filter-value-clicked {
       position: absolute !important;
       right: 136px;
-      width: 560px !important;
+      width: 294px !important;
     }
 
     .filter-ship.fyc2018-filter-value-clicked {
@@ -227,14 +254,6 @@
         padding-left: 0px;
       }
     }
-    .filter-port.fyc2018-filter-value-clicked {
-      .filter-value span {
-        height: 59px;
-        height: 59px;
-        vertical-align: middle;
-        display: table-cell;
-      }
-    }
 
     .filter-duration.fyc2018-filter-value-clicked {
       min-width: 412px !important;
@@ -248,6 +267,28 @@
       .filter-value span {
         width: 150px;
       }
+    }
+
+    .fyc2018-filter-autocomplete {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      border-bottom: 1px solid fade(#888, 50%);
+      padding: 0px;
+      margin-bottom: 15px;
+      border-radius: 0px;
+    }
+
+    input::placeholder {
+      text-transform: uppercase !important;
+    }
+
+    .fyc2018-filter-autocomplete-content {
+      width: 294px !important;
+      max-height: 472px !important;
+      overflow-y: scroll !important;
+      overflow-x: hidden;
+      margin-right: 17px;
     }
 
     .fyc2018-filter-value-clicked {
