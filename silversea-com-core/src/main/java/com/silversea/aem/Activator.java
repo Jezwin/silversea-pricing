@@ -27,7 +27,7 @@ public class Activator implements BundleActivator, BundleListener {
             try {
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
-               // e.printStackTrace();
+                LOGGER.error("Cannot wait before init of CruiseCacheService");
             }
             final BundleContext context = event.getBundle().getBundleContext();
 
