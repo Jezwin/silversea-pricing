@@ -25,7 +25,7 @@ public class Activator implements BundleActivator, BundleListener {
                 && event.getBundle().getSymbolicName().equals("com.silversea.aem.silversea-com-core")) {
 
             try {
-                Thread.sleep(20000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 LOGGER.error("Cannot wait before init of CruiseCacheService");
             }
