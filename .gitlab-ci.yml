@@ -20,7 +20,7 @@ analysis_sonar:
 mvn_build_author:
     stage: build-author-stage
     environment:
-        name: Migration
+        name: Stage
     when: manual
     allow_failure: false
     tags:
@@ -33,7 +33,7 @@ mvn_build_author:
 mvn_build_publish1:
     stage: build-publishes-stage
     environment:
-        name: Migration
+        name: Stage
     when: manual
     tags:
         - maven
@@ -45,7 +45,7 @@ mvn_build_publish1:
 mvn_build_publish2:
     stage: build-publishes-stage
     environment:
-        name: Migration
+        name: Stage
     when: manual
     tags:
         - maven
@@ -58,7 +58,7 @@ mvn_build_publish2:
 mvn_build_author_prod:
     stage: build-author-prod
     environment:
-        name: Migration_prod
+        name: Prod
     when: manual
     allow_failure: false
     tags:
@@ -71,7 +71,7 @@ mvn_build_author_prod:
 mvn_build_publish1_prod:
     stage: build-publishes-prod
     environment:
-        name: Migration_prod
+        name: Prod
     when: manual
     tags:
         - maven
@@ -83,7 +83,7 @@ mvn_build_publish1_prod:
 mvn_build_publish2_prod:
     stage: build-publishes-prod
     environment:
-        name: Migration_prod
+        name: Prod
     when: manual
     tags:
         - maven
