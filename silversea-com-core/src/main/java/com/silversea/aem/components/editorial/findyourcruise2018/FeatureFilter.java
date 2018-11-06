@@ -39,9 +39,23 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
                         .filter(Objects::nonNull)
                         .map(tag -> tag.adaptTo(FeatureModel.class))
                         .filter(Objects::nonNull)
-                        .map(feature -> new FilterRow<>(new FeatureModelLight(feature), FeatureModelLight::getName,
-                                feature.getFeatureId(), ENABLED))
+                        .filter(feature -> feature.getFeatureId() != null)
+                        .map(feature -> (FilterRow<FeatureModelLight>) new FeatureFilterRow(feature, ENABLED))
                         .collect(toSet()))
                 .orElse(emptySet());
     }
+
+    public static class FeatureFilterRow extends FilterRow<FeatureModelLight> {
+        private final String icon;
+
+        FeatureFilterRow(FeatureModel feature, FilterRowState state) {
+            super(new FeatureModelLight(feature), FeatureModelLight::getName, feature.getFeatureId(), state);
+            icon = feature.getIcon();
+        }
+
+        public String getIcon() {
+            return icon;
+        }
+    }
+
 }
