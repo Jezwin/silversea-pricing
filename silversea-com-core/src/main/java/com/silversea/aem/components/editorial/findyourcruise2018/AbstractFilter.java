@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.CruiseModelLight;
 
 import java.util.*;
@@ -56,11 +57,15 @@ public abstract class AbstractFilter<T> {
 
     }
 
-    final void initAllValues(List<CruiseModelLight> cruises) {
-        this.rows = cruises.stream().flatMap(this::projection).distinct()
-                .collect(toCollection(() -> new TreeSet<>(this.comparator())));
-
+    final void initAllValues(FindYourCruise2018Use use, List<CruiseModelLight> cruises) {
+        this.rows = retrieveAllValues(use, cruises);
     }
+
+    protected Set<FilterRow<T>> retrieveAllValues(FindYourCruise2018Use use, List<CruiseModelLight> cruises) {
+        return cruises.stream().flatMap(this::projection).distinct()
+                .collect(toCollection(() -> new TreeSet<>(this.comparator())));
+    }
+
 
     protected Comparator<FilterRow<T>> comparator() {//this is overridden when needed
         return Comparator.naturalOrder();

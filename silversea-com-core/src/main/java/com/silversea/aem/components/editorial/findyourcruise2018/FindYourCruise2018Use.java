@@ -1,16 +1,26 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
+import com.day.cq.tagging.TagConstants;
+import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
+import com.silversea.aem.models.FeatureModel;
+import com.silversea.aem.models.FeatureModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.lang.Integer.parseInt;
+import static java.util.Collections.emptySet;
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toSet;
 
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
@@ -26,12 +36,14 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private int totalResults;
     private boolean onlyResults = false;
     private boolean onlyFilters = false;
+    private TagManager tagManager;
 
     @Override
     public void activate() throws Exception {
         super.activate();
         locale = getCurrentPage().getLanguage(false);
         lang = LanguageHelper.getLanguage(getCurrentPage());
+        tagManager = getResourceResolver().adaptTo(TagManager.class);
         CruisesCacheService service = getSlingScriptHelper().getService(CruisesCacheService.class);
         if (service != null) {
             init(service);
@@ -40,6 +52,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     public void init(CruisesCacheService service) {
         List<CruiseModelLight> allCruises = service.getCruises(lang);
+        allCruises = preFiltering(allCruises);
         filterBar = initFilters(allCruises);
         if (filterBar.anyFilterSelected()) {
             List<CruiseModelLight> filteredCruises = applyFilters(allCruises, filterBar);
@@ -58,9 +71,17 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     }
 
+    List<CruiseModelLight> preFiltering(List<CruiseModelLight> allCruises) {
+        /*
+        Calendar today = Calendar.getInstance();
+        return allCruises.stream().filter(cruise -> !cruise.getStartDate().before(today)).collect(Collectors.toList());
+        */
+        return allCruises;
+    }
+
     private FilterBar initFilters(List<CruiseModelLight> allCruises) {
         FilterBar filterBar = new FilterBar();
-        filterBar.init(allCruises);
+        filterBar.init(this, allCruises);
         Map<String, String[]> map = getFromWebRequest();
         map.forEach(filterBar::addSelectedFilter);
         pagNumber = parseInt(map.getOrDefault("pag", new String[]{"1"})[0]);
@@ -106,4 +127,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     public String getRequestQuotePagePath() {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
+
+    public TagManager getTagManager() {
+        return tagManager;
+    }
+
 }

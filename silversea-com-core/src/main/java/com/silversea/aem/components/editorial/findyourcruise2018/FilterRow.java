@@ -87,10 +87,12 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        String anotherKey = ((FilterRow<?>) o).key;
-        return key.hashCode() == anotherKey.hashCode() && key.equals(anotherKey);
+        try {
+            String anotherKey = ((FilterRow<?>) o).key;
+            return key.hashCode() == anotherKey.hashCode() && key.equals(anotherKey);
+        } catch (Throwable t) {
+            return false;
+        }
     }
 
     @Override
