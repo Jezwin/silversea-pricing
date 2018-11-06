@@ -246,6 +246,11 @@ public class FindYourCruise2018UseTest {
         protected Map<String, String[]> getFromWebRequest() {
             return filtersRequest;
         }
+
+        @Override
+        List<CruiseModelLight> preFiltering(List<CruiseModelLight> allCruises) {
+            return allCruises;//do not prefilter anything
+        }
     }
 
     class UseBuilder {
@@ -307,7 +312,7 @@ public class FindYourCruise2018UseTest {
             return with(DURATION.getKind(), durations);
         }
 
-        FindYourCruise2018Use build() {
+        FindYourCruise2018Use build(){
             return new TestFindYourCruise2018Use(filtersRequest);
         }
 

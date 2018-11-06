@@ -6,13 +6,13 @@ import com.silversea.aem.models.*;
 
 import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toSet;
 
 public class FilterBar {
 
@@ -41,14 +41,7 @@ public class FilterBar {
                 }
             };
 
-    public static final AbstractFilter<FeatureModelLight> FEATURES =
-            new AbstractFilter<FeatureModelLight>("feature") {
-                @Override
-                protected Stream<FilterRow<FeatureModelLight>> projection(CruiseModelLight cruise) {
-                    return cruise.getFeatures().stream().filter(feature -> feature.getTitle() != null)
-                            .map(feature -> new FilterRow<>(feature, feature.getTitle(), ENABLED));
-                }
-            };
+    public static final AbstractFilter<FeatureModelLight> FEATURES = new FeatureFilter();
 
 
     public static final AbstractFilter<Range<Integer>> DURATION = new DurationFilter();
@@ -67,8 +60,8 @@ public class FilterBar {
     public static final Collection<AbstractFilter<?>> FILTERS =
             asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE);
 
-    void init(List<CruiseModelLight> cruises) {
-        FILTERS.forEach(filter -> filter.initAllValues(cruises));
+    void init(FindYourCruise2018Use use, List<CruiseModelLight> cruises) {
+        FILTERS.forEach(filter -> filter.initAllValues(use, cruises));
     }
 
     void addSelectedFilter(String label, String[] selectedKeys) {
@@ -124,7 +117,7 @@ public class FilterBar {
                 stream = stream.filter(filter::matches);
             }
         }
-        return stream.flatMap(selectedFilter::projection).collect(Collectors.toSet());
+        return stream.flatMap(selectedFilter::projection).collect(toSet());
     }
 
     boolean anyFilterSelected() {
@@ -137,4 +130,5 @@ public class FilterBar {
         FILTERS.forEach(filter -> array.add(filter.toJson()));
         return array.toString();
     }
+
 }
