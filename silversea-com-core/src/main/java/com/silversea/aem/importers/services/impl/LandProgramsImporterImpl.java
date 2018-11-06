@@ -320,7 +320,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     landNode.setProperty("image6", image6Dam);
 
                                     landNode.setProperty("assetSelectionReference_api",
-                                            createMediaSet(resolver, resolver.resolve(PATH_DAM_SILVERSEA + "/other-resources/landPrograms/"),
+                                            createMediaSet(resolver, resolver.resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms/"),
                                                     landProgramName, imageDam, image2Dam, image3Dam, image4Dam,
                                                     image5Dam, image6Dam).getPath());
                                     LOGGER.trace("Land program {} is marked to be deactivated", landProgramName);
@@ -441,7 +441,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
     }
 
     private String getAssetPath(Land77 landProgram) {
-        return PATH_DAM_SILVERSEA + "/other-resources/landPrograms" + "/" + landProgram.getLandId();
+        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms" + "/" + landProgram.getLandCod();
     }
 
     public ImportResult disactiveAllItemDeltaByAPI() {
@@ -601,7 +601,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             landNode.setProperty("image6", image6Dam);
             landNode.setProperty("assetSelectionReference_api",
                     createMediaSet(resolver, resolver
-                                    .resolve(PATH_DAM_SILVERSEA + "/other-resources/landPrograms/"),
+                                    .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms/"),
                             land.getLandName(), imageDam, image2Dam, image3Dam, image4Dam, image5Dam, image6Dam).getPath());
 
             // Set livecopy mixin

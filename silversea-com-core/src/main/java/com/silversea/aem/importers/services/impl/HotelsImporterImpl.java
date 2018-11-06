@@ -557,7 +557,7 @@ public class HotelsImporterImpl implements HotelsImporter {
     private MediaSet updateMediaSet(ResourceResolver resourceResolver, Session session, Hotel77 hotel,
                                     Node hotelContentNode)
             throws PersistenceException, RepositoryException {
-        String path = PATH_DAM_SILVERSEA + "/other-resources/hotels/";
+        String path = PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/";
         String imageUrl = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl(), damPath(hotel));
         String imageUrl2 = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl2(), damPath(hotel));
 
@@ -615,7 +615,7 @@ public class HotelsImporterImpl implements HotelsImporter {
     }
 
     private String damPath(Hotel77 hotel) {
-        return PATH_DAM_SILVERSEA + "/other-resources/hotels/" + hotel.getHotelName();
+        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/" + hotel.getHotelCod();
     }
 
     public ImportResult importHotelImages() {
