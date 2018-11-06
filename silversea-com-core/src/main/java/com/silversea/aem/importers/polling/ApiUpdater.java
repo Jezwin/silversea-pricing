@@ -316,6 +316,9 @@ public class ApiUpdater implements Runnable {
                                 }
                             } else {
                                 replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
+                                if (node.getProperty("jcr:primaryType").getString().equals("dam:AssetContent")) {
+                                    replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getParent().getPath());
+                                }
                             }
 
                             node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
