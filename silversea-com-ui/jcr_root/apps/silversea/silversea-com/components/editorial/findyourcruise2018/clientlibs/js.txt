@@ -1,2 +1,3 @@
 #base=files
 findyourcruise2018.js
+jquery.easy-autocomplete.min.js
