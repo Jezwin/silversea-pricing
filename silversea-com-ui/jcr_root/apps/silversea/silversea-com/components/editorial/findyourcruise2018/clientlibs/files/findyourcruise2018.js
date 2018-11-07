@@ -16,7 +16,8 @@ $(function () {
         indexElementNotFilteredToShow = 100,
         elementFilteredToShow = [],
         elementFilterSelected = [],
-        portsList = null;
+        portsList = null,
+        onLoadFilterUrl = null;
 
     var optionAutoComplete = {
         getValue: "label",
@@ -33,6 +34,7 @@ $(function () {
         setNumberAllFilterSelected();
         separateYears();
         portsList = JSON.parse(window.portsList);
+        onLoadFilterUrl = window.location.search;
     });
 
     $(fycContainerClass).on('click', ".filter-view-all-original", function (e) {
@@ -47,7 +49,22 @@ $(function () {
         loadMoreElementFiltered();
     });
 
-    $(fycContainerClass).on("click touchstart", ".findyourcruise2018 .fyc2018-filter .filter-show-selected", function (e) {
+    $(fycContainerClass + " .fyc2018-header-reset-all").on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAllFiltersDiv();
+        var urlTemplate = $("#filter-url-request").data("url");
+        var url = urlTemplate;
+        url = onLoadFilterUrl == "" ?  url + "?" : url + onLoadFilterUrl;
+        url = onLoadFilterUrl == "" ?  url : url + "&";
+        var current = window.location.href;
+        history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + onLoadFilterUrl));
+        updateFilters(url + "onlyFilters=true");
+        updateCruises(url + "onlyResults=true");
+        $(this).hide();
+    });
+
+    $(fycContainerClass).on("click ", ".findyourcruise2018 .fyc2018-filter .filter-show-selected", function (e) {
         e.preventDefault();
         e.stopPropagation();
         if ($(this).hasClass("filter-show-selected-open")) {
@@ -68,7 +85,7 @@ $(function () {
                     $itemToRender.attr("data-state", item.state);
                     $itemToRender.find("span").html(item.label);
                     $(selectedPortsContainerClass).prepend($itemToRender);
-                    $itemToRender.on("click touchstart", function (e) {
+                    $itemToRender.on("click ", function (e) {
                         e.stopPropagation();
                         e.preventDefault();
                         $(this).hide();
@@ -201,7 +218,7 @@ $(function () {
         }
     };//loadMoreElementFiltered
 
-    $(fycContainerClass).on("click touchstart", ".fyc2018-filter .fyc2018-filter-content span", function (e) {
+    $(fycContainerClass).on("click ", ".fyc2018-filter .fyc2018-filter-content span", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -210,31 +227,39 @@ $(function () {
             idShowElement = "#" + $filter.attr("id"),
             $parent = $filter.parent();
         var urlTemplate = $("#filter-url-request").data("url");
-        var url = createUrl(urlTemplate);
-        url += "&onlyFilters=true";
+        var url = createUrl(urlTemplate) + "&onlyFilters=true";
 
         if ($parent.hasClass("fyc2018-filter-content-clicked")) {
             $parent.removeClass("fyc2018-filter-content-clicked");
             $(classShowElement).removeClass("fyc2018-filter-value-clicked");
             updateFilters(url);
         } else {
-            updateFilters(url, classShowElement, $parent, idShowElement);
             closeAllFiltersDiv();
+            // updateFilters(url, classShowElement, $parent, idShowElement);
+            if (classShowElement != null && $parent != null && idShowElement != null) {
+                $(classShowElement).addClass("fyc2018-filter-value-clicked");
+                $(idShowElement).parent().addClass("fyc2018-filter-content-clicked");
+                $parent.addClass("fyc2018-filter-content-clicked");
+                if (classShowElement == ".filter-port") {
+                    optionAutoComplete.data = portsList;
+                    $(".findyourcruise2018 #filter-autocomplete").easyAutocomplete(optionAutoComplete);
+                    $(".findyourcruise2018 .easy-autocomplete-container ul").remove();
+                    $(".findyourcruise2018 #filter-autocomplete").focus().select();
+                    $(".findyourcruise2018 #filter-autocomplete").keyup(function () {
+                        if ($(this).val().trim().length == 0) {
+                            //$(autocompleteContainerClass + " .filter-value").html("");
+                            $(autocompleteContainerClass + " .filter-value").hide();
+                            indexElementNotFilteredToShow = 0;
+                            loadMoreElementNotFiltered();
+                        }
+                    });
+                }
+            }
         }
     });
 
     $(fycContainerClass).on({
         click: function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var idFilter = $(this).parent().parent().data("filter");
-            selectDisableFilter($(this));
-            setNumberFilterSelected(idFilter);
-            var urlTemplate = $("#results-url-request").data("url");
-            var url = createUrl(urlTemplate) + "&onlyResults=true";
-            updateCruises(url);
-        },
-        touchstart: function (e) {
             e.preventDefault();
             e.stopPropagation();
             var idFilter = $(this).parent().parent().data("filter");
@@ -254,7 +279,7 @@ $(function () {
         }
     }, ".fyc2018-filter .fyc2018-filter-value .filter-value");
 
-    $(document).on("click touchstart", function (e) {
+    $(document).on("click ", function (e) {
         if (!(e.target.className.indexOf("fyc2018-filter-autocomplete") > -1 || e.target.className.indexOf("filter-value") > -1)) {
             var $filter = $(".findyourcruise2018 .fyc2018-filter .fyc2018-filter-value-clicked");
             var isOpenFilters = $filter.length > 0;
@@ -322,25 +347,6 @@ $(function () {
                 setNumberAllFilterSelected();
                 separateYears();
                 portsList = JSON.parse(window.portsList);
-                if (classElement != null && parent != null && idShowElement != null) {
-                    $(classElement).addClass("fyc2018-filter-value-clicked");
-                    $(idShowElement).parent().addClass("fyc2018-filter-content-clicked");
-                    parent.addClass("fyc2018-filter-content-clicked");
-                    if (classElement == ".filter-port") {
-                        optionAutoComplete.data = portsList;
-                        $(".findyourcruise2018 #filter-autocomplete").easyAutocomplete(optionAutoComplete);
-                        $(".findyourcruise2018 .easy-autocomplete-container ul").remove();
-                        $(".findyourcruise2018 #filter-autocomplete").focus().select();
-                        $(".findyourcruise2018 #filter-autocomplete").keyup(function () {
-                            if ($(this).val().trim().length == 0) {
-                                //$(autocompleteContainerClass + " .filter-value").html("");
-                                $(autocompleteContainerClass + " .filter-value").hide();
-                                indexElementNotFilteredToShow = 0;
-                                loadMoreElementNotFiltered();
-                            }
-                        });
-                    }
-                }
             }
         });
     };//updateFilters
@@ -393,6 +399,7 @@ $(function () {
         if ($filter.hasClass("filter-selected")) {
             $filter.removeClass("filter-selected");
             $filter.removeClass("filter-selected-hover");
+            $(".fyc2018-header-reset-all").show();
             $filter.addClass("filter-no-selected");
         } else if ($filter.hasClass("filter-no-selected")) {
             $filter.removeClass("filter-no-selected");

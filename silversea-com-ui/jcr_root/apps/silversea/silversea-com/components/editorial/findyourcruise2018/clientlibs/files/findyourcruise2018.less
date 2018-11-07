@@ -2,6 +2,11 @@
 
 .findyourcruise2018 {
 
+  .fyc2018-header-reset-all {
+    font-weight: 400;
+    display: none;
+  }
+
   min-height: 500px;
   .c-fyc-v2__result-wrapper {
     margin-top: 60px;
@@ -238,10 +243,19 @@
       position: absolute !important;
       right: 136px;
       width: 294px !important;
+      @media (max-width: 900px) {
+        -webkit-transform: translateX(-50%);
+        position: relative !important;
+        transform: translateX(-50%);
+        left: 50%;
+      }
     }
 
+
     .filter-ship.fyc2018-filter-value-clicked {
-      min-width: 497px !important;
+      min-width: 480px !important;
+      padding-left: 12px;
+      padding-right: 12px;
       .filter-value span {
         width: 210px;
       }
@@ -252,6 +266,12 @@
 
       .col-sm-6:nth-child(odd) {
         padding-left: 0px;
+      }
+      @media (max-width: 900px) {
+        -webkit-transform: translateX(-50%);
+        position: relative !important;
+        transform: translateX(-50%);
+        left: 50%;
       }
     }
 
@@ -313,7 +333,7 @@
 
         top: 50%;
         margin-left: 8px;
-        position:absolute;
+        position: absolute;
         transform: translateY(-40%);
         -webkit-transform: translateY(-40%);
         color: #666;
@@ -387,10 +407,10 @@
 
       .filter-selected.filter-selected-hover span {
         &:hover {
-          background-color: white;
-          color: #171D47;
+          background-color: #98989B;
+          color: white;
           border: 1px solid;
-          border-color: #171d474f;
+          border-color: white;
         }
       }
 
@@ -417,6 +437,7 @@
       .fyc2018-filter-year {
         margin-top: 20px;
         font-weight: 600;
+        pointer-events: none;
       }
 
       .filter-value span {
