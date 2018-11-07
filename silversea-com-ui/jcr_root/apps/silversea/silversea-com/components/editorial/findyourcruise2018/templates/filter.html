@@ -20,6 +20,9 @@
                 <sly data-sly-test="${fyc.totalResults == 1}">${'cruise' @ i18n}</sly>
                 <sly data-sly-test="${fyc.totalResults > 1}">${'cruises' @ i18n}</sly>
             </div>
+            <div class="fyc2018-header-reset-all hidden-xs c-fyc-v2-filter__reset">
+                <a href="#" class="active"><i class="fa fa-undo"></i> <span class="text-uppercase">clear all filters</span></a>
+            </div>
             <script>
                 window.portsList = '${fyc.filterBar.PORT.toString @ context="scriptString" }';
             </script>
