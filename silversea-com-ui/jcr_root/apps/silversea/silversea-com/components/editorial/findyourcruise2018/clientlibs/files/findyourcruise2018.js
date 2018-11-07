@@ -17,6 +17,7 @@ $(function () {
         elementFilteredToShow = [],
         elementFilterSelected = [],
         portsList = null,
+        page = 1,
         onLoadFilterUrl = null;
 
     var optionAutoComplete = {
@@ -35,6 +36,7 @@ $(function () {
         separateYears();
         portsList = JSON.parse(window.portsList);
         onLoadFilterUrl = window.location.search;
+        searchAnalytics();
     });
 
     $(fycContainerClass).on('click', ".filter-view-all-original", function (e) {
@@ -357,6 +359,7 @@ $(function () {
                 if (showReset) {
                     $(".fyc2018-header-reset-all").show();
                 }
+                searchAnalytics();
             }
         });
     };//updateFilters
@@ -437,5 +440,26 @@ $(function () {
             $(this).removeClass("fyc2018-filter-content-clicked");
         });
     };//closeAllFiltersDiv
+
+    function searchAnalytics() {
+        var dataLayer = window.dataLayer[0];
+
+        // Data search
+        var filterOjb = {};
+        $(".fyc2018-filter .fyc2018-filter-value").each(function () {
+            var name = $(this).data("name");
+            var value = "";
+            $(this).find(".filter-value.filter-selected").each(function () {
+                value += $(this).data("key") + ",";
+            });
+            value = value.substring(0, value.length - 1);
+            filterOjb[name] = value
+        });
+
+        dataLayer.search_filters = filterOjb;
+        dataLayer.search_page_number = page;
+        dataLayer.search_results_number = $('.findyourcruise2018 .fyc2018-header-total-num').text();
+
+    };//searchAnalytics
 
 });
