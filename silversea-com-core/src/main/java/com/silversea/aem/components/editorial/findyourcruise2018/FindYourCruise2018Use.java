@@ -37,6 +37,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private boolean onlyResults = false;
     private boolean onlyFilters = false;
     private TagManager tagManager;
+    private String requestQuotePagePath;
 
     @Override
     public void activate() throws Exception {
@@ -44,6 +45,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         locale = getCurrentPage().getLanguage(false);
         lang = LanguageHelper.getLanguage(getCurrentPage());
         tagManager = getResourceResolver().adaptTo(TagManager.class);
+        requestQuotePagePath = PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
         CruisesCacheService service = getSlingScriptHelper().getService(CruisesCacheService.class);
         if (service != null) {
             init(service);
@@ -81,9 +83,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private FilterBar initFilters(List<CruiseModelLight> allCruises) {
         FilterBar filterBar = new FilterBar();
-        filterBar.init(this, allCruises);
         Map<String, String[]> map = getFromWebRequest();
-        map.forEach(filterBar::addSelectedFilter);
+        filterBar.init(this, map, allCruises);
         pagNumber = parseInt(map.getOrDefault("pag", new String[]{"1"})[0]);
         pagSize = parseInt(map.getOrDefault("pagSize", new String[]{"" + PAG_SIZE})[0]);
         onlyResults = "true".equals(map.getOrDefault("onlyResults", new String[]{"false"})[0]);
@@ -125,7 +126,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     public String getRequestQuotePagePath() {
-        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+        return requestQuotePagePath;
     }
 
     public TagManager getTagManager() {

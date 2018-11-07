@@ -2,10 +2,10 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.CruiseModelLight;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
@@ -13,8 +13,10 @@ import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toSet;
 
 public abstract class AbstractFilter<T> {
+
     private final String kind;
     private Set<FilterRow<T>> rows;
+    private Set<FilterRow<T>> selectedRows;
 
     AbstractFilter(String kind) {
         this.kind = kind;
@@ -32,7 +34,7 @@ public abstract class AbstractFilter<T> {
     }
 
     public final boolean isSelected() {
-        return rows.stream().anyMatch(row -> CHOSEN.equals(row.getState()));
+        return !selectedRows.isEmpty();
     }
 
     public final FilterRowState retrieveState(String key) {
@@ -41,29 +43,28 @@ public abstract class AbstractFilter<T> {
     }
 
     final boolean matches(CruiseModelLight cruise) {
-        Set<FilterRow<T>> selectedValues = rows.stream().filter(row -> CHOSEN.equals(row.getState())).collect(toSet());
-        if (!selectedValues.isEmpty()) {
-            return matches(selectedValues, cruise);
-        }
-        return true;
-    }
-
-    void setChosen(Set<String> enabledKeys, FilterRowState complementaryState) {
-        rows.forEach(row -> row.setState(enabledKeys.contains(row.getKey()) ? CHOSEN : complementaryState));
+        return selectedRows.isEmpty() || matches(selectedRows, cruise);
     }
 
     void disableMissingLabels(Collection<CruiseModelLight> cruises) {
         rows.forEach(row -> row.setState(rowShouldBeEnabled(cruises, row) ? ENABLED : DISABLED));
-
     }
 
-    final void initAllValues(FindYourCruise2018Use use, List<CruiseModelLight> cruises) {
-        this.rows = retrieveAllValues(use, cruises);
+    final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, List<CruiseModelLight> cruises) {
+        this.selectedRows = new HashSet<>();
+        this.rows = retrieveAllValues(use, selectedKeys, this.selectedRows::add, cruises);
     }
 
-    protected Set<FilterRow<T>> retrieveAllValues(FindYourCruise2018Use use, List<CruiseModelLight> cruises) {
-        return cruises.stream().flatMap(this::projection).distinct()
-                .collect(toCollection(() -> new TreeSet<>(this.comparator())));
+    protected Set<FilterRow<T>> retrieveAllValues(FindYourCruise2018Use use, String[] selectedKeys,
+                                                  Consumer<FilterRow<T>> addToChosen, List<CruiseModelLight> cruises) {
+        Comparator<FilterRow<T>> comparator = this.comparator();
+        Set<String> selected = new HashSet<>(Arrays.asList(selectedKeys));
+        return cruises.stream().flatMap(this::projection).distinct().peek(row -> {
+            if (selected.contains(row.getKey())) {
+                row.setState(CHOSEN);
+                addToChosen.accept(row);
+            }
+        }).collect(toCollection(() -> new TreeSet<>(comparator)));
     }
 
 
@@ -91,6 +92,10 @@ public abstract class AbstractFilter<T> {
      */
     private boolean rowShouldBeEnabled(Collection<CruiseModelLight> cruises, FilterRow<T> row) {
         return cruises.parallelStream().flatMap(this::projection).anyMatch(row::equals);
+    }
+
+    public int getSelectedCount() {
+        return selectedRows.size();
     }
 
     @Override
