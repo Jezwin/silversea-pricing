@@ -1,25 +1,17 @@
-<template data-sly-template.select="${@ name, filter}">
-    <label>${name @ i18n}
-        <select multiple="multiple" class="fyc2018-filter ${name}-filter" name="${name}" autocomplete="off">
-            <option value="all" onselect="">${name @ i18n}</option>
-            <sly data-sly-repeat="${filter.rows}">
-                <option data-sly-test="${item.isEnabled}" value="${item.key}">${item.label}</option>
-                <option data-sly-test="${item.isChosen}" selected value="${item.key}">${item.label}</option>
-                <option data-sly-test="${item.isDisabled}" disabled value="${item.key}">${item.label}</option>
-            </sly>
-        </select>
-    </label>
-</template>
 
 <template data-sly-template.default="${@ fyc}">
     <div class="findyourcruise2018-header">
         <div class="fyc2018-header-container container">
-            <div class="fyc2018-header-text">${properties.jcr:title || 'your-search-results' @ i18n} </div>
-            <div class="fyc2018-header-text fyc2018-header-total-num">${fyc.totalResults} </div>
-            <div class="fyc2018-header-text">
-                <sly data-sly-test="${fyc.totalResults == 1}">${'cruise' @ i18n}</sly>
-                <sly data-sly-test="${fyc.totalResults > 1}">${'cruises' @ i18n}</sly>
-            </div>
+            <sly data-sly-test="${!properties.hideTitle}">
+                <div class="fyc2018-header-text ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${!properties.jcr:title && !properties.hideTitle}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
+                <sly data-sly-test="${properties.hideResultNb}">
+                    <div class="fyc2018-header-text fyc2018-header-total-num">${fyc.totalResults} </div>
+                    <div class="fyc2018-header-text">
+                        <sly data-sly-test="${fyc.totalResults == 1}">>${properties.resultsLabelSingular || 'cruise' @ i18n}</sly>
+                        <sly data-sly-test="${fyc.totalResults > 1}">${properties.resultsLabelPlural || 'cruises' @ i18n}</sly>
+                    </div>
+                </sly>
+            </sly>
             <div class="fyc2018-header-reset-all hidden-xs c-fyc-v2-filter__reset">
                 <span><i class="fa fa-undo"></i> <span class="text-uppercase">clear all filters</span></span>
             </div>
@@ -53,3 +45,5 @@
 <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
      data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='9'}"
      data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
+
+

@@ -137,3 +137,4 @@
 <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/results.html"
      data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='9'}"
      data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
+<sly data-sly-use.paginationTemplate="silversea/silversea-com/components/editorial/findyourcruise/pagination.html" data-sly-call="${paginationTemplate.pagination @ fyc=fyc}" />
