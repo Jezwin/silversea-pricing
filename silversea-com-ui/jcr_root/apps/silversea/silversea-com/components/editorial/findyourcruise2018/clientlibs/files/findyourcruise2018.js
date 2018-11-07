@@ -100,6 +100,16 @@ $(function () {
             $itemToRender = null,
             index = 0,
             item = $(autocompleteInputId).getItemData(index);
+        if (item == -1) {
+            $(autocompleteContainerClass + " .filter-no-ports").show();
+            $(autocompleteContainerClass + " .filter-value").hide();
+            $(autocompleteContainerClass + " .filter-view-all").hide();
+            return;
+        } else {
+            $(autocompleteContainerClass + " .filter-no-ports").hide();
+            $(autocompleteContainerClass + " .filter-value").show();
+        }
+
         while (item != -1) {
             $itemToRender = $($listItem[index]);
             if ($itemToRender.length > 0) {
@@ -108,7 +118,6 @@ $(function () {
                 }
                 var status = item.state == 'ENABLED' ? 'filter-no-selected' : item.state == 'DISABLED' ? 'filter-disabled' : item.state == 'CHOSEN' ? 'filter-selected' : '';
                 $itemToRender.removeAttr("class");
-                //$itemToRender.removeAttr("data-key");
                 $itemToRender.addClass("col-sm-12 filter-value " + status);
                 $itemToRender.attr("data-key", item.key);
                 $itemToRender.attr("data-label", item.label);
@@ -132,11 +141,12 @@ $(function () {
             $(autocompleteContainerClass).append($(viewAllFilteredContainerClass));
             $(viewAllFilteredContainerClass).show();
         } else {
-            while ($itemToRender.length > 0) {
+            while ($itemToRender && $itemToRender.length > 0) {
                 $itemToRender = $($listItem[index++]);
                 $itemToRender.hide();
             }
         }
+
     };//showFilteredElement
 
     //REFACTOR DONE
@@ -323,7 +333,7 @@ $(function () {
                         $(".findyourcruise2018 #filter-autocomplete").focus().select();
                         $(".findyourcruise2018 #filter-autocomplete").keyup(function () {
                             if ($(this).val().trim().length == 0) {
-                                $(autocompleteContainerClass + " .filter-value").html("");
+                                //$(autocompleteContainerClass + " .filter-value").html("");
                                 $(autocompleteContainerClass + " .filter-value").hide();
                                 indexElementNotFilteredToShow = 0;
                                 loadMoreElementNotFiltered();
