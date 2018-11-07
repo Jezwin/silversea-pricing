@@ -262,6 +262,16 @@
       }
     }
 
+    .fyc2018-filter-selected-content {
+      overflow-y: scroll;
+      width: 294px !important;
+      max-height: 445px !important;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin-right: 17px;
+      display: none;
+    }
+
     .filter-departure.fyc2018-filter-value-clicked {
       min-width: 537px !important;
       .filter-value span {
@@ -285,10 +295,50 @@
 
     .fyc2018-filter-autocomplete-content {
       width: 294px !important;
-      max-height: 472px !important;
-      overflow-y: scroll !important;
+      max-height: 445px !important;
+      overflow-y: scroll;
       overflow-x: hidden;
       margin-right: 17px;
+    }
+
+    .filter-show-selected {
+      padding-top: 10px;
+      cursor: pointer;
+      font-weight: 400;
+      margin-top: 0px;
+      text-transform: uppercase;
+      text-align: center !important;
+      display: none;
+      span:after {
+
+        top: 50%;
+        margin-left: 8px;
+        position:absolute;
+        transform: translateY(-40%);
+        -webkit-transform: translateY(-40%);
+        color: #666;
+        content: "\f107";
+        font-family: FontAwesome;
+        font-size: 22px;
+        font-weight: 400;
+
+      }
+    }
+
+    .filter-show-selected-open {
+      span:after {
+        content: "\f106";
+        font-family: FontAwesome;
+      }
+    }
+
+    .filter-view-all {
+      margin-top: 25px;
+      text-align: center !important;
+      cursor: pointer;
+      font-weight: 600;
+      text-transform: capitalize;
+      text-decoration: underline;
     }
 
     .fyc2018-filter-value-clicked {
