@@ -26,7 +26,7 @@ $(function () {
         } else if ($this.data('ssc-accordion') === 'hide') {
             viewLess(e);
             $this.data('ssc-accordion', 'show');
-            $('.cruise-2018-ship-dining-area').get(0).scrollIntoView({block: 'end', behavior: 'smooth'});
+            window.scroll({top: $('.cruise-2018-ship-dining-area').get(0).offsetTop, behavior: 'smooth'});
         }
         $this.blur();
         $('.cruise-2018-accordion-button').toggle();

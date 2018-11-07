@@ -16,4 +16,5 @@ public interface RunModesService {
      * @return the current environment run mode
      */
     String getCurrentRunMode();
+    String getCurrentRunModeFull();
 }

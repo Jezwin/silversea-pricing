@@ -4,15 +4,30 @@
         <ul data-sly-list.page="${fyc.pagination}">
             <li data-sly-test.currentPage="${page}">
                 <a href="#" data-page="${currentPage}" title="${currentPage}"
-                   class="${pageList.count == 2 ? 'previous': ''} ${pageList.count == 8 ? 'next': ''} ${page == fyc.activePage && pageList.count > 2 && pageList.count < 8 ? 'active' : ''}">
+                   class="${pageList.count == 2 ? 'previous': ''} ${pageList.count == 8 ? 'next': ''} ${page == fyc.activePage && pageList.count > 2 && pageList.count < 8 ? 'active' : ''} fyc-to-hide">
                     <sly data-sly-test="${pageList.count == 1}">${'first' @ i18n}</sly>
                     <sly data-sly-test="${pageList.count == 2}">${'previous' @ i18n}</sly>
                     <sly data-sly-test="${pageList.count == 8}">${'next' @ i18n}</sly>
                     <sly data-sly-test="${pageList.count == 9}">${'last' @ i18n}</sly>
                     <sly data-sly-test="${pageList.count > 2 && pageList.count < 8}">${page @ i18n}</sly>
                 </a>
+                <sly>
+                    <sly data-sly-test.disablePrev="${fyc.activePage == 1}"/>
+                    <sly data-sly-test.disableNext="${fyc.activePage == fyc.pagesNumber}"/>
+                    <sly data-sly-test.isPrev="${pageList.index == 1 || (pageList.index == 4 && fyc.activePage == 1)}" />
+                    <sly data-sly-test.isNext="${pageList.index == 7 || (pageList.index == 4 && fyc.activePage == fyc.pagesNumber)}" />
+
+                    <sly data-sly-test="${isPrev || isNext}">
+                        <a data-page="${currentPage}" title="${currentPage}"
+                           class="${isPrev ? 'previous previous-nd ': ''}  ${(isPrev && disablePrev) || (isNext && disableNext) ? 'disable-action' : ''} ${isNext  ? 'next next-nd': ''} fyc-to-show">
+                            <sly data-sly-test="${isPrev}">${'prev2' @ i18n}</sly>
+                            <sly data-sly-test="${isNext}">${'next' @ i18n}</sly>
+                        </a>
+                    </sly>
+                </sly>
             </li>
         </ul>
+        <span class="summary-pag fyc-to-show">${fyc.activePage} / ${fyc.pagesNumber}</span>
     </nav>
 </template>
 <template data-sly-template.paginationv2="${@ fyc}">

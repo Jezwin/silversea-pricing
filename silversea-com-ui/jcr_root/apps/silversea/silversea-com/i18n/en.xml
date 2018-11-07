@@ -942,7 +942,7 @@
     <pre-post-extensions
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-extensions"
-        sling:message="Pre and Post Cruise Extensions"/>
+        sling:message="Pre &amp; Post Cruise Extensions"/>
     <night
         jcr:primaryType="sling:MessageEntry"
         sling:key="night"
@@ -964,6 +964,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="prev"
         sling:message="Prev page"/>
+    <prev2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="prev2"
+        sling:message="Prev"/>
     <previous
         jcr:primaryType="sling:MessageEntry"
         sling:key="previous"

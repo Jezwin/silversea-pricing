@@ -48,17 +48,28 @@ function initSlider() {
                 draggable: true,
                 slidesToShow: $slider.data('ssc-slides') || 3,
                 slidesToScroll: $slider.data('ssc-slides') || 3,
+                responsive: []
             };
             var breakpoint = $slider.data('ssc-breakpoint');
             if (breakpoint) {
-                options.responsive =
-                    [{
+                options.responsive.push(
+                    {
                         breakpoint: breakpoint,
                         settings: {
                             slidesToShow: $slider.data('ssc-slides') - 1 || 3,
                             slidesToScroll: $slider.data('ssc-slides') - 1 || 3
                         }
-                    }];
+                    });
+            }
+            var breakpointTablet = $slider.data('ssc-breakpoint-tablet');
+            if (breakpointTablet) {
+                options.responsive.push({
+                    breakpoint: breakpointTablet,
+                    settings: {
+                        slidesToShow: $slider.data('ssc-slides-to-show-tablet') || 1,
+                        slidesToScroll: $slider.data('ssc-slides-to-scroll-tablet') || 1
+                    }
+                });
             }
             $slider.slick(options);
             $slider.on('afterChange', function (event, slick, currentSlide) {
