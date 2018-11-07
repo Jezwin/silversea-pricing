@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          user.mapping="[com.adobe.granite.oauth.server=oauthservice,com.silversea.aem.silversea-com-core:geotagging-cache=geotagging-cache,com.silversea.aem.silversea-com-core:import-data=ssc-importer,org.apache.sling.scripting.core:import-data=ssc-importer]"/>
+          user.mapping="[com.adobe.granite.oauth.server=oauthservice,com.silversea.aem.silversea-com-core:geotagging-cache=geotagging-cache,com.silversea.aem.silversea-ssc-core:import-data=ssc-importer,com.silversea.aem.silversea-com-core:import-data=ssc-importer,org.apache.sling.scripting.core:import-data=ssc-importer]"/>
