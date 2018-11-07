@@ -5,7 +5,10 @@ import com.google.gson.JsonArray;
 import com.silversea.aem.models.*;
 
 import java.time.YearMonth;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
@@ -21,7 +24,7 @@ public class FilterBar {
                 @Override
                 protected Stream<FilterRow<DestinationItem>> projection(CruiseModelLight cruiseModelLight) {
                     DestinationItem destination = cruiseModelLight.getDestination();
-                    return FilterRow.singleton(destination, DestinationItem::getTitle, destination.getName());
+                    return Stream.of(new FilterRow<>(destination, DestinationItem::getTitle, destination.getName(), ENABLED));
                 }
             };
     public static final AbstractFilter<String> TYPE =
@@ -37,7 +40,7 @@ public class FilterBar {
                 @Override
                 protected Stream<FilterRow<PortItem>> projection(CruiseModelLight cruise) {
                     return cruise.getPorts().stream()
-                            .map(port -> new FilterRow<>(port, port.getTitle(), ENABLED));
+                            .map(port -> new FilterRow<>(port, PortItem::getTitle, port.getName(), ENABLED));
                 }
             };
 
@@ -52,7 +55,7 @@ public class FilterBar {
             new AbstractFilter<ShipItem>("ship") {
                 @Override
                 protected Stream<FilterRow<ShipItem>> projection(CruiseModelLight cruise) {
-                    return singleton(cruise.getShip(), ShipItem::getTitle, cruise.getShip().getId());
+                    return Stream.of(new FilterRow<>(cruise.getShip(), ShipItem::getTitle, cruise.getShip().getId(), ENABLED));
                 }
             };
 
@@ -60,18 +63,13 @@ public class FilterBar {
     public static final Collection<AbstractFilter<?>> FILTERS =
             asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE);
 
-    void init(FindYourCruise2018Use use, List<CruiseModelLight> cruises) {
-        FILTERS.forEach(filter -> filter.initAllValues(use, cruises));
-    }
-
-    void addSelectedFilter(String label, String[] selectedKeys) {
+    void init(FindYourCruise2018Use use, Map<String, String[]> selectedKeys, List<CruiseModelLight> cruises) {
+        String[] emptyArray = {};
         for (AbstractFilter<?> filter : FILTERS) {
-            if (filter.getKind().equals(label)) {
-                filter.setChosen(new HashSet<>(Arrays.asList(selectedKeys)), ENABLED);
-                return;
-            }
+            filter.initAllValues(use, selectedKeys.getOrDefault(filter.getKind(), emptyArray), cruises);
         }
     }
+
 
     boolean isCruiseMatching(CruiseModelLight cruiseModelLight) {
         for (AbstractFilter<?> filter : FILTERS) {
@@ -88,15 +86,15 @@ public class FilterBar {
     }
 
     private void updateNonSelectedFilters(List<CruiseModelLight> cruises) {
-        FILTERS.forEach(filter -> {
+        for (AbstractFilter<?> filter : FILTERS) {
             if (!filter.isSelected()) {
                 filter.disableMissingLabels(cruises);
             }
-        });
+        }
     }
 
     private void updateSelectedFilters(List<CruiseModelLight> allCruises) {
-        FILTERS.forEach(filter -> {
+        for (AbstractFilter<?> filter : FILTERS) {
             if (filter.isSelected()) {
                 Set<? extends FilterRow<?>> possibleRows = complementaryProjection(allCruises, filter);
                 filter.getRows().forEach(row -> {
@@ -106,7 +104,7 @@ public class FilterBar {
                     }
                 });
             }
-        });
+        }
     }
 
     private <T> Set<FilterRow<T>> complementaryProjection(List<CruiseModelLight> allCruises,
@@ -127,7 +125,9 @@ public class FilterBar {
     @Override
     public String toString() {
         JsonArray array = new JsonArray();
-        FILTERS.forEach(filter -> array.add(filter.toJson()));
+        for (AbstractFilter<?> filter : FILTERS) {
+            array.add(filter.toJson());
+        }
         return array.toString();
     }
 

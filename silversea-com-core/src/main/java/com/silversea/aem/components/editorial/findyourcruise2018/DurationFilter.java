@@ -1,6 +1,5 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
-import com.google.common.collect.BoundType;
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeSet;
@@ -10,6 +9,7 @@ import java.util.Comparator;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.lang.Integer.parseInt;
 
 public final class DurationFilter extends AbstractFilter<Range<Integer>> {
@@ -30,7 +30,7 @@ public final class DurationFilter extends AbstractFilter<Range<Integer>> {
     @Override
     protected Stream<FilterRow<Range<Integer>>> projection(CruiseModelLight cruise) {
         Range<Integer> integerRange = DURATIONS.rangeContaining(parseInt(cruise.getDuration()));
-        return singleton(integerRange, DurationFilter::rangeToString, integerRange.lowerEndpoint().toString());
+        return Stream.of(new FilterRow<>(integerRange, DurationFilter::rangeToString, integerRange.lowerEndpoint().toString(), ENABLED));
     }
 
     private static String rangeToString(Range<Integer> range) {

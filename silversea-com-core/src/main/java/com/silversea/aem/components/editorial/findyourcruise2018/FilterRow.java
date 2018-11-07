@@ -14,6 +14,8 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
     private final Function<T, String> label;
     private final String key;
 
+    private final int hash;
+
     private FilterRowState state;
 
     public FilterRow(T value, String label, FilterRowState state) {
@@ -21,6 +23,8 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
         this.label = notUsed -> label;
         this.key = label;
         this.state = state;
+
+        this.hash = key.hashCode();
     }
 
     public FilterRow(T value, Function<T, String> label, String key, FilterRowState state) {
@@ -29,6 +33,7 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
         this.key = key;
         this.state = state;
 
+        this.hash = key.hashCode();
     }
 
     public FilterRowState getState() {
@@ -60,11 +65,11 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
     }
 
     static <T> Stream<FilterRow<T>> singleton(T value, String label) {
-        return singleton(value, notUsed -> label, label);
+        return Stream.of(new FilterRow<>(value, notUsed -> label, label, ENABLED));
     }
 
     static Stream<FilterRow<String>> singleton(String value) {
-        return singleton(value, notUsed -> value, value);
+        return Stream.of(new FilterRow<>(value, notUsed -> value, value, ENABLED));
     }
 
     static <T> Stream<FilterRow<T>> singleton(T value, Function<T, String> label, String key) {
@@ -82,14 +87,14 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
     @Override
     public int hashCode() {
-        return key.hashCode();
+        return hash;
     }
 
     @Override
     public boolean equals(Object o) {
         try {
-            String anotherKey = ((FilterRow<?>) o).key;
-            return key.hashCode() == anotherKey.hashCode() && key.equals(anotherKey);
+            FilterRow<?> anotherKey = ((FilterRow<?>) o);
+            return hash == anotherKey.hash && key.equals(anotherKey.key);
         } catch (Throwable t) {
             return false;
         }
@@ -97,7 +102,7 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
     @Override
     public int compareTo(FilterRow<T> other) {
-        return this.getKey().compareTo(other.getKey());
+        return key.compareTo(other.key);
     }
 
 

@@ -6,11 +6,11 @@ import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.FeatureModelLight;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
@@ -28,11 +28,15 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
     }
 
     @Override
-    protected Set<FilterRow<FeatureModelLight>> retrieveAllValues(FindYourCruise2018Use use, List<CruiseModelLight> cruises) {
+    protected Set<FilterRow<FeatureModelLight>> retrieveAllValues(FindYourCruise2018Use use,
+                                                                  String[] selectedKeys,
+                                                                  Consumer<FilterRow<FeatureModelLight>> addToChosen,
+                                                                  List<CruiseModelLight> cruises) {
         TagManager tagManager = use.getTagManager();
         if (tagManager == null) {
             return emptySet();
         }
+        Set<String> selected = new HashSet<>(Arrays.asList(selectedKeys));
         return ofNullable(use.getCurrentStyle().get(TagConstants.PN_TAGS, String[].class)).map(Stream::of)
                 .map(tags -> tags
                         .map(tagManager::resolve)
@@ -40,7 +44,15 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
                         .map(tag -> tag.adaptTo(FeatureModel.class))
                         .filter(Objects::nonNull)
                         .filter(feature -> feature.getFeatureId() != null)
-                        .map(feature -> (FilterRow<FeatureModelLight>) new FeatureFilterRow(feature, ENABLED))
+                        .map(feature -> {
+                            if (selected.contains(feature.getFeatureId())) {
+                                FeatureFilterRow featureFilterRow = new FeatureFilterRow(feature, CHOSEN);
+                                addToChosen.accept(featureFilterRow);
+                                return featureFilterRow;
+                            } else {
+                                return (FilterRow<FeatureModelLight>) new FeatureFilterRow(feature, ENABLED);
+                            }
+                        })
                         .collect(toSet()))
                 .orElse(emptySet());
     }
@@ -49,7 +61,7 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
         private final String icon;
 
         FeatureFilterRow(FeatureModel feature, FilterRowState state) {
-            super(new FeatureModelLight(feature), FeatureModelLight::getName, feature.getFeatureId(), state);
+            super(new FeatureModelLight(feature), FeatureModelLight::getTitle, feature.getFeatureId(), state);
             icon = feature.getIcon();
         }
 

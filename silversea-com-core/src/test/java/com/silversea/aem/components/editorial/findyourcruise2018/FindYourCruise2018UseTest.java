@@ -42,8 +42,8 @@ public class FindYourCruise2018UseTest {
     private static final String SILVER_MUSE = "Silver Muse";
     private static final String SILVERSEA_EXPEDITION = "silversea-expedition";
     private static final String SILVERSEA_CRUISE = "silversea-cruise";
-    private static final String HO_CHI_MINH_CITY = "Ho Chi Minh City";
-    private static final String DA_NANG = "Da Nang";
+    private static final String HO_CHI_MINH_CITY = "ho-chi-minh-city";
+    private static final String DA_NANG = "da-nang";
 
     @Before
     public void before() throws IOException {
@@ -157,8 +157,8 @@ public class FindYourCruise2018UseTest {
                         .build();
 
         Predicate<CruiseModelLight> test = cruise -> (AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
-                ASIA_LABEL.equals(cruise.getDestination().getTitle())) &&
-                (cruise.getPorts().stream().map(PortItem::getTitle)
+                ASIA_LABEL.equals(cruise.getDestination().getName())) &&
+                (cruise.getPorts().stream().map(PortItem::getName)
                         .anyMatch(name -> HO_CHI_MINH_CITY.equals(name) || DA_NANG.equals(name)));
         use.init(cacheService);
 
@@ -172,7 +172,7 @@ public class FindYourCruise2018UseTest {
         assertTrue(DESTINATION.isSelected());
         assertEquals(16, DESTINATION.getRows().size());//world cruise..
         assertTrue(PORT.isSelected());
-        assertEquals(821, PORT.getRows().size());
+        assertEquals(825, PORT.getRows().size());
         //only africa and asia is chosen others are enabled
         assertTrue(DESTINATION.getRows().stream()
                 .allMatch(row -> {
@@ -184,7 +184,7 @@ public class FindYourCruise2018UseTest {
         //only ohchiminh and danang is chosen others are enabled
         assertTrue(PORT.getRows().stream()
                 .allMatch(row -> {
-                    if (HO_CHI_MINH_CITY.equals(row.getLabel()) || DA_NANG.equals(row.getLabel())) {
+                    if (HO_CHI_MINH_CITY.equals(row.getKey()) || DA_NANG.equals(row.getKey())) {
                         return row.isChosen();
                     }
                     return !row.isChosen();//some ports should be enabled some not...
