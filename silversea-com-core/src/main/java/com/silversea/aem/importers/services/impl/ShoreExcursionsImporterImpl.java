@@ -485,25 +485,13 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                     String image4Dam = ImportersUtils
                                             .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
 
-                                    if(!imageDam.equals("")) {
-                                        excursionContentNode.setProperty("image", imageDam);
-                                    }
-                                    if(!image2Dam.equals("")) {
-                                        excursionContentNode.setProperty("image2", image2Dam);
-                                    }
-                                    if(!image3Dam.equals("")) {
-                                        excursionContentNode.setProperty("image3", image3Dam);
-                                    }
-                                    if(!image4Dam.equals("")) {
-                                        excursionContentNode.setProperty("image4", image4Dam);
-                                    }
                                     if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("")) {
                                         excursionContentNode.setProperty("assetSelectionReference_api",
                                                 BaseImporter.createMediaSet(resourceResolver,
                                                         resourceResolver
                                                                 .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().trim().charAt(0) + "/" +
                                                                         excursion.getShorexCod().trim() + "/"),
-                                                        excursionName, imageDam, image2Dam, image3Dam, image4Dam).getPath());
+                                                        excursion.getShorexCod().trim(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
                                     }
                                     LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
                                 } else {
@@ -670,26 +658,13 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             String image4Dam = ImportersUtils
                     .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
 
-
-            if(!imageDam.equals("")) {
-                excursionContentNode.setProperty("image", imageDam);
-            }
-            if(!image2Dam.equals("")) {
-                excursionContentNode.setProperty("image2", image2Dam);
-            }
-            if(!image3Dam.equals("")) {
-                excursionContentNode.setProperty("image3", image3Dam);
-            }
-            if(!image4Dam.equals("")) {
-                excursionContentNode.setProperty("image4", image4Dam);
-            }
             if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("")) {
                 excursionContentNode.setProperty("assetSelectionReference_api",
                         BaseImporter.createMediaSet(resourceResolver,
                                 resourceResolver
                                         .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().trim().charAt(0) + "/" +
                                                 excursion.getShorexCod().trim() + "/"),
-                                excursion.getShorexName(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
+                                excursion.getShorexCod().trim(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
             }
             if (StringUtils.isNotBlank(excursion.getSymbols())) {
                 final String[] symbolsIDs = excursion.getSymbols().split(",");
