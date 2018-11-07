@@ -466,7 +466,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                 }
 
                                 // depending of the city status, mark the page to be activated or deactivated
-                                if (BooleanUtils.isTrue(excursion.getIsDeleted())) {
+                                    if (BooleanUtils.isTrue(excursion.getIsDeleted())) {
                                     final Node excursionContentNode = excursionPage.getContentResource()
                                             .adaptTo(Node.class);
 
@@ -485,17 +485,26 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                     String image4Dam = ImportersUtils
                                             .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
 
-
-                                    excursionContentNode.setProperty("image", imageDam);
-                                    excursionContentNode.setProperty("image2", image2Dam);
-                                    excursionContentNode.setProperty("image3", image3Dam);
-                                    excursionContentNode.setProperty("image4", image4Dam);
-                                    excursionContentNode.setProperty("assetSelectionReference_api",
-                                            BaseImporter.createMediaSet(resourceResolver,
-                                                    resourceResolver
-                                                            .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().charAt(0) + "/" + excursion.getShorexCod() + "/"),
-                                                    excursionName, imageDam, image2Dam, image3Dam, image4Dam).getPath());
-
+                                    if(!imageDam.equals("")) {
+                                        excursionContentNode.setProperty("image", imageDam);
+                                    }
+                                    if(!image2Dam.equals("")) {
+                                        excursionContentNode.setProperty("image2", image2Dam);
+                                    }
+                                    if(!image3Dam.equals("")) {
+                                        excursionContentNode.setProperty("image3", image3Dam);
+                                    }
+                                    if(!image4Dam.equals("")) {
+                                        excursionContentNode.setProperty("image4", image4Dam);
+                                    }
+                                    if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("")) {
+                                        excursionContentNode.setProperty("assetSelectionReference_api",
+                                                BaseImporter.createMediaSet(resourceResolver,
+                                                        resourceResolver
+                                                                .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().trim().charAt(0) + "/" +
+                                                                        excursion.getShorexCod().trim() + "/"),
+                                                        excursionName, imageDam, image2Dam, image3Dam, image4Dam).getPath());
+                                    }
                                     LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
                                 } else {
                                     final Node excursionContentNode = updateExcursionContentNode(excursion,
@@ -613,7 +622,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
     }
 
     private String assetPath(Shorex77 shorex77) {
-        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + shorex77.getShorexCod().charAt(0) + "/" + shorex77.getShorexCod() + "/";
+        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + shorex77.getShorexCod().trim().charAt(0) + "/" + shorex77.getShorexCod().trim()+ "/" ;
     }
 
     @Override
@@ -662,14 +671,26 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                     .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
 
 
-            excursionContentNode.setProperty("image", imageDam);
-            excursionContentNode.setProperty("image2", image2Dam);
-            excursionContentNode.setProperty("image3", image3Dam);
-            excursionContentNode.setProperty("image4", image4Dam);
-            excursionContentNode
-                    .setProperty("assetSelectionReference_api", BaseImporter.createMediaSet(resourceResolver,
-                            resourceResolver.resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().charAt(0) + "/" + excursion.getShorexCod() + "/"),
-                            excursion.getShorexName(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
+            if(!imageDam.equals("")) {
+                excursionContentNode.setProperty("image", imageDam);
+            }
+            if(!image2Dam.equals("")) {
+                excursionContentNode.setProperty("image2", image2Dam);
+            }
+            if(!image3Dam.equals("")) {
+                excursionContentNode.setProperty("image3", image3Dam);
+            }
+            if(!image4Dam.equals("")) {
+                excursionContentNode.setProperty("image4", image4Dam);
+            }
+            if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("")) {
+                excursionContentNode.setProperty("assetSelectionReference_api",
+                        BaseImporter.createMediaSet(resourceResolver,
+                                resourceResolver
+                                        .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().trim().charAt(0) + "/" +
+                                                excursion.getShorexCod().trim() + "/"),
+                                excursion.getShorexName(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
+            }
             if (StringUtils.isNotBlank(excursion.getSymbols())) {
                 final String[] symbolsIDs = excursion.getSymbols().split(",");
 

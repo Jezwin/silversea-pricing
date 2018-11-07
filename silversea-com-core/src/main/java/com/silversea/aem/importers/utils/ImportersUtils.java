@@ -10,6 +10,7 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import io.swagger.client.StringUtil;
 import org.apache.jackrabbit.vault.util.SHA1;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
@@ -364,8 +365,16 @@ public class ImportersUtils {
     public static String upsertAsset(Session session, ResourceResolver resourceResolver,
                                      MimeTypeService mimeTypeService, String assetUrl,
                                      String destinationPath) {
+        if(StringUtils.isEmpty(assetUrl)){
+            return "";
+        }
+        assetUrl = assetUrl.replace("http://","https://");
         final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
         String fileName = assetUrl.substring(assetUrl.lastIndexOf("/") + 1);
+        if(destinationPath.lastIndexOf("/") +1 == destinationPath.length()){
+            destinationPath = destinationPath.substring(0,destinationPath.length() -1);
+        }
+
         String finalDestination = destinationPath + "/" + fileName;
         try {
             if (!session.itemExists(finalDestination) ||
@@ -389,6 +398,7 @@ public class ImportersUtils {
             }
         } catch (RepositoryException | IOException e) {
             LOGGER.error("Error during creation of {}", assetUrl);
+            LOGGER.error("Error during creation of {}", e.getMessage());
         }
         return finalDestination;
 
@@ -404,6 +414,7 @@ public class ImportersUtils {
             if (existingSha1 != null) {
                 SHA1 newSha1 = SHA1.digest(is);
                 String newChecksum = newSha1.toString();
+                LOGGER.debug("COMPARISON SHA1 : " +newChecksum + " OLD " + existingSha1);
                 return !existingSha1.equals(newChecksum);
             }
         } catch (IOException e) {

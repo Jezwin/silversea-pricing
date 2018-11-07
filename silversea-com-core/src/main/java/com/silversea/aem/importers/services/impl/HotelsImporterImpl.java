@@ -437,8 +437,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
                                     MediaSet mediaSet = updateMediaSet(resourceResolver, session, hotel,
                                             hotelContentNode);
-                                    hotelContentNode.setProperty("assetSelectionReference_api", mediaSet.getPath());
-
+                                    if(mediaSet != null) {
+                                        hotelContentNode.setProperty("assetSelectionReference_api", mediaSet.getPath());
+                                    }
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {
                                     final Node hotelContentNode =
@@ -557,12 +558,16 @@ public class HotelsImporterImpl implements HotelsImporter {
     private MediaSet updateMediaSet(ResourceResolver resourceResolver, Session session, Hotel77 hotel,
                                     Node hotelContentNode)
             throws PersistenceException, RepositoryException {
-        String path = PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/" + hotel.getHotelCod().charAt(0) + "/" + hotel.getHotelCod() + "/";
+        String path = PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/" + hotel.getHotelCod().trim().charAt(0) + "/" + hotel.getHotelCod().trim()+ "/" ;
         String imageUrl = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl(), damPath(hotel));
         String imageUrl2 = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl2(), damPath(hotel));
-
-        return createMediaSet(resourceResolver, resourceResolver.getResource(path), hotel.getHotelName(), imageUrl,
-                imageUrl2);
+        LOGGER.debug("Try to save the session for " + hotel.getHotelCod());
+        if(!imageUrl.equals("") || !imageUrl2.equals("")) {
+            return createMediaSet(resourceResolver, resourceResolver.getResource(path),  hotel.getHotelCod().trim(), imageUrl,
+                    imageUrl2);
+        }else {
+            return null;
+        }
     }
 
     @Override
@@ -591,14 +596,11 @@ public class HotelsImporterImpl implements HotelsImporter {
         try {
             hotelContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
             hotelContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
-            hotelContentNode.setProperty("image",
-                    ImportersUtils.upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl(),
-                            damPath(hotel)));
-            hotelContentNode.setProperty("image2",
-                    ImportersUtils
-                            .upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl2(),
-                                    damPath(hotel)));
-            updateMediaSet(resourceResolver, session, hotel, hotelContentNode);
+            MediaSet mediaSet = updateMediaSet(resourceResolver, session, hotel,
+                    hotelContentNode);
+            if(mediaSet != null) {
+                hotelContentNode.setProperty("assetSelectionReference_api", mediaSet.getPath());
+            }
             hotelContentNode.setProperty("code", hotel.getHotelCod());
             hotelContentNode.setProperty("hotelId", hotel.getHotelId());
 
@@ -615,7 +617,7 @@ public class HotelsImporterImpl implements HotelsImporter {
     }
 
     private String damPath(Hotel77 hotel) {
-        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/" + hotel.getHotelCod().charAt(0) + "/" + hotel.getHotelCod() + "/";
+        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/" + hotel.getHotelCod().trim().charAt(0) + "/" + hotel.getHotelCod().trim()+ "/" ;
     }
 
     public ImportResult importHotelImages() {

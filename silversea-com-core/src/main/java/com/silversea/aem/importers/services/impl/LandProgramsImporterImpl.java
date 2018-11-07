@@ -312,17 +312,32 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     String image4Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl4(), assetPath);
                                     String image5Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl5(), assetPath);
                                     String image6Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl6(), assetPath);
-                                    landNode.setProperty("image", imageDam);
-                                    landNode.setProperty("image2", image2Dam);
-                                    landNode.setProperty("image3", image3Dam);
-                                    landNode.setProperty("image4", image4Dam);
-                                    landNode.setProperty("image5", image5Dam);
-                                    landNode.setProperty("image6", image6Dam);
+                                    if(!imageDam.equals("")) {
+                                        landNode.setProperty("image", imageDam);
+                                    }
+                                    if(!image2Dam.equals("")) {
+                                        landNode.setProperty("image2", image2Dam);
+                                    }
+                                    if(!image3Dam.equals("")) {
+                                        landNode.setProperty("image3", image3Dam);
+                                    }
+                                    if(!image4Dam.equals("")) {
+                                        landNode.setProperty("image4", image4Dam);
+                                    }
+                                    if(!image5Dam.equals("")) {
+                                        landNode.setProperty("image5", image5Dam);
+                                    }
+                                    if(!image6Dam.equals("")) {
+                                        landNode.setProperty("image6", image6Dam);
+                                    }
 
-                                    landNode.setProperty("assetSelectionReference_api",
-                                            createMediaSet(resolver, resolver.resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms/" + "/" + land.getLandCod().charAt(0) + "/" + land.getLandCod() + "/"),
-                                                    landProgramName, imageDam, image2Dam, image3Dam, image4Dam,
-                                                    image5Dam, image6Dam).getPath());
+                                    if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("") || !image5Dam.equals("") || !image6Dam.equals("")) {
+                                        landNode.setProperty("assetSelectionReference_api",
+                                                createMediaSet(resolver, resolver.resolve(
+                                                        PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms/" + "/" + land.getLandCod().trim().charAt(0) + "/" + land.getLandCod().trim() + "/"),
+                                                        landProgramName, imageDam, image2Dam, image3Dam, image4Dam,
+                                                        image5Dam, image6Dam).getPath());
+                                    }
                                     LOGGER.trace("Land program {} is marked to be deactivated", landProgramName);
                                 } else {
                                     final Node landProgramContentNode =
@@ -441,7 +456,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
     }
 
     private String getAssetPath(Land77 landProgram) {
-        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms" + "/" + landProgram.getLandCod().charAt(0) + "/" + landProgram.getLandCod() + "/";
+        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms" + "/" + landProgram.getLandCod().trim().charAt(0) + "/" + landProgram.getLandCod().trim()+ "/" ;
     }
 
     public ImportResult disactiveAllItemDeltaByAPI() {
@@ -593,17 +608,32 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             String image4Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl4(), assetPath);
             String image5Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl5(), assetPath);
             String image6Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl6(), assetPath);
-            landNode.setProperty("image", imageDam);
-            landNode.setProperty("image2", image2Dam);
-            landNode.setProperty("image3", image3Dam);
-            landNode.setProperty("image4", image4Dam);
-            landNode.setProperty("image5", image5Dam);
-            landNode.setProperty("image6", image6Dam);
-            landNode.setProperty("assetSelectionReference_api",
-                    createMediaSet(resolver, resolver
-                                    .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms/" + "/" + land.getLandCod().charAt(0) + "/" + land.getLandCod() + "/"),
-                            land.getLandName(), imageDam, image2Dam, image3Dam, image4Dam, image5Dam, image6Dam).getPath());
+            if(!imageDam.equals("")) {
+                landNode.setProperty("image", imageDam);
+            }
+            if(!image2Dam.equals("")) {
+                landNode.setProperty("image2", image2Dam);
+            }
+            if(!image3Dam.equals("")) {
+                landNode.setProperty("image3", image3Dam);
+            }
+            if(!image4Dam.equals("")) {
+                landNode.setProperty("image4", image4Dam);
+            }
+            if(!image5Dam.equals("")) {
+                landNode.setProperty("image5", image5Dam);
+            }
+            if(!image6Dam.equals("")) {
+                landNode.setProperty("image6", image6Dam);
+            }
 
+            if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("") || !image5Dam.equals("") || !image6Dam.equals("")) {
+                landNode.setProperty("assetSelectionReference_api",
+                        createMediaSet(resolver, resolver.resolve(
+                                PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms/" + "/" + land.getLandCod().trim().charAt(0) + "/" + land.getLandCod().trim() + "/"),
+                                land.getLandName(), imageDam, image2Dam, image3Dam, image4Dam,
+                                image5Dam, image6Dam).getPath());
+            }
             // Set livecopy mixin
             if (!LanguageHelper.getLanguage(landProgramPage).equals("en")) {
                 landNode.addMixin("cq:LiveRelationship");

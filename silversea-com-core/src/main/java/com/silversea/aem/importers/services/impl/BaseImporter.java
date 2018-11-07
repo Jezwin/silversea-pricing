@@ -135,25 +135,35 @@ public class BaseImporter {
     public static MediaSet createMediaSet(ResourceResolver resolver, Resource pathFolderResource,
                                           String setName, String... pathImages) throws PersistenceException,
             RepositoryException {
-        final MediaSet s7MixedMediaSet = createS7MixedMediaSet(pathFolderResource, setName, new HashMap<>());
-        Asset asset;
-        for (String pathImage : pathImages) {
-            asset = pathImage != null && resolver.getResource(pathImage) != null ?
-                    resolver.getResource(pathImage).adaptTo(Asset.class) : null;
-            if (asset != null) {
-                s7MixedMediaSet.add(asset);
-                final Resource setMetadata = s7MixedMediaSet.getChild("jcr:content/metadata");
-                if (setMetadata != null) {
-                    final Node setMetadataNode = setMetadata.adaptTo(Node.class);
-
-                    if (setMetadataNode != null) {
-                        setMetadataNode.setProperty("dc:title", setName);
-                    }
-                }
-
-            }
+        MediaSet s7MixedMediaSet;
+        if(pathFolderResource.getChild(setName) == null) {
+            s7MixedMediaSet = createS7MixedMediaSet(pathFolderResource, setName, new HashMap<>());
+            }else {
+            s7MixedMediaSet = pathFolderResource.getChild(setName).adaptTo(MediaSet.class);
         }
-        return s7MixedMediaSet;
+            Asset asset;
+            for (String pathImage : pathImages) {
+                asset = pathImage != null && resolver.getResource(pathImage) != null ?
+                        resolver.getResource(pathImage).adaptTo(Asset.class) : null;
+                if (asset != null) {
+                    if(!s7MixedMediaSet.contains(asset)) {
+                        s7MixedMediaSet.add(asset);
+                    }
+                    final Resource setMetadata = s7MixedMediaSet.getChild("jcr:content/metadata");
+                    if (setMetadata != null) {
+                        final Node setMetadataNode = setMetadata.adaptTo(Node.class);
+
+                        if (setMetadataNode != null) {
+                            setMetadataNode.setProperty("dc:title", setName);
+                        }
+                    }
+
+                }
+            }
+            return s7MixedMediaSet;
+
+
     }
+
 
 }
