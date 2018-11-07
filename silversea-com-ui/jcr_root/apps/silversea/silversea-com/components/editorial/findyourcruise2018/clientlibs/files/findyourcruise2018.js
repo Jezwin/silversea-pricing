@@ -49,19 +49,25 @@ $(function () {
         loadMoreElementFiltered();
     });
 
-    $(fycContainerClass + " .fyc2018-header-reset-all").on("click", function (e) {
+    $(fycContainerClass).on("click", ".fyc2018-header-reset-all", function (e) {
         e.preventDefault();
         e.stopPropagation();
         closeAllFiltersDiv();
-        var urlTemplate = $("#filter-url-request").data("url");
-        var url = urlTemplate;
+        var urlTemplateFilter = $("#filter-url-request").data("url");
+        var urlTemplateCruises = $("#results-url-request").data("url");
+        var url = urlTemplateFilter;
         url = onLoadFilterUrl == "" ?  url + "?" : url + onLoadFilterUrl;
         url = onLoadFilterUrl == "" ?  url : url + "&";
         var current = window.location.href;
+        $(".fyc2018-header-reset-all").hide();
+
         history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + onLoadFilterUrl));
+
         updateFilters(url + "onlyFilters=true");
+        url = urlTemplateCruises;
+        url = onLoadFilterUrl == "" ?  url + "?" : url + onLoadFilterUrl;
+        url = onLoadFilterUrl == "" ?  url : url + "&";
         updateCruises(url + "onlyResults=true");
-        $(this).hide();
     });
 
     $(fycContainerClass).on("click ", ".findyourcruise2018 .fyc2018-filter .filter-show-selected", function (e) {
@@ -343,10 +349,14 @@ $(function () {
             type: 'GET',
             url: url,
             success: function (result) {
+                var showReset = $(".fyc2018-header-reset-all").is(":visible");
                 $(".findyourcruise2018-header").replaceWith(result);
                 setNumberAllFilterSelected();
                 separateYears();
                 portsList = JSON.parse(window.portsList);
+                if (showReset) {
+                    $(".fyc2018-header-reset-all").show();
+                }
             }
         });
     };//updateFilters
@@ -399,12 +409,12 @@ $(function () {
         if ($filter.hasClass("filter-selected")) {
             $filter.removeClass("filter-selected");
             $filter.removeClass("filter-selected-hover");
-            $(".fyc2018-header-reset-all").show();
             $filter.addClass("filter-no-selected");
         } else if ($filter.hasClass("filter-no-selected")) {
             $filter.removeClass("filter-no-selected");
             $filter.removeClass("filter-no-selected-hover");
             $filter.addClass("filter-selected");
+            $(".fyc2018-header-reset-all").show();
         }
         if ($filter.parent().parent().hasClass("filter-port")) {
             var key = $filter.data("key");
