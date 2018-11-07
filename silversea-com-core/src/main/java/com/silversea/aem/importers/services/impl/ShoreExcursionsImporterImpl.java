@@ -493,7 +493,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                     excursionContentNode.setProperty("assetSelectionReference_api",
                                             BaseImporter.createMediaSet(resourceResolver,
                                                     resourceResolver
-                                                            .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/"),
+                                                            .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().charAt(0) + "/" + excursion.getShorexCod() + "/"),
                                                     excursionName, imageDam, image2Dam, image3Dam, image4Dam).getPath());
 
                                     LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
@@ -613,7 +613,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
     }
 
     private String assetPath(Shorex77 shorex77) {
-        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + shorex77.getShorexCod();
+        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + shorex77.getShorexCod().charAt(0) + "/" + shorex77.getShorexCod() + "/";
     }
 
     @Override
@@ -668,7 +668,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             excursionContentNode.setProperty("image4", image4Dam);
             excursionContentNode
                     .setProperty("assetSelectionReference_api", BaseImporter.createMediaSet(resourceResolver,
-                            resourceResolver.resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/"),
+                            resourceResolver.resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().charAt(0) + "/" + excursion.getShorexCod() + "/"),
                             excursion.getShorexName(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
             if (StringUtils.isNotBlank(excursion.getSymbols())) {
                 final String[] symbolsIDs = excursion.getSymbols().split(",");
