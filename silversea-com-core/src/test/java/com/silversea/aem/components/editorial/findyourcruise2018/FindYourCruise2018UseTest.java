@@ -1,6 +1,7 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
 
+import com.adobe.cq.commerce.common.ValueMapDecorator;
 import com.google.common.base.Strings;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -8,6 +9,7 @@ import com.google.gson.JsonParser;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
+import org.apache.sling.api.resource.ValueMap;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -148,6 +150,21 @@ public class FindYourCruise2018UseTest {
         //silver muse does cruise africa
         assertEquals(ENABLED, SHIP.retrieveState(SILVER_MUSE));
 
+
+    }
+
+    @Test
+    public void testProperties() {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("shipId", "Silver Discoverer");
+        FindYourCruise2018Use use = new UseBuilder(properties).build();
+        Predicate<CruiseModelLight> test = cruise -> "Silver Discoverer".equals(cruise.getShip().getTitle());
+        use.init(cacheService);
+        long expectedCruises = cruises.stream().filter(test).count();
+        assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
+        assertEquals(expectedCruises, use.getCruises().size());
+        assertFalse(SHIP.isVisible());
+
     }
 
     @Test
@@ -168,7 +185,6 @@ public class FindYourCruise2018UseTest {
         assertEquals(expectedCruises, use.getCruises().size());
 
         //test filters
-        FilterBar filters = use.getFilterBar();
         assertTrue(DESTINATION.isSelected());
         assertEquals(16, DESTINATION.getRows().size());//world cruise..
         assertTrue(PORT.isSelected());
@@ -237,14 +253,22 @@ public class FindYourCruise2018UseTest {
 
     class TestFindYourCruise2018Use extends FindYourCruise2018Use {
         final Map<String, String[]> filtersRequest;
+        private final Map<String, Object> properties;
 
-        TestFindYourCruise2018Use(Map<String, String[]> filtersRequest) {
+
+        TestFindYourCruise2018Use(Map<String, String[]> filtersRequest, Map<String, Object> properties) {
             this.filtersRequest = filtersRequest;
+            this.properties = properties;
         }
 
         @Override
         protected Map<String, String[]> getFromWebRequest() {
             return filtersRequest;
+        }
+
+        @Override
+        protected ValueMap properties() {
+            return new ValueMapDecorator(properties);
         }
 
         @Override
@@ -256,15 +280,18 @@ public class FindYourCruise2018UseTest {
     class UseBuilder {
 
         final Map<String, String[]> filtersRequest;
+        final Map<String, Object> properties;
 
         UseBuilder() {
             filtersRequest = new HashMap<>();
+            properties = new HashMap<>();
             filtersRequest.put("pag", new String[]{"1"});
             filtersRequest.put("pagSize", new String[]{"1000"});//avoid pagination
         }
 
         UseBuilder(String request) {
             filtersRequest = new HashMap<>();
+            properties = new HashMap<>();
 
             for (String param : request.split("&")) {
                 if (!Strings.isNullOrEmpty(param) && param.contains("=")) {
@@ -283,9 +310,9 @@ public class FindYourCruise2018UseTest {
             return this;
         }
 
-        UseBuilder withUrl(String url) {
-            return new UseBuilder(url);
-
+        UseBuilder(Map<String, Object> properties) {
+            this.filtersRequest = new HashMap<>();
+            this.properties = properties;
         }
 
         UseBuilder withPorts(String... ports) {
@@ -312,8 +339,8 @@ public class FindYourCruise2018UseTest {
             return with(DURATION.getKind(), durations);
         }
 
-        FindYourCruise2018Use build(){
-            return new TestFindYourCruise2018Use(filtersRequest);
+        FindYourCruise2018Use build() {
+            return new TestFindYourCruise2018Use(filtersRequest, properties);
         }
 
 
