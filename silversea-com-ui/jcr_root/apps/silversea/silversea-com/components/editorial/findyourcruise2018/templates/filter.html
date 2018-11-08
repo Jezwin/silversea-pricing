@@ -3,14 +3,19 @@
     <div class="findyourcruise2018-header">
         <div class="fyc2018-header-container container">
             <sly data-sly-test="${!properties.hideTitle}">
-                <div class="fyc2018-header-text ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${!properties.jcr:title && !properties.hideTitle}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
-                <sly data-sly-test="${properties.hideResultNb}">
+                <div class="fyc2018-header-text fyc2018-header-title ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${!properties.jcr:title && !properties.hideTitle}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
+                <sly data-sly-test="${!properties.hideResultNb}">
                     <div class="fyc2018-header-text fyc2018-header-total-num">${fyc.totalResults} </div>
                     <div class="fyc2018-header-text">
                         <sly data-sly-test="${fyc.totalResults == 1}">>${properties.resultsLabelSingular || 'cruise' @ i18n}</sly>
                         <sly data-sly-test="${fyc.totalResults > 1}">${properties.resultsLabelPlural || 'cruises' @ i18n}</sly>
                     </div>
                 </sly>
+                <div class="fyc2018-header-mobile-filter">
+                    <i class="material-icons fyc-tune-i"> tune </i>
+                    <span class="fyc2018-header-mobile-filter-text">${'close' @ i18n}</span>
+                    <i class="material-icons fyc-close-i"> clear </i>
+                </div>
             </sly>
             <div class="fyc2018-header-reset-all hidden-xs c-fyc-v2-filter__reset">
                 <span><i class="fa fa-undo"></i> <span class="text-uppercase">clear all filters</span></span>

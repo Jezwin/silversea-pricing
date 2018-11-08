@@ -7,6 +7,7 @@
         </div>
         <div class="${type} fyc2018-filter-value" data-filter="${type}" data-name="${name}">
             <div class="fyc2018-filter-label col-xs-12">
+                <span class="fyc2018-filter-label-mobile visible-xs">${singular @ i18n}</span>
                 <span class="fyc2018-filter-clear"><i class="material-icons">close</i></span>
                 <input data-sly-test="${autocomplete}" id="filter-autocomplete" class="form-control fyc2018-filter-autocomplete" placeholder="${placeholder}" />
             </div>
@@ -18,7 +19,7 @@
 
                 </div>
             </sly>
-            <div data-sly-list="${filter}" class="${autocomplete ?  'fyc2018-filter-autocomplete-content' : ''}">
+            <div data-sly-list="${filter}" class="${autocomplete ?  'fyc2018-filter-autocomplete-content' : ''} fyc2018-filter-value-container">
                 <sly data-sly-test="${(autocomplete && itemList.index < 100) || !autocomplete}">
                     <div class="${class || 'col-sm-6'} filter-value filter-no-selected" data-sly-test="${item.isEnabled}" data-key="${item.key}" data-state="${item.state.toString}" data-label="${item.label}">
                         <span>${item.label} ${label @ i18n}</span>
@@ -41,6 +42,9 @@
                         <span>${'no ports found' @ i18n}</span>
                     </div>
                 </sly>
+            </div>
+            <div class="col-xs-12 visible-xs fyc2018-view-results">
+                <span data-show="${'show' @ i18n}" data-singular="${'cruise' @ i18n}" data-plural="${'cruises' @ i18n}></span>
             </div>
         </div>
     </div>
