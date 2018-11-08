@@ -81,7 +81,7 @@
                 data-sly-list.itinerary="${cruise.itinerary}"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <sly data-sly-test.excursions="${itinerary.excursions}" />
-                <div class="${itineraryList.first ? '' : 'pagebreak'} panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
+                <div class="${1 == itineraryList.index ? '' : 'pagebreak'} panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
                     <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.itineraryId}" aria-expanded="false"  aria-controls="ex-${itinerary.itineraryId}">                        
                         <div class="panel__heading__item panel__heading__description">
                             <h3><strong>${itinerary.name}</strong></h3>
