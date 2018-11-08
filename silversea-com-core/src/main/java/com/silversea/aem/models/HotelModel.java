@@ -38,6 +38,9 @@ public class HotelModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String  assetSelectionReference;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference_api") @Optional
+    private String  assetSelectionReferenceApi;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/category") @Optional
     private String category;
 
@@ -77,10 +80,10 @@ public class HotelModel {
     public String getCategory() {
         return category;
     }
+
     public Integer getNights() {
         return nights;
     }
-
     public Long getHotelId() {
         return hotelId;
     }
@@ -91,5 +94,9 @@ public class HotelModel {
 
     public String getCustomTitle() {
         return customTitle;
+    }
+
+    public String getAssetSelectionReferenceApi() {
+        return assetSelectionReferenceApi;
     }
 }

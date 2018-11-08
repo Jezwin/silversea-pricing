@@ -15,6 +15,7 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
+import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -34,7 +35,6 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.concat;
-import static org.apache.commons.lang3.ObjectUtils.firstNonNull;
 
 
 public class Cruise2018Use extends EoHelper {
@@ -477,7 +477,7 @@ public class Cruise2018Use extends EoHelper {
                     String destinationPath = cruise.getDestination().getPath();
                     return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
                 })
-                .sorted(comparing((ExclusiveOfferItem eo) -> firstNonNull(eo.getPriorityWeight(), 0)).reversed())
+                .sorted(comparing((ExclusiveOfferItem eo) -> CruiseUtils.firstNonNull(eo.getPriorityWeight(), 0)).reversed())
                 .collect(toList());
     }
 
@@ -523,7 +523,7 @@ public class Cruise2018Use extends EoHelper {
         if (ship != null) {
             assetsListResult.addAll(retrieveAssetsFromShip(ship));
         }
-        String map = firstNonNull(vmProperties.get("bigItineraryMap", String.class),
+        String map = CruiseUtils.firstNonNull(vmProperties.get("bigItineraryMap", String.class),
                 vmProperties.get("bigThumbnailItineraryMap", String.class),
                 vmProperties.get("smallItineraryMap", String.class));
         String type = null;

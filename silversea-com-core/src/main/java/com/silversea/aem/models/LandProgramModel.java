@@ -47,6 +47,9 @@ public class LandProgramModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String  assetSelectionReference;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference_api") @Optional
+    private String  assetSelectionReferenceApi;
+
     private String shortDescription;
 
     @PostConstruct
@@ -88,5 +91,9 @@ public class LandProgramModel {
 
     public String getCustomTitle() {
         return customTitle;
+    }
+
+    public String getAssetSelectionReferenceApi() {
+        return assetSelectionReferenceApi;
     }
 }
