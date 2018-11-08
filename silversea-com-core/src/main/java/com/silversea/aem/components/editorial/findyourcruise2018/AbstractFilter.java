@@ -3,12 +3,15 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.silversea.aem.models.CruiseModelLight;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toSet;
 
@@ -18,8 +21,12 @@ public abstract class AbstractFilter<T> {
     private Set<FilterRow<T>> rows;
     private Set<FilterRow<T>> selectedRows;
 
+
+    private boolean visible;
+
     AbstractFilter(String kind) {
         this.kind = kind;
+        this.visible = true;
     }
 
     protected abstract Stream<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
@@ -50,13 +57,13 @@ public abstract class AbstractFilter<T> {
         rows.forEach(row -> row.setState(rowShouldBeEnabled(cruises, row) ? ENABLED : DISABLED));
     }
 
-    final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, List<CruiseModelLight> cruises) {
+    final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, Collection<CruiseModelLight> cruises) {
         this.selectedRows = new HashSet<>();
         this.rows = retrieveAllValues(use, selectedKeys, this.selectedRows::add, cruises);
     }
 
     protected Set<FilterRow<T>> retrieveAllValues(FindYourCruise2018Use use, String[] selectedKeys,
-                                                  Consumer<FilterRow<T>> addToChosen, List<CruiseModelLight> cruises) {
+                                                  Consumer<FilterRow<T>> addToChosen, Collection<CruiseModelLight> cruises) {
         Comparator<FilterRow<T>> comparator = this.comparator();
         Set<String> selected = new HashSet<>(Arrays.asList(selectedKeys));
         return cruises.stream().flatMap(this::projection).distinct().peek(row -> {
@@ -67,6 +74,15 @@ public abstract class AbstractFilter<T> {
         }).collect(toCollection(() -> new TreeSet<>(comparator)));
     }
 
+
+    protected String[] selectedKeys(ValueMap properties, Map<String, String[]> httpRequest) {
+        Optional<String[]> valueFromProperty = ofNullable(properties.get(getKind() + "Id", String.class)).map(value -> new String[]{value});
+        if (valueFromProperty.isPresent()) {
+            setVisible(false);
+            return valueFromProperty.get();
+        }
+        return httpRequest.getOrDefault(getKind(), ArrayUtils.EMPTY_STRING_ARRAY);
+    }
 
     protected Comparator<FilterRow<T>> comparator() {//this is overridden when needed
         return Comparator.naturalOrder();
@@ -120,5 +136,13 @@ public abstract class AbstractFilter<T> {
         JsonArray array = new JsonArray();
         rows.forEach(row -> array.add(row.toJson()));
         return array;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

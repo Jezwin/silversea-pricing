@@ -8,7 +8,6 @@ import com.silversea.aem.models.CruiseModelLight;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.lang.Integer.parseInt;
 

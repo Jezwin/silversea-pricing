@@ -3,6 +3,8 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 import com.google.common.collect.Range;
 import com.google.gson.JsonArray;
 import com.silversea.aem.models.*;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.sling.api.resource.ValueMap;
 
 import java.time.YearMonth;
 import java.util.Collection;
@@ -63,13 +65,11 @@ public class FilterBar {
     public static final Collection<AbstractFilter<?>> FILTERS =
             asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE);
 
-    void init(FindYourCruise2018Use use, Map<String, String[]> selectedKeys, List<CruiseModelLight> cruises) {
-        String[] emptyArray = {};
+    void init(FindYourCruise2018Use use, Map<String, String[]> httpRequest, List<CruiseModelLight> cruises) {
         for (AbstractFilter<?> filter : FILTERS) {
-            filter.initAllValues(use, selectedKeys.getOrDefault(filter.getKind(), emptyArray), cruises);
+            filter.initAllValues(use, filter.selectedKeys(use.properties(), httpRequest), cruises);
         }
     }
-
 
     boolean isCruiseMatching(CruiseModelLight cruiseModelLight) {
         for (AbstractFilter<?> filter : FILTERS) {
