@@ -73,10 +73,7 @@ public class ImageUse extends WCMUsePojo {
 		}
 
 		// Get width from configuration
-		final GlobalCacheService globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
-		Resource confRes;
-		confRes = globalCacheService.getCache("confResponsiveImage-ImageUse", Resource.class, () -> getResource().adaptTo(Conf.class).getItemResource("responsive/image/"));
-
+		Resource confRes = getResource().adaptTo(Conf.class).getItemResource("responsive/image/");
 		if (confRes != null) {
 			Resource desktopConfRes = confRes
 					.getChild(getResource().getResourceType() + SLASH_DESKTOP_DASH + widthResponsiveDesktop);
