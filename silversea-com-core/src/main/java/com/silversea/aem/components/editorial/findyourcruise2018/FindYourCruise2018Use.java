@@ -1,12 +1,17 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
+import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.time.*;
@@ -28,6 +33,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private String lang;
     private TagManager tagManager;
 
+    private String worldCruisePath;
+    private String grandVoyagePath;
+
     private List<CruiseItem> cruises;
 
     private FilterBar filterBar;
@@ -37,15 +45,25 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     @Override
     public void activate() throws Exception {
         super.activate();
-        locale = getCurrentPage().getLanguage(false);
-        lang = LanguageHelper.getLanguage(getCurrentPage());
-        tagManager = getResourceResolver().adaptTo(TagManager.class);
+        Page currentPage = getCurrentPage();
+        Resource resource = getResource();
+        SlingHttpServletRequest request = getRequest();
+        ResourceResolver resourceResolver = getResourceResolver();
+        Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
+
+        lang = LanguageHelper.getLanguage(currentPage);
+        locale = currentPage.getLanguage(false);
+        tagManager = resourceResolver.adaptTo(TagManager.class);
+
+
         CruisesCacheService service = getSlingScriptHelper().getService(CruisesCacheService.class);
         if (service == null) {
             return;
         }
         init(service);
 
+        worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
+        grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
     }
 
     public void init(CruisesCacheService service) { //this is here for test purposes
@@ -54,7 +72,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     }
 
-    public Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service) {
+    private Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service) {
         List<CruiseModelLight> cruises = service.getCruises(lang);
         List<CruiseModelLight> preFilteredCruises = preFiltering(cruises);
 
@@ -156,6 +174,14 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return tagManager;
     }
 
+
+    public String getWorldCruisePath() {
+        return worldCruisePath;
+    }
+
+    public String getGrandVoyagePath() {
+        return grandVoyagePath;
+    }
 
     public Pagination getPagination() {
         return pagination;
