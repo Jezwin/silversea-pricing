@@ -1,10 +1,13 @@
 package com.silversea.aem.services;
 
+import org.apache.sling.api.resource.Resource;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 public interface GlobalCacheService {
 
-    <T> T getCache(String textKey, Class<T> typeKey);
-
-    <T> void setCache(String textKey, Class<T> typeKey, T cachedValue);
-
     void clearCache();
+
+    <T> T  getCache(String textKey, Class<T> typeKey, Supplier<T> o);
 }

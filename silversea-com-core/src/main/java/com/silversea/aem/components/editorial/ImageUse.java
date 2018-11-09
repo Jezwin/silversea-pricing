@@ -1,5 +1,6 @@
 package com.silversea.aem.components.editorial;
 
+import com.silversea.aem.services.GlobalCacheService;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.caconfig.resource.ConfigurationResourceResolver;
 
@@ -7,6 +8,8 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.wcm.api.NameConstants;
 import com.silversea.aem.constants.WcmConstants;
+
+import java.util.Optional;
 
 public class ImageUse extends WCMUsePojo {
 	private Integer desktopWidth = WcmConstants.DEFAULT_WIDTH_DESKTOP;
@@ -70,7 +73,9 @@ public class ImageUse extends WCMUsePojo {
 		}
 
 		// Get width from configuration
-		Resource confRes = getResource().adaptTo(Conf.class).getItemResource("responsive/image/");
+		final GlobalCacheService globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
+		Resource confRes;
+		confRes = globalCacheService.getCache("confResponsiveImage-ImageUse", Resource.class, () -> getResource().adaptTo(Conf.class).getItemResource("responsive/image/"));
 
 		if (confRes != null) {
 			Resource desktopConfRes = confRes
