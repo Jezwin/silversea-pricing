@@ -32,13 +32,15 @@ $(function () {
     };
 
     $(document).ready(function () {
-        setNumberAllFilterSelected();
-        separateYears();
-        portsList = JSON.parse(window.portsList);
-        onLoadFilterUrl = window.location.search;
-        searchAnalytics();
-        if ($(window).width() < 768) {
-            backMobile();
+        if ($(".findyourcruise2018").length > 0) {
+            setNumberAllFilterSelected();
+            separateYears();
+            portsList = JSON.parse(window.portsList);
+            onLoadFilterUrl = window.location.search;
+            searchAnalytics();
+            if ($(window).width() < 768) {
+                backMobile();
+            }
         }
     });
 
