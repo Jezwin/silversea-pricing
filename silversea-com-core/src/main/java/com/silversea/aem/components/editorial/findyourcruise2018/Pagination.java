@@ -5,49 +5,49 @@ import com.silversea.aem.components.editorial.FindYourCruiseUse;
 public class Pagination {
 
     private final int totalResults;
-    private final int currentPage;
-    private final int totalPages;
+    private final int current;
+    private final int end;
     private final int pageSize;
-    private final Iterable<Integer> pages;
-    private final boolean isFirstPage;
-    private final boolean isLastPage;
+    private final Iterable<Integer> labels;
+    private final boolean first;
+    private final boolean last;
 
-    public Pagination(int totalResults, int currentPage, int pageSize) {
+    public Pagination(int totalResults, int current, int pageSize) {
         this.totalResults = totalResults;
-        this.currentPage = currentPage;
+        this.current = current;
         this.pageSize = pageSize;
-        this.totalPages = (int) Math.ceil((float) totalResults / (float) pageSize);
-        this.pages = FindYourCruiseUse.buildPaginationV2(totalPages, currentPage);//to be moved
-        this.isFirstPage = currentPage == 1;
-        this.isLastPage = currentPage == totalPages;
+        this.end = (int) Math.ceil((float) totalResults / (float) pageSize);
+        this.labels = FindYourCruiseUse.buildPaginationV2(end, current);//to be moved
+        this.first = current == 1;
+        this.last = current == end;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
+    public int getCurrent() {
+        return current;
     }
 
     public int getTotalResults() {
         return totalResults;
     }
 
-    public int getTotalPages() {
-        return totalPages;
+    public int getEnd() {
+        return end;
     }
 
     public int getPageSize() {
         return pageSize;
     }
 
-    public Iterable<Integer> getPages() {
-        return pages;
+    public Iterable<Integer> getLabels() {
+        return labels;
     }
 
-    public boolean isFirstPage() {
-        return isFirstPage;
+    public boolean isFirst() {
+        return first;
     }
 
-    public boolean isLastPage() {
-        return isLastPage;
+    public boolean isLast() {
+        return last;
     }
 
 }
