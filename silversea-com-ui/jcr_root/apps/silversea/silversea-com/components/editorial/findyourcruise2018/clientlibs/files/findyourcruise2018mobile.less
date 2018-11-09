@@ -2,8 +2,15 @@
 
 @media (max-width: 767px) {
 
-  .no-scroll-html {
-    overflow-y: hidden !important;
+  .no-height-body {
+    min-height: 0;
+    height: 0;
+  }
+
+  .no-visible-element {
+    background-color: #f4f4f4;
+    opacity: 0;
+    color: #f4f4f4;
   }
 
   /*FILTERS*/
@@ -94,6 +101,7 @@
   /* MODAL FILTERS */
   .parbase.findyourcruise2018 {
     .findyourcruise2018 {
+
       .fyc2018-filters-container {
         padding-top: 0px;
 
@@ -137,7 +145,7 @@
               vertical-align: middle;
               border-width: 0;
               border-radius: 0 !important;
-              padding: 14px 5px 11px 5px;
+              padding: 18px 5px 15px 5px;
               line-height: 16px;
               font-size: 13px;
               font-family: @suisse;
@@ -171,9 +179,11 @@
             overflow-y: scroll !important;
             min-width: 100vw !important;
             min-height: 100vh !important;
-            padding-bottom: 95px;
+            padding-bottom: 195px;
             transform: none;
             -webkit-transform: none;
+            /*-webkit-transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;*/
           }
 
           .filter-value {
