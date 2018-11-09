@@ -41,6 +41,6 @@ public final class DurationFilter extends AbstractFilter<Range<Integer>> {
     }
 
     protected Comparator<FilterRow<Range<Integer>>> comparator() {
-        return Comparator.comparing(FilterRow::getKey);
+        return Comparator.comparing(row -> parseInt(row.getKey()));
     }
 }

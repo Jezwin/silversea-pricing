@@ -3,8 +3,6 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 import com.google.common.collect.Range;
 import com.google.gson.JsonArray;
 import com.silversea.aem.models.*;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.sling.api.resource.ValueMap;
 
 import java.time.YearMonth;
 import java.util.Collection;

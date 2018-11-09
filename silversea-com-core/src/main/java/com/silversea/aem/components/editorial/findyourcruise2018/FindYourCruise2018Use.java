@@ -7,12 +7,9 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.sling.api.resource.ValueMap;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -58,7 +55,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     public Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service) {
-        List<CruiseModelLight> preFilteredCruises = preFiltering(service.getCruises(lang));
+        List<CruiseModelLight> cruises = service.getCruises(lang);
+        List<CruiseModelLight> preFilteredCruises = preFiltering(cruises);
 
         boolean computeFilters = !"true".equals(httpRequest.getOrDefault("onlyResults", new String[]{"false"})[0]);
         boolean computeCruises = !"true".equals(httpRequest.getOrDefault("onlyFilters", new String[]{"false"})[0]);
@@ -75,7 +73,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 parseInt(httpRequest.getOrDefault("pagSize", new String[]{"" + DEFAULT_PAGE_SIZE})[0]));
 
         if (computeCruises) {
-            cruises = retrievePaginatedCruises(pagination, filteredCruises);
+            this.cruises = retrievePaginatedCruises(pagination, filteredCruises);
         }
         return pagination;
 
@@ -84,9 +82,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     List<CruiseModelLight> preFiltering(List<CruiseModelLight> allCruises) {
         Stream<CruiseModelLight> stream = allCruises.stream();
 
-        LocalDateTime today = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT);
-        Predicate<CruiseModelLight> hideToday = cruise -> cruise.getStartDate().after(today);
-
+        Instant today = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).toInstant(ZoneOffset.UTC);
+        Predicate<CruiseModelLight> hideToday = cruise -> cruise.getStartDate().toInstant().isAfter(today);
 
         if (ofNullable(getProperties().get("preFilterWaitlist", Boolean.class)).orElse(false)) {
             stream = stream.filter(cruise -> cruise.getLowestPrices().get(geomarket + currency) != null);
@@ -129,7 +126,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         int pagSize = pagination.getPageSize();
         return lightCruises.stream()
                 .sorted(Comparator.comparing(CruiseModelLight::getStartDate))
-                .skip((pagination.getCurrentPage() - 1) * pagSize)
+                .skip((pagination.getCurrent() - 1) * pagSize)
                 .limit(pagSize)
                 .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale))
                 .collect(toCollection(() -> new ArrayList<>(pagSize)));
@@ -159,4 +156,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return tagManager;
     }
 
+
+    public Pagination getPagination() {
+        return pagination;
+    }
 }

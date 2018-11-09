@@ -1,18 +1,23 @@
 <template data-sly-template.pagination="${@ fyc}">
     <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
-    <nav class="c-fyc-v2-pagination" data-sly-test="${fyc.pagesNumber > 1}">
-        <ul>
-            <li  data-sly-test="${fyc.activePage>1}"><a data-page="${fyc.activePage}" class="previous" href="#"><i class="fa fa-lg fa-angle-left"></i>${'prev' @ i18n}
-            </a></li>
-            <sly data-sly-list="${fyc.paginationV2}">
-                <li>
-                    <a href="#" data-page="${item}" title="${item}" data-sly-test="${item>0}"
-                       class="${item==fyc.activePage ? 'active' : ''}">${item}</a>
-                    <span data-sly-test="${item<0}">...</span>
-                </li>
-            </sly>
-            <li data-sly-test="${fyc.activePage<fyc.pagesNumber}"><a data-page="${fyc.activePage}" class="next" href="#">${'next' @ i18n} <i
-                    class="fa fa-lg fa-angle-right"></i></a></li>
-        </ul>
-    </nav>
+    <sly data-sly-test.pagination="${fyc.pagination}">
+        <nav class="c-fyc-v2-pagination" data-sly-test="${pagination.end > 1}">
+            <ul>
+                <li data-sly-test="${pagination.current>1}"><a data-page="${pagination.current}" class="previous"
+                                                               href="#"><i class="fa fa-lg fa-angle-left"></i>${'prev' @ i18n}
+                </a></li>
+                <sly data-sly-list="${pagination.labels}">
+                    <li>
+                        <a href="#" data-page="${item}" title="${item}" data-sly-test="${item>0}"
+                           class="${item==pagination.current ? 'active' : ''}">${item}</a>
+                        <span data-sly-test="${item<0}">...</span>
+                    </li>
+                </sly>
+                <li data-sly-test="${pagination.current<pagination.end}"><a data-page="${pagination.current}"
+                                                                              class="next"
+                                                                              href="#">${'next' @ i18n} <i
+                        class="fa fa-lg fa-angle-right"></i></a></li>
+            </ul>
+        </nav>
+    </sly>
 </template>
