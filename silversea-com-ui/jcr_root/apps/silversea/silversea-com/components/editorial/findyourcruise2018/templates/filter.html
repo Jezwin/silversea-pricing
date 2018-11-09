@@ -17,7 +17,7 @@
                     <i class="material-icons fyc-close-i"> clear </i>
                 </div>
             </sly>
-            <div class="fyc2018-header-reset-all hidden-xs c-fyc-v2-filter__reset">
+            <div class="fyc2018-header-reset-all c-fyc-v2-filter__reset">
                 <span><i class="fa fa-undo"></i> <span class="text-uppercase">clear all filters</span></span>
             </div>
             <script>
@@ -28,7 +28,7 @@
             <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
             <div class="fyc2018-filters-wrapper" data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.filter'}" id="filter-url-request">
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DESTINATION.rows, type='filter-destination', singular='destination', plural='destinations', name='destination'}"/>
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DESTINATION.rows, type='filter-destination', singular='destination', plural='destinations', name='destination', fyc=fyc}"/>
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DEPARTURE.rows, type='filter-departure', class='col-sm-4', singular='departure', plural='departures', name='departure'}"/>
                 <sly data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"

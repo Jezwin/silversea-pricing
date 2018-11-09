@@ -65,8 +65,8 @@ $(function () {
 
         history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4)));
 
-        updateFilters(urlTemplateFilter + "onlyFilters=true");
-        updateCruises(urlTemplateCruises + "onlyResults=true");
+        updateFilters(urlTemplateFilter + "?onlyFilters=true");
+        updateCruises(urlTemplateCruises + "?onlyResults=true", true);
 
     });
 
@@ -111,7 +111,7 @@ $(function () {
                 }
             }
             $(selectedPortsContainerClass).show();
-            $(this).addClass("filter-show-selected-open")
+            $(this).addClass("filter-show-selected-open");
         }
     });
 
@@ -365,7 +365,7 @@ $(function () {
         return urlTemplate + ".html?" + url;
     };//createUrl
 
-    function updateCruises(url) {
+    function updateCruises(url, removeScroll) {
         $.ajax({
             type: 'GET',
             url: url,
@@ -375,7 +375,8 @@ $(function () {
                 var numbersToUpdate = $divToReplace.find(".c-fyc-v2__results__wrapper").data("totals");
                 $(".findyourcruise2018 .fyc2018-header-total-num").html(numbersToUpdate);
                 setNumberResultOnMobileBtn(numbersToUpdate);
-                if ($(window).width() < 768) {
+                console.log(removeScroll);
+                if ($(window).width() < 768 && !removeScroll) {
                     $("html").addClass("no-scroll-html");
                     $("body").addClass("no-scroll-body");
                     $("body").addClass("no-height-body");
@@ -437,9 +438,11 @@ $(function () {
         if (idFilter == "filter-port") {
             if (numberSelected > 0) {
                 $(showSelectedPortsClass).show();
+                $(".fyc2018-filter-autocomplete-content").addClass("fyc2018-filter-autocomplete-content-open");
                 $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data("label"));
             } else {
                 $(showSelectedPortsClass).hide();
+                $(".fyc2018-filter-autocomplete-content").removeClass("fyc2018-filter-autocomplete-content-open");
                 $(selectedPortsContainerClass).hide();
             }
         }
