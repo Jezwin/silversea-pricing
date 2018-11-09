@@ -7,6 +7,7 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
+import com.silversea.aem.models.ExclusiveOfferModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -103,6 +104,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         Instant today = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).toInstant(ZoneOffset.UTC);
         Predicate<CruiseModelLight> hideToday = cruise -> cruise.getStartDate().toInstant().isAfter(today);
 
+        stream = stream.filter(hideToday);
+
         if (ofNullable(getProperties().get("preFilterWaitlist", Boolean.class)).orElse(false)) {
             stream = stream.filter(cruise -> cruise.getLowestPrices().get(geomarket + currency) != null);
         }
@@ -110,10 +113,16 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         Optional<List<String>> voyageCodeList =
                 ofNullable(getProperties().get("voyageCodeList", String.class)).map(list -> list.split(",")).map(Arrays::asList);
         if (voyageCodeList.isPresent()) {
-            stream = stream.filter(cruise -> voyageCodeList.get().contains(cruise.getCruiseCode()));
+            List<String> codes = voyageCodeList.get();
+            stream = stream.filter(cruise -> codes.contains(cruise.getCruiseCode()));
         }
 
-        stream = stream.filter(hideToday);
+        Optional<String> exclusiveOffer = ofNullable(getProperties().get("eoId", String.class));
+        if (exclusiveOffer.isPresent()) {
+            String offer = exclusiveOffer.get();
+            stream = stream.filter(cruise -> cruise.getExclusiveOffers().stream().map(ExclusiveOfferModelLight::getPath).anyMatch(offer::equals));
+        }
+
 
         return stream.collect(Collectors.toList());
     }

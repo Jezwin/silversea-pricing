@@ -5,7 +5,6 @@ import com.day.cq.tagging.TagManager;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.FeatureModelLight;
-import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -56,14 +55,6 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
                         })
                         .collect(toSet()))
                 .orElse(emptySet());
-    }
-
-
-    @Override
-    protected String[] selectedKeys(ValueMap properties, Map<String, String[]> httpRequest) {
-        return ofNullable(properties.get("eoId", String.class))
-                .map(eoId -> new String[]{eoId})
-                .orElse(super.selectedKeys(properties, httpRequest));
     }
 
     public static class FeatureFilterRow extends FilterRow<FeatureModelLight> {
