@@ -24,7 +24,8 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
     @Override
     protected Stream<FilterRow<FeatureModelLight>> projection(CruiseModelLight cruise) {
         return cruise.getFeatures().stream().filter(feature -> feature.getTitle() != null)
-                .map(feature -> new FilterRow<>(feature, feature.getTitle(), ENABLED));
+                .map(feature -> new FilterRow<>(feature, FeatureModelLight::getTitle, feature.getFeatureId(), ENABLED));
+
     }
 
     @Override
