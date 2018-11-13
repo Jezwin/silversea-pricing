@@ -35,13 +35,30 @@ $(function () {
         if ($(".findyourcruise2018").length > 0) {
             setNumberAllFilterSelected();
             separateYears();
-            portsList = JSON.parse(window.portsList);
+            try {
+                portsList = JSON.parse(window.portsList);
+            } catch (e) {
+                console.error("Error Port list");
+            }
             onLoadFilterUrl = window.location.search;
             searchAnalytics();
             if ($(window).width() < 768) {
                 backMobile();
             }
         }
+    });
+
+    $(".findyourcruise2018 .fyc2018-pag-link").on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var page = $(this).data("page");
+        page = $(this).hasClass("next") ? page + 1 : page;
+        var urlTemplate = $("#results-url-request").data("url");
+        var url = createUrl(urlTemplate) + "&onlyResults=true&pag=" + page;
+        updateCruises(url);
+        $('html, body').animate({
+            scrollTop: $('.findyourcruise2018-header').first().offset().top - $('.c-header').height()
+        }, 800);
     });
 
     $(fycContainerClass).on('click', ".filter-view-all-original", function (e) {
@@ -270,6 +287,9 @@ $(function () {
                             loadMoreElementNotFiltered();
                         }
                     });
+                    $('.findyourcruise2018 .fyc2018-filter-autocomplete-content').animate({
+                        scrollTop: $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().position().top - $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().height() - 43
+                    }, 800);
                 }
             }
         }
@@ -414,7 +434,12 @@ $(function () {
                 $(".findyourcruise2018-header").replaceWith(result);
                 setNumberAllFilterSelected();
                 separateYears();
-                portsList = JSON.parse(window.portsList);
+                try {
+                    portsList = JSON.parse(window.portsList);
+                } catch (e) {
+                    console.error("Error Port list");
+                }
+
                 if (showReset) {
                     $(".fyc2018-header-reset-all").show();
                 }
@@ -526,7 +551,7 @@ $(function () {
         });
 
         dataLayer.search_filters = filterOjb;
-        dataLayer.search_page_number = page;
+        dataLayer.search_page_number = $(".findyourcruise2018 .fyc2018-pagination .active").data("page");
         dataLayer.search_results_number = $('.findyourcruise2018 .fyc2018-header-total-num').text();
 
     };//searchAnalytics
