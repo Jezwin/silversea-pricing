@@ -1,6 +1,52 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
 .findyourcruise2018 {
+
+  .fyc2018-pagination {
+    margin-top: 40px;
+    color: black;
+    .previous, .next {
+      font-weight: 800;
+    }
+    .fyc2018-pag-link {
+      cursor: pointer;
+    }
+    li {
+      span.active {
+        font-weight: 800;
+        border-bottom: 2px solid @red;
+        padding-bottom: 5px;
+        color: @black;
+
+        &:before, &:after {
+          padding-bottom: 5px;
+          border-bottom: 2px solid @red;
+          content: ' ';
+          padding-left: 5px;
+          white-space: pre;
+        }
+
+      }
+      .fa {
+        color: @black;
+        margin: 4px;
+        vertical-align: -9%;
+      }
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: @suisse;
+      font-size: 14px;
+      display: inline-block;
+      margin-right: 30px;
+      color: black;
+    }
+    ul {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+  }
+
   .fyc2018-header-mobile-filter {
     display: none;
   }
@@ -216,10 +262,10 @@
       min-width: 560px !important;
       min-height: 385px !important;
 
-      .filter-combo-cruises-row{
+      .filter-combo-cruises-row {
         padding: 0;
       }
-      .filter-combo-cruises{
+      .filter-combo-cruises {
         margin-top: 15px;
         text-align: center !important;
         cursor: pointer;
@@ -248,7 +294,20 @@
       position: absolute !important;
       right: 4px;
       min-width: 0px;
-      width: 305px;
+      width: 300px;
+      .fyc2018-filter-value-container {
+        width: 300px !important;
+        max-height: 445px !important;
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+      }
+      .filter-value:first-child {
+        margin-top: 0px;
+      }
+
+      .fyc2018-filter-label {
+        margin-bottom: 0px;
+      }
 
       .filter-value span {
         width: 268px;
@@ -293,7 +352,6 @@
         left: 50%;
       }
     }
-
 
     .filter-ship.fyc2018-filter-value-clicked {
       min-width: 480px !important;
@@ -465,10 +523,15 @@
         }
       }
 
+      .filter-disabled {
+        cursor: auto;
+        pointer-events: none;
+      }
+
       .filter-disabled span {
         opacity: 0.5;
         cursor: auto;
-
+        pointer-events: none;
         &:hover {
           background-color: white;
           color: #171D47;
