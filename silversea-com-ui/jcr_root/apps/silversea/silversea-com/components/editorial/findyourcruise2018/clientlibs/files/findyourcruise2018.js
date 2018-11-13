@@ -332,7 +332,7 @@ $(function () {
     $(document).on("click ", function (e) {
         var $filter = $(".findyourcruise2018 .fyc2018-filter .fyc2018-filter-value-clicked");
         var isOpenFilters = $filter.length > 0;
-        if (!(e.target.className.indexOf("fyc2018-filter-autocomplete") > -1 || e.target.className.indexOf("filter-value") > -1)) {
+        if (!(e.target.className.indexOf("fyc2018-filter-autocomplete") > -1 || e.target.className.indexOf("filter-value") > -1 || e.target.className.indexOf("fyc2018-pagination") > -1)) {
             if (isOpenFilters) {
                 var urlTemplate = $("#filter-url-request").data("url");
                 var url = createUrl(urlTemplate) + "&onlyFilters=true";
@@ -456,7 +456,9 @@ $(function () {
         });
     };//updateFilters
 
-    $(".findyourcruise2018").on("click", "fyc2018-header-mobile-filter",function () {
+    $(".findyourcruise2018").on("click", ".fyc2018-header-mobile-filter",function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         var isOpen = $(this).hasClass("fyc2018-filter-mobile-open");
         if (isOpen){
             $(this).removeClass("fyc2018-filter-mobile-open");
