@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;

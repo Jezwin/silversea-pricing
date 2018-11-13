@@ -80,7 +80,7 @@ public class FindYourCruise2018UseTest {
         }
         Function<UseBuilder, Callable<Long>> test = useBuilder -> () -> {
             long current = System.currentTimeMillis();
-            useBuilder.build().init(cacheService);
+            useBuilder.build().init(cacheService, "1000");
             return (System.currentTimeMillis() - current);
         };
         double average = executor.invokeAll(builders.stream().map(test).collect(Collectors.toList())).stream()
@@ -99,7 +99,7 @@ public class FindYourCruise2018UseTest {
     @Test
     public void testOneDestination() {
         FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL).build();
-        use.init(cacheService);
+        use.init(cacheService, "1000");
 
         //test results
         assertTrue(use.getCruises().stream().allMatch(
@@ -126,7 +126,7 @@ public class FindYourCruise2018UseTest {
         FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL).build();
         Predicate<CruiseModelLight> test = cruise -> AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
                 ASIA_LABEL.equals(cruise.getDestination().getTitle());
-        use.init(cacheService);
+        use.init(cacheService, "1000");
 
         //test results
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
@@ -159,7 +159,7 @@ public class FindYourCruise2018UseTest {
         properties.put("shipId", "Silver Discoverer");
         FindYourCruise2018Use use = new UseBuilder(properties).build();
         Predicate<CruiseModelLight> test = cruise -> "Silver Discoverer".equals(cruise.getShip().getTitle());
-        use.init(cacheService);
+        use.init(cacheService, "1000");
         long expectedCruises = cruises.stream().filter(test).count();
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
         assertEquals(expectedCruises, use.getCruises().size());
@@ -177,7 +177,7 @@ public class FindYourCruise2018UseTest {
                 ASIA_LABEL.equals(cruise.getDestination().getName())) &&
                 (cruise.getPorts().stream().map(PortItem::getName)
                         .anyMatch(name -> HO_CHI_MINH_CITY.equals(name) || DA_NANG.equals(name)));
-        use.init(cacheService);
+        use.init(cacheService, "1000");
 
         //test results
         long expectedCruises = cruises.stream().filter(test).count();

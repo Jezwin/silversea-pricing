@@ -29,7 +29,7 @@ import static java.util.stream.Collectors.toCollection;
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
 
-    private static final int DEFAULT_PAGE_SIZE = 20;
+    private static final String DEFAULT_PAGE_SIZE = "20";
 
     private Locale locale;
     private String lang;
@@ -63,7 +63,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         if (service == null) {
             return;
         }
-        init(service);
+        String paginationLimit = ofNullable(getCurrentStyle()).map(style -> style.get("paginationLimit", String.class)).orElse(DEFAULT_PAGE_SIZE);
+        init(service, paginationLimit);
 
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
@@ -71,20 +72,20 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     private String retrieveRequestQuotePath(Resource resource) {
-        return Optional.ofNullable(resource.adaptTo(Conf.class))
+        return ofNullable(resource.adaptTo(Conf.class))
                 .map(conf -> conf.getItemResource("requestquotepage/page"))
                 .map(conf -> conf.getValueMap().get("reference", String.class))
                 .map(reference -> "/content/silversea-com/" + lang + reference)
                 .orElse("");
     }
 
-    public void init(CruisesCacheService service) { //this is here for test purposes
+    public void init(CruisesCacheService service, String paginationLimit ) { //this is here for test purposes
         Map<String, String[]> httpRequest = getFromWebRequest();
-        pagination = retrieveResults(httpRequest, service);
+        pagination = retrieveResults(httpRequest, service, paginationLimit);
 
     }
 
-    private Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service) {
+    private Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service, String paginationLimit) {
         List<CruiseModelLight> cruises = service.getCruises(lang);
         List<CruiseModelLight> preFilteredCruises = preFiltering(cruises);
 
@@ -100,7 +101,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         Pagination pagination = new Pagination(filteredCruises.size(),
                 parseInt(httpRequest.getOrDefault("pag", new String[]{"1"})[0]),
-                parseInt(httpRequest.getOrDefault("pagSize", new String[]{"" + DEFAULT_PAGE_SIZE})[0]));
+                parseInt(httpRequest.getOrDefault("pagSize", new String[]{paginationLimit})[0]));
+
 
         if (computeCruises) {
             this.cruises = retrievePaginatedCruises(pagination, filteredCruises);
