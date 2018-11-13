@@ -38,7 +38,7 @@ public class ApiUpdater implements Runnable {
 
     @Reference
     private SlingSettingsService slingSettingsService;
-    
+
     @Reference
     private CruisesCacheService cruisesCacheService;
 
@@ -86,7 +86,7 @@ public class ApiUpdater implements Runnable {
 
     @Reference
     private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
-    
+
     @Reference
     private MultiCruisesImporter multiCruisesImporter;
 
@@ -122,7 +122,7 @@ public class ApiUpdater implements Runnable {
             // update cities
             ImportResult importResult = citiesImporter.updateItems();
             LOGGER.info("Cities import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            
+
             // update hotels
             importResult = hotelsImporter.updateHotels();
             LOGGER.info("Hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
@@ -184,11 +184,12 @@ public class ApiUpdater implements Runnable {
 
             try {
                 importResult = cruisesExclusiveOffersImporter.importAllItems();
-                LOGGER.info("Cruises exclusive offers import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+                LOGGER.info("Cruises exclusive offers import : {} success, {} errors", importResult.getSuccessNumber(),
+                        importResult.getErrorNumber());
             } catch (ImporterException e) {
                 LOGGER.error("Cannot import cruises exclusive offers", e);
             }
-            
+
             //update multicruise
             importResult = multiCruisesImporter.updateItems();
             LOGGER.info("Multi Cruises import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
@@ -212,36 +213,38 @@ public class ApiUpdater implements Runnable {
 
             try {
                 importResult = multiCruisesItinerariesLandProgramsImporter.importAllItems();
-                LOGGER.info("Multi Cruises land programs import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+                LOGGER.info("Multi Cruises land programs import : {} success, {} errors", importResult.getSuccessNumber(),
+                        importResult.getErrorNumber());
             } catch (ImporterException e) {
                 LOGGER.error("Cannot import Multi cruise land programs", e);
             }
 
             try {
                 importResult = multiCruisesItinerariesExcursionsImporter.importAllItems();
-                LOGGER.info("Multi Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+                LOGGER.info("Multi Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(),
+                        importResult.getErrorNumber());
             } catch (ImporterException e) {
                 LOGGER.error("Cannot import Multi cruise excursions", e);
             }
 
-            
+
             //desactivate port without planned cruises
             importResult = citiesImporter.DesactivateUselessPort();
             LOGGER.info("Cities desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            
+
             //desactivate Shorex not present anymore in the API
             importResult = shoreExcursionsImporter.disactiveAllItemDeltaByAPI();
             LOGGER.info("Shorex desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            
+
             //desactivate Land Program not present anymore in the API
             importResult = landProgramsImporter.disactiveAllItemDeltaByAPI();
             LOGGER.info("Land Programs desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            
+
             //desactivate Hotel not present anymore in the API
             importResult = hotelsImporter.disactiveAllItemDeltaByAPI();
             LOGGER.info("Hotels desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            
-            
+
+
             comboCruisesImporter.markSegmentsForActivation();
 
             //update travel agencies
@@ -250,14 +253,20 @@ public class ApiUpdater implements Runnable {
 
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
-            replicateModifications("/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/content/silversea-com/en//element(*,cq:PageContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/content/silversea-com/de//element(*,cq:PageContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/etc/tags//element(*,cq:Tag)[toDeactivate or toActivate]");
-            
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/en//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/de//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications(resourceResolverFactory, replicator, "/jcr:root/etc/tags//element(*,cq:Tag)[toDeactivate or toActivate]");
+
             cruisesCacheService.buildCruiseCache();
         } else {
             LOGGER.debug("API updater service run only on author instance");
@@ -269,7 +278,7 @@ public class ApiUpdater implements Runnable {
      *
      * @param query the query of the resources to replicate
      */
-    private void replicateModifications(final String query) {
+    public static void replicateModifications(ResourceResolverFactory resourceResolverFactory, Replicator replicator, final String query) {
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
@@ -291,7 +300,7 @@ public class ApiUpdater implements Runnable {
 
                 if (node != null) {
                     try {
-                       
+
 
                         if (node.hasProperty(ImportersConstants.PN_TO_ACTIVATE)
                                 && node.getProperty(ImportersConstants.PN_TO_ACTIVATE).getBoolean()) {
@@ -301,7 +310,7 @@ public class ApiUpdater implements Runnable {
 
                             LOGGER.info("{} page activated", node.getPath());
                         }
-                        
+
                         if (node.hasProperty(ImportersConstants.PN_TO_DEACTIVATE)
                                 && node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).getBoolean()) {
                             //SSC-2387/SSC-2434
@@ -311,7 +320,7 @@ public class ApiUpdater implements Runnable {
                                 final Node pageNode = pageResource.adaptTo(Node.class);
 
                                 if (pageNode != null) {
-                                	replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
+                                    replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
                                     replicator.replicate(session, ReplicationActionType.DEACTIVATE, pageNode.getPath());
                                 }
                             } else {
@@ -328,14 +337,14 @@ public class ApiUpdater implements Runnable {
 
                         successNumber++;
                         j++;
-                        
+
                         //Force some wait in replication process to avoid overusing publisher.
                         try {
-							Thread.sleep(200);
-						} catch (InterruptedException e1) {
-							 LOGGER.error("Cannot wait");
-						}
-                        
+                            Thread.sleep(200);
+                        } catch (InterruptedException e1) {
+                            LOGGER.error("Cannot wait");
+                        }
+
                         if (j % 100 == 0 && session.hasPendingChanges()) {
                             try {
                                 session.save();

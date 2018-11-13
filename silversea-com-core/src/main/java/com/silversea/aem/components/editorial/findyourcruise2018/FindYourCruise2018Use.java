@@ -75,12 +75,14 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service) {
         List<CruiseModelLight> cruises = service.getCruises(lang);
+        List<CruiseModelLight> preFilteredCruises = preFiltering(cruises);
 
         boolean computeFilters = !"true".equals(httpRequest.getOrDefault("onlyResults", new String[]{"false"})[0]);
         boolean computeCruises = !"true".equals(httpRequest.getOrDefault("onlyFilters", new String[]{"false"})[0]);
 
         filterBar = initFilters(httpRequest, cruises);
-        List<CruiseModelLight> filteredCruises = applyFilters(preFiltering(cruises), filterBar);
+
+        List<CruiseModelLight> filteredCruises = applyFilters(preFilteredCruises, filterBar);
         if (computeFilters) {
             filterBar.updateFilters(cruises, filteredCruises);
         }
@@ -102,8 +104,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         Instant today = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).toInstant(ZoneOffset.UTC);
         Predicate<CruiseModelLight> hideToday = cruise -> cruise.getStartDate().toInstant().isAfter(today);
 
-        stream = stream.filter(hideToday);
-
         if (ofNullable(getProperties().get("preFilterWaitlist", Boolean.class)).orElse(false)) {
             stream = stream.filter(cruise -> cruise.getLowestPrices().get(geomarket + currency) != null);
         }
@@ -111,8 +111,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         Optional<List<String>> voyageCodeList =
                 ofNullable(getProperties().get("voyageCodeList", String.class)).map(list -> list.split(",")).map(Arrays::asList);
         if (voyageCodeList.isPresent()) {
-            List<String> codes = voyageCodeList.get();
-            stream = stream.filter(cruise -> codes.contains(cruise.getCruiseCode()));
+            stream = stream.filter(cruise -> voyageCodeList.get().contains(cruise.getCruiseCode()));
         }
 
         Optional<String> exclusiveOffer = ofNullable(getProperties().get("eoId", String.class));
@@ -121,6 +120,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             stream = stream.filter(cruise -> cruise.getExclusiveOffers().stream().map(ExclusiveOfferModelLight::getPath).anyMatch(offer::equals));
         }
 
+        stream = stream.filter(hideToday);
 
         return stream.collect(Collectors.toList());
     }

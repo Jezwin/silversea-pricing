@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.utils.CruiseUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -60,7 +61,8 @@ public class ItineraryHotelModel {
     }
 
     public String getAssetSelectionReference() {
-        return hotel != null ? hotel.getAssetSelectionReference() : null;
+        return hotel != null ? CruiseUtils.firstNonNull(hotel.getAssetSelectionReference(),
+                hotel.getAssetSelectionReferenceApi()) : null;
     }
 
     public Long getHotelId() {

@@ -1,23 +1,19 @@
 package com.silversea.aem.importers.servlets;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-
+import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.services.CruisesCacheService;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
-import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.silversea.aem.importers.ImporterException;
+import javax.servlet.ServletException;
+import java.io.IOException;
 
 @SlingServlet(paths = "/bin/api-import-diff")
 public class UpdateImportServlet extends SlingSafeMethodsServlet {
@@ -25,27 +21,41 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     static final private Logger LOGGER = LoggerFactory.getLogger(UpdateImportServlet.class);
 
     private enum Mode {
-        cities, excursions, hotels, landprograms,
-
-        countries, features, brochures,
-
-        exclusiveoffers,
-
-        cruises, itineraries, itinerarieshotels, itinerariesexcursions, itinerarieslandprograms, prices,
+        FYCCacheRebuild,
+        brochures,
+        ccptgeneration,
+        cities,
+        citiesDisactive,
+        combocruises,
+        combocruisessegmentsactivation,
+        countries,
+        cruises,
         cruisesexclusiveoffers,
-
-        multicruises, multicruisesitineraries, multicruisesitinerarieshotels, multicruisesitinerariesexcursions,
-        multicruisesitinerarieslandprograms, multicruisesprices,
-
-        combocruises, combocruisessegmentsactivation,
-
-        ccptgeneration, phonegeneration,
-
-        stylesconfiguration,
-
-        excursionsDisactive, landProgramsDisactive, hotelsDisactive, citiesDisactive,
-
-        importAllPortImages, portsGeneration, FYCCacheRebuild, hotelImagesGeneration
+        exclusiveoffers,
+        excursions,
+        excursionsDisactive,
+        features,
+        hotelImagesGeneration,
+        hotels,
+        hotelsDisactive,
+        importAllPortImages,
+        itineraries,
+        itinerariesexcursions,
+        itinerarieshotels,
+        itinerarieslandprograms,
+        landProgramsDisactive,
+        landprograms,
+        multicruises,
+        multicruisesitineraries,
+        multicruisesitinerariesexcursions,
+        multicruisesitinerarieshotels,
+        multicruisesitinerarieslandprograms,
+        multicruisesprices,
+        phonegeneration,
+        portsGeneration,
+        prices,
+        replicate,
+        stylesconfiguration
     }
 
     @Reference
@@ -129,6 +139,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     @Reference
     private CruisesCacheService cruisesCacheService;
 
+    @Reference
+    private ReplicateImporter replicateImporter;
+
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
@@ -211,10 +224,12 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 citiesImporter.importAllPortImages();
             } else if (mode.equals(Mode.portsGeneration)) {
                 portsImporter.importAllItems();
-            }else if(mode.equals(Mode.FYCCacheRebuild)) {
-                    cruisesCacheService.buildCruiseCache();                
+            } else if (mode.equals(Mode.FYCCacheRebuild)) {
+                cruisesCacheService.buildCruiseCache();
             } else if (mode.equals(Mode.hotelImagesGeneration)) {
                 hotelsImporter.importHotelImages();
+            } else if (mode.equals(Mode.replicate)) {
+                replicateImporter.replicate();
             }
 
         } catch (ImporterException e) {

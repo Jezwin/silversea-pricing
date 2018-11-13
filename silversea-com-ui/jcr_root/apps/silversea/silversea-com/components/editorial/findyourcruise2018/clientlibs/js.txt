@@ -1,3 +1,4 @@
 #base=files
-findyourcruise2018.js
 jquery.easy-autocomplete.min.js
+findyourcruise2018.js
+findyourcruise2018mobile.js

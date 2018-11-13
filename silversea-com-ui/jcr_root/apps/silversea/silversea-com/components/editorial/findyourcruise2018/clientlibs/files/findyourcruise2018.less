@@ -1,7 +1,9 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
 .findyourcruise2018 {
-
+  .fyc2018-header-mobile-filter {
+    display: none;
+  }
   .fyc2018-header-reset-all {
     font-weight: 400;
     display: none;
@@ -213,6 +215,33 @@
     .filter-destination.fyc2018-filter-value-clicked {
       min-width: 560px !important;
       min-height: 385px !important;
+
+      .filter-combo-cruises-row{
+        padding: 0;
+      }
+      .filter-combo-cruises{
+        margin-top: 15px;
+        text-align: center !important;
+        cursor: pointer;
+        span {
+          white-space: normal;
+          display: inline-block;
+          text-transform: uppercase;
+          text-align: center;
+          vertical-align: middle;
+          border-width: 0;
+          border-radius: 0 !important;
+          padding: 14px 5px 11px 5px;
+          line-height: 16px;
+          font-size: 13px;
+          font-family: @suisse;
+          font-weight: 600;
+          letter-spacing: 0;
+          color: #171d47;
+          width: 250px;
+          text-decoration: underline;
+        }
+      }
     }
 
     .filter-features.fyc2018-filter-value-clicked {
@@ -220,8 +249,13 @@
       right: 4px;
       min-width: 0px;
       width: 305px;
+
       .filter-value span {
         width: 268px;
+
+        i {
+          padding-right: 5px;
+        }
       }
     }
 
