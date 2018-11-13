@@ -1,5 +1,6 @@
 package com.silversea.aem.components.editorial.findyourcruise2018;
 
+import com.adobe.granite.confmgr.Conf;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
@@ -42,6 +43,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private FilterBar filterBar;
 
     private Pagination pagination;
+    private String requestQuotePagePath;
 
     @Override
     public void activate() throws Exception {
@@ -65,6 +67,15 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
+        requestQuotePagePath = retrieveRequestQuotePath(resource);
+    }
+
+    private String retrieveRequestQuotePath(Resource resource) {
+        return Optional.ofNullable(resource.adaptTo(Conf.class))
+                .map(conf -> conf.getItemResource("requestquotepage/page"))
+                .map(conf -> conf.getValueMap().get("reference", String.class))
+                .map(reference -> "/content/silversea-com/" + lang + reference)
+                .orElse("");
     }
 
     public void init(CruisesCacheService service) { //this is here for test purposes
@@ -174,7 +185,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     public String getRequestQuotePagePath() {
-        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+        return requestQuotePagePath;
     }
 
     public TagManager getTagManager() {
