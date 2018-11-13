@@ -270,4 +270,144 @@
       }
     }
   }
+
+  .c-fyc-v2__result {
+    font-size: 12px;
+    .c-fyc-v2__result__wrapper {
+      box-shadow: rgba(0, 0, 0, 0.15) 0 2px 2px 0;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+
+      .flag {
+        display: none !important;
+      }
+    }
+    .c-fyc-v2__result__content {
+      width: 100%;
+      display: table;
+      padding-bottom: 12px;
+
+      .c-fyc-v2__result__content__inner {
+        text-align: center !important;
+      }
+      .c-fyc-v2__result__content__title {
+        font-family: @freight !important;
+        font-size: 22px !important;
+        letter-spacing: .5px !important;
+        line-height: 24px !important;
+        font-weight: normal !important;
+        padding: 0px 6px;
+        em {
+          font-style: inherit !important;
+        }
+      }
+      .c-fyc-v2__result__content__summary {
+        border: none !important;
+        margin-top: 20px !important;
+        background-color: rgba(244, 244, 244, 0.6) !important;
+        font-weight: normal !important;
+        display: -webkit-flex;
+        letter-spacing: -0.3px;
+
+        .c-fyc-v2__result__content__summary__item {
+          padding: 10px 5px 9px !important;
+          border: none !important;
+          width: 33.3333%;
+          dl {
+            border-right: 1px solid #ccc !important;
+
+            dt {
+              color: #98989b !important;
+              font-family: @suisse !important;
+              font-size: 9px !important;
+              letter-spacing: 1px !important;
+              line-height: 11px !important;
+              text-align: center !important;
+              font-weight: normal !important;
+            }
+            dd {
+              font-family: @suisse !important;
+              font-size: 18px !important;
+              letter-spacing: .5px !important;
+              line-height: 25px !important;
+              margin: 4px 0 !important;
+
+            }
+          }
+        }
+        .c-fyc-v2__result__content__summary__item.c-fyc-v2__result__content__summary__item__duration {
+          padding: 10px 5px 9px !important;
+          border: none !important;
+        }
+        .c-fyc-v2__result__content__summary__item.c-fyc-v2__result__content__summary__item--ship {
+          padding: 10px 5px 9px !important;
+
+          dd {
+            font-family: @suisse !important;
+            font-size: 18px !important;
+            letter-spacing: .5px !important;
+            line-height: 25px !important;
+            margin: 4px 0 !important;
+            border: none !important;
+            strong {
+              letter-spacing: .48px !important;
+              text-align: center !important;
+              font-style: normal !important;
+              text-transform: uppercase !important;
+              font-size: 14px !important;
+              line-height: 16px !important;
+              white-space: pre-line;
+              font-weight: normal;
+            }
+          }
+        }
+
+        .c-fyc-v2__result__content__price {
+          margin-top: 20px;
+        }
+
+        .c-fyc-v2__result__content__price__notWaitList {
+          margin-top: 20px !important;
+          font-family: @suisse !important;
+          font-size: 9px !important;
+          letter-spacing: 1px !important;
+          line-height: 11px !important;
+        }
+      }
+      .c-fyc-v2__result__content__button {
+        margin-top: 15px;
+        a {
+          width: 250px !important;
+          padding: 14px 62px 13px 62px !important;
+          font-family: @suisse !important;
+          font-size: 12px !important;
+          letter-spacing: 1px !important;
+          line-height: 18px !important;
+          font-weight: normal !important;
+          min-width: auto;
+        }
+      }
+      .price-prefixe, .price-suffixe {
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 10px;
+      }
+
+      .year, .days {
+        font-family: @suisse !important;
+        font-size: 9px !important;
+        letter-spacing: 1px !important;
+        line-height: 11px !important;
+        display: block;
+      }
+
+      .price-mobile {
+        color: #333 !important;
+        font-family: @suisse !important;
+        font-size: 18px !important;
+        letter-spacing: .5px !important;
+        line-height: 25px !important;
+        font-weight: 600;
+      }
+    }
+  }
 }
