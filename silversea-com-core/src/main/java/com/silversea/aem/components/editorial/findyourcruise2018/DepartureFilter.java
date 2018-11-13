@@ -28,7 +28,7 @@ public class DepartureFilter extends AbstractFilter<YearMonth> {
     }
 
 
-    private YearMonth toLocaleYearMonth(Calendar cruiseDate) {
+    private synchronized YearMonth toLocaleYearMonth(Calendar cruiseDate) {
         GREGORIAN_CALENDAR.setTime(cruiseDate.getTime());
         GREGORIAN_CALENDAR.setTimeZone(UTC);
         return YearMonth.of(GREGORIAN_CALENDAR.get(Calendar.YEAR), GREGORIAN_CALENDAR.get(Calendar.MONTH) + 1);
