@@ -33,7 +33,7 @@
                                         data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd', date=cruiseItem.cruiseModel.startDate}"
                                         data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruiseItem.cruiseModel.startDate}"
                                         data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}"
-                                        data-date="${dateFull.value}"> ${dateMonthDay.value} ${dateYear.value}
+                                        data-date="${dateFull.value}"> ${dateMonthDay.value} <span class="year">${dateYear.value}</span>
                                     </dd>
                                 </dl>
                             </li>
@@ -42,7 +42,7 @@
                                 <dl>
                                     <dt class="visible-xs">${'duration' @ i18n}</dt>
                                     <dd>
-                                        <i class="fa fa-clock-o hidden-xs"></i>${cruiseItem.cruiseModel.duration} ${'days' @ i18n}
+                                        <i class="fa fa-clock-o hidden-xs"></i>${cruiseItem.cruiseModel.duration} <span class="days">${'days' @ i18n}</span>
                                     </dd>
                                 </dl>
                             </li>
@@ -105,8 +105,8 @@
                                 <span data-sly-test="${!cruiseItem.isWaitList}"
                                       class="price-prefixe">${'from' @ i18n}</span>
                                 <span data-sly-test="${!cruiseItem.isWaitList}"
-                                      class="price-prefixe text-uppercase">${cruiseItem.lowestPrice.currency @ i18n}</span>
-                                <span data-sly-test="${!cruiseItem.isWaitList}">${cruiseItem.lowestPriceFormated}</span>
+                                      class="price-prefixe text-uppercase price-mobile">${cruiseItem.lowestPrice.currency @ i18n}</span>
+                                <span class="price-mobile" data-sly-test="${!cruiseItem.isWaitList}">${cruiseItem.lowestPriceFormated}</span>
                                 <div data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}"
                                      class="price-suffixe">${'with' @ i18n} 10% ${'early-booking-bonus' @ i18n}</div>
                             </div>
