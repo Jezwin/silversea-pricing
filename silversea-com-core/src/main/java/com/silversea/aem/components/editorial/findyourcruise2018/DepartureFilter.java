@@ -4,13 +4,13 @@ import com.silversea.aem.models.CruiseModelLight;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
+import static java.util.stream.Collectors.toCollection;
 
 public class DepartureFilter extends AbstractFilter<YearMonth> {
     private static final Calendar GREGORIAN_CALENDAR = new GregorianCalendar();
@@ -24,9 +24,8 @@ public class DepartureFilter extends AbstractFilter<YearMonth> {
     protected Stream<FilterRow<YearMonth>> projection(CruiseModelLight cruise) {
         //we receive the """"correct"""" time but with the wrong timezone. Just use UTC always.
         YearMonth yearMonth = toLocaleYearMonth(cruise.getStartDate());
-        return Stream.of(new FilterRow<>(yearMonth, date -> date.format(DepartureFilter.getLocale(cruise.getLang())), yearMonth.toString(), ENABLED));
+        return Stream.of(new DepartureRow(yearMonth, cruise.getLang()));
     }
-
 
     private synchronized YearMonth toLocaleYearMonth(Calendar cruiseDate) {
         GREGORIAN_CALENDAR.setTime(cruiseDate.getTime());
@@ -39,7 +38,6 @@ public class DepartureFilter extends AbstractFilter<YearMonth> {
     private static DateTimeFormatter DE_FORMATTER = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.GERMANY);
     private static DateTimeFormatter PT_FORMATTER = DateTimeFormatter.ofPattern("MMMM yyyy", new Locale("pt", "BR"));
     private static DateTimeFormatter FR_FORMATTER = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.FRANCE);
-
 
     private static DateTimeFormatter getLocale(String lang) {
         switch (lang) {
@@ -56,4 +54,27 @@ public class DepartureFilter extends AbstractFilter<YearMonth> {
                 return EN_FORMATTER;
         }
     }
+
+    public static class DepartureRow extends FilterRow<YearMonth> {
+        private String[] split;
+
+        public DepartureRow(YearMonth value, String lang) {
+            super(value, date -> date.format(DepartureFilter.getLocale(lang)), value.toString(), ENABLED);
+        }
+
+        public String getYear() {
+            if (split == null) {
+                split = getLabel().split(" ");
+            }
+            return split[0];
+        }
+
+        public String getMonth() {
+            if (split == null) {
+                split = getLabel().split(" ");
+            }
+            return split[1];
+        }
+    }
+
 }
