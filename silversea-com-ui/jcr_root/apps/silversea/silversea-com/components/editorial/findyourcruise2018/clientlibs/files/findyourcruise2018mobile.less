@@ -29,10 +29,11 @@
         }
 
         .fyc2018-header-reset-all {
-          margin-top: 50px;
-          margin-bottom: 13px;
-          float: right;
-          margin-right: 15px;
+          display: block;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          position: absolute;
           span {
             color: black;
           }
@@ -94,6 +95,11 @@
           }
         }
       }
+
+      .fyc2018-filters-container-clear-open {
+        margin-top: 40px;
+      }
+
       .fyc2018-filters-container {
         padding-top: 0px;
         display: none;
@@ -137,6 +143,13 @@
           }
         }
 
+        .filter-features {
+          .fyc2018-filter-value-container {
+            max-height: 100vh !important;
+            width: 100% !important;
+          }
+        }
+
         .fyc2018-filter {
           display: none;
 
@@ -168,7 +181,17 @@
               color: @white;
             }
           }
-
+          .filter-combo-cruises-row {
+            margin-top: 20px;
+          }
+          .filter-combo-cruises {
+            span {
+              width: 100%;
+            }
+          }
+          .fyc2018-filter-value.fyc2018-filter-value-clicked {
+            padding-bottom: 100px;
+          }
           .fyc2018-filter-value.fyc2018-filter-value-clicked {
             width: 100vw !important;
             max-height: 100vh !important;
@@ -193,8 +216,6 @@
             padding-bottom: 195px;
             transform: none;
             -webkit-transform: none;
-            /*-webkit-transform: translate3d(0, 0, 0);
-            -webkit-backface-visibility: hidden;*/
           }
 
           .filter-value {
@@ -237,14 +258,22 @@
             .filter-no-ports {
               font-size: 14px;
               width: 100%;
+              span {
+                width: 100%;
+              }
             }
             .filter-show-selected {
+
               display: block;
               position: absolute;
-              top: 20%;
-              transform: translate(-50%, -20%);
-              -webkit-transform: translate(-50%, -20%);
+              transform: translate(-50%,-49px);
+              -webkit-transform: translate(-50%,-49px);
               left: 50%;
+              z-index: 151515;
+              width: 100%;
+              margin-top: 0;
+              background-color: #f4f4f4;
+              top: 150px;
             }
 
             .fyc2018-filter-selected-content {
