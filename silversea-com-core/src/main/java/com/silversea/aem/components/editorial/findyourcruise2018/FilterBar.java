@@ -69,7 +69,7 @@ public class FilterBar {
         for (AbstractFilter<?> filter : FILTERS) {
             filter.initAllValues(use, filter.selectedKeys(properties, httpRequest), cruises);
         }
-        setOpen(httpRequest.getOrDefault("open", new String[]{}));
+        setOpen(httpRequest.getOrDefault("open", new String[]{"allclose"}));
     }
 
     boolean isCruiseMatching(CruiseModelLight cruiseModelLight) {
@@ -134,7 +134,7 @@ public class FilterBar {
     public void setOpen(String... kinds) {
         for (AbstractFilter filter : FILTERS) {
             for (String kind : kinds) {
-                filter.setOpen(kind.equalsIgnoreCase(filter.getKind()));
+              filter.setOpen(kind.equalsIgnoreCase(filter.getKind()));
             }
         }
     }

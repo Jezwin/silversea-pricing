@@ -1,11 +1,11 @@
 <template data-sly-template.default="${@ filter, type, class, singular, plural, label, name, autocomplete,placeholder,fyc, open}">
-    <div class="fyc2018-filter">
-        <div class="fyc2018-filter-content">
-            <span id="${type}" data-singular="${singular @ i18n}" data-plural="${plural @ i18n}" class="${open ? 'fyc2018-filter-content-clicked' : ''}">
+    <div class="fyc2018-filter" data-open="${open ? 'tre' : 'd'}">
+        <div class="fyc2018-filter-content ${open ? 'fyc2018-filter-content-clicked' : ''}">
+            <span id="${type}" data-singular="${singular @ i18n}" data-plural="${plural @ i18n}">
                 ${singular @ i18n}
             </span>
         </div>
-        <div class="${type} fyc2018-filter-value" data-filter="${type}" data-name="${name}">
+        <div class="${type} fyc2018-filter-value ${open ? 'fyc2018-filter-value-clicked': ''}" data-filter="${type}" data-name="${name}">
             <i class="fa fa-spinner fa-spin fa-3x fa-fw fyc2018-spinner"></i>
             <div class="fyc2018-filter-label col-xs-12">
                 <span class="fyc2018-filter-label-mobile visible-xs">${singular @ i18n}</span>
