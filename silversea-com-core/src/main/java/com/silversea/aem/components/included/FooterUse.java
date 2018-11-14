@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
+import com.silversea.aem.services.GlobalCacheService;
 import org.apache.cxf.common.util.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
@@ -15,7 +16,7 @@ import com.silversea.aem.utils.PathUtils;
 
 /**
  * Model for the footer mbennabi 31/05/2017
- *
+ * <p>
  * TODO review footer management
  */
 public class FooterUse extends WCMUsePojo {
@@ -54,33 +55,37 @@ public class FooterUse extends WCMUsePojo {
     private String ctaLabelDesktop;
     private String ctaLabelMobile;
 
+    GlobalCacheService globalCacheService;
+    private String currentPath;
 
     /**
      * Initialize the component.
      */
     @Override
     public void activate() throws Exception {
-        InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-        final String[] mainCol = properties.getInherited("reference", String[].class);
-        ArrayList<Page> pagesMainCol = new ArrayList<Page>();
-        if (mainCol != null) {
-            for (int i = 0; i < mainCol.length; i++) {
-                pagesMainCol.add(getPageFromPath(mainCol[i]));
+        globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
+        currentPath = getCurrentPage().getPath();
+        InheritanceValueMap properties = getInheritanceValueMap();
+        final String[] references = globalCacheService
+                .getCache("prop_reference" + currentPath, String[].class, () -> properties.getInherited("reference", String[].class));
+        ArrayList<Page> pagesMainCol = new ArrayList<>();
+        if (references != null) {
+            for (int i = 0; i < references.length; i++) {
+                pagesMainCol.add(getPageFromPath(references[i]));
             }
         }
         pagesMainColIterator = pagesMainCol.iterator();
         // internal pages
-        final String subCol1 = properties.getInherited("subCol1", String.class);
-        final String subCol2 = properties.getInherited("subCol2", String.class);
-        final String subCol3 = properties.getInherited("subCol3", String.class);
-        final String quoteReference = properties.getInherited("quoteReference", String.class);
-        final String exclusiveOfferReference = properties.getInherited("exclusiveOfferReference", String.class);
-        final String awardReference = properties.getInherited("awardReference", String.class);
-        final String blogReference = properties.getInherited("blogReference", String.class);
-        final String mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
-        String linkCtaBrochure = properties.getInherited("linkCtaBrochure", String.class);
+        final String subCol1 = getFromProp("subCol1");
+        final String subCol2 = getFromProp("subCol2");
+        final String subCol3 = getFromProp("subCol3");
+        final String quoteReference = getFromProp("quoteReference");
+        final String exclusiveOfferReference = getFromProp("exclusiveOfferReference");
+        final String awardReference = getFromProp("awardReference");
+        final String blogReference = getFromProp("blogReference");
+        final String mySilverseaReference = getFromProp("mySilverseaReference");
+        String linkCtaBrochure = getFromProp("linkCtaBrochure");
         final String searchPageReference = properties.getInherited("searchPageReference", "");
-
 
 
         pageSubCol1 = getPageFromPath(subCol1);
@@ -96,18 +101,18 @@ public class FooterUse extends WCMUsePojo {
 
 
         // external links
-        facebookReference = properties.getInherited("facebookReference", String.class);
-        youtubeReference = properties.getInherited("youtubeReference", String.class);
-        twitterReference = properties.getInherited("twitterReference", String.class);
-        instagramReference = properties.getInherited("instagramReference", String.class);
-        pinterestReference = properties.getInherited("pinterestReference", String.class);
+        facebookReference = getFromProp("facebookReference");
+        youtubeReference = getFromProp("youtubeReference");
+        twitterReference = getFromProp("twitterReference");
+        instagramReference = getFromProp("instagramReference");
+        pinterestReference = getFromProp("pinterestReference");
 
-        titleDesktop = properties.getInherited("titleDesktop", String.class);
-        titleMobile = properties.getInherited("titleMobile", String.class);
-        descriptionDesktop = properties.getInherited("descriptionDesktop", String.class);
-        descriptionMobile = properties.getInherited("descriptionMobile", String.class);
-        ctaLabelDesktop = properties.getInherited("ctaLabelDesktop", String.class);
-        ctaLabelMobile = properties.getInherited("ctaLabelMobile", String.class);
+        titleDesktop = getFromProp("titleDesktop");
+        titleMobile = getFromProp("titleMobile");
+        descriptionDesktop = getFromProp("descriptionDesktop");
+        descriptionMobile = getFromProp("descriptionMobile");
+        ctaLabelDesktop = getFromProp("ctaLabelDesktop");
+        ctaLabelMobile = getFromProp("ctaLabelMobile");
 
 
         final String[] bottomLine = properties.getInherited("referencelegal", String[].class);
@@ -120,9 +125,19 @@ public class FooterUse extends WCMUsePojo {
         pagesBottomLineIterator = pagesBottomLine.iterator();
         pagesBottomLineIterator2 = pagesBottomLine.iterator();
         pagesBottomLineIterator3 = pagesBottomLine.iterator();
-        pagesLegalLinkIterator =pagesBottomLine.iterator();
-        
-        assetImageBrochure = properties.getInherited("assetImageBrochure", String.class);
+        pagesLegalLinkIterator = pagesBottomLine.iterator();
+
+        assetImageBrochure = getFromProp("assetImageBrochure");
+    }
+
+    private String getFromProp(String key) {
+        InheritanceValueMap properties = getInheritanceValueMap();
+        return globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> properties.getInherited(key, String.class));
+    }
+
+    private InheritanceValueMap getInheritanceValueMap() {
+        return globalCacheService
+                .getCache("props" + currentPath, InheritanceValueMap.class, () -> new HierarchyNodeInheritanceValueMap(getResource()));
     }
 
     /**
@@ -216,23 +231,23 @@ public class FooterUse extends WCMUsePojo {
     public Iterator<Page> getPagesMainColIterator() {
         return pagesMainColIterator;
     }
-    
+
     public int getYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
 
     /**
-            * @return the searchPage
+     * @return the searchPage
      */
     public Page getSearchPage() {
         return searchPage;
     }
-    
+
     /**
      * @return the brochures page
      */
-    
-    
+
+
     public String getBrochuresPagePath() {
         return PathUtils.getBrochuresPagePath(getResource(), getCurrentPage());
     }
@@ -241,13 +256,13 @@ public class FooterUse extends WCMUsePojo {
         return assetImageBrochure;
     }
 
-	public Iterator<Page> getPagesBottomLineIterator2() {
-		return pagesBottomLineIterator2;
-	}
-	
-	public Iterator<Page> getPagesBottomLineIterator3() {
-		return pagesBottomLineIterator3;
-	}
+    public Iterator<Page> getPagesBottomLineIterator2() {
+        return pagesBottomLineIterator2;
+    }
+
+    public Iterator<Page> getPagesBottomLineIterator3() {
+        return pagesBottomLineIterator3;
+    }
 
     public Iterator<Page> getPagesLegalLinkIterator() {
         return pagesLegalLinkIterator;
