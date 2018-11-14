@@ -1,25 +1,17 @@
 package com.silversea.aem.components.included;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.apache.jackrabbit.oak.commons.PathUtils;
-
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageFilter;
-import com.day.cq.wcm.api.WCMException;
 import com.day.cq.wcm.foundation.Navigation;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.NavPageModel;
+import org.apache.jackrabbit.oak.commons.PathUtils;
+
+import java.util.*;
 
 public class HeaderUse extends WCMUsePojo {
 
@@ -68,21 +60,21 @@ public class HeaderUse extends WCMUsePojo {
                 languagePageList.add(homeLang);
             }
         }
-        
+
         fillLanguagePages();
-        
+
         for (Page pageL : languagePageList) {
-        	languagePages.entrySet().forEach(entry -> {
-        	    if(pageL.getPath().toLowerCase().contains(entry.getKey().toLowerCase())){
-        	    	NavPageModel nPage = new NavPageModel();
-        	    	nPage.setPath(entry.getValue());
-        	    	nPage.setName(pageL.getName());
-        	    	nPage.setNavigationTitle(pageL.getNavigationTitle());
-        	    	languagePageListForCurrentPage.add(nPage);
-        	    }
-        	}); 
-		}
-        
+            languagePages.entrySet().forEach(entry -> {
+                if (pageL.getPath().toLowerCase().contains(entry.getKey().toLowerCase())) {
+                    NavPageModel nPage = new NavPageModel();
+                    nPage.setPath(entry.getValue());
+                    nPage.setName(pageL.getName());
+                    nPage.setNavigationTitle(pageL.getNavigationTitle());
+                    languagePageListForCurrentPage.add(nPage);
+                }
+            });
+        }
+
     }
 
     /**
@@ -124,6 +116,7 @@ public class HeaderUse extends WCMUsePojo {
     public Page getLink3Page() {
         return link3Page;
     }
+
     public Page getLink4Page() {
         return link4Page;
     }
@@ -155,65 +148,56 @@ public class HeaderUse extends WCMUsePojo {
     public List<Page> getLanguagePageList() {
         return languagePageList;
     }
-    
+
     public List<NavPageModel> getLanguagePageListForCurrentPage() {
         return languagePageListForCurrentPage;
     }
-    
-    private Map<String, String> fillLanguagePages() throws WCMException {
+
+    private void fillLanguagePages() {
         languagePages = new LinkedHashMap<>();
         Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
-        Locale locale;
-        String[] langList = {"/en/","/es/", "/pt-br/", "/de/", "/fr/"};
+        String[] langList = {"/en/", "/es/", "/pt-br/", "/de/", "/fr/"};
         String currentPath = getCurrentPage().getPath();
-        String currentLng = "";
-        for (String lng : langList) {
-			if(currentPath.contains(lng)){
-				 Page page = getPageManager().getPage(currentPath);
-				 if(page != null){
-					 locale = page.getLanguage(false);
-		             languagePages.put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
-		             currentLng = lng;
-				 }
-			}
-		}
-        
-        for (String lng : langList) {
-			if(!currentPath.contains(lng)){
-				 String newPath = currentPath.replace(currentLng, lng);
-				 Page page = getPageManager().getPage(newPath);
-				 if(page != null){
-					 locale = page.getLanguage(false);
-		             languagePages.put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
-				 }
-			}
-		}
-        
-        if(currentLng == ""){
-        	 String[] langListHome = {"/en","/es", "/pt-br", "/de", "/fr"};
-        	 for (String lng : langListHome) {
-     			if(currentPath.contains(lng)){
-     				 Page page = getPageManager().getPage(currentPath);
-     				 if(page != null){
-     					 locale = page.getLanguage(false);
-     		             languagePages.put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
-     		             currentLng = lng;
-     				 }
-     			}
-     		}
-             
-             for (String lng : langListHome) {
-     			if(!currentPath.contains(lng)){
-     				 String newPath = currentPath.replace(currentLng, lng);
-     				 Page page = getPageManager().getPage(newPath);
-     				 if(page != null){
-     					 locale = page.getLanguage(false);
-     		             languagePages.put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
-     				 }
-     			}
-     		}
+        String currentLng = currentLang(externalizer, langList, currentPath, "");
+
+        otherLang(externalizer, langList, currentPath, currentLng);
+
+        if ("".equals(currentLng)) {
+            String[] langListHome = {"/en", "/es", "/pt-br", "/de", "/fr"};
+            currentLng = currentLang(externalizer, langListHome, currentPath, currentLng);
+            otherLang(externalizer, langListHome, currentPath, currentLng);
         }
 
-        return languagePages;
+    }
+
+    private void otherLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng) {
+        Locale locale;
+        for (String lng : langList) {
+            if (!currentPath.contains(lng)) {
+                String newPath = currentPath.replace(currentLng, lng);
+                Page page = getPageManager().getPage(newPath);
+                if (page != null) {
+                    locale = page.getLanguage(false);
+                    languagePages
+                            .put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
+                }
+            }
+        }
+    }
+
+    private String currentLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng) {
+        Locale locale;
+        for (String lng : langList) {
+            if (currentPath.contains(lng)) {
+                Page page = getPageManager().getPage(currentPath);
+                if (page != null) {
+                    locale = page.getLanguage(false);
+                    languagePages
+                            .put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
+                    currentLng = lng;
+                }
+            }
+        }
+        return currentLng;
     }
 }
