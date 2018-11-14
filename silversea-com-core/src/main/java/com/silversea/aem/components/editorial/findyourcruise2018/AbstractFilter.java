@@ -23,6 +23,7 @@ public abstract class AbstractFilter<T> {
 
 
     private boolean visible;
+    private boolean open;
 
     AbstractFilter(String kind) {
         this.kind = kind;
@@ -140,6 +141,15 @@ public abstract class AbstractFilter<T> {
 
     public boolean isVisible() {
         return visible;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+
+        this.open = open;
     }
 
     public void setVisible(boolean visible) {

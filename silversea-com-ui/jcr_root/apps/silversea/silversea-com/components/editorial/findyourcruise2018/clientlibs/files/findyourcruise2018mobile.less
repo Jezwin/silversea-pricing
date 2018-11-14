@@ -16,6 +16,37 @@
   /*FILTERS*/
   .parbase.findyourcruise2018 {
     .findyourcruise2018 {
+
+      .fyc2018-pagination-style-mobile {
+        text-align: center;
+        font-weight: 600;
+
+        .disabled-link {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+
+        .previous {
+          float: left;
+          text-transform: uppercase;
+          i {
+            margin-right: 8px;
+            vertical-align: -6% !important;
+          }
+        }
+        .summary-pag {
+          pointer-events: none;
+        }
+        .next {
+          float: right;
+          text-transform: uppercase;
+          i {
+            margin-left: 8px;
+            vertical-align: -6% !important;
+          }
+        }
+      }
+
       .fyc2018-results-div {
         display: block;
         margin-top: 15px;
@@ -32,7 +63,7 @@
           display: none;
           left: 50%;
           transform: translate(-50%, -50%);
-          top: 50%;
+          top: 73px;
           position: absolute;
           span {
             color: black;
@@ -118,6 +149,14 @@
   /* MODAL FILTERS */
   .parbase.findyourcruise2018 {
     .findyourcruise2018 {
+
+      .fyc2018-no-results {
+        min-height: 250px;
+        font-size: 15px;
+        span {
+          width: 100%;
+        }
+      }
 
       .fyc2018-filters-container {
         padding-top: 0px;
@@ -266,8 +305,8 @@
 
               display: block;
               position: absolute;
-              transform: translate(-50%,-49px);
-              -webkit-transform: translate(-50%,-49px);
+              transform: translate(-50%, -49px);
+              -webkit-transform: translate(-50%, -49px);
               left: 50%;
               z-index: 151515;
               width: 100%;
@@ -438,5 +477,11 @@
         font-weight: 600;
       }
     }
+  }
+}
+
+@media (max-width: 320px) {
+  .findyourcruise2018 .fyc2018-header-reset-all span {
+    font-size: 11px;
   }
 }

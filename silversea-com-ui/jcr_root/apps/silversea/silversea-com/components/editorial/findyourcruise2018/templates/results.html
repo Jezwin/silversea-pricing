@@ -5,7 +5,11 @@
 </template>
 <template data-sly-template.default="${@ fyc}">
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
-    <div class="clearfix c-fyc-v2__results__wrapper" data-totals="${fyc.pagination.totalResults}"
+    <div class="fyc2018-no-results" data-sly-test="${fyc.pagination.totalResults == 0}">
+        <span>Sorry, we found no matching cruises.<br>
+        Please change filters.</span>
+    </div>
+    <div class="clearfix c-fyc-v2__results__wrapper" data-totals="${fyc.pagination.totalResults}" data-sly-test="${fyc.pagination.totalResults != 0}"
          data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.results'}" id="results-url-request">
         <div class="c-fyc-v2__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
             <div class="c-fyc-v2__result__wrapper"

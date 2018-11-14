@@ -1,11 +1,12 @@
-<template data-sly-template.default="${@ filter, type, class, singular, plural, label, name, autocomplete,placeholder,fyc}">
+<template data-sly-template.default="${@ filter, type, class, singular, plural, label, name, autocomplete,placeholder,fyc, open}">
     <div class="fyc2018-filter">
         <div class="fyc2018-filter-content">
-            <span id="${type}" data-singular="${singular @ i18n}" data-plural="${plural @ i18n}">
+            <span id="${type}" data-singular="${singular @ i18n}" data-plural="${plural @ i18n}" class="${open ? 'fyc2018-filter-content-clicked' : ''}">
                 ${singular @ i18n}
             </span>
         </div>
         <div class="${type} fyc2018-filter-value" data-filter="${type}" data-name="${name}">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw fyc2018-spinner"></i>
             <div class="fyc2018-filter-label col-xs-12">
                 <span class="fyc2018-filter-label-mobile visible-xs">${singular @ i18n}</span>
                 <span class="fyc2018-filter-clear"><i class="material-icons">close</i></span>
@@ -24,19 +25,19 @@
                     <div class="${class || 'col-sm-6'} filter-value filter-no-selected" data-sly-test="${item.isEnabled}" data-key="${item.key}" data-state="${item.state.toString}" data-label="${item.label}">
                         <span>
                             <i data-sly-test="${item.icon}" class="${item.icon}"></i>
-                            ${item.label} ${label @ i18n}
+                            ${item.month || item.label @ i18n}
                         </span>
                     </div>
                     <div  class="${class || 'col-sm-6'} filter-value filter-selected" data-sly-test="${item.isChosen}" data-key="${item.key}" data-state="${item.isChosen.toString}" data-label="${item.label}">
                         <span>
                             <i data-sly-test="${item.icon}" class="${item.icon}"></i>
-                            ${item.label} ${label @ i18n}
+                            ${item.month || item.label @ i18n}
                         </span>
                     </div>
                     <div class="${class || 'col-sm-6'} filter-value filter-disabled" data-sly-test="${item.isDisabled}" data-key="${item.key}" data-state="${item.isDisabled.toString}" data-label="${item.label}">
                         <span>
                             <i data-sly-test="${item.icon}" class="${item.icon}"></i>
-                            ${item.label} ${label @ i18n}
+                            ${item.month || item.label @ i18n}
                         </span>
                     </div>
                 </sly>

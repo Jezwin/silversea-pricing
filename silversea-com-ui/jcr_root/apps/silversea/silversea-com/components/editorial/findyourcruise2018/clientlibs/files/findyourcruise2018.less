@@ -64,9 +64,25 @@
     }
   }
 
-  min-height: 500px;
+  min-height: 727px;
   .c-fyc-v2__result-wrapper {
     margin-top: 60px;
+  }
+
+  .fyc2018-no-results {
+    min-height: 500px;
+    background-color: #f4f4f4;
+    position: relative;
+    text-align: center;
+    font-size: 20px;
+    font-family: @suisse;
+    color: #263133;
+    span {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   .findyourcruise2018-header {
@@ -122,6 +138,7 @@
           display: block !important;
           background-color: #f4f4f4;
         }
+
         .fyc2018-filter-value {
           position: relative;
           color: @nd-dark;
@@ -130,7 +147,6 @@
           display: none;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           cursor: auto;
-
           .filter-value {
             /*padding: 0px;*/
           }
@@ -397,9 +413,18 @@
       margin-right: 17px;
       display: none;
     }
-
+    .fyc2018-spinner {
+      position: absolute;
+      top: 40%;
+      left: 44%;
+      display: none;
+      z-index: 15151;
+    }
     .filter-departure.fyc2018-filter-value-clicked {
-      min-width: 537px !important;
+      @media (max-width: 991px) and (min-width: 768px) {
+        min-width: 537px !important;
+      }
+      min-width: 725px !important;
       .filter-value span {
         width: 150px;
       }
@@ -529,6 +554,12 @@
       }
 
       .filter-disabled {
+        cursor: auto;
+        pointer-events: none;
+      }
+
+      .filter-content-disabled {
+        opacity: 0.5;
         cursor: auto;
         pointer-events: none;
       }

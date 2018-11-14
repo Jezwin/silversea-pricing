@@ -66,14 +66,14 @@ public class DepartureFilter extends AbstractFilter<YearMonth> {
             if (split == null) {
                 split = getLabel().split(" ");
             }
-            return split[0];
+            return split[1];
         }
 
         public String getMonth() {
             if (split == null) {
                 split = getLabel().split(" ");
             }
-            return split[1];
+            return split[0];
         }
     }
 
