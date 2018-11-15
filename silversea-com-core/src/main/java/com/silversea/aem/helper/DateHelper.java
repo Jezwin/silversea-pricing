@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import com.google.common.base.Strings;
-import com.silversea.aem.utils.CruiseUtils;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 
@@ -18,30 +17,39 @@ import com.adobe.cq.sightly.WCMUsePojo;
 public class DateHelper extends WCMUsePojo {
 
     private static final Locale BRAZIL = new Locale("pt", "BR");
+
     private static final Locale SPAIN = new Locale("es");
+
+    private static final String[] LANGUAGES = new String[]{"/en/", "/es/", "/pt-br/", "/de/", "/fr/", "/en", "/es", "/pt-br", "/de", "/fr"};
     public String value;
-
-    private Calendar calendar = Calendar.getInstance();
-
 
     private Locale getLocale(String localeParam) {
         if (!Strings.isNullOrEmpty(localeParam)) {
             return new Locale(localeParam);
         }
-        String language = CruiseUtils.firstNonNull(LanguageHelper.getLanguage(getRequest()), "en");
-        switch (language) {
-            case "es":
-                return SPAIN;
-            case "pt-br":
-                return BRAZIL;
-            case "de":
-                return Locale.GERMAN;
-            case "fr":
-                return Locale.FRENCH;
-            case "en":
-            default:
-                return Locale.ENGLISH;
+        for (String lang : LANGUAGES) {
+            if (getCurrentPage().getPath().contains(lang)) {
+                switch (lang) {
+                    case "/fr":
+                    case "/fr/":
+                        return Locale.FRENCH;
+                    case "/de":
+                    case "/de/":
+                        return Locale.GERMAN;
+                    case "/pt-br":
+                    case "/pt-br/":
+                        return BRAZIL;
+                    case "/es":
+                    case "/es/":
+                        return SPAIN;
+                    case "/en":
+                    case "/en/":
+                        return Locale.ENGLISH;
+
+                }
+            }
         }
+        return Locale.ENGLISH;
     }
 
     @Override
@@ -74,6 +82,7 @@ public class DateHelper extends WCMUsePojo {
     private String convertTime(String time, String language) {
         String result = null;
         if (language.equalsIgnoreCase("en")) {
+            Calendar calendar = Calendar.getInstance();
             String closingTime = time.replace(":", "");
             calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
             // For display purposes only We could just return the last two substring or

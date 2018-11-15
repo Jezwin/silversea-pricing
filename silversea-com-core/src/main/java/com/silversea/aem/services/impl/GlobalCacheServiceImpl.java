@@ -4,31 +4,37 @@ package com.silversea.aem.services.impl;
 import com.silversea.aem.services.GlobalCacheService;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Service
+@Service(value = GlobalCacheService.class)
 @Component
 public class GlobalCacheServiceImpl implements GlobalCacheService {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(GlobalCacheServiceImpl.class);
     private Map<String, Object> globalCache = new HashMap<>();
 
     @Override
-    public void clearCache() {
+    public void clear() {
         globalCache.clear();
     }
 
     @Override
-    public <T> T getCache(String textKey, Class<T> typeKey, Supplier<T> o) {
-        Object untypedCachedValue = globalCache.computeIfAbsent(textKey, notUsed -> o.get());
-        return typeKey.cast(untypedCachedValue);
+    public <T> T getCache(String textKey, Class<T> typeKey, Supplier<T> supplier) {
+        T value;
+        if (!globalCache.containsKey(textKey)) {
+            value = supplier.get();
+            globalCache.put(textKey, value);//this includes null values
+        } else {
+            value = typeKey.cast(globalCache.get(textKey));
+        }
+        return value;
+    }
+
+    @Override
+    public boolean containsKey(String key) {
+        return globalCache.containsKey(key);
     }
 
 }

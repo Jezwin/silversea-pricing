@@ -236,7 +236,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
             } else if (mode.equals(Mode.replicate)) {
                 replicateImporter.replicate();
             }else if (mode.equals(Mode.clearGlobalCache)) {
-                globalCacheService.clearCache();
+                globalCacheService.clear();
             }
 
         } catch (ImporterException e) {

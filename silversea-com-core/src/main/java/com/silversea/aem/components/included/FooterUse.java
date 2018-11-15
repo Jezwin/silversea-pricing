@@ -57,6 +57,7 @@ public class FooterUse extends WCMUsePojo {
 
     GlobalCacheService globalCacheService;
     private String currentPath;
+    private HierarchyNodeInheritanceValueMap inheritanceValueMap;
 
     /**
      * Initialize the component.
@@ -65,9 +66,8 @@ public class FooterUse extends WCMUsePojo {
     public void activate() throws Exception {
         globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
         currentPath = getCurrentPage().getPath();
-        InheritanceValueMap properties = getInheritanceValueMap();
         final String[] references = globalCacheService
-                .getCache("prop_reference" + currentPath, String[].class, () -> properties.getInherited("reference", String[].class));
+                .getCache("prop_reference" + currentPath, String[].class, () -> getInheritanceValueMap().getInherited("reference", String[].class));
         ArrayList<Page> pagesMainCol = new ArrayList<>();
         if (references != null) {
             for (int i = 0; i < references.length; i++) {
@@ -85,7 +85,7 @@ public class FooterUse extends WCMUsePojo {
         final String blogReference = getFromProp("blogReference");
         final String mySilverseaReference = getFromProp("mySilverseaReference");
         String linkCtaBrochure = getFromProp("linkCtaBrochure");
-        final String searchPageReference = properties.getInherited("searchPageReference", "");
+        final String searchPageReference =getFromProp("searchPageReference", "");
 
 
         pageSubCol1 = getPageFromPath(subCol1);
@@ -115,8 +115,10 @@ public class FooterUse extends WCMUsePojo {
         ctaLabelMobile = getFromProp("ctaLabelMobile");
 
 
-        final String[] bottomLine = properties.getInherited("referencelegal", String[].class);
-        ArrayList<Page> pagesBottomLine = new ArrayList<Page>();
+        final String[] bottomLine = globalCacheService
+                .getCache("prop_referencelegal" + currentPath, String[].class, () -> getInheritanceValueMap().getInherited("referencelegal",
+                        String[].class));
+        ArrayList<Page> pagesBottomLine = new ArrayList<>();
         if (bottomLine != null) {
             for (int i = 0; i < bottomLine.length; i++) {
                 pagesBottomLine.add(getPageFromPath(bottomLine[i]));
@@ -131,13 +133,18 @@ public class FooterUse extends WCMUsePojo {
     }
 
     private String getFromProp(String key) {
-        InheritanceValueMap properties = getInheritanceValueMap();
-        return globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> properties.getInherited(key, String.class));
+        return globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> getInheritanceValueMap().getInherited(key, String.class));
+    }
+
+    private String getFromProp(String key, String defaultValue) {
+        return globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> getInheritanceValueMap().getInherited(key, defaultValue));
     }
 
     private InheritanceValueMap getInheritanceValueMap() {
-        return globalCacheService
-                .getCache("props" + currentPath, InheritanceValueMap.class, () -> new HierarchyNodeInheritanceValueMap(getResource()));
+        if (inheritanceValueMap == null) {
+            inheritanceValueMap = new HierarchyNodeInheritanceValueMap(getResource());
+        }
+        return inheritanceValueMap;
     }
 
     /**
