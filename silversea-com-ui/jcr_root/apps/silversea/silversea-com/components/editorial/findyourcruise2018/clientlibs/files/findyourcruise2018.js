@@ -33,27 +33,25 @@ $(function () {
         }
     };
 
-    $(document).ready(function () {
-        if ($(".findyourcruise2018").length > 0) {
-            setNumberAllFilterSelected();
-            separateYears();
-            try {
-                portsList = JSON.parse(window.portsList);
-            } catch (e) {
-                console.error("Error Port list");
-            }
-            onLoadFilterUrl = window.location.search;
-            searchAnalytics();
-            if ($(window).width() < 768) {
-                backMobile();
-            }
-            if (window.location.search != ""){
-                $(".fyc2018-header-reset-all").show();
-                $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
-                searchAnalytics();
-            }
+    if ($(".findyourcruise2018").length > 0) {
+        setNumberAllFilterSelected();
+        separateYears();
+        try {
+            portsList = JSON.parse(window.portsList);
+        } catch (e) {
+            console.error("Error Port list");
         }
-    });
+        onLoadFilterUrl = window.location.search;
+        searchAnalytics();
+        if ($(window).width() < 768) {
+            backMobile();
+        }
+        if (window.location.search != "") {
+            $(".fyc2018-header-reset-all").show();
+            $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
+            searchAnalytics();
+        }
+    }
 
     $(".findyourcruise2018 .fyc2018-pag-link").on("click", function (e) {
         e.preventDefault();
@@ -343,29 +341,32 @@ $(function () {
     };//checkNumberSelectedFilters
 
     $(document).on("click ", function (e) {
-        var $filter = $(".findyourcruise2018 .fyc2018-filter .fyc2018-filter-value-clicked");
-        var isOpenFilters = $filter.length > 0;
-        if (!(e.target.className.indexOf("fyc2018-filter-autocomplete") > -1 || e.target.className.indexOf("filter-value") > -1 || e.target.className.indexOf("fyc2018-pagination") > -1)) {
-            if (isOpenFilters) {
-                var urlTemplate = $("#filter-url-request").data("url");
-                var url = createUrl(urlTemplate) + "&onlyFilters=true";
-                updateFilters(url);
-                closeAllFiltersDiv();
+        if ($(".findyourcruise2018").length > 0) {
+
+            var $filter = $(".findyourcruise2018 .fyc2018-filter .fyc2018-filter-value-clicked");
+            var isOpenFilters = $filter.length > 0;
+            if (!(e.target.className.indexOf("fyc2018-filter-autocomplete") > -1 || e.target.className.indexOf("filter-value") > -1 || e.target.className.indexOf("fyc2018-pagination") > -1)) {
+                if (isOpenFilters) {
+                    var urlTemplate = $("#filter-url-request").data("url");
+                    var url = createUrl(urlTemplate) + "&onlyFilters=true";
+                    updateFilters(url);
+                    closeAllFiltersDiv();
+                }
             }
-        }
-        if ($(window).width() < 768) {
-            $("html").removeClass("no-scroll-html");
-            $("body").removeClass("no-scroll-body");
-            $("body").removeClass("no-height-body");
-            window.iNoBounce.disable();
-            $(".parbase:not(.findyourcruise2018)").removeClass("no-visible-element");
-            $(".findyourcruise2018 .fyc2018-results-div").removeClass("no-visible-element");
-            $(".c-footer").removeClass("no-visible-element");
-            var target = $(".findyourcruise2018").offset().top;
-            if (isOpenFilters) {
-                $('html, body').animate({
-                    scrollTop: target
-                }, 0);
+            if ($(window).width() < 768) {
+                $("html").removeClass("no-scroll-html");
+                $("body").removeClass("no-scroll-body");
+                $("body").removeClass("no-height-body");
+                window.iNoBounce.disable();
+                $(".parbase:not(.findyourcruise2018)").removeClass("no-visible-element");
+                $(".findyourcruise2018 .fyc2018-results-div").removeClass("no-visible-element");
+                $(".c-footer").removeClass("no-visible-element");
+                var target = $(".findyourcruise2018").offset().top;
+                if (isOpenFilters) {
+                    $('html, body').animate({
+                        scrollTop: target
+                    }, 0);
+                }
             }
         }
     });

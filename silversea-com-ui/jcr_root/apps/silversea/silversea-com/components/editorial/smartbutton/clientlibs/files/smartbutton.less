@@ -6,7 +6,6 @@
     letter-spacing: 1.5px;
     line-height: 16px;
     background-image: none;
-    border: 0;
     cursor: pointer;
     font-weight: normal;
     text-transform: uppercase;
@@ -17,18 +16,29 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    border-width: 1px;
+    border-style: solid;
 
   }
-}
+  .trasparent-desktop {
+    background-color: transparent !important;
+    border: none;
 
-.trasparent-desktop {
-  background-color: transparent !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
 }
 
 @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
   .smartbutton {
     .smartbtn.trasparent-tablet {
       background-color: transparent !important;
+      border: none;
+
+      &:hover {
+        background-color: transparent !important;
+      }
     }
   }
 }
@@ -37,6 +47,11 @@
   .smartbutton {
     .smartbtn.trasparent-mobile {
       background-color: transparent !important;
+      border: none;
+
+      &:hover {
+        background-color: transparent !important;
+      }
     }
   }
 }
