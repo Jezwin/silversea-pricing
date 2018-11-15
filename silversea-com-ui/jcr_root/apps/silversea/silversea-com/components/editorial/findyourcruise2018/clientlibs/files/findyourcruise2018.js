@@ -59,7 +59,7 @@ $(function () {
         e.preventDefault();
         e.stopPropagation();
         var page = $(this).data("page");
-        page = $(this).hasClass("next") ? page + 1 : page;
+        page = $(this).hasClass("next-page") ? page + 1 : page;
         var urlTemplate = $("#results-url-request").data("url");
         var url = createUrl(urlTemplate) + "&onlyResults=true&pag=" + page;
         updateCruises(url);
