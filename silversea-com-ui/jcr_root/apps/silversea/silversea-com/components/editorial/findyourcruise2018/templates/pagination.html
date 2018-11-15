@@ -1,0 +1,35 @@
+<template data-sly-template.pagination="${@ fyc}">
+    <div class="fares" data-sly-test="${fyc.pagination.totalResults != 0}">${'fares-shown-are-per-guest' @ i18n}</div>
+    <sly data-sly-test.pagination="${fyc.pagination}">
+        <nav class="fyc2018-pagination" data-sly-test="${pagination.end > 1}">
+            <ul class="hidden-xs">
+                <li data-sly-test="${pagination.current>1}">
+                    <span data-page="${pagination.current}" class="previous-page fyc2018-pag-link">
+                        <i class="fa fa-lg fa-angle-left"></i>${'prev' @ i18n}
+                    </span>
+                </li>
+                <sly data-sly-list="${pagination.labels}">
+                    <li>
+                        <span data-page="${item}" data-sly-test="${item>0}"
+                              class="${item==pagination.current ? 'active' : ''} fyc2018-pag-link">${item}</span>
+                        <span data-sly-test="${item<0}">...</span>
+                    </li>
+                </sly>
+                <li data-sly-test="${pagination.current<pagination.end}">
+                    <span data-page="${pagination.current}" class="next-page fyc2018-pag-link">${'next' @ i18n}
+                        <i class="fa fa-lg fa-angle-right"></i>
+                    </span>
+                </li>
+            </ul>
+            <div class="fyc2018-pagination-style-mobile visible-xs">
+               <span data-page="${pagination.current}" class="previous-page fyc2018-pag-link ${pagination.current == 1 ? 'disabled-link' : ''}">
+                    <i class="fa fa-lg fa-angle-left"></i>${'prev2' @ i18n}
+               </span>
+                <span class="summary-pag">${pagination.current} / ${pagination.end}</span>
+                <span data-page="${pagination.current}" class="next-page fyc2018-pag-link ${pagination.current == pagination.end ? 'disabled-link' : ''}">${'next' @ i18n}
+                    <i class="fa fa-lg fa-angle-right"></i>
+               </span>
+            </div>
+        </nav>
+    </sly>
+</template>
