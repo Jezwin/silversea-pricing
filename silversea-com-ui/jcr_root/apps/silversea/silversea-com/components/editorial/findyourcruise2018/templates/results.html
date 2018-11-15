@@ -5,7 +5,7 @@
 </template>
 <template data-sly-template.default="${@ fyc}">
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
-    <div class="fyc2018-no-results" data-sly-test="${fyc.pagination.totalResults == 0}">
+    <div class="fyc2018-no-results" data-sly-test="${fyc.pagination.totalResults == 0}" data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.results'}" id="results-url-request">
         <span>Sorry, we found no matching cruises.<br>
         Please change filters.</span>
     </div>

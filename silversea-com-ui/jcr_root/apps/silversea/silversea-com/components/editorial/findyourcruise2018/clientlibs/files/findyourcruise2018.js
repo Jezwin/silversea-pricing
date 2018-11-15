@@ -19,6 +19,7 @@ $(function () {
         portsList = null,
         page = 1,
         onLoadFilterUrl = null,
+        urlToCompare = window.location.search,
         lastOpenFilter = null;
 
     var optionAutoComplete = {
@@ -45,6 +46,11 @@ $(function () {
             searchAnalytics();
             if ($(window).width() < 768) {
                 backMobile();
+            }
+            if (window.location.search != ""){
+                $(".fyc2018-header-reset-all").show();
+                $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
+                searchAnalytics();
             }
         }
     });
@@ -435,60 +441,64 @@ $(function () {
     };//setNumberResultOnMobileBtn
 
     function updateFilters(url, classElement, parent, idShowElement) {
-        $(".fyc2018-spinner").show();
-        $(".fyc2018-filter-value-container").addClass("filter-content-disabled");
-        $(".fyc2018-filter-autocomplete").addClass("filter-content-disabled");
-        $(".filter-combo-cruises").addClass("filter-content-disabled");
-        $.ajax({
-            type: 'GET',
-            url: url,
-            success: function (result) {
-                var showReset = $(".fyc2018-header-reset-all").is(":visible");
-                var showFilterMobile = $(".fyc2018-header-mobile-filter").hasClass("fyc2018-filter-mobile-open");
-                $(".fyc2018-tmp-div").html(result);
-                var idLastDivOpen = $(".fyc2018-filter-content-clicked span").attr("id");
+        if (urlToCompare != window.location.search) {
 
-                $(".fyc2018-tmp-div #" + idLastDivOpen).parent().addClass("fyc2018-filter-content-clicked");
-                $(".fyc2018-tmp-div ." + idLastDivOpen).addClass("fyc2018-filter-value-clicked");
+            $(".fyc2018-spinner").show();
+            $(".fyc2018-filter-value-container").addClass("filter-content-disabled");
+            $(".fyc2018-filter-autocomplete").addClass("filter-content-disabled");
+            $(".filter-combo-cruises").addClass("filter-content-disabled");
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (result) {
+                    var showReset = $(".fyc2018-header-reset-all").is(":visible");
+                    var showFilterMobile = $(".fyc2018-header-mobile-filter").hasClass("fyc2018-filter-mobile-open");
+                    $(".fyc2018-tmp-div").html(result);
+                    var idLastDivOpen = $(".fyc2018-filter-content-clicked span").attr("id");
 
-                $(".findyourcruise2018-header").replaceWith($(".fyc2018-tmp-div").html());
-                $(".fyc2018-tmp-div").html("");
-                setNumberAllFilterSelected();
-                separateYears();
-                try {
-                    portsList = JSON.parse(window.portsList);
-                } catch (e) {
-                    console.error("Error Port list");
-                }
+                    $(".fyc2018-tmp-div #" + idLastDivOpen).parent().addClass("fyc2018-filter-content-clicked");
+                    $(".fyc2018-tmp-div ." + idLastDivOpen).addClass("fyc2018-filter-value-clicked");
 
-                if (showReset) {
-                    $(".fyc2018-header-reset-all").show();
-                    $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
+                    $(".findyourcruise2018-header").replaceWith($(".fyc2018-tmp-div").html());
+                    $(".fyc2018-tmp-div").html("");
+                    setNumberAllFilterSelected();
+                    separateYears();
+                    try {
+                        portsList = JSON.parse(window.portsList);
+                    } catch (e) {
+                        console.error("Error Port list");
+                    }
+
+                    if (showReset) {
+                        $(".fyc2018-header-reset-all").show();
+                        $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
+                    }
+                    if (showFilterMobile && $(window).width() < 768) {
+                        $(".fyc2018-header-mobile-filter").addClass("fyc2018-filter-mobile-open");
+                        $(".fyc2018-filters-container").show();
+                    }
+                    if ($(".filter-port").length > 0) {
+                        $(".findyourcruise2018 #filter-autocomplete").easyAutocomplete(optionAutoComplete);
+                        $(".findyourcruise2018 .easy-autocomplete-container ul").remove();
+                        $(".findyourcruise2018 #filter-autocomplete").focus().select();
+                        $(".findyourcruise2018 #filter-autocomplete").keyup(function () {
+                            if ($(this).val().trim().length == 0) {
+                                //$(autocompleteContainerClass + " .filter-value").html("");
+                                $(autocompleteContainerClass + " .filter-value").hide();
+                                indexElementNotFilteredToShow = 0;
+                                loadMoreElementNotFiltered();
+                                $(autocompleteContainerClass + " .filter-no-ports").hide();
+                            }
+                        });
+                        $('.findyourcruise2018 .fyc2018-filter-autocomplete-content').animate({
+                            scrollTop: $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().position().top - $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().height() - 43
+                        }, 800);
+                    }
+                    searchAnalytics();
+                    urlToCompare = window.location.search;
                 }
-                if (showFilterMobile && $(window).width() < 768) {
-                    $(".fyc2018-header-mobile-filter").addClass("fyc2018-filter-mobile-open");
-                    $(".fyc2018-filters-container").show();
-                }
-                if ($(".filter-port").length > 0) {
-                    $(".findyourcruise2018 #filter-autocomplete").easyAutocomplete(optionAutoComplete);
-                    $(".findyourcruise2018 .easy-autocomplete-container ul").remove();
-                    $(".findyourcruise2018 #filter-autocomplete").focus().select();
-                    $(".findyourcruise2018 #filter-autocomplete").keyup(function () {
-                        if ($(this).val().trim().length == 0) {
-                            //$(autocompleteContainerClass + " .filter-value").html("");
-                            $(autocompleteContainerClass + " .filter-value").hide();
-                            indexElementNotFilteredToShow = 0;
-                            loadMoreElementNotFiltered();
-                            $(autocompleteContainerClass + " .filter-no-ports").hide();
-                        }
-                    });
-                    $('.findyourcruise2018 .fyc2018-filter-autocomplete-content').animate({
-                        scrollTop: $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().position().top - $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().height() - 43
-                    }, 800);
-                }
-                searchAnalytics();
-            }
-        });
+            });
+        }
     };//updateFilters
 
     $(".findyourcruise2018").on("click", ".fyc2018-header-mobile-filter", function (e) {
