@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.jcr.RangeIterator;
 
+import com.silversea.aem.services.GlobalCacheService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
@@ -51,8 +52,13 @@ public class PageHelper extends WCMUsePojo {
                     thumbnail = imageRes.getValueMap().get("fileReference", String.class);
                 }
 
-                final InheritanceValueMap propertiesInherited = new HierarchyNodeInheritanceValueMap(resource);
-                thumbnailInherited = propertiesInherited.getInherited("image/fileReference", String.class);
+                final GlobalCacheService globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
+                Resource finalResource = resource;
+                thumbnailInherited = globalCacheService.getCache("thumbnailInherited-" + page.getParent().getPath(), String.class, () -> {
+                    final InheritanceValueMap propertiesInherited = new HierarchyNodeInheritanceValueMap(finalResource);
+                    return propertiesInherited.getInherited("image/fileReference", String.class);
+                });
+
             }
         }
 
