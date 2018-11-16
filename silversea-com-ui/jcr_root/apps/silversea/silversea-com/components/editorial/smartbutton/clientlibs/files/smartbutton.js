@@ -35,9 +35,19 @@ $(function () {
                 scclicktype = $element.data("sscclicktype"),
                 href = $element.attr("href"),
                 selectors = $element.data("selectors"),
-                suffix = $element.data("suffix");
+                suffix = $element.data("suffix"),
+                modalcontent = $element.data("lightbox");
+            if (modalcontent == "modalcontent") {
+                href = href.replace("html", modalcontent + ".html");
+                $element.attr("href", href);
+            }
             if (type == "page" && scclicktype == "clic-RAQ") {
-                href = href.replace("html", selectors + ".html") + "/" + suffix;
+                if (suffix != null){
+                    href = href.replace("html", selectors + ".html");
+                }
+                if (selectors != null) {
+                    href = href + "/" + suffix;
+                }
                 $element.attr("href", href);
             }
         });

@@ -1,2 +1,52 @@
+
 <template data-sly-template.default="${@ fyc}">
+    <div class="findyourcruise2018-header">
+        <div class="fyc2018-header-container container">
+            <sly data-sly-test="${!properties.hideTitle}">
+                <div class="fyc2018-header-text fyc2018-header-title ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${!properties.hideTitle}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
+                <sly data-sly-test="${!properties.hideResultNb}">
+                    <div class="fyc2018-header-text fyc2018-header-total-num">${fyc.totalResults} </div>
+                    <div class="fyc2018-header-text">
+                        <sly data-sly-test="${fyc.totalResults == 1}">${properties.resultsLabelSingular || 'cruise' @ i18n}</sly>
+                        <sly data-sly-test="${fyc.totalResults != 1}">${properties.resultsLabelPlural || 'cruises' @ i18n}</sly>
+                    </div>
+                </sly>
+            </sly>
+            <div class="fyc2018-header-mobile-filter">
+                <i class="material-icons fyc-tune-i"> tune </i>
+                <span class="fyc2018-header-mobile-filter-text">${'close' @ i18n}</span>
+                <i class="material-icons fyc-close-i"> clear </i>
+            </div>
+            <div class="fyc2018-header-reset-all c-fyc-v2-filter__reset">
+                <span><i class="fa fa-undo"></i> <span class="text-uppercase">clear all filters</span></span>
+            </div>
+            <script>
+                window.portsList = '${fyc.filterBar.PORT.toString @ context="scriptString" }';
+            </script>
+        </div>
+        <div class="fyc2018-filters-container">
+            <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+            <div class="fyc2018-filters-wrapper" data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.filter'}" id="filter-url-request">
+                <sly data-sly-test="${fyc.filterBar.DESTINATION.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DESTINATION.rows, type='filter-destination', singular='destination', plural='destinations', name='destination', fyc=fyc, open=fyc.filterBar.DESTINATION.open}"/>
+                <sly data-sly-test="${fyc.filterBar.DEPARTURE.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DEPARTURE.rows, type='filter-departure', class='col-sm-4 col-md-3', singular='departure', plural='departures', name='departure', open=fyc.filterBar.DEPARTURE.open}"/>
+                <sly data-sly-test="${fyc.filterBar.DURATION.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DURATION.rows, type='filter-duration', singular='duration', plural='durations', label='days', name='duration',open=fyc.filterBar.DURATION.open}"/>
+                <sly data-sly-test="${fyc.filterBar.SHIP.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.SHIP.rows, type='filter-ship', singular='ship', plural='ships', name='ship', open=fyc.filterBar.SHIP.open}"/>
+                <sly data-sly-test="${fyc.filterBar.TYPE.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.TYPE.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type', open=fyc.filterBar.TYPE.open}"/>
+                <sly data-sly-test="${fyc.filterBar.PORT.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='Search port', open=fyc.filterBar.PORT.open}"/>
+                <sly data-sly-test="${fyc.filterBar.FEATURES.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='features', plural='features', name='feature'}"/>
+            </div>
+        </div>
+    </div>
 </template>
+<sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+     data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='9'}"
+     data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
+
+

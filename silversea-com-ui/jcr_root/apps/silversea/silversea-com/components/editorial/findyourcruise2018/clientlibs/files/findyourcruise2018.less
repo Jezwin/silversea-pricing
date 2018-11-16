@@ -1,0 +1,607 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+.findyourcruise2018 {
+
+  .fyc2018-pagination {
+    margin-top: 40px;
+    color: black;
+    .previous-page, .next-page {
+      font-weight: 800;
+    }
+    .fyc2018-pag-link {
+      cursor: pointer;
+    }
+    li {
+      span.active {
+        font-weight: 800;
+        border-bottom: 2px solid @red;
+        padding-bottom: 5px;
+        color: @black;
+
+        &:before, &:after {
+          padding-bottom: 5px;
+          border-bottom: 2px solid @red;
+          content: ' ';
+          padding-left: 5px;
+          white-space: pre;
+        }
+
+      }
+      .fa {
+        color: @black;
+        margin: 4px;
+        vertical-align: -9%;
+      }
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: @suisse;
+      font-size: 14px;
+      display: inline-block;
+      margin-right: 30px;
+      color: black;
+    }
+    ul {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+  }
+
+  .fyc2018-header-mobile-filter {
+    display: none;
+  }
+  .fyc2018-header-reset-all {
+    font-weight: 400;
+    display: none;
+    span {
+      color: #fff;
+      cursor: text;
+      font-size: 13px;
+      width: 150px;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      padding-top: 10px;
+    }
+  }
+
+  min-height: 727px;
+  .c-fyc-v2__result-wrapper {
+    margin-top: 60px;
+  }
+
+  .fyc2018-no-results {
+    min-height: 500px;
+    background-color: #f4f4f4;
+    position: relative;
+    text-align: center;
+    font-size: 20px;
+    font-family: @suisse;
+    color: #263133;
+    span {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .findyourcruise2018-header {
+    position: relative;
+    height: 60px;
+    left: 0;
+    background-color: @nd-dark;
+    color: @white;
+    width: 100%;
+    font-family: @freight;
+    font-size: 22px;
+
+    .fyc2018-header-container {
+      font-weight: bold;
+      padding-top: 13px;
+      padding-bottom: 13px;
+    }
+
+    .fyc2018-header-text {
+      display: inline-block;
+      vertical-align: middle;
+      font-family: @freight;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+    .fyc2018-header-total-num {
+      font-family: @freight-bold;
+    }
+  }
+
+  .fyc2018-filters-container {
+    padding-top: 8px;
+
+    .fyc2018-filters-wrapper {
+      table-layout: fixed;
+      width: 100%;
+      display: table !important;
+      height: auto !important;
+
+      .fyc2018-filter {
+        display: table-cell;
+        vertical-align: top;
+        width: 100%;
+        text-transform: uppercase;
+        font-family: @suisse;
+        font-weight: 400;
+        font-size: 13px;
+        border-right: 4px solid @white;
+        cursor: pointer;
+
+        .fyc2018-filter-value-clicked {
+          z-index: 1000;
+          display: block !important;
+          background-color: #f4f4f4;
+        }
+
+        .fyc2018-filter-value {
+          position: relative;
+          color: @nd-dark;
+          max-height: 250px;
+          overflow-y: scroll;
+          display: none;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          cursor: auto;
+          .filter-value {
+            /*padding: 0px;*/
+          }
+        }
+
+        .fyc2018-filter-content-clicked {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+          span {
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: -moz-none;
+            -o-user-select: none;
+            user-select: none;
+            &::after {
+              content: "\f106" !important;
+            }
+          }
+        }
+
+        .fyc2018-filter-content {
+          display: block;
+          width: 100%;
+          position: relative;
+          vertical-align: middle;
+          background-color: #f4f4f4;
+          box-shadow: none;
+          height: 50px;
+          border-radius: 0;
+          border: 0;
+          line-height: 19px;
+          padding: 3px 20px 3px 7px;
+          z-index: 2;
+
+          span {
+            line-height: 27px;
+            padding-top: 10px;
+            margin: 0px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: @black;
+
+            &::after {
+              position: absolute;
+              right: 10px;
+              top: 45%;
+              transform: translateY(-45%);
+              color: #666;
+              content: "\f107";
+              font-family: FontAwesome;
+              font-size: 22px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+
+    .easy-autocomplete-container {
+      display: none;
+    }
+
+    .fyc2018-filter-value-clicked {
+      .fyc2018-filter-label {
+        text-align: right !important;
+        border: none !important;
+        margin-top: 0px !important;
+        cursor: pointer;
+        padding-top: 2px;
+        margin-bottom: -10px;
+
+        .fyc2018-filter-label-content {
+          background-color: transparent;
+          font-size: 21px;
+          width: 100%;
+          font-family: @suisse;
+          text-align: left;
+          color: white;
+          white-space: normal;
+          display: inline-block;
+          text-transform: uppercase;
+          vertical-align: middle;
+          padding: 14px 5px 11px 5px;
+          line-height: 16px;
+          font-weight: normal;
+          letter-spacing: 0;
+          text-align: center;
+
+          .fyc2018-filter-label-close {
+            float: right;
+            color: #263133;
+          }
+
+          .fyc2018-filter-clear {
+            color: #263133;
+            cursor: text;
+            font-size: 13px;
+            width: 150px;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            margin-left: 15px;
+            font-weight: 600;
+
+            i {
+              font-size: 13px;
+            }
+          }
+
+          i {
+            font-size: 23px;
+            line-height: 0.6;
+            cursor: pointer;
+          }
+
+          &:hover {
+            color: white !important;
+            background-color: transparent !important;
+          }
+        }
+      }
+    }
+
+    .filter-departure .fyc2018-filter-label {
+      margin-bottom: -25px;
+    }
+
+    .filter-cruise-type.fyc2018-filter-value-clicked {
+      min-width: 286px !important;
+      min-height: 172px !important;
+    }
+
+    .filter-destination.fyc2018-filter-value-clicked {
+      min-width: 560px !important;
+      min-height: 385px !important;
+
+      .filter-combo-cruises-row {
+        padding: 0;
+      }
+      .filter-combo-cruises {
+        margin-top: 15px;
+        text-align: center !important;
+        cursor: pointer;
+        span {
+          white-space: normal;
+          display: inline-block;
+          text-transform: uppercase;
+          text-align: center;
+          vertical-align: middle;
+          border-width: 0;
+          border-radius: 0 !important;
+          padding: 14px 5px 11px 5px;
+          line-height: 16px;
+          font-size: 13px;
+          font-family: @suisse;
+          font-weight: 600;
+          letter-spacing: 0;
+          color: #171d47;
+          width: 250px;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .filter-features.fyc2018-filter-value-clicked {
+      position: absolute !important;
+      right: 4px;
+      min-width: 0px;
+      width: 300px;
+      .fyc2018-filter-value-container {
+        width: 300px !important;
+        max-height: 445px !important;
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+      }
+      .filter-value:first-child {
+        margin-top: 0px;
+      }
+
+      .fyc2018-filter-label {
+        margin-bottom: 0px;
+      }
+
+      .filter-value span {
+        width: 268px;
+
+        i {
+          padding-right: 5px;
+        }
+      }
+    }
+
+    .easy-autocomplete-container {
+      ul {
+        background-color: white;
+        text-align: left;
+        padding: 0px;
+        position: absolute;
+        z-index: 1000;
+        width: 90%;
+        top: 66px;
+        border: 1px solid rgba(85, 85, 85, 0.38);
+        border-top: none !important;
+        display: none;
+        .eac-item {
+          padding: 10px;
+        }
+
+        li:hover {
+          background-color: #263133;
+          color: white
+        }
+      }
+    }
+
+    .filter-port.fyc2018-filter-value-clicked {
+      position: absolute !important;
+      right: 136px;
+      width: 294px !important;
+      @media (max-width: 900px) {
+        -webkit-transform: translateX(-50%);
+        position: relative !important;
+        transform: translateX(-50%);
+        left: 50%;
+      }
+    }
+
+    .filter-ship.fyc2018-filter-value-clicked {
+      min-width: 480px !important;
+      padding-left: 12px;
+      padding-right: 12px;
+      .filter-value span {
+        width: 210px;
+      }
+
+      .col-sm-6:nth-child(even) {
+        padding-right: 0px;
+      }
+
+      .col-sm-6:nth-child(odd) {
+        padding-left: 0px;
+      }
+      @media (max-width: 900px) {
+        -webkit-transform: translateX(-50%);
+        position: relative !important;
+        transform: translateX(-50%);
+        left: 50%;
+      }
+    }
+
+    .filter-duration.fyc2018-filter-value-clicked {
+      min-width: 412px !important;
+      .filter-value span {
+        width: 180px;
+      }
+    }
+
+    .fyc2018-filter-selected-content {
+      overflow-y: scroll;
+      width: 294px !important;
+      max-height: 445px !important;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin-right: 17px;
+      display: none;
+    }
+    .fyc2018-spinner {
+      position: absolute;
+      top: 40%;
+      left: 44%;
+      display: none;
+      z-index: 15151;
+    }
+    .filter-departure.fyc2018-filter-value-clicked {
+      @media (max-width: 991px) and (min-width: 768px) {
+        min-width: 537px !important;
+      }
+      min-width: 725px !important;
+      .filter-value span {
+        width: 150px;
+      }
+    }
+
+    .fyc2018-filter-autocomplete {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      border-bottom: 1px solid fade(#888, 50%);
+      padding: 0px;
+      margin-bottom: 15px;
+      border-radius: 0px;
+    }
+
+    input::placeholder {
+      text-transform: uppercase !important;
+    }
+
+    .fyc2018-filter-autocomplete-content {
+      width: 294px !important;
+      max-height: 445px !important;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin-right: 17px;
+    }
+
+    .filter-show-selected {
+      padding-top: 10px;
+      cursor: pointer;
+      font-weight: 400;
+      margin-top: 0px;
+      text-transform: uppercase;
+      text-align: center !important;
+      display: none;
+      span:after {
+
+        top: 50%;
+        margin-left: 8px;
+        position: absolute;
+        transform: translateY(-40%);
+        -webkit-transform: translateY(-40%);
+        color: #666;
+        content: "\f107";
+        font-family: FontAwesome;
+        font-size: 22px;
+        font-weight: 400;
+
+      }
+    }
+
+    .filter-show-selected-open {
+      span:after {
+        content: "\f106";
+        font-family: FontAwesome;
+      }
+    }
+    .filter-view-all-filtered {
+      display: none;
+    }
+
+    .filter-no-ports {
+      display: none;
+      span {
+        white-space: normal;
+        display: inline-block;
+        text-transform: uppercase;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 0;
+        border-radius: 0 !important;
+        padding: 14px 5px 11px 5px;
+        line-height: 16px;
+        font-size: 13px;
+        font-family: @suisse;
+        font-weight: normal;
+        letter-spacing: 0;
+        color: #171d47;
+        width: 250px;
+      }
+    }
+
+    .filter-view-all {
+      margin-top: 25px;
+      text-align: center !important;
+      cursor: pointer;
+      font-weight: 600;
+      text-transform: capitalize;
+      text-decoration: underline;
+    }
+
+    .fyc2018-filter-value-clicked {
+      overflow-y: hidden !important;
+      max-height: 800px !important;
+      padding-top: 10px;
+      padding-bottom: 25px;
+      padding-left: 0px;
+      padding-right: 0px;
+
+      .filter-value {
+        margin-top: 15px;
+        text-align: center !important;
+        cursor: pointer;
+      }
+
+      .filter-value.filter-selected span {
+        color: white;
+        border: 1px solid white;
+        background-color: #263133;
+      }
+
+      .filter-selected.filter-selected-hover span {
+        &:hover {
+          background-color: #98989B;
+          color: white;
+          border: 1px solid;
+          border-color: white;
+        }
+      }
+
+      .filter-no-selected.filter-no-selected-hover span {
+        &:hover {
+          color: white;
+          border: 1px solid white;
+          background-color: #263133;
+        }
+      }
+
+      .filter-disabled {
+        cursor: auto;
+        pointer-events: none;
+      }
+
+      .filter-content-disabled {
+        opacity: 0.5;
+        cursor: auto;
+        pointer-events: none;
+      }
+
+      .filter-disabled span {
+        opacity: 0.5;
+        cursor: auto;
+        pointer-events: none;
+        &:hover {
+          background-color: white;
+          color: #171D47;
+          border: 1px solid;
+          border-color: #171d474f;
+        }
+      }
+
+      .fyc2018-filter-year {
+        margin-top: 20px;
+        font-weight: 600;
+        pointer-events: none;
+      }
+
+      .filter-value span {
+        white-space: normal;
+        display: inline-block;
+        text-transform: uppercase;
+        text-align: center;
+        vertical-align: middle;
+        border-width: 0;
+        border-radius: 0 !important;
+        padding: 14px 5px 11px 5px;
+        line-height: 16px;
+        font-size: 13px;
+        font-family: @suisse;
+        font-weight: normal;
+        letter-spacing: 0px;
+        background-color: white;
+        color: #171D47;
+        width: 250px;
+        border: 1px solid;
+        border-color: #171d474f;
+      }
+    }
+  }
+}

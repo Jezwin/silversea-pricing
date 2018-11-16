@@ -26,7 +26,7 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
     static private final String GEO_PROP = "geoTag";
     static private final String GEO_NODE = "geoList";
     static private final String LIST_PROPERTIES =
-            "data-sscclicktype,href,target,data-scrollElement,data-type,data-toggle,data-target,data-video,data-selectors,data-suffix";
+            "data-sscclicktype,href,target,data-scrollElement,data-type,data-toggle,data-target,data-video,data-selectors,data-suffix,data-lightbox";
     private static final String[] DEVICES = new String[]{"Desktop", "Tablet", "Mobile"};
     private static final Set<String> IGNORED_KEYS = Sets.newHashSet("jcr", "sling", "cq", "sscUUID");
 
@@ -106,6 +106,7 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
             if (Boolean.valueOf(enableLightbox)) {
                 sbProperties.put("dataToggle" + device, "modal");
                 sbProperties.put("dataTarget" + device, ".bs-modal-lg");
+                sbProperties.put("dataLightbox" + device, "modalcontent");
             }
             String isExternalLink = sbProperties.get("isExternalLink" + device, String.class);
             if (!Boolean.valueOf(isExternalLink)) {
