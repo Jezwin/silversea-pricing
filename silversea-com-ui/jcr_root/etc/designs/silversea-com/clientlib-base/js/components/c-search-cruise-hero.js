@@ -4,14 +4,14 @@ $(function() {
         var requestUrl = $form.attr('action').replace('.html','');
         var requestUrlFeedback;
         var $resultWrapper = $form.next('.feedback__wrapper');
-        
+
         $form.find('[name=date]').val("all");
         $form.find('[name=destination]').val("all");
         $form.find('[name=ship]').val("all");
         $form.find('[name=date]').trigger("chosen:updated");
         $form.find('[name=destination]').trigger("chosen:updated");
         $form.find('[name=ship]').trigger("chosen:updated");
-        
+
         /***********************************************************************
          * Update Filter according to result : compare option list full and
          * option available
@@ -87,8 +87,34 @@ $(function() {
         });
 
         $form.on('submit', function(e) {
+            var mapShip= [];
+            mapShip["silver-cloud"] = 9;
+            mapShip["silver-discoverer"] = 8;
+            mapShip["silver-explorer"] = 2;
+            mapShip["silver-galapagos"] = 3;
+            mapShip["silver-moon"] = 12;
+            mapShip["silver-muse"] = 10;
+            mapShip["silver-shadow"] = 4;
+            mapShip["silver-spirit"] = 5;
+            mapShip["silver-whisper"] = 6;
+            mapShip["silver-wind"] = 7;
+            mapShip["silver-wind"] = 998;
+            mapShip["silver-origin"] = 9999;
+
             e.preventDefault();
             var $resultWrapper = $form.next('.feedback__wrapper');
+            var paramterFYC2018= "";
+            if ($form.find('[name=destination]').val() != null) {
+                paramterFYC2018 = "?destination="+ $form.find('[name=destination]').val();
+            }
+            if ($form.find('[name=date]').val() != null) {
+                paramterFYC2018 += paramterFYC2018 != "" ? "&" : "?";
+                paramterFYC2018 += "departure="+ $form.find('[name=date]').val();
+            }
+            if ($form.find('[name=ship]').val() != null) {
+                paramterFYC2018 += paramterFYC2018 != "" ? "&" : "?";
+                paramterFYC2018 += "ship="+ mapShip[$form.find('[name=ship]').val()];
+            }
 
             var destFilter = $resultWrapper.find("#current-destination-filter").val();
             if (typeof destFilter != "undefined" && destFilter != null && (destFilter == "wc" || destFilter == "gv")) {
@@ -96,9 +122,11 @@ $(function() {
             		var path = (destFilter == "wc" ) ? jsonStr["worldCruisePath"] : jsonStr["grandVoyageCruisePath"];
             		window.location.href = path + '.html';
             } else {
-            	document.location.href = requestUrl + '.html';
+            	document.location.href = requestUrl + '.html' + paramterFYC2018;
             }
         });
 
     })
+
+
 });

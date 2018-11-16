@@ -27,7 +27,6 @@ public abstract class AbstractFilter<T> {
 
     AbstractFilter(String kind) {
         this.kind = kind;
-        this.visible = true;
     }
 
     protected abstract Stream<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
@@ -82,6 +81,7 @@ public abstract class AbstractFilter<T> {
             setVisible(false);
             return valueFromProperty.get();
         }
+        setVisible(true);
         return httpRequest.getOrDefault(getKind(), ArrayUtils.EMPTY_STRING_ARRAY);
     }
 

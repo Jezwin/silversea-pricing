@@ -29,7 +29,7 @@ import static java.util.stream.Collectors.toCollection;
 public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
 
-    private static final String DEFAULT_PAGE_SIZE = "20";
+    private static final String DEFAULT_PAGE_SIZE = "12";
 
     private Locale locale;
     private String lang;
