@@ -1,11 +1,6 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
@@ -45,357 +40,357 @@ import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GeolocationTagService;
 
+import static org.apache.commons.lang3.StringUtils.contains;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 /**
  * TODO split in multiple use class : call request, brochure request and quote
  * request TODO use
  * {@link com.silversea.aem.components.AbstractGeolocationAwareUse}
  */
+
 /**
  * @author giuseppes
- *
  */
 public class QuoteRequestUse extends WCMUsePojo {
 
-	static final private Logger LOGGER = LoggerFactory.getLogger(QuoteRequestUse.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(QuoteRequestUse.class);
 
-	private List<GeolocationTagModel> countries = new ArrayList<>();
+    private List<GeolocationTagModel> countries = new ArrayList<>();
 
-	private String currentMarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
+    private String currentMarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
 
-	private String siteCountry = WcmConstants.DEFAULT_GEOLOCATION_COUNTRY;
+    private String siteCountry = WcmConstants.DEFAULT_GEOLOCATION_COUNTRY;
 
-	private String siteCurrency = WcmConstants.DEFAULT_CURRENCY;
+    private String siteCurrency = WcmConstants.DEFAULT_CURRENCY;
 
-	private CruiseModel selectedCruise;
+    private CruiseModel selectedCruise;
 
-	private SuiteModel selectedSuite;
+    private SuiteModel selectedSuite;
 
-	private PriceModel selectedPrice;
+    private PriceModel selectedPrice;
 
-	private PriceModel lowestPrice;
+    private PriceModel lowestPrice;
 
-	private boolean isWaitList = true;
+    private boolean isWaitList = true;
 
-	public String selectedSuiteCategoryCode;
-	
-	public String selectedDestinationId;
+    public String selectedSuiteCategoryCode;
 
-	private BrochureModel selectedBrochure;
+    public String selectedDestinationId;
 
-	private RequestQuoteModel raqModel;
+    private BrochureModel selectedBrochure;
 
-	@Override
-	public void activate() throws Exception {
-		// init geolocations informations
-		final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
-				GeolocationTagService.class);
+    private RequestQuoteModel raqModel;
 
-		if (geolocationTagService != null) {
-			final GeolocationTagModel geolocationTagModel = geolocationTagService
-					.getGeolocationTagModelFromRequest(getRequest());
+    @Override
+    public void activate() throws Exception {
+        // init geolocations informations
+        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
+                GeolocationTagService.class);
 
-			if (geolocationTagModel != null) {
-				currentMarket = geolocationTagModel.getMarket();
-				siteCountry = geolocationTagModel.getCountryCode();
-				siteCurrency = geolocationTagModel.getCurrency();
-			}
-		}
+        if (geolocationTagService != null) {
+            final GeolocationTagModel geolocationTagModel = geolocationTagService
+                    .getGeolocationTagModelFromRequest(getRequest());
 
-		// init countries list
-		Resource geotaggingNamespace = getResourceResolver().getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
-		if (geotaggingNamespace != null) {
-			Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
+            if (geolocationTagModel != null) {
+                currentMarket = geolocationTagModel.getMarket();
+                siteCountry = geolocationTagModel.getCountryCode();
+                siteCurrency = geolocationTagModel.getCurrency();
+            }
+        }
 
-			collectCountries(geotaggingTag);
+        // init countries list
+        Resource geotaggingNamespace = getResourceResolver().getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
+        if (geotaggingNamespace != null) {
+            Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
 
-			countries.sort(Comparator.comparing(GeolocationTagModel::getTitle));
-		}
+            collectCountries(geotaggingTag);
 
-	}
+            countries.sort(Comparator.comparing(GeolocationTagModel::getTitle));
+        }
 
-	/**
-	 * TODO used
-	 */
-	public void prepareDestinationParameters() {
-		String suffix = getRequest().getRequestPathInfo().getSuffix();
-		String selector = getRequest().getRequestPathInfo().getSelectorString();
+    }
 
-		suffix = (suffix != null) ? suffix.replace(".html", "") : null;
-		String[] splitSuffix = (suffix != null) ? StringUtils.split(suffix, '/') : null;
-		String[] splitSelector = (selector != null) ? StringUtils.split(selector, '.') : null;
+    /**
+     * TODO used
+     */
+    public void prepareDestinationParameters() {
+        String suffix = getRequest().getRequestPathInfo().getSuffix();
+        String selector = getRequest().getRequestPathInfo().getSelectorString();
 
-		if (selector != null && suffix != null) {
-			String finalSelector = splitSelector[0];
-			if (finalSelector.equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
-				prepareSelectedCruise(splitSuffix);
-			} else {
-				prepareRAQModelData(finalSelector, splitSuffix);
-			}
-		}
+        suffix = (suffix != null) ? suffix.replace(".html", "") : null;
+        String[] splitSuffix = (suffix != null) ? StringUtils.split(suffix, '/') : null;
+        String[] splitSelector = (selector != null) ? StringUtils.split(selector, '.') : null;
 
-	}
+        if (selector != null && suffix != null) {
+            String finalSelector = splitSelector[0];
+            if (finalSelector.equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
+                prepareSelectedCruise(splitSuffix);
+            } else {
+                prepareRAQModelData(finalSelector, splitSuffix);
+            }
+        }
 
-	/**
-	 * Create RAQModel retrieving information in crx/de based on selector.
-	 * 
-	 * Example Query: path=/content/silversea-com/en/destinations or ships or
-	 * exclusive-offer 1_property=cq:template
-	 * 1_property.value=/apps/silversea/silversea-com/templates/destination or
-	 * ship or exclusiveoffer 2_property=destinationId or shipId o
-	 * exclusiveOfferId 2_property.value=1
-	 * 
-	 * XPath Query:
-	 * /jcr:root/content/silversea-com/en/destinations//*[@cq:template =
-	 * '/apps/silversea/silversea-com/templates/destination' and
-	 * 
-	 * @destinationId='1']
-	 * 
-	 * @param selector
-	 *            ss, sd, eo
-	 * @param splitSuffix
-	 *            destinationId, shipId, exclusiveOfferId
-	 */
-	private void prepareRAQModelData(String splitSelectorR, String[] splitSuffix) {
-		if (splitSuffix != null && splitSuffix.length > 0) {
-			// create QueryBuilder parameter
-			StringBuilder path = new StringBuilder("/content/silversea-com/");
-			path.append(LanguageHelper.getLanguage(getCurrentPage()));
-			String nodePath = null, template = null, property = null;
-			switch (splitSelectorR) {
-			case WcmConstants.SELECTOR_SINGLE_DESTINATION:
-				path.append("/destinations");
-				template = WcmConstants.PAGE_TEMPLATE_DESTINATION;
-				property = WcmConstants.PN_DESTINATION_ID;
-				selectedDestinationId = splitSuffix[0];
-				break;
-			case WcmConstants.SELECTOR_SINGLE_SHIP:
-				path.append("/ships");
-				template = WcmConstants.PAGE_TEMPLATE_SHIP;
-				property = WcmConstants.PN_SHIP_ID;
-				break;
-			case WcmConstants.SELECTOR_EXCLUSIVE_OFFER:
-				path.append("/exclusive-offers");
-				template = WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER;
-				property = WcmConstants.PN_EXCLUSIVE_OFFER_ID;
-				break;
-			}
-			// create QueryBuilder query
-			final Map<String, String> map = new HashMap<String, String>();
-			map.put("path", path.toString());
-			map.put("1_property", "cq:template");
-			map.put("1_property.value", template);
-			map.put("2_property", property);
-			map.put("2_property.value", splitSuffix[0]);
+    }
 
-			QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
-			Query query = queryBuilder.createQuery(PredicateGroup.create(map),
-					getResourceResolver().adaptTo(Session.class));
+    /**
+     * Create RAQModel retrieving information in crx/de based on selector.
+     * <p>
+     * Example Query: path=/content/silversea-com/en/destinations or ships or
+     * exclusive-offer 1_property=cq:template
+     * 1_property.value=/apps/silversea/silversea-com/templates/destination or
+     * ship or exclusiveoffer 2_property=destinationId or shipId o
+     * exclusiveOfferId 2_property.value=1
+     * <p>
+     * XPath Query:
+     * /jcr:root/content/silversea-com/en/destinations//*[@cq:template =
+     * '/apps/silversea/silversea-com/templates/destination' and
+     *
+     * @param splitSelectorR ss, sd, eo
+     * @param splitSuffix    destinationId, shipId, exclusiveOfferId
+     * @destinationId='1']
+     */
+    private void prepareRAQModelData(String splitSelectorR, String[] splitSuffix) {
+        if (splitSuffix != null && splitSuffix.length > 0) {
+            // create QueryBuilder parameter
+            StringBuilder path = new StringBuilder("/content/silversea-com/");
+            path.append(LanguageHelper.getLanguage(getCurrentPage()));
+            String nodePath = null, template = null, property = null;
+            switch (splitSelectorR) {
+                case WcmConstants.SELECTOR_SINGLE_DESTINATION:
+                    path.append("/destinations");
+                    template = WcmConstants.PAGE_TEMPLATE_DESTINATION;
+                    property = WcmConstants.PN_DESTINATION_ID;
+                    selectedDestinationId = splitSuffix[0];
+                    break;
+                case WcmConstants.SELECTOR_SINGLE_SHIP:
+                    path.append("/ships");
+                    template = WcmConstants.PAGE_TEMPLATE_SHIP;
+                    property = WcmConstants.PN_SHIP_ID;
+                    break;
+                case WcmConstants.SELECTOR_EXCLUSIVE_OFFER:
+                    path.append("/exclusive-offers");
+                    template = WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER;
+                    property = WcmConstants.PN_EXCLUSIVE_OFFER_ID;
+                    break;
+            }
+            // create QueryBuilder query
+            final Map<String, String> map = new HashMap<String, String>();
+            map.put("path", path.toString());
+            map.put("1_property", "cq:template");
+            map.put("1_property.value", template);
+            map.put("2_property", property);
+            map.put("2_property.value", splitSuffix[0]);
 
-			SearchResult result = query.getResult();
-			if (result.getTotalMatches() > 0) {
-				Resource resourceResult;
-				try {
-					raqModel = new RequestQuoteModel(splitSuffix[0], splitSelectorR);
-					// read property thumbnail, raqTitle and jcr:description
-					resourceResult = result.getHits().get(0).getResource();
-					Node node = resourceResult.adaptTo(Node.class);
-					if (node.hasNode("image") && node.getNode("image").hasProperty("fileReference")) {
-						Property propVal = node.getNode("image").getProperty("fileReference");
-						raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image"
-								+ propVal.getValue().toString() + "?wid=450&fit=constrain&fmt=pjpeg&pscan=5&qlt=80");
-						if (splitSelectorR.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
-							// Create an EO model
-							// Loop on EO Variation if there is any match
-							// Then I will set title and desc
-							Page page = getPageManager().getPage(node.getParent().getPath());
-							ExclusiveOfferVariedModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferVariedModel.class);
-							
-							List<ExclusiveOfferModel> availableEOVariation = exclusiveOfferModel.getVariations();
-							for (ExclusiveOfferModel eoVar : availableEOVariation) {
-								String fullGeo = String.join("||", eoVar.getGeomarkets());
-								
-								if (fullGeo.contains("/" + siteCountry)) {
-									if (!eoVar.getDescription().isEmpty()) {
-										exclusiveOfferModel.setVariedDescription(eoVar.getDescription());
-										exclusiveOfferModel.setVariedTitle(eoVar.getTitle());
-									}
-								}
-							}
-							
-							raqModel.setTitle(exclusiveOfferModel.getVariedTitle());
-							raqModel.setDescription(exclusiveOfferModel.getVariedDescription());
-						} else {
-							//raqTitle as title to show
-							if (node.hasProperty("raqTitle")) {
-								propVal = node.getProperty("raqTitle");
-								raqModel.setTitle(propVal.getValue().toString());
-							}
-							if (node.hasProperty((JcrConstants.JCR_DESCRIPTION))) {
-								//jcr:description as description to show
-								propVal = node.getProperty(JcrConstants.JCR_DESCRIPTION);
-								raqModel.setDescription(propVal.getValue().toString());
-							}
-						}
-					}
-				} catch (Exception e) {
-					LOGGER.error("Error during retrieving raqModel data");
-				}
-			}
-		}
-	}
+            QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
+            Query query = queryBuilder.createQuery(PredicateGroup.create(map),
+                    getResourceResolver().adaptTo(Session.class));
 
-	/**
-	 * Create selectedCruise from fyc result
-	 * 
-	 * @param splitSuffix
-	 */
-	private void prepareSelectedCruise(final String[] splitSuffix) {
-		if (splitSuffix != null) {
+            SearchResult result = query.getResult();
+            if (result.getTotalMatches() > 0) {
+                Resource resourceResult;
+                try {
+                    raqModel = new RequestQuoteModel(splitSuffix[0], splitSelectorR);
+                    // read property thumbnail, raqTitle and jcr:description
+                    resourceResult = result.getHits().get(0).getResource();
+                    Node node = resourceResult.adaptTo(Node.class);
+                    if (node.hasNode("image") && node.getNode("image").hasProperty("fileReference")) {
+                        Property propVal = node.getNode("image").getProperty("fileReference");
+                        raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image"
+                                + propVal.getValue().toString() + "?wid=450&fit=constrain&fmt=pjpeg&pscan=5&qlt=80");
+                        if (splitSelectorR.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
+                            // Create an EO model
+                            // Loop on EO Variation if there is any match
+                            // Then I will set title and desc
+                            Page page = getPageManager().getPage(node.getParent().getPath());
+                            ExclusiveOfferVariedModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferVariedModel.class);
 
-			String suiteName = null;
-			String suiteCategory = null;
+                            List<ExclusiveOfferModel> availableEOVariation = exclusiveOfferModel.getVariations();
+                            for (ExclusiveOfferModel eoVar : availableEOVariation) {
+                                String fullGeo = String.join("||", eoVar.getGeomarkets());
 
-			if (splitSuffix != null) {
-				if (splitSuffix.length > 0) {
-					CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(
-							CruisesCacheService.class);
+                                if (fullGeo.contains("/" + siteCountry)) {
+                                    if (!eoVar.getDescription().isEmpty()) {
+                                        exclusiveOfferModel.setVariedDescription(eoVar.getDescription());
+                                        exclusiveOfferModel.setVariedTitle(eoVar.getTitle());
+                                    }
+                                }
+                            }
 
-					if (cruisesCacheService != null) {
-						// CruiseModelLight only contains the lowest prices
-						// Must construct the complete CruiseModel in order to
-						// have all prices
-						CruiseModelLight cruiseModelLight = cruisesCacheService.getCruiseByCruiseCode(
-								LanguageHelper.getLanguage(getCurrentPage()), splitSuffix[0]);
-						if (cruiseModelLight != null) {
-							Resource cruiseResource = getResourceResolver().getResource(cruiseModelLight.getPath());
-							selectedCruise = null;
-							if (cruiseResource != null) {
-								Page cruisePage = getPageManager().getPage(cruiseModelLight.getPath());
-								selectedCruise = cruisePage.adaptTo(CruiseModel.class);
-							}
-							
-							if (selectedCruise != null && splitSuffix.length > 1) {
-								suiteName = splitSuffix[1];
-								
-								if (splitSuffix.length > 2) {
-									suiteCategory = splitSuffix[2];
-								}
-							}
-						}
-					}
-				}
-			}
+                            raqModel.setTitle(exclusiveOfferModel.getVariedTitle());
+                            raqModel.setDescription(exclusiveOfferModel.getVariedDescription());
+                        } else {
+                            //raqTitle as title to show
+                            if (node.hasProperty("raqTitle")) {
+                                propVal = node.getProperty("raqTitle");
+                                raqModel.setTitle(propVal.getValue().toString());
+                            }
+                            if (node.hasProperty((JcrConstants.JCR_DESCRIPTION))) {
+                                //jcr:description as description to show
+                                propVal = node.getProperty(JcrConstants.JCR_DESCRIPTION);
+                                raqModel.setDescription(propVal.getValue().toString());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("Error during retrieving raqModel data");
+                }
+            }
+        }
+    }
 
-			if (selectedCruise != null) {
-				selectedDestinationId = selectedCruise.getDestination().getDestinationId();
-				for (PriceModel price : selectedCruise.getPrices()) {
-					if (price.getGeomarket().equals(currentMarket) && price.getCurrency().equals(siteCurrency)) {
+    /**
+     * Create selectedCruise from fyc result
+     *
+     * @param splitSuffix
+     */
+    private void prepareSelectedCruise(final String[] splitSuffix) {
+        if (splitSuffix != null) {
 
-						if (suiteName == null && !price.isWaitList()) {
-							if (lowestPrice == null || price.getPrice() < lowestPrice.getPrice()) {
-								lowestPrice = price;
-								isWaitList = false;
-							}
-						} else if (price.getSuite().getName().equals(suiteName)) {
-							if (suiteCategory != null && price.getSuiteCategory().equals(suiteCategory)) {
-								selectedPrice = price;
-								selectedSuite = price.getSuite();
-								selectedSuiteCategoryCode = price.getSuiteCategory();
-								lowestPrice = price;
-								isWaitList = price.isWaitList();
+            String suiteName = null;
+            String suiteCategory = null;
 
-								break;
-							} else if (suiteCategory == null) {
-								selectedSuite = price.getSuite();
-								if (!price.isWaitList()
-										&& (lowestPrice == null || price.getPrice() < lowestPrice.getPrice())) {
-									selectedSuite = price.getSuite();
-									lowestPrice = price;
-									isWaitList = false;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+            if (splitSuffix != null) {
+                if (splitSuffix.length > 0) {
+                    CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(
+                            CruisesCacheService.class);
 
-	public RequestQuoteModel getRaqModel() {
-		return raqModel;
-	}
+                    if (cruisesCacheService != null) {
+                        // CruiseModelLight only contains the lowest prices
+                        // Must construct the complete CruiseModel in order to
+                        // have all prices
+                        CruiseModelLight cruiseModelLight = cruisesCacheService.getCruiseByCruiseCode(
+                                LanguageHelper.getLanguage(getCurrentPage()), splitSuffix[0]);
+                        if (cruiseModelLight != null) {
+                            Resource cruiseResource = getResourceResolver().getResource(cruiseModelLight.getPath());
+                            selectedCruise = null;
+                            if (cruiseResource != null) {
+                                Page cruisePage = getPageManager().getPage(cruiseModelLight.getPath());
+                                selectedCruise = cruisePage.adaptTo(CruiseModel.class);
+                            }
 
-	/**
-	 * Get brochure information using the path inside the url
-	 * printed-form-lb.modalcontent
-	 * .html/content/dam/silversea-com/brochures/en/WorldCruise_Brochure_2018
-	 * .pdf.html
-	 */
-	public void prepareBrochureParameters() {
-		String selectedBrochurePath = getRequest().getRequestPathInfo().getSuffix();
+                            if (selectedCruise != null && splitSuffix.length > 1) {
+                                suiteName = splitSuffix[1];
 
-		if (!StringUtils.isEmpty(selectedBrochurePath)) {
-			selectedBrochurePath = selectedBrochurePath.endsWith(".html") ? selectedBrochurePath.substring(0,
-					selectedBrochurePath.lastIndexOf('.')) : selectedBrochurePath;
-			final Resource assetResource = getResourceResolver().getResource(selectedBrochurePath);
+                                if (splitSuffix.length > 2) {
+                                    suiteCategory = splitSuffix[2];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-			if (assetResource != null) {
-				final Asset asset = assetResource.adaptTo(Asset.class);
+            if (selectedCruise != null) {
+                selectedDestinationId = selectedCruise.getDestination().getDestinationId();
+                for (PriceModel price : selectedCruise.getPrices()) {
+                    if (price.getGeomarket().equals(currentMarket) && price.getCurrency().equals(siteCurrency)) {
 
-				if (asset != null) {
-					selectedBrochure = asset.adaptTo(BrochureModel.class);
+                        if (suiteName == null && !price.isWaitList()) {
+                            if (lowestPrice == null || price.getPrice() < lowestPrice.getPrice()) {
+                                lowestPrice = price;
+                                isWaitList = false;
+                            }
+                        } else if (price.getSuite().getName().equals(suiteName)) {
+                            if (suiteCategory != null && price.getSuiteCategory().equals(suiteCategory)) {
+                                selectedPrice = price;
+                                selectedSuite = price.getSuite();
+                                selectedSuiteCategoryCode = price.getSuiteCategory();
+                                lowestPrice = price;
+                                isWaitList = price.isWaitList();
 
-					raqModel = new RequestQuoteModel();
-					String thumb = selectedBrochure.getCover();
-					 RenditionPicker renditionPicker = new PrefixRenditionPicker("Web");
-			            Rendition rendition = asset.getRendition(renditionPicker);
-			            if (rendition != null) {
-			            	thumb =  rendition.getPath();
-			            }
-					raqModel.setThumbnail(thumb);
-					raqModel.setTitle(selectedBrochure.getAssetTitle());
+                                break;
+                            } else if (suiteCategory == null) {
+                                selectedSuite = price.getSuite();
+                                if (!price.isWaitList()
+                                        && (lowestPrice == null || price.getPrice() < lowestPrice.getPrice())) {
+                                    selectedSuite = price.getSuite();
+                                    lowestPrice = price;
+                                    isWaitList = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-				}
-			}
-		}
-	}
+    public RequestQuoteModel getRaqModel() {
+        return raqModel;
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public BrochureModel getSelectedBrochure() {
-		return selectedBrochure;
-	}
-	
-	public String getSelectedDestinationId() {
-		return selectedDestinationId;
-	}
+    /**
+     * Get brochure information using the path inside the url
+     * printed-form-lb.modalcontent
+     * .html/content/dam/silversea-com/brochures/en/WorldCruise_Brochure_2018
+     * .pdf.html
+     */
+    public void prepareBrochureParameters() {
+        String selectedBrochurePath = getRequest().getRequestPathInfo().getSuffix();
 
-	/**
-	 * TODO in html used
-	 *
-	 * @return the countries
-	 */
-	public List<GeolocationTagModel> getCountries() {
-		return countries;
-	}
+        if (!StringUtils.isEmpty(selectedBrochurePath)) {
+            selectedBrochurePath = selectedBrochurePath.endsWith(".html") ? selectedBrochurePath.substring(0,
+                    selectedBrochurePath.lastIndexOf('.')) : selectedBrochurePath;
+            final Resource assetResource = getResourceResolver().getResource(selectedBrochurePath);
 
-	/**
-	 * used
-	 *
-	 * @return the isChecked
-	 */
-	public Boolean getIsChecked() {
-		final String[] tags = getProperties().get(NameConstants.PN_TAGS, String[].class);
+            if (assetResource != null) {
+                final Asset asset = assetResource.adaptTo(Asset.class);
 
-		if(siteCountry.toLowerCase().equals("ca") || siteCountry.toLowerCase().equals("can")){
-			return false;
-		}else {
-			return true;
-		}
-		//TODO to remove after all
+                if (asset != null) {
+                    selectedBrochure = asset.adaptTo(BrochureModel.class);
+
+                    raqModel = new RequestQuoteModel();
+                    String thumb = selectedBrochure.getCover();
+                    RenditionPicker renditionPicker = new PrefixRenditionPicker("Web");
+                    Rendition rendition = asset.getRendition(renditionPicker);
+                    if (rendition != null) {
+                        thumb = rendition.getPath();
+                    }
+                    raqModel.setThumbnail(thumb);
+                    raqModel.setTitle(selectedBrochure.getAssetTitle());
+
+                }
+            }
+        }
+    }
+
+    /**
+     * used
+     *
+     * @return
+     */
+    public BrochureModel getSelectedBrochure() {
+        return selectedBrochure;
+    }
+
+    public String getSelectedDestinationId() {
+        return selectedDestinationId;
+    }
+
+    /**
+     * TODO in html used
+     *
+     * @return the countries
+     */
+    public List<GeolocationTagModel> getCountries() {
+        return countries;
+    }
+
+    /**
+     * used
+     *
+     * @return the isChecked
+     */
+    public Boolean getIsChecked() {
+        final String[] tags = getProperties().get(NameConstants.PN_TAGS, String[].class);
+
+        if (siteCountry.toLowerCase().equals("ca") || siteCountry.toLowerCase().equals("can")) {
+            return false;
+        } else {
+            return true;
+        }
+        //TODO to remove after all
 		/*if (tags != null) {
 			final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
@@ -409,149 +404,143 @@ public class QuoteRequestUse extends WCMUsePojo {
 			}
 		}*/
 
-		//return true;
-	}
+        //return true;
+    }
 
-	public boolean isSideHtmlToShow() {
-		return (raqModel != null) && !(raqModel.getType().equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT));
-	}
+    public boolean isSideHtmlToShow() {
+        return (raqModel != null) && !(raqModel.getType().equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT));
+    }
 
-	public boolean showSideHtmlBrochure() {
-		return raqModel != null;
-	}
+    public boolean showSideHtmlBrochure() {
+        return raqModel != null;
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public String getSuiteName() {
-		return selectedSuite.getTitle();
-		/*
-		 * return selectedPrice != null ? selectedSuite.getTitle() + " " +
-		 * selectedPrice.getSuiteCategory() : selectedSuite.getTitle();
-		 */
-	}
-	
-	public String getGeoMarket(){
-		return currentMarket;
-	}
-	
-	public Boolean getIsGPDR(){
-		if(siteCountry.toLowerCase().equals("ca") || siteCountry.toLowerCase().equals("can")){
-			return false;
-		}
-		return true;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    public String getSuiteName() {
+        return selectedSuite.getTitle();
+        /*
+         * return selectedPrice != null ? selectedSuite.getTitle() + " " +
+         * selectedPrice.getSuiteCategory() : selectedSuite.getTitle();
+         */
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public PriceModel getCruisePrice() {
-		return lowestPrice;
-	}
+    public String getGeoMarket() {
+        return currentMarket;
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public boolean isSuiteRequested() {
-		return isSuiteVariationRequested() || isSuiteCategoryRequested();
-	}
+    public Boolean getIsGPDR() {
+        if (siteCountry.toLowerCase().equals("ca") || siteCountry.toLowerCase().equals("can")) {
+            return false;
+        }
+        return true;
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public boolean isSuiteVariationRequested() {
-		return selectedSuite != null;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    public PriceModel getCruisePrice() {
+        return lowestPrice;
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public boolean isSuiteCategoryRequested() {
-		return selectedSuiteCategoryCode != null;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    public boolean isSuiteRequested() {
+        return isSuiteVariationRequested() || isSuiteCategoryRequested();
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	@Deprecated
-	public boolean isCruiseRequested() {
-		return selectedCruise != null;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    public boolean isSuiteVariationRequested() {
+        return selectedSuite != null;
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public String getSiteCountry() {
-		return siteCountry;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    public boolean isSuiteCategoryRequested() {
+        return selectedSuiteCategoryCode != null;
+    }
 
-	/**
-	 * used
-	 *
-	 * @return
-	 */
-	public String getSiteCurrency() {
-		return siteCurrency;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    @Deprecated
+    public boolean isCruiseRequested() {
+        return selectedCruise != null;
+    }
 
-	/**
-	 * @return selected cruise
-	 */
-	public CruiseModel getSelectedCruise() {
-		return selectedCruise;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    public String getSiteCountry() {
+        return siteCountry;
+    }
 
-	/**
-	 * @return true if selected cruise/suite/variation is in waitlist
-	 */
-	public boolean isWaitList() {
-		return isWaitList;
-	}
+    /**
+     * used
+     *
+     * @return
+     */
+    public String getSiteCurrency() {
+        return siteCurrency;
+    }
 
-	public String getSelectedSuiteCategoryCode() {
-		return selectedSuiteCategoryCode;
-	}
+    /**
+     * @return selected cruise
+     */
+    public CruiseModel getSelectedCruise() {
+        return selectedCruise;
+    }
 
-	/**
-	 * Collect the countries list - all the leaf of the tree starting with the
-	 * root <code>tag</code>
-	 *
-	 * @param tag
-	 *            root tag of the countries
-	 */
-	private void collectCountries(final Tag tag) {
-		Iterator<Tag> children = tag.listChildren();
+    /**
+     * @return true if selected cruise/suite/variation is in waitlist
+     */
+    public boolean isWaitList() {
+        return isWaitList;
+    }
 
-		if (!children.hasNext()) {
-			Resource tagResource = tag.adaptTo(Resource.class);
+    public String getSelectedSuiteCategoryCode() {
+        return selectedSuiteCategoryCode;
+    }
 
-			if (tagResource != null) {
-				GeolocationTagModel geolocationTagModel = tagResource.adaptTo(GeolocationTagModel.class);
-
-				//good item is title + prefix = France (+33)
-				if (geolocationTagModel != null && StringUtils.isNotEmpty(geolocationTagModel.getTitle()) && StringUtils.isNotEmpty(geolocationTagModel.getPrefix())) {
-					countries.add(geolocationTagModel);
-				}
-			}
-		} else {
-			while (children.hasNext()) {
-				Tag child = children.next();
-				collectCountries(child);
-			}
-		}
-	}
+    /**
+     * Collect the countries list - all the leaf of the tree starting with the
+     * root <code>tag</code>
+     *
+     * @param tag root tag of the countries
+     */
+    private void collectCountries(final Tag tag) {
+        Stack<Tag> stack = new Stack<>();
+        tag.listChildren().forEachRemaining(stack::add);
+        while (!stack.isEmpty()) {
+            Tag childTag = stack.pop();
+            Resource resource = childTag.adaptTo(Resource.class);
+            Optional.ofNullable(resource)
+                    .map(Resource::getValueMap)
+                    .filter(map -> isNotEmpty((String) map.getOrDefault("prefix", "")))
+                    .filter(map -> "cq:Tag".equals(map.getOrDefault("jcr:primaryType", "")))
+                    .filter(map -> isNotEmpty((String) map.getOrDefault("jcr:title", "")))
+                    .map(map -> resource.adaptTo(GeolocationTagModel.class))
+                    .ifPresent(countries::add);
+            childTag.listChildren().forEachRemaining(stack::add);
+        }
+    }
 }
