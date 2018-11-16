@@ -561,7 +561,7 @@ public class HotelsImporterImpl implements HotelsImporter {
         String path = PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/" + hotel.getHotelCod().trim().charAt(0) + "/" + hotel.getHotelCod().trim()+ "/" ;
         String imageUrl = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl(), damPath(hotel));
         String imageUrl2 = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl2(), damPath(hotel));
-        LOGGER.debug("Try to save the session for " + hotel.getHotelCod());
+
         if(!imageUrl.equals("") || !imageUrl2.equals("")) {
             return createMediaSet(resourceResolver, resourceResolver.getResource(path),  hotel.getHotelCod().trim(), imageUrl,
                     imageUrl2);
