@@ -435,11 +435,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     }
 
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    MediaSet mediaSet = updateMediaSet(resourceResolver, session, hotel,
-                                            hotelContentNode);
-                                    if(mediaSet != null) {
-                                        hotelContentNode.setProperty("assetSelectionReference_api", mediaSet.getPath());
-                                    }
+                     
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {
                                     final Node hotelContentNode =
