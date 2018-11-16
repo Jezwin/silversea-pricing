@@ -435,7 +435,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     }
 
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                     
+
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {
                                     final Node hotelContentNode =
@@ -514,7 +514,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 session.refresh(true);
                             }
                         }
-                    } catch (RepositoryException | PersistenceException | ImporterException | WCMException e) {
+                    } catch (RepositoryException | ImporterException | WCMException e) {
                         errorNumber++;
 
                         LOGGER.warn("Import error {}", e.getMessage());

@@ -305,21 +305,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     }
 
                                     landNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    String assetPath = getAssetPath(land);
-                                    String imageDam = upsertAsset(session, resolver, mimeService, land.getImageUrl(), assetPath);
-                                    String image2Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl2(), assetPath);
-                                    String image3Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl3(), assetPath);
-                                    String image4Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl4(), assetPath);
-                                    String image5Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl5(), assetPath);
-                                    String image6Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl6(), assetPath);
 
-                                    if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("") || !image5Dam.equals("") || !image6Dam.equals("")) {
-                                        landNode.setProperty("assetSelectionReference_api",
-                                                createMediaSet(resolver, resolver.resolve(
-                                                        PATH_DAM_SILVERSEA + "/api-provided/other-resources/landPrograms/" + "/" + land.getLandCod().trim().charAt(0) + "/" + land.getLandCod().trim() + "/"),
-                                                        land.getLandCod().trim(), imageDam, image2Dam, image3Dam, image4Dam,
-                                                        image5Dam, image6Dam).getPath());
-                                    }
                                     LOGGER.trace("Land program {} is marked to be deactivated", landProgramName);
                                 } else {
                                     final Node landProgramContentNode =
@@ -401,7 +387,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 session.refresh(true);
                             }
                         }
-                    } catch (RepositoryException | ImporterException | WCMException | PersistenceException e) {
+                    } catch (RepositoryException | ImporterException | WCMException  e) {
                         errorNumber++;
 
                         LOGGER.warn("Import error {}", e.getMessage());
