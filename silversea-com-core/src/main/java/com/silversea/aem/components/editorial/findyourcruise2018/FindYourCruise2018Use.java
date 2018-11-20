@@ -2,13 +2,16 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.ExclusiveOfferModelLight;
+import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -79,7 +82,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 .orElse("");
     }
 
-    public void init(CruisesCacheService service, String paginationLimit ) { //this is here for test purposes
+    public void init(CruisesCacheService service, String paginationLimit) { //this is here for test purposes
         Map<String, String[]> httpRequest = getFromWebRequest();
         pagination = retrieveResults(httpRequest, service, paginationLimit);
 
@@ -111,7 +114,39 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     }
 
+    private Map<String, String[]> addFilterByPage() {
+        final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
+        Map<String, String[]> map = new HashMap<>();
+        String[] value = new String[]{getCurrentPage().getName()};
+
+        switch (currentPageResourceType) {
+            case WcmConstants.RT_DESTINATION:
+                map.put(FilterBar.DESTINATION.getKind() + "Id", value);
+                break;
+            case WcmConstants.RT_PORT:
+                map.put(FilterBar.PORT.getKind() + "Id", value);
+                break;
+            case WcmConstants.RT_SHIP:
+                map.put(FilterBar.SHIP.getKind() + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
+                break;
+            case WcmConstants.RT_EXCLUSIVE_OFFER:
+                map.put(FilterBar.OFFERS.getKind() + "Id", new String[]{getCurrentPage().getPath()});
+            case WcmConstants.RT_FEATURE:
+                final Tag[] pageTags = getCurrentPage().getTags();
+                if (pageTags != null) {
+                    String[] tags =
+                            Arrays.stream(pageTags).filter(tag -> tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES))
+                                    .map(tag -> tag.adaptTo(FeatureModel.class)).filter(Objects::nonNull).map(FeatureModel::getFeatureId)
+                                    .toArray(String[]::new);
+                    map.put(FilterBar.FEATURES.getKind() + "Id", tags);
+                }
+                break;
+        }
+        return map;
+    }
+
     List<CruiseModelLight> preFiltering(List<CruiseModelLight> allCruises) {
+        //prefilter for single filters is not done here, it's in the filter initialization, in the selectedKeys (when this comment was written!)
         Stream<CruiseModelLight> stream = allCruises.stream();
 
         Instant today = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).toInstant(ZoneOffset.UTC);
@@ -122,16 +157,18 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         }
 
         Optional<List<String>> voyageCodeList =
-                ofNullable(getProperties().get("voyageCodeList", String.class)).map(list -> list.split(",")).map(Arrays::asList);
+                ofNullable(getProperties().get("voyagecodelist", String.class)).map(list -> list.split(",")).map(Arrays::asList);
         if (voyageCodeList.isPresent()) {
             stream = stream.filter(cruise -> voyageCodeList.get().contains(cruise.getCruiseCode()));
         }
 
+        /*
         Optional<String> exclusiveOffer = ofNullable(getProperties().get("eoId", String.class));
         if (exclusiveOffer.isPresent()) {
             String offer = exclusiveOffer.get();
             stream = stream.filter(cruise -> cruise.getExclusiveOffers().stream().map(ExclusiveOfferModelLight::getPath).anyMatch(offer::equals));
         }
+        */
 
         stream = stream.filter(hideToday);
 
@@ -170,8 +207,17 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 .collect(toCollection(() -> new ArrayList<>(pagSize)));
     }
 
-    protected ValueMap properties() {
-        return getProperties();
+    protected Map<String, String[]> filteringSettings() {
+        ValueMap properties = getProperties();
+        Map<String, String[]> map = new HashMap<>(addFilterByPage());
+        properties.forEach((key, value) -> {
+            if (value instanceof String[]) {
+                map.put(key, (String[]) value);
+            } else if (value instanceof String) {
+                map.put(key, new String[]{(String) value});
+            }
+        });
+        return map;
     }
 
     public List<CruiseItem> getCruises() {
