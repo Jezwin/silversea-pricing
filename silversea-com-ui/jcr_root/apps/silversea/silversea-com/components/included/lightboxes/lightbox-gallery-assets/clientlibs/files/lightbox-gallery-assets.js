@@ -27,6 +27,10 @@ $(function () {
                 setHeight();
                 setTopLightboxModal(0);
             });
+            history.replaceState(null, null, location.href.replace(location.hash, "") + "#" + $link.attr("id"));
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 

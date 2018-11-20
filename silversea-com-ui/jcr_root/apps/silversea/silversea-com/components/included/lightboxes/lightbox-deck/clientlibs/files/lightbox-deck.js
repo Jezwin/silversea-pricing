@@ -50,12 +50,16 @@ $(function () {
                 $(".lightbox-deck  .lg-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
+                history.replaceState(null, null, "#"+$link.attr("id"));
 
                 var $deckActive = $modal.find(".lightbox-deck .lg-deck-number.lg-active-deck span");
                 if ($deckActive != null && $deckActive.length > 0) {
                     showImageDeckPlan($deckActive);
                 }
             });
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 });

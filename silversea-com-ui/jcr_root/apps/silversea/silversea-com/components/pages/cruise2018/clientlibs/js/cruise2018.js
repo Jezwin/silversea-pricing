@@ -87,13 +87,19 @@ function openModalFromSelector() {
         return;
     }
     $hash = $(hash);
+    if ($hash.length == 0) {
+        return;
+    }
     var number = window.innerWidth < 768 ? 65 : 100;
     if (hash.startsWith("#lb-shorex")) {//is never visible
         var $closest = $hash.closest(":visible");
         $([document.documentElement, document.body]).animate({scrollTop: $closest.offset().top - number}, 100);
-        $closest.find(".cruise-2018-itineraries-itinerary-row-container-with-excursion").click();
-        $hash.click();
-        return;
+        if ($(document.body).hasClass('viewport-xs')) {
+            $closest.parent().find(".open-lightbox-port").click();//opening port modal
+        }else{
+            $closest.find(".cruise-2018-itineraries-itinerary-row-container-with-excursion").click();
+            $hash.click();
+        }
     }
     if ($hash.is(":visible")) {
         $hash.click();
