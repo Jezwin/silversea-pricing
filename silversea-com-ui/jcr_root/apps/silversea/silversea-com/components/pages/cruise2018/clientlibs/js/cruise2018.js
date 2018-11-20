@@ -81,6 +81,28 @@ function initSlider() {
     });
 }
 
+function openModalFromSelector() {
+    var hash = window.location.hash;
+    if (hash == "") {
+        return;
+    }
+    $hash = $(hash);
+    var number = window.innerWidth < 768 ? 65 : 100;
+    if (hash.startsWith("#lb-shorex")) {//is never visible
+        var $closest = $hash.closest(":visible");
+        $([document.documentElement, document.body]).animate({scrollTop: $closest.offset().top - number}, 100);
+        $closest.find(".cruise-2018-itineraries-itinerary-row-container-with-excursion").click();
+        $hash.click();
+        return;
+    }
+    if ($hash.is(":visible")) {
+        $hash.click();
+    }
+    else if ($hash.closest(":visible")) {
+        $([document.documentElement, document.body]).animate({scrollTop: $hash.closest(":visible").offset().top - number}, 100)
+    }
+}
+
 
 $(function () {
     initSlider();
@@ -91,3 +113,4 @@ $(function () {
         createLineProgressBar();
     }));
 });
+$(window).load(openModalFromSelector);

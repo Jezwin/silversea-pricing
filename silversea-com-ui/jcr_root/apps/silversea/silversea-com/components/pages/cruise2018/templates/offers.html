@@ -11,6 +11,7 @@
                     <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
                          href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
                          rel="nofollow"
+                         id="lb-offer-${offerList.index}"
                          data-toggle="modal" class="offer-slider-container open-lightbox-offer"
                          data-target=".lightbox">
                         <div class="offer-slider-icon-container">
