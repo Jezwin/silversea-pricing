@@ -59,7 +59,6 @@ $(function () {
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
                 setTopLightboxModal(432);
-                //history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
                 createSlider($modal);
                 //avoid ios issue
                 if (window.scrollSupport != null && window.scrollSupport) {
@@ -71,6 +70,7 @@ $(function () {
                 if ($(".lsh-title") != null && $(".lsh-title").html() != null) {
                     $(".lsh-title").html($(".lsh-title").html().toLowerCase());
                 }
+                $(".lazy:visible").lazy();
                 callback && callback();
             });
         };
