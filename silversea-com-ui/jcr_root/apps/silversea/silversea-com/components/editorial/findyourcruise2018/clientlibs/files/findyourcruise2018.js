@@ -253,18 +253,21 @@ $(function () {
                     $(showSelectedPortsClass).show();
                     $(".fyc2018-filter-autocomplete-content").addClass("fyc2018-filter-autocomplete-content-open");
                     $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data("label"));
-                    $("#"+idFilter).parent().addClass("with-filters");
                 } else {
                     $(showSelectedPortsClass).hide();
                     $(".fyc2018-filter-autocomplete-content").removeClass("fyc2018-filter-autocomplete-content-open");
                     $(selectedPortsContainerClass).hide();
-                    $("#"+idFilter).parent().removeClass("with-filters");
                 }
             }
             var type = (numberSelected > 1) ? "plural" : 'singular';
             var label = $("#" + idFilter).data(type);
             numberSelected = numberSelected == 0 ? "" : numberSelected;
             $("#" + idFilter).text(numberSelected + " " + label);
+            if (numberSelected >0){
+                $("#"+idFilter).parent().addClass("with-filters");
+            } else {
+                $("#"+idFilter).parent().removeClass("with-filters");
+            }
             if ($(window).width() < 768) {
                 $("." + idFilter + " .fyc2018-filter-label-mobile").text(numberSelected + " " + label);
             }
