@@ -85,14 +85,16 @@ $(function () {
     var menu = new Menu();
     $(".cruise-2018-menu a[href^='#']").on("click touchstart", function (e) {
         e.preventDefault();
-        $target = $($(this).attr("href"));
+        var ref = $(this).attr("href");
+        $target = $(ref);
+        history.replaceState(null, null, ref);
 
         var number = window.innerWidth < 768 ? 65 : 100;
         $([document.documentElement, document.body]).animate({
             scrollTop: $target.position().top - number,
             duration: 1200,
             easing: 'linear'
-        },1500);
+        }, 1500);
     });
     if ($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0) {
         menu.onScroll();

@@ -9,6 +9,7 @@ $(document).on('shown.bs.modal', function (e) {
         $(".cruise-2018-modal-exclusive-offer-title .open, .cruise-2018-modal-exclusive-offer-title .times, .cruise-2018-offers .title").each(function () {
             $(this).html($(this).html().toLowerCase());
         });
+        history.pushState(null, null, "#" + $(e.relatedTarget).attr("id"));
     }
 
     if ($("body").hasClass("cruise") && $modalLightbox.find(".aem-Grid").length > 0) {
@@ -18,8 +19,9 @@ $(document).on('shown.bs.modal', function (e) {
     if ($("body").hasClass("cruise") && $(".cruise-2018-overview").height() > 0) {
         setTimeout(function () {
             $(".modal.lightbox").css("visibility", "visible");
-        },1500);
+        }, 1500);
     }
+
 });
 
 $('.modal.lightbox').on('hidden.bs.modal', function (e) {
@@ -29,6 +31,7 @@ $('.modal.lightbox').on('hidden.bs.modal', function (e) {
     $modalContent.removeAttr("style");
     $lightboxClose.removeAttr("style");
     $modalLightbox.css("visibility", "hidden");
+    history.replaceState(null, null, location.href.replace(location.hash, ""));
 });
 
 function setTopLightboxModal(height, imgId) {
