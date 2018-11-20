@@ -9,7 +9,7 @@
         <span>Sorry, we found no matching cruises.<br>
         Please change filters.</span>
     </div>
-    <div class="clearfix c-fyc-v2__results__wrapper" data-totals="${fyc.pagination.totalResults}" data-sly-test="${fyc.pagination.totalResults != 0}"
+    <div class="clearfix fyc2018-result c-fyc-v2__results__wrapper" data-totals="${fyc.pagination.totalResults}" data-sly-test="${fyc.pagination.totalResults != 0}"
          data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.results'}" id="results-url-request">
         <div class="c-fyc-v2__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
             <div class="c-fyc-v2__result__wrapper"

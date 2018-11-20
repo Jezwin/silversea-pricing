@@ -1,5 +1,11 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
+.findyourcruise, .findyourcruise_landing {
+  .findyourcruise2018 {
+    display: none;
+  }
+}
+
 .findyourcruise2018 {
 
   .fyc2018-pagination {
@@ -132,7 +138,7 @@
         font-size: 13px;
         border-right: 4px solid @white;
         cursor: pointer;
-
+        position: relative;
         .fyc2018-filter-value-clicked {
           z-index: 1000;
           display: block !important;
@@ -362,15 +368,36 @@
       }
     }
 
-    .filter-port.fyc2018-filter-value-clicked {
-      position: absolute !important;
-      right: 136px;
-      width: 294px !important;
-      @media (max-width: 900px) {
-        -webkit-transform: translateX(-50%);
-        position: relative !important;
-        transform: translateX(-50%);
-        left: 50%;
+    .filter-cruise-type {
+      position: relative;
+      &.fyc2018-filter-value-clicked {
+        @media (max-width: 900px) {
+          -webkit-transform: translateX(0%);
+          position: absolute !important;
+          transform: translateX(0%);
+          right: 0%;
+        }
+      }
+    }
+
+    .filter-port {
+      position: relative;
+      &.fyc2018-filter-value-clicked {
+        position: absolute !important;
+        width: 294px !important;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+        right: 0%;
+      }
+    }
+
+    .filter-features {
+      &.fyc2018-filter-value-clicked {
+        position: absolute !important;
+        width: 300px !important;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+        right: 0%;
       }
     }
 
@@ -390,10 +417,10 @@
         padding-left: 0px;
       }
       @media (max-width: 900px) {
-        -webkit-transform: translateX(-50%);
-        position: relative !important;
-        transform: translateX(-50%);
-        left: 50%;
+        -webkit-transform: translateX(0%);
+        position: absolute !important;
+        transform: translateX(0%);
+        right: 0%;
       }
     }
 
