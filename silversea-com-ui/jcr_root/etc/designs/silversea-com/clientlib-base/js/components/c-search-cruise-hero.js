@@ -104,14 +104,14 @@ $(function() {
             e.preventDefault();
             var $resultWrapper = $form.next('.feedback__wrapper');
             var paramterFYC2018= "";
-            if ($form.find('[name=destination]').val() != null) {
+            if ($form.find('[name=destination]').val() != null && $form.find('[name=destination]').val() != "all") {
                 paramterFYC2018 = "?destination="+ $form.find('[name=destination]').val();
             }
-            if ($form.find('[name=date]').val() != null) {
+            if ($form.find('[name=date]').val() != null &&  $form.find('[name=date]').val() != "all") {
                 paramterFYC2018 += paramterFYC2018 != "" ? "&" : "?";
                 paramterFYC2018 += "departure="+ $form.find('[name=date]').val();
             }
-            if ($form.find('[name=ship]').val() != null) {
+            if ($form.find('[name=ship]').val() != null && $form.find('[name=ship]').val() != "all") {
                 paramterFYC2018 += paramterFYC2018 != "" ? "&" : "?";
                 paramterFYC2018 += "ship="+ mapShip[$form.find('[name=ship]').val()];
             }
