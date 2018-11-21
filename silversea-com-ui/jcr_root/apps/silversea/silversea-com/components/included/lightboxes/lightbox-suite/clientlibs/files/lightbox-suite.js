@@ -59,7 +59,7 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+            history.pushState(null, null, "#"+$link.attr("id")); // push state that hash into the url
             //avoid ios issue
             if (window.scrollSupport != null && window.scrollSupport) {
                 window.iNoBounce.enable();
@@ -92,6 +92,9 @@ $(function () {
                     $(".modal.lightbox").css("padding-left", "0px");
                 }
             });
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 

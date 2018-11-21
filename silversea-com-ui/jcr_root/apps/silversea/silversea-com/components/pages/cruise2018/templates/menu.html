@@ -8,12 +8,12 @@
                 </div>
                 <div class="row-menu-navigation">
                     <div class="cruise-2018-menu-tab-wrapper">
-                        <a href="#cruise2018offers" data-sly-test="${cruise.totalNumberOfOffers >0}"
+                        <a href="#menu-cruise2018offers" data-sly-test="${cruise.totalNumberOfOffers >0}"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-first">
                             <span data-sly-test="${cruise.totalNumberOfOffers == 1}" class="cruise-2018-menu-tab-text">${'offer' @i18n}</span>
                             <span data-sly-test="${cruise.totalNumberOfOffers > 1}" class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
                         </a>
-                        <a href="#cruise2018itinerary"
+                        <a href="#menu-cruise2018itinerary"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-second">
                             <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
                                 <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
@@ -23,12 +23,12 @@
                             </sly>
                             <span class="cruise-2018-menu-tab-text-small">${'itinerary' @ i18n}</span>
                         </a>
-                        <a href="#cruise2018suites"
+                        <a href="#menu-cruise2018suites"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-third">
                             <span class="cruise-2018-menu-tab-text-small">${'suites' @i18n}</span>
                             <span class="cruise-2018-menu-tab-text-big">${'suites-and-fares' @i18n}</span>
                         </a>
-                        <a href="#cruise2018ship"
+                        <a href="#menu-cruise2018ship"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-fourth">
                             <span class="cruise-2018-menu-tab-text-big">${'ship' @i18n}</span>
                         </a>

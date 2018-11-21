@@ -32,7 +32,7 @@ $(function () {
      * Modal : Global Clean modal content on close event
      **************************************************************************/
     $(document).on('hide.bs.modal', function (e) {
-        if (window.location.hash.indexOf("#lb-detatils") != -1) {
+        if (window.location.hash.indexOf("#lb-") != -1) {
             history.back();
             //  window.location.hash =  "";
             //    window.backNavigation = false;

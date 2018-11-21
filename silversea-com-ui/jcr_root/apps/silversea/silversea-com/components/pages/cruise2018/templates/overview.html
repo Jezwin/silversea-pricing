@@ -10,7 +10,7 @@
 
             <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary || firstAssetGalleryImg}"/>
             <sly data-sly-test.cruiseMobileImg="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary || firstAssetGalleryImg}"/>
-            <div class="open-lightbox-gallery-assets" data-target=".lightbox">
+            <div class="open-lightbox-gallery-assets" data-target=".lightbox" id="lb-mainGallery">
                 <picture data-sly-test="${cruiseDesktopImg || cruiseMobileImg}">
                     <sly data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseDesktopImg}"/>
                     <sly data-sly-use.assetHelperMobile="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseMobileImg}"/>

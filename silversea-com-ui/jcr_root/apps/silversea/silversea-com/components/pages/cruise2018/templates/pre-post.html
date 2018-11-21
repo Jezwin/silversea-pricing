@@ -8,7 +8,8 @@
                     <sly data-sly-list.prePost="${cruise.prePost}">
                         <div class="cruise-2018-prepost-slide">
                             <sly data-sly-test.typeLB="${prePost.type == 'hotel' ? 'lg-hotel': 'lg-land'}"/>
-                            <a class="open-lightbox-land-shorex-hotel prepost-lightbox-link" data-target=".lightbox"
+                            <a class="open-lightbox-land-shorex-hotel prepost-lightbox-link" data-target=".lightbox" id="lb-prePost-${prePost.id}"
+
                                href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',typeLB, prePost.itineraryId, prePost.id]}"></a>
                             <sly data-sly-test.thumbnail = "${prePost.thumbnail || prePost.fallbackThumbnail}"/>
                             <div class="cruise-2018-prepost-slide-thumbnail">
