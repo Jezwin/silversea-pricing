@@ -21,7 +21,7 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+            history.pushState(null, null, "#" + $link.attr("id")); // push state that hash into the url
             //avoid ios issue
             if (window.scrollSupport != null && window.scrollSupport) {
                 window.iNoBounce.enable();
@@ -32,6 +32,9 @@ $(function () {
             var excursionId = $link.data('excursion-id');
             setModalContent($modal, itineraryId, excursionId, ajaxContentPath, false, '')
             // Append html response inside modal
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 
@@ -48,7 +51,7 @@ $(function () {
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
 
         if (itineraryId && excursionId) {
-            if ($(window).width()>1024 && setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
+            if ($(window).width() > 1024 && setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
                 $(".lightbox-prev-link, .lightbox-next-link").show();
             }
         }
@@ -56,7 +59,6 @@ $(function () {
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
                 setTopLightboxModal(432);
-                //history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
                 createSlider($modal);
                 //avoid ios issue
                 if (window.scrollSupport != null && window.scrollSupport) {
@@ -68,6 +70,7 @@ $(function () {
                 if ($(".lsh-title") != null && $(".lsh-title").html() != null) {
                     $(".lsh-title").html($(".lsh-title").html().toLowerCase());
                 }
+                $(".lazy:visible").lazy();
                 callback && callback();
             });
         };
@@ -101,7 +104,7 @@ $(function () {
             if (excursion.prevId == excursionId) {
                 return false;
             }
-            var subUri = uri.substring(0, uri.lastIndexOf('.')+1);
+            var subUri = uri.substring(0, uri.lastIndexOf('.') + 1);
             var prev = $modal.find('.lightbox-prev-label');
             var next = $modal.find('.lightbox-next-label');
             var nextLink = $modal.find('.lightbox-next-link');
@@ -115,14 +118,14 @@ $(function () {
             prevLink.data('itinerary-id', itineraryId);
             prevLink.data('excursion-id', excursion.prevId);
 
-            var prevUri = subUri+excursion.prevKind;
+            var prevUri = subUri + excursion.prevKind;
             prevLink.attr('href', prevUri);
 
             nextLink.data('target', $modal.attr('id'));
             nextLink.data('itinerary-id', itineraryId);
             nextLink.data('excursion-id', excursion.nextId);
 
-            var nextUri = subUri+excursion.nextKind;
+            var nextUri = subUri + excursion.nextKind;
             nextLink.attr('href', nextUri);
         } catch (e) {
 
