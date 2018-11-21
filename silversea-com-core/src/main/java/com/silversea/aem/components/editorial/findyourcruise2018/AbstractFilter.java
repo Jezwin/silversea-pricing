@@ -75,8 +75,8 @@ public abstract class AbstractFilter<T> {
     }
 
 
-    protected String[] selectedKeys(ValueMap properties, Map<String, String[]> httpRequest) {
-        Optional<String[]> valueFromProperty = ofNullable(properties.get(getKind() + "Id", String.class)).map(value -> new String[]{value});
+    protected String[] selectedKeys(Map<String, String[]> properties, Map<String, String[]> httpRequest) {
+        Optional<String[]> valueFromProperty = ofNullable(properties.get(getKind() + "Id"));
         if (valueFromProperty.isPresent()) {
             setVisible(false);
             return valueFromProperty.get();

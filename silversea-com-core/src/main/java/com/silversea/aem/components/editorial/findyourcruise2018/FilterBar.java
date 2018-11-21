@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 import com.google.common.collect.Range;
 import com.google.gson.JsonArray;
+import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.models.*;
 import org.apache.sling.api.resource.ValueMap;
 
@@ -45,6 +46,20 @@ public class FilterBar {
                 }
             };
 
+    public static final AbstractFilter<ExclusiveOfferModelLight> OFFERS =
+            new AbstractFilter<ExclusiveOfferModelLight>("eo") {
+                @Override
+                protected Stream<FilterRow<ExclusiveOfferModelLight>> projection(CruiseModelLight cruiseModelLight) {
+                    return cruiseModelLight.getExclusiveOffers().stream()
+                            .map(offer -> new FilterRow<>(offer, ExclusiveOfferModelLight::getTitle, offer.getPath(), ENABLED));
+                }
+
+                @Override
+                public boolean isVisible() {
+                    return false;//this is a hidden filter!
+                }
+            };
+
     public static final AbstractFilter<FeatureModelLight> FEATURES = new FeatureFilter();
 
 
@@ -62,10 +77,10 @@ public class FilterBar {
 
 
     public static final Collection<AbstractFilter<?>> FILTERS =
-            asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE);
+            asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE, OFFERS);
 
     void init(FindYourCruise2018Use use, Map<String, String[]> httpRequest, List<CruiseModelLight> cruises) {
-        ValueMap properties = use.properties();
+        Map<String, String[]> properties = use.filteringSettings();
         for (AbstractFilter<?> filter : FILTERS) {
             filter.initAllValues(use, filter.selectedKeys(properties, httpRequest), cruises);
         }
@@ -134,7 +149,7 @@ public class FilterBar {
     public void setOpen(String... kinds) {
         for (AbstractFilter filter : FILTERS) {
             for (String kind : kinds) {
-              filter.setOpen(kind.equalsIgnoreCase(filter.getKind()));
+                filter.setOpen(kind.equalsIgnoreCase(filter.getKind()));
             }
         }
     }
