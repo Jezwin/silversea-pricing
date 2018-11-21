@@ -1,32 +1,34 @@
 $(function () {
     "use strict";
+    if ($(".smartbtn").length > 0) {
 
-    $(document).ready(function () {
         parsedSscFeJsElement(setSuffixSelector);
 
-        $(".smartbtn").on("click touchstart", function (e) {
-            var $smartbutton = $(this);
-            var idSmartButton = $smartbutton.attr("id");
-            var elementToScroll = $smartbutton.data("scrollelement");
-            var type = $smartbutton.data("type");
+        $(".smartbtn").on("click touchstart", onClickSmartButton);
+    }
 
-            if (type == "video") {
-                e.stopPropagation();
-                e.preventDefault();
-                openVideoModal($smartbutton)
+    function onClickSmartButton(e) {
+        var $smartbutton = $(this);
+        var idSmartButton = $smartbutton.attr("id");
+        var elementToScroll = $smartbutton.data("scrollelement");
+        var type = $smartbutton.data("type");
 
-            } else if (elementToScroll != null) {
-                e.stopPropagation();
-                e.preventDefault();
+        if (type == "video") {
+            e.stopPropagation();
+            e.preventDefault();
+            openVideoModal($smartbutton)
 
-                var target = $(elementToScroll).offset().top;
-                $('html, body').animate({
-                    scrollTop: target - 100
-                }, 1500);
-                return false;
-            }
-        });
-    });
+        } else if (elementToScroll != null) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var target = $(elementToScroll).offset().top;
+            $('html, body').animate({
+                scrollTop: target - 100
+            }, 1500);
+            return false;
+        }
+    };//onClickSmartButton
 
     function setSuffixSelector() {
         $(".smartbtn").each(function () {
@@ -42,13 +44,19 @@ $(function () {
                 $element.attr("href", href);
             }
             if (type == "page" && scclicktype == "clic-RAQ") {
-                if (suffix != null){
+                if (suffix != null) {
                     href = href.replace("html", selectors + ".html");
                 }
                 if (selectors != null) {
                     href = href + "/" + suffix;
                 }
                 $element.attr("href", href);
+            }
+
+            /*Fix for IE content (pseudo element)*/
+            if (/MSIE|Trident/.test(navigator.userAgent)) {
+                var contentIE = $element.data("ie-content");
+                $element.find(".ssc-fw-content").text(contentIE);
             }
         });
     };//setSuffixSelector
