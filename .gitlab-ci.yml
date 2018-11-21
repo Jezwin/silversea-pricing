@@ -21,7 +21,6 @@ mvn_build_author:
     stage: build-author-stage
     environment:
         name: Stage
-    when: manual
     allow_failure: false
     tags:
         - maven
@@ -34,7 +33,6 @@ mvn_build_publish1:
     stage: build-publishes-stage
     environment:
         name: Stage
-    when: manual
     tags:
         - maven
     script:
@@ -46,7 +44,6 @@ mvn_build_publish2:
     stage: build-publishes-stage
     environment:
         name: Stage
-    when: manual
     tags:
         - maven
     script:
