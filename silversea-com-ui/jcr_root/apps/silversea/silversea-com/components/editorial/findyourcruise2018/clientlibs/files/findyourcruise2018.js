@@ -415,14 +415,14 @@ $(function () {
             $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
             searchAnalytics();
         }
-        $(".findyourcruise2018 .fyc2018-pag-link").on("click", function (e) {
+        $(".findyourcruise2018").on("click",".fyc2018-pag-link", function (e) {
             e.preventDefault();
             e.stopPropagation();
             var page = $(this).data("page");
             page = $(this).hasClass("next-page") ? page + 1 : page;
             var urlTemplate = $("#results-url-request").data("url");
             var url = createUrl(urlTemplate) + "&onlyResults=true&pag=" + page;
-            updateCruises(url);
+            updateCruises(url, true);
             $('html, body').animate({
                 scrollTop: $('.findyourcruise2018-header').first().offset().top - $('.c-header').height()
             }, 800);
@@ -546,9 +546,11 @@ $(function () {
                                 $(autocompleteContainerClass + " .filter-no-ports").hide();
                             }
                         });
-                        $('.findyourcruise2018 .fyc2018-filter-autocomplete-content').animate({
-                            scrollTop: $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().position().top - $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().height() - 43
-                        }, 800);
+                        try {
+                            $('.findyourcruise2018 .fyc2018-filter-autocomplete-content').animate({
+                                scrollTop: $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().position().top - $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().height() - 43
+                            }, 800);
+                        }catch(e) {}
                     }
                 }
             }
