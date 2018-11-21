@@ -38,7 +38,7 @@ public class PathUtils {
 	public static String getRequestQuotePagePath(final Resource resource, final Page page) {
 		final Conf confRes = resource.adaptTo(Conf.class);
 		if (confRes != null && page != null) {
-			final Resource requestQuotePageConf = confRes.getItemResource("/requestquotepage/page");
+			final Resource requestQuotePageConf = confRes.getItemResource("requestquotepage/page");
 
 			if (requestQuotePageConf != null) {
 				final String pagePath = "/content/silversea-com/" + LanguageHelper.getLanguage(page)
@@ -60,7 +60,7 @@ public class PathUtils {
 	public static String getBrochuresPagePath(final Resource resource, final Page page) {
 		final Conf confRes = resource.adaptTo(Conf.class);
 		if (confRes != null && page != null) {
-			final Resource brochuresPageConf = confRes.getItemResource("/brochurespage/page");
+			final Resource brochuresPageConf = confRes.getItemResource("brochurespage/page");
 
 			if (brochuresPageConf != null) {
 				final String pagePath = "/content/silversea-com/" + LanguageHelper.getLanguage(page)

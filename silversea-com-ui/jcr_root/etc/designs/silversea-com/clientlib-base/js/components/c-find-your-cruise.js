@@ -389,7 +389,7 @@ var v2 = function () {
         var $btnReset = $filterWrapper.find('.c-fyc-v2-filter__reset a');
         var $form = $('#filter-form-v2');
         var $paginationWrapper = $('.c-fyc-v2-pagination');
-        var $resultWrapper = $('.c-fyc-v2__result-wrapper');
+        var $resultWrapper = $('.c-fyc-v2__result-wrapper:not(.fyc2018-results-div)');
         var $page = $paginationWrapper.find('a.active').data('page');
         // Filter : open feature drop down
         $('.v2-feature-filter').on('click', function (e) {

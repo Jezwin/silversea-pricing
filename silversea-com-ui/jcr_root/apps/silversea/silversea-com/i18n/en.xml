@@ -22,7 +22,7 @@
     <ships
             jcr:primaryType="sling:MessageEntry"
             sling:key="ships"
-            sling:message="Ship"/>
+            sling:message="Ships"/>
     <alldestinations
             jcr:primaryType="sling:MessageEntry"
             sling:key="alldestinations"

@@ -12,3 +12,16 @@
 		},10);
 	});
 })();
+
+document.addEventListener('webkitfullscreenchange', exitHandler);
+document.addEventListener('mozfullscreenchange', exitHandler);
+document.addEventListener('msfullscreenchange', exitHandler);
+document.addEventListener('fullscreenchange', exitHandler);
+
+function exitHandler() {
+        if(document.webkitFullscreenEnabled || document.fullscreenEnabled || document.msFullscreenEnabled || document.mozFullScreenEnabled){ 
+            $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange msfullscreenchange', function(e) {
+                $('#steveandsilversea-modal-dialog-close').trigger( "click" );
+            });
+        }
+}

@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.silversea.aem.components.beans.CruisePrePost.PREPOSTMID;
 import com.silversea.aem.components.page.Cruise2018Use;
 import com.silversea.aem.models.*;
-import com.silversea.aem.utils.AssetUtils;
+import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.ResourceResolver;
 
 import java.util.*;
@@ -68,11 +68,13 @@ public class CruiseItinerary {
         this.itineraryId = itinerary.getItineraryId();
         this.prePosts = concat(
                 hotels.stream().map(hotel -> new CruisePrePost(itinerary.getItineraryId(),
-                        Optional.ofNullable(buildAssetList(hotel.getAssetSelectionReference(), resolver))
+                        ofNullable(buildAssetList(CruiseUtils.firstNonNull(hotel.getAssetSelectionReference(),
+                                hotel.getAssetSelectionReferenceApi()), resolver))
                                 .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
                         itinerary.getPort().getThumbnail(), hotel)),
                 landPrograms.stream().map(land -> new CruisePrePost(itinerary.getItineraryId(),
-                        Optional.ofNullable(buildAssetList(land.getAssetSelectionReference(), resolver))
+                        ofNullable(buildAssetList(CruiseUtils.firstNonNull(land.getAssetSelectionReference(),
+                                land.getAssetSelectionReferenceApi()), resolver))
                                 .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
                         itinerary.getPort().getThumbnail(), land)))
                 .filter(prepost -> !"MID".equals(prepost.getPrePost()))

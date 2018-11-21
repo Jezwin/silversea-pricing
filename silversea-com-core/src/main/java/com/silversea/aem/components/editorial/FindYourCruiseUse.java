@@ -184,7 +184,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         // Get type from configuration
         final Conf confRes = getResource().adaptTo(Conf.class);
         if (confRes != null) {
-            final ValueMap fycConf = confRes.getItem("/findyourcruise/findyourcruise");
+            final ValueMap fycConf = confRes.getItem("findyourcruise/findyourcruise");
 
             if (fycConf != null) {
                 type = fycConf.get("type", String.class);
@@ -641,7 +641,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         // Build pagination
         pagination = buildPagination();
-        paginationV2 = buildPaginationV2();
+        paginationV2 = buildPaginationV2(pageNumber, activePage);
     }
 
     private List<CruiseModelLight> checkWorldCruiseGrandVoyages(String filter, List<CruiseModelLight> allCruises) {
@@ -663,7 +663,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         return allCruises;
     }
 
-    private List<Integer> buildPaginationV2() {
+    public static List<Integer> buildPaginationV2(int pageNumber, int activePage) {
         //negatives are "..."
         List<Integer> pagination = new ArrayList<>();
         for (int page = 1; page <= pageNumber; page++) {

@@ -12,14 +12,14 @@ import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.models.PriceModel;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.services.RunModesService;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+
+import static com.silversea.aem.constants.WcmConstants.*;
 
 public class DataLayerUse extends WCMUsePojo {
 
@@ -48,6 +48,11 @@ public class DataLayerUse extends WCMUsePojo {
     private String revenue = "";
     private String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
     private MediaDataLayer media;
+
+
+    private static final List<String> HOME = Collections.singletonList(RT_LANDING_PAGE);
+    private static final List<String> CRUISES = Arrays.asList(RT_CRUISE, RT_COMBO_CRUISE);
+    private static final List<String> RESULTS = Arrays.asList(RT_DESTINATION, RT_EXCLUSIVE_OFFER, RT_SHIP, RT_PORT);
 
     // TODO review exception
     @Override
@@ -89,25 +94,19 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         final Resource contentResource = getCurrentPage().getContentResource();
+        ValueMap valueMap = contentResource.getValueMap();
+        final String type = (String) valueMap.getOrDefault("sling:resourceType", "");
 
         if (getPageProperties().get("pageEvent") != null) {
             event = getPageProperties().get("pageEvent", String.class);
-        }
-
-        if ((contentResource.isResourceType(WcmConstants.RT_DESTINATION) || contentResource.isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER) || contentResource.isResourceType(WcmConstants.RT_SHIP) || contentResource.isResourceType(WcmConstants.RT_PORT)) && event.equals("")) {
+        } else if (RESULTS.contains(type)) {
             event = "searchresults";
-        }
-
-        if ((contentResource.isResourceType(WcmConstants.RT_CRUISE) || contentResource.isResourceType(WcmConstants.RT_COMBO_CRUISE)) && event.equals("")) {
+        } else if (CRUISES.contains(type)) {
             event = "offerdetail";
-        }
-        
-        if (contentResource.isResourceType(WcmConstants.RT_LANDING_PAGE) && event.equals("")) {
+        } else if (HOME.contains(type)) {
             event = "home";
-        }
-        
-        if(event.equals("")){
-        	event = "other";
+        } else {
+            event = "other";
         }
 
         // users data
@@ -140,18 +139,18 @@ public class DataLayerUse extends WCMUsePojo {
         // TODO move to constants interface
         final Map<String, String> listCat1 = new HashMap<>();
         listCat1.put(WcmConstants.RT_VOYAGE, "voyages");
-        listCat1.put(WcmConstants.RT_EXCLUSIVE_OFFER, "single exclusive offer");
-        listCat1.put(WcmConstants.RT_DESTINATION, "destinations");
+        listCat1.put(RT_EXCLUSIVE_OFFER, "single exclusive offer");
+        listCat1.put(RT_DESTINATION, "destinations");
         listCat1.put(WcmConstants.RT_SUITE, "single accommodation");
         listCat1.put(WcmConstants.RT_SUITE_VARIATION, "single ship");
         listCat1.put(WcmConstants.RT_EXCURSIONS, "single excursion");
-        listCat1.put(WcmConstants.RT_SHIP, "single ship");
+        listCat1.put(RT_SHIP, "single ship");
         listCat1.put(WcmConstants.RT_DINING, "single onboard");
         listCat1.put(WcmConstants.RT_PUBLIC_AREA, "single public areas");
         listCat1.put(WcmConstants.RT_VOYAGE_JOURNAL, "voyage journals");
         listCat1.put(WcmConstants.RT_PRESS_RELEASE, "press releases");
         listCat1.put(WcmConstants.RT_FEATURE, "single onboard");
-        listCat1.put(WcmConstants.RT_PORT, "single port");
+        listCat1.put(RT_PORT, "single port");
         listCat1.put(WcmConstants.RT_BLOG_POST, "blog");
         listCat1.put(WcmConstants.RT_KEY_PEOPLE, "single onboard");
         listCat1.put(WcmConstants.RT_VOYAGE_JOURNAL_DAY, "voyage journals");
@@ -161,7 +160,7 @@ public class DataLayerUse extends WCMUsePojo {
         listCat1.put(WcmConstants.RT_PAGE, "editorial pages");
 
         String comboTag = null;
-        if (contentResource.isResourceType(WcmConstants.RT_COMBO_CRUISE)) {
+        if (RT_COMBO_CRUISE.equals(type)) {
             if (tagManager != null) {
                 final Tag[] listTag = tagManager.getTags(contentResource);
 
@@ -172,9 +171,9 @@ public class DataLayerUse extends WCMUsePojo {
                 }
 
                 if (comboTag != null) {
-                    listCat1.put(WcmConstants.RT_COMBO_CRUISE, comboTag);
+                    listCat1.put(RT_COMBO_CRUISE, comboTag);
                 } else {
-                    listCat1.put(WcmConstants.RT_COMBO_CRUISE, "");
+                    listCat1.put(RT_COMBO_CRUISE, "");
                 }
             }
         }
@@ -191,7 +190,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         // CAT2
-        if (contentResource.isResourceType(WcmConstants.RT_KEY_PEOPLE)) {
+        if (WcmConstants.RT_KEY_PEOPLE.equals(type)) {
             if (pageCategory2.equals("")) {
                 pageCategory2 = "enrichments";
             }
@@ -207,9 +206,7 @@ public class DataLayerUse extends WCMUsePojo {
                     }
                 }
             }
-        }
-
-        if (contentResource.isResourceType(WcmConstants.RT_SUITE_VARIATION)) {
+        } else if (WcmConstants.RT_SUITE_VARIATION.equals(type)) {
             if (pageCategory2.equals("")) {
                 pageCategory2 = getCurrentPage().getParent(2).getName();
             }
@@ -217,9 +214,7 @@ public class DataLayerUse extends WCMUsePojo {
             if (pageCategory3.equals("")) {
                 pageCategory3 = "suites";
             }
-        }
-
-        if (contentResource.isResourceType(WcmConstants.RT_PUBLIC_AREA_VARIATION)) {
+        } else if (WcmConstants.RT_PUBLIC_AREA_VARIATION.equals(type)) {
             if (pageCategory2.equals("")) {
                 pageCategory2 = getCurrentPage().getParent(2).getName();
             }
@@ -227,9 +222,7 @@ public class DataLayerUse extends WCMUsePojo {
             if (pageCategory3.equals("")) {
                 pageCategory3 = "public areas";
             }
-        }
-
-        if (contentResource.isResourceType(WcmConstants.RT_DINING_VARIATION)) {
+        } else if (WcmConstants.RT_DINING_VARIATION.equals(type)) {
             if (pageCategory2.equals("")) {
                 pageCategory2 = getCurrentPage().getParent(2).getName();
             }
@@ -239,30 +232,31 @@ public class DataLayerUse extends WCMUsePojo {
             }
         }
 
-        if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
-            pageCategory2 = getCurrentPage().getName();
+        String name = getCurrentPage().getName();
+        if (pageCategory2.equals("") && name != null) {
+            pageCategory2 = name;
         }
 
-        if (contentResource.isResourceType(WcmConstants.RT_PAGE)) {
+        if (WcmConstants.RT_PAGE.equals(type)) {
             if (pageCategory3.equals("")) {
                 pageCategory3 = getCurrentPage().getParent().getName();
             }
         }
-        
+
         //Destination - fill track_destination
-        if (contentResource.isResourceType(WcmConstants.RT_DESTINATION)) {
-        	destinationId = (String) contentResource.getValueMap().get("destinationId");
-        	destinationName = (String) getCurrentPage().getName();
+        if (RT_DESTINATION.equals(type)) {
+            destinationId = (String) valueMap.get("destinationId");
+            destinationName = name;
         }
-        
+
         //Ship Fill Ship
-        if (contentResource.isResourceType(WcmConstants.RT_SHIP)) {
-        	shipName = (String) getCurrentPage().getName();
-        	shipId = (String) contentResource.getValueMap().get("shipId");
+        if (RT_SHIP.equals(type)) {
+            shipName = name;
+            shipId = (String) valueMap.get("shipId");
         }
 
         // Cruise details
-        if (contentResource.isResourceType(WcmConstants.RT_VOYAGE)) {
+        if (WcmConstants.RT_VOYAGE.equals(type)) {
             final CruiseModel cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
             if (cruiseModel != null) {
                 destinationId = cruiseModel.getDestination().getDestinationId().toString();
@@ -270,7 +264,7 @@ public class DataLayerUse extends WCMUsePojo {
 
                 // TODO check value, cruise code != cruise id
                 voyageId = cruiseModel.getCruiseCode();
-                
+
                 SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
                 departureDay = dt1.format(cruiseModel.getStartDate().getTime());
                 voyageDuration = cruiseModel.getDuration();
@@ -304,162 +298,150 @@ public class DataLayerUse extends WCMUsePojo {
             }
         }
 
-        // TODO apply java naming conventions
-        String adwords_conversion_label = "";
-        String adwords_value = "1.00";
-        String adwords_format = "";
+        String adwordsConversionLabel = "";
+        String adwordsValue = "1.00";
+        String adwordsFormat = "";
         if (geomarket.equals("US") || (geomarket.equals("FT") && (country.equals("US") || country.equals("CA")))) {
-            if (pageCategory2.equals("RAQ TY")) {
-                adwords_conversion_label = "XXW_CPmImQQQl5v74wM";
-                adwords_format = "2";
+            switch (pageCategory2) {
+                case "RAQ TY":
+                    adwordsConversionLabel = "XXW_CPmImQQQl5v74wM";
+                    adwordsFormat = "2";
+                    break;
+                case "RAC TY":
+                    adwordsConversionLabel = "4ekHCIGahAQQl5v74wM";
+                    adwordsFormat = "2";
+                    break;
+                case "RAB TY":
+                    adwordsConversionLabel = "kakUCIDVllcQl5v74wM";
+                    adwordsFormat = "2";
+                    break;
+                case "SFO TY":
+                    adwordsConversionLabel = "kdt4CPGbhAQQl5v74wM";
+                    adwordsFormat = "2";
+                    break;
+                case "Send E-mail TY":
+                    adwordsConversionLabel = "tgx1COGdhAQQl5v74wM";
+                    adwordsFormat = "2";
+                    break;
             }
 
-            if (pageCategory2.equals("RAC TY")) {
-                adwords_conversion_label = "4ekHCIGahAQQl5v74wM";
-                adwords_format = "2";
-            }
-
-            if (pageCategory2.equals("RAB TY")) {
-                adwords_conversion_label = "kakUCIDVllcQl5v74wM";
-                adwords_format = "2";
-            }
-
-            if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "kdt4CPGbhAQQl5v74wM";
-                adwords_format = "2";
-            }
-
-            if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "tgx1COGdhAQQl5v74wM";
-                adwords_format = "2";
-            }
-
-            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", adwords_conversion_label, adwords_format,
-                    adwords_value, "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127", "GSvQCJnls1wQl5v74wM",
+            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", adwordsConversionLabel, adwordsFormat,
+                    adwordsValue, "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127", "GSvQCJnls1wQl5v74wM",
                     "1000698659832", "39634");
         }
-
         if (geomarket.equals("LAM") || (geomarket.equals("FT") && (!country.equals("US") && !country.equals("CA")))) {
-            if (pageCategory2.equals("RAQ TY")) {
-                adwords_conversion_label = "2ro7CO-klggQ2cHp1QM";
-                adwords_format = "3";
+            switch (pageCategory2) {
+                case "RAQ TY":
+                    adwordsConversionLabel = "2ro7CO-klggQ2cHp1QM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAC TY":
+                    adwordsConversionLabel = "LUfyCNenlggQ2cHp1QM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAB TY":
+                    adwordsConversionLabel = "eYA8CO-pllcQ2cHp1QM";
+                    adwordsFormat = "2";
+                    break;
+                case "SFO TY":
+                    adwordsConversionLabel = "LKy0CP-ilggQ2cHp1QM";
+                    adwordsFormat = "3";
+                    break;
+                case "Send E-mail TY":
+                    adwordsConversionLabel = "-YN5COellggQ2cHp1QM";
+                    adwordsFormat = "3";
+                    break;
             }
 
-            if (pageCategory2.equals("RAC TY")) {
-                adwords_conversion_label = "LUfyCNenlggQ2cHp1QM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("RAB TY")) {
-                adwords_conversion_label = "eYA8CO-pllcQ2cHp1QM";
-                adwords_format = "2";
-            }
-
-            if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "LKy0CP-ilggQ2cHp1QM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "-YN5COellggQ2cHp1QM";
-                adwords_format = "3";
-            }
-
-            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", adwords_conversion_label, adwords_format,
-                    adwords_value, "985293017", "19tjCL3os1wQ2cHp1QM", "985293017", "c5paCPzos1wQ2cHp1QM",
+            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", adwordsConversionLabel, adwordsFormat,
+                    adwordsValue, "985293017", "19tjCL3os1wQ2cHp1QM", "985293017", "c5paCPzos1wQ2cHp1QM",
                     "1000698659832", "39634");
         }
 
         if (geomarket.equals("AP") || geomarket.equals("AS")) {
-            if (pageCategory2.equals("RAQ TY")) {
-                adwords_conversion_label = "7HNzCNzvkQgQ1MDT0AM";
-                adwords_format = "3";
+            switch (pageCategory2) {
+                case "RAQ TY":
+                    adwordsConversionLabel = "7HNzCNzvkQgQ1MDT0AM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAC TY":
+                    adwordsConversionLabel = "OW6VCMTykQgQ1MDT0AM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAB TY":
+                    adwordsConversionLabel = "GiVYCNv4lVcQ1MDT0AM";
+                    adwordsFormat = "2";
+                    break;
+                case "SFO TY":
+                    adwordsConversionLabel = "htQZCOztkQgQ1MDT0AM";
+                    adwordsFormat = "3";
+                    break;
+                case "Send E-mail TY":
+                    adwordsConversionLabel = "8OO5CMzxkQgQ1MDT0AM";
+                    adwordsFormat = "3";
+                    break;
             }
 
-            if (pageCategory2.equals("RAC TY")) {
-                adwords_conversion_label = "OW6VCMTykQgQ1MDT0AM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("RAB TY")) {
-                adwords_conversion_label = "GiVYCNv4lVcQ1MDT0AM";
-                adwords_format = "2";
-            }
-
-            if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "htQZCOztkQgQ1MDT0AM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "8OO5CMzxkQgQ1MDT0AM";
-                adwords_format = "3";
-            }
-
-            media = new MediaDataLayer("AP", "AP", "337dc751", "974446676", adwords_conversion_label, adwords_format,
-                    adwords_value, "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676", "2n1oCOrpsFwQ1MDT0AM",
+            media = new MediaDataLayer("AP", "AP", "337dc751", "974446676", adwordsConversionLabel, adwordsFormat,
+                    adwordsValue, "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676", "2n1oCOrpsFwQ1MDT0AM",
                     "1000698659832", "39634");
         }
 
         if (geomarket.equals("UK")) {
-            if (pageCategory2.equals("RAQ TY")) {
-                adwords_conversion_label = "htdlCLDd2iMQgL_7yAM";
-                adwords_format = "3";
+            switch (pageCategory2) {
+                case "RAQ TY":
+                    adwordsConversionLabel = "htdlCLDd2iMQgL_7yAM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAC TY":
+                    adwordsConversionLabel = "EcqGCIjAxSEQgL_7yAM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAB TY":
+                    adwordsConversionLabel = "f4dGCLz6lVcQgL_7yAM";
+                    adwordsFormat = "2";
+                    break;
+                case "SFO TY":
+                    adwordsConversionLabel = "CkrCCPjBxSEQgL_7yAM";
+                    adwordsFormat = "3";
+                    break;
+                case "Send E-mail TY":
+                    adwordsConversionLabel = "80vfCIDBxSEQgL_7yAM";
+                    adwordsFormat = "3";
+                    break;
             }
 
-            if (pageCategory2.equals("RAC TY")) {
-                adwords_conversion_label = "EcqGCIjAxSEQgL_7yAM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("RAB TY")) {
-                adwords_conversion_label = "f4dGCLz6lVcQgL_7yAM";
-                adwords_format = "2";
-            }
-
-            if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "CkrCCPjBxSEQgL_7yAM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "80vfCIDBxSEQgL_7yAM";
-                adwords_format = "3";
-            }
-
-            media = new MediaDataLayer("UK", "UK", "337dc751", "958324608", adwords_conversion_label, adwords_format,
-                    adwords_value, "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608", "RzaaCPWMsFwQgL_7yAM",
+            media = new MediaDataLayer("UK", "UK", "337dc751", "958324608", adwordsConversionLabel, adwordsFormat,
+                    adwordsValue, "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608", "RzaaCPWMsFwQgL_7yAM",
                     "1000698659832", "39634");
         }
 
         if (geomarket.equals("EMEA") || geomarket.equals("EU")) {
-            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
-                adwords_conversion_label = "81HGCJzThggQzILD0AM";
-                adwords_format = "3";
+            switch (pageCategory2.toUpperCase()) {
+                case "RAQ TY":
+                    adwordsConversionLabel = "81HGCJzThggQzILD0AM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAC TY":
+                    adwordsConversionLabel = "Fl7fCPTXhggQzILD0AM";
+                    adwordsFormat = "3";
+                    break;
+                case "RAB TY":
+                    adwordsConversionLabel = "Pr99CPn0llcQzILD0AM";
+                    adwordsFormat = "2";
+                    break;
+                case "SFO TY":
+                    adwordsConversionLabel = "Id1aCKzRhggQzILD0AM";
+                    adwordsFormat = "3";
+                    break;
+                case "Send E-mail TY":
+                    adwordsConversionLabel = "We5mCITWhggQzILD0AM";
+                    adwordsFormat = "3";
+                    break;
             }
 
-            if (pageCategory2.equals("RAC TY")) {
-                adwords_conversion_label = "Fl7fCPTXhggQzILD0AM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("RAB TY")) {
-                adwords_conversion_label = "Pr99CPn0llcQzILD0AM";
-                adwords_format = "2";
-            }
-
-            if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "Id1aCKzRhggQzILD0AM";
-                adwords_format = "3";
-            }
-
-            if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "We5mCITWhggQzILD0AM";
-                adwords_format = "3";
-            }
-
-            media = new MediaDataLayer("EMEA", "EMEA", "337dc751", "974176588", adwords_conversion_label,
-                    adwords_format, adwords_value, "974176588", "uPZUCPPpsFwQzILD0AM", "974176588",
+            media = new MediaDataLayer("EMEA", "EMEA", "337dc751", "974176588", adwordsConversionLabel,
+                    adwordsFormat, adwordsValue, "974176588", "uPZUCPPpsFwQzILD0AM", "974176588",
                     "Z58tCPSRsFwQzILD0AM", "1000698659832", "39634");
         }
 
@@ -495,6 +477,7 @@ public class DataLayerUse extends WCMUsePojo {
 
     /**
      * TODO check
+     *
      * @return
      */
     public String getUserEmail() {
@@ -524,7 +507,7 @@ public class DataLayerUse extends WCMUsePojo {
     public String getShipId() {
         return shipId;
     }
-    
+
     public String getDestinationName() {
         return destinationName;
     }
