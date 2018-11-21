@@ -51,12 +51,12 @@
                             <sly data-sly-test.early="${cruise.lowestPrice.earlyBookingBonus}" />
                             <div class="cruisehighlights__table__beforetitle" data-sly-test.prefix="${cruise.pricePrefix}">${prefix}</div>
                             <div class="cruisehighlights__table__beforetitle" data-sly-test="${!prefix}">${'fares-from' @ i18n}</div>
-                            <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}" data-sly-test="${cruise.isWaitList}"><strong>${'waitlist' @ i18n}</strong></div>
+                            <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}" data-sly-test="${cruise.isWaitlist}"><strong>${'waitlist' @ i18n}</strong></div>
                             <sly data-sly-test="${early}" data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = cruise.lowestPrice.price}">
                                 <div class="cruisehighlights__table__beforetitle beforetitlesmall">(${'per-guest' @ i18n})</div>
                                 <small class="cruisehighlights__table__title_small">${cruise.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small>
                             </sly>
-                            <sly data-sly-test="${!cruise.isWaitList}">
+                            <sly data-sly-test="${!cruise.isWaitlist}">
                                 <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}">
                                     ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
                                 </div>
