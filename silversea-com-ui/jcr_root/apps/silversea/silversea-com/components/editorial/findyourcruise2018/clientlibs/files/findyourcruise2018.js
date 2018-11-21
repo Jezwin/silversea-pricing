@@ -533,6 +533,16 @@ $(function () {
                     $(idShowElement).parent().addClass("fyc2018-filter-content-clicked");
                     $parent.addClass("fyc2018-filter-content-clicked");
                     if (classShowElement == ".filter-port") {
+                        $(".fyc2018-filter .filter-port .filter-value.filter-selected").each(function () {
+                            var key = $(this).data("key");
+                            var label = $(this).data("label");
+                            var value = {
+                                key: key,
+                                label: label,
+                                state: 'CHOSEN'
+                            };
+                            elementFilterSelected[key] = value;
+                        });
                         optionAutoComplete.data = portsList;
                         $(".findyourcruise2018 #filter-autocomplete").easyAutocomplete(optionAutoComplete);
                         $(".findyourcruise2018 .easy-autocomplete-container ul").remove();
