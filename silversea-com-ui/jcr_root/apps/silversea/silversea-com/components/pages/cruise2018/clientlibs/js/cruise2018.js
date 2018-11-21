@@ -96,16 +96,20 @@ function openModalFromSelector() {
         $([document.documentElement, document.body]).animate({scrollTop: $closest.offset().top - number}, 100);
         if ($(document.body).hasClass('viewport-xs')) {
             $closest.parent().find(".open-lightbox-port").click();//opening port modal
-        }else{
+        } else {
             $closest.find(".cruise-2018-itineraries-itinerary-row-container-with-excursion").click();
             $hash.click();
         }
-    }
-    if ($hash.is(":visible")) {
-        $hash.click();
-    }
-    else if ($hash.closest(":visible")) {
-        $([document.documentElement, document.body]).animate({scrollTop: $hash.closest(":visible").offset().top - number}, 100)
+    } else if (hash.startsWith("#menu-")) {
+        $(".cruise-2018-menu a[href$='"+hash+"']").click();
+        return;
+    } else {
+        if ($hash.is(":visible")) {
+            $hash.click();
+        }
+        else if ($hash.closest(":visible")) {
+            $([document.documentElement, document.body]).animate({scrollTop: $hash.closest(":visible").offset().top - number}, 100)
+        }
     }
 }
 
