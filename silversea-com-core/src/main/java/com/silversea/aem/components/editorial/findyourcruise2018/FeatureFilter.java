@@ -16,6 +16,7 @@ import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRo
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toSet;
 
 class FeatureFilter extends AbstractFilter<FeatureModelLight> {
@@ -58,7 +59,7 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
                                 return (FilterRow<FeatureModelLight>) new FeatureFilterRow(feature, ENABLED);
                             }
                         })
-                        .collect(toSet()))
+                        .collect(toCollection(() -> (Set<FilterRow<FeatureModelLight>>) new TreeSet<>(comparator()))))
                 .orElse(emptySet());
     }
 
