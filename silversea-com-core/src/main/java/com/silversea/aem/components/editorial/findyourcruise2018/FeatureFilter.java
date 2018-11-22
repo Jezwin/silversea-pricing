@@ -8,6 +8,7 @@ import com.silversea.aem.models.FeatureModelLight;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
@@ -33,12 +34,13 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
     protected Set<FilterRow<FeatureModelLight>> retrieveAllValues(FindYourCruise2018Use use,
                                                                   String[] selectedKeys,
                                                                   Consumer<FilterRow<FeatureModelLight>> addToChosen,
-                                                                  Collection<CruiseModelLight> cruises) {
+                                                                  Collection<CruiseModelLight> allCruises) {
         TagManager tagManager = use.getTagManager();
         if (tagManager == null) {
             return emptySet();
         }
         Set<String> selected = new HashSet<>(Arrays.asList(selectedKeys));
+        List<String> availableFeatures = allCruises.stream().flatMap(this::projection).distinct().map(FilterRow::getKey).collect(Collectors.toList());
         return ofNullable(use.getCurrentStyle().get(TagConstants.PN_TAGS, String[].class)).map(Stream::of)
                 .map(tags -> tags
                         .map(tagManager::resolve)
@@ -46,6 +48,7 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
                         .map(tag -> tag.adaptTo(FeatureModel.class))
                         .filter(Objects::nonNull)
                         .filter(feature -> feature.getFeatureId() != null)
+                        .filter(feature -> availableFeatures.contains(feature.getFeatureId()))
                         .map(feature -> {
                             if (selected.contains(feature.getFeatureId())) {
                                 FeatureFilterRow featureFilterRow = new FeatureFilterRow(feature, CHOSEN);
