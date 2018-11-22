@@ -848,7 +848,7 @@
         sling:key="no-results-search"
         sling:message="Sorry, but nothing matched your search terms. Please try again with some different keywords."/>
     <no-port-found
-            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="sling:MessageEntry"
             sling:key="no-port-found"
             sling:message="No port found"/>
     <note
@@ -1209,11 +1209,11 @@
         sling:key="select-inquiry"
         sling:message="Select an Inquiry"/>
     <selected-port
-            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="sling:MessageEntry"
             sling:key="selected-port"
             sling:message="Selected port"/>
     <selected-ports
-            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="sling:MessageEntry"
             sling:key="selected-ports"
             sling:message="Selected ports"/>
     <select-language
