@@ -13,7 +13,7 @@
                 <input data-sly-test="${autocomplete}" id="filter-autocomplete" class="form-control fyc2018-filter-autocomplete" placeholder="${placeholder}" />
             </div>
             <sly data-sly-test="${autocomplete}">
-                <div class="${class || 'col-sm-6'} filter-show-selected" data-label="${'selected ports' @ i18n}">
+                <div class="${class || 'col-sm-6'} filter-show-selected" data-labelplural="${'selected ports' @ i18n}" data-labelsingular="${'selected port' @ i18n}">
                     <span>${'selected ports' @ i18n}</span>
                 </div>
                 <div class="fyc2018-filter-selected-content">
