@@ -71,18 +71,26 @@ public class HeaderUse extends WCMUsePojo {
                     languagePageList.add(homeLang);
                 }
             }
-            for (Page languagePage : languagePageList) {
-                languagePages.forEach((lang, value) -> {
-                    if (languagePage.getPath().toLowerCase().contains(lang.toLowerCase())) {
-                        NavPageModel nPage = new NavPageModel();
-                        nPage.setPath(value);
-                        nPage.setName(languagePage.getName());
-                        nPage.setNavigationTitle(languagePage.getNavigationTitle());
-                        languagePageListForCurrentPage.add(nPage);
-                    }
-                });
-            }
+
             return languagePageList;
+        });
+
+        languagePageListForCurrentPage = globalCacheService.getCache("languagePageListForCurrentPage" + currentPath, new TypeReference<List<NavPageModel>>() {
+        }, () -> {
+            List<NavPageModel> languagePageListForCurrentPageInner = new ArrayList<>();
+      for (Page languagePage : languagePageList) {
+          languagePages.forEach((lang, value) -> {
+              if (languagePage.getPath().toLowerCase().contains(lang.toLowerCase())) {
+                  NavPageModel nPage = new NavPageModel();
+                  nPage.setPath(value);
+                  nPage.setName(languagePage.getName());
+                  nPage.setNavigationTitle(languagePage.getNavigationTitle());
+                  languagePageListForCurrentPageInner.add(nPage);
+              }
+          });
+      }
+
+      return languagePageListForCurrentPageInner;
         });
 
 
