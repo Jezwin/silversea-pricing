@@ -57,7 +57,6 @@ public class HeaderUse extends WCMUsePojo {
         link3MobilePage = getPageManager().getPage(link3MobileReference);
         searchPage = getPageManager().getPage(searchPageReference);
 
-
         languagePages = globalCacheService.getCache("languagePages" + currentPath, new TypeReference<Map<String, String>>() {
         }, this::retrieveLanguagePages);
         languagePageList = globalCacheService.getCache("languagePageList" + currentPath, new TypeReference<List<Page>>() {
@@ -181,20 +180,20 @@ public class HeaderUse extends WCMUsePojo {
         Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
         String[] langList = {"/en/", "/es/", "/pt-br/", "/de/", "/fr/"};
         String currentPath = getCurrentPage().getPath();
-        String currentLng = currentLang(externalizer, langList, currentPath, "");
+        String currentLng = currentLang(externalizer, langList, currentPath, "", languagePages);
 
-        otherLang(externalizer, langList, currentPath, currentLng);
+        otherLang(externalizer, langList, currentPath, currentLng, languagePages);
 
         if ("".equals(currentLng)) {
             String[] langListHome = {"/en", "/es", "/pt-br", "/de", "/fr"};
-            currentLng = currentLang(externalizer, langListHome, currentPath, currentLng);
-            otherLang(externalizer, langListHome, currentPath, currentLng);
+            currentLng = currentLang(externalizer, langListHome, currentPath, currentLng, languagePages);
+            otherLang(externalizer, langListHome, currentPath, currentLng, languagePages);
         }
         return languagePages;
 
     }
 
-    private void otherLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng) {
+    private void otherLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng, HashMap<String, String> languagePages) {
         Locale locale;
         for (String lng : langList) {
             if (!currentPath.contains(lng)) {
@@ -209,7 +208,7 @@ public class HeaderUse extends WCMUsePojo {
         }
     }
 
-    private String currentLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng) {
+    private String currentLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng, HashMap<String, String> languagePages) {
         Locale locale;
         for (String lng : langList) {
             if (currentPath.contains(lng)) {
