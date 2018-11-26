@@ -39,6 +39,7 @@ public class Lead {
     private String brochurecode;
     // Campaign value
     private String marketingEffort;
+    private String mcid;
     // Contact Us Form
     private String subject;
     private String inquiry;
@@ -397,6 +398,14 @@ public class Lead {
 
 	public void setSubmitDate(String submitDate) {
 		this.submitDate = submitDate;
+	}
+
+	public String getMcid() {
+		return mcid;
+	}
+
+	public void setMcid(String mcid) {
+		this.mcid = mcid;
 	}
 	
 }

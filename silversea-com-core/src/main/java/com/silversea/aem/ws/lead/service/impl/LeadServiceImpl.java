@@ -103,6 +103,7 @@ public class LeadServiceImpl implements LeadService {
             request.setWorkingWithAgent(Short.parseShort("1")); //true
         }
 
+
         // request a quote
         request.setVoyage(lead.getVoyagename());
         request.setVoyageCod(lead.getVoyagecode());
@@ -135,6 +136,8 @@ public class LeadServiceImpl implements LeadService {
 
         // Marketing
         request.setMarketingEffort(lead.getMarketingEffort());
+        //MCId
+        request.setMCId(lead.getMcid());
     }
 
     private LeadFromWeb03Soap getClientProxy() {

@@ -139,15 +139,25 @@ $(function() {
                 $form.find('[name="subscribeemail"]').val($form.find('[name="subscribeemail-custom"]').is(':checked'));
             }
 
+            try {
+                var mcID = _satellite.getVisitorId().getMarketingCloudVisitorID();
+                if (mcID) {
+                    $.CookieManager.setCookie('mcid', mcID);
+                }
+            }catch(err){
+
+            }
+
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
                     'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
                     'sitelanguage', 'sitecurrency', 'isnotagent' , 'subject' , 'inquiry' , 'from_email' , 'bookingnumber' , 'vsnumber', 'state' ];
-            var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue');
+            var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue'),  MCId = $.CookieManager.getCookie('mcid');
 
             // Set cookie if not created
             if (pos <= 0) {
                 $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues));
             }
+
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo')),
                 form = $form.serializeArray();
@@ -164,6 +174,9 @@ $(function() {
                 leadApiData['marketingEffort'] = marketingEffortValue;
             }
 
+            if (MCId) {
+                leadApiData['mcid'] = MCId;
+            }
             if (!$form.hasClass("c-form--rab")) {
                 $.ajax({
                     type : 'POST',

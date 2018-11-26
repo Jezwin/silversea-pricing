@@ -96,7 +96,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 					if(request.getCookie("currentReferrer") != null){
 						referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
 					}
-					
+
 					if (null != blockListResource) {
 						if((null != referer && referer != "") || (null != ipaddress && ipaddress != "") || 
 								(null != emailadress && emailadress != "")) {	
