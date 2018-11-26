@@ -40,6 +40,8 @@ public class Lead {
     // Campaign value
     private String marketingEffort;
     private String mcid;
+    //lastUrl
+    private String att02;
     // Contact Us Form
     private String subject;
     private String inquiry;
@@ -407,5 +409,13 @@ public class Lead {
 	public void setMcid(String mcid) {
 		this.mcid = mcid;
 	}
+
+    public String getAtt02() {
+        return att02;
+    }
+
+    public void setAtt02(String att02) {
+        this.att02 = att02;
+    }
 	
 }

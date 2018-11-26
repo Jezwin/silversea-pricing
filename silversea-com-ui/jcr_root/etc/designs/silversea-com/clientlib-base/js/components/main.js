@@ -139,7 +139,7 @@ $(function() {
                 $form.find('[name="subscribeemail"]').val($form.find('[name="subscribeemail-custom"]').is(':checked'));
             }
 
-            try {
+            try {//Try to capture the McId
                 var mcID = _satellite.getVisitorId().getMarketingCloudVisitorID();
                 if (mcID) {
                     $.CookieManager.setCookie('mcid', mcID);
@@ -148,10 +148,34 @@ $(function() {
 
             }
 
+            //try to get the last url to be sent
+            try {
+                var lastUrlBeforeLead;
+                var url1 = $.CookieManager.getCookie('url1');
+                var url2 = $.CookieManager.getCookie('url2');
+                var url3 = $.CookieManager.getCookie('url3');
+                var cat1 = $.CookieManager.getCookie('cat1');
+                var cat2 = $.CookieManager.getCookie('cat2');
+                var cat3 = $.CookieManager.getCookie('cat3');
+                if(cat1.indexOf('RAQ') == -1 && cat1.indexOf('BRO') == -1 && cat1.indexOf('SFO') == -1){
+                    lastUrlBeforeLead = url1;
+                }else{
+                    lastUrlBeforeLead = url2;
+                }
+
+                if (lastUrlBeforeLead) {
+                    $.CookieManager.setCookie('lastUrlBeforeLead', lastUrlBeforeLead);
+                }
+            }catch(err){
+
+            }
+
+
+
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
                     'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
                     'sitelanguage', 'sitecurrency', 'isnotagent' , 'subject' , 'inquiry' , 'from_email' , 'bookingnumber' , 'vsnumber', 'state' ];
-            var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue'),  MCId = $.CookieManager.getCookie('mcid');
+            var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue'),  MCId = $.CookieManager.getCookie('mcid'),  att02 = $.CookieManager.getCookie('lastUrlBeforeLead');
 
             // Set cookie if not created
             if (pos <= 0) {
@@ -176,6 +200,11 @@ $(function() {
 
             if (MCId) {
                 leadApiData['mcid'] = MCId;
+            }
+
+            //lastURl
+            if (att02) {
+                leadApiData['att02'] = att02;
             }
             if (!$form.hasClass("c-form--rab")) {
                 $.ajax({

@@ -138,6 +138,8 @@ public class LeadServiceImpl implements LeadService {
         request.setMarketingEffort(lead.getMarketingEffort());
         //MCId
         request.setMCId(lead.getMcid());
+        //Last URL
+        request.setAtt02(lead.getAtt02());
     }
 
     private LeadFromWeb03Soap getClientProxy() {
