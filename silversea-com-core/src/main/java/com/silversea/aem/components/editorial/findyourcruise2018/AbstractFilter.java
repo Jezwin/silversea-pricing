@@ -57,16 +57,16 @@ public abstract class AbstractFilter<T> {
         rows.forEach(row -> row.setState(rowShouldBeEnabled(cruises, row) ? ENABLED : DISABLED));
     }
 
-    final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, Collection<CruiseModelLight> cruises) {
+    final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, Collection<CruiseModelLight> allCruises) {
         this.selectedRows = new HashSet<>();
-        this.rows = retrieveAllValues(use, selectedKeys, this.selectedRows::add, cruises);
+        this.rows = retrieveAllValues(use, selectedKeys, this.selectedRows::add, allCruises);
     }
 
     protected Set<FilterRow<T>> retrieveAllValues(FindYourCruise2018Use use, String[] selectedKeys,
-                                                  Consumer<FilterRow<T>> addToChosen, Collection<CruiseModelLight> cruises) {
+                                                  Consumer<FilterRow<T>> addToChosen, Collection<CruiseModelLight> allCruises) {
         Comparator<FilterRow<T>> comparator = this.comparator();
         Set<String> selected = new HashSet<>(Arrays.asList(selectedKeys));
-        return cruises.stream().flatMap(this::projection).distinct().peek(row -> {
+        return allCruises.stream().flatMap(this::projection).distinct().peek(row -> {
             if (selected.contains(row.getKey())) {
                 row.setState(CHOSEN);
                 addToChosen.accept(row);

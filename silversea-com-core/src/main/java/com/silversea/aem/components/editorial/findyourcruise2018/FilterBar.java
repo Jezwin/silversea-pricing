@@ -79,10 +79,10 @@ public class FilterBar {
     public static final Collection<AbstractFilter<?>> FILTERS =
             asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE, OFFERS);
 
-    void init(FindYourCruise2018Use use, Map<String, String[]> httpRequest, List<CruiseModelLight> cruises) {
+    void init(FindYourCruise2018Use use, Map<String, String[]> httpRequest, List<CruiseModelLight> allCruises) {
         Map<String, String[]> properties = use.filteringSettings();
         for (AbstractFilter<?> filter : FILTERS) {
-            filter.initAllValues(use, filter.selectedKeys(properties, httpRequest), cruises);
+            filter.initAllValues(use, filter.selectedKeys(properties, httpRequest), allCruises);
         }
         setOpen(httpRequest.getOrDefault("open", new String[]{"allclose"}));
     }

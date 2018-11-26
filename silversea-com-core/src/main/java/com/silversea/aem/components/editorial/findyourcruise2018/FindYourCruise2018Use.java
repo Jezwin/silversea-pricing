@@ -89,17 +89,17 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     private Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service, String paginationLimit) {
-        List<CruiseModelLight> cruises = service.getCruises(lang);
-        List<CruiseModelLight> preFilteredCruises = preFiltering(cruises);
+        List<CruiseModelLight> allCruises = service.getCruises(lang);
+        List<CruiseModelLight> preFilteredCruises = preFiltering(allCruises);
 
         boolean computeFilters = !"true".equals(httpRequest.getOrDefault("onlyResults", new String[]{"false"})[0]);
         boolean computeCruises = !"true".equals(httpRequest.getOrDefault("onlyFilters", new String[]{"false"})[0]);
 
-        filterBar = initFilters(httpRequest, cruises);
+        filterBar = initFilters(httpRequest, allCruises);
 
         List<CruiseModelLight> filteredCruises = applyFilters(preFilteredCruises, filterBar);
         if (computeFilters) {
-            filterBar.updateFilters(cruises, filteredCruises);
+            filterBar.updateFilters(allCruises, filteredCruises);
         }
 
         Pagination pagination = new Pagination(filteredCruises.size(),

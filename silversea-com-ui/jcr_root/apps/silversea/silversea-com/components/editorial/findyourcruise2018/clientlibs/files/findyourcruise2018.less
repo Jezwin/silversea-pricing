@@ -132,7 +132,9 @@
       width: 100%;
       display: table !important;
       height: auto !important;
-
+      .fyc2018-filter:last-child {
+        border-right: 0px;
+      }
       .fyc2018-filter {
         display: table-cell;
         vertical-align: top;
@@ -191,7 +193,7 @@
 
         .fyc2018-filter-content {
           display: block;
-          width: 100%;
+          width: 99%;
           position: relative;
           vertical-align: middle;
           background-color: #f4f4f4;
@@ -340,10 +342,12 @@
       min-width: 0px;
       width: 300px;
       .fyc2018-filter-value-container {
-        width: 300px !important;
-        max-height: 445px !important;
-        overflow-y: scroll !important;
-        overflow-x: hidden !important;
+        @media (min-width: 768px) {
+          width: 300px !important;
+          max-height: 445px !important;
+          overflow-y: scroll !important;
+          overflow-x: hidden !important;
+        }
       }
       .filter-value:first-child {
         margin-top: 0px;
