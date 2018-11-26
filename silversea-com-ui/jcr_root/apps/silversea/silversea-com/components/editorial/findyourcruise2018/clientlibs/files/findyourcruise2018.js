@@ -252,7 +252,8 @@ $(function () {
                 if (numberSelected > 0) {
                     $(showSelectedPortsClass).show();
                     $(".fyc2018-filter-autocomplete-content").addClass("fyc2018-filter-autocomplete-content-open");
-                    $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data("label"));
+                    var label = numberSelected > 1 ? "labelplural" : "labelsingular";
+                    $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data(label));
                 } else {
                     $(showSelectedPortsClass).hide();
                     $(".fyc2018-filter-autocomplete-content").removeClass("fyc2018-filter-autocomplete-content-open");
@@ -278,7 +279,8 @@ $(function () {
 
             if (numberSelected > 0) {
                 $(showSelectedPortsClass).show();
-                $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data("label"));
+                var label = numberSelected > 1 ? "labelplural" : "labelsingular";
+                $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data(label));
             } else {
                 $(showSelectedPortsClass).hide();
                 $(selectedPortsContainerClass).hide();

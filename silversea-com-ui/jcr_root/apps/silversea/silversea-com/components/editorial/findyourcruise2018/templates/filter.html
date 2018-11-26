@@ -14,7 +14,7 @@
                 <i class="material-icons fyc-close-i"> clear </i>
             </div>
             <div class="fyc2018-header-reset-all c-fyc-v2-filter__reset">
-                <span><i class="fa fa-undo"></i> <span class="text-uppercase">clear all filters</span></span>
+                <span><i class="fa fa-undo"></i> <span class="text-uppercase">${'clear-all-filters' @ i18n}</span></span>
             </div>
             <script>
                 window.portsList = '${fyc.filterBar.PORT.toString @ context="scriptString" }';
@@ -36,7 +36,7 @@
                 <sly data-sly-test="${fyc.filterBar.PORT.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='Search port', open=fyc.filterBar.PORT.open}"/>
                 <sly data-sly-test="${fyc.filterBar.FEATURES.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='features', plural='features', name='feature'}"/>
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
             </div>
         </div>
     </div>

@@ -42,7 +42,7 @@
                                 text="Hide header (FYC title and result number)"
                                 name="./hideTitle"
                                 value="true"
-                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                sling:resourceType="granite/ui/components/foundation/form/hidden" />
                             <hideResultNb
                                 jcr:primaryType="nt:unstructured"
                                 text="Hide Result Number"
@@ -65,13 +65,6 @@
                                 sling:resourceType="granite/ui/components/foundation/form/textfield"
                                 fieldLabel="Results label (plural)"
                                 name="./resultsLabelPlural"/>
-                           <marginTop
-                                jcr:primaryType="nt:unstructured"
-                                fieldLabel="Margin top"
-                                value="14"
-                                defaultValue="14"
-                                name="./marginTop"
-                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
                         </items>
                     </column>
                 </items>

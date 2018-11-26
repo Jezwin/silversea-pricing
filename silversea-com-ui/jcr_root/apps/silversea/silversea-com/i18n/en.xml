@@ -355,6 +355,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-type"
         sling:message="cruise type"/>
+    <cruise-types
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="cruise-types"
+            sling:message="cruise types"/>
     <cv
         jcr:primaryType="sling:MessageEntry"
         sling:key="CV"
@@ -391,6 +395,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="departure"
         sling:message="Departure"/>
+    <departures
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="departures"
+            sling:message="Departures"/>
     <departure-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="departure-date"
@@ -407,6 +415,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination"
         sling:message="Destination"/>
+    <destinations
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="destinations"
+        sling:message="Destinations"/>
     <destination-discover-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-discover-more"
@@ -463,6 +475,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="duration"
         sling:message="Duration"/>
+    <durations
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="durations"
+            sling:message="Durations"/>
     <dv
         jcr:primaryType="sling:MessageEntry"
         sling:key="DV"
@@ -575,6 +591,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="features"
         sling:message="Features"/>
+    <feature
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="feature"
+            sling:message="Feature"/>
     <feet
         jcr:primaryType="sling:MessageEntry"
         sling:key="feet"
@@ -711,6 +731,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="lady"
         sling:message="Lady"/>
+    <load-more
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="load-more"
+            sling:message="Load more"/>
+    <no-matching-cruises
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="no-matching-cruises"
+            sling:message="Sorry, we found no matching cruises."/>
+    <change-filters
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="change-filters"
+            sling:message="Please change filters."/>
     <land-and-hotel
         jcr:primaryType="sling:MessageEntry"
         sling:key="land-and-hotel"
@@ -815,6 +847,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="no-results-search"
         sling:message="Sorry, but nothing matched your search terms. Please try again with some different keywords."/>
+    <no-port-found
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="no-port-found"
+            sling:message="No port found"/>
     <note
         jcr:primaryType="sling:MessageEntry"
         sling:key="note"
@@ -923,6 +959,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="ports"
         sling:message="Ports"/>
+    <port
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="port"
+            sling:message="Port"/>
     <postal-address
         jcr:primaryType="sling:MessageEntry"
         sling:key="postal-address"
@@ -1148,6 +1188,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="search"
         sling:message="Search"/>
+    <search-port
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="search-port"
+            sling:message="Search-port"/>
     <search-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="search-more"
@@ -1164,6 +1208,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-inquiry"
         sling:message="Select an Inquiry"/>
+    <selected-port
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="selected-port"
+            sling:message="Selected port"/>
+    <selected-ports
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="selected-ports"
+            sling:message="Selected ports"/>
     <select-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-language"
