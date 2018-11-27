@@ -39,6 +39,13 @@ public class Lead {
     private String brochurecode;
     // Campaign value
     private String marketingEffort;
+    private String mcid;
+    //lastUrl
+    private String att02;
+    //EO Preference
+    private String att01;
+    private String ship;
+    private String preferredDestinations;
     // Contact Us Form
     private String subject;
     private String inquiry;
@@ -79,7 +86,7 @@ public class Lead {
     public void setCountry(String country) {
         this.country = country;
     }
-    
+
     public String getState() {
         return state;
     }
@@ -108,7 +115,7 @@ public class Lead {
     public String getPriceString() {
         return price;
     }
-    
+
     public BigDecimal getPrice() {
         return new BigDecimal(price);
     }
@@ -160,8 +167,7 @@ public class Lead {
     }
 
     /**
-     * @param title
-     *            the title to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
@@ -175,8 +181,7 @@ public class Lead {
     }
 
     /**
-     * @param firstname
-     *            the firstname to set
+     * @param firstname the firstname to set
      */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -190,8 +195,7 @@ public class Lead {
     }
 
     /**
-     * @param lastname
-     *            the lastname to set
+     * @param lastname the lastname to set
      */
     public void setLastname(String lastname) {
         this.lastname = lastname;
@@ -205,8 +209,7 @@ public class Lead {
     }
 
     /**
-     * @param email
-     *            the email to set
+     * @param email the email to set
      */
     public void setEmail(String email) {
         this.email = email;
@@ -220,8 +223,7 @@ public class Lead {
     }
 
     /**
-     * @param phone
-     *            the phone to set
+     * @param phone the phone to set
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -235,8 +237,7 @@ public class Lead {
     }
 
     /**
-     * @param comments
-     *            the comments to set
+     * @param comments the comments to set
      */
     public void setComments(String comments) {
         this.comments = comments;
@@ -250,8 +251,7 @@ public class Lead {
     }
 
     /**
-     * @param requestsource
-     *            the requestsource to set
+     * @param requestsource the requestsource to set
      */
     public void setRequestsource(String requestsource) {
         this.requestsource = requestsource;
@@ -265,8 +265,7 @@ public class Lead {
     }
 
     /**
-     * @param subscribeemail
-     *            the subscribeemail to set
+     * @param subscribeemail the subscribeemail to set
      */
     public void setSubscribeemail(String subscribeemail) {
         this.subscribeemail = subscribeemail;
@@ -280,8 +279,7 @@ public class Lead {
     }
 
     /**
-     * @param workingwithagent
-     *            the workingwithagent to set
+     * @param workingwithagent the workingwithagent to set
      */
     public void setWorkingwithagent(String workingwithagent) {
         this.workingwithagent = workingwithagent;
@@ -351,52 +349,92 @@ public class Lead {
         this.isnotagent = isnotagent;
     }
 
-	public String getSubject() {
-		return subject;
-	}
+    public String getSubject() {
+        return subject;
+    }
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-	public String getInquiry() {
-		return inquiry;
-	}
+    public String getInquiry() {
+        return inquiry;
+    }
 
-	public void setInquiry(String inquiry) {
-		this.inquiry = inquiry;
-	}
+    public void setInquiry(String inquiry) {
+        this.inquiry = inquiry;
+    }
 
-	public String getBookingnumber() {
-		return bookingnumber;
-	}
+    public String getBookingnumber() {
+        return bookingnumber;
+    }
 
-	public void setBookingnumber(String bookingnumber) {
-		this.bookingnumber = bookingnumber;
-	}
+    public void setBookingnumber(String bookingnumber) {
+        this.bookingnumber = bookingnumber;
+    }
 
-	public String getVsnumber() {
-		return vsnumber;
-	}
+    public String getVsnumber() {
+        return vsnumber;
+    }
 
-	public void setVsnumber(String vsnumber) {
-		this.vsnumber = vsnumber;
-	}
+    public void setVsnumber(String vsnumber) {
+        this.vsnumber = vsnumber;
+    }
 
-	public String getFrom_email() {
-		return from_email;
-	}
+    public String getFrom_email() {
+        return from_email;
+    }
 
-	public void setFrom_email(String from_email) {
-		this.from_email = from_email;
-	}
+    public void setFrom_email(String from_email) {
+        this.from_email = from_email;
+    }
 
-	public String getSubmitDate() {
-		return submitDate;
-	}
+    public String getSubmitDate() {
+        return submitDate;
+    }
 
-	public void setSubmitDate(String submitDate) {
-		this.submitDate = submitDate;
-	}
-	
+    public void setSubmitDate(String submitDate) {
+        this.submitDate = submitDate;
+    }
+
+    public String getMcid() {
+        return mcid;
+    }
+
+    public void setMcid(String mcid) {
+        this.mcid = mcid;
+    }
+
+    public String getAtt01() {
+        return att01;
+    }
+
+    public void setShip(String ship) {
+        this.ship = ship;
+    }
+
+    public String getShip() {
+        return ship;
+    }
+
+    public void setPreferredDestinations(String preferredDestinations) {
+        this.preferredDestinations = preferredDestinations;
+    }
+
+    public String getPreferredDestinations() {
+        return preferredDestinations;
+    }
+
+    public void setAtt01(String att01) {
+        this.att01 = att01;
+    }
+
+    public String getAtt02() {
+        return att02;
+    }
+
+    public void setAtt02(String att02) {
+        this.att02 = att02;
+    }
+
 }
