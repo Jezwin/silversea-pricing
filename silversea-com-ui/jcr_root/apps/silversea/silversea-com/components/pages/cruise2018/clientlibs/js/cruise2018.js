@@ -113,7 +113,6 @@ function openModalFromSelector() {
     }
 }
 
-
 $(function () {
     initSlider();
     window.widthCruise2018 = $(window).width();

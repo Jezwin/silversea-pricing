@@ -1,4 +1,7 @@
-.lightbox {
+.lightbox, #lightbox-simple {
+  .used-by-lightbox-simple-prev, .used-by-lightbox-simple-next {
+    display: none;
+  }
 
   .lightbox-close {
     position: fixed;
@@ -13,13 +16,16 @@
 
     &:hover {
       opacity: 0.9;
+
       .icon-close, .text-close {
         opacity: 1;
       }
     }
+
     .lightbox-close-div {
       pointer-events: all;
     }
+
     .icon-close {
       display: inline;
       position: absolute;
@@ -27,6 +33,7 @@
       left: 96%;
       opacity: 1;
     }
+
     .text-close {
       display: inline;
       color: white;
@@ -41,6 +48,7 @@
       opacity: 1;
     }
   }
+
   .modal-content {
     padding: 0;
 
@@ -48,7 +56,8 @@
       padding: 0;
     }
   }
-  .lightbox-prev:before, .lightbox-next:after {
+
+  .lightbox-prev:before, .lightbox-next:after, .lightbox-simple-prev:before, .lightbox-simple-next:before {
     content: " ";
     display: block;
     height: 35px;
@@ -64,70 +73,82 @@
     user-select: none;
   }
 
-  .lightbox-prev-wrapper-label, .lightbox-next-wrapper-label {
+  .lightbox-prev-wrapper-label, .lightbox-next-wrapper-label, .lightbox-simple-prev-wrapper-label, .lightbox-simple-next-wrapper-label {
     background-color: @grey--ca;
     color: @grey--3 !important;
     z-index: 9;
   }
-  .lightbox-prev-wrapper-label, .lightbox-next-wrapper-label {
+
+  .lightbox-prev-wrapper-label, .lightbox-next-wrapper-label, .lightbox-simple-prev-wrapper-label, .lightbox-simple-next-wrapper-label {
     max-width: 24vw;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     position: fixed;
   }
-  .lightbox-prev-wrapper-label {
+
+  .lightbox-prev-wrapper-label, .lightbox-simple-prev-wrapper-label {
     left: -25vw;
   }
-  .lightbox-next-wrapper-label {
+
+  .lightbox-next-wrapper-label, .lightbox-simple-next-wrapper-label {
     right: -25vw;
   }
-  .lightbox-prev-link:hover, .lightbox-next-link:hover {
 
-    .lightbox-prev-wrapper-label {
+  .lightbox-prev-link:hover, .lightbox-next-link:hover, .lightbox-simple-prev-link:hover, .lightbox-simple-next-link:hover {
+
+    .lightbox-prev-wrapper-label, .lightbox-simple-prev-wrapper-label {
       max-width: calc(~"36vw - 256px") !important;
       margin-left: 40px;
       padding-right: 18px;
     }
-    .lightbox-next-wrapper-label {
+
+    .lightbox-next-wrapper-label, .lightbox-simple-next-wrapper-label {
       max-width: calc(~"36vw - 256px") !important;
       margin-right: 40px;
       padding-left: 18px;
     }
-    .lightbox-prev-wrapper-label {
+
+    .lightbox-prev-wrapper-label, .lightbox-simple-prev-wrapper-label {
       left: 0;
     }
-    .lightbox-next-wrapper-label {
+
+    .lightbox-next-wrapper-label, .lightbox-simple-next-wrapper-label {
       right: 0;
     }
-    .lightbox-next-wrapper-arrow {
+
+    .lightbox-next-wrapper-arrow, .lightbox-simple-next-wrapper-arrow {
       padding-right: 35px !important;
     }
-    .lightbox-prev-wrapper-arrow {
+
+    .lightbox-prev-wrapper-arrow, .lightbox-simple-prev-wrapper-arrow {
       padding-left: 35px !important;
     }
   }
 
-  .lightbox-prev-wrapper-arrow, .lightbox-next-wrapper-arrow {
+  .lightbox-prev-wrapper-arrow, .lightbox-next-wrapper-arrow, .lightbox-simple-prev-wrapper-arrow, .lightbox-simple-next-wrapper-arrow {
     background-color: @grey--ca;
     position: absolute;
     height: 80px;
     width: 65px;
     z-index: 1000;
   }
-  .lightbox-prev-wrapper-arrow {
+
+  .lightbox-prev-wrapper-arrow, .lightbox-simple-prev-wrapper-arrow {
     padding-left: 40px;
   }
-  .lightbox-next-wrapper-arrow {
+
+  .lightbox-next-wrapper-arrow, .lightbox-simple-next-wrapper-arrow {
     padding-right: 40px;
     right: 0;
   }
-  .lightbox-prev-container, .lightbox-next-container {
+
+  .lightbox-prev-container, .lightbox-next-container, .lightbox-simple-prev-container, .lightbox-simple-next-container {
     position: relative;
     width: 300px;
   }
 
-  .lightbox-prev {
+  .lightbox-prev, .lightbox-simple-prev {
     z-index: 100;
     width: 25px;
     height: 20px;
@@ -136,18 +157,20 @@
     position: fixed;
     color: black;
   }
-  .lightbox-next {
+
+  .lightbox-next, .lightbox-simple-next {
     width: 25px;
     height: 20px;
     float: right;
     transform: translate(0%, 150%) rotateZ(315deg);
     color: black;
   }
-  .ligthbox-next-button, .ligthbox-prev-button {
+
+  .ligthbox-next-button, .ligthbox-prev-button, .ligthbox-simple-next-button, .ligthbox-simple-prev-button {
     display: none;
   }
 
-  .lightbox-prev-label, .lightbox-next-label {
+  .lightbox-prev-label, .lightbox-next-label, .lightbox-simple-prev-label, .lightbox-simple-next-label {
     line-height: 80px;
     color: @grey--3;
     font-family: @suisse;
@@ -156,27 +179,32 @@
     letter-spacing: 0.5px;
   }
 
-  .lightbox-prev-label {
+  .lightbox-prev-label, .lightbox-simple-prev-label {
     padding-right: 30px;
     margin-left: 30px;
   }
-  .lightbox-next-label {
+
+  .lightbox-next-label, .lightbox-simple-next-label {
     padding-left: 30px;
     margin-right: 30px;
   }
-  .lightbox-prev-link, .lightbox-next-link {
+
+  .lightbox-prev-link, .lightbox-next-link, .lightbox-simple-prev-link, .lightbox-simple-next-link {
     display: none; //activated by js
     position: fixed;
     top: 50vh;
+
     &, * {
       transition-duration: 0.5s;
     }
   }
-  .lightbox-prev-link {
+
+  .lightbox-prev-link, .lightbox-simple-prev-link {
     left: 0;
 
   }
-  .lightbox-next-link {
+
+  .lightbox-next-link, .lightbox-simple-next-link {
     right: 0;
 
   }
@@ -184,20 +212,26 @@
 }
 
 @media (min-width: @screen-lg-min) {
-  .lightbox {
-    visibility: hidden;
+  .lightbox, #lightbox-simple {
+    &:not(#lightbox-simple) {
+      visibility: hidden;
+    }
+
     .lightbox-width-732 {
       max-width: 732px !important;
     }
 
     .lightbox-width-1200 {
       max-width: 1200px !important;
+
       .lightbox-close-1200 {
         max-width: 1200px !important;
       }
+
       .modal-body {
         padding-top: 0px !important;
       }
+
       .lightbox-close {
         position: absolute;
         background-color: @nd-dark;
@@ -227,10 +261,11 @@
 }
 
 @media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
-  .modal.lightbox {
+  .modal.lightbox, #lightbox-simple {
     .modal-dialog {
       padding-top: 0;
     }
+
     .lg-content {
       padding-top: 15px;
     }
@@ -241,9 +276,11 @@
         left: 40px;
         width: 688px;
       }
+
       .modal-body {
         padding-top: 0px !important;
       }
+
       .lightbox-close-1200 {
         max-width: 1200px !important;
         left: 0 !important;
@@ -254,7 +291,7 @@
 }
 
 @media (min-width: @screen-md-min) {
-  .lightbox {
+  .lightbox, #lightbox-simple {
     .modal-dialog {
       width: 100%;
       max-width: 768px;
@@ -263,7 +300,7 @@
 }
 
 @media screen and (max-width: @screen-sm) {
-  .modal.lightbox {
+  .modal.lightb, #lightbox-simplex {
     padding-left: 0;
 
     .lg-content {
@@ -282,6 +319,7 @@
         opacity: 1;
         top: 18px;
       }
+
       .icon-close {
         left: auto !important;
         right: 10px !important;
@@ -292,8 +330,10 @@
         font-size: 30px;
       }
     }
+
     .modal-dialog {
       padding-top: 0;
+
       .modal-content {
         top: 49px;
       }
@@ -329,6 +369,7 @@
     .modal-content {
       top: 44px !important;
     }
+
     .lightbox-close {
       background-color: @nd-dark;
     }
@@ -349,7 +390,7 @@
 
 //Style other lang
 .es, .pt-BR, .fr {
-  .lightbox {
+  .lightbox, #lightbox-simple {
     .lightbox-close .text-close {
       left: 89%;
     }
@@ -358,7 +399,7 @@
 
 .de {
   @media (min-width: 768px) {
-    .lightbox {
+    .lightbox, #lightbox-simple {
       .lightbox-close .text-close {
         left: 85%;
       }
@@ -366,7 +407,7 @@
   }
 }
 
-.lightbox {
+.lightbo, #lightbox-simple {
   .lightbox-close.lightbox-close-offer {
     color: black !important;
     position: absolute !important;

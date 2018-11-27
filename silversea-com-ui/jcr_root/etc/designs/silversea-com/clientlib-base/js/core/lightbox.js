@@ -69,6 +69,4 @@ function setTopLightboxModal(height, imgId) {
     $modalLightbox.css("visibility", "visible");
 
     //debug
-    console.log("topModalContent", topModalContent);
-    console.log("$modalContenHeight", $modalContenHeight, " $windowHeight", $windowHeight);
 };//setTopLightboxModal

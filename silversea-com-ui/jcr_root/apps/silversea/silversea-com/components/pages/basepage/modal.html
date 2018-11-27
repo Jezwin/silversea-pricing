@@ -56,4 +56,46 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="lightbox-simple" tabindex="-1" role="dialog"
+     aria-labelledby="lightbox-simple" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-header">
+            <div class="lightbox-close" data-dismiss="modal">
+                <div class="lightbox-close-div">
+                    <div class="text-close">${'close' @ i18n}</div>
+                    <div class="icon-close"><i class="material-icons">close</i></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-content do-not-autoclean" id="lightbox-simple-content">
+        </div>
+    </div>
+    <a class="lightbox-simple-prev-link" data-target="#lightbox-simple"
+       href="#">
+        <div class="lightbox-simple-prev-container">
+            <div class="lightbox-simple-prev-wrapper-label">
+                <span class="lightbox-simple-prev-label">X</span>
+            </div>
+            <div class="lightbox-simple-prev-wrapper-arrow">
+                <div class="lightbox-simple-prev">
+                    <span class="ligthbox-simple-prev-button">${'previous' @i18n}</span>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a class="lightbox-simple-next-link" data-target="#lightbox-simple"
+       href="#">
+        <div class="lightbox-simple-next-container">
+            <div class="lightbox-simple-next-wrapper-label">
+                <span class="lightbox-simple-next-label">X</span>
+            </div>
+            <div class="lightbox-simple-next-wrapper-arrow">
+                <div class="lightbox-simple-next">
+                    <span class="ligthbox-simple-next-button">${'next' @i18n}</span>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
         <!--/* /Modal */-->
