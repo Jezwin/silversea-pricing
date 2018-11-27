@@ -26,7 +26,7 @@ public class FilterBar {
                 @Override
                 protected Stream<FilterRow<DestinationItem>> projection(CruiseModelLight cruiseModelLight) {
                     DestinationItem destination = cruiseModelLight.getDestination();
-                    return Stream.of(new FilterRow<>(destination, DestinationItem::getTitle, destination.getName(), ENABLED));
+                    return Stream.of(new FilterRow<>(destination, DestinationItem::getTitle, cruiseModelLight.getDestinationId(), ENABLED));
                 }
             };
     public static final AbstractFilter<String> TYPE =
