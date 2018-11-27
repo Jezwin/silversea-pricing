@@ -193,19 +193,35 @@ $(function() {
                     leadApiData[cookieValues[index]] = form[i].value;
                 }
             }
+            try {
+                if (typeof marketingEffortValue != "undefined") {
+                    leadApiData['marketingEffort'] = marketingEffortValue;
+                }
 
-            if (marketingEffortValue) {
-                leadApiData['marketingEffort'] = marketingEffortValue;
+                if (typeof MCId != "undefined") {
+                    leadApiData['mcid'] = MCId;
+                }
+
+                //lastURl
+                if (typeof att02 != "undefined") {
+                    leadApiData['att02'] = att02.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+
+                if (typeof eoraq != "undefined") {
+                    leadApiData['att01'] = eoraq.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+
+                if (typeof shipraq != "undefined") {
+                    leadApiData['ship'] = shipraq.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+
+                if (typeof destraq != "undefined") {
+                    leadApiData['preferredDestinations'] = destraq.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+            }catch(err){
+                console.log(err);
             }
 
-            if (MCId) {
-                leadApiData['mcid'] = MCId;
-            }
-
-            //lastURl
-            if (att02) {
-                leadApiData['att02'] = att02;
-            }
             if (!$form.hasClass("c-form--rab")) {
                 $.ajax({
                     type : 'POST',
@@ -310,7 +326,17 @@ function createCookie(name, value, days) {
 
 function getCookie(cname) {
     var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
+    try {
+        var decodedCookie = decodeURIComponent(document.cookie);
+    }catch (e) {
+        //Cookie may be corrupted - kill the cookie
+        document.cookie.split(';').forEach(function(c) {
+            document.cookie = c.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+        });
+        console.log("Clear cookie corrupted");
+        console.error(e);
+        return "";
+    }
     var ca = decodedCookie.split(';');
     for(var i = 0; i <ca.length; i++) {
         var c = ca[i];

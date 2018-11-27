@@ -140,6 +140,10 @@ public class LeadServiceImpl implements LeadService {
         request.setMCId(lead.getMcid());
         //Last URL
         request.setAtt02(lead.getAtt02());
+        //EO Preference
+        request.setAtt01(lead.getAtt01());
+        request.setShip(lead.getShip());
+        request.setPreferredDestinations(lead.getPreferredDestinations());
     }
 
     private LeadFromWeb03Soap getClientProxy() {

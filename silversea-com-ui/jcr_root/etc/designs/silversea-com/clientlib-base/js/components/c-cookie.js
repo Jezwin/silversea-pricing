@@ -22,7 +22,17 @@ $(function($) {
         },
         getCookie: function (pname) {
             var name = pname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
+            try {
+                var decodedCookie = decodeURIComponent(document.cookie);
+            }catch (e) {
+                //Cookie may be corrupted - kill the cookie
+                document.cookie.split(';').forEach(function(c) {
+                    document.cookie = c.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+                });
+                console.log("Clear cookie corrupted");
+                console.error(e);
+                return "";
+            }
             var ca = decodedCookie.split(';');
             for(var i = 0; i <ca.length; i++) {
                 var c = ca[i];

@@ -47,6 +47,9 @@
 	    <div class="c-quote-request-side__inner">
 	        <h3 class="c-quote-request-side__inner__title">${quoteRequest.raqModel.title}</h3>
 	        <p class="c-quote-request-side__inner__description">${quoteRequest.raqModel.description}</p>
+			<script data-sly-test="${quoteRequest.raqModel.type == 'eo'}">eoraq = '${quoteRequest.raqModel.apiTitle @ context='html'}';</script>
+			<script data-sly-test="${quoteRequest.raqModel.type == 'sd'}">destraq = '${quoteRequest.raqModel.apiTitle @ context='html'}';</script>
+			<script data-sly-test="${quoteRequest.raqModel.type == 'ss'}">shipraq = '${quoteRequest.raqModel.apiTitle @ context='html'}';</script>
 	    </div>
     </sly>
 </div>

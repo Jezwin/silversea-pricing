@@ -222,6 +222,7 @@ public class QuoteRequestUse extends EoHelper {
                             exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode, null, resultEo);
 
                             raqModel.setTitle(exclusiveOfferItem.getTitle());
+                            raqModel.setApiTitle(exclusiveOfferItem.getTitle());
                             raqModel.setDescription(exclusiveOfferItem.getDescription());
 
                         } else {
@@ -229,6 +230,7 @@ public class QuoteRequestUse extends EoHelper {
                             if (node.hasProperty("raqTitle")) {
                                 propVal = node.getProperty("raqTitle");
                                 raqModel.setTitle(propVal.getValue().toString());
+                                raqModel.setApiTitle(node.getProperty("jcr:title").getValue().toString());
                             }
                             if (node.hasProperty((JcrConstants.JCR_DESCRIPTION))) {
                                 //jcr:description as description to show
