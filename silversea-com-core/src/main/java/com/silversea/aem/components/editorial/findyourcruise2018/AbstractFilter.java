@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.silversea.aem.models.CruiseModelLight;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -13,24 +12,28 @@ import java.util.stream.Stream;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
-import static java.util.stream.Collectors.toSet;
 
 public abstract class AbstractFilter<T> {
 
+    protected enum Sorting {
+        ASC, DESC, NONE, HIDDEN
+    }
+
     private final String kind;
+    private final Comparator<CruiseModelLight> sortedBy;
     private Set<FilterRow<T>> rows;
     private Set<FilterRow<T>> selectedRows;
-
-
+    private Sorting sorting;
     private boolean visible;
     private boolean open;
 
-    AbstractFilter(String kind) {
+    AbstractFilter(String kind, Comparator<CruiseModelLight> sortedBy, Sorting sorting) {
         this.kind = kind;
+        this.sortedBy = sortedBy;
+        this.sorting = sorting;
     }
 
     protected abstract Stream<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
-
 
     public Collection<FilterRow<T>> getRows() {
         return rows;
@@ -82,6 +85,18 @@ public abstract class AbstractFilter<T> {
             return valueFromProperty.get();
         }
         setVisible(true);
+        Optional<String[]> sortBy = ofNullable(httpRequest.get("sortby"));
+        if (sortBy.isPresent()) {
+            for(String sort : sortBy.get()) {
+                //duration-asc or duration-desc
+                String[] value = sort.split("-");
+                if (value.length > 1 && value[0].equalsIgnoreCase(getKind())) {
+                    setSorting(Sorting.valueOf(value[1].toUpperCase()));
+                } else if (value.length > 1 && getSorting().equalsIgnoreCase(Sorting.ASC.toString()) || getSorting().equalsIgnoreCase(Sorting.DESC.toString())) {
+                    setSorting(Sorting.NONE);
+                }
+            }
+        }
         return httpRequest.getOrDefault(getKind(), ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
@@ -165,5 +180,17 @@ public abstract class AbstractFilter<T> {
 
     protected void setRows(Set<FilterRow<T>> rows) {
         this.rows = rows;
+    }
+
+    public String getSorting() {
+        return sorting.toString();
+    }
+
+    public void setSorting(Sorting sorting) {
+        this.sorting = sorting;
+    }
+
+    public Comparator<CruiseModelLight> getSortedBy() {
+        return sortedBy;
     }
 }
