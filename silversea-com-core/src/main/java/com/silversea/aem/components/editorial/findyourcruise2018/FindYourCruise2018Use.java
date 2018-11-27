@@ -10,7 +10,6 @@ import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.models.ExclusiveOfferModelLight;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
@@ -162,14 +161,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             stream = stream.filter(cruise -> voyageCodeList.get().contains(cruise.getCruiseCode()));
         }
 
-        /*
-        Optional<String> exclusiveOffer = ofNullable(getProperties().get("eoId", String.class));
-        if (exclusiveOffer.isPresent()) {
-            String offer = exclusiveOffer.get();
-            stream = stream.filter(cruise -> cruise.getExclusiveOffers().stream().map(ExclusiveOfferModelLight::getPath).anyMatch(offer::equals));
-        }
-        */
-
         stream = stream.filter(hideToday);
 
         return stream.collect(Collectors.toList());
@@ -214,7 +205,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             if (value instanceof String[]) {
                 map.put(key, (String[]) value);
             } else if (value instanceof String) {
-                map.put(key, new String[]{(String) value});
+                map.put(key, ((String) value).split(","));
             }
         });
         return map;
