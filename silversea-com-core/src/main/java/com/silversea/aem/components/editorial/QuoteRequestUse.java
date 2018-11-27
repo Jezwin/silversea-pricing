@@ -6,6 +6,10 @@ import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.Session;
 
+import com.silversea.aem.components.beans.EoBean;
+import com.silversea.aem.components.beans.EoConfigurationBean;
+import com.silversea.aem.components.beans.ExclusiveOfferItem;
+import com.silversea.aem.helper.EoHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.slf4j.Logger;
@@ -52,7 +56,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 /**
  * @author giuseppes
  */
-public class QuoteRequestUse extends WCMUsePojo {
+public class QuoteRequestUse extends EoHelper {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(QuoteRequestUse.class);
 
@@ -82,9 +86,12 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     private RequestQuoteModel raqModel;
 
+    private ExclusiveOfferItem exclusiveOfferItem;
+
     @Override
     public void activate() throws Exception {
         // init geolocations informations
+        super.activate();
         final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
                 GeolocationTagService.class);
 
@@ -203,22 +210,20 @@ public class QuoteRequestUse extends WCMUsePojo {
                             // Loop on EO Variation if there is any match
                             // Then I will set title and desc
                             Page page = getPageManager().getPage(node.getParent().getPath());
-                            ExclusiveOfferVariedModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferVariedModel.class);
 
-                            List<ExclusiveOfferModel> availableEOVariation = exclusiveOfferModel.getVariations();
-                            for (ExclusiveOfferModel eoVar : availableEOVariation) {
-                                String fullGeo = String.join("||", eoVar.getGeomarkets());
+                            final ExclusiveOfferModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferModel.class);
 
-                                if (fullGeo.contains("/" + siteCountry)) {
-                                    if (!eoVar.getDescription().isEmpty()) {
-                                        exclusiveOfferModel.setVariedDescription(eoVar.getDescription());
-                                        exclusiveOfferModel.setVariedTitle(eoVar.getTitle());
-                                    }
-                                }
-                            }
+                            EoConfigurationBean eoConfig = new EoConfigurationBean();
+                            eoConfig.setActiveSystem(true);
+                            eoConfig.setTitleVoyage(true);
+                            eoConfig.setShortDescriptionVoyage(true);
+                            EoBean resultEo = super.parseExclusiveOffer(eoConfig, exclusiveOfferModel);
 
-                            raqModel.setTitle(exclusiveOfferModel.getVariedTitle());
-                            raqModel.setDescription(exclusiveOfferModel.getVariedDescription());
+                            exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode, null, resultEo);
+
+                            raqModel.setTitle(exclusiveOfferItem.getTitle());
+                            raqModel.setDescription(exclusiveOfferItem.getDescription());
+
                         } else {
                             //raqTitle as title to show
                             if (node.hasProperty("raqTitle")) {
