@@ -22,8 +22,9 @@ $(function($) {
         },
         getCookie: function (pname) {
             var name = pname + "=";
+            var decodedCookie = "";
             try {
-                var decodedCookie = decodeURIComponent(document.cookie);
+                decodedCookie = decodeURIComponent(document.cookie);
             }catch (e) {
                 //Cookie may be corrupted - kill the cookie
                 document.cookie.split(';').forEach(function(c) {
