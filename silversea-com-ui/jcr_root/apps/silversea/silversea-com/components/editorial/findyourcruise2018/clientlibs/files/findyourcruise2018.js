@@ -127,7 +127,7 @@ $(function () {
                 }
             });
         };//separateYears
-        var createUrl = function (urlTemplate) {
+        var createUrl = function (urlTemplate, nextPage) {
             var url = "";
             var j = 0;
             $(".fyc2018-filter .fyc2018-filter-value").each(function () {
@@ -144,11 +144,15 @@ $(function () {
                     url += $this.data('name') + "=" + urlFilter;
                 }
             });
-            var page = $(".active.fyc2018-pag-link").data("page") != "undefined" ? "1" : $(".active.fyc2018-pag-link").data("page");
+            var page = nextPage;
+            if (nextPage == null) {
+                page = $(".active.fyc2018-pag-link").data("page") != "undefined" ? "1" : $(".active.fyc2018-pag-link").data("page");
+            }
+
             if (url == "") {
-                url += "page=" + page;
+                url += "pag=" + page;
             } else {
-                url += "&page=" + page;
+                url += "&pag=" + page;
             }
 
             var current = window.location.href;
@@ -438,7 +442,8 @@ $(function () {
                 var page = $(this).data("page");
             page = $(this).hasClass("next-page") ? page + 1 : page;
             var urlTemplate = $("#results-url-request").data("url");
-            var url = createUrl(urlTemplate) + "&onlyResults=true";
+
+            var url = createUrl(urlTemplate, page) + "&onlyResults=true";
             updateCruises(url, true);
             var currentSearch =  window.location.search;
             var current = window.location.href.split("?")[0];
