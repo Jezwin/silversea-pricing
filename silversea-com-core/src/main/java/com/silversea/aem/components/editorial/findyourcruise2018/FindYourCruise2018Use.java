@@ -121,7 +121,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         switch (currentPageResourceType) {
             case WcmConstants.RT_DESTINATION:
-                map.put(FilterBar.DESTINATION.getKind() + "Id", value);
+                map.put(FilterBar.DESTINATION.getKind() + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
                 break;
             case WcmConstants.RT_PORT:
                 map.put(FilterBar.PORT.getKind() + "Id", value);
