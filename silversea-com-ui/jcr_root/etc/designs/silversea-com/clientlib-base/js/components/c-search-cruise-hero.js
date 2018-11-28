@@ -101,11 +101,29 @@ $(function() {
             mapShip["silver-wind"] = 998;
             mapShip["silver-origin"] = 9999;
 
+            var mapDest= [];
+            mapDest["africa-indian-ocean-cruise"] = 3;
+            mapDest["alaska-cruise"] = 9;
+            mapDest["antarctica-cruise"] = 10;
+            mapDest["arctic-greenland-cruise"] = 11;
+            mapDest["asia-cruise"] = 13;
+            mapDest["australia-new-zealand-cruise"] = 25;
+            mapDest["canada-new-england-cruise"] = 5;
+            mapDest["american-west-coast-cruise"] = 28;
+            mapDest["central-america-caribbean-cruise"] = 6;
+            mapDest["galapagos-islands-cruise"] = 23;
+            mapDest["mediterranean-cruise"] = 1;
+            mapDest["northern-europe-british-isles-cruise"] = 2;
+            mapDest["russian-far-east-cruise"] = 21;
+            mapDest["south-america-cruise"] = 7;
+            mapDest["south-pacific-islands-cruise"] = 7;
+            mapDest["transoceanic-cruise"] = 8;
+
             e.preventDefault();
             var $resultWrapper = $form.next('.feedback__wrapper');
             var paramterFYC2018= "";
             if ($form.find('[name=destination]').val() != null && $form.find('[name=destination]').val() != "all") {
-                paramterFYC2018 = "?destination="+ $form.find('[name=destination]').val();
+                paramterFYC2018 = "?destination="+ mapDest[$form.find('[name=destination]').val()];
             }
             if ($form.find('[name=date]').val() != null &&  $form.find('[name=date]').val() != "all") {
                 paramterFYC2018 += paramterFYC2018 != "" ? "&" : "?";
