@@ -14,6 +14,20 @@
                 <span class="fyc2018-header-mobile-filter-text">${'close' @ i18n}</span>
                 <i class="material-icons fyc-close-i"> clear </i>
             </div>
+            <div class="fyc2018-header-sorting hidden-xs">
+                <span class="fyc2018-sorting-span"> <span class="text-uppercase">${'departure' @ i18n}</span></span>
+                <div class="fyc2018-sorting-dropdown">
+                    <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
+                         data-sly-call="${sortingTemplate.default @ field='departure', sorting=fyc.filterBar.DEPARTURE.Sorting, label='departure'}"/>
+                    <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
+                         data-sly-call="${sortingTemplate.default @ field='duration', sorting=fyc.filterBar.DURATION.Sorting,  label='duration'}"/>
+                    <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
+                         data-sly-call="${sortingTemplate.default @ field='price', sorting=fyc.filterBar.PRICE.Sorting, label='price'}"/>
+                </div>
+            </div>
+            <div class="fyc2018-header-sorting-type hidden-xs">
+                <i class="fa fa-sort-amount-" data-type="asc"></i>
+            </div>
             <div class="fyc2018-header-reset-all c-fyc-v2-filter__reset">
                 <span><i class="fa fa-undo"></i> <span class="text-uppercase">${'clear-all-filters' @ i18n}</span></span>
             </div>
@@ -24,6 +38,8 @@
         <div class="fyc2018-filters-container">
             <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
             <div class="fyc2018-filters-wrapper" data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.filter'}" id="filter-url-request">
+                <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
+                     data-sly-call="${sortingTemplate.mobile @ fyc=fyc}"/>
                 <sly data-sly-test="${fyc.filterBar.DESTINATION.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DESTINATION.rows, type='filter-destination', singular='destination', plural='destinations', name='destination', fyc=fyc, open=fyc.filterBar.DESTINATION.open}"/>
                 <sly data-sly-test="${fyc.filterBar.DEPARTURE.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
