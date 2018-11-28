@@ -438,7 +438,7 @@ $(function () {
                 var page = $(this).data("page");
             page = $(this).hasClass("next-page") ? page + 1 : page;
             var urlTemplate = $("#results-url-request").data("url");
-            var url = (urlTemplate) + "&onlyResults=true";
+            var url = createUrl(urlTemplate) + "&onlyResults=true";
             updateCruises(url, true);
             var currentSearch =  window.location.search;
             var current = window.location.href.split("?")[0];
@@ -516,7 +516,7 @@ $(function () {
                             elementFilterSelected[key] = null;
                             setNumberFilterSelectedPorts();
                             var urlTemplate = $("#results-url-request").data("url");
-                            var url = (urlTemplate) + "&onlyResults=true";
+                            var url = createUrl(urlTemplate) + "&onlyResults=true";
                             updateCruises(url);
                         });
                     }
@@ -599,7 +599,7 @@ $(function () {
                 selectDisableFilter($(this));
                 setNumberFilterSelected(idFilter);
                 var urlTemplate = $("#results-url-request").data("url");
-                var url = (urlTemplate) + "&onlyResults=true";
+                var url = createUrl(urlTemplate) + "&onlyResults=true";
                 updateCruises(url);
                 checkNumberSelectedFilters();
             },
