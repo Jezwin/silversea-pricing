@@ -144,6 +144,13 @@ $(function () {
                     url += $this.data('name') + "=" + urlFilter;
                 }
             });
+            var page = $(".active.fyc2018-pag-link").data("page") != "undefined" ? "1" : $(".active.fyc2018-pag-link").data("page");
+            if (url == "") {
+                url += "page=" + page;
+            } else {
+                url += "&page=" + page;
+            }
+
             var current = window.location.href;
             history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
             return urlTemplate + ".html?" + url;
@@ -426,14 +433,24 @@ $(function () {
         $(".findyourcruise2018").on("click",".fyc2018-pag-link", function (e) {
             e.preventDefault();
             e.stopPropagation();
-            var page = $(this).data("page");
+            try {
+
+                var page = $(this).data("page");
             page = $(this).hasClass("next-page") ? page + 1 : page;
             var urlTemplate = $("#results-url-request").data("url");
-            var url = createUrl(urlTemplate) + "&onlyResults=true&pag=" + page;
+            var url = (urlTemplate) + "&onlyResults=true";
             updateCruises(url, true);
-            $('html, body').animate({
-                scrollTop: $('.findyourcruise2018-header').first().offset().top - $('.c-header').height()
-            }, 800);
+            var currentSearch =  window.location.search;
+            var current = window.location.href.split("?")[0];
+            var currentS = currentSearch.split("page");
+            currentSearch = currentS[0] + "pag=" + page;
+            history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + currentSearch));
+                $('html, body').animate({
+                    scrollTop: $('.findyourcruise2018-header').first().offset().top - $('.c-header').height() - 50
+                }, 800);
+            }
+            catch(e) {
+            }
         });
 
         $(fycContainerClass).on('click', ".filter-view-all-original", function (e) {
@@ -499,7 +516,7 @@ $(function () {
                             elementFilterSelected[key] = null;
                             setNumberFilterSelectedPorts();
                             var urlTemplate = $("#results-url-request").data("url");
-                            var url = createUrl(urlTemplate) + "&onlyResults=true";
+                            var url = (urlTemplate) + "&onlyResults=true";
                             updateCruises(url);
                         });
                     }
@@ -518,7 +535,7 @@ $(function () {
                 idShowElement = "#" + $filter.attr("id"),
                 $parent = $filter.parent();
             var urlTemplate = $("#filter-url-request").data("url");
-            var url = createUrl(urlTemplate) + "&onlyFilters=true";
+            var url = (urlTemplate) + "&onlyFilters=true";
 
             if ($parent.hasClass("fyc2018-filter-content-clicked")) {
                 $parent.removeClass("fyc2018-filter-content-clicked");
@@ -582,7 +599,7 @@ $(function () {
                 selectDisableFilter($(this));
                 setNumberFilterSelected(idFilter);
                 var urlTemplate = $("#results-url-request").data("url");
-                var url = createUrl(urlTemplate) + "&onlyResults=true";
+                var url = (urlTemplate) + "&onlyResults=true";
                 updateCruises(url);
                 checkNumberSelectedFilters();
             },
