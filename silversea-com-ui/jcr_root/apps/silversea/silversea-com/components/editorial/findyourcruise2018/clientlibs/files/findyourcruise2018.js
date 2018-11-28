@@ -146,7 +146,11 @@ $(function () {
             });
             var page = nextPage;
             if (nextPage == null) {
-                page = $(".active.fyc2018-pag-link").data("page") != "undefined" ? "1" : $(".active.fyc2018-pag-link").data("page");
+                if ($(".active.fyc2018-pag-link").length > 0) {
+                    page = $(".active.fyc2018-pag-link").data("page");
+                } else {
+                    page = 1;
+                }
             }
 
             if (url == "") {
@@ -448,7 +452,7 @@ $(function () {
             var currentSearch =  window.location.search;
             var current = window.location.href.split("?")[0];
             var currentS = currentSearch.split("page");
-            currentSearch = currentS[0] + "pag=" + page;
+            currentSearch = currentS[0];
             history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + currentSearch));
                 $('html, body').animate({
                     scrollTop: $('.findyourcruise2018-header').first().offset().top - $('.c-header').height() - 50
@@ -604,7 +608,7 @@ $(function () {
                 selectDisableFilter($(this));
                 setNumberFilterSelected(idFilter);
                 var urlTemplate = $("#results-url-request").data("url");
-                var url = createUrl(urlTemplate) + "&onlyResults=true";
+                var url = createUrl(urlTemplate,1) + "&onlyResults=true";
                 updateCruises(url);
                 checkNumberSelectedFilters();
             },
