@@ -1,0 +1,36 @@
+<div data-sly-test.empty="${wcmmode.edit && (!properties.pageReference)}" class="cq-placeholder cq-dd-image" data-emptytext="Combo Cruise header Manual"></div>
+<div class="c-combo-cruise-header-manual">
+    <div class="c-combo-cruise-header-manual__content">
+		<sly data-sly-test="${properties.title}" >
+			<h1 class="c-combo-cruise-header-manual__content__title ${properties.backgroundImage ? ''  : 'forcedblack' }">${properties.title @context="html"}</h1>
+		</sly>
+		<sly data-sly-test="${properties.description}" >
+			<div class="c-combo-cruise-header-manual__content__details ${properties.backgroundImage ? ''  : 'forcedblack' }">
+            	${properties.description @context="html"}
+			</div>
+		</sly>
+        <div class="c-combo-cruise-header-manual__content__resume ${properties.backgroundImage ? properties.fontTextColor  : '' }  ${properties.backgroundImage ? properties.boxTextColor  : '' }">
+            <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tbody>
+                    <tr>
+                        <td>${properties.days}</td>
+                        <td>${properties.portsAmount}</td>
+                        <td>${properties.routes}</td>
+                        <td>${properties.countries}</td>
+                    </tr>
+                    <tr>
+                        <th>${'days' @ i18n}</th>
+                        <th>${'ports' @ i18n}</th>
+                        <th>${'routes' @ i18n}</th>
+                        <th>${'countries' @ i18n}</th>
+                    </tr>
+		        </tbody>
+			</table>
+        </div>
+    </div>
+    	<div class="c-combo-cruise-header-manual__image">
+        	<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+           	 data-sly-call="${imageTemplate.default @ imagePath= properties.backgroundImage}" />
+    	</div>
+
+</div>
