@@ -535,7 +535,7 @@ $(function () {
                 idShowElement = "#" + $filter.attr("id"),
                 $parent = $filter.parent();
             var urlTemplate = $("#filter-url-request").data("url");
-            var url = (urlTemplate) + "&onlyFilters=true";
+            var url = createUrl(urlTemplate) + "&onlyFilters=true";
 
             if ($parent.hasClass("fyc2018-filter-content-clicked")) {
                 $parent.removeClass("fyc2018-filter-content-clicked");
