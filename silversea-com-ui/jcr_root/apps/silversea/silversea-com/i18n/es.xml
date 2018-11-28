@@ -305,6 +305,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Tipo de crucero"/>
+    <cruise-types
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Cruise types"/>
     <CV
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -341,6 +345,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Salida"/>
+    <departures
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Departures"/>
     <departure-date
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -357,6 +365,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="destino"/>
+    <destinations
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Destinations"/>
     <destination-discover-more
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -413,6 +425,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Duración"/>
+    <durations
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Durations"/>
     <DV
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -530,6 +546,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Características"/>
+    <feature
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Feature"/>
     <feet
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -671,6 +691,18 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Lady"/>
+    <load-more
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Load more"/>
+    <no-matching-cruises
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sorry, we found no matching cruises."/>
+    <change-filters
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Please change filters."/>
     <land-and-hotel
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -775,6 +807,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="No se ha encontrado ninguna coincidencia con estos términos de búsqueda. Inténtelo de nuevo con otras palabras clave."/>
+    <no-port-found
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="No port found"/>
     <note
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -883,6 +919,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Puertos"/>
+    <port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Port"/>
     <postal-address
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1107,6 +1147,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Buscar"/>
+    <search-port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Search port"/>
     <search-more
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1123,6 +1167,14 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Seleccione una consulta"/>
+    <selected-port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Selected port"/>
+    <selected-ports
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Selected ports"/>
     <select-language
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

@@ -36,6 +36,8 @@ public class FindYourCruise2018UseTest {
     private List<CruiseModelLight> cruises;
     CruisesCacheService cacheService;
 
+    private static final String AFRICA_VALUE = "3";
+    private static final String ASIA_VALUE = "13";
     private static final String AFRICA_LABEL = "Africa and Indian Ocean";
     private static final String ASIA_LABEL = "Asia";
     private static final String SILVER_GALAPAGOS = "Silver Galapagos";
@@ -66,15 +68,15 @@ public class FindYourCruise2018UseTest {
         List<UseBuilder> builders = new ArrayList<>();
         for (int i = 0; i < nOfRun; i++) {
             builders.add(new UseBuilder());
-            builders.add(new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL));
+            builders.add(new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE));
             builders.add(new UseBuilder().withType(SILVERSEA_EXPEDITION));
             builders.add(new UseBuilder().withDuration("8"));
-            builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_LABEL));
-            builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_LABEL));
-            builders.add(new UseBuilder().withShip(SILVER_GALAPAGOS).withDestinations(ASIA_LABEL)
+            builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_VALUE));
+            builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_VALUE));
+            builders.add(new UseBuilder().withShip(SILVER_GALAPAGOS).withDestinations(ASIA_VALUE)
                     .withPorts(HO_CHI_MINH_CITY, DA_NANG));
             builders.add(new UseBuilder(
-                    "destination=asia-cruise&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
+                    "destination=1&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
         }
         Function<UseBuilder, Callable<Long>> test = useBuilder -> () -> {
             long current = System.currentTimeMillis();
@@ -96,7 +98,7 @@ public class FindYourCruise2018UseTest {
 
     @Test
     public void testOneDestination() {
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL).build();
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).build();
         use.init(cacheService, "1000");
 
         //test results
@@ -121,7 +123,7 @@ public class FindYourCruise2018UseTest {
 
     @Test
     public void testTwoDestinations() {
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL).build();
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE).build();
         Predicate<CruiseModelLight> test = cruise -> AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
                 ASIA_LABEL.equals(cruise.getDestination().getTitle());
         use.init(cacheService, "1000");
@@ -168,7 +170,7 @@ public class FindYourCruise2018UseTest {
     @Test
     public void testMultipleFilters() {
         FindYourCruise2018Use use =
-                new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL).withPorts(HO_CHI_MINH_CITY, DA_NANG)
+                new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE).withPorts(HO_CHI_MINH_CITY, DA_NANG)
                         .build();
 
         Predicate<CruiseModelLight> test = cruise -> (AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
@@ -216,6 +218,7 @@ public class FindYourCruise2018UseTest {
                 key -> Optional.ofNullable(json.get(key)).map(JsonElement::getAsString).orElse("");
         cruiseModel.setShip(json.getAsJsonObject("ship").getAsJsonPrimitive("title").getAsString());
         cruiseModel.setDestination(json.getAsJsonObject("destination").getAsJsonPrimitive("title").getAsString());
+        cruiseModel.setDestinationId(stringOrEmpty.apply("destinationId"));
         cruiseModel.setCruiseType(json.get("cruiseType").getAsString());
         cruiseModel.setArrivalPortName(stringOrEmpty.apply("arrivalPortName"));
         cruiseModel.setDeparturePortName(stringOrEmpty.apply("departurePortName"));
@@ -355,6 +358,11 @@ public class FindYourCruise2018UseTest {
         private String departurePortName;
         private String arrivalPortName;
         private String duration;
+        private String destinationId;
+
+        public void setDestinationId(String destinationId) {
+            this.destinationId = destinationId;
+        }
 
         public void setDeparturePortName(String departurePortName) {
             this.departurePortName = departurePortName;
@@ -400,6 +408,11 @@ public class FindYourCruise2018UseTest {
                 @Override
                 public String getName() {
                     return destination;
+                }
+
+                @Override
+                public String getDestinationId() {
+                    return destinationId;
                 }
             };
         }
