@@ -444,7 +444,14 @@ $(function () {
             try {
 
                 var page = $(this).data("page");
-            page = $(this).hasClass("next-page") ? page + 1 : page;
+                if ($(this).hasClass("next-page")) {
+                    page = page +1;
+                } else if ($(this).hasClass("previous-page")) {
+                    page = page - 1;
+                }
+
+
+
             var urlTemplate = $("#results-url-request").data("url");
 
             var url = createUrl(urlTemplate, page) + "&onlyResults=true";
