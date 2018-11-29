@@ -489,6 +489,7 @@ $(function () {
             var urlTemplateCruises = $("#results-url-request").data("url");
             var current = window.location.href;
             $(".fyc2018-header-reset-all").hide();
+            elementFilterSelected = [];
             $(".fyc2018-filters-container").removeClass("fyc2018-filters-container-clear-open");
             history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4)));
             urlToCompare = "force";
