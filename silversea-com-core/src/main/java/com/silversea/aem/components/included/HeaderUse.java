@@ -57,8 +57,8 @@ public class HeaderUse extends WCMUsePojo {
         link3MobilePage = getPageManager().getPage(link3MobileReference);
         searchPage = getPageManager().getPage(searchPageReference);
 
-        languagePages = globalCacheService.getCache("languagePages" + currentPath, new TypeReference<Map<String, String>>() {
-        }, this::retrieveLanguagePages);
+        languagePages = retrieveLanguagePages();/* globalCacheService.getCache("languagePages" + currentPath, new TypeReference<Map<String, String>>() {
+        }, this::retrieveLanguagePages);*/
         languagePageList = getLanguagePages();/*globalCacheService.getCache("languagePageList" + currentPath, new TypeReference<List<Page>>() {
         }, () -> {
             return getLanguagePages();
@@ -73,18 +73,18 @@ public class HeaderUse extends WCMUsePojo {
     }
 
     private List<Page> getLanguagePages() {
-        List<Page> languagePageList = new ArrayList<>();
+        List<Page> languagePageListIn = new ArrayList<>();
         final Iterator<Page> homeLangIt = homePage.getParent().listChildren(new PageFilter());
 
         Page homeLang;
         while (homeLangIt.hasNext()) {
             homeLang = homeLangIt.next();
             if (!homeLang.getPath().equals(homePage.getPath())) {
-                languagePageList.add(homeLang);
+                languagePageListIn.add(homeLang);
             }
         }
 
-        return languagePageList;
+        return languagePageListIn;
     }
 
     private List<NavPageModel> getNavPageModels() {
