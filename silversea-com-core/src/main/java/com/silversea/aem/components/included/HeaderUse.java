@@ -59,41 +59,49 @@ public class HeaderUse extends WCMUsePojo {
 
         languagePages = globalCacheService.getCache("languagePages" + currentPath, new TypeReference<Map<String, String>>() {
         }, this::retrieveLanguagePages);
-        languagePageList = globalCacheService.getCache("languagePageList" + currentPath, new TypeReference<List<Page>>() {
+        languagePageList = getLanguagePages();/*globalCacheService.getCache("languagePageList" + currentPath, new TypeReference<List<Page>>() {
         }, () -> {
-            List<Page> languagePageList = new ArrayList<>();
-            final Iterator<Page> homeLangIt = homePage.getParent().listChildren(new PageFilter());
+            return getLanguagePages();
+        });*/
 
-            Page homeLang;
-            while (homeLangIt.hasNext()) {
-                homeLang = homeLangIt.next();
-                if (!homeLang.getPath().equals(homePage.getPath())) {
-                    languagePageList.add(homeLang);
-                }
+        languagePageListForCurrentPage = getNavPageModels();/*globalCacheService.getCache("languagePageListForCurrentPage" + currentPath, new TypeReference<List<NavPageModel>>() {
+        }, () -> {
+            return getNavPageModels();
+        });*/
+
+
+    }
+
+    private List<Page> getLanguagePages() {
+        List<Page> languagePageList = new ArrayList<>();
+        final Iterator<Page> homeLangIt = homePage.getParent().listChildren(new PageFilter());
+
+        Page homeLang;
+        while (homeLangIt.hasNext()) {
+            homeLang = homeLangIt.next();
+            if (!homeLang.getPath().equals(homePage.getPath())) {
+                languagePageList.add(homeLang);
             }
+        }
 
-            return languagePageList;
-        });
+        return languagePageList;
+    }
 
-        languagePageListForCurrentPage = globalCacheService.getCache("languagePageListForCurrentPage" + currentPath, new TypeReference<List<NavPageModel>>() {
-        }, () -> {
-            List<NavPageModel> languagePageListForCurrentPageInner = new ArrayList<>();
-      for (Page languagePage : languagePageList) {
-          languagePages.forEach((lang, value) -> {
-              if (languagePage.getPath().toLowerCase().contains(lang.toLowerCase())) {
-                  NavPageModel nPage = new NavPageModel();
-                  nPage.setPath(value);
-                  nPage.setName(languagePage.getName());
-                  nPage.setNavigationTitle(languagePage.getNavigationTitle());
-                  languagePageListForCurrentPageInner.add(nPage);
-              }
-          });
-      }
+    private List<NavPageModel> getNavPageModels() {
+        List<NavPageModel> languagePageListForCurrentPageInner = new ArrayList<>();
+        for (Page languagePage : languagePageList) {
+            languagePages.forEach((lang, value) -> {
+                if (languagePage.getPath().toLowerCase().contains(lang.toLowerCase())) {
+                    NavPageModel nPage = new NavPageModel();
+                    nPage.setPath(value);
+                    nPage.setName(languagePage.getName());
+                    nPage.setNavigationTitle(languagePage.getNavigationTitle());
+                    languagePageListForCurrentPageInner.add(nPage);
+                }
+            });
+        }
 
-      return languagePageListForCurrentPageInner;
-        });
-
-
+        return languagePageListForCurrentPageInner;
     }
 
     private String getProp(String key, String defaultValue) {
