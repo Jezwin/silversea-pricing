@@ -66,8 +66,7 @@ public class FooterUse extends WCMUsePojo {
     public void activate() throws Exception {
         globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
         currentPath = getCurrentPage().getPath();
-        final String[] references = globalCacheService
-                .getCache("prop_reference" + currentPath, String[].class, () -> getInheritanceValueMap().getInherited("reference", String[].class));
+        final String[] references = getInheritanceValueMap().getInherited("reference", String[].class);//globalCacheService.getCache("prop_reference" + currentPath, String[].class, () -> getInheritanceValueMap().getInherited("reference", String[].class));
         ArrayList<Page> pagesMainCol = new ArrayList<>();
         if (references != null) {
             for (int i = 0; i < references.length; i++) {
@@ -115,9 +114,10 @@ public class FooterUse extends WCMUsePojo {
         ctaLabelMobile = getFromProp("ctaLabelMobile");
 
 
-        final String[] bottomLine = globalCacheService
-                .getCache("prop_referencelegal" + currentPath, String[].class, () -> getInheritanceValueMap().getInherited("referencelegal",
-                        String[].class));
+        final String[] bottomLine = getInheritanceValueMap().getInherited("referencelegal",
+                String[].class);//globalCacheService
+              //  .getCache("prop_referencelegal" + currentPath, String[].class, () -> getInheritanceValueMap().getInherited("referencelegal",
+              //          String[].class));
         ArrayList<Page> pagesBottomLine = new ArrayList<>();
         if (bottomLine != null) {
             for (int i = 0; i < bottomLine.length; i++) {
@@ -133,11 +133,11 @@ public class FooterUse extends WCMUsePojo {
     }
 
     private String getFromProp(String key) {
-        return globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> getInheritanceValueMap().getInherited(key, String.class));
+        return getInheritanceValueMap().getInherited(key, String.class);//globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> getInheritanceValueMap().getInherited(key, String.class));
     }
 
     private String getFromProp(String key, String defaultValue) {
-        return globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> getInheritanceValueMap().getInherited(key, defaultValue));
+        return getInheritanceValueMap().getInherited(key, defaultValue);// globalCacheService.getCache("prop_" + key + currentPath, String.class, () -> getInheritanceValueMap().getInherited(key, defaultValue));
     }
 
     private InheritanceValueMap getInheritanceValueMap() {

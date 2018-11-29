@@ -97,7 +97,7 @@ public class HeaderUse extends WCMUsePojo {
     }
 
     private String getProp(String key, String defaultValue) {
-        return globalCacheService.getCache(key + currentPath, String.class, () -> getHierarchyProperties().getInherited(key, defaultValue));
+        return getHierarchyProperties().getInherited(key, defaultValue);// globalCacheService.getCache(key + currentPath, String.class, () -> getHierarchyProperties().getInherited(key, defaultValue));
     }
 
     private InheritanceValueMap getHierarchyProperties() {

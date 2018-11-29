@@ -44,13 +44,15 @@ public class PageHelper extends WCMUsePojo {
                 if (imageRes != null) {
                     thumbnail = imageRes.getValueMap().get("fileReference", String.class);
                 }
+                final InheritanceValueMap propertiesInherited = new HierarchyNodeInheritanceValueMap(resource);
+                thumbnailInherited = propertiesInherited.getInherited("image/fileReference", String.class);
 
-                final GlobalCacheService globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
+                /*final GlobalCacheService globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
                 Resource finalResource = resource;
                 thumbnailInherited = globalCacheService.getCache("thumbnailInherited-" + page.getParent().getPath(), String.class, () -> {
                     final InheritanceValueMap propertiesInherited = new HierarchyNodeInheritanceValueMap(finalResource);
                     return propertiesInherited.getInherited("image/fileReference", String.class);
-                });
+                });*/
 
             }
         }
