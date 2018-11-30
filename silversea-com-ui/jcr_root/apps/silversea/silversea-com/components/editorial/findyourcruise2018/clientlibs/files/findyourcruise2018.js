@@ -4,7 +4,6 @@ $(function () {
     if ($(".findyourcruise2018").length > 0) {
         var showFilteredElement = function () {
             elementFilteredToShow = [];
-            indexElementFilteredToShow = 0;
             var $listItem = $(filterPortValueContainerClass),
                 $itemToRender = null,
                 index = 0,
@@ -24,6 +23,7 @@ $(function () {
                 if ($itemToRender.length > 0) {
                     if (elementFilterSelected[item.key] != null) {
                         item.state = elementFilterSelected[item.key].state;
+                        console.log(item.state);
                     }
                     var status = item.state == 'ENABLED' ? 'filter-no-selected' : item.state == 'DISABLED' ? 'filter-disabled' : item.state == 'CHOSEN' ? 'filter-selected' : '';
                     $itemToRender.removeAttr("class");
@@ -56,7 +56,6 @@ $(function () {
             }
 
         };//showFilteredElement
-
         var loadPortsElementNotSelected = function (indexToStart, filtered) {
             /* Event triggered when the user click on Load more inside the port list
             *  Create DOM element to show other ports not loaded on startup.
@@ -66,14 +65,15 @@ $(function () {
             for (var i = indexToStart; (i < indexToStart + 100 && i < list.length); i++) {
                 var port = list[i];
                 var portClass = "col-sm-12 filter-value ";
-                if (port.state == 'ENABLED'){
+                if (port.state == 'ENABLED') {
                     portClass += "filter-no-selected";
                 } else if (port.state == 'DISABLED') {
                     portClass += "filter-disabled";
                 } else if (port.state == 'CHOSEN') {
                     portClass += "filter-selected";
                 }
-                $portsFilterContainer.append($("<div class='"+ portClass +"' data-key='" + port.item + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" +  port.label + "</span></div>"));
+                console.log("here", port.state);
+                $portsFilterContainer.append($("<div class='" + portClass + "' data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
             }
             /* I will move the both Load More as last element.
              * Hide them and show only the Load More if I have other ports to load.
@@ -84,7 +84,6 @@ $(function () {
             $loadMoreSelectedPorts.hide();
             $portsFilterContainer.append($(".filter-port .filter-view-all-original"));
             $portsFilterContainer.append($(".filter-port .filter-view-all-filtered"));
-            console.log($(".filter-port .filter-value").length < list.length - 1);
             if ($(".filter-port .filter-value").length < list.length - 1) {
                 if (filtered) {
                     $loadMoreSelectedPorts.show();
@@ -93,7 +92,6 @@ $(function () {
                 }
             }
         };//loadPortsElementNotSelected
-        
         var close = function () {
             $("#" + lastOpenFilter).parent().click();
         };//close
@@ -205,8 +203,6 @@ $(function () {
 
                         $(".findyourcruise2018-header").replaceWith($(".fyc2018-tmp-div").html());
                         $(".fyc2018-tmp-div").html("");
-                        setNumberAllFilterSelected();
-                        separateYears();
                         try {
                             portsList = JSON.parse(window.portsList);
                         } catch (e) {
@@ -222,6 +218,16 @@ $(function () {
                             $(".fyc2018-filters-container").show();
                         }
                         if ($(".filter-port").length > 0) {
+                            var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
+                            for(var i= 0; i < portsList.length; i++) {
+                                var port = portsList[i];
+                                console.log(port.state);
+                                if (port.state == "CHOSEN") {
+                                    var portClass = "col-sm-12 filter-value filter-selected";
+                                    console.log("here2", port.state);
+                                    $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
+                                }
+                            }
                             $(".findyourcruise2018 #filter-autocomplete").easyAutocomplete(optionAutoComplete);
                             $(".findyourcruise2018 .easy-autocomplete-container ul").remove();
                             $(".findyourcruise2018 #filter-autocomplete").focus().select();
@@ -232,15 +238,9 @@ $(function () {
                                     $(".fyc2018-filter-autocomplete-content .filter-no-ports").hide();
                                 }
                             });
-                            try {
-                                $('.findyourcruise2018 .fyc2018-filter-autocomplete-content').animate({
-                                    scrollTop: $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().position().top - $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().height() - 43
-                                }, 800);
-                            } catch (e) {
-
-                            }
-
                         }
+                        setNumberAllFilterSelected();
+                        separateYears();
                         searchAnalytics();
                         urlToCompare = window.location.search;
                     }
@@ -254,19 +254,20 @@ $(function () {
             });
         };//setNumberAllFilterSelected
         var setNumberFilterSelected = function (idFilter) {
-            var numberSelected = $("." + idFilter + " .filter-value.filter-selected:not(.filter-port-selected)").length;
+            var numberSelected = $("." + idFilter + " .filter-value.filter-selected").length;
 
             if (idFilter == "filter-port") {
-
+                numberSelected = $("." + idFilter + " .fyc2018-filter-selected-content .filter-value").length;
+                var $selectedPortLink = $(".filter-port .filter-show-selected");
                 if (numberSelected > 0) {
-                    $(showSelectedPortsClass).show();
-                    $(".fyc2018-filter-autocomplete-content").addClass("fyc2018-filter-autocomplete-content-open");
+                    $selectedPortLink.show();
+                    $(".filter-port .fyc2018-filter-autocomplete-content").addClass("fyc2018-filter-autocomplete-content-open");
                     var lab = (numberSelected > 1) ? "labelplural" : 'labelsingular';
-                    $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data(lab));
+                    $selectedPortLink.find("span").text(numberSelected + " " + $selectedPortLink.data(lab));
                 } else {
-                    $(showSelectedPortsClass).hide();
-                    $(".fyc2018-filter-autocomplete-content").removeClass("fyc2018-filter-autocomplete-content-open");
-                    $(selectedPortsContainerClass).hide();
+                    $selectedPortLink.hide();
+                    $(".filter-port .fyc2018-filter-autocomplete-content").removeClass("fyc2018-filter-autocomplete-content-open");
+                    $(".filter-port .fyc2018-filter-selected-content .filter-value").hide();
                 }
             }
             var type = (numberSelected > 1) ? "plural" : 'singular';
@@ -283,23 +284,24 @@ $(function () {
             }
 
         };//setNumberFilterSelected
-        var setNumberFilterSelectedPorts = function () {
-            var numberSelected = $(".filter-port .fyc2018-filter-selected-content .filter-value").length;
 
-            if (numberSelected > 0) {
-                $(showSelectedPortsClass).show();
-                var lab = (numberSelected > 1) ? "labelplural" : 'labelsingular';
-                $(showSelectedPortsClass).find("span").text(numberSelected + " " + $(showSelectedPortsClass).data(lab));
+        var onClickShowSelectedPort = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var isOpenSelectedDiv = $(this).hasClass("filter-show-selected-open");
+            var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
+            var $containerPortList = $(".filter-port .fyc2018-filter-autocomplete-content");
+            if (isOpenSelectedDiv) {
+                $containerPortSelected.hide();
+                $(this).removeClass("filter-show-selected-open");
+                $containerPortList.show();
             } else {
-                $(showSelectedPortsClass).hide();
-                $(selectedPortsContainerClass).hide();
-                $(autocompleteContainerClass).show();
+                $containerPortList.hide();
+                $(this).addClass("filter-show-selected-open");
+                $containerPortSelected.show();
             }
-            var type = (numberSelected > 1) ? "plural" : 'singular';
-            var label = $("#filter-port").data(type);
-            numberSelected = numberSelected == 0 ? "" : numberSelected;
-            $("#filter-port").text(numberSelected + " " + label);
-        };//setNumberFilterSelected
+        };//onClickShowSelectedPort
+
         var selectDisableFilter = function ($filter) {
 
             if ($filter.hasClass("filter-selected")) {
@@ -324,6 +326,7 @@ $(function () {
                 } else if ($filter.hasClass("filter-no-selected")) {
                     value.state = 'ENABLED';
                 }
+                console.log("here3", value.state);
                 elementFilterSelected[key] = value;
             }
         };//selectDisableFilter
@@ -384,10 +387,6 @@ $(function () {
             viewAllOriginalContainerClass = ".findyourcruise2018 .fyc2018-filter .filter-view-all-original",
             filterPortValueContainerClass = ".findyourcruise2018 .fyc2018-filter .filter-port .fyc2018-filter-autocomplete-content .filter-value",
             autocompleteInputId = ".findyourcruise2018 .fyc2018-filter #filter-autocomplete",
-            showSelectedPortsClass = ".findyourcruise2018 .fyc2018-filter .filter-show-selected",
-            selectedPortsContainerClass = ".findyourcruise2018 .fyc2018-filter .fyc2018-filter-selected-content",
-            indexElementFilteredToShow = 0,
-            indexElementNotFilteredToShow = 100,
             elementFilteredToShow = [],
             elementFilterSelected = [],
             portsList = null,
@@ -481,50 +480,7 @@ $(function () {
 
         });
 
-        $(fycContainerClass).on("click ", ".fyc2018-filter .filter-show-selected", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if ($(this).hasClass("filter-show-selected-open")) {
-                $(selectedPortsContainerClass).hide();
-                $(selectedPortsContainerClass).html("");
-                $(this).removeClass("filter-show-selected-open");
-                $(autocompleteContainerClass).show();
-            } else {
-                $(autocompleteContainerClass).hide();
-                for (var key in elementFilterSelected) {
-                    var item = elementFilterSelected[key];
-                    if (item != null) {
-                        var status = item.state == "ENABLED" ? 'filter-no-selected' : item.state == "DISABLED" ? 'filter-disabled' : item.state == "CHOSEN" ? 'filter-selected' : '';
-                        var $itemToRender = $("<div><span></span></div>");
-                        $itemToRender.addClass("col-sm-12 filter-value filter-port-selected " + status);
-                        $itemToRender.attr("data-key", item.key);
-                        $itemToRender.attr("data-label", item.label);
-                        $itemToRender.attr("data-state", item.state);
-                        $itemToRender.find("span").html(item.label);
-                        $(selectedPortsContainerClass).prepend($itemToRender);
-                        $itemToRender.on("click ", function (e) {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            $(this).hide();
-                            $(this).removeAttr("class");
-                            var key = $(this).data("key");
-                            $(filterPortValueContainerClass + '.filter-selected[data-key="' + key + '"]').each(function () {
-                                $(this).attr("data-state", "ENABLED");
-                                $(this).removeAttr("class");
-                                $(this).addClass("col-sm-12 filter-value filter-value filter-no-selected");
-                            });
-                            elementFilterSelected[key] = null;
-                            setNumberFilterSelectedPorts();
-                            var urlTemplate = $("#results-url-request").data("url");
-                            var url = createUrl(urlTemplate) + "&onlyResults=true";
-                            updateCruises(url);
-                        });
-                    }
-                }
-                $(selectedPortsContainerClass).show();
-                $(this).addClass("filter-show-selected-open");
-            }
-        });
+        $(fycContainerClass).on("click ", ".fyc2018-filter .filter-show-selected", onClickShowSelectedPort);
 
         $(fycContainerClass).on("click ", ".fyc2018-filter .fyc2018-filter-content span", function (e) {
             e.preventDefault();
@@ -541,6 +497,7 @@ $(function () {
                 $parent.removeClass("fyc2018-filter-content-clicked");
                 $(classShowElement).removeClass("fyc2018-filter-value-clicked");
                 lastOpenFilter = null;
+                elementFilterSelected[$(this).data("key")] = null;
                 updateFilters(url);
             } else {
                 lastOpenFilter = $(".fyc2018-filter-content-clicked span").attr("id");
@@ -566,25 +523,37 @@ $(function () {
                                 label: label,
                                 state: 'CHOSEN'
                             };
+                            console.log("here6", value.state);
+
                             elementFilterSelected[key] = value;
                         });
+                        var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
+                        for(var i=0; i < portsList.length; i++) {
+                            var port = portsList[i];
+                            if (port.state == "CHOSEN") {
+                                var isAlreadyPresent = false;
+                                $containerPortSelected.find(".filter-value").each(function () {
+                                    if ($(this).data("key") == port.key) {
+                                        isAlreadyPresent = true;
+                                    }
+                                });
+                                if (!isAlreadyPresent) {
+                                    console.log("here4", port.state);
+                                    $containerPortSelected.append($("<div class=\"col-sm-12 filter-value filter-selected\" data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
+
+                            }
+                        }
                         optionAutoComplete.data = portsList;
                         $(".findyourcruise2018 #filter-autocomplete").easyAutocomplete(optionAutoComplete);
                         $(".findyourcruise2018 .easy-autocomplete-container ul").remove();
                         $(".findyourcruise2018 #filter-autocomplete").focus().select();
                         $(".findyourcruise2018 #filter-autocomplete").keyup(function () {
                             if ($(this).val().trim().length == 0) {
-                                $(".filter-port .filter-value").remove();
+                                $(".filter-port .fyc2018-filter-autocomplete-content .filter-value").remove();
                                 loadPortsElementNotSelected(0);
                                 $(".fyc2018-filter-autocomplete-content .filter-no-ports").hide();
                             }
                         });
-                        try {
-                            $('.findyourcruise2018 .fyc2018-filter-autocomplete-content').animate({
-                                scrollTop: $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().position().top - $('.findyourcruise2018 .fyc2018-filter-autocomplete-content .filter-no-selected').first().height() - 43
-                            }, 800);
-                        } catch (e) {
-                        }
                     }
                 }
             }
@@ -596,6 +565,9 @@ $(function () {
                 e.stopPropagation();
                 var idFilter = $(this).parent().parent().data("filter");
                 selectDisableFilter($(this));
+                if (idFilter == "filter-port") {
+                    createPortSelectedList($(this));
+                }
                 setNumberFilterSelected(idFilter);
                 var urlTemplate = $("#results-url-request").data("url");
                 var url = createUrl(urlTemplate, 1) + "&onlyResults=true";
@@ -611,6 +583,24 @@ $(function () {
                 }
             }
         }, ".fyc2018-filter .fyc2018-filter-value .filter-value");
+
+        var createPortSelectedList = function (port) {
+            var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
+            var isAlreadyPresent = false;
+            $containerPortSelected.find(".filter-value").each(function () {
+                if ($(this).data("key") == port.data("key")) {
+                    isAlreadyPresent = true;
+                    if (port.data("state") == "ENABLED") {
+                        $(this).remove();
+                    }
+                }
+            });
+            if (!isAlreadyPresent) {
+                var portClass = "col-sm-12 filter-value filter-selected";
+                console.log("here5", port.data("state"));
+                $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.data("key") + "' data-label='" + port.data("label") + "' data-state='" + port.data("state") + "'><span>" + port.data("label") + "</span></div>"));
+            }
+        };//createPortSelectedList
 
         $(document).on("click ", function (e) {
             if ($(".findyourcruise2018").length > 0) {
