@@ -28,13 +28,13 @@
                             ${item.month || item.label @ i18n}
                         </span>
                     </div>
-                    <div  class="${class || 'col-sm-6'} filter-value filter-selected" data-sly-test="${item.isChosen}" data-key="${item.key}" data-state="${item.isChosen.toString}" data-label="${item.label}">
+                    <div  class="${class || 'col-sm-6'} filter-value filter-selected" data-sly-test="${item.isChosen}" data-key="${item.key}" data-state="${item.state.toString}" data-label="${item.label}">
                         <span>
                             <i data-sly-test="${item.icon}" class="${item.icon}"></i>
                             ${item.month || item.label @ i18n}
                         </span>
                     </div>
-                    <div class="${class || 'col-sm-6'} filter-value filter-disabled" data-sly-test="${item.isDisabled}" data-key="${item.key}" data-state="${item.isDisabled.toString}" data-label="${item.label}">
+                    <div class="${class || 'col-sm-6'} filter-value filter-disabled" data-sly-test="${item.isDisabled}" data-key="${item.key}" data-state="${item.state.toString}" data-label="${item.label}">
                         <span>
                             <i data-sly-test="${item.icon}" class="${item.icon}"></i>
                             ${item.month || item.label @ i18n}
@@ -42,7 +42,7 @@
                     </div>
                 </sly>
                 <sly data-sly-test="${(autocomplete && itemList.last)}">
-                    <div class="${class || 'col-sm-6'} filter-view-all filter-view-all-original">
+                    <div class="${class || 'col-sm-6'} filter-view-all filter-view-all-original" data-sly-test="${itemList.index >  100}">
                         <span>${'load-more' @ i18n}</span>
                     </div>
                     <div class="${class || 'col-sm-6'} filter-view-all filter-view-all-filtered">

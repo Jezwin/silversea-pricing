@@ -76,4 +76,8 @@ class FeatureFilter extends AbstractFilter<FeatureModelLight> {
         }
     }
 
+    @Override
+    public boolean isVisible() {
+        return super.isVisible() && !getRows().isEmpty();
+    }
 }

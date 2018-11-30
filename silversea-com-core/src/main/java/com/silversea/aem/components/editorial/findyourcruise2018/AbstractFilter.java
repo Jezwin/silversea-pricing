@@ -155,4 +155,15 @@ public abstract class AbstractFilter<T> {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+
+    /**
+     * Apply post filtering, such as removing not enabled lines.
+     */
+    protected void postFilter() {
+
+    }
+
+    protected void setRows(Set<FilterRow<T>> rows) {
+        this.rows = rows;
+    }
 }
