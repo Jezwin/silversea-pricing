@@ -23,7 +23,6 @@ $(function () {
                 if ($itemToRender.length > 0) {
                     if (elementFilterSelected[item.key] != null) {
                         item.state = elementFilterSelected[item.key].state;
-                        console.log(item.state);
                     }
                     var status = item.state == 'ENABLED' ? 'filter-no-selected' : item.state == 'DISABLED' ? 'filter-disabled' : item.state == 'CHOSEN' ? 'filter-selected' : '';
                     $itemToRender.removeAttr("class");
@@ -67,12 +66,16 @@ $(function () {
                 var portClass = "col-sm-12 filter-value ";
                 if (port.state == 'ENABLED') {
                     portClass += "filter-no-selected";
-                } else if (port.state == 'DISABLED') {
-                    portClass += "filter-disabled";
                 } else if (port.state == 'CHOSEN') {
                     portClass += "filter-selected";
                 }
-                console.log("here", port.state);
+                var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
+                $containerPortSelected.each(function () {
+                    if($(this).data("key") == port.key) {
+                        portClass = "filter-selected";
+                        port.state = "CHOSEN";
+                    }
+                });
                 $portsFilterContainer.append($("<div class='" + portClass + "' data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
             }
             /* I will move the both Load More as last element.
@@ -219,12 +222,10 @@ $(function () {
                         }
                         if ($(".filter-port").length > 0) {
                             var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
-                            for(var i= 0; i < portsList.length; i++) {
+                            for (var i = 0; i < portsList.length; i++) {
                                 var port = portsList[i];
-                                console.log(port.state);
                                 if (port.state == "CHOSEN") {
-                                    var portClass = "col-sm-12 filter-value filter-selected";
-                                    console.log("here2", port.state);
+                                    var portClass = "col-sm-12 filter-value filter-selected filter-port-selected";
                                     $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
                                 }
                             }
@@ -326,7 +327,6 @@ $(function () {
                 } else if ($filter.hasClass("filter-no-selected")) {
                     value.state = 'ENABLED';
                 }
-                console.log("here3", value.state);
                 elementFilterSelected[key] = value;
             }
         };//selectDisableFilter
@@ -480,6 +480,25 @@ $(function () {
 
         });
 
+        $(fycContainerClass).on('click', ".fyc2018-filter-selected-content .filter-value", function (e) {
+            var key = $(this).data("key");
+            $(this).remove();
+            elementFilterSelected[key] = null;
+            $(".filter-port .fyc2018-filter-autocomplete-content .filter-value").each(function () {
+                if (key == $(this).data("key")) {
+                    $(this).removeClass();
+                    $(this).attr("data", "ENABLED");
+                    $(this).addClass("col-sm-12 filter-value filter-no-selected");
+                }
+            });
+            if ($(".filter-port .fyc2018-filter-selected-content .filter-value").length == 0) {
+                $(".fyc2018-filter-autocomplete-content").show();
+            }
+
+            setNumberFilterSelected("filter-port");
+        });
+
+
         $(fycContainerClass).on("click ", ".fyc2018-filter .filter-show-selected", onClickShowSelectedPort);
 
         $(fycContainerClass).on("click ", ".fyc2018-filter .fyc2018-filter-content span", function (e) {
@@ -523,12 +542,11 @@ $(function () {
                                 label: label,
                                 state: 'CHOSEN'
                             };
-                            console.log("here6", value.state);
 
                             elementFilterSelected[key] = value;
                         });
                         var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
-                        for(var i=0; i < portsList.length; i++) {
+                        for (var i = 0; i < portsList.length; i++) {
                             var port = portsList[i];
                             if (port.state == "CHOSEN") {
                                 var isAlreadyPresent = false;
@@ -538,9 +556,8 @@ $(function () {
                                     }
                                 });
                                 if (!isAlreadyPresent) {
-                                    console.log("here4", port.state);
-                                    $containerPortSelected.append($("<div class=\"col-sm-12 filter-value filter-selected\" data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
-
+                                    $containerPortSelected.append($("<div class=\"col-sm-12 filter-value filter-selected filter-port-selected\" data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
+                                }
                             }
                         }
                         optionAutoComplete.data = portsList;
@@ -596,8 +613,7 @@ $(function () {
                 }
             });
             if (!isAlreadyPresent) {
-                var portClass = "col-sm-12 filter-value filter-selected";
-                console.log("here5", port.data("state"));
+                var portClass = "col-sm-12 filter-value filter-selected filter-port-selected";
                 $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.data("key") + "' data-label='" + port.data("label") + "' data-state='" + port.data("state") + "'><span>" + port.data("label") + "</span></div>"));
             }
         };//createPortSelectedList
