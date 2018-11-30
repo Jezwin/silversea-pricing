@@ -2,6 +2,23 @@ $(function () {
     "use strict";
 
     if ($(".findyourcruise2018").length > 0) {
+
+        var createPortSelectedList = function (port) {
+            var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
+            var isAlreadyPresent = false;
+            $containerPortSelected.find(".filter-value").each(function () {
+                if ($(this).data("key") == port.data("key")) {
+                    isAlreadyPresent = true;
+                    if (port.data("state") == "ENABLED") {
+                        $(this).remove();
+                    }
+                }
+            });
+            if (!isAlreadyPresent) {
+                var portClass = "col-sm-12 filter-value filter-selected filter-port-selected";
+                $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.data("key") + "' data-label='" + port.data("label") + "' data-state='" + port.data("state") + "'><span>" + port.data("label") + "</span></div>"));
+            }
+        };//createPortSelectedList
         var showFilteredElement = function () {
             elementFilteredToShow = [];
             var $listItem = $(filterPortValueContainerClass),
@@ -405,6 +422,13 @@ $(function () {
                 onLoadEvent: showFilteredElement
             }
         };
+
+        $(".filter-port .fyc2018-filter-autocomplete-content .filter-value").each(function () {
+            if ($(this).data("state") == "CHOSEN") {
+                createPortSelectedList($(this));
+            }
+        });
+
         setNumberAllFilterSelected();
         separateYears();
         try {
@@ -414,6 +438,8 @@ $(function () {
         }
         onLoadFilterUrl = window.location.search;
         searchAnalytics();
+
+
         if ($(window).width() < 768) {
             backMobile();
         }
@@ -600,23 +626,6 @@ $(function () {
                 }
             }
         }, ".fyc2018-filter .fyc2018-filter-value .filter-value");
-
-        var createPortSelectedList = function (port) {
-            var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
-            var isAlreadyPresent = false;
-            $containerPortSelected.find(".filter-value").each(function () {
-                if ($(this).data("key") == port.data("key")) {
-                    isAlreadyPresent = true;
-                    if (port.data("state") == "ENABLED") {
-                        $(this).remove();
-                    }
-                }
-            });
-            if (!isAlreadyPresent) {
-                var portClass = "col-sm-12 filter-value filter-selected filter-port-selected";
-                $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.data("key") + "' data-label='" + port.data("label") + "' data-state='" + port.data("state") + "'><span>" + port.data("label") + "</span></div>"));
-            }
-        };//createPortSelectedList
 
         $(document).on("click ", function (e) {
             if ($(".findyourcruise2018").length > 0) {
