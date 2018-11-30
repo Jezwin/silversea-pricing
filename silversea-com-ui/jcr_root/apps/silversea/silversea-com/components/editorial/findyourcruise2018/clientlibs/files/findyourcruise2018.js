@@ -135,7 +135,7 @@ $(function () {
                 }
             });
         };//separateYears
-        var createUrl = function (urlTemplate, nextPage) {
+        var createUrl = function (urlTemplate, nextPage, updateHistory) {
             var url = "";
             var j = 0;
             $(".fyc2018-filter .fyc2018-filter-value").each(function () {
@@ -166,9 +166,10 @@ $(function () {
             } else {
                 url += "&pag=" + page;
             }
-
-            var current = window.location.href;
-            history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
+            if (updateHistory) {
+                var current = window.location.href;
+                history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
+            }
             return urlTemplate + ".html?" + url;
         };//createUrl
         var updateCruises = function (url, removeScroll) {
@@ -460,13 +461,13 @@ $(function () {
                 }
 
                 var urlTemplate = $("#results-url-request").data("url");
-                var url = createUrl(urlTemplate, page) + "&onlyResults=true";
+                var url = createUrl(urlTemplate, page, true) + "&onlyResults=true";
                 updateCruises(url, true);
                 var currentSearch = window.location.search;
                 var current = window.location.href.split("?")[0];
                 var currentS = currentSearch.split("page");
                 currentSearch = currentS[0];
-                history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + currentSearch));
+                //history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + currentSearch));
                 $('html, body').animate({
                     scrollTop: $('.findyourcruise2018-header').first().offset().top - $('.c-header').height() - 50
                 }, 800);
@@ -613,7 +614,7 @@ $(function () {
                 }
                 setNumberFilterSelected(idFilter);
                 var urlTemplate = $("#results-url-request").data("url");
-                var url = createUrl(urlTemplate, 1) + "&onlyResults=true";
+                var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
                 updateCruises(url);
                 checkNumberSelectedFilters();
             },
