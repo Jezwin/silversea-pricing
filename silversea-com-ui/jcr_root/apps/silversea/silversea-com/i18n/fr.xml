@@ -307,7 +307,7 @@
     <cruise-types
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Cruise types"/>
+            sling:message="Types de croisière"/>
     <CV
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -347,7 +347,7 @@
     <departures
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Departures"/>
+            sling:message="Départs"/>
     <departure-date
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -427,7 +427,7 @@
     <durations
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Durations"/>
+            sling:message="Durées"/>
     <DV
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -548,7 +548,7 @@
     <feature
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Feature"/>
+            sling:message="Caractéristique"/>
     <feet
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -693,15 +693,15 @@
     <load-more
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Load more"/>
+            sling:message="Plus d'informations"/>
     <no-matching-cruises
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Sorry, we found no matching cruises."/>
+            sling:message="Désolé, nous n'avons trouvé aucune croisière correspondante."/>
     <change-filters
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Please change filters."/>
+            sling:message="S'il vous plaît, changer les filtres."/>
     <land-and-hotel
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -809,7 +809,7 @@
     <no-port-found
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="No port found"/>
+            sling:message="Aucun port trouvé"/>
     <note
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1150,7 +1150,7 @@
     <search-port
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Search port"/>
+            sling:message="Recherche de port"/>
     <search-more
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1170,11 +1170,11 @@
     <selected-port
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Selected port"/>
+            sling:message="Port sélectionné"/>
     <selected-ports
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Selected ports"/>
+            sling:message="Ports sélectionnés"/>
     <select-language
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
