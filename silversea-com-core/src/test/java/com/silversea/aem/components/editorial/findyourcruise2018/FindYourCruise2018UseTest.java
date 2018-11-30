@@ -34,7 +34,6 @@ import static org.junit.Assert.*;
 public class FindYourCruise2018UseTest {
 
     private List<CruiseModelLight> cruises;
-    CruisesCacheService cacheService;
 
     private static final String AFRICA_VALUE = "3";
     private static final String ASIA_VALUE = "13";
@@ -56,7 +55,6 @@ public class FindYourCruise2018UseTest {
         JsonElement parse = parser.parse(cruisesString);
         parse.getAsJsonArray()
                 .forEach(jsonElement -> cruises.add(toCruise(jsonElement.getAsJsonObject())));
-        cacheService = new TestCacheService();
     }
 
 
@@ -80,7 +78,7 @@ public class FindYourCruise2018UseTest {
         }
         Function<UseBuilder, Callable<Long>> test = useBuilder -> () -> {
             long current = System.currentTimeMillis();
-            useBuilder.build().init(cacheService, "1000");
+            useBuilder.build().init(cruises, "1000");
             return (System.currentTimeMillis() - current);
         };
         double average = executor.invokeAll(builders.stream().map(test).collect(Collectors.toList())).stream()
@@ -99,7 +97,7 @@ public class FindYourCruise2018UseTest {
     @Test
     public void testOneDestination() {
         FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).build();
-        use.init(cacheService, "1000");
+        use.init(cruises, "1000");
 
         //test results
         assertTrue(use.getCruises().stream().allMatch(
@@ -126,7 +124,7 @@ public class FindYourCruise2018UseTest {
         FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE).build();
         Predicate<CruiseModelLight> test = cruise -> AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
                 ASIA_LABEL.equals(cruise.getDestination().getTitle());
-        use.init(cacheService, "1000");
+        use.init(cruises, "1000");
 
         //test results
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
@@ -159,7 +157,7 @@ public class FindYourCruise2018UseTest {
         properties.put("shipId", new String[]{"Silver Discoverer"});
         FindYourCruise2018Use use = new UseBuilder(properties).build();
         Predicate<CruiseModelLight> test = cruise -> "Silver Discoverer".equals(cruise.getShip().getTitle());
-        use.init(cacheService, "1000");
+        use.init(cruises, "1000");
         long expectedCruises = cruises.stream().filter(test).count();
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
         assertEquals(expectedCruises, use.getCruises().size());
@@ -177,7 +175,7 @@ public class FindYourCruise2018UseTest {
                 ASIA_LABEL.equals(cruise.getDestination().getName())) &&
                 (cruise.getPorts().stream().map(PortItem::getName)
                         .anyMatch(name -> HO_CHI_MINH_CITY.equals(name) || DA_NANG.equals(name)));
-        use.init(cacheService, "1000");
+        use.init(cruises, "1000");
 
         //test results
         long expectedCruises = cruises.stream().filter(test).count();

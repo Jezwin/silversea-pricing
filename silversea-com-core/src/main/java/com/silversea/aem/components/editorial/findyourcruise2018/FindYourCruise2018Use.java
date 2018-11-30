@@ -10,7 +10,6 @@ import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.models.ExclusiveOfferModelLight;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
@@ -26,6 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
+import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
@@ -62,16 +62,26 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         tagManager = resourceResolver.adaptTo(TagManager.class);
 
 
-        CruisesCacheService service = getSlingScriptHelper().getService(CruisesCacheService.class);
-        if (service == null) {
-            return;
-        }
-        String paginationLimit = ofNullable(getCurrentStyle()).map(style -> style.get("paginationLimit", String.class)).orElse(DEFAULT_PAGE_SIZE);
-        init(service, paginationLimit);
-
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
         requestQuotePagePath = retrieveRequestQuotePath(resource);
+        String paginationLimit = ofNullable(getCurrentStyle()).map(style -> style.get("paginationLimit", String.class)).orElse(DEFAULT_PAGE_SIZE);
+
+        Optional<List<CruiseModelLight>> allCruises =
+                ofNullable(getSlingScriptHelper().getService(CruisesCacheService.class)).map(service -> {
+                    try {
+                        return service.getCruises(lang);
+                    } catch (Throwable throwable) {
+                        return null;
+                    }
+                });
+        if (allCruises.isPresent()) {
+            init(allCruises.get(), paginationLimit);
+        } else {
+            //to avoid displaying blank pages when error occurs
+            dullInit();
+        }
+
     }
 
     private String retrieveRequestQuotePath(Resource resource) {
@@ -82,14 +92,21 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 .orElse("");
     }
 
-    public void init(CruisesCacheService service, String paginationLimit) { //this is here for test purposes
-        Map<String, String[]> httpRequest = getFromWebRequest();
-        pagination = retrieveResults(httpRequest, service, paginationLimit);
+    private void dullInit() {
+        pagination = Pagination.EMPTY;
+        cruises = Collections.emptyList();
+        filterBar = new FilterBar();
+        filterBar.init(this, Collections.emptyMap(), Collections.emptyList());
 
     }
 
-    private Pagination retrieveResults(Map<String, String[]> httpRequest, CruisesCacheService service, String paginationLimit) {
-        List<CruiseModelLight> allCruises = service.getCruises(lang);
+    public void init(List<CruiseModelLight> allCruises, String paginationLimit) { //this is here for test purposes
+        Map<String, String[]> httpRequest = getFromWebRequest();
+        pagination = retrieveResults(httpRequest, allCruises, paginationLimit);
+
+    }
+
+    private Pagination retrieveResults(Map<String, String[]> httpRequest, List<CruiseModelLight> allCruises, String paginationLimit) {
         List<CruiseModelLight> preFilteredCruises = preFiltering(allCruises);
 
         boolean computeFilters = !"true".equals(httpRequest.getOrDefault("onlyResults", new String[]{"false"})[0]);
@@ -99,7 +116,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         List<CruiseModelLight> filteredCruises = applyFilters(preFilteredCruises, filterBar);
         if (computeFilters) {
-            filterBar.updateFilters(allCruises, filteredCruises);
+            filterBar.updateFilters(preFilteredCruises, filteredCruises);
         }
 
         Pagination pagination = new Pagination(filteredCruises.size(),
@@ -189,11 +206,11 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return map;
     }
 
-    private List<CruiseModelLight> applyFilters(List<CruiseModelLight> allCruises, FilterBar filterBar) {
+    private List<CruiseModelLight> applyFilters(List<CruiseModelLight> prefilteredCruises, FilterBar filterBar) {
         if (!filterBar.anyFilterSelected()) {
-            return allCruises;
+            return prefilteredCruises;
         }
-        return allCruises.parallelStream().filter(filterBar::isCruiseMatching).collect(toCollection(LinkedList::new));
+        return prefilteredCruises.parallelStream().filter(filterBar::isCruiseMatching).collect(toCollection(LinkedList::new));
     }
 
 
