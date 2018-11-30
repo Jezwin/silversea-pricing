@@ -70,7 +70,6 @@ $(function () {
                 if ($(".lsh-title") != null && $(".lsh-title").html() != null) {
                     $(".lsh-title").html($(".lsh-title").html().toLowerCase());
                 }
-                $(".lazy:visible").lazy();
                 callback && callback();
             });
         };
@@ -86,6 +85,7 @@ $(function () {
                             $modalContent.css('left', '');//this is just to rest left && right because previous line put them to 0
                             $modalContent.css('right', '');
                             $('.lightbox-close').fadeIn();
+                            $(".lazy:visible").lazy();
                         });
                     });
                     $modalContent.css(opposite, '-100vw');//this move it on the other side of the screen
