@@ -145,8 +145,8 @@
                                 <sly data-sly-test="${arriveTime && !departTime}">${'arrive' @i18n}</sly>
                                 <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=arriveTime}"> ${arriveTimeFormat.value}</sly>
                                 <sly data-sly-test="${arriveTime && (departTime || overnight)}">-</sly>
-                                <sly data-sly-test="${!arriveTime && departTime}">${'departure' @i18n}</sly>
-                                <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}"> ${arriveTimeFormat.value}</sly>
+                                <sly data-sly-test="${!arriveTime && departTime && !overnight}">${'departure' @i18n}</sly>
+                                <sly data-sly-test="${!overnight}" data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}"> ${arriveTimeFormat.value}</sly>
                                 <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
                             </div>
                         </div>
