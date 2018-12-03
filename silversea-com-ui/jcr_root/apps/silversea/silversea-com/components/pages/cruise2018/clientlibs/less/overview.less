@@ -11,10 +11,9 @@
 
   .cruise-2018-overview-prev-next {
     display: block;
-    font-size: 14px;
-    margin-left: -25%;
+    font-size: 12px;
     padding-left: 0;
-    width: 100%;
+    margin-bottom:3px;
     a {
       text-transform: capitalize !important;
       margin-right: 0px !important;
@@ -200,14 +199,11 @@
   .cruise-2018-overview-quote-icons {
     bottom: 5px;
     font-size: 18px;
-    left: 0;
-    margin-left: auto;
-    position: absolute;
-    right: 80px;
     text-align: center;
-    width: 260px;
     white-space: nowrap;
-
+    &-facebook{
+      margin-right:0 !important;
+    }
     img {
       width: 16px;
     }
@@ -219,9 +215,17 @@
     cursor: pointer;
   }
 
+  .jssocials-shares {
+    margin-right:0 !important;
+  }
+
   .jssocials-share {
     margin: 0 !important;
     color: @black !important;
+    a.jssocials-share-link{
+      margin-right: 0 !important;
+
+    }
   }
 
   .jssocials-share-facebook .jssocials-share-link {
@@ -287,6 +291,8 @@
     margin-top: 25px;
     text-align: left;
     font-style: italic;
+    position:absolute;
+    bottom:5px;
   }
 }
 

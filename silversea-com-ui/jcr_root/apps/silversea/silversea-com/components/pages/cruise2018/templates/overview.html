@@ -126,8 +126,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 cruise-2018-overview-quote-icons hidden-xs">
-            <div class="cruise-2018-overview-prev-next">
+        <div class="col-md-6 col-md-offset-6 cruise-2018-overview-quote-icons hidden-xs">
+            <div class="cruise-2018-overview-prev-next col-md-12">
                 <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html', selectors='2018'}"
                    class="previous-block">
                         <span class="previous-content">
@@ -146,7 +146,7 @@
                 </a>
 
             </div>
-            <div>
+            <div class="col-md-12">
                 <a href='${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf'
                    target="_blank" id="cruise-2018-pdf-download" rel="nofollow">
                     <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/download-pdf.png"/>
