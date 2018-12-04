@@ -240,6 +240,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silversea Kreuzfahrten bieten Ihnen die Möglichkeit, Ihren Leidenschaften zu frönen und Erlebnisse zu genießen, die man auf einer typischen Kreuzfahrt nicht findet"/>
+    <cruise-itinerary-120-day
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information."/>
     <cruise-excursion-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
