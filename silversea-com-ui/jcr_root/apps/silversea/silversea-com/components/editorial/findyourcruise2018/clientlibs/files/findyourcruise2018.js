@@ -444,7 +444,7 @@ $(function () {
         if ($(window).width() < 768) {
             backMobile();
         }
-        if (window.location.search != "" || window.location.search.indexOf("?pag=") != 0) {
+        if (window.location.search != "" && window.location.search.indexOf("?pag=") != 0) {
             $(".fyc2018-header-reset-all").show();
             $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
             searchAnalytics();
