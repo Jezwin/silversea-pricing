@@ -7,9 +7,11 @@ $(function () {
             var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
             var isAlreadyPresent = false;
             $containerPortSelected.find(".filter-value").each(function () {
-                if ($(this).data("key") == port.data("key")) {
+                if ($(this).data("key") == port.attr("data-key")) {
                     isAlreadyPresent = true;
-                    $(this).remove();
+                    //if (port.data("state") == "ENABLED") {
+                        $(this).remove();
+                    // /}
                 }
             });
             if (!isAlreadyPresent) {
@@ -119,7 +121,7 @@ $(function () {
                 $(".fyc2018-header-reset-all").show();
                 $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
             } else {
-                $(".fyc2018-header-reset-all").hide();
+                //$(".fyc2018-header-reset-all").hide();
                 $(".fyc2018-filters-container").removeClass("fyc2018-filters-container-clear-open");
             }
         };//checkNumberSelectedFilters
@@ -139,6 +141,9 @@ $(function () {
             $(".fyc2018-filter .fyc2018-filter-value").each(function () {
                 var $this = $(this);
                 var $selectedElements = $this.find(".filter-value.filter-selected:not(.filter-port-selected)");
+                if ($this.data('name') == "port") {
+                    $selectedElements = $this.find(".fyc2018-filter-selected-content .filter-value.filter-selected");
+                }
                 var i = 0;
                 var urlFilter = "";
                 $selectedElements.each(function () {

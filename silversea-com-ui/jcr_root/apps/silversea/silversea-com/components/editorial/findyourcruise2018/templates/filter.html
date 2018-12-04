@@ -3,7 +3,7 @@
     <div class="findyourcruise2018-header">
         <div class="fyc2018-header-container container">
             <div class="fyc2018-header-text fyc2018-header-title ${properties.hideFycTitle ? 'hidden' : ''}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
-                <div class="fyc2018-header-text fyc2018-header-total-num" data-sly-test="${!properties.hideResultNb}">${fyc.totalResults} </div>
+                <div class="fyc2018-header-text fyc2018-header-total-num">${fyc.totalResults} </div>
                 <div class="fyc2018-header-text">
                     <sly data-sly-test="${fyc.totalResults == 1}">${properties.resultsLabelSingular || 'cruise' @ i18n}</sly>
                     <sly data-sly-test="${fyc.totalResults != 1}">${properties.resultsLabelPlural || 'cruises' @ i18n}</sly>
