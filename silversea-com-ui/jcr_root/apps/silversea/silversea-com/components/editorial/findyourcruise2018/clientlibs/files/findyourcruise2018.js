@@ -9,9 +9,7 @@ $(function () {
             $containerPortSelected.find(".filter-value").each(function () {
                 if ($(this).data("key") == port.data("key")) {
                     isAlreadyPresent = true;
-                    if (port.data("state") == "ENABLED") {
-                        $(this).remove();
-                    }
+                    $(this).remove();
                 }
             });
             if (!isAlreadyPresent) {

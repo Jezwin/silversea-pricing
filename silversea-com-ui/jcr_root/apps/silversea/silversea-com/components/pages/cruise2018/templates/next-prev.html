@@ -1,6 +1,6 @@
 <template data-sly-template.default="${ @ cruise }">
     <div class="cruise-2018-next-prev-block" id="cruise2018nextprev">
-        <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html', selectors='2018'}" class="previous-block">
+        <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html' }" class="previous-block">
             <div class="previous-arrow">
                 <i class="fa fa-angle-left"></i>
             </div>
@@ -10,7 +10,7 @@
                     <span>${cruise.previousDeparture} <span>${'to' @ i18n}</span> ${cruise.previousArrival}</span></div>
             </div>
         </a>
-        <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html', selectors='2018'}" class="next-block">
+        <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html' }" class="next-block">
             <div class="next-arrow">
                 <i class="fa fa-angle-right"></i>
             </div>
