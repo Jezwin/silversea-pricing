@@ -20,6 +20,7 @@
             </div>
             <div class="cruise-2018-itineraries-description">${cruise.cruiseModel.description @ context="html"}</div>
             <div class="cruise-2018-itineraries-voyage-code hidden-xs">${'voyage-number' @ i18n}: ${cruise.cruiseModel.cruiseCode}</div>
+            <div class="cruise-2018-itineraries-120-label" data-sly-test="${ cruise.dayUntilDeparture >= 120 }">${'cruise-itinerary-120-day' @ i18n}</div>
             <!--/*            <div class="cruise-2018-itineraries-map">
                 <div class="ratio-big-itinerary"
                      data-sly-test.map="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}">
