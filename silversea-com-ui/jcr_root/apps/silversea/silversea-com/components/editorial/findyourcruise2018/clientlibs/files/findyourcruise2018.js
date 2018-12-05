@@ -19,6 +19,20 @@ $(function () {
                 $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.data("key") + "' data-label='" + port.data("label") + "' data-state='" + port.data("state") + "'><span>" + port.data("label") + "</span></div>"));
             }
         };//createPortSelectedList
+
+        var loweCasePort = function () {
+            try {
+                $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+                    var currentPort = $(this).text();
+                    currentPort = currentPort.toLowerCase();
+                    $(this).text(currentPort);
+                });
+            }
+            catch(error) {
+                console.error(error);
+            }
+        };//loweCasePort
+
         var showFilteredElement = function () {
             elementFilteredToShow = [];
             var $listItem = $(filterPortValueContainerClass),
@@ -191,6 +205,7 @@ $(function () {
                         $("body").addClass("no-height-body");
                         window.iNoBounce.enable();
                     }
+                    loweCasePort();
                 }
             });
         };//updateCruises
@@ -610,6 +625,7 @@ $(function () {
             click: function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                console.log($(this).data("key"), $(this).data("label"));
                 var idFilter = $(this).parent().parent().data("filter");
                 selectDisableFilter($(this));
                 if (idFilter == "filter-port") {
