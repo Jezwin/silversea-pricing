@@ -10,7 +10,7 @@ $(function () {
                 if ($(this).data("key") == port.attr("data-key")) {
                     isAlreadyPresent = true;
                     //if (port.data("state") == "ENABLED") {
-                        $(this).remove();
+                    $(this).remove();
                     // /}
                 }
             });
@@ -22,22 +22,22 @@ $(function () {
 
         var loweCasePort = function () {
             try {
-                $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+                $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function () {
                     var currentPort = $(this).text();
                     currentPort = currentPort.toLowerCase();
                     $(this).text(currentPort);
                 });
             }
-            catch(error) {
+            catch (error) {
                 console.error(error);
             }
         };//loweCasePort
 
+
         var showFilteredElement = function () {
             elementFilteredToShow = [];
-            var $listItem = $(filterPortValueContainerClass),
-                $itemToRender = null,
-                index = 0,
+            $(".fyc2018-filter-autocomplete-content").find(".filter-value").remove()
+            var index = 0,
                 item = $(autocompleteInputId).getItemData(index);
             if (item == -1) {
                 $(autocompleteContainerClass + " .filter-no-ports").show();
@@ -48,21 +48,17 @@ $(function () {
                 $(autocompleteContainerClass + " .filter-no-ports").hide();
                 $(autocompleteContainerClass + " .filter-value").show();
             }
-
+            $(viewAllFilteredContainerClass).hide();
+            $(viewAllOriginalContainerClass).hide();
             while (item != -1) {
-                $itemToRender = $($listItem[index]);
-                if ($itemToRender.length > 0) {
+                if (index < 100) {
                     if (elementFilterSelected[item.key] != null) {
                         item.state = elementFilterSelected[item.key].state;
                     }
                     var status = item.state == 'ENABLED' ? 'filter-no-selected' : item.state == 'DISABLED' ? 'filter-disabled' : item.state == 'CHOSEN' ? 'filter-selected' : '';
-                    $itemToRender.removeAttr("class");
-                    $itemToRender.addClass("col-sm-12 filter-value " + status);
-                    $itemToRender.attr("data-key", item.key);
-                    $itemToRender.attr("data-label", item.label);
-                    $itemToRender.attr("data-state", item.state);
-                    $itemToRender.find("span").html(item.label);
-                    $itemToRender.show();
+                    var portClass = "col-sm-12 filter-value " + status;
+                    $(".fyc2018-filter-autocomplete-content").append($("<div class='" + portClass + "' data-key='" + item.key + "' data-label='" + item.label + "' data-state='" + item.state + "'><span>" + item.label + "</span></div>"));
+
                 } else {
                     elementFilteredToShow.push(item);
                 }
@@ -78,14 +74,9 @@ $(function () {
                 $(viewAllOriginalContainerClass).hide();
                 $(autocompleteContainerClass).append($(viewAllFilteredContainerClass));
                 $(viewAllFilteredContainerClass).show();
-            } else {
-                while ($itemToRender && $itemToRender.length > 0) {
-                    $itemToRender = $($listItem[index++]);
-                    $itemToRender.hide();
-                }
             }
-
         };//showFilteredElement
+
         var loadPortsElementNotSelected = function (indexToStart, filtered) {
             /* Event triggered when the user click on Load more inside the port list
             *  Create DOM element to show other ports not loaded on startup.
@@ -102,7 +93,7 @@ $(function () {
                 }
                 var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
                 $containerPortSelected.each(function () {
-                    if($(this).data("key") == port.key) {
+                    if ($(this).data("key") == port.key) {
                         portClass = "filter-selected";
                         port.state = "CHOSEN";
                     }
