@@ -20,6 +20,12 @@ $(function () {
             }
         };//createPortSelectedList
 
+        var createPortSelectedListFromArray = function (port) {
+            var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
+            var portClass = "col-sm-12 filter-value filter-selected filter-port-selected";
+            $containerPortSelected.append($("<div class='" + portClass + "' data-key='" + port.key + "' data-label='" + port.label + "' data-state='" + port.state + "'><span>" + port.label + "</span></div>"));
+        };//createPortSelectedListFromArray
+
         var loweCasePort = function () {
             try {
                 $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function () {
@@ -433,19 +439,20 @@ $(function () {
             }
         };
 
-        $(".filter-port .fyc2018-filter-autocomplete-content .filter-value").each(function () {
-            if ($(this).data("state") == "CHOSEN") {
-                createPortSelectedList($(this));
-            }
-        });
 
-        setNumberAllFilterSelected();
-        separateYears();
         try {
             portsList = JSON.parse(window.portsList);
+            for (var i = 0; i < portsList.length; i++) {
+                var port = portsList[i];
+                if (port.state == "CHOSEN") {
+                    createPortSelectedListFromArray(port);
+                }
+            }
         } catch (e) {
             console.error("Error Port list");
         }
+        setNumberAllFilterSelected();
+        separateYears();
         onLoadFilterUrl = window.location.search;
         searchAnalytics();
 
