@@ -132,7 +132,7 @@ $(function () {
                 $(".fyc2018-header-reset-all").show();
                 $(".fyc2018-filters-container").addClass("fyc2018-filters-container-clear-open");
             } else {
-                //$(".fyc2018-header-reset-all").hide();
+                $(".fyc2018-header-reset-all").hide();
                 $(".fyc2018-filters-container").removeClass("fyc2018-filters-container-clear-open");
             }
         };//checkNumberSelectedFilters
@@ -623,7 +623,6 @@ $(function () {
             click: function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log($(this).data("key"), $(this).data("label"));
                 var idFilter = $(this).parent().parent().data("filter");
                 selectDisableFilter($(this));
                 if (idFilter == "filter-port") {

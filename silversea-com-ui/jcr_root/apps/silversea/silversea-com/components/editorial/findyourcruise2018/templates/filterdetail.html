@@ -10,7 +10,7 @@
             <div class="fyc2018-filter-label col-xs-12">
                 <span class="fyc2018-filter-label-mobile visible-xs">${singular @ i18n}</span>
                 <span class="fyc2018-filter-clear"><i class="material-icons">close</i></span>
-                <input data-sly-test="${autocomplete}" id="filter-autocomplete" class="form-control fyc2018-filter-autocomplete" placeholder="${placeholder}" />
+                <input data-sly-test="${autocomplete}" id="filter-autocomplete" class="form-control fyc2018-filter-autocomplete" placeholder="${placeholder @ i18n}" />
             </div>
             <sly data-sly-test="${autocomplete}">
                 <div class="${class || 'col-sm-6'} filter-show-selected" data-labelplural="${'selected-ports' @ i18n}" data-labelsingular="${'selected-port' @ i18n}">
