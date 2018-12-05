@@ -137,7 +137,7 @@
                         </span>
 
                 </a>
-                <span data-sly-test="${cruise.next}" class="cruise-2018-overview-prev-next-separator"> | </span>
+                <span data-sly-test="${cruise.next && cruise.previous}" class="cruise-2018-overview-prev-next-separator"> | </span>
                 <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"
                    class="next-block">
                         <span class="next-content">
