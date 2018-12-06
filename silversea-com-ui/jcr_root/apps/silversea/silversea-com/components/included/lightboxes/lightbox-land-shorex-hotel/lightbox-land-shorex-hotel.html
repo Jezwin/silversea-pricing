@@ -41,6 +41,7 @@
                     <span class="icon-info"> <i class="${feature.icon}"></i><span class="icon-name"><i></i>${feature.title}</span></span>
                     <div class="icon-description"> ${feature.description @ context='html'}</div>
                 </div>
+                <b data-sly-test="${model.note}">${model.note @ context='html'}</b>
             </div>
         </div>
     </div>
