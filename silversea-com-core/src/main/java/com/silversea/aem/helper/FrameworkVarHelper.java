@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.LOWER_HYPHEN;
 import static java.lang.Integer.valueOf;
+import static java.lang.System.in;
 import static java.lang.System.lineSeparator;
 
 /*
@@ -31,7 +32,7 @@ import static java.lang.System.lineSeparator;
  * note that the property value must contain the unit type. */
 public class FrameworkVarHelper extends AbstractFrameworkHelper {
 
-    private static final Pattern COLOR_PATTERN =
+    private static final Pattern COLOR_PATTERN_RGBA =
             Pattern.compile("rgba *\\( *([0-9]+), *([0-9]+), *([0-9]+), *([0.1-1]+) *\\)");
 
     @Override
@@ -68,10 +69,14 @@ public class FrameworkVarHelper extends AbstractFrameworkHelper {
     }
 
     private Optional<String> hoverColor(String input) {
-        Matcher m = COLOR_PATTERN.matcher(input);
+        Matcher m = COLOR_PATTERN_RGBA.matcher(input);
         if (m.matches()) {
             return Optional.of(
                     new Color(valueOf(m.group(1)), valueOf(m.group(2)), valueOf(m.group(3))).darker())
+                    .map(color -> "rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")");
+        } else if(input.startsWith("#")) {
+            return Optional.of(
+                    Color.decode(input).darker())
                     .map(color -> "rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")");
         }
         return Optional.empty();
