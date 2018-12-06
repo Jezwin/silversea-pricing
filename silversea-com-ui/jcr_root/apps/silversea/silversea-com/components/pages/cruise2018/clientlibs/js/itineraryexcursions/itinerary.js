@@ -27,6 +27,11 @@ $(function () {
         }
         $arrow.blur();
         $arrow.find('i').toggle();
+
+
+        console.log(e);
+        var id = $(e.target).closest(".cruise-2018-itineraries-itinerary").attr("id");
+        history.pushState(null, null, "#" + id);
     }
 
     $(".cruise-2018-itineraries-port-excursions-btn").on('click', toggle);
