@@ -849,7 +849,7 @@
 	<other-restaurants
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="&#xa;andere Restaurants"/>
+        sling:message="Andere Silversea Restaurants"/>
     <other-restaurants-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

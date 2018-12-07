@@ -890,7 +890,7 @@
     <other-restaurants
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-restaurants"
-        sling:message="other silversea's dining restaurants"/>
+        sling:message="Other Silversea Restaurants"/>
     <other-restaurants-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-restaurants-description"
