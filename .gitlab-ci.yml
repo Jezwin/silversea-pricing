@@ -1,20 +1,9 @@
 stages:
     - analysis
-    - build-author-dev
-    - build-publishes-dev
-    - build-author-test
-    - build-publishes-test
-    - build-author-rc
-    - build-publishes-rc
     - build-author-stage
     - build-publishes-stage
     - build-author-prod
     - build-publishes-prod
-    - build-author-migration
-    - build-publishes-migration
-    - build-author-migration_prod
-    - build-publishes-migration_prod
-
 
 ### TEST Build
 analysis_sonar:
@@ -26,169 +15,47 @@ analysis_sonar:
         - mvn package sonar:sonar -Dsonar.host.url=http://13.56.217.186/ -Dsonar.login=admin -Dsonar.password=4wZ5zjvF0Ve6
     only:
         - develop
-        
-### Dev Build
-mvn_build_dev_author:
-    stage: build-author-dev
-    environment:
-        name: Dev
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.password=r2d2c3po -Dcq.user=admin  -Dcq.url=http://54.67.8.45:4502
-    only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-DEV$/
 
-### RC Build
-mvn_build_rc_author:
-    stage: build-author-rc
-    environment:
-        name: RC
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.2.240:4502
-    only:
-        - /^release-.*$/
-
-mvn_build_rc_publish1:
-    stage: build-publishes-rc
-    environment:
-        name: RC
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.0.114:4503
-    only:
-        - /^release-.*$/
-
-mvn_build_rc_publish2:
-    stage: build-publishes-rc
-    environment:
-        name: RC
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.22.151:4503
-    only:
-        - /^release-.*$/
-
-### Release Build
-mvn_build_staging_author:
+### Migration Build
+mvn_build_author:
     stage: build-author-stage
     environment:
         name: Stage
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user  -Dcq.url=http://34.235.44.112:4502
-    only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
-
-mvn_build_staging_publish1:
-    stage: build-publishes-stage
-    environment:
-        name: Stage
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://52.86.130.245:4503
-    only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
-
-mvn_build_staging_publish2:
-    stage: build-publishes-stage
-    environment:
-        name: Stage
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://34.237.252.145:4503
-    only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
-
-### Production Build
-mvn_build_prod_author:
-    stage: build-author-prod
-    environment:
-        name: Production
-    when: manual
-    allow_failure: false
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://54.86.31.71:4502
-    only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
-
-mvn_build_prod_publish1:
-    stage: build-publishes-prod
-    environment:
-        name: Production
-    when: manual
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://34.238.65.230:4503
-    only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
-
-mvn_build_prod_publish2:
-    stage: build-publishes-prod
-    environment:
-        name: Production
-    when: manual
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://34.237.202.4:4503
-    only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
-        
-        
-### Migration Build
-mvn_build_mig_author:
-    stage: build-author-migration
-    environment:
-        name: Migration
-    when: manual
     allow_failure: false
     tags:
         - maven
     script:
         - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502
     only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-MIG$/
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
-mvn_build_mig_publish1:
-    stage: build-publishes-migration
+mvn_build_publish1:
+    stage: build-publishes-stage
     environment:
-        name: Migration
-    when: manual
+        name: Stage
     tags:
         - maven
     script:
         - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503
     only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-MIG$/
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
-mvn_build_mig_publish2:
-    stage: build-publishes-migration
+mvn_build_publish2:
+    stage: build-publishes-stage
     environment:
-        name: Migration
-    when: manual
+        name: Stage
     tags:
         - maven
     script:
         - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503
     only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-MIG$/
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
         
 ### Migration PROD Build
-mvn_build_mig_author_prod:
-    stage: build-author-migration_prod
+mvn_build_author_prod:
+    stage: build-author-prod
     environment:
-        name: Migration_prod
+        name: Prod
     when: manual
     allow_failure: false
     tags:
@@ -196,28 +63,28 @@ mvn_build_mig_author_prod:
     script:
         - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502
     only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-MIGP$/
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-GA$/
 
-mvn_build_mig_publish1_prod:
-    stage: build-publishes-migration_prod
+mvn_build_publish1_prod:
+    stage: build-publishes-prod
     environment:
-        name: Migration_prod
+        name: Prod
     when: manual
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.1877:4503
+        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.187:4503
     only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-MIGP$/
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-GA$/
 
-mvn_build_mig_publish2_prod:
-    stage: build-publishes-migration_prod
+mvn_build_publish2_prod:
+    stage: build-publishes-prod
     environment:
-        name: Migration_prod
+        name: Prod
     when: manual
     tags:
         - maven
     script:
         - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503
     only:
-        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-MIGP$/
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-GA$/
