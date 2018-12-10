@@ -23,21 +23,6 @@ $(function () {
             easing: 'linear'
         });
     }
-    
-    $(".offers .open-lightbox-offer").click(function () {
-        $(document).on('shown.bs.modal', function (e) {
-            var $modalBody = $(".modal.lightbox .modal-body");
-            if ($modalBody.hasClass("cruise-2018-offers")) {
-                $(".modal.lightbox .lightbox-close").addClass("lightbox-close-offer");
-            }
-        });
-        $(document).on('hidden.bs.modal', function (e) {
-            var $modalClose = $(".modal.lightbox .lightbox-close");
-            if ($modalClose.hasClass("lightbox-close-offer")) {
-                $(".modal.lightbox .lightbox-close").removeClass("lightbox-close-offer");
-            }
-        });
-    });
 
     $(document).ready(function () {
         if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".offers").length > 0) {
@@ -98,14 +83,14 @@ $(function () {
         }
         createLineProgressBar();
         loadLazyImage($slider);
-        $(".offers .offer-slider").css("visibility","visible");
+        $(".offers .offer-slider").css("visibility", "visible");
         $slider.on('afterChange', function (event, slick, currentSlide) {
             loadLazyImage($(this));
         });
-        $( window ).resize(function() {
-            if ($(window).width()==wofferC) return;
+        $(window).resize(sscThrottled(function () {
+            if ($(window).width() == wofferC) return;
             wofferC = $(window).width();
             createLineProgressBar();
-        });
+        }));
     }
 });

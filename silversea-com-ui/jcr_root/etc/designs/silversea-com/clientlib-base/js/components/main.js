@@ -433,6 +433,28 @@ if (/MSIE|Trident/.test(navigator.userAgent)){
                 }
             }
         });
+
+        $('.cruise-2018-prepost-slide-thumbnail').each(function () {
+            var $container = $(this),
+                imgUrl = $container.find('img').prop('src');
+
+            if (imgUrl && imgUrl.indexOf('base64') == -1) {
+                $container
+                    .css('backgroundImage', 'url(' + imgUrl + ')')
+                    .addClass('compat-object-fit');
+                $container.find('img').remove();
+            }else {
+                imgUrl = $container.find('img').prop('data-src');
+                if (imgUrl) {
+                    $container
+                        .css('backgroundImage', 'url(' + imgUrl + ')')
+                        .addClass('compat-object-fit');
+                    $container.find('img').remove();
+                }
+            }
+
+
+        });
     },1000);
     setTimeout(function() {
         $('picture').each(function () {
@@ -731,4 +753,33 @@ $(function() {
 	        n = 0;
 	    }
 	});
+});
+
+/*
+* Tenp Fix for IOS 12 video iphone
+* */
+
+$( document ).ready(function() {
+
+    function iOSversion() {
+        if (/iP(hone|od|ad)/.test(navigator.platform)) {
+            // supports iOS 2.0 and later: <https://bit.ly/TJjs1V>
+            var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+            return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+        }
+    }
+
+    ver = iOSversion();
+    _iphoneDevice = !!navigator.platform.match(/iPhone|iPod/);
+    if(_iphoneDevice && ver[0] == 12){
+        tIntervalIOSFullScreenTemp = setInterval(function(){
+            var mydiv = $(".s7container[mode='fullscreen']");
+            if (mydiv.length > 0) {
+                $('html').addClass('iosFullScreenVideo');
+                $(window).trigger('resize');
+            }else{
+                $('html').removeClass('iosFullScreenVideo');
+            }
+        }, 1000);
+    }
 });

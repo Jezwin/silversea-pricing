@@ -168,6 +168,20 @@ public class CruiseModel {
 
     private String lang;
 
+    public static String cruiseType(TagManager tagManager, Resource cruise) {
+        if (tagManager != null) {
+            final Tag[] tags = tagManager.getTags(cruise);
+
+            for (final Tag tag : tags) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
+                    return tag.getName();
+                }
+            }
+            return tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
+        }
+        return null;
+    }
+
     @PostConstruct
     private void init() {
         if (itineraries == null) {
@@ -197,23 +211,17 @@ public class CruiseModel {
 
         // init cruise type and features
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        cruiseType = cruiseType(tagManager, page.getContentResource());
+
         if (tagManager != null) {
             final Tag[] tags = tagManager.getTags(page.getContentResource());
-
             for (final Tag tag : tags) {
-                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
-                    cruiseType = tag.getName();
-                } else if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
                     final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
-
                     if (featureModel != null) {
                         features.add(featureModel);
                     }
                 }
-            }
-
-            if (cruiseType == null) {
-                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
             }
         }
 
@@ -256,24 +264,25 @@ public class CruiseModel {
      * @return cruise title
      */
     public String getTitle() {
-        if(!StringUtils.isEmpty(getDeparturePortName()) && !StringUtils.isEmpty(getArrivalPortName()) && !StringUtils.isEmpty(cruiseCode)){
+        if (!StringUtils.isEmpty(getDeparturePortName()) && !StringUtils.isEmpty(getArrivalPortName()) &&
+                !StringUtils.isEmpty(cruiseCode)) {
             final Locale pageLocale = page.getLanguage(false);
             String delimiter = "to";
             switch (pageLocale.getLanguage().toLowerCase()) {
                 case "es":
-                    delimiter= "a";
+                    delimiter = "a";
                     break;
                 case "pt-br":
-                    delimiter= "a";
+                    delimiter = "a";
                     break;
                 case "fr":
                     delimiter = "à";
                     break;
                 case "de":
-                    delimiter= "nach";
+                    delimiter = "nach";
                     break;
             }
-            return cruiseCode + " - " + getDeparturePortName() + " "+ delimiter + " " + getArrivalPortName();
+            return cruiseCode + " - " + getDeparturePortName() + " " + delimiter + " " + getArrivalPortName();
         }
         return title;
     }

@@ -33,6 +33,8 @@ public class CruiseModelLight {
 
     private String thumbnail;
 
+    private String lang;
+
     private String path;
 
     private boolean isVisible;
@@ -46,7 +48,7 @@ public class CruiseModelLight {
     private List<ExclusiveOfferModelLight> exclusiveOffers = new ArrayList<>();
     
     private List<String> portPaths = new ArrayList<>();
-    
+
     public CruiseModelLight(CruiseModel cruiseModel) {
 
         title = cruiseModel.getTitle();
@@ -75,6 +77,8 @@ public class CruiseModelLight {
 
         path = cruiseModel.getPath();
 
+        lang = cruiseModel.getLang();
+
         List<FeatureModel> tmpFeat = cruiseModel.getFeatures();
         List<FeatureModelLight> tmpFeatLight = new ArrayList<>();
         for (FeatureModel featureModel : tmpFeat) {
@@ -89,7 +93,7 @@ public class CruiseModelLight {
         }
 
         isVisible = cruiseModel.isVisible();
-        
+
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
             ports.add(new PortItem(itinerary.getPort().getName(), itinerary.getPort().getApiTitle()));
             if (itinerary.getPort().getPath() != null){
@@ -98,7 +102,7 @@ public class CruiseModelLight {
         }
 
         initLowestPrices(cruiseModel);
-        
+
         cruiseModel = null;
     }
 
@@ -233,4 +237,8 @@ public class CruiseModelLight {
 		return portPaths;
 	}
 
+
+    public String getLang() {
+        return lang;
+    }
 }

@@ -34,11 +34,13 @@ public class CruisePrePost {
     }
 
     private final String thumbnail;
+    private final String fallbackThumbnail;
     private final PREPOSTMID prePost;
     private final String category;
     private final String id;
     private final String code;
     private final String title;
+    private final String customTitle;
     private final Integer nights;
     private final String type;
     private final Integer itineraryId;
@@ -48,26 +50,30 @@ public class CruisePrePost {
                     "09PSTCAOBR"
             );//Mario dixit
 
-    public CruisePrePost(Integer itineraryId, String thumbnail, HotelModel hotel) {
+    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, HotelModel hotel) {
         this.thumbnail = thumbnail;
+        this.fallbackThumbnail = fallbackThumbnail;
         this.category = hotel.getCategory();
         this.title = hotel.getPage().getTitle();
         this.id = hotel.getHotelId().toString();
         this.code = hotel.getCode();
         this.nights = 0;
+        this.customTitle = hotel.getCustomTitle();
         this.prePost = PREPOSTMID.retrieve(hotel.getCode());
         this.type = "hotel";
         this.itineraryId = itineraryId;
     }
 
-    public CruisePrePost(Integer itineraryId, String thumbnail, LandProgramModel land) {
+    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, LandProgramModel land) {
         this.thumbnail = thumbnail;
+        this.fallbackThumbnail = fallbackThumbnail;
         this.title = land.getTitle();
         this.id = land.getLandId().toString();
         this.code = land.getLandCode();
         this.category = coutoureCollectoinCodes.contains(code) ? "Couture Collection" : "";
         this.prePost = PREPOSTMID.retrieve(land.getLandCode().substring(2, 6));
         this.nights = numberOfNights(code);
+        this.customTitle = land.getCustomTitle();
         this.type = "land";
         this.itineraryId = itineraryId;
     }
@@ -118,12 +124,20 @@ public class CruisePrePost {
         return id;
     }
 
+    public String getCustomTitle() {
+        return customTitle;
+    }
+
     public String getType() {
         return type;
     }
 
     public Integer getItineraryId() {
         return itineraryId;
+    }
+
+    public String getFallbackThumbnail() {
+        return fallbackThumbnail;
     }
 
     public String getCode() {

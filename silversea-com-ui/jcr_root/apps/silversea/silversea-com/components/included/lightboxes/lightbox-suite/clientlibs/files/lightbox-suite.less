@@ -331,9 +331,8 @@
         span {
           opacity: 1;
           color: @color-second;
-        }
-        span:after {
-          border-top: 0.12em solid @color-second;
+          border-bottom: 2px solid @color-second;
+          padding-bottom: 5px;
         }
       }
     }
@@ -355,9 +354,8 @@
       span {
         opacity: 1;
         color: @color-second;
-      }
-      span:after {
-        border-top: 0.12em solid @color-second;
+        border-bottom: 2px solid @color-second;
+        padding-bottom: 5px;
       }
     }
 
@@ -470,6 +468,12 @@
       font-size: 13px;
       .lg-suite-features-list {
         -webkit-columns: 2;
+      }
+    }
+
+    .lg-suite-plan {
+      .lg-suite-deck-label {
+        margin-bottom: 15px !important;
       }
     }
 
@@ -597,13 +601,17 @@
     }
 
     //style applied only to suite-deck.html templates
+    .lg-suite-deck.lg-suite-plan {
+      padding-top: 0px;
+    }
     .lg-suite-deck {
       padding-bottom: 25px;
       padding-top: 25px;
       position: relative;
       z-index: 1;
       &::before {
-        background-color: @grey--f4;
+        /*background-color: @grey--f4;*/
+        background-color: white;
         left: 50%;
         width: 100vw;
         bottom: 0;
@@ -618,7 +626,7 @@
         margin: auto;
       }
       .lg-suite-deck-label {
-        font-size: 12px;
+        font-size: 13px;
         letter-spacing: 1px;
         line-height: 18px;
         margin-top: 0px;
@@ -657,7 +665,8 @@
     .visible-xs {
       .lg-suite-cta {
         .lg-suite-raq {
-          margin-bottom: 60px;
+          margin-bottom: 30px;
+          min-height: 0px;
         }
       }
     }
@@ -665,6 +674,7 @@
     //style applied only to the second suite-cta.html templates
     .lg-suite-cta {
       .lg-suite-raq {
+        min-height: 200px;
         margin-bottom: 60px;
       }
     }
@@ -672,6 +682,10 @@
     //style applied only to suite-features.html templates
     .lg-suite-features {
       font-size: 12px;
+      margin-top: 20px;
+      .lg-suite-features-label{
+        margin-bottom: 20px !important;
+      }
       .lg-suite-features-list {
         -webkit-columns: 1;
         display: none;

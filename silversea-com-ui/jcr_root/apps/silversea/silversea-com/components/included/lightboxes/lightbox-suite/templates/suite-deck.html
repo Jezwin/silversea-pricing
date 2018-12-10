@@ -1,19 +1,19 @@
 <template data-sly-template.default="${ @ suite}">
     <div class="lg-suite-deck" data-sly-test="${suite.locationImage || suite.plan}">
         <div class="lg-suite-deck-label">
-            <span>${suite.title @ context='html'} ${'is-available-on' @ i18n }</span>
+            <span>${suite.title @ context='html'} ${'is-available-on' @ i18n }:</span>
         </div>
 
         <div class="lg-suite-deck-tab">
             <sly data-sly-use.locationImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=suite.locationImage,  metadata='deckNumber'}"/>
-            <div class="lg-suite-deck-number ${assetList.first ? 'lg-suite-active-deck lg-suite-active-first' : ''}" data-sly-repeat.asset="${locationImage.renditionList}">
+            <div class="lg-suite-deck-number lg-suite-deck-numbers ${assetList.first ? 'lg-suite-active-deck lg-suite-active-first' : ''}" data-sly-repeat.asset="${locationImage.renditionList}">
                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"/>
                 <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
             </div>
-            <div class="lg-suite-deck-number lg-suite-deck-plan" data-sly-test.asset="${suite.plan}">
+            <!-- <div class="lg-suite-deck-number lg-suite-deck-plan" data-sly-test.asset="${suite.plan}">
                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=suite.plan}"/>
                 <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"> ${'suite-plan' @ i18n } </span>
-            </div>
+            </div> -->
         </div>
 
         <div class="lg-suite-deck-image">

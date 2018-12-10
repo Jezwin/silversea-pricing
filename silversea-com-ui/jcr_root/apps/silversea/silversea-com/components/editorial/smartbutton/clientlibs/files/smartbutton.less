@@ -1,0 +1,60 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+.smartbutton {
+  .smartbtn {
+    font-family: @suisse;
+    letter-spacing: 1.5px;
+    line-height: 16px;
+    background-image: none;
+    cursor: pointer;
+    font-weight: normal;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-width: 1px;
+    border-style: solid;
+
+  }
+  .trasparent-desktop {
+    background-color: transparent !important;
+    border: none;
+
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+}
+
+@media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+  .smartbutton {
+    .smartbtn.trasparent-tablet {
+      background-color: transparent !important;
+      border: none;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-sm) {
+  .smartbutton {
+    .smartbtn.trasparent-mobile {
+      background-color: transparent !important;
+      border: none;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+  }
+}
+
+
+

@@ -264,18 +264,18 @@ public class ExclusiveOfferModel {
         }
 
         // init variations
-        final Iterator<Page> children = page.listChildren();
-        while (children.hasNext()) {
-            final Page child = children.next();
-
-            if (child.getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION)) {
-                final ExclusiveOfferModel variation = child.adaptTo(ExclusiveOfferModel.class);
-
-                if (variation != null) {
-                    variations.add(variation);
-                }
-            }
-        }
+//        final Iterator<Page> children = page.listChildren();
+//        while (children.hasNext()) {
+//            final Page child = children.next();
+//
+//            if (child.getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION)) {
+//                final ExclusiveOfferModel variation = child.adaptTo(ExclusiveOfferModel.class);
+//
+//                if (variation != null) {
+//                    variations.add(variation);
+//                }
+//            }
+//        }
 
         path = page.getPath();
     }

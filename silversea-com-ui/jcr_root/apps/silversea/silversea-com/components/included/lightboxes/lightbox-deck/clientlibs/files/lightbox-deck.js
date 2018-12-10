@@ -5,7 +5,7 @@ $(function () {
         e && e.preventDefault();
         e && e.stopPropagation();
         var $element = $(myThat),
-            deckNumber= $element.data("deck-number"),
+            deckNumber = $element.data("deck-number"),
             srcImageTop = $element.data("image-src-top"),
             srcImageSide = $element.data("image-src-side"),
             $imgTop = $("#image-deck-plan-top"),
@@ -46,15 +46,20 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
+                setTopLightboxModal(400, "#image-deck-plan-top");
                 $(".lightbox-deck  .lg-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
+                history.replaceState(null, null, "#"+$link.attr("id"));
 
                 var $deckActive = $modal.find(".lightbox-deck .lg-deck-number.lg-active-deck span");
                 if ($deckActive != null && $deckActive.length > 0) {
                     showImageDeckPlan($deckActive);
                 }
             });
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 });

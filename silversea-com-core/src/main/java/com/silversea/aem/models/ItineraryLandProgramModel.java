@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.utils.CruiseUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -44,6 +45,10 @@ public class ItineraryLandProgramModel {
         return landProgram != null ? landProgram.getTitle() : null;
     }
 
+    public String getCustomTitle() {
+        return landProgram != null ? landProgram.getCustomTitle() : null;
+    }
+
     public String getDescription() {
         return landProgram != null ? landProgram.getDescription() : null;
     }
@@ -65,10 +70,11 @@ public class ItineraryLandProgramModel {
     }
 
     public LandProgramModel getLandProgram() {
-		return landProgram;
-	}
+        return landProgram;
+    }
 
     public String getAssetSelectionReference() {
-        return landProgram != null ? landProgram.getAssetSelectionReference() : null;
+        return landProgram != null ? CruiseUtils.firstNonNull(landProgram.getAssetSelectionReference(),
+                landProgram.getAssetSelectionReferenceApi()) : null;
     }
 }

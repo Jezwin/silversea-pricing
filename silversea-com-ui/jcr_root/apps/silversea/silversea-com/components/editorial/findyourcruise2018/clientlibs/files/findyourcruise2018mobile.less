@@ -1,0 +1,508 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+@media (max-width: 767px) {
+
+
+  #voyages .findyourcruise2018 .fyc2018-header-container {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .no-height-body {
+    min-height: 0;
+    height: 0;
+  }
+
+  .no-visible-element {
+    background-color: #f4f4f4;
+    opacity: 0;
+    color: #f4f4f4;
+  }
+
+  /*FILTERS*/
+  .parbase.findyourcruise2018 {
+    .findyourcruise2018 {
+
+      .fyc2018-pagination-style-mobile {
+        text-align: center;
+        font-weight: 600;
+
+        .disabled-link {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+
+        .previous-page {
+          float: left;
+          text-transform: uppercase;
+          i {
+            margin-right: 8px;
+            vertical-align: -6% !important;
+          }
+        }
+        .summary-pag {
+          pointer-events: none;
+        }
+        .next-page {
+          float: right;
+          text-transform: uppercase;
+          i {
+            margin-left: 8px;
+            vertical-align: -6% !important;
+          }
+        }
+      }
+
+      .fyc2018-results-div {
+        display: block;
+        margin-top: 20px;
+      }
+
+      .findyourcruise2018-header {
+        height: 100%;
+        background-color: transparent;
+        .fyc2018-header-text.fyc2018-header-title {
+          display: none;
+        }
+
+        .fyc2018-header-reset-all {
+          display: none;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          top: 73px;
+          position: absolute;
+          span {
+            color: black;
+          }
+        }
+
+        .fyc2018-header-text {
+          display: inline-block;
+          vertical-align: middle;
+          font-family: @suisse;
+          font-weight: normal;
+          font-size: 16px;
+          letter-spacing: 1px;
+          line-height: 15px;
+          margin-bottom: 5px;
+        }
+        .fyc2018-header-container.container {
+          position: relative;
+          left: 50%;
+          margin-left: -50vw;
+          margin-right: -50vw;
+          margin-bottom: 10px;
+          right: 50%;
+          width: 100vw;
+          height: 60px;
+          background-color: @nd-dark;
+          border-bottom: solid @white 5px;
+          color: @white;
+        }
+        .fyc2018-header-mobile-filter {
+          display: block;
+          float: right;
+          cursor: pointer;
+        }
+        .fyc-close-i {
+          display: none;
+        }
+
+        .fyc2018-header-mobile-filter-text {
+          display: none;
+        }
+
+        .fyc2018-header-mobile-filter.fyc2018-filter-mobile-open {
+          .fyc-close-i {
+            display: inline-block;
+          }
+          .fyc-tune-i {
+            display: none;
+          }
+          .fyc2018-header-mobile-filter-text {
+            display: inline-block;
+            font-family: @suisse;
+            text-transform: uppercase;
+            font-size: 12px;
+            vertical-align: middle;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            line-height: 15px;
+          }
+        }
+      }
+
+      .fyc2018-filters-container-clear-open {
+        margin-top: 40px;
+      }
+
+      .fyc2018-filters-container {
+        padding-top: 0px;
+        display: none;
+        .fyc2018-filters-wrapper .fyc2018-filter {
+          display: block;
+          margin: 0px 0px 10px;
+        }
+        .fyc2018-filters-wrapper {
+          display: block;
+          table-layout: unset;
+        }
+      }
+    }
+  }
+
+  /* MODAL FILTERS */
+  .parbase.findyourcruise2018 {
+    .findyourcruise2018 {
+
+      .fyc2018-no-results {
+        min-height: 250px;
+        font-size: 15px;
+        span {
+          width: 100%;
+        }
+      }
+
+      .fyc2018-filters-container {
+        padding-top: 0px;
+
+        .fyc2018-filter-value-container {
+          padding-top: 60px;
+        }
+
+        .fyc2018-filter-year {
+          text-align: center;
+          margin-top: 0px;
+          margin-bottom: 10px;
+          padding-top: 35px;
+        }
+
+        .fyc2018-filter-year:first-child {
+          padding-top: 18px;
+        }
+
+        .filter-departure {
+          .fyc2018-filter-value-container {
+            padding-top: 50px;
+          }
+        }
+
+        .filter-features {
+          .fyc2018-filter-value-container {
+            width: 100% !important;
+          }
+        }
+
+        .fyc2018-filter {
+          display: none;
+
+          .fyc2018-view-results {
+            position: fixed;
+            bottom: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background: #f4f4f4;
+            border-top: 1px solid #dbdbdb;
+
+            span {
+              white-space: normal;
+              display: inline-block;
+              text-transform: uppercase;
+              text-align: center;
+              vertical-align: middle;
+              border-width: 0;
+              border-radius: 0 !important;
+              padding: 18px 5px 15px 5px;
+              line-height: 16px;
+              font-size: 13px;
+              font-family: @suisse;
+              font-weight: normal;
+              letter-spacing: 0;
+              background-color: @nd-red;
+              color: #171d47;
+              width: 100%;
+              color: @white;
+            }
+          }
+          .filter-combo-cruises-row {
+            margin-top: 20px;
+          }
+          .filter-combo-cruises {
+            span {
+              width: 100%;
+            }
+          }
+          .fyc2018-filter-value.fyc2018-filter-value-clicked {
+            padding-bottom: 100px;
+          }
+          .fyc2018-filter-value.fyc2018-filter-value-clicked {
+            width: 100vw !important;
+            max-height: 100vh !important;
+            top: 0;
+            left: 0;
+            position: absolute !important;
+            position: absolute !important;
+            z-index: 55555;
+            top: 0;
+            opacity: 1;
+            width: 100px;
+            height: 100vh;
+            max-width: 100vw !important;
+            position: fixed !important;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            overflow-y: scroll !important;
+            min-width: 100vw !important;
+            min-height: 100vh !important;
+            padding-bottom: 195px;
+            transform: none;
+            -webkit-transform: none;
+          }
+
+          .filter-value {
+            padding-right: 15px;
+            padding-left: 15px;
+            span {
+              width: 88%;
+              padding: 18px 5px 15px 5px;
+            }
+          }
+
+          .fyc2018-filter-autocomplete-content {
+            width: 100% !important;
+            max-height: 100vh !important;
+            padding-top: 110px;
+          }
+
+          .fyc2018-filter-label {
+            height: 48px;
+            background-color: #263133;
+            color: white;
+            margin-bottom: 20px;
+            text-align: left;
+            position: fixed;
+            z-index: 10000;
+
+            .easy-autocomplete {
+              padding-top: 47px;
+
+              .fyc2018-filter-autocomplete {
+                height: 52px;
+                background-color: #f4f4f4;
+              }
+            }
+          }
+          .filter-port {
+            .fyc2018-filter-autocomplete-content-open {
+              margin-top: 50px;
+            }
+            .filter-no-ports {
+              font-size: 14px;
+              width: 100%;
+              span {
+                width: 100%;
+              }
+            }
+            .filter-show-selected {
+
+              display: block;
+              position: absolute;
+              transform: translate(-50%, -49px);
+              -webkit-transform: translate(-50%, -49px);
+              left: 50%;
+              z-index: 151515;
+              width: 100%;
+              margin-top: 0;
+              background-color: #f4f4f4;
+              top: 150px;
+            }
+
+            .fyc2018-filter-selected-content {
+              padding-top: 157px;
+              width: 100% !important;
+              max-height: 100vh !important;
+            }
+          }
+          .fyc2018-filter-label-mobile {
+            top: 50%;
+            position: absolute;
+            font-size: 15px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+          }
+          .fyc2018-filter-clear {
+            float: right;
+            i {
+              margin-top: 9px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .c-fyc-v2__result {
+    font-size: 12px;
+    .c-fyc-v2__result__wrapper {
+      box-shadow: rgba(0, 0, 0, 0.15) 0 2px 2px 0;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+
+      .flag {
+        display: none !important;
+      }
+    }
+
+    .c-fyc-v2__result__link {
+      box-shadow: none !important;
+    }
+
+    .c-fyc-v2__result__content {
+      width: 100%;
+      display: table;
+      padding-bottom: 12px;
+
+      .c-fyc-v2__result__content__inner {
+        text-align: center !important;
+      }
+      .c-fyc-v2__result__content__title {
+        font-family: @freight !important;
+        font-size: 22px !important;
+        letter-spacing: .5px !important;
+        line-height: 24px !important;
+        font-weight: normal !important;
+        padding: 0px 6px;
+        em {
+          font-style: inherit !important;
+        }
+      }
+      .c-fyc-v2__result__content__summary {
+        border: none !important;
+        margin-top: 20px !important;
+        background-color: rgba(244, 244, 244, 0.6) !important;
+        font-weight: normal !important;
+        display: -webkit-flex;
+        letter-spacing: -0.3px;
+
+        .c-fyc-v2__result__content__summary__item {
+          padding: 10px 5px 9px !important;
+          border: none !important;
+          width: 33.3333%;
+          dl {
+            border-right: 1px solid #ccc !important;
+
+            dt {
+              color: #98989b !important;
+              font-family: @suisse !important;
+              font-size: 9px !important;
+              letter-spacing: 1px !important;
+              line-height: 11px !important;
+              text-align: center !important;
+              font-weight: normal !important;
+            }
+            dd {
+              font-family: @suisse !important;
+              font-size: 18px !important;
+              letter-spacing: .5px !important;
+              line-height: 25px !important;
+              margin: 4px 0 !important;
+
+            }
+          }
+        }
+
+        .c-fyc-v2__result__content__summary__item--ship.c-fyc-v2__result__content__summary__item {
+          padding: 10px 5px 9px !important;
+          border: none !important;
+          width: 33.3333%;
+          dl {
+            border: none !important;
+          }
+        }
+
+        .c-fyc-v2__result__content__summary__item.c-fyc-v2__result__content__summary__item__duration {
+          padding: 10px 5px 9px !important;
+          border: none !important;
+        }
+        .c-fyc-v2__result__content__summary__item.c-fyc-v2__result__content__summary__item--ship {
+          padding: 10px 5px 9px !important;
+
+          dd {
+            font-family: @suisse !important;
+            font-size: 18px !important;
+            letter-spacing: .5px !important;
+            line-height: 25px !important;
+            margin: 4px 0 !important;
+            border: none !important;
+            strong {
+              letter-spacing: .48px !important;
+              text-align: center !important;
+              font-style: normal !important;
+              text-transform: uppercase !important;
+              font-size: 14px !important;
+              line-height: 16px !important;
+              white-space: pre-line;
+              font-weight: normal;
+            }
+          }
+        }
+
+        .c-fyc-v2__result__content__price {
+          margin-top: 20px;
+        }
+
+        .c-fyc-v2__result__content__price__notWaitList {
+          margin-top: 20px !important;
+          font-family: @suisse !important;
+          font-size: 9px !important;
+          letter-spacing: 1px !important;
+          line-height: 11px !important;
+        }
+      }
+      .c-fyc-v2__result__content__button {
+        margin-top: 15px;
+        position:relative;
+        a {
+          width: 250px !important;
+          padding: 14px 62px 13px 62px !important;
+          font-family: @suisse !important;
+          font-size: 12px !important;
+          letter-spacing: 1px !important;
+          line-height: 18px !important;
+          font-weight: normal !important;
+          min-width: auto;
+        }
+      }
+      .price-prefixe, .price-suffixe {
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 10px;
+      }
+
+      .year, .days {
+        font-family: @suisse !important;
+        font-size: 9px !important;
+        letter-spacing: 1px !important;
+        line-height: 11px !important;
+        display: block;
+      }
+
+      .price-mobile {
+        color: #333 !important;
+        font-family: @suisse !important;
+        font-size: 18px !important;
+        letter-spacing: .5px !important;
+        line-height: 25px !important;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .findyourcruise2018 .fyc2018-header-reset-all span {
+    font-size: 11px;
+  }
+}

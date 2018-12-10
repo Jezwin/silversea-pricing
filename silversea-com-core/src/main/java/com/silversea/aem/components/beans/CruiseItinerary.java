@@ -1,18 +1,17 @@
 package com.silversea.aem.components.beans;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.silversea.aem.components.beans.CruisePrePost.PREPOSTMID;
 import com.silversea.aem.components.page.Cruise2018Use;
 import com.silversea.aem.models.*;
+import com.silversea.aem.utils.CruiseUtils;
+import org.apache.sling.api.resource.ResourceResolver;
 
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
+import static com.silversea.aem.utils.AssetUtils.buildAssetList;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.concat;
@@ -40,9 +39,10 @@ public class CruiseItinerary {
     private final String departTime;
     private final String excursionDescription;
     private final boolean overnight;
+    private final String cruiseType;
 
     public CruiseItinerary(int day, boolean isEmbark, boolean isDebark, String thumbnail, boolean overnight,
-                           ItineraryModel itinerary) {
+                           ItineraryModel itinerary, String cruiseType, ResourceResolver resolver) {
         this.day = day;
         this.thumbnail = thumbnail;
         this.name = itinerary.getPort().getTitle();
@@ -51,7 +51,8 @@ public class CruiseItinerary {
         this.hotels = itinerary.getHotels().stream().map(ItineraryHotelModel::getHotel).collect(toList());
         this.countryIso3 = itinerary.getPort().getCountryIso3();
         this.excursions = retrieveExcursions(isEmbark, isDebark, itinerary);
-        this.hasExcursions = excursions != null && !excursions.isEmpty();
+        this.hasExcursions =
+                excursions != null && !excursions.isEmpty() && !cruiseType.equalsIgnoreCase("silversea-expedition");
         if (hasExcursions) {
             excursions.sort(Comparator.comparing(ex -> ex.getTitle().trim()));
         }
@@ -66,14 +67,20 @@ public class CruiseItinerary {
         this.excursionDescription = itinerary.getPort().getDescription();
         this.itineraryId = itinerary.getItineraryId();
         this.prePosts = concat(
-                hotels.stream()
-                        .map(hotel -> new CruisePrePost(itinerary.getItineraryId(), itinerary.getPort().getThumbnail(),
-                                hotel)),
-                landPrograms.stream()
-                        .map(land -> new CruisePrePost(itinerary.getItineraryId(), itinerary.getPort().getThumbnail(),
-                                land))).filter(prepost -> !"MID".equals(prepost.getPrePost()))
+                hotels.stream().map(hotel -> new CruisePrePost(itinerary.getItineraryId(),
+                        ofNullable(buildAssetList(CruiseUtils.firstNonNull(hotel.getAssetSelectionReference(),
+                                hotel.getAssetSelectionReferenceApi()), resolver))
+                                .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
+                        itinerary.getPort().getThumbnail(), hotel)),
+                landPrograms.stream().map(land -> new CruisePrePost(itinerary.getItineraryId(),
+                        ofNullable(buildAssetList(CruiseUtils.firstNonNull(land.getAssetSelectionReference(),
+                                land.getAssetSelectionReferenceApi()), resolver))
+                                .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
+                        itinerary.getPort().getThumbnail(), land)))
+                .filter(prepost -> !"MID".equals(prepost.getPrePost()))
                 .collect(toList());
         this.shorexSize = mid.size() + (excursions != null ? excursions.size() : 0);
+        this.cruiseType = cruiseType;
     }
 
     private JsonObject retrieveMap(List<LandProgramModel> mid, List<ExcursionModel> excursions) {
@@ -205,5 +212,9 @@ public class CruiseItinerary {
 
     public int getShorexSize() {
         return shorexSize;
+    }
+
+    public String getCruiseType() {
+        return cruiseType;
     }
 }

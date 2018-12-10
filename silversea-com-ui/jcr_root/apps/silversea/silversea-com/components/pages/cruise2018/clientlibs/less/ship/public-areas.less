@@ -1,10 +1,12 @@
 .cruise-2018-ship-public {
   .cruise-2018-ship-public-content {
+    padding-left: 20px;
+    padding-right: 20px;
 
     margin-bottom: 100px;
 
     .slick-dots {
-      width: 100%;
+      width: calc(~'100% - 40px')
 
     }
     .slick-dots li {
@@ -24,43 +26,44 @@
 
     }
     .slick-dots li.slick-active {
-      border: 1px solid @grey--3;
+      border: 1px solid @color-second !important;
       opacity: 1 !important;
+      background-color: @color-second !important;
     }
     .slick-next:after {
       width: 15px;
       height: 15px;
-      padding: 5px;
+      padding: 11px;
       border-left: 0 solid @transparent;
       border-right: 2px solid @color-second !important;
       border-bottom: 2px solid @color-second !important;
       border-top: 0 solid @transparent;
-      opacity: 0.6;
       content: " ";
       right: 53%;
-      left: initial !important;
+      left: 0 !important;
 
     }
 
     .slick-prev {
-      width: 40px;
+      width: 65px;
+      height: 65px;
       left: -30px !important;
       transform: rotateZ(135deg);
     }
     .slick-next {
-      width: 40px;
+      width: 65px;
+      height: 65px;
       right: -30px !important;
       transform: rotateZ(-45deg);
     }
     .slick-prev:after {
       width: 15px;
       height: 15px;
-      padding: 5px;
+      padding: 11px;
       border-left: 0 solid @transparent;
       border-right: 2px solid @color-second !important;
       border-bottom: 2px solid @color-second !important;
       border-top: 0 solid @transparent;
-      opacity: 0.6;
       content: " ";
       right: 0;
     }
@@ -115,7 +118,7 @@
 
   .cruise-2018-ship-public-slide-title {
     text-align: center;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: @grey--3;
     font-family: @freight;
     font-size: 20px;

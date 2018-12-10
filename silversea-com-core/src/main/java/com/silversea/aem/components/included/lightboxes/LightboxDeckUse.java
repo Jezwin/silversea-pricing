@@ -18,6 +18,7 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
 
     @Override
     public void activate() throws Exception {
+        super.activate();
         ship = retrieveShipModel();
         specifications = retrieveSpecification();
     }
@@ -37,7 +38,7 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
             if (StringUtils.isNotEmpty(ship.getTonnage())) {
                 spec.add(new SpecBean("tonnage", ship.getTonnage()));
             }
-            if (countryCode.equals("US") && StringUtils.isNotEmpty(ship.getLengthFt())) {
+            if (isFeet()) {
                 spec.add(new SpecBean("length", ship.getLengthFt()));
             } else if (StringUtils.isNotEmpty(ship.getLengthM())) {
                 spec.add(new SpecBean("length", ship.getLengthM()));

@@ -152,7 +152,7 @@
     <call-reservations-team-learn-excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Call our Reservations Team to know more about our excursions"/>
+            sling:message="Llame a nuestro Equipo de Reservas si desea más información sobre nuestras excursiones"/>
     <check-phone-format
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -241,6 +241,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Los cruceros de Silversea le ofrecen la oportunidad de darse un capricho y de disfrutar de experiencias que no encontrará en un crucero convencional"/>
+    <cruise-itinerary-120-day
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information."/>
     <cruise-excursion-description
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -305,6 +309,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Tipo de crucero"/>
+    <cruise-types
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Tipos de crucero"/>
     <CV
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -341,6 +349,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Salida"/>
+    <departures
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Salidas"/>
     <departure-date
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -357,6 +369,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="destino"/>
+    <destinations
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Destinos"/>
     <destination-discover-more
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -413,6 +429,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Duración"/>
+    <durations
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Duraciones"/>
     <DV
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -530,6 +550,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Características"/>
+    <feature
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Característica"/>
     <feet
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -671,6 +695,18 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Lady"/>
+    <load-more
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Mas informacion"/>
+    <no-matching-cruises
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Lo sentimos, no encontramos cruceros que coinciden."/>
+    <change-filters
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Por favor, cambiar los filtros."/>
     <land-and-hotel
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -775,6 +811,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="No se ha encontrado ninguna coincidencia con estos términos de búsqueda. Inténtelo de nuevo con otras palabras clave."/>
+    <no-port-found
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="No se encontró puerto"/>
     <note
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -883,6 +923,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Puertos"/>
+    <port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Puerto"/>
     <postal-address
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -902,7 +946,7 @@
     <pre-post-extensions
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Antes y después del crucero"/>
+            sling:message="Antes &amp; después del crucero"/>
     <night
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -923,6 +967,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Página anterior"/>
+    <prev2
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Previa"/>
     <previous
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1103,6 +1151,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Buscar"/>
+    <search-port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Buscar puerto"/>
     <search-more
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1119,6 +1171,14 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Seleccione una consulta"/>
+    <selected-port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Puerto seleccionado"/>
+    <selected-ports
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Puertos seleccionados"/>
     <select-language
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1271,7 +1331,7 @@
     <to-date
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="A"/>
+            sling:message="hasta el"/>
     <tonnage
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1321,6 +1381,18 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Ver todo"/>
+    <view-all-offers
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Ver todas las ofertas"/>
+    <view-all-dining-options
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Ver todas las opciones de restauración"/>
+    <view-voyage-highlights
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Ver lo más destacado del crucero"/>
     <view-all-excursions
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

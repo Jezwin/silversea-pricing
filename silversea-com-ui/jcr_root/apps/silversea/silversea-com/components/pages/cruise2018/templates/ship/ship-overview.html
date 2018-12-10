@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ cruise, externalizerHelper }">
-    <div class="cruise-2018-ship-overview" data-sly-test.ship="${cruise.cruiseModel.ship}" >
+    <div class="cruise-2018-ship-overview" data-sly-test.ship="${cruise.cruiseModel.ship}">
         <div class="cruise-2018-ship-overview-title">
             <span class="cruise-2018-ship-overview-title-ship">${'ship' @ i18n}</span> - <span
                 class="cruise-2018-ship-overview-title-title">${ship.title}</span>
@@ -9,23 +9,28 @@
         </div>
         <div class="cruise-2018-ship-overview-button hidden-xs"
              data-lightbox-deck="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-deck'}">
-            <a class="cruise-2018-ship-overview-view-deck-plan-btn btn btn-thin btn-white open-lightbox-deck cruise-2018-link-open-modal"
+            <a class="cruise-2018-ship-overview-view-deck-plan-btn btn btn-thin btn-white open-lightbox-deck cruise-2018-link-open-modal" id="lb-deckPlan"
                data-target=".lightbox" href="#">${'view-deck-plan' @i18n}
             </a>
         </div>
         <div class="ship-slider-overview">
             <div class="ship-slider ship-slider--main main-slider">
-                <div data-sly-repeat.asset="${cruise.shipAssetGallery}" data-image="${asset.path}">
-                    <div class="ratio">
-                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                             data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}"/>
-                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
-                             data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
-                        <sly data-sly-test.isVideo="${isVideo}">
-                            <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
-                        </sly>
+                <sly data-sly-repeat.asset="${cruise.shipAssetGallery}" data-image="${asset.path}">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+                         data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+                    <div data-image="${asset.path}" data-sly-test="${assetHelper.assetType != 'VideoAVS'}">
+                        <div class="ratio" >
+                            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                                 data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}"/>
+                            <sly data-sly-test.isVideo="${isVideo}">
+                                <a class="video-link open-video-slider" href="#" data-target=".lightbox"
+                                   data-current-id-node="${currentNode.identifier}-${assetList.count}"
+                                   data-src="${asset.path}" data-asset-path="${asset.path}"><i
+                                        class="fa fa-play"></i></a>
+                            </sly>
+                        </div>
                     </div>
-                </div>
+                </sly>
             </div>
         </div>
         <div class="cruise-2018-ship-overview-description visible-xs">

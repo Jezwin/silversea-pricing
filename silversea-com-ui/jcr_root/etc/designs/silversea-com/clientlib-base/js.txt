@@ -1,4 +1,5 @@
 #base=js
+core/throttle.js
 components/main.js
 components/c-quote-request-form.js
 components/c-header.js
@@ -34,4 +35,4 @@ components/c-contactus.js
 components/c-steveandsilversea.js
 included/c-modaldetail.js
 included/c-footer.js
-
+core/lightbox.js

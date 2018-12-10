@@ -1,10 +1,10 @@
 .lightbox {
 
   .lightbox-close {
-    display: none;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.37);
-    height: 59px;
+    /*background-color: rgba(0, 0, 0, 0.37);*/
+    background-color: @nd-dark;
+    height: 45px;
     width: 768px;
     cursor: pointer;
     z-index: 2001;
@@ -185,27 +185,27 @@
 
 @media (min-width: @screen-lg-min) {
   .lightbox {
+    visibility: hidden;
     .lightbox-width-732 {
       max-width: 732px !important;
     }
 
     .lightbox-width-1200 {
       max-width: 1200px !important;
-      .modal-content {
-        top: 150px !important;
-      }
       .lightbox-close-1200 {
         max-width: 1200px !important;
       }
+      .modal-body {
+        padding-top: 0px !important;
+      }
       .lightbox-close {
         position: absolute;
-        background-color: black;
-        height: 59px;
+        background-color: @nd-dark;
+        height: 45px;
         width: 100%;
         cursor: pointer;
         z-index: 2001;
         left: 50%;
-        top: 96px;
         color: white !important;
         max-width: 996px;
         transform: translateX(-50%);
@@ -220,6 +220,10 @@
   .lg-content {
     padding-top: 15px;
   }
+
+  .runmode-author.lightbox {
+    visibility: visible !important;
+  }
 }
 
 @media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
@@ -230,15 +234,15 @@
     .lg-content {
       padding-top: 15px;
     }
+
     .lightbox-width-1200 {
-      .modal-content {
-        top: 150px !important;
-      }
       .lightbox-close {
-        background-color: black;
-        top: 96px;
+        background-color: @nd-dark;
         left: 40px;
         width: 688px;
+      }
+      .modal-body {
+        padding-top: 0px !important;
       }
       .lightbox-close-1200 {
         max-width: 1200px !important;
@@ -291,7 +295,7 @@
     .modal-dialog {
       padding-top: 0;
       .modal-content {
-        top: 0;
+        top: 49px;
       }
     }
   }
@@ -317,7 +321,7 @@
 
     .modal-body {
       overflow-y: scroll;
-      max-height: 100vh;
+      max-height: 99vh;
     }
   }
 
@@ -326,7 +330,7 @@
       top: 44px !important;
     }
     .lightbox-close {
-      background-color: black;
+      background-color: @nd-dark;
     }
   }
 }
@@ -339,7 +343,7 @@
 
 @media (min-width: @screen-md-min) {
   .modal.lightbox .modal-content {
-    top: 0;
+    top: 45px;
   }
 }
 
@@ -373,3 +377,4 @@
     }
   }
 }
+

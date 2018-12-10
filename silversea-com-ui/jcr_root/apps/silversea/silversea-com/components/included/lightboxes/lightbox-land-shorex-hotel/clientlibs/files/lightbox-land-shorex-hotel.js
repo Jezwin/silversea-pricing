@@ -21,7 +21,7 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+            history.pushState(null, null, "#" + $link.attr("id")); // push state that hash into the url
             //avoid ios issue
             if (window.scrollSupport != null && window.scrollSupport) {
                 window.iNoBounce.enable();
@@ -32,6 +32,9 @@ $(function () {
             var excursionId = $link.data('excursion-id');
             setModalContent($modal, itineraryId, excursionId, ajaxContentPath, false, '')
             // Append html response inside modal
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 
@@ -46,15 +49,16 @@ $(function () {
     });
 
     function setModalContent($modal, itineraryId, excursionId, ajaxContentPath, animation, direction) {
+
         if (itineraryId && excursionId) {
-            if (setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
+            if ($(window).width() > 1024 && setModalNavigation($modal, ajaxContentPath, itineraryId, excursionId)) {
                 $(".lightbox-prev-link, .lightbox-next-link").show();
             }
         }
         var $modalContent = $modal.find('.modal-content');
         var loadContent = function (callback) {
             $modalContent.load(ajaxContentPath + '.' + itineraryId + '.' + excursionId + ".html", function (e) {
-                //history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+                setTopLightboxModal(432);
                 createSlider($modal);
                 //avoid ios issue
                 if (window.scrollSupport != null && window.scrollSupport) {
@@ -62,6 +66,9 @@ $(function () {
                 }
                 if ($("body").hasClass("viewport-sm")) {
                     $(".modal.lightbox").css("padding-left", "0px");
+                }
+                if ($(".lsh-title") != null && $(".lsh-title").html() != null) {
+                    $(".lsh-title").html($(".lsh-title").html().toLowerCase());
                 }
                 callback && callback();
             });
@@ -78,6 +85,7 @@ $(function () {
                             $modalContent.css('left', '');//this is just to rest left && right because previous line put them to 0
                             $modalContent.css('right', '');
                             $('.lightbox-close').fadeIn();
+                            $(".lazy:visible").lazy();
                         });
                     });
                     $modalContent.css(opposite, '-100vw');//this move it on the other side of the screen
@@ -96,7 +104,7 @@ $(function () {
             if (excursion.prevId == excursionId) {
                 return false;
             }
-            var subUri = uri.substring(0, uri.lastIndexOf('.')+1);
+            var subUri = uri.substring(0, uri.lastIndexOf('.') + 1);
             var prev = $modal.find('.lightbox-prev-label');
             var next = $modal.find('.lightbox-next-label');
             var nextLink = $modal.find('.lightbox-next-link');
@@ -110,14 +118,14 @@ $(function () {
             prevLink.data('itinerary-id', itineraryId);
             prevLink.data('excursion-id', excursion.prevId);
 
-            var prevUri = subUri+excursion.prevKind;
+            var prevUri = subUri + excursion.prevKind;
             prevLink.attr('href', prevUri);
 
             nextLink.data('target', $modal.attr('id'));
             nextLink.data('itinerary-id', itineraryId);
             nextLink.data('excursion-id', excursion.nextId);
 
-            var nextUri = subUri+excursion.nextKind;
+            var nextUri = subUri + excursion.nextKind;
             nextLink.attr('href', nextUri);
         } catch (e) {
 
@@ -129,12 +137,12 @@ $(function () {
         var $mainSlider = $modal.find('.lightbox-land-shorex-hotel .lsh-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
                     settings: {
-                        arrows: false
+                        arrows: true
                     }
                 }
             ]

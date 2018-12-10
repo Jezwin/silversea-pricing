@@ -33,4 +33,10 @@ public interface HotelsImporter {
      *
      */
     ImportResult disactiveAllItemDeltaByAPI();
+
+    /**
+     * Update hotel images from csv
+     *
+     */
+    ImportResult importHotelImages();
 }

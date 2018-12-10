@@ -1,0 +1,63 @@
+@needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, margin-top, margin-right, margin-bottom, margin-left, background-color, display, text-align, color, border-color;
+@double-needed-properties: height, width, display, text-align;
+
+
+.for ( @array ) when (default()) {
+  .for-impl_(length(@array))
+}
+
+.for-impl_(@i) when (@i > 1) {
+  .for-impl_((@i - 1))
+}
+
+.for-impl_(@i) when (@i > 0) {
+  .-each(extract(@array, @i))
+}
+
+@ffw-media-tablet: ~"(min-width:768px) and (max-width:991px)";
+@ffw-media-mobile: ~"(max-width:767px)";
+
+.generate-class(@property, @suffix) {
+  .ssc-fw-@{property}@{suffix} {
+    @{property}: ~"var(--ssc-fw-@{property}@{suffix}-desktop)";
+    @media @ffw-media-tablet{
+        @{property}: ~"var(--ssc-fw-@{property}@{suffix}-tablet, var(--ssc-fw-@{property}@{suffix}-desktop))";
+    }
+    @media @ffw-media-mobile{
+        @{property}: ~"var(--ssc-fw-@{property}@{suffix}-mobile, var(--ssc-fw-@{property}@{suffix}-desktop))";
+    }
+  }
+};
+
+.for( @needed-properties );
+.-each( @property ) {
+  .generate-class( @property,  ~'');
+}
+
+.for( @double-needed-properties );
+.-each( @property ) {
+  .generate-class( @property,  ~'-snd');
+}
+
+
+.ssc-fw-content::before {
+  content: ~"var(--ssc-fw-content-desktop);"
+}
+
+@media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+  .ssc-fw-content::before {
+    content: ~"var(--ssc-fw-content-tablet);"
+  }
+}
+
+@media (max-width: @screen-sm) {
+  .ssc-fw-content::before {
+    content: ~"var(--ssc-fw-content-mobile);"
+  }
+}
+
+@media screen and (min-width: @screen-md-max) {
+  .ssc-fw-background-color-hover:hover {
+    background-color: ~"var(--ssc-fw-background-color-hover-desktop) !important;"
+  }
+}

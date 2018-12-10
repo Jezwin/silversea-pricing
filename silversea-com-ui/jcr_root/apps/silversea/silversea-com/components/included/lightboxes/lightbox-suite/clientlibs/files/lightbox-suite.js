@@ -59,7 +59,7 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+            history.pushState(null, null, "#"+$link.attr("id")); // push state that hash into the url
             //avoid ios issue
             if (window.scrollSupport != null && window.scrollSupport) {
                 window.iNoBounce.enable();
@@ -69,18 +69,22 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
+                setTopLightboxModal(432);
                 createSlider($modal, $link);
+
                 $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
+
                 $(".lightbox-suite .lg-suite-features .lg-suite-features-expand").on("click", function (e) {
                     showSuiteFeatures(this, e);
                 });
+
                 $(".lightbox-suite .lg-suite-overview .lg-suite-description-expand").on("click", function (e) {
                     showDescription(this, e);
                 });
 
-                var $deckActive = $modal.find(".lightbox-suite .lg-suite-deck-number.lg-suite-active-deck span");
+                var $deckActive = $modal.find(".lightbox-suite .lg-suite-deck-numbers.lg-suite-active-deck span");
                 if ($deckActive != null && $deckActive.length > 0) {
                     showImageDeckPlan($deckActive);
                 }
@@ -89,18 +93,21 @@ $(function () {
                 }
             });
         });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
+        });
     });
 
     function createSlider($modal, $link) {
         var $mainSlider = $modal.find('.lightbox-suite .lg-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
                     settings: {
-                        arrows: false
+                        arrows: true
                     }
                 }
             ]

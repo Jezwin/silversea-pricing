@@ -50,9 +50,21 @@
       margin-left: 10px;
     }
     img {
-      width:16px;
+      width: 16px;
     }
   }
+
+  .cruise-2018-itineraries-120-label {
+    font-size: 10px;
+    color: grey;
+    padding: 0px 90px;
+    text-align: center;
+    line-height: 14px;
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 25px;
+  }
+
   .cruise-2018-itineraries-description {
     font-family: @suisse;
     font-size: 13px;
@@ -80,6 +92,10 @@
     text-align: center;
     margin-bottom: 30px;
     margin-top: 25px;
+
+    .btn-white:focus {
+      background-color: white !important;
+    }
   }
   .cruise-2018-itineraries-itinerary-row {
     width: 100%;
@@ -124,6 +140,13 @@
     overflow: hidden;
     position: relative;
   }
+  .cruise-2018-itineraries-itinerary-row-day-wrapper-debark {
+
+    .cruise-2018-itineraries-itinerary-row-day-content {
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+  }
   .cruise-2018-itineraries-itinerary-row-day::after {
     width: 1px;
     content: " ";
@@ -142,8 +165,9 @@
   .cruise-2018-itineraries-itinerary-row-day-last::after {
     display: none;
   }
+
   .cruise-2018-itineraries-itinerary-row-day-content {
-    font-size: 13px;
+    font-size: 10px;
     display: inline-block;
     font-weight: 500;
     padding-top: 55%;
@@ -152,6 +176,7 @@
     margin-left: 8px;
     min-width: 1em;
     margin-right: 8px;
+    text-transform: uppercase;
   }
   .cruise-2018-itineraries-itinerary-row-thumbnail {
     height: 100%;
@@ -227,7 +252,7 @@
     height: 100%;
     text-align: right;
     width: 20px;
-    &.ssc_hidden{
+    &.ssc_hidden {
       visibility: hidden;
     }
   }
@@ -235,8 +260,10 @@
   .cruise-2018-itineraries-show-more-wrapper {
     display: table;
     padding-bottom: 14px;
+    margin-bottom: 14px;
     &.bordered {
-      border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+      border-bottom: 1px solid;
+      border-bottom-color: rgba(152, 152, 155, 0.5);
     }
   }
 
@@ -252,6 +279,195 @@
 
   .cruise-2018-itineraries-port-excursions > .cruise-2018-itineraries-port-excursions-excursion {
     flex: 0 50%;
+  }
+  .cruise-2018-itinerary-slider-wrapper {
+    height: 265px;
+    position: relative;
+    width: 1152px;
+    max-width: 1152px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 50px;
+  }
+
+  .cruise-2018-itinerary-slider {
+
+    .slick-slide {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+  .cruise-2018-itinerary-slider-wrapper {
+    .cruise-2018-itinerary-slider {
+      visibility: hidden;
+
+      .slick-slide.slick-cloned .video-link {
+        pointer-events: none;
+      }
+
+      &.slick-initialized {
+        visibility: visible !important;
+      }
+      .parbase {
+        margin-bottom: 0 !important;
+      }
+
+      .slick-cloned .o-img {
+        display: none;
+      }
+
+      .slick-slide {
+        &,
+        a:focus {
+          outline: 0;
+        }
+
+        > * {
+          margin-bottom: 0 !important;
+        }
+      }
+
+      &:not(.ga-slider--full-width) .slick-slide > * {
+        margin: 0 5px;
+        @media (max-width: @screen-sm) {
+          margin: 0 10px;
+        }
+      }
+
+      .slick-prev,
+      .slick-next {
+        height: 100%;
+        width: 40px;
+        z-index: 1;
+
+        &:before,
+        &:after {
+          content: " ";
+          display: block;
+          height: 20px;
+          position: absolute;
+          top: 50%;
+          width: 20px;
+        }
+
+        &:before {
+          border: 1px solid @transparent;
+          border-width: 0 1px 1px 0;
+          top: calc(~"50% + 2px");
+        }
+
+        &:after {
+          border-left: 0 solid transparent;
+          border-right: 2px solid #171d47 !important;
+          border-bottom: 2px solid #171d47 !important;
+          border-top: 0 solid transparent;
+        }
+      }
+
+      .slick-prev {
+        left: -25px;
+        &:before,
+        &:after {
+
+          -webkit-transform: translate(50%, -50%) rotateZ(135deg);
+          -ms-transform: translate(50%, -50%) rotateZ(135deg);
+          transform: translate(50%, -50%) rotateZ(135deg);
+        }
+      }
+
+      .slick-next {
+        right: -25px;
+        &:before,
+        &:after {
+
+          -webkit-transform: translate(50%, -50%) rotateZ(-45deg);
+          -ms-transform: translate(50%, -50%) rotateZ(-45deg);
+          transform: translate(50%, -50%) rotateZ(-45deg);
+        }
+      }
+
+      .slick-dots {
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        width: auto;
+      }
+
+      .slick-dots {
+        width: 100%;
+
+      }
+      .slick-dots li {
+        height: 1px;
+        margin: 0;
+      }
+      .slick-dots li button:before {
+        border-radius: 0;
+      }
+      .slick-dots li button {
+        height: 1px;
+        width: 100%;
+      }
+      .slick-dots li button:before {
+        background-color: @grey--9 !important;
+        opacity: 0.5;
+
+      }
+      .slick-dots li.slick-active {
+        border: 1px solid @color-second !important;
+        opacity: 1 !important;
+        background-color: @color-second !important;
+      }
+
+      &--nav,
+      &--main {
+        .lazy {
+          &:after {
+            background-image: url('/etc/designs/silversea-com/clientlib-base/images/loader.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            content: ' ';
+            height: 50px;
+            left: calc(~'50% - 25px');
+            position: absolute;
+            top: calc(~'50% - 25px');
+            width: 50px;
+            z-index: -1;
+          }
+        }
+      }
+
+      &--main {
+        .slick-prev,
+        .slick-next {
+          height: 100px;
+        }
+
+        .slick-slide {
+          .ratio {
+            height: 215px;
+            margin: 0;
+            position: relative;
+            width: 100%;
+
+            .c-video {
+              height: 0;
+
+              &.s7videoviewer {
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 100%
+              }
+            }
+          }
+        }
+      }
+      .slick-slide[data-slide-type^="video"] {
+        position: relative;
+      }
+    }
   }
 }
 
@@ -299,11 +515,17 @@
       margin-bottom: 15px;
     }
     .cruise-2018-itineraries-title {
-      font-size: 22px;
+      font-size: 25px;
       letter-spacing: 0.5px;
       line-height: 24px;
       text-align: center;
       margin-bottom: 15px;
+    }
+
+    .cruise-2018-itineraries-120-label {
+      font-size: 9px;
+      padding: 0px 18px;
+      margin-bottom: 10px;
     }
 
     .cruise-2018-itineraries-description {
@@ -322,6 +544,10 @@
       font-size: 18px;
       line-height: 20px;
       margin-bottom: 5px;
+
+    }
+    .cruise-2018-itineraries-itinerary-row-container {
+      pointer-events: none;
 
     }
 
@@ -352,7 +578,7 @@
         font-size: 19px !important;
       }
       display: table-cell;
-      &.ssc_hidden{
+      &.ssc_hidden {
         visibility: hidden;
       }
     }
@@ -576,7 +802,6 @@
 
   .cruise-2018-itineraries-itinerary-row-container:not(.cruise-2018-itineraries-show-less):not(.cruise-2018-itineraries-no-border) {
     border-bottom: 1px solid rgba(152, 152, 155, 0.5);
-
   }
 
   .cruise-2018 .cruise-2018-itineraries-itinerary::before {
@@ -603,3 +828,16 @@
     display: none;
   }
 }
+
+@media (min-width: @screen-md-max) {
+  .cruise-2018-itineraries-container {
+    .cruise-2018-itineraries-itinerary-row-container.cruise-2018-itineraries-itinerary-row-container-with-excursion:hover {
+      div {
+        color: @red !important;
+      }
+      border-bottom-color: @red !important;
+    }
+  }
+}
+
+

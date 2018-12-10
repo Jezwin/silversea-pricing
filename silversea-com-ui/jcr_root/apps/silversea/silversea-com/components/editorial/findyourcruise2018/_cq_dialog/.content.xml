@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Find your cruise 2018"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container" >
+         <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            margin="{Boolean}false"
+            type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <main
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Main options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <voyagecodelist
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Voyage code list (xxxx,xxxx,xxxx,xxxx)"
+                                name="./voyagecodelist"
+                                cols="60"
+                                rows="15"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea" />
+                           <title
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Custom Title"
+                                name="./jcr:title"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <hideTitle
+                                jcr:primaryType="nt:unstructured"
+                                text="Hide header (FYC title and result number)"
+                                name="./hideTitle"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/hidden" />
+                            <hideFycTitle
+                                jcr:primaryType="nt:unstructured"
+                                text="Hidden FYC Title (Your search results)"
+                                name="./hideFycTitle"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <resultsLabelSingular
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="Results label (singular)"
+                                name="./resultsLabelSingular"/>
+                            <resultsLabelPlural
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="Results label (plural)"
+                                name="./resultsLabelPlural"/>
+                        </items>
+                    </column>
+                </items>
+            </main>
+            <prefilter
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Pre-filters options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                       	   <preFilterWaitlist
+								jcr:primaryType="nt:unstructured"
+								sling:resourceType="granite/ui/components/foundation/form/checkbox"
+								name="./preFilterWaitlist"
+								text="No waitlist"
+								value="true"/>
+                           <destinationId
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Destination Id"
+                                name="./destinationId"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                          <shipId
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Ship Id"
+                                name="./shipId"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                           <eoId
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Exclusive Offer Path"
+                                fieldDescription="Example : /content/silversea-com/en/exclusive-offers/early-booking-offer"
+                                name="./eoId"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                          <featureId
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Feature Id"
+                                name="./featureId"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                        </items>
+                    </column>
+                </items>
+            </prefilter>
+        </items>
+        </content>
+</jcr:root>

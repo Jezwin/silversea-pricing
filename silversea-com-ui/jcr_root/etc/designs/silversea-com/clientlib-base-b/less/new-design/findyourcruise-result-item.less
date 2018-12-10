@@ -1,5 +1,74 @@
+.fyc-to-show {
+  display: none;
+}
+
 @media (max-width: @screen-sm) {
   .find-your-cruise-component.mobile-version-2 {
+
+    .c-fyc-pagination {
+      position: relative;
+      span.summary-pag {
+        font-weight: bold !important;
+        text-transform: lowercase !important;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: -3px;
+        display: block;
+        font-size: 15px;
+      }
+
+      li {
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: 'Suisse Regular', sans-serif;
+        font-size: 14px;
+        display: inline-block;
+        color: black;
+        .previous-nd {
+        }
+        a {
+          border: none !important;
+          &:hover {
+            color: black;
+            background-color: transparent;
+          }
+        }
+        .disable-action {
+          opacity: 0.5;
+          pointer-events: none !important;
+        }
+
+        .fyc-to-show {
+          display: inline;
+        }
+        .fyc-to-hide {
+          display: none;
+        }
+        a.next {
+          position: absolute;
+          right: 0px;
+          bottom: -11px;
+          &:after {
+            content: "\f054" !important;
+            font-family: FontAwesome;
+            margin-left: 1px !important;
+          }
+        }
+
+        a.previous {
+          position: absolute;
+          left: 0px;
+          bottom: -12px;
+          &:before {
+            content: "\f053" !important;
+            font-family: FontAwesome;
+            margin-right: 1px !important;
+          }
+        }
+      }
+    }
+
     .c-fyc__result-wrapper.clearfix.v2 {
       .c-fyc__results__wrapper {
         .c-fyc__result {
@@ -67,12 +136,13 @@
               margin: 4px 0 !important;
             }
             .c-fyc__result__content__summary__item--ship > dl > dd > strong {
-              font-size: 9px !important;
-              letter-spacing: 1px !important;
-              line-height: 11px !important;
+              letter-spacing: 0.48px !important;
               text-align: center !important;
               font-style: normal !important;
               text-transform: uppercase !important;
+              font-size: 14px !important;
+              line-height: 16px !important;
+              white-space: pre-line;
             }
             .c-fyc__result__content__summary__item > dl > dd {
               font-family: @suisse !important;
@@ -107,7 +177,6 @@
               line-height: 25px !important;
             }
           }
-
         }
       }
     }
@@ -123,6 +192,11 @@
     .c-fyc-v1-filter-mobile-show {
       display: block !important;
     }
+
+    .single-filter.feature-tracking {
+      display: none !important;
+    }
+
     .c-fyc-filter {
       margin-top: 0px;
       .c-fyc-v1-filter {
@@ -179,6 +253,7 @@
           background-color: @color-dark-bg;
           border-bottom: solid @white 5px;
           color: @white;
+
         }
       }
 
@@ -225,6 +300,34 @@
           }
           .fyc-close-i {
             display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm) {
+  body.ship {
+    .find-your-cruise-component.mobile-version-2 {
+      .c-fyc-v1-filter__header {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .find-your-cruise-component.mobile-version-2 {
+    .c-fyc__result-wrapper.clearfix.v2 {
+      .c-fyc__results__wrapper {
+        .c-fyc__result {
+          .c-fyc__result__content__inner {
+            .c-fyc__result__content__summary__item--ship > dl > dd > strong {
+              font-size: 9px !important;
+              white-space: pre-line;
+            }
           }
         }
       }

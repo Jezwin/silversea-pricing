@@ -1,17 +1,31 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
+import com.day.cq.dam.api.s7dam.set.MediaSet;
+import org.apache.jackrabbit.vault.util.JcrConstants;
+import org.apache.jackrabbit.vault.util.SHA1;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.PersistenceException;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +33,8 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.authentication.DigestAuthenticationInfos;
+
+import static com.day.cq.dam.commons.util.S7SetHelper.createS7MixedMediaSet;
 
 /**
  * Created by aurelienolivier on 13/02/2017.
@@ -45,7 +61,8 @@ public class BaseImporter {
         Header wwwAuthenticateHeader = get.getResponseHeader("WWW-Authenticate");
 
         if (wwwAuthenticateHeader != null) {
-            DigestAuthenticationInfos digestAuthenticationInfos = new DigestAuthenticationInfos(wwwAuthenticateHeader.getValue());
+            DigestAuthenticationInfos digestAuthenticationInfos =
+                    new DigestAuthenticationInfos(wwwAuthenticateHeader.getValue());
             if (login != null && password != null) {
                 digestAuthenticationInfos.setCredentials(login, password);
             } else {
@@ -75,9 +92,9 @@ public class BaseImporter {
     /**
      * Set the last modification date on the defined <code>rootPath</code>
      *
-     * @param pageManager the page manager
-     * @param session the session
-     * @param rootPath path of the page where to set the last modification date property
+     * @param pageManager  the page manager
+     * @param session      the session
+     * @param rootPath     path of the page where to set the last modification date property
      * @param propertyName the property name to write
      */
     @Deprecated
@@ -114,4 +131,39 @@ public class BaseImporter {
             }
         }
     }
+
+    public static MediaSet createMediaSet(ResourceResolver resolver, Resource pathFolderResource,
+                                          String setName, String... pathImages) throws PersistenceException,
+            RepositoryException {
+        MediaSet s7MixedMediaSet;
+        if(pathFolderResource.getChild(setName) == null) {
+            s7MixedMediaSet = createS7MixedMediaSet(pathFolderResource, setName, new HashMap<>());
+            }else {
+            s7MixedMediaSet = pathFolderResource.getChild(setName).adaptTo(MediaSet.class);
+        }
+            Asset asset;
+            for (String pathImage : pathImages) {
+                asset = pathImage != null && resolver.getResource(pathImage) != null ?
+                        resolver.getResource(pathImage).adaptTo(Asset.class) : null;
+                if (asset != null) {
+                    if(!s7MixedMediaSet.contains(asset)) {
+                        s7MixedMediaSet.add(asset);
+                    }
+                    final Resource setMetadata = s7MixedMediaSet.getChild("jcr:content/metadata");
+                    if (setMetadata != null) {
+                        final Node setMetadataNode = setMetadata.adaptTo(Node.class);
+
+                        if (setMetadataNode != null) {
+                            setMetadataNode.setProperty("dc:title", setName);
+                        }
+                    }
+
+                }
+            }
+            return s7MixedMediaSet;
+
+
+    }
+
+
 }

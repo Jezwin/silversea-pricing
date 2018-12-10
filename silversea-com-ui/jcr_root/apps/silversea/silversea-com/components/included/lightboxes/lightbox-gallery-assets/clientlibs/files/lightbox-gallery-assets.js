@@ -24,9 +24,23 @@ $(function () {
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
                 createLigthboxGallerySlider($modal, $link);
+                setHeight();
+                setTopLightboxModal(0);
             });
+            history.replaceState(null, null, location.href.replace(location.hash, "") + "#" + $link.attr("id"));
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
+
+    function setHeight() {
+        var $modalLightbox = $(".modal.lightbox");
+        var windowHeight = $(window).height();
+        if (windowHeight < $modalLightbox.find(".modal-content").height()) {
+            $modalLightbox.find(".main-slider .ratio").css('padding-bottom', (windowHeight - 250) + 'px');
+        }
+    }
 
     function createLigthboxGallerySlider($modal, $link) {
         var $mainSlider = $modal.find('.main-slider').slick({
@@ -47,7 +61,7 @@ $(function () {
         $('.lightbox-gallery-assets .video-link').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if(typeof s7viewers !== 'undefined'){
+            if (typeof s7viewers !== 'undefined') {
                 $(this).next('.video-icon').initVideo();
             }
         });

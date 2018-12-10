@@ -1,5 +1,6 @@
 package com.silversea.aem.models;
 
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.CruiseItinerary;
@@ -91,6 +92,8 @@ public class ItineraryModel {
 
     private Integer cruiseId;
 
+    private String cruiseType;
+
     private PortModel port;
 
     private Boolean hasDedicatedShorex;
@@ -102,10 +105,12 @@ public class ItineraryModel {
         final Resource itinerariesContentResource = resource.getParent();
         hasDedicatedShorex = false;
 
+        final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
         if (itinerariesContentResource != null) {
             final Resource cruiseContentResource = itinerariesContentResource.getParent();
 
             if (cruiseContentResource != null) {
+                cruiseType = CruiseModel.cruiseType(tagManager, cruiseContentResource);
                 cruiseId = cruiseContentResource.getValueMap().get("cruiseId", Integer.class);
                 departDateInit = cruiseContentResource.getValueMap().get("startDate", Calendar.class);
 
@@ -123,16 +128,22 @@ public class ItineraryModel {
         }
         List<ItineraryExcursionModel> excursionToShow = new ArrayList<>();
 
-        for (ItineraryExcursionModel excursion : this.excursions) {
-            if (excursion.getExcursion() != null &&
-                    StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
-                if (!excursionToShow.stream().anyMatch(
-                        dto -> dto.getExcursion().getCodeExcursion() == excursion.getExcursion().getCodeExcursion())) {
-                    excursionToShow.add(excursion);
+
+        boolean isExpedition = "silversea-expedition".equals(getCruiseType());
+        if (!isExpedition) {
+            for (ItineraryExcursionModel excursion : this.excursions) {
+                ExcursionModel otherExcursion = excursion.getExcursion();
+                if (otherExcursion != null && StringUtils.isNotEmpty(otherExcursion.getCodeExcursion())) {
+                    if (excursionToShow.stream().noneMatch(
+                            dto -> dto.getExcursion().getCodeExcursion().equals(otherExcursion.getCodeExcursion()))) {
+                        excursionToShow.add(excursion);
+                    }
                 }
             }
         }
-        hasDedicatedShorex = Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 120;
+        hasDedicatedShorex =
+                !isExpedition &&  Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 120;
+
         excursionToShow.sort(Comparator.comparing(ItineraryExcursionModel::getTitle));
         this.excursions = excursionToShow;
 
@@ -168,6 +179,10 @@ public class ItineraryModel {
         calendar.setTime(date);
 
         return calendar;
+    }
+
+    public boolean isOvernight() {
+        return overnight;
     }
 
     public Date getRawDate() {
@@ -311,6 +326,10 @@ public class ItineraryModel {
 
     public void setNumberDays(Integer numberDays) {
         this.numberDays = numberDays;
+    }
+
+    public String getCruiseType() {
+        return cruiseType;
     }
 
     public void addLandPrograms(List<ItineraryLandProgramModel> landPrograms) {

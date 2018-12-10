@@ -71,6 +71,9 @@
     if(pageurlAB.indexOf('landing-dmp-dest') > -1 || pageurlAB.indexOf('landing-dmp-ship') > -1 || pageurlAB.indexOf('landing-dmp-offer') > -1 || pageurlAB.indexOf('landing-ship') > -1 || pageurlAB.indexOf('landing-dest') > -1 || pageurlAB.indexOf('landing-offer') > -1){
      shouldAB = "true";  
     }
+    if(window.dataLayer[0].search_page_number != ""){
+        shouldAB = "true";
+    }
 
     window.dataLayer[0].ABDiscoverMoreActivate = shouldAB;
     

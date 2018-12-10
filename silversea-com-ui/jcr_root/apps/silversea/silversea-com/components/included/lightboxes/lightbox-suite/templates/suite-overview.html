@@ -26,7 +26,7 @@
         <div class="row lg-row-bed-cta">
             <div class="col-sm-7">
                 <div class="lg-suite-bedrooms">
-                    ${model.suitePrice.suite.bedroomsInformation @ context="html"}
+                    ${(model.isFeetSquare ? model.suitePrice.suite.bedroomsInformationFeet : model.suitePrice.suite.bedroomsInformationMeter) || model.suitePrice.suite.bedroomsInformation @ context="html"}
                 </div>
             </div>
             <div class="col-sm-5 hidden-xs">
@@ -41,14 +41,14 @@
         </div>
         <div class="row lg-row-descr">
             <div class="col-xs-12">
-                <div class="lg-suite-description lg-suite-description-truncate">
-                    <span class="lg-suite-descr-label hidden-xs">${'description' @ i18n}</span>
+                <div class="lg-suite-description">
+                    <span class="lg-suite-descr-label">${'description' @ i18n}</span>
                     ${model.suitePrice.suite.longDescription @ context="html"}
                 </div>
             </div>
-            <div class="col-xs-12 visible-xs">
+            <!-- <div class="col-xs-12 visible-xs">
                 <span class="lg-suite-description-expand">${'read-more' @ i18n }</span>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

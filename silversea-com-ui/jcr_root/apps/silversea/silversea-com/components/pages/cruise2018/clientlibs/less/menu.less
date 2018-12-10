@@ -63,7 +63,8 @@
   }
 
   .row-menu-overview:before, .row-menu-navigation:before {
-    left: -100vw;
+    left: -40vw;
+    width: 200vw;
   }
 
   .row-menu-overview:after, .row-menu-navigation:after {
@@ -83,11 +84,9 @@
     }
 
     .row-menu-overview:after, .row-menu-navigation:after {
-      box-shadow: rgba(0, 0, 0, 0.8) 0 15px 17px -13px;
 
     }
     .cruise-2018-menu {
-      box-shadow: rgba(0, 0, 0, 0.8) 0px -10px 15px 12px;
 
     }
     .cruise-2018-menu-tab.active {
@@ -132,7 +131,7 @@
 
   @media screen and (max-width: @screen-sm) {
     .ssc-table-full-width {
-      width: 94vw;
+      width: 93vw;
     }
 
     .cruise-2018-menu {
@@ -148,10 +147,17 @@
         display: none;
       }
       .ssc-sticky-top {
-        width: 94vw !important;
+        width: 34vw !important;
       }
     }
 
+  }
+
+  @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max ) {
+    .ssc-sticky-top .ssc-table-full-width {
+      width: 96% !important;
+      min-width: 96% !important;
+    }
   }
   @media screen and (min-width: @screen-sm) {
     .ssc-table-full-width {
@@ -186,6 +192,9 @@
     .menu-date-days, .menu-price-raq {
       border-left: 1px solid fade(@color-medium-bg, 20%);
       min-height: 44px;
+      .menu-date-days-days, .menu-date-days-to {
+        text-transform: lowercase !important;
+      }
     }
 
     .menu-overview-destination {
@@ -299,7 +308,7 @@
 
 @media (max-width: @screen-sm) {
   .row-menu-navigation {
-    width: 95%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
   }

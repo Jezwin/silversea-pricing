@@ -21,7 +21,7 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+            history.pushState(null, null, location.href.replace(location.hash, "") + "#" + $link.attr("id"));
             //avoid ios issue
             if (window.scrollSupport != null && window.scrollSupport) {
                 window.iNoBounce.enable();
@@ -30,9 +30,13 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
+                setTopLightboxModal();
                 createSlider($modal, $link);
 
             });
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 
@@ -40,12 +44,12 @@ $(function () {
         var $mainSlider = $modal.find('.lightbox-port .lg-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true,
+            dots: false,
             responsive: [
                 {
                     breakpoint: 480,
                     settings: {
-                        arrows: false
+                        arrows: true
                     }
                 }
             ]
@@ -121,7 +125,7 @@ $(function () {
 
     var wdest = $(window).width();
 
-    $(window).resize(function () {
+    $(window).resize(sscThrottled(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
         var $modal = $(".modal.lightbox");
@@ -129,5 +133,5 @@ $(function () {
             $modal.css("padding-left", "0px");
         }*/
         createLineProgressBarPortGallery($modal);
-    });
+    }));
 });

@@ -3,13 +3,9 @@ package com.silversea.aem.components.page;
 import com.day.cq.commons.Filter;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.models.PortItem;
-import com.silversea.aem.models.PortModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 
-import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
@@ -21,11 +17,8 @@ import javax.inject.Named;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * @author aurelienolivier

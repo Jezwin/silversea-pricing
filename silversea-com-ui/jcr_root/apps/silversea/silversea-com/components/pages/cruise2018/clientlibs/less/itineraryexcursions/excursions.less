@@ -24,6 +24,12 @@
 
   }
 
+  .cruise-2018-itineraries-port-excursions-last {
+    .cruise-2018-itineraries-port-excursions-excursion-last {
+      border-bottom: none !important;
+    }
+  }
+
   .cruise-2018-itineraries-port-excursions-excursion {
     width: 100%;
     padding-right: 30px;
@@ -54,6 +60,7 @@
     padding-bottom: 15px;
     padding-top: 15px;
   }
+
   .cruise-2018-itineraries-port-excursions-excursion-view-all {
     display: none;
   }
@@ -61,7 +68,9 @@
   .cruise-2018-itineraries-port-excursions-btn {
     text-align: center;
     flex: 1 1 100%;
-    border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+    &.notLast {
+      border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+    }
   }
   .cruise-2018-itineraries-port-excursions-btn a {
     border-radius: @nd-button-border-radius;
@@ -106,10 +115,10 @@
     cursor: pointer;
     float: left;
     height: 12px;
-    margin-right: 7px;
+    margin-right: 4px;
     position: relative;
     z-index: 1;
-    width: 12px;
+    min-width: 12px;
 
     .tooltip {
       display: none;
@@ -165,22 +174,18 @@
       }
     }
   }
-  .cruise-2018-itineraries-port-excursions-moredetails:hover {
-    background-color: @grey--f4;
-    color: @color-second;
-  }
   .cruise-2018-itineraries-port-excursions-excursion {
     position: relative;
   }
   .cruise-2018-itineraries-port-excursions-moredetails {
+    display: table;
     cursor: pointer;
     position: absolute;
     z-index: 10;
-    height: calc(100% + 1px);
+    height: calc(100% + 2px);
     width: 100%;
     left: 0;
     top: -1px;
-    padding: 30px 0px;
     vertical-align: middle;
     text-align: center;
     color: transparent;
@@ -193,6 +198,10 @@
     font-size: 13px;
     letter-spacing: 1.5px;
     line-height: 16px;
+    span {
+      display: table-cell;
+      vertical-align: middle;
+    }
   }
   .cruise-2018-itineraries-port-excursions::after {
     content: " ";
@@ -220,3 +229,14 @@
 
   }
 }
+
+@media (min-width: @screen-md-max) {
+
+  .cruise-2018-itineraries-container {
+    .cruise-2018-itineraries-port-excursions-moredetails:hover {
+      background-color: @grey--f4;
+      color: @color-second;
+    }
+  }
+}
+

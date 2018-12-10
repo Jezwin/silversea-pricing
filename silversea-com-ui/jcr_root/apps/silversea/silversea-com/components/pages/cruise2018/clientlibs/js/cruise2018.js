@@ -15,13 +15,21 @@ var createLineProgressBar = (function () {
         });
     }
 })();
+
 function loadLazyImageInSlider($slider) {
     var $sliderActive = $slider.find('.slick-active');
-    $sliderActive.find('.lazy').lazy();
-    $sliderActive.prev().find('.lazy').lazy();
-    $sliderActive.prev().prev().find('.lazy').lazy();
-    $sliderActive.next().find('.lazy').lazy();
-    $sliderActive.next().next().find('.lazy').lazy();
+    var slideToLoad = $slider.data('ssc-slides') || 3;
+    var i;
+    var $sliderI = $sliderActive;
+    for (i = 0; i < slideToLoad + 1; i++) {
+        $sliderI.find('.lazy').lazy();
+        $sliderI = $sliderI.prev();
+    }
+    $sliderI = $sliderActive.next();
+    for (i = 0; i < slideToLoad; i++) {
+        $sliderI.find('.lazy').lazy();
+        $sliderI = $sliderI.next();
+    }
     setTimeout(function () {
         $sliderActive.find('.lazy').lazy();
     }, 50);
@@ -40,17 +48,28 @@ function initSlider() {
                 draggable: true,
                 slidesToShow: $slider.data('ssc-slides') || 3,
                 slidesToScroll: $slider.data('ssc-slides') || 3,
+                responsive: []
             };
             var breakpoint = $slider.data('ssc-breakpoint');
             if (breakpoint) {
-                options.responsive =
-                    [{
+                options.responsive.push(
+                    {
                         breakpoint: breakpoint,
                         settings: {
                             slidesToShow: $slider.data('ssc-slides') - 1 || 3,
                             slidesToScroll: $slider.data('ssc-slides') - 1 || 3
                         }
-                    }];
+                    });
+            }
+            var breakpointTablet = $slider.data('ssc-breakpoint-tablet');
+            if (breakpointTablet) {
+                options.responsive.push({
+                    breakpoint: breakpointTablet,
+                    settings: {
+                        slidesToShow: $slider.data('ssc-slides-to-show-tablet') || 1,
+                        slidesToScroll: $slider.data('ssc-slides-to-scroll-tablet') || 1
+                    }
+                });
             }
             $slider.slick(options);
             $slider.on('afterChange', function (event, slick, currentSlide) {
@@ -62,13 +81,46 @@ function initSlider() {
     });
 }
 
+function openModalFromSelector() {
+    var hash = window.location.hash;
+    if (hash == "") {
+        return;
+    }
+    $hash = $(hash);
+    if ($hash.length == 0) {
+        return;
+    }
+    var number = window.innerWidth < 768 ? 65 : 100;
+    if (hash.startsWith("#lb-shorex")) {//is never visible
+        var $closest = $hash.closest(":visible");
+        $([document.documentElement, document.body]).animate({scrollTop: $closest.offset().top - number}, 100);
+        if ($(document.body).hasClass('viewport-xs')) {
+            $closest.parent().find(".open-lightbox-port").click();//opening port modal
+        } else {
+            $closest.find(".cruise-2018-itineraries-itinerary-row-container-with-excursion").click();
+            $hash.click();
+        }
+    } else if (hash.startsWith("#menu-")) {
+        $(".cruise-2018-menu a[href$='"+hash+"']").click();
+        return;
+    } else {
+        if ($hash.is(":visible")) {
+            $hash.click();
+        }
+        else if ($hash.closest(":visible")) {
+            $([document.documentElement, document.body]).animate({scrollTop: $hash.closest(":visible").offset().top - number}, 100)
+        }
+    }
+}
+
 
 $(function () {
     initSlider();
     window.widthCruise2018 = $(window).width();
-    $(window).resize(function () {
+    $(window).resize(sscThrottled(function () {
         if ($(window).width() == window.widthCruise2018) return;
         window.widthCruise2018 = $(window).width();
         createLineProgressBar();
-    });
+    }));
 });
+$(window).load(openModalFromSelector);
