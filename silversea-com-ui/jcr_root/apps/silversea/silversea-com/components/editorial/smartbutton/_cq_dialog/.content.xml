@@ -2,7 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
-          jcr:title="SSC - Smart Button - (DO NOT USE IT)"
+          jcr:title="SSC - Smart Button"
           sling:resourceType="cq/gui/components/authoring/dialog">
     <content
             jcr:primaryType="nt:unstructured"
@@ -93,23 +93,22 @@
                                             name="./sscFwContentDesktop"/>
                                     <sscFwBackgroundColorDesktop
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Button Color"
-                                            value="rgba(214,5,36,1)"
-                                            freestylePaletteType="{Boolean}true"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Button Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value="#D60524"
                                             name="./sscFwBackgroundColorDesktop"/>
                                     <sscFwColorDesktop
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Color Text"
-                                            value="rgba(244,244,244,1)"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value="#ffffff"
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorDesktop"/>
                                     <sscFwBorderColorDesktop
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Border Color"
-                                            value="rgba(214,5,36,1)"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Border Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value="#D60524"
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwBorderColorDesktop"/>
                                     <isTrasparentButtonDesktop
@@ -411,22 +410,22 @@
                                             name="./sscFwContentTablet"/>
                                     <sscFwBackgroundColorTablet
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Button Color"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Button Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwBackgroundColorTablet"/>
                                     <sscFwColorTablet
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Color Text"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorTablet"/>
                                     <sscFwBorderColorTablet
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Border Color"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Border Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwBorderColorTablet"/>
@@ -752,22 +751,22 @@
                                             name="./sscFwContentMobile"/>
                                     <sscFwBackgroundColorMobile
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Button Color"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Button Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwBackgroundColorMobile"/>
                                     <sscFwColorMobile
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Color Text"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Color Text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorMobile"/>
                                     <sscFwBorderColorMobile
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Border Color"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwBorderColorMobile"/>
@@ -1028,24 +1027,23 @@
                                     sling:resourceType="granite/ui/components/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <geoList jcr:primaryType="nt:unstructured"
-                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                             class="full-width">
-                                        <field jcr:primaryType="nt:unstructured"
-                                               sling:resourceType="granite/ui/components/foundation/form/fieldset"
-                                               acs-commons-nested="NODE_STORE" name="./geoListDesktop">
-                                            <layout jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                                    method="absolute"/>
+                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                             composite="{Boolean}true"
+                                             eaem-show-on-collapse="EAEM.showProductName">
+                                        <field
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                name="./geoListDesktop">
                                             <items jcr:primaryType="nt:unstructured">
-                                                <column jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/container"
-                                                        class="full-width">
+                                                <column
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
                                                     <items jcr:primaryType="nt:unstructured">
-                                                        <typeDesktop
+                                                        <type
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Type of link"
-                                                                name="./typeDesktop">
+                                                                name="./type">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1064,12 +1062,12 @@
                                                                         text="File (pdf, image ...)"
                                                                         value="file"/>
                                                             </items>
-                                                        </typeDesktop>
-                                                        <analyticTypeDesktop
+                                                        </type>
+                                                        <analyticType
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Analytic type"
-                                                                name="./analyticTypeDesktop">
+                                                                name="./analyticType">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1092,47 +1090,47 @@
                                                                         text="Signup for offer"
                                                                         value="clic-SFO"/>
                                                             </items>
-                                                        </analyticTypeDesktop>
-                                                        <linkUrlDesktop
+                                                        </analyticType>
+                                                        <linkUrl
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                                 fieldLabel="Link url"
-                                                                name="./linkUrlDesktop"
+                                                                name="./linkUrl"
                                                                 fieldDescription="Link valid for any type"
                                                                 rootPath="/content/"/>
-                                                        <sscFwContentDesktop
+                                                        <sscFwContent
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
                                                                 value=""
-                                                                name="./sscFwContentDesktop"/>
-                                                        <sscFwBackgroundColorDesktop
+                                                                name="./sscFwContent"/>
+                                                        <sscFwBackgroundColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Button Color"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Button color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBackgroundColorDesktop"/>
-                                                        <sscFwColorDesktop
+                                                                name="./sscFwBackgroundColor"/>
+                                                        <sscFwColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Color Text"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwColorDesktop"/>
-                                                        <sscFwBorderColorDesktop
+                                                                name="./sscFwColor"/>
+                                                        <sscFwBorderColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Border Color"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBorderColorDesktop"/>
-                                                        <isTrasparentButtonDesktop
+                                                                name="./sscFwBorderColor"/>
+                                                        <isTrasparentButton
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Trasparent button"
-                                                                name="./isTrasparentButtonDesktop">
+                                                                name="./isTrasparentButton">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1147,18 +1145,18 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isTrasparentButtonDesktop>
-                                                        <enableToScrollElementDesktop
+                                                        </isTrasparentButton>
+                                                        <enableToScrollElement
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Put id o class of element to scroll"
                                                                 fieldLabel="Element to scroll"
-                                                                name="./enableToScrollElementDesktop"/>
-                                                        <enableLightboxDesktop
+                                                                name="./enableToScrollElement"/>
+                                                        <enableLightbox
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Enable lightbox"
-                                                                name="./enableLightboxDesktop">
+                                                                name="./enableLightbox">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1173,12 +1171,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </enableLightboxDesktop>
-                                                        <openNewTabDesktop
+                                                        </enableLightbox>
+                                                        <openNewTab
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Open new tab"
-                                                                name="./openNewTabDesktop">
+                                                                name="./openNewTab">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1193,12 +1191,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </openNewTabDesktop>
-                                                        <isExternalLinkDesktop
+                                                        </openNewTab>
+                                                        <isExternalLink
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="External link"
-                                                                name="./isExternalLinkDesktop">
+                                                                name="./isExternalLink">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1213,12 +1211,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isExternalLinkDesktop>
-                                                        <sscFwDisplayDesktop
+                                                        </isExternalLink>
+                                                        <sscFwDisplay
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display"
-                                                                name="./sscFwDisplayDesktop">
+                                                                name="./sscFwDisplay">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1233,13 +1231,13 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplayDesktop>
-                                                        <sscFwDisplaySndDesktop
+                                                        </sscFwDisplay>
+                                                        <sscFwDisplaySnd
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display Arrow"
                                                                 fieldDescription="Arrow"
-                                                                name="./sscFwDisplaySndDesktop">
+                                                                name="./sscFwDisplaySnd">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1254,11 +1252,12 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplaySndDesktop>
-                                                        <geoTagDesktop jcr:primaryType="nt:unstructured"
+                                                        </sscFwDisplaySnd>
+                                                        <geoTag jcr:primaryType="nt:unstructured"
                                                                        fieldLabel="Geolocation tag"
-                                                                       name="./geoTagDesktop" rootPath="/etc/tags"
-                                                                       sling:resourceType="cq/gui/components/common/tagspicker"/>
+                                                                       name="./geoTag" rootPath="/etc/tags"
+                                                                       multiple="{Boolean}true"
+                                                                       sling:resourceType="cq/gui/components/coral/common/form/tagfield"/>
                                                     </items>
                                                 </column>
                                             </items>
@@ -1288,24 +1287,23 @@
                                     sling:resourceType="granite/ui/components/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <geoList jcr:primaryType="nt:unstructured"
-                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                             class="full-width">
-                                        <field jcr:primaryType="nt:unstructured"
-                                               sling:resourceType="granite/ui/components/foundation/form/fieldset"
-                                               acs-commons-nested="NODE_STORE" name="./geoListTablet">
-                                            <layout jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                                    method="absolute"/>
+                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                             composite="{Boolean}true"
+                                             eaem-show-on-collapse="EAEM.showProductName">
+                                        <field
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                name="./geoListTablet">
                                             <items jcr:primaryType="nt:unstructured">
-                                                <column jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/container"
-                                                        class="full-width">
+                                                <column
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
                                                     <items jcr:primaryType="nt:unstructured">
-                                                        <typeTablet
+                                                        <type
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Type of link"
-                                                                name="./typeTablet">
+                                                                name="./type">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1324,12 +1322,12 @@
                                                                         text="File (pdf, image ...)"
                                                                         value="file"/>
                                                             </items>
-                                                        </typeTablet>
-                                                        <analyticTypeTablet
+                                                        </type>
+                                                        <analyticType
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Analytic type"
-                                                                name="./analyticTypeTablet">
+                                                                name="./analyticType">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1352,47 +1350,47 @@
                                                                         text="Signup for offer"
                                                                         value="clic-SFO"/>
                                                             </items>
-                                                        </analyticTypeTablet>
-                                                        <linkUrlTablet
+                                                        </analyticType>
+                                                        <linkUrl
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                                 fieldLabel="Link url"
-                                                                name="./linkUrlTablet"
+                                                                name="./linkUrl"
                                                                 fieldDescription="Link valid for any type"
                                                                 rootPath="/content/"/>
-                                                        <sscFwContentTablet
+                                                        <sscFwContent
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
                                                                 value=""
-                                                                name="./sscFwContentTablet"/>
-                                                        <sscFwBackgroundColorTablet
+                                                                name="./sscFwContent"/>
+                                                        <sscFwBackgroundColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Button Color"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Button color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBackgroundColorTablet"/>
-                                                        <sscFwColorTablet
+                                                                name="./sscFwBackgroundColor"/>
+                                                        <sscFwColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Color Text"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwColorTablet"/>
-                                                        <sscFwBorderColorTablet
+                                                                name="./sscFwColor"/>
+                                                        <sscFwBorderColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Border Color"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBorderColorTablet"/>
-                                                        <isTrasparentButtonTablet
+                                                                name="./sscFwBorderColor"/>
+                                                        <isTrasparentButton
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Trasparent button"
-                                                                name="./isTrasparentButtonTablet">
+                                                                name="./isTrasparentButton">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1407,18 +1405,18 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isTrasparentButtonTablet>
-                                                        <enableToScrollElementTablet
+                                                        </isTrasparentButton>
+                                                        <enableToScrollElement
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Put id o class of element to scroll"
                                                                 fieldLabel="Element to scroll"
-                                                                name="./enableToScrollElementTablet"/>
-                                                        <enableLightboxTablet
+                                                                name="./enableToScrollElement"/>
+                                                        <enableLightbox
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Enable lightbox"
-                                                                name="./enableLightboxTablet">
+                                                                name="./enableLightbox">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1433,12 +1431,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </enableLightboxTablet>
-                                                        <openNewTabTablet
+                                                        </enableLightbox>
+                                                        <openNewTab
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Open new tab"
-                                                                name="./openNewTabTablet">
+                                                                name="./openNewTab">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1453,12 +1451,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </openNewTabTablet>
-                                                        <isExternalLinkTablet
+                                                        </openNewTab>
+                                                        <isExternalLink
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="External link"
-                                                                name="./isExternalLinkTablet">
+                                                                name="./isExternalLink">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1473,12 +1471,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isExternalLinkTablet>
-                                                        <sscFwDisplayTablet
+                                                        </isExternalLink>
+                                                        <sscFwDisplay
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display"
-                                                                name="./sscFwDisplayTablet">
+                                                                name="./sscFwDisplay">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1493,13 +1491,13 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplayTablet>
-                                                        <sscFwDisplaySndTablet
+                                                        </sscFwDisplay>
+                                                        <sscFwDisplaySnd
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display Arrow"
                                                                 fieldDescription="Arrow"
-                                                                name="./sscFwDisplaySndTablet">
+                                                                name="./sscFwDisplaySnd">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1514,11 +1512,12 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplaySndTablet>
-                                                        <geoTagTablet jcr:primaryType="nt:unstructured"
-                                                                      fieldLabel="Geolocation tag"
-                                                                      name="./geoTagTablet" rootPath="/etc/tags"
-                                                                      sling:resourceType="cq/gui/components/common/tagspicker"/>
+                                                        </sscFwDisplaySnd>
+                                                        <geoTag jcr:primaryType="nt:unstructured"
+                                                                       fieldLabel="Geolocation tag"
+                                                                       name="./geoTag" rootPath="/etc/tags"
+                                                                       multiple="{Boolean}true"
+                                                                       sling:resourceType="cq/gui/components/coral/common/form/tagfield"/>
                                                     </items>
                                                 </column>
                                             </items>
@@ -1548,24 +1547,23 @@
                                     sling:resourceType="granite/ui/components/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <geoList jcr:primaryType="nt:unstructured"
-                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                             class="full-width">
-                                        <field jcr:primaryType="nt:unstructured"
-                                               sling:resourceType="granite/ui/components/foundation/form/fieldset"
-                                               acs-commons-nested="NODE_STORE" name="./geoListMobile">
-                                            <layout jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                                    method="absolute"/>
+                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                             composite="{Boolean}true"
+                                             eaem-show-on-collapse="EAEM.showProductName">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                                            name="./geoListMobile">
                                             <items jcr:primaryType="nt:unstructured">
-                                                <column jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/container"
-                                                        class="full-width">
-                                                    <items jcr:primaryType="nt:unstructured">
-                                                        <typeMobile
+                                                <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                <type
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Type of link"
-                                                                name="./typeMobile">
+                                                                name="./type">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1584,12 +1582,12 @@
                                                                         text="File (pdf, image ...)"
                                                                         value="file"/>
                                                             </items>
-                                                        </typeMobile>
-                                                        <analyticTypeMobile
+                                                        </type>
+                                                        <analyticType
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Analytic type"
-                                                                name="./analyticTypeMobile">
+                                                                name="./analyticType">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1612,47 +1610,47 @@
                                                                         text="Signup for offer"
                                                                         value="clic-SFO"/>
                                                             </items>
-                                                        </analyticTypeMobile>
-                                                        <linkUrlMobile
+                                                        </analyticType>
+                                                        <linkUrl
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                                 fieldLabel="Link url"
-                                                                name="./linkUrlMobile"
+                                                                name="./linkUrl"
                                                                 fieldDescription="Link valid for any type"
                                                                 rootPath="/content/"/>
-                                                        <sscFwContentMobile
+                                                        <sscFwContent
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
                                                                 value=""
-                                                                name="./sscFwContentMobile"/>
-                                                        <sscFwBackgroundColorMobile
+                                                                name="./sscFwContent"/>
+                                                        <sscFwBackgroundColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Button Color"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Button color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBackgroundColorMobile"/>
-                                                        <sscFwColorMobile
+                                                                name="./sscFwBackgroundColor"/>
+                                                        <sscFwColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Color Text"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwColorMobile"/>
-                                                        <sscFwBorderColorMobile
+                                                                name="./sscFwColor"/>
+                                                        <sscFwBorderColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Border Color"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBorderColorMobile"/>
-                                                        <isTrasparentButtonMobile
+                                                                name="./sscFwBorderColor"/>
+                                                        <isTrasparentButton
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Trasparent button"
-                                                                name="./isTrasparentButtonMobile">
+                                                                name="./isTrasparentButton">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1667,18 +1665,18 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isTrasparentButtonMobile>
-                                                        <enableToScrollElementMobile
+                                                        </isTrasparentButton>
+                                                        <enableToScrollElement
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Put id o class of element to scroll"
                                                                 fieldLabel="Element to scroll"
-                                                                name="./enableToScrollElementMobile"/>
-                                                        <enableLightboxMobile
+                                                                name="./enableToScrollElement"/>
+                                                        <enableLightbox
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Enable lightbox"
-                                                                name="./enableLightboxMobile">
+                                                                name="./enableLightbox">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1693,12 +1691,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </enableLightboxMobile>
-                                                        <openNewTabMobile
+                                                        </enableLightbox>
+                                                        <openNewTab
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Open new tab"
-                                                                name="./openNewTabMobile">
+                                                                name="./openNewTab">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1713,12 +1711,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </openNewTabMobile>
-                                                        <isExternalLinkMobile
+                                                        </openNewTab>
+                                                        <isExternalLink
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="External link"
-                                                                name="./isExternalLinkMobile">
+                                                                name="./isExternalLink">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1733,13 +1731,13 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isExternalLinkMobile>
-                                                        <sscFwDisplayMobile
+                                                        </isExternalLink>
+                                                        <sscFwDisplay
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display"
                                                                 fieldDescription="Arrow"
-                                                                name="./sscFwDisplayMobile">
+                                                                name="./sscFwDisplay">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1754,13 +1752,13 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplayMobile>
-                                                        <sscFwDisplaySndMobile
+                                                        </sscFwDisplay>
+                                                        <sscFwDisplaySnd
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display Arrow"
                                                                 fieldDescription="Arrow"
-                                                                name="./sscFwDisplaySndMobile">
+                                                                name="./sscFwDisplaySnd">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1775,11 +1773,12 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplaySndMobile>
-                                                        <geoTagMobile jcr:primaryType="nt:unstructured"
-                                                                      fieldLabel="Geolocation tag"
-                                                                      name="./geoTagMobile" rootPath="/etc/tags"
-                                                                      sling:resourceType="cq/gui/components/common/tagspicker"/>
+                                                        </sscFwDisplaySnd>
+                                                        <geoTag jcr:primaryType="nt:unstructured"
+                                                                  fieldLabel="Geolocation tag"
+                                                                  name="./geoTag" rootPath="/etc/tags"
+                                                                  multiple="{Boolean}true"
+                                                                  sling:resourceType="cq/gui/components/coral/common/form/tagfield"/>
                                                     </items>
                                                 </column>
                                             </items>
