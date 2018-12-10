@@ -2,15 +2,11 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 import com.google.common.collect.Range;
 import com.google.gson.JsonArray;
-import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.models.*;
-import org.apache.sling.api.resource.ValueMap;
 
 import java.time.YearMonth;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
@@ -26,7 +22,7 @@ public class FilterBar {
                 @Override
                 protected Stream<FilterRow<DestinationItem>> projection(CruiseModelLight cruiseModelLight) {
                     DestinationItem destination = cruiseModelLight.getDestination();
-                    return Stream.of(new FilterRow<>(destination, DestinationItem::getTitle, destination.getName(), ENABLED));
+                    return Stream.of(new FilterRow<>(destination, DestinationItem::getTitle, cruiseModelLight.getDestinationId(), ENABLED));
                 }
             };
     public static final AbstractFilter<String> TYPE =
@@ -43,6 +39,11 @@ public class FilterBar {
                 protected Stream<FilterRow<PortItem>> projection(CruiseModelLight cruise) {
                     return cruise.getPorts().stream()
                             .map(port -> new FilterRow<>(port, PortItem::getTitle, port.getName(), ENABLED));
+                }
+
+                @Override
+                protected void postFilter() {
+                    getRows().removeIf(FilterRow::isDisabled);
                 }
             };
 
@@ -99,6 +100,13 @@ public class FilterBar {
     void updateFilters(List<CruiseModelLight> allCruises, List<CruiseModelLight> filteredCruises) {
         updateNonSelectedFilters(filteredCruises);
         updateSelectedFilters(allCruises);
+        postFiltering();
+    }
+
+    private void postFiltering() {
+        for (AbstractFilter<?> filter : FILTERS) {
+            filter.postFilter();
+        }
     }
 
     private void updateNonSelectedFilters(List<CruiseModelLight> cruises) {

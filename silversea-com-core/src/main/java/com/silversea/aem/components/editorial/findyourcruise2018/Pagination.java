@@ -12,6 +12,8 @@ public class Pagination {
     private final boolean first;
     private final boolean last;
 
+    public static final Pagination EMPTY = new Pagination(0, 0, 0);
+
     public Pagination(int totalResults, int current, int pageSize) {
         this.totalResults = totalResults;
         this.current = current;

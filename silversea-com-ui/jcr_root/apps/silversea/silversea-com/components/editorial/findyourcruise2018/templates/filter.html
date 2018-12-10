@@ -2,7 +2,7 @@
 <template data-sly-template.default="${@ fyc}">
     <div class="findyourcruise2018-header">
         <div class="fyc2018-header-container container">
-            <div class="fyc2018-header-text fyc2018-header-title ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${!properties.hideTitle}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
+            <div class="fyc2018-header-text fyc2018-header-title ${properties.hideFycTitle ? 'hidden' : ''}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
                 <div class="fyc2018-header-text fyc2018-header-total-num">${fyc.totalResults} </div>
                 <div class="fyc2018-header-text">
                     <sly data-sly-test="${fyc.totalResults == 1}">${properties.resultsLabelSingular || 'cruise' @ i18n}</sly>
@@ -34,7 +34,7 @@
                 <sly data-sly-test="${fyc.filterBar.TYPE.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.TYPE.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type', open=fyc.filterBar.TYPE.open}"/>
                 <sly data-sly-test="${fyc.filterBar.PORT.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='Search port', open=fyc.filterBar.PORT.open}"/>
+                     data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='search-port', open=fyc.filterBar.PORT.open}"/>
                 <sly data-sly-test="${fyc.filterBar.FEATURES.visible}" data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                      data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
             </div>

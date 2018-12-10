@@ -21,6 +21,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -34,7 +36,6 @@ import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Stream.concat;
 
 
 public class Cruise2018Use extends EoHelper {
@@ -77,6 +78,8 @@ public class Cruise2018Use extends EoHelper {
 
     private long numPorts;
     private long numCountries;
+
+    private long dayUntilDeparture;
 
     private List<SilverseaAsset> assetsGallery;
     private List<SilverseaAsset> portsGallery;
@@ -166,6 +169,7 @@ public class Cruise2018Use extends EoHelper {
         numPorts = retrieveNumberOfPorts(cruiseModel);
         numCountries = retrieveNumberOfCountries(cruiseModel);
 
+        dayUntilDeparture = ChronoUnit.DAYS.between(Instant.now(), cruiseModel.getStartDate().toInstant());
         prePosts = retrievePrePosts(itinerary);
         prices = retrievePrices(cruiseModel);
         lowestPrice = retrieveLowestPrice(prices);
@@ -241,7 +245,8 @@ public class Cruise2018Use extends EoHelper {
 
 
     private List<CruiseItinerary> retrieveItinerary(CruiseModel cruiseModel) {
-        final InheritanceValueMap propertiesInherited = new HierarchyNodeInheritanceValueMap(cruiseModel.getPage().getAbsoluteParent(2).getContentResource());
+        final InheritanceValueMap propertiesInherited =
+                new HierarchyNodeInheritanceValueMap(cruiseModel.getPage().getAbsoluteParent(2).getContentResource());
         String thumbnailInherited = propertiesInherited.getInherited("image/fileReference", String.class);
         List<CruiseItinerary> result = new ArrayList<>();
         List<ItineraryModel> itineraries = cruiseModel.getItineraries();
@@ -254,7 +259,8 @@ public class Cruise2018Use extends EoHelper {
             Integer portId = itinerary.getPortId();
             result.add(
                     new CruiseItinerary(days.size(), counter == 0, counter == size - 1,
-                            ofNullable(portAssets.get(portId).poll()).orElse(ofNullable(itinerary.getPort().getThumbnail()).orElse(thumbnailInherited)),
+                            ofNullable(portAssets.get(portId).poll())
+                                    .orElse(ofNullable(itinerary.getPort().getThumbnail()).orElse(thumbnailInherited)),
                             itinerary.isOvernight(), itinerary, cruiseModel.getCruiseType(), getResourceResolver()));
         }
         result.sort(comparing(CruiseItinerary::getDate));
@@ -729,8 +735,8 @@ public class Cruise2018Use extends EoHelper {
         }
 
 
-    }
 
+    }
     public List<ExclusiveOfferItem> getExclusiveOffers() {
         return exclusiveOffers;
     }
@@ -853,6 +859,10 @@ public class Cruise2018Use extends EoHelper {
 
     public ItineraryLandProgramModel getMidlandShorexLightbox() {
         return midlandShorexLightbox;
+    }
+
+    public long getDayUntilDeparture() {
+        return dayUntilDeparture;
     }
 }
 

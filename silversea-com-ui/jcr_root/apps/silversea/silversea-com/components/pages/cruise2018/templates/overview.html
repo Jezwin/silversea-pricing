@@ -5,7 +5,8 @@
              data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
              data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
             <sly data-sly-list.asset="${cruise.assetsGallery}">
-                <sly data-sly-test="${asset.path && assetList.index < 1}" data-sly-test.firstAssetGalleryImg="${asset.path}" />
+                <sly data-sly-test="${asset.path && assetList.index < 1}"
+                     data-sly-test.firstAssetGalleryImg="${asset.path}"/>
             </sly>
 
             <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary || firstAssetGalleryImg}"/>
@@ -41,14 +42,19 @@
                     <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"
                          id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
                          data-image-virtual-tour="${asset.path}"
-                         data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
-                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=asset.path, Width=700}" />
-                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                         data-asset-label="${asset.label}" data-asset-credits="${asset.credits}">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                             data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=asset.path, Width=700}"/>
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+                             data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
                         <sly data-sly-test.isVideo="${isVideo}">
-                            <a class="video-link open-video-slider" href="#" data-target=".lightbox" data-current-id-node="${currentNode.identifier}-${assetList.count}" data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
+                            <a class="video-link open-video-slider" href="#" data-target=".lightbox"
+                               data-current-id-node="${currentNode.identifier}-${assetList.count}"
+                               data-src="${asset.path}" data-asset-path="${asset.path}"><i class="fa fa-play"></i></a>
                         </sly>
                     </div>
-                    <div data-sly-test="${asset.type == 'virtual-tour'}" id="ow-virtual-tour-${assetList.index}-container"></div>
+                    <div data-sly-test="${asset.type == 'virtual-tour'}"
+                         id="ow-virtual-tour-${assetList.index}-container"></div>
                 </div>
             </sly>
         </div>
@@ -114,23 +120,47 @@
                 </div>
                 <div class="cruise-2018-overview-quote-suites-fares">
                     <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote coolanchorminussmall"
-                       href="#cruise2018suites">
+                       href="#menu-cruise2018suites">
                         <span>${'suites-and-fares' @i18n}</span>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 cruise-2018-overview-quote-icons hidden-xs">
-            <a href='${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf'
-               target="_blank" id="cruise-2018-pdf-download" rel="nofollow">
-                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/download-pdf.png" />
-            </a>
-            <div class="cruise-2018-overview-quote-icons-print" id="cruise-2018-pdf-print">
-                <i class="fa fa-refresh fa-spin cruise-2018-pdf-print-link" style="display: none;"></i>
-                <img class="cruise-2018-pdf-print-link" src="/etc/designs/silversea-com/clientlib-icon-2018/18px/print.png" />
+        <div class="col-md-6 col-md-offset-6 cruise-2018-overview-quote-icons hidden-xs">
+            <div class="cruise-2018-overview-prev-next col-md-12">
+                <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html'}"
+                   class="previous-block">
+                        <span class="previous-content">
+                            <i class="fa fa-angle-left"></i>
+                            <span class="previous-label">${'previous-voyage' @ i18n}</span>
+
+                        </span>
+
+                </a>
+                <span data-sly-test="${cruise.next && cruise.previous}" class="cruise-2018-overview-prev-next-separator"> | </span>
+                <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"
+                   class="next-block">
+                        <span class="next-content">
+                            <span class="next-label">${'next-voyage' @ i18n}</span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                </a>
+
             </div>
-            <div class="cruise-2018-overview-quote-icons-facebook" id="cruise-2018-facebook"><i
-                    class="fa fa-facebook"></i>
+            <div class="col-md-12">
+                <a href='${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf'
+                   target="_blank" id="cruise-2018-pdf-download" rel="nofollow">
+                    <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/download-pdf.png"/>
+                </a>
+                <div class="cruise-2018-overview-quote-icons-print" id="cruise-2018-pdf-print">
+                    <i class="fa fa-refresh fa-spin cruise-2018-pdf-print-link" style="display: none;"></i>
+                    <img class="cruise-2018-pdf-print-link"
+                         src="/etc/designs/silversea-com/clientlib-icon-2018/18px/print.png"/>
+                </div>
+                <div class="cruise-2018-overview-quote-icons-facebook" id="cruise-2018-facebook"><i
+                        class="fa fa-facebook"></i>
+                </div>
+
             </div>
         </div>
         <div class="cruise-2018-overview-fares-footnote col-xs-12">
@@ -145,8 +175,7 @@
         var cruiseTypeText = '';
         if ('${cruise.cruiseModel.cruiseType  @ context='scriptString'}' === 'silversea-expedition') {
             cruiseTypeText = '${'expedition-cruise' @ i18n,context='scriptString'}'
-        }
-        else {
+        } else {
             cruiseTypeText = '${'cruise' @ i18n,context='scriptString'}'
         }
         var shareText = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;

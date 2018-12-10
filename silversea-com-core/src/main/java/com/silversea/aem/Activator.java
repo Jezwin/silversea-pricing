@@ -25,18 +25,36 @@ public class Activator implements BundleActivator, BundleListener {
                 && event.getBundle().getSymbolicName().equals("com.silversea.aem.silversea-com-core")) {
 
             try {
-                Thread.sleep(30000);
+                Thread.sleep(45000);
             } catch (InterruptedException e) {
                 LOGGER.error("Cannot wait before init of CruiseCacheService");
             }
+            while(!buildCacheInit(event)){
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    LOGGER.error("Cannot wait before init of CruiseCacheService");
+                }
+            }
+        }
+    }
+
+    private boolean buildCacheInit(BundleEvent event) {
+        try {
             final BundleContext context = event.getBundle().getBundleContext();
 
             final ServiceReference serviceReference = context.getServiceReference(CruisesCacheService.class.getName());
             if (serviceReference != null) {
                 final CruisesCacheService cruisesCacheService = (CruisesCacheService) context.getService(serviceReference);
                 cruisesCacheService.buildCruiseCache();
+                return true;
             }
+            return false;
+        }catch(Exception e){
+            LOGGER.error("Failed to generate Init Cruise Cache -- will try again after");
+            return false;
         }
     }
+
 }
 

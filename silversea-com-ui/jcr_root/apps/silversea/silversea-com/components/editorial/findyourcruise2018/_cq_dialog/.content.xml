@@ -43,12 +43,6 @@
                                 name="./hideTitle"
                                 value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/hidden" />
-                            <hideResultNb
-                                jcr:primaryType="nt:unstructured"
-                                text="Hide Result Number"
-                                name="./hideResultNb"
-                                value="true"
-                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <hideFycTitle
                                 jcr:primaryType="nt:unstructured"
                                 text="Hidden FYC Title (Your search results)"
