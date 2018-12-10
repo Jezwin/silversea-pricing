@@ -179,14 +179,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             stream = stream.filter(cruise -> voyageCodeList.get().contains(cruise.getCruiseCode()));
         }
 
-        /*
-        Optional<String> exclusiveOffer = ofNullable(getProperties().get("eoId", String.class));
-        if (exclusiveOffer.isPresent()) {
-            String offer = exclusiveOffer.get();
-            stream = stream.filter(cruise -> cruise.getExclusiveOffers().stream().map(ExclusiveOfferModelLight::getPath).anyMatch(offer::equals));
-        }
-        */
-
         stream = stream.filter(hideToday);
 
         return stream.collect(Collectors.toList());
@@ -231,7 +223,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             if (value instanceof String[]) {
                 map.put(key, (String[]) value);
             } else if (value instanceof String) {
-                map.put(key, new String[]{(String) value});
+                map.put(key, ((String) value).split(","));
             }
         });
         return map;
