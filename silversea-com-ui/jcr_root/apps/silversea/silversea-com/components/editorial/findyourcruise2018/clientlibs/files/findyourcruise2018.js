@@ -10,7 +10,7 @@ $(function () {
                     key = $(this).attr("data-key"),
                     type = $(this).attr("data-type");
 
-                if (enable) {
+                if (enable == "true") {
                     $(".findyourcruise2018 .fyc2018-sorting-span span").text(label);
                     $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
                     var icon = "fa fa-sort-amount-" + type.toLowerCase();
@@ -209,7 +209,6 @@ $(function () {
             var type = $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type"),
                 key = $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key");
             url += url != "" ? "&" : "sortby=" + key + "-" + type.toLowerCase();
-
             if (updateHistory) {
                 var current = window.location.href;
                 history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
@@ -308,6 +307,7 @@ $(function () {
                         setNumberAllFilterSelected();
                         separateYears();
                         searchAnalytics();
+                        setSortingValueOnMobile();
                         urlToCompare = window.location.search;
                     }
                 });
@@ -319,6 +319,39 @@ $(function () {
                 setNumberFilterSelected(idFilter);
             });
         };//setNumberAllFilterSelected
+
+        //highlights only 1 sort field value and set name instead of number
+        var setSortingValueOnMobile = function (sort) {
+            if (sort != null) {
+                sort.attr("data-enable", true);
+            } else {
+                //ussing on startup
+                sort = $(".filter-sortby .filter-value.filter-sorting.filter-selected");
+                console.log(sort.attr("data-key"));
+            }
+
+            if ($(window).width() < 768) {
+                var label = "";
+                //add only 1 selected style on sorting
+                $(".filter-sortby .filter-sorting").each(function () {
+                    var isSelectedKey = sort.attr("data-key") == $(this).attr("data-key");
+                    var isSelectedType = sort.attr("data-type") == $(this).attr("data-type");
+                    if (isSelectedKey && isSelectedType) {
+                        label = $(this).attr("data-label");
+                        $(this).addClass("filter-selected");
+                    } else {
+                        $(this).attr("data-enable", false);
+                        $(this).removeClass("filter-selected");
+                    }
+                });
+                //set label instead of number
+                var icon = "<i class='fa fa-sort-amount-" + sort.attr("data-type") + "'></i>";
+                var valueToDisplay = $("#filter-sortby").attr("data-singular") + " " + icon + " " + label;
+                $("#filter-sortby").html(valueToDisplay);
+                $(".filter-sortby .fyc2018-filter-label-mobile").html(valueToDisplay);
+            }
+        };//setSortingValueOnMobile
+
         var setNumberFilterSelected = function (idFilter) {
             var numberSelected = $("." + idFilter + " .filter-value.filter-selected").length;
 
@@ -666,11 +699,19 @@ $(function () {
             }
         });
 
+        //click on single value filter
         $(fycContainerClass).on({
             click: function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 var idFilter = $(this).parent().parent().data("filter");
+                var isMobileAndChangeSorting = $(window).width() < 768 && $(this).hasClass("filter-sorting");
+                if (isMobileAndChangeSorting) {
+                    var key = $(this).attr("data-key"),
+                        type = $(this).attr("data-type");
+                    $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
+                    $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
+                }
                 selectDisableFilter($(this));
                 if (idFilter == "filter-port") {
                     createPortSelectedList($(this));
@@ -680,6 +721,9 @@ $(function () {
                 var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
                 updateCruises(url);
                 checkNumberSelectedFilters();
+                if (isMobileAndChangeSorting) {
+                    setSortingValueOnMobile($(this));
+                }
             },
             mouseover: function (e) {
                 var $filter = $(this);
@@ -737,6 +781,7 @@ $(function () {
             } else {
                 $(this).addClass("fyc2018-filter-mobile-open");
                 $(".findyourcruise2018 .fyc2018-filters-container").slideDown('slow');
+                setSortingValueOnMobile();
             }
         });
     }

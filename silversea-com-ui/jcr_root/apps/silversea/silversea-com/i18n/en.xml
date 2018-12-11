@@ -1188,6 +1188,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="schedule"
         sling:message="Schedule"/>
+    <sort-by
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="sort-by"
+            sling:message="Sort by"/>
     <search
         jcr:primaryType="sling:MessageEntry"
         sling:key="search"
