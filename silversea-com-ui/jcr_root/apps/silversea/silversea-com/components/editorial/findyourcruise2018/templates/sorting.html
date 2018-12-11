@@ -7,7 +7,7 @@
 </template>
 
 <template data-sly-template.mobile="${@ fyc}">
-    <div class="fyc2018-filter" data-open="d">
+    <div class="fyc2018-filter visible-xs" data-open="d">
         <div class="fyc2018-filter-content">
             <span id="filter-sortby" data-singular="sorty by"> sort by</span>
         </div>
@@ -34,11 +34,11 @@
 
 
 <template data-sly-template.mobileDetail="${@ field, sorting, label, type}">
-    <div class="col-sm-12 filter-value ${sorting == 'ASC' ? 'filter-selected' : 'filter-no-selected'}" data-key="sortby" data-enable="${sorting == 'ASC' ? 'true' : 'false'}" data-type="${sorting}"
+    <div class="col-sm-12 filter-value filter-sorting ${sorting == 'ASC' ? 'filter-selected' : 'filter-no-selected'}" data-key="${field}" data-enable="${sorting == 'ASC' ? 'true' : 'false'}" data-type="${sorting}"
          data-label="${label}">
         <span><i class="fa fa-sort-amount-asc" data-type="asc"></i> ${label @ i18n}</span>
     </div>
-    <div class="col-sm-12 filter-value ${sorting == 'DESC' ? 'filter-selected' : 'filter-no-selected'}" data-key="sortby" data-enable="${sorting == 'DESC' ? 'true' : 'false'}" data-type="${sorting}"
+    <div class="col-sm-12 filter-value filter-sorting ${sorting == 'DESC' ? 'filter-selected' : 'filter-no-selected'}" data-key="${field}" data-enable="${sorting == 'DESC' ? 'true' : 'false'}" data-type="${sorting}"
          data-label="${label}">
         <span><i class="fa fa-sort-amount-desc" data-type="desc"></i>${label @ i18n}</span>
     </div>

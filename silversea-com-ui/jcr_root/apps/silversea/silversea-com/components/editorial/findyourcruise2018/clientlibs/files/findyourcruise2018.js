@@ -5,15 +5,16 @@ $(function () {
 
         var setSortingKeyType = function () {
             $(".findyourcruise2018 .fyc2018-sorting-dropdown .fyc2018-sorting-filed-span").each(function (e) {
-                var enable = $(this).data("enable"),
-                    label = $(this).data("label"),
-                    key = $(this).data("key"),
-                    type = $(this).data("type");
+                var enable = $(this).attr("data-enable"),
+                    label = $(this).attr("data-label"),
+                    key = $(this).attr("data-key"),
+                    type = $(this).attr("data-type");
+
                 if (enable) {
                     $(".findyourcruise2018 .fyc2018-sorting-span span").text(label);
-                    $(".findyourcruise2018 .fyc2018-sorting-span").data("key", key);
+                    $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
                     var icon = "fa fa-sort-amount-" + type.toLowerCase();
-                    $(".findyourcruise2018 .fyc2018-header-sorting-type").data("type", type);
+                    $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
                     $(".findyourcruise2018 .fyc2018-header-sorting-type i").removeAttr("class");
                     $(".findyourcruise2018 .fyc2018-header-sorting-type i").addClass(icon);
                 }
@@ -21,11 +22,8 @@ $(function () {
         };//setSortingKeyType
 
         var changeSorting = function () {
-            var type = $(".findyourcruise2018 .fyc2018-header-sorting-type").data("type"),
-                key = $(".findyourcruise2018 .fyc2018-sorting-span").data("key");
-            var sortby = key + "-" + type;
             var urlTemplate = $("#results-url-request").data("url");
-            var url = createUrl(urlTemplate) + "&onlyResults=true&sortby=" + sortby;
+            var url = createUrl(urlTemplate) + "&onlyResults=true";
             updateCruises(url, true);
         };//changeSorting
 
@@ -179,7 +177,7 @@ $(function () {
             var j = 0;
             $(".fyc2018-filter .fyc2018-filter-value").each(function () {
                 var $this = $(this);
-                var $selectedElements = $this.find(".filter-value.filter-selected:not(.filter-port-selected)");
+                var $selectedElements = $this.find(".filter-value.filter-selected:not(.filter-port-selected, .filter-sorting)");
                 if ($this.data('name') == "port") {
                     $selectedElements = $this.find(".fyc2018-filter-selected-content .filter-value.filter-selected");
                 }
@@ -208,6 +206,10 @@ $(function () {
             } else {
                 url += "&pag=" + page;
             }
+            var type = $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type"),
+                key = $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key");
+            url += url != "" ? "&" : "sortby=" + key + "-" + type.toLowerCase();
+
             if (updateHistory) {
                 var current = window.location.href;
                 history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
@@ -518,21 +520,23 @@ $(function () {
             }
         });
 
+        //click to change filter type (asc or desc)
         $(fycContainerClass).on("click", ".fyc2018-header-sorting-type", function () {
-            var type = $(this).data("type") == "asc" ? "desc" : "asc";
-            $(".findyourcruise2018 .fyc2018-header-sorting-type").data("type", type);
+            var type = $(this).attr("data-type") == "asc" ? "desc" : "asc";
+            $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
             var icon = "fa fa-sort-amount-" + type;
             $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
             $(".findyourcruise2018 .fyc2018-header-sorting-type").append("<i class='" + icon + "'></i>");
             changeSorting();
         });
 
+        //click to change filter (departure, duration or price)
         $(fycContainerClass).on("click", ".fyc2018-sorting-filed-span", function () {
             var key = $(this).data("key"),
                 label = $(this).data("label");
-            $(this).data("enable", "true");
+            $(this).attr("data-enable", "true");
             $(".findyourcruise2018 .fyc2018-sorting-span span").text(label);
-            $(".findyourcruise2018 .fyc2018-sorting-span").data("key", key);
+            $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
             changeSorting();
         });
 
