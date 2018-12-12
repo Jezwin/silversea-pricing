@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toSet;
 public class FilterBar {
 
     public static final AbstractFilter<DestinationItem> DESTINATION =
-            new AbstractFilter<DestinationItem>("destination", Comparator.comparing(cruise -> cruise.getDestination().getName()), AbstractFilter.Sorting.HIDDEN) {
+            new AbstractFilter<DestinationItem>("destination",  Comparator.comparing(cruise -> cruise.getDestination().getName()), AbstractFilter.Sorting.HIDDEN) {
                 @Override
                 protected Stream<FilterRow<DestinationItem>> projection(CruiseModelLight cruiseModelLight) {
                     DestinationItem destination = cruiseModelLight.getDestination();
@@ -47,7 +47,7 @@ public class FilterBar {
             };
 
     public static final AbstractFilter<ExclusiveOfferModelLight> OFFERS =
-            new AbstractFilter<ExclusiveOfferModelLight>("eo", Comparator.comparing(cruise -> ""), AbstractFilter.Sorting.HIDDEN) {
+            new AbstractFilter<ExclusiveOfferModelLight>("eo",  Comparator.comparing(cruise -> ""), AbstractFilter.Sorting.HIDDEN) {
                 @Override
                 protected Stream<FilterRow<ExclusiveOfferModelLight>> projection(CruiseModelLight cruiseModelLight) {
                     return cruiseModelLight.getExclusiveOffers().stream()
@@ -76,29 +76,16 @@ public class FilterBar {
             };
 
     public static final AbstractFilter<String> PRICE =
-            new AbstractFilter<String>("price", Comparator.comparing(cruise -> ""), AbstractFilter.Sorting.NONE) {
-                @Override
-                protected Stream<FilterRow<String>> projection(CruiseModelLight cruiseModelLight) {
-                    String price = Optional.ofNullable(cruiseModelLight.getLowestPrices().get("ftUSD")).map(PriceModelLight::getComputedPrice).map(longValue -> longValue+"").orElse("WAITLIST");
-                    return Stream.of(new FilterRow<>(price, price, ENABLED));
-                }
-
-                @Override
-                public boolean isVisible() {
-                    return false;//this is a hidden filter!
-                }
-            };
+            new PriceFilter();
 
 
     public static final Collection<AbstractFilter<?>> FILTERS =
-            asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE, OFFERS);
+            asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE, OFFERS, PRICE);
 
-    public static Comparator<? super CruiseModelLight> getComparator() {
+    public static Comparator<? super CruiseModelLight> getComparator(FindYourCruise2018Use findYourCruise2018Use) {
         for (AbstractFilter<?> filter : FilterBar.FILTERS) {
-            if(filter.getSorting().equals(AbstractFilter.Sorting.ASC.toString())) {
-                return filter.getSortedBy();
-            } else if (filter.getSorting().equals(AbstractFilter.Sorting.DESC.toString()))  {
-                return filter.getSortedBy().reversed();
+            if(AbstractFilter.Sorting.ASC.equals(filter.getSorting()) || AbstractFilter.Sorting.DESC.equals(filter.getSorting())) {
+                return filter.getSortedBy(findYourCruise2018Use);
             }
         }
         return Comparator.comparing(CruiseModelLight::getStartDate);

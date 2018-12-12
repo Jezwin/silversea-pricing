@@ -23,7 +23,7 @@ public final class DurationFilter extends AbstractFilter<Range<Integer>> {
     }
 
     DurationFilter() {
-        super("duration", Comparator.comparing(cruiseModelLight -> Integer.parseInt(cruiseModelLight.getDuration())), Sorting.NONE);
+        super("duration", Comparator.comparing((CruiseModelLight cruise) -> Integer.parseInt(cruise.getDuration())), Sorting.NONE);
     }
 
     @Override

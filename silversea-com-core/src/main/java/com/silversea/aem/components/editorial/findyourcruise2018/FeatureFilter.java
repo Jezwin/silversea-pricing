@@ -19,7 +19,7 @@ import static java.util.stream.Collectors.toCollection;
 
 class FeatureFilter extends AbstractFilter<FeatureModelLight> {
     public FeatureFilter() {
-        super("feature", Comparator.comparing(cruise -> ""), Sorting.HIDDEN);
+        super("feature", Comparator.comparing((CruiseModelLight cruise) -> ""), Sorting.HIDDEN);
     }
 
     @Override

@@ -6,7 +6,9 @@ import com.silversea.aem.models.CruiseModelLight;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
@@ -16,22 +18,42 @@ import static java.util.stream.Collectors.toCollection;
 public abstract class AbstractFilter<T> {
 
     protected enum Sorting {
-        ASC, DESC, NONE, HIDDEN
+        ASC(id -> id), DESC(Comparator::reversed), NONE(id -> id), HIDDEN(id -> id);
+
+
+        private UnaryOperator<Comparator<CruiseModelLight>> operator;
+
+        Sorting(UnaryOperator<Comparator<CruiseModelLight>> operator) {
+            this.operator = operator;
+        }
+
+        public UnaryOperator<Comparator<CruiseModelLight>> getOperator() {
+            return operator;
+        }
+
+
     }
 
     private final String kind;
-    private final Comparator<CruiseModelLight> sortedBy;
+    private final BiFunction<FindYourCruise2018Use, Sorting, Comparator<CruiseModelLight>> sortedBy;
     private Set<FilterRow<T>> rows;
     private Set<FilterRow<T>> selectedRows;
     private Sorting sorting;
     private boolean visible;
     private boolean open;
 
-    AbstractFilter(String kind, Comparator<CruiseModelLight> sortedBy, Sorting sorting) {
+    AbstractFilter(String kind, Comparator<CruiseModelLight> sortedBy, Sorting sortingGiven) {
+        this.kind = kind;
+        this.sortedBy = (use, sorting) -> sorting.getOperator().apply(sortedBy);
+        this.sorting = sortingGiven;
+    }
+
+    AbstractFilter(String kind, BiFunction<FindYourCruise2018Use, Sorting, Comparator<CruiseModelLight>> sortedBy, Sorting sorting) {
         this.kind = kind;
         this.sortedBy = sortedBy;
         this.sorting = sorting;
     }
+
 
     protected abstract Stream<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
 
@@ -87,12 +109,12 @@ public abstract class AbstractFilter<T> {
         setVisible(true);
         Optional<String[]> sortBy = ofNullable(httpRequest.get("sortby"));
         if (sortBy.isPresent()) {
-            for(String sort : sortBy.get()) {
+            for (String sort : sortBy.get()) {
                 //duration-asc or duration-desc
                 String[] value = sort.split("-");
                 if (value.length > 1 && value[0].equalsIgnoreCase(getKind())) {
                     setSorting(Sorting.valueOf(value[1].toUpperCase()));
-                } else if (value.length > 1 && getSorting().equalsIgnoreCase(Sorting.ASC.toString()) || getSorting().equalsIgnoreCase(Sorting.DESC.toString())) {
+                } else if (value.length > 1 && getSorting().equals(Sorting.ASC) || getSorting().equals(Sorting.DESC)) {
                     setSorting(Sorting.NONE);
                 }
             }
@@ -182,15 +204,15 @@ public abstract class AbstractFilter<T> {
         this.rows = rows;
     }
 
-    public String getSorting() {
-        return sorting.toString();
+    public Sorting getSorting() {
+        return sorting;
     }
 
     public void setSorting(Sorting sorting) {
         this.sorting = sorting;
     }
 
-    public Comparator<CruiseModelLight> getSortedBy() {
-        return sortedBy;
+    public Comparator<CruiseModelLight> getSortedBy(FindYourCruise2018Use findYourCruise2018Use) {
+        return sortedBy.apply(findYourCruise2018Use, getSorting());
     }
 }

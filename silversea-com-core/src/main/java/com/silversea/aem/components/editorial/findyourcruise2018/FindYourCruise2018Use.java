@@ -209,7 +209,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private List<CruiseItem> retrievePaginatedCruises(Pagination pagination, List<CruiseModelLight> lightCruises) {
         int pagSize = pagination.getPageSize();
         return lightCruises.stream()
-                .sorted(FilterBar.getComparator())
+                .sorted(FilterBar.getComparator(this))
                 .skip((pagination.getCurrent() - 1) * pagSize)
                 .limit(pagSize)
                 .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale))
@@ -261,4 +261,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     public Pagination getPagination() {
         return pagination;
     }
+
+    public String getMarketCurrency() {
+        return super.geomarket + super.currency;
+    }
+
 }
