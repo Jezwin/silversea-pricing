@@ -36,12 +36,13 @@
                     <span class="feature"> <i class="${feature.icon}"></i> </span>
                 </div>
                 <div class="lsh-description">${model.longDescription || model.apiLongDescription || model.description @ context='html'}</div>
+                <b class="lsh-description" data-sly-test="${model.note}">${model.note @ context='html'}</b>
                 <hr data-sly-test="${model.features}"/>
                 <div class="lsh-icon-list" data-sly-test="${model.features}" data-sly-list.feature="${model.features}">
                     <span class="icon-info"> <i class="${feature.icon}"></i><span class="icon-name"><i></i>${feature.title}</span></span>
                     <div class="icon-description"> ${feature.description @ context='html'}</div>
                 </div>
-                <b class="lsh-description" data-sly-test="${model.note}">${model.note @ context='html'}</b>
+                
             </div>
         </div>
     </div>
