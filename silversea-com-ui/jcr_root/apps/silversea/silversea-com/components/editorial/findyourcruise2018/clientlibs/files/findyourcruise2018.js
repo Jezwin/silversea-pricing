@@ -555,7 +555,7 @@ $(function () {
 
         //click to change filter type (asc or desc)
         $(fycContainerClass).on("click", ".fyc2018-header-sorting-type", function () {
-            var type = $(this).attr("data-type") == "asc" ? "desc" : "asc";
+            var type = $(this).attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
             $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
             var icon = "fa fa-sort-amount-" + type;
             $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
