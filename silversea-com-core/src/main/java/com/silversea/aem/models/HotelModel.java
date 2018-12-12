@@ -50,6 +50,11 @@ public class HotelModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/nights") @Optional
     private Integer nights;
 
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/note")
+    @Optional
+    private String note;
+
 	private String shortDescription;
 
     @PostConstruct
@@ -98,5 +103,9 @@ public class HotelModel {
 
     public String getAssetSelectionReferenceApi() {
         return assetSelectionReferenceApi;
+    }
+
+    public String getNote() {
+        return note;
     }
 }
