@@ -1,6 +1,6 @@
 
 <template data-sly-template.default="${@ fyc}">
-    <h3 class="fyc2018-header-custom-mobile-title ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${!properties.hideTitle && properties.jcr:title}">${properties.jcr:title} </h3>
+    <h3 class="fyc2018-header-custom-mobile-title ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${properties.jcr:title}">${properties.jcr:title} </h3>
     <div class="findyourcruise2018-header">
         <div class="fyc2018-header-container container">
             <div class="fyc2018-header-text fyc2018-header-title ${properties.hideFycTitle ? 'hidden' : ''}">${properties.jcr:title || 'your-search-results' @ i18n} </div>
