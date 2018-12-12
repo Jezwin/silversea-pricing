@@ -46,10 +46,10 @@ public class BrochureModel {
 
     public String getCover() {
         if (asset != null) {
-        	Rendition renditionPng = asset.getRendition("cover.png");
-        	if(renditionPng != null){
-        		return renditionPng.getPath();
-        	}
+            Rendition renditionPng = asset.getRendition("cover.png");
+            if (renditionPng != null) {
+                return renditionPng.getPath();
+            }
             RenditionPicker renditionPicker = new PrefixRenditionPicker("cover");
             Rendition rendition = asset.getRendition(renditionPicker);
             if (rendition != null) {
@@ -81,7 +81,11 @@ public class BrochureModel {
     }
 
     public Boolean isBrochureDigitalOnly() {
-        return getCustomMetadata(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
+        return getCustomMetadata(WcmConstants.PN_BROCHURE_IS_PREORDER, Boolean.class);
+    }
+
+    public Boolean isPreOrder() {
+        return getCustomMetadata(WcmConstants.PN_BROCHURE_IS_PREORDER, Boolean.class);
     }
 
     public Tag getLanguage() {
@@ -148,7 +152,7 @@ public class BrochureModel {
      * Helper: retrieve custom asset's meta data
      *
      * @param propertyName property name
-     * @param type type
+     * @param type         type
      */
     private <T> T getCustomMetadata(String propertyName, Class<T> type) {
         Resource metadataResource = assetResource.getChild("jcr:content/metadata");

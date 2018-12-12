@@ -781,6 +781,20 @@
                                         jcr:primaryType="nt:unstructured"
                                         metaType="text"/>
                                 </digitalOnly>
+                                <preOrder
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                        data-title="Brochure digital only"
+                                        fieldLabel="Preorder"
+                                        text="Preorder"
+                                        name="./jcr:content/metadata/preOrder"
+                                        value="true"
+
+                                        >
+                                    <granite:data
+                                            jcr:primaryType="nt:unstructured"
+                                            metaType="text"/>
+                                </preOrder>
                             </items>
                             <jcr:content jcr:primaryType="nt:unstructured">
                                 <metadata jcr:primaryType="nt:unstructured"/>

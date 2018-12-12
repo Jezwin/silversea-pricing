@@ -1480,6 +1480,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-online"
         sling:message="VIEW ONLINE"/>
+    <view-online
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="pre-order"
+            sling:message="PRE-ORDER NOW"/>
     <view-our-free-brochures
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-our-free-brochures"
