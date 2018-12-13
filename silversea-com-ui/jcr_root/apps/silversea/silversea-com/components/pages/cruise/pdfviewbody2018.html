@@ -265,7 +265,7 @@
                                  data-sly-test="${spec.label!='connecting-suites'}">
                                 <div class="lg-deck-spec">
                                     <div class="label-spec">${spec.label @ i18n }</div>
-                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ? 'cruise-invisible' : ''}">
+                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ||  spec.label == 'passenger-decks' ? 'cruise-invisible' : ''}">
                                         .................................................................................
                                     </div>
                                     <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">
@@ -284,7 +284,7 @@
                                  data-sly-test="${spec.label=='connecting-suites'}">
                                 <div class="lg-deck-spec">
                                     <div class="label-spec">${spec.label @ i18n }:</div>
-                                    <div class="value-spec"> ${spec.value} </div>
+                                    <div class="value-spec-connecting"> ${spec.value} </div>
                                 </div>
                             </div>
                         </sly>
