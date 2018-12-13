@@ -67,8 +67,8 @@ public class LeadServiceImpl implements LeadService {
             LeadFromWeb03Soap leadFromWeb03Soap = getClientProxy();
             BindingProvider bindingProvider = (BindingProvider) leadFromWeb03Soap;            
             Map<String, Object> requestContext = bindingProvider.getRequestContext();
-            requestContext.put("javax.xml.ws.client.connectionTimeout",10000);
-            requestContext.put("javax.xml.ws.client.receiveTimeout",10000);
+            requestContext.put("javax.xml.ws.client.connectionTimeout",10);
+            requestContext.put("javax.xml.ws.client.receiveTimeout",10);
         
             adaptLeadRequest(request, lead);
             NewX0020MethodX0020WithX002052X0020ArgumentsResponse response = leadFromWeb03Soap.addRequest(request);
