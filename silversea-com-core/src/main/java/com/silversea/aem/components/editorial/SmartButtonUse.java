@@ -59,6 +59,9 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         });
 
         sbProperties.putAll(getPropertyByTagAndDevice());
+        for (String device : DEVICES) {
+            setPropByDevices(sbProperties, device);
+        }
         sbProperties.put("sscFwBackgroundColorHoverDesktop", sbProperties.get("sscFwBackgroundColorDesktop"));
     }
 
@@ -82,7 +85,6 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
                     }
                 });
             }
-            setPropByDevices(properties, device);
         }
         return properties;
     }
@@ -97,42 +99,45 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         }
     }
 
-    private void setPropByDevices(ValueMap sbProperties, String device) {
+    private void setPropByDevices(ValueMap propertiesToChange, String device) {
         String[] propertiesByDevices =
                 {"linkUrl", "enableLightbox", "isExternalLink", "type", "analyticType", "enableToScrollElement",
                         "openNewTab"};
         for (String prop : propertiesByDevices) {
-            String value = sbProperties.get(prop + device, String.class);
+            String value = propertiesToChange.get(prop + device, String.class);
             if (!device.equalsIgnoreCase("desktop")) {
-                value = StringUtils.isEmpty(value) ? sbProperties.get(prop + "Desktop", String.class) : value;
+                value = StringUtils.isEmpty(value) ? propertiesToChange.get(prop + "Desktop", String.class) : value;
             }
             value = prop.equals("openNewTab") ? (Boolean.valueOf(value) ? "_blank" : "") : value;
-            sbProperties.put(prop + device, value);
+            if (StringUtils.isNotEmpty(value)) {
+                propertiesToChange.put(prop + device, value);
+            }
         }
 
-        String linkUrl = sbProperties.get("linkUrl" + device, String.class);
-        String type = sbProperties.get("type" + device, String.class);
+        String linkUrl = propertiesToChange.get("linkUrl" + device, String.class);
+        String type = propertiesToChange.get("type" + device, String.class);
 
         if (StringUtils.isNotEmpty(type) && type.equalsIgnoreCase("video")) {
-            sbProperties.put("dataVideo" + device, linkUrl);
-            sbProperties.put("dataTarget" + device, ".bs-modal-lg");
-            sbProperties.put("dataToggle" + device, "modal");
+            propertiesToChange.put("dataVideo" + device, linkUrl);
+            propertiesToChange.put("dataTarget" + device, ".bs-modal-lg");
+            propertiesToChange.put("dataToggle" + device, "modal");
             linkUrl = "#";
         } else if (StringUtils.isNotEmpty(linkUrl)) {
             linkUrl = externalizer.relativeLink(getRequest(), linkUrl);
-            String enableLightbox = sbProperties.get("enableLightbox" + device, String.class);
+            String enableLightbox = propertiesToChange.get("enableLightbox" + device, String.class);
             if (Boolean.valueOf(enableLightbox)) {
-                sbProperties.put("dataToggle" + device, "modal");
-                sbProperties.put("dataTarget" + device, ".bs-modal-lg");
-                sbProperties.put("dataLightbox" + device, "modalcontent");
+                propertiesToChange.put("dataToggle" + device, "modal");
+                propertiesToChange.put("dataTarget" + device, ".bs-modal-lg");
+                propertiesToChange.put("dataLightbox" + device, "modalcontent");
             }
-            String isExternalLink = sbProperties.get("isExternalLink" + device, String.class);
+            String isExternalLink = propertiesToChange.get("isExternalLink" + device, String.class);
             if (!Boolean.valueOf(isExternalLink)) {
                 linkUrl = linkUrl + ".html";
             }
         }
-
-        sbProperties.put("linkUrl" + device, linkUrl);
+        if (StringUtils.isNotEmpty(linkUrl)) {
+            propertiesToChange.put("linkUrl" + device, linkUrl);
+        }
     }
 
 
