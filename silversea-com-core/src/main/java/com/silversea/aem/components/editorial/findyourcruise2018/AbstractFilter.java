@@ -118,6 +118,12 @@ public abstract class AbstractFilter<T> {
                     setSorting(Sorting.NONE);
                 }
             }
+        } else {
+            if (getKind().equals(FilterBar.DEPARTURE.getKind())) {
+                setSorting(Sorting.ASC);
+            } else if (!getSorting().equals(Sorting.HIDDEN)) {
+                setSorting(Sorting.NONE);
+            }
         }
         return httpRequest.getOrDefault(getKind(), ArrayUtils.EMPTY_STRING_ARRAY);
     }

@@ -119,7 +119,7 @@ public class FindYourCruise2018UseTest {
 
     @Test
     public void testSort() {
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL).sortedBy(PRICE, "desc").build();
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).sortedBy(PRICE, "desc").build();
         use.init(cruises, "1000");
         assertTrue(use.getCruises().stream().allMatch(cruise -> AFRICA_LABEL.equals(cruise.getCruiseModel().getDestination().getTitle())));
         Long price = Long.MAX_VALUE;
