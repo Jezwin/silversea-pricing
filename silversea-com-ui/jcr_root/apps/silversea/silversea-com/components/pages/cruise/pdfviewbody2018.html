@@ -80,7 +80,7 @@
 		<h1 class="section__header__title">${ 'offers-for-this-cruise' @ i18n}</h1>
 		<div class="exclusiveOfferWrapper">
 		<sly data-sly-list.offer="${cruise.exclusiveOffers}">
-				<div class="col-sm-6 offer-item">
+				<div class="col-sm-6 offer-item ${cruise.exclusiveOffers.size == 1 ? 'offercenteraligned' : ''}">
                     <div class="offer-container">
                         <div class="offer-icon-container">
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = offer.voyageIcon}" />
@@ -318,7 +318,7 @@
             <h3 class="cruise-2018-ship-public-title">${'public-areas' @ i18n}</h3>
         </sly>
             <sly data-sly-list.publicArea="${publicAreas}">
-				<div data-sly-test="${publicAreaList.index<3}" class="cruise-2018-ship-public-slide col-xs-4">
+				<div class="cruise-2018-ship-public-slide col-xs-4">
                     <sly data-sly-test.imageUrl="${publicArea.thumbnail}">
                                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                                 <div class="cruise-2018-ship-public-slide-thumbnail cruise-2018-slide-thumbnail">

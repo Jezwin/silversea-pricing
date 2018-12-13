@@ -4,13 +4,10 @@
 <link type="text/css" rel="stylesheet" href="${externalizerCSSHelper.externalizedUrl @ extension='css'}">
 
 <sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-logo',absolute=true}" />
-<sly data-sly-use.externalizerHelperExpedition="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
+
 
 <div class="header__style1" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
-	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
-		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.title || currentPage.title}" />
-	</div>
-	<div data-sly-test="${!silverExpedition}" class="header__logo__style1 cruise_logo">
+	<div class="header__logo__style1 cruise_logo">
 		<img src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.title  || currentPage.title}" />
 	</div>
     <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
