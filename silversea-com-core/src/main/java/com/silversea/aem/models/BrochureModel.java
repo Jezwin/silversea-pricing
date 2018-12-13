@@ -81,7 +81,7 @@ public class BrochureModel {
     }
 
     public Boolean isBrochureDigitalOnly() {
-        return getCustomMetadata(WcmConstants.PN_BROCHURE_IS_PREORDER, Boolean.class);
+        return getCustomMetadata(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
     }
 
     public Boolean isPreOrder() {
