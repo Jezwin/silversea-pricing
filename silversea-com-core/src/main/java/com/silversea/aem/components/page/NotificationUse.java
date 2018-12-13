@@ -6,10 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.jcr.LoginException;
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
+import javax.jcr.*;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
@@ -42,12 +39,12 @@ public class NotificationUse extends WCMUsePojo {
 		final Map<String, Object> authenticationParams = new HashMap<>();
 		authenticationParams.put(ResourceResolverFactory.SUBSERVICE,
 				ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-		try (final ResourceResolver adminResolver = getSlingScriptHelper().getService(ResourceResolverFactory.class)
-				.getServiceResourceResolver(authenticationParams)) {
-			
-			if (null != adminResolver) {
+		Session session = getResourceResolver().adaptTo(Session.class);
+
+
+			if (null != session) {
 				leadData = new ArrayList<ResubmitLead>();
-				Node rootNode = adminResolver.getResource(LEAD_DATA_PATH).adaptTo(Node.class);
+				Node rootNode = session.getNode(LEAD_DATA_PATH);
 				NodeIterator childrenNodes = rootNode.getNodes();
 				while (childrenNodes.hasNext()) {
 					Node next = childrenNodes.nextNode();
@@ -61,13 +58,7 @@ public class NotificationUse extends WCMUsePojo {
 					leadData.add(resubmitLead);
 				} 
 			}
-		} catch (LoginException loginException) {
-			LOGGER.error(
-					"Exception while retrieving admin access for Resolver: {}",
-					loginException.getMessage());
-		} catch (RepositoryException repositoryException) {
-			LOGGER.error("Repository Exception: {}", repositoryException);
-		} 		
+
 		LOGGER.debug("The current lead data is:- {}", leadData);
 	}
 
