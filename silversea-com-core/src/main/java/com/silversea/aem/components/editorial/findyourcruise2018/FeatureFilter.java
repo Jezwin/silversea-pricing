@@ -12,16 +12,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
 import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
-import static java.util.stream.Collectors.toSet;
 
 class FeatureFilter extends AbstractFilter<FeatureModelLight> {
     public FeatureFilter() {
-        super("feature");
+        super("feature", Comparator.comparing((CruiseModelLight cruise) -> ""), Sorting.HIDDEN);
     }
 
     @Override

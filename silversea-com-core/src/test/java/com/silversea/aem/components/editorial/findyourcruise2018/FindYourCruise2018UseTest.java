@@ -9,7 +9,6 @@ import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -59,9 +58,8 @@ public class FindYourCruise2018UseTest {
 
 
     @Test
-    @Ignore
     public void performance() throws InterruptedException {
-        double nOfRun = 2000;
+        double nOfRun = 2; //set 2000 to test better
         ExecutorService executor = Executors.newFixedThreadPool(2);
         List<UseBuilder> builders = new ArrayList<>();
         for (int i = 0; i < nOfRun; i++) {
@@ -118,6 +116,21 @@ public class FindYourCruise2018UseTest {
         //silver muse does cruise africa
         assertEquals(ENABLED, SHIP.retrieveState((SILVER_MUSE)));
     }
+
+    @Test
+    public void testSort() {
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).sortedBy(PRICE, "desc").build();
+        use.init(cruises, "1000");
+        assertTrue(use.getCruises().stream().allMatch(cruise -> AFRICA_LABEL.equals(cruise.getCruiseModel().getDestination().getTitle())));
+        Long price = Long.MAX_VALUE;
+        for (CruiseItem cruiseItem : use.getCruises()) {
+            Long computedPrice = cruiseItem.getLowestPrice().getComputedPrice();
+
+            assertTrue(price ==null || computedPrice ==null || price >= computedPrice);
+            price = computedPrice;
+        }
+    }
+
 
     @Test
     public void testTwoDestinations() {
@@ -224,6 +237,14 @@ public class FindYourCruise2018UseTest {
         cruiseModel.setItineraries(Collections.emptyList());
         cruiseModel.setDuration(json.getAsJsonPrimitive("duration").getAsString());
         cruiseModel.setStartDate(Calendar.getInstance());
+        Long price = null;
+        try {
+            JsonElement priceElement = json.getAsJsonObject("lowestPrices").getAsJsonObject("ftUSD").get("price");
+            price = priceElement.getAsLong();//cam be null
+        } catch (Throwable e) {
+                    }
+        cruiseModel.setPrices(Arrays.asList(new TestPriceModel(price)));
+
         List<PortItem> ports = StreamSupport.stream(json.getAsJsonArray("ports").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(jsonElement -> new PortItem(jsonElement.get("name").getAsString(),
@@ -274,6 +295,11 @@ public class FindYourCruise2018UseTest {
         @Override
         List<CruiseModelLight> preFiltering(List<CruiseModelLight> allCruises) {
             return allCruises;//do not prefilter anything
+        }
+
+        @Override
+        public String getMarketCurrency() {
+            return "ftUSD";
         }
     }
 
@@ -339,10 +365,45 @@ public class FindYourCruise2018UseTest {
             return with(DURATION.getKind(), durations);
         }
 
+
+        UseBuilder sortedBy(AbstractFilter filter, String type) {
+            filtersRequest.put("sortby", new String[]{filter.getKind() + "-" + type});
+            return this;
+        }
+
         FindYourCruise2018Use build() {
             return new TestFindYourCruise2018Use(filtersRequest, properties);
         }
 
+
+    }
+
+    class TestPriceModel extends PriceModel {
+        private final Long price;
+
+        public TestPriceModel(Long price) {
+            this.price = price;
+        }
+
+        @Override
+        public Long getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getCurrency() {
+            return "USD";
+        }
+
+        @Override
+        public String getGeomarket() {
+            return "ft";
+        }
+
+        @Override
+        public Long getComputedPrice() {
+            return price;
+        }
 
     }
 
@@ -358,6 +419,7 @@ public class FindYourCruise2018UseTest {
         private String arrivalPortName;
         private String duration;
         private String destinationId;
+        private List<PriceModel> prices;
 
         public void setDestinationId(String destinationId) {
             this.destinationId = destinationId;
@@ -418,6 +480,15 @@ public class FindYourCruise2018UseTest {
 
         public void setStartDate(Calendar startDate) {
             this.startDate = startDate;
+        }
+
+        @Override
+        public List<PriceModel> getPrices() {
+            return prices;
+        }
+
+        public void setPrices(List<PriceModel> prices) {
+            this.prices = prices;
         }
 
         public void setItineraries(List<ItineraryModel> itineraries) {

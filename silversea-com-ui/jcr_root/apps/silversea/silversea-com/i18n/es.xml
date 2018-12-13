@@ -1147,6 +1147,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Horario"/>
+    <sort-by
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sort by"/>
     <search
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

@@ -71,14 +71,81 @@
   .fyc2018-header-reset-all {
     font-weight: 400;
     display: none;
+    margin-right: 30px;
     span {
       color: #fff;
-      cursor: text;
       font-size: 13px;
       width: 150px;
       letter-spacing: 1.5px;
       cursor: pointer;
       padding-top: 10px;
+    }
+  }
+
+  .fyc2018-header-sorting {
+    font-weight: 400;
+    float: right;
+    position: relative;
+    display: inline-block;
+    width: 124px;
+    span {
+      color: #fff;
+      font-size: 13px;
+      width: 150px;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+    }
+    .fyc2018-sorting-span {
+      padding: 10px;
+    }
+
+    .fyc2018-sorting-filed-span {
+      color: @white;
+      font-size: 12px;
+      width: 100%;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      display: block;
+      padding: 14px 0px;
+      span {
+        color: @white;
+        padding: 12px 13px;
+        font-size: 12px;
+      }
+    }
+
+    .fyc2018-sorting-dropdown {
+      display: none;
+      position: absolute;
+      background-color: #263133;
+      min-width: 124px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 50000;
+      top: 100%;
+    }
+  }
+
+  .fyc2018-header-sorting-type {
+    display: inline-block;
+    font-size: 13px;
+    float: right;
+    cursor: pointer;
+    margin-right: -2px;
+    i{
+      padding-top: 11px;
+      padding-left: 11px;
+    }
+  }
+
+  .fyc2018-header-sorting:hover .fyc2018-sorting-dropdown {
+    display: block;
+  }
+
+  .fyc2018-sorting-filed-span:hover {
+    background-color: #f4f4f4;
+    span {
+      color: #263133;
+      font-weight: 600;
     }
   }
 
@@ -117,6 +184,8 @@
       font-weight: bold;
       padding-top: 13px;
       padding-bottom: 13px;
+      padding-right: 0px;
+      padding-left: 22px;
     }
 
     .fyc2018-header-text {

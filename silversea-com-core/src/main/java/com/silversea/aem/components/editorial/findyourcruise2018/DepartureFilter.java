@@ -5,19 +5,16 @@ import com.silversea.aem.models.CruiseModelLight;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
-import static java.util.stream.Collectors.toCollection;
 
 public class DepartureFilter extends AbstractFilter<YearMonth> {
     private static final Calendar GREGORIAN_CALENDAR = new GregorianCalendar();
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     DepartureFilter() {
-        super("departure");
+        super("departure", Comparator.comparing(CruiseModelLight::getStartDate), Sorting.ASC);
     }
 
     @Override
