@@ -9,7 +9,6 @@ import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -34,8 +33,9 @@ import static org.junit.Assert.*;
 public class FindYourCruise2018UseTest {
 
     private List<CruiseModelLight> cruises;
-    CruisesCacheService cacheService;
 
+    private static final String AFRICA_VALUE = "3";
+    private static final String ASIA_VALUE = "13";
     private static final String AFRICA_LABEL = "Africa and Indian Ocean";
     private static final String ASIA_LABEL = "Asia";
     private static final String SILVER_GALAPAGOS = "Silver Galapagos";
@@ -54,31 +54,29 @@ public class FindYourCruise2018UseTest {
         JsonElement parse = parser.parse(cruisesString);
         parse.getAsJsonArray()
                 .forEach(jsonElement -> cruises.add(toCruise(jsonElement.getAsJsonObject())));
-        cacheService = new TestCacheService();
     }
 
 
     @Test
-    @Ignore
     public void performance() throws InterruptedException {
-        double nOfRun = 2000;
+        double nOfRun = 2; //set 2000 to test better
         ExecutorService executor = Executors.newFixedThreadPool(2);
         List<UseBuilder> builders = new ArrayList<>();
         for (int i = 0; i < nOfRun; i++) {
             builders.add(new UseBuilder());
-            builders.add(new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL));
+            builders.add(new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE));
             builders.add(new UseBuilder().withType(SILVERSEA_EXPEDITION));
             builders.add(new UseBuilder().withDuration("8"));
-            builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_LABEL));
-            builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_LABEL));
-            builders.add(new UseBuilder().withShip(SILVER_GALAPAGOS).withDestinations(ASIA_LABEL)
+            builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_VALUE));
+            builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_VALUE));
+            builders.add(new UseBuilder().withShip(SILVER_GALAPAGOS).withDestinations(ASIA_VALUE)
                     .withPorts(HO_CHI_MINH_CITY, DA_NANG));
             builders.add(new UseBuilder(
-                    "destination=asia-cruise&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
+                    "destination=1&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
         }
         Function<UseBuilder, Callable<Long>> test = useBuilder -> () -> {
             long current = System.currentTimeMillis();
-            useBuilder.build().init(cacheService, "1000");
+            useBuilder.build().init(cruises, "1000");
             return (System.currentTimeMillis() - current);
         };
         double average = executor.invokeAll(builders.stream().map(test).collect(Collectors.toList())).stream()
@@ -96,8 +94,8 @@ public class FindYourCruise2018UseTest {
 
     @Test
     public void testOneDestination() {
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL).build();
-        use.init(cacheService, "1000");
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).build();
+        use.init(cruises, "1000");
 
         //test results
         assertTrue(use.getCruises().stream().allMatch(
@@ -120,11 +118,26 @@ public class FindYourCruise2018UseTest {
     }
 
     @Test
+    public void testSort() {
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).sortedBy(PRICE, "desc").build();
+        use.init(cruises, "1000");
+        assertTrue(use.getCruises().stream().allMatch(cruise -> AFRICA_LABEL.equals(cruise.getCruiseModel().getDestination().getTitle())));
+        Long price = Long.MAX_VALUE;
+        for (CruiseItem cruiseItem : use.getCruises()) {
+            Long computedPrice = cruiseItem.getLowestPrice().getComputedPrice();
+
+            assertTrue(price ==null || computedPrice ==null || price >= computedPrice);
+            price = computedPrice;
+        }
+    }
+
+
+    @Test
     public void testTwoDestinations() {
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL).build();
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE).build();
         Predicate<CruiseModelLight> test = cruise -> AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
                 ASIA_LABEL.equals(cruise.getDestination().getTitle());
-        use.init(cacheService, "1000");
+        use.init(cruises, "1000");
 
         //test results
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
@@ -157,7 +170,7 @@ public class FindYourCruise2018UseTest {
         properties.put("shipId", new String[]{"Silver Discoverer"});
         FindYourCruise2018Use use = new UseBuilder(properties).build();
         Predicate<CruiseModelLight> test = cruise -> "Silver Discoverer".equals(cruise.getShip().getTitle());
-        use.init(cacheService, "1000");
+        use.init(cruises, "1000");
         long expectedCruises = cruises.stream().filter(test).count();
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
         assertEquals(expectedCruises, use.getCruises().size());
@@ -168,14 +181,14 @@ public class FindYourCruise2018UseTest {
     @Test
     public void testMultipleFilters() {
         FindYourCruise2018Use use =
-                new UseBuilder().withDestinations(AFRICA_LABEL, ASIA_LABEL).withPorts(HO_CHI_MINH_CITY, DA_NANG)
+                new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE).withPorts(HO_CHI_MINH_CITY, DA_NANG)
                         .build();
 
         Predicate<CruiseModelLight> test = cruise -> (AFRICA_LABEL.equals(cruise.getDestination().getTitle()) ||
                 ASIA_LABEL.equals(cruise.getDestination().getName())) &&
                 (cruise.getPorts().stream().map(PortItem::getName)
                         .anyMatch(name -> HO_CHI_MINH_CITY.equals(name) || DA_NANG.equals(name)));
-        use.init(cacheService, "1000");
+        use.init(cruises, "1000");
 
         //test results
         long expectedCruises = cruises.stream().filter(test).count();
@@ -186,7 +199,8 @@ public class FindYourCruise2018UseTest {
         assertTrue(DESTINATION.isSelected());
         assertEquals(16, DESTINATION.getRows().size());//world cruise..
         assertTrue(PORT.isSelected());
-        assertEquals(825, PORT.getRows().size());
+        assertEquals(214, PORT.getRows().size());
+        assertTrue(PORT.getRows().stream().noneMatch(row -> row.getState().equals(DISABLED)));
         //only africa and asia is chosen others are enabled
         assertTrue(DESTINATION.getRows().stream()
                 .allMatch(row -> {
@@ -216,12 +230,21 @@ public class FindYourCruise2018UseTest {
                 key -> Optional.ofNullable(json.get(key)).map(JsonElement::getAsString).orElse("");
         cruiseModel.setShip(json.getAsJsonObject("ship").getAsJsonPrimitive("title").getAsString());
         cruiseModel.setDestination(json.getAsJsonObject("destination").getAsJsonPrimitive("title").getAsString());
+        cruiseModel.setDestinationId(stringOrEmpty.apply("destinationId"));
         cruiseModel.setCruiseType(json.get("cruiseType").getAsString());
         cruiseModel.setArrivalPortName(stringOrEmpty.apply("arrivalPortName"));
         cruiseModel.setDeparturePortName(stringOrEmpty.apply("departurePortName"));
         cruiseModel.setItineraries(Collections.emptyList());
         cruiseModel.setDuration(json.getAsJsonPrimitive("duration").getAsString());
         cruiseModel.setStartDate(Calendar.getInstance());
+        Long price = null;
+        try {
+            JsonElement priceElement = json.getAsJsonObject("lowestPrices").getAsJsonObject("ftUSD").get("price");
+            price = priceElement.getAsLong();//cam be null
+        } catch (Throwable e) {
+                    }
+        cruiseModel.setPrices(Arrays.asList(new TestPriceModel(price)));
+
         List<PortItem> ports = StreamSupport.stream(json.getAsJsonArray("ports").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(jsonElement -> new PortItem(jsonElement.get("name").getAsString(),
@@ -272,6 +295,11 @@ public class FindYourCruise2018UseTest {
         @Override
         List<CruiseModelLight> preFiltering(List<CruiseModelLight> allCruises) {
             return allCruises;//do not prefilter anything
+        }
+
+        @Override
+        public String getMarketCurrency() {
+            return "ftUSD";
         }
     }
 
@@ -337,10 +365,45 @@ public class FindYourCruise2018UseTest {
             return with(DURATION.getKind(), durations);
         }
 
+
+        UseBuilder sortedBy(AbstractFilter filter, String type) {
+            filtersRequest.put("sortby", new String[]{filter.getKind() + "-" + type});
+            return this;
+        }
+
         FindYourCruise2018Use build() {
             return new TestFindYourCruise2018Use(filtersRequest, properties);
         }
 
+
+    }
+
+    class TestPriceModel extends PriceModel {
+        private final Long price;
+
+        public TestPriceModel(Long price) {
+            this.price = price;
+        }
+
+        @Override
+        public Long getPrice() {
+            return price;
+        }
+
+        @Override
+        public String getCurrency() {
+            return "USD";
+        }
+
+        @Override
+        public String getGeomarket() {
+            return "ft";
+        }
+
+        @Override
+        public Long getComputedPrice() {
+            return price;
+        }
 
     }
 
@@ -355,6 +418,12 @@ public class FindYourCruise2018UseTest {
         private String departurePortName;
         private String arrivalPortName;
         private String duration;
+        private String destinationId;
+        private List<PriceModel> prices;
+
+        public void setDestinationId(String destinationId) {
+            this.destinationId = destinationId;
+        }
 
         public void setDeparturePortName(String departurePortName) {
             this.departurePortName = departurePortName;
@@ -401,11 +470,25 @@ public class FindYourCruise2018UseTest {
                 public String getName() {
                     return destination;
                 }
+
+                @Override
+                public String getDestinationId() {
+                    return destinationId;
+                }
             };
         }
 
         public void setStartDate(Calendar startDate) {
             this.startDate = startDate;
+        }
+
+        @Override
+        public List<PriceModel> getPrices() {
+            return prices;
+        }
+
+        public void setPrices(List<PriceModel> prices) {
+            this.prices = prices;
         }
 
         public void setItineraries(List<ItineraryModel> itineraries) {
