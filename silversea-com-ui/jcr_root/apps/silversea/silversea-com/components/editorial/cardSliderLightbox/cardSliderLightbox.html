@@ -2,7 +2,7 @@
      class="cq-placeholder cq-dd-image" data-emptytext="Card slider with lightbox"></div>
 <div class="cardSliderLightbox" data-sly-use.use="com.silversea.aem.components.editorial.cardSliderLightbox.SliderUse">
     <sly data-sly-use.template="./template.html"
-         data-sly-call="${template.default @ title=use.title, slides=use.slidePerPageDesktop, cards=use.cards }"/>
+         data-sly-call="${template.default @ title=use.title, slidesDesktop=use.slidePerPageDesktop, slidesTablet=use.slidePerPageTablet, slidesMobile=use.slidePerPageMobile, cards=use.cards }"/>
 </div>
 
 <!-- add different breakpoints for tablet/mobile-->

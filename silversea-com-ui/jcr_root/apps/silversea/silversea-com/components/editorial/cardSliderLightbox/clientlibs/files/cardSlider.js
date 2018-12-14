@@ -53,6 +53,16 @@
                         }
                     });
                 }
+                var breakpointMobile = $slider.data('ssc-breakpoint-mobile');
+                if (breakpointMobile) {
+                    options.responsive.push({
+                        breakpoint: breakpointMobile,
+                        settings: {
+                            slidesToShow: $slider.data('ssc-slides-to-show-mobile') || 1,
+                            slidesToScroll: $slider.data('ssc-slides-to-scroll-mobile') || 1
+                        }
+                    });
+                }
                 $slider.slick(options);
                 $slider.on('afterChange', function (event, slick, currentSlide) {
                     loadLazyImageInSlider($(this), 'cardSlider-slide');
@@ -71,7 +81,9 @@
         }));
     });
 })();
-function cslInitLightbox(){
+
+function cslInitLightbox() {
+    console.log("called");
     $lightboxSimpleContent.find(".lazy").lazy();
     $lightboxSimple.find(".csl-asset-slider").slick()
 }

@@ -17,13 +17,22 @@ import static java.util.stream.StreamSupport.stream;
 public class SliderUse extends WCMUsePojo {
     private List<CardLightbox> cards;
     private int slidePerPageDesktop;
+    private int slidePerPageTablet;
+    private int slidePerPageMobile;
     private String title;
+
 
     @Override
     public void activate() throws Exception {
         title = getProperties().get("title", String.class);
-        slidePerPageDesktop = Optional.ofNullable(getProperties().get("slidePerPage", String.class)).map(Integer::parseInt).orElse(4);
+        slidePerPageDesktop = getSlidePerPage("Desktop", 4);
+        slidePerPageTablet = getSlidePerPage("Tablet", slidePerPageDesktop);
+        slidePerPageMobile = getSlidePerPage("Mobile", slidePerPageTablet);
         cards = retrieveMultiField(getResource(), "cards", CardLightbox.class);
+    }
+
+    private Integer getSlidePerPage(String device, int defaultValue) {
+        return Optional.ofNullable(getProperties().get("slidePerPage" + device, String.class)).map(Integer::parseInt).orElse(defaultValue);
     }
 
     public static <T> List<T> retrieveMultiField(Resource resource, String child, Class<T> adaptable) {
@@ -42,6 +51,14 @@ public class SliderUse extends WCMUsePojo {
 
     public int getSlidePerPageDesktop() {
         return slidePerPageDesktop;
+    }
+
+    public int getSlidePerPageTablet() {
+        return slidePerPageTablet;
+    }
+
+    public int getSlidePerPageMobile() {
+        return slidePerPageMobile;
     }
 
     public String getTitle() {

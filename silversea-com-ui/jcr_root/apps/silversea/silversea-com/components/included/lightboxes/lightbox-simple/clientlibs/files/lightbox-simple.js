@@ -43,6 +43,9 @@ $(function () {
             $lightboxSimple.find('.lightbox-simple-next-label').html(loadedNext.html());
             var nextLink = $lightboxSimple.find(".lightbox-simple-next-link");
             var nextHref = loadedNext.attr("href");
+            if (prevHref === nextHref) {
+                return;
+            }
             nextLink.attr("href", nextHref);
             prevLink.off("click");//remove others click events
             nextLink.off("click");
