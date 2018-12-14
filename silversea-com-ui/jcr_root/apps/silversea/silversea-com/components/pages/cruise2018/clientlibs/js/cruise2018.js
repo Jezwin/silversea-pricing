@@ -102,15 +102,12 @@ function openModalFromSelector() {
         }
     } else if (hash.startsWith("#menu-")) {
         $(".cruise-2018-menu a[href$='" + hash + "']").click();
-        return;
-    } else if (hash.startsWith("#lb-it") || hash.startsWith("#itinerary")) {
-        if ($hash.is(":visible")) {
-            $hash.click();
-        } else {
-            var element = $(hash.replace("lb-it", "itinerary"));
-            $([document.documentElement, document.body]).animate({scrollTop: element.offset().top - number}, 100);
-            $(element).find(".cruise-2018-itineraries-itinerary-row-container-with-excursion").click();
-        }
+    } else if (hash.startsWith("#lb-it")) {
+        var element = $(hash.replace("lb-it", "itinerary"));
+        $([document.documentElement, document.body]).animate({scrollTop: element.offset().top - number-50}, 100);
+        $(hash).closest(".cruise-2018-itineraries-itinerary").find(".clickable:visible:first").click();
+    } else if (hash.startsWith("#itinerary")) {
+        $(hash).closest(".cruise-2018-itineraries-itinerary").find(".clickable:visible:first").click();
     } else {
         if ($hash.is(":visible")) {
             $hash.click();
