@@ -1,0 +1,187 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+.cardSlider::before {
+  content: " ";
+  height: 100%;
+  width: 200vw;
+  background-color: @grey--f4;
+  display: block;
+  position: absolute;
+  left: -50vw;
+  z-index: -1;
+}
+
+.cardSlider {
+  position: relative;
+
+  .lightbox-link {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100% !important;
+    z-index: 950;
+  }
+
+  .cardSlider-content {
+
+    padding-bottom: 25px;
+
+    .slick-track {
+      margin: auto;
+    }
+    .slick-cloned .o-img {
+      display:block;
+    }
+
+    .slick-next:after {
+      width: 25px;
+      height: 25px;
+      padding: 10px;
+      border-left: 0 solid @transparent;
+      border-right: 2px solid @color-second !important;
+      border-bottom: 2px solid @color-second !important;
+      border-top: 0 solid @transparent;
+      content: " ";
+      right: 53%;
+      left: 0 !important;
+
+    }
+
+    .slick-prev {
+      width: 40px;
+      height: 40px;
+      left: -30px !important;
+      transform: rotateZ(135deg);
+      top: 37% !important;
+    }
+    .slick-next {
+      width: 40px;
+      height: 40px;
+      right: -30px !important;
+      transform: rotateZ(-45deg);
+      top: 37% !important;
+    }
+    .slick-prev:after {
+      width: 20px;
+      padding: 10px;
+      height: 20px;
+      border-left: 0 solid @transparent;
+      border-right: 2px solid @color-second !important;
+      border-bottom: 2px solid @color-second !important;
+      border-top: 0 solid @transparent;
+      content: " ";
+      right: 0;
+    }
+
+  }
+
+  .cardSlider-slide {
+    position:relative;
+    margin-right: 7px;
+    margin-left: 7px;
+    &:focus {
+      outline: 0;
+    }
+
+  }
+
+  .cardSlider-title {
+    text-transform: capitalize;
+    padding-top: 50px;
+    text-align: center;
+    width: 100%;
+    color: #333333;
+    font-family: @freight;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    line-height: 26px;
+    margin-bottom: 24px;
+
+  }
+
+  .cardSlider-slide {
+    text-transform: uppercase;
+    text-align: center;
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    margin-top: 8px;
+  }
+
+  .cardSlider-slide-title {
+
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    text-align: center;
+
+  }
+
+  .cardSlider-slide-days, .cardSlider-slide-collection {
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 11px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  .cardSlider-slide-moredetails {
+    text-transform: uppercase;
+    color: @color-second;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    line-height: 16px;
+    text-align: center;
+    padding-bottom: 19px;
+    margin-top: 12px;
+
+  }
+  .cardSlider-slide:hover {
+
+    background-color: white;
+  }
+  .cardSlider-slide:not(:hover) .cardSlider-slide-moredetails {
+    visibility: hidden;
+  }
+
+  .cardSlider-slide-thumbnail {
+    height: 224px;
+
+  }
+
+  .cardSlider-slide-thumbnail img {
+    height: 224px;
+
+    object-fit: cover;
+  }
+
+}
+
+@media (max-width: @screen-md-min) {
+  .cardSlider {
+    .cardSlider-content {
+      .slick-prev {
+        width: 40px;
+        left: -18px !important;
+      }
+      .slick-next {
+        width: 40px;
+        right: -18px !important;
+      }
+    }
+    .cardSlider-slide-text {
+      font-size: 12px;
+      line-height: 18px;
+      max-height: 162px;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<template data-sly-template.lightbox>
+    <sly class="cardSliderLightboxContent"
+         data-sly-use.lightboxUse="${'com.silversea.aem.components.editorial.cardSliderLightbox.LightboxUse'}">
+        <sly data-sly-test.card="${lightboxUse.card}"/>
+        <a href="#${lightboxUse.prev}" class="used-by-lightbox-simple-prev">${lightboxUse.prevCard.title}</a>
+        <a href="#${lightboxUse.next}" class="used-by-lightbox-simple-next">${lightboxUse.nextCard.title}</a>
+
+        <div class="csl-asset-slider csl-asset-slider--main">
+            <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=card.assetSelection, fallback=card.bigPicture}"/>
+            <div data-sly-repeat.asset="${setImage.renditionList}" data-image="${asset.path}">
+                <div class="ratio">
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                         data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}"/>
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+                         data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+                    <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i>
+                    </a>
+                    <div data-sly-test="${isVideo}" class="c-video" data-video-asset="${asset.path}"
+                         data-video-autoplay="1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="csl-title cardLight">${model.customTitle || model.title || model.name}</div>
+        <div class="csl-description">
+            ${card.longDescription || card.briefDescription @context='html'}
+        </div>
+    </sly>
+
+</template>
+
+<sly data-sly-use.template="silversea/silversea-com/components/editorial/cardSliderLightbox/lightbox.html"
+     data-sly-call="${template.lightbox}"/>
