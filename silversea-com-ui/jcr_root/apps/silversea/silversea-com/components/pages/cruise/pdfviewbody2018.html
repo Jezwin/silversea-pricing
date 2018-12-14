@@ -290,11 +290,11 @@
                         </sly>
                     </div>
 
-		<div class="cruise-2018-ship-dining-area" id="cruise2018shipdining">
+		<div class="pagebreak cruise-2018-ship-dining-area" id="cruise2018shipdining">
             <sly data-sly-test.dinings="${cruise.cruiseModel.ship.dinings}">
                 <div class="hidden-xs cruise-2018-ship-dining-area-title">${cruise.cruiseModel.ship.title} ${'dining-options' @i18n}: ${dinings.size} ${'restaurants' @i18n}</div>
                 <div class="hidden-xs cruise-2018-ship-dining-area-list" data-sly-list="${dinings}">
-                    <div class="${itemList.index==3 ? 'pagebreak' : ''} row cruise-2018-ship-dining-area-row">
+                    <div class="row cruise-2018-ship-dining-area-row">
                         <sly data-sly-test.imageUrl="${item.thumbnail}">
                                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                                 <div class="col-xs-6 img">
@@ -313,7 +313,7 @@
             </sly>
         </div>
 
-		<div class="cruise-2018-ship-public" id="cruise2018ShipPublic">
+		<div class="pagebreak cruise-2018-ship-public" id="cruise2018ShipPublic">
         <sly data-sly-test.publicAreas="${cruise.cruiseModel.ship.publicAreas}">
             <h3 class="cruise-2018-ship-public-title">${'public-areas' @ i18n}</h3>
         </sly>
