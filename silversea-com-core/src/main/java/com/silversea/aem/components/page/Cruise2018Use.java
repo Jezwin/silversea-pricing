@@ -107,8 +107,10 @@ public class Cruise2018Use extends EoHelper {
     //caching
     private List<CruiseModelLight> allSameShipCruises;
     private ItineraryLandProgramModel midlandShorexLightbox;
+    
+    private int hasexcursionsCounter;
 
-    @Override
+	@Override
     public void activate() throws Exception {
         super.activate();
         allSameShipCruises = null;
@@ -191,6 +193,7 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+        this.hasexcursionsCounter = firstExcursionsCounter();
     }
 
     private List<SilverseaAsset> retrievePortsGallery(CruiseModel cruiseModel) {
@@ -656,6 +659,20 @@ public class Cruise2018Use extends EoHelper {
         return Optional.ofNullable(best);
     }
 
+   private int firstExcursionsCounter() {
+	   int counter= -1;
+	   if (this.itinerary.size() > 0 && this.itinerary  != null) {
+		   for ( CruiseItinerary cruiseItinerary : this.itinerary) {
+			   counter++;
+			   if (cruiseItinerary.isHasExcursions()) {
+				  return counter; 
+			   }
+		   }
+	   }
+	   
+	   return counter;
+   }
+   
     public String getBigItineraryMap() {
         return bigItineraryMap;
     }
@@ -864,5 +881,9 @@ public class Cruise2018Use extends EoHelper {
     public long getDayUntilDeparture() {
         return dayUntilDeparture;
     }
+    
+    public int getHasexcursionsCounter() {
+		return hasexcursionsCounter;
+	}
 }
 
