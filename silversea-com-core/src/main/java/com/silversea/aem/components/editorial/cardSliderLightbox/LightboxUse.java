@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial.cardSliderLightbox;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.models.CardLightbox;
+import com.silversea.aem.utils.MultiFieldUtils;
 import org.apache.sling.api.request.RequestPathInfo;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class LightboxUse extends WCMUsePojo {
         RequestPathInfo requestPathInfo = getRequest().getRequestPathInfo();
         String[] selectors = requestPathInfo.getSelectors();
         int currentCard = Optional.of(selectors).map(array -> array[1]).map(Integer::parseInt).orElse(0);
-        List<CardLightbox> cards = SliderUse.retrieveMultiField(getResource(), "cards", CardLightbox.class);
+        List<CardLightbox> cards = MultiFieldUtils.retrieveMultiField(getResource(), "cards", CardLightbox.class);
         card = cards.get(currentCard);
         int size = cards.size();
         int prevIndex = ((currentCard - 1 + size) % size);

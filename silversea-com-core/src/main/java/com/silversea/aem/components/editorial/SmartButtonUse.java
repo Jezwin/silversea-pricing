@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.silversea.aem.utils.MultiFieldUtils.retrieveMultiField;
 import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
@@ -140,15 +141,6 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         }
     }
 
-
-    public static <T> List<T> retrieveMultiField(Resource resource, String child, Class<T> adaptable) {
-        return ofNullable(resource)
-                .map(value -> value.getChild(child))
-                .map(Resource::getChildren)
-                .map(iterator -> stream(iterator.spliterator(), false))
-                .map(stream -> stream.map(element -> element.adaptTo(adaptable)).filter(Objects::nonNull).collect(toList()))
-                .orElse(emptyList());
-    }
 
     public ValueMap getSbProperties() {
         return sbProperties;
