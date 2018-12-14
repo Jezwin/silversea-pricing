@@ -556,23 +556,34 @@ $(function () {
             }
         });
 
-        //click to change filter type (asc or desc)
-        $(fycContainerClass).on("click", ".fyc2018-header-sorting-type", function () {
-            var type = $(this).attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
-            $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
-            var icon = "fa fa-sort-amount-" + type;
-            $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
-            $(".findyourcruise2018 .fyc2018-header-sorting-type").append("<i class='" + icon + "'></i>");
-            changeSorting();
+        //click to change filter (departure, duration or price)
+        $(fycContainerClass).on("click", ".fyc2018-header-sorting", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if ($(window).width() < 992) {
+                $(".fyc2018-sorting-dropdown").show();
+            }
         });
 
         //click to change filter (departure, duration or price)
-        $(fycContainerClass).on("click", ".fyc2018-sorting-filed-span", function () {
+        $(fycContainerClass).on("click", ".fyc2018-sorting-filed-span", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
             var key = $(this).data("key"),
                 label = $(this).data("label");
             $(this).attr("data-enable", "true");
             $(".findyourcruise2018 .fyc2018-sorting-span span").text(label);
             $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
+
+            var type = $(".fyc2018-header-sorting-type").attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
+            $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
+
+            var icon = "fa fa-sort-amount-" + type;
+            $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
+            $(".findyourcruise2018 .fyc2018-header-sorting-type").append("<i class='" + icon + "'></i>");
+            if ($(window).width() < 992) {
+                $(".fyc2018-sorting-dropdown").hide();
+            }
             changeSorting();
         });
 

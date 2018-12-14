@@ -129,7 +129,6 @@
     display: inline-block;
     font-size: 13px;
     float: right;
-    cursor: pointer;
     margin-right: -2px;
     i{
       padding-top: 11px;
@@ -137,8 +136,10 @@
     }
   }
 
-  .fyc2018-header-sorting:hover .fyc2018-sorting-dropdown {
-    display: block;
+  @media(min-width: 992px) {
+    .fyc2018-header-sorting:hover .fyc2018-sorting-dropdown {
+      display: block;
+    }
   }
 
   .fyc2018-sorting-filed-span:hover {
