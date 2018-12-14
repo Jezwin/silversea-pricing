@@ -60,7 +60,7 @@ public class FindYourCruise2018UseTest {
     @Test
     public void performance() throws InterruptedException {
         double nOfRun = 2; //set 2000 to test better
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(1);//use 2 with caution
         List<UseBuilder> builders = new ArrayList<>();
         for (int i = 0; i < nOfRun; i++) {
             builders.add(new UseBuilder());
