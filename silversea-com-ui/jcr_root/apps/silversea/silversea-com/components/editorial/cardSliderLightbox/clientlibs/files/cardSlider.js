@@ -83,7 +83,6 @@
 })();
 
 function cslInitLightbox() {
-    console.log("called");
     $lightboxSimpleContent.find(".lazy").lazy();
     $lightboxSimple.find(".csl-asset-slider").slick()
 }
