@@ -61,6 +61,10 @@ public class SitemapModel {
         final List<SitemapEntryModel> entries = new ArrayList<>();
 
         String langL = page.getLanguage(false).getLanguage();
+        if(langL == "pt")
+        {
+            langL = "pt-br";
+        }
     	allCruises = cruisesCacheService.getCruises(langL);
         
         // TODO should be test the parent page ?
