@@ -141,7 +141,7 @@
 			<div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
                     
-					<div class="cruise-2018-itineraries-itinerary-row-container ${(itineraryList.index==4) || (itineraryList.index==10) ? 'pagebreak' : ''} ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''} ${expandable ? 'cruise-2018-itineraries-itinerary-row-container-with-excursion' :''}">
+					<div class="cruise-2018-itineraries-itinerary-row-container ${(itineraryList.index==4) || (itineraryList.index==10) || (itineraryList.index==16) || (itineraryList.index==22)? 'pagebreak' : ''} ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''} ${expandable ? 'cruise-2018-itineraries-itinerary-row-container-with-excursion' :''}">
                         <sly data-sly-test.imageUrl="${thumbnail}">
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                             <div class="cruise-2018-itineraries-itinerary-row-thumbnail">
