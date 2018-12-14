@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Combo Cruise Header Manual"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <combocruiseheadermanual
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Combo Cruise Header Manual"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <background
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Background Image"
+                                name="./backgroundImage"
+                                rootPath="/content/dam/silversea-com"/>
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="Title"
+                                name="./title"/>
+                            <description
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                fieldLabel="Description"
+                                name="./description"/>
+                            <days
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldLabel="Number of Days"
+                                min="1"
+                                name="./days"/>
+                            <portsamount
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldLabel="Ports amount"
+                                min="1"
+                                name="./portsAmount"/>
+                            <routes
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldLabel="Number of Days"
+                                min="1"
+                                name="./routes"/>
+                            <countries
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldLabel="Number of Country"
+                                min="1"
+                                name="./countries"/>
+                            <fonttextcolor
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Font text color"
+                                name="./fontTextColor">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <defaultColor
+                                        jcr:primaryType="nt:unstructured"
+                                        text="default"
+                                        value=""/>
+                                    <whiteColor
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="forcewhiteColorFont"/>
+                                </items>
+                            </fonttextcolor>
+                            <boxtextcolor
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Box text color"
+                                name="./boxTextColor">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <defaultColor
+                                        jcr:primaryType="nt:unstructured"
+                                        text="default"
+                                        value=""/>
+                                    <whiteColor
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="forcewhiteColorBox"/>
+                                </items>
+                            </boxtextcolor>
+                        </items>
+                    </column>
+                </items>
+            </combocruiseheadermanual>
+        </items>
+    </content>
+</jcr:root>
