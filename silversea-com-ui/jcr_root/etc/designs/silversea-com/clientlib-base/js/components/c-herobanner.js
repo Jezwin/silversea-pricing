@@ -27,7 +27,7 @@ $(function() {
     setBackgroundImage();
 
     function setBackgroundImage() {
-        var $imageBannerList = $('.c-hero-banner__image, .c-search-cruise__image, .c-combo-cruise-header__image').find('.o-img');
+        var $imageBannerList = $('.c-hero-banner__image, .c-search-cruise__image, .c-combo-cruise-header__image, .c-combo-cruise-header-manual__image').find('.o-img');
 
         $imageBannerList.each(function() {
             var $image = $(this);

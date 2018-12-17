@@ -99,16 +99,18 @@
                 </div>
             </div>
             <div class="cruise-2018-overview-quote ${cruise.lowestPrice.earlyBookingBonus ? 'cruise-2018-overview-quote-with-bb' : ''}">
+                <a class="coolanchorminussmall" href="#menu-cruise2018suites">
                 <span data-sly-test="${cruise.isWaitlist}"
                       class="cruise-2018-overview-quote-price-number">${'waitlist' @ i18n}</span>
-                <div class="cruise-2018-overview-quote-price" data-sly-test="${!cruise.isWaitlist}">
-                    <div class="cruise-2018-overview-quote-price-from">${'from' @ i18n}</div>
-                    <div class="cruise-2018-overview-quote-price-number">
-                        ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
+                    <div class="cruise-2018-overview-quote-price" data-sly-test="${!cruise.isWaitlist}">
+                        <div class="cruise-2018-overview-quote-price-from">${'from' @ i18n}</div>
+                        <div class="cruise-2018-overview-quote-price-number">
+                            ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
+                        </div>
+                        <div class="cruise-2018-overview-quote-price-bonus"
+                             data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
                     </div>
-                    <div class="cruise-2018-overview-quote-price-bonus"
-                         data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
-                </div>
+                </a>
                 <div class="cruise-2018-overview-quote-rqa">
                     <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
                        id="cruise-2018-rqa"
@@ -127,6 +129,7 @@
             </div>
         </div>
         <div class="col-md-6 col-md-offset-6 cruise-2018-overview-quote-icons hidden-xs">
+            <div class="col-md-12 cruise-2018-overview-voyage-code">${'voyage-number' @ i18n} : ${cruise.cruiseModel.cruiseCode}</div>
             <div class="cruise-2018-overview-prev-next col-md-12">
                 <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html'}"
                    class="previous-block">
@@ -137,7 +140,8 @@
                         </span>
 
                 </a>
-                <span data-sly-test="${cruise.next && cruise.previous}" class="cruise-2018-overview-prev-next-separator"> | </span>
+                <span data-sly-test="${cruise.next && cruise.previous}"
+                      class="cruise-2018-overview-prev-next-separator"> | </span>
                 <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"
                    class="next-block">
                         <span class="next-content">

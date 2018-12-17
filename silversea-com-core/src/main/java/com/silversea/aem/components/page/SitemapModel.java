@@ -61,6 +61,10 @@ public class SitemapModel {
         final List<SitemapEntryModel> entries = new ArrayList<>();
 
         String langL = page.getLanguage(false).getLanguage();
+        if(langL == "pt")
+        {
+            langL = "pt-br";
+        }
     	allCruises = cruisesCacheService.getCruises(langL);
         
         // TODO should be test the parent page ?
@@ -68,21 +72,8 @@ public class SitemapModel {
             if (page.getProperties() != null && !page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)){
             	 final String resourceType = page.getContentResource().getResourceType();
             	 Boolean shouldBeIncluded = true;
-                 if(WcmConstants.RT_PORT.equals(resourceType)){
-                 	shouldBeIncluded = false;
-                 	for (CruiseModelLight light : allCruises) {
-                 		if( light.getStartDate().after(Calendar.getInstance())){
-	                 		List<String> portsPath = light.getPortPaths();
-	     					if(portsPath != null){
-	     						if(portsPath.contains(page.getPath())){
-	     							shouldBeIncluded = true;
-	     							break;
-	     						}
-	     					}
-                 		}
-     				}
-                 }
-                 if(shouldBeIncluded){
+                shouldBeIncluded = shouldIncludePort(page, resourceType, shouldBeIncluded, allCruises);
+                if(shouldBeIncluded){
                 	 entries.add(page.adaptTo(SitemapEntryModel.class));
                  }
             }
@@ -98,20 +89,7 @@ public class SitemapModel {
             
             LOGGER.trace("Reading page for generating sitemap : {}", currentPage.getPath());
             Boolean shouldBeIncluded = true;
-            if(WcmConstants.RT_PORT.equals(resourceType)){
-            	shouldBeIncluded = false;
-            	for (CruiseModelLight light : allCruises) {
-             		if( light.getStartDate().after(Calendar.getInstance())){
-                 		List<String> portsPath = light.getPortPaths();
-     					if(portsPath != null){
-     						if(portsPath.contains(page.getPath())){
-     							shouldBeIncluded = true;
-     							break;
-     						}
-     					}
-             		}
- 				}
-            }
+            shouldBeIncluded = shouldIncludePort(page, resourceType, shouldBeIncluded, allCruises);
 
             if (currentPage.getContentResource() != null && currentPage.adaptTo(SitemapEntryModel.class) != null && shouldBeIncluded) {
                 LOGGER.trace("Adding in sitemap : {}", currentPage.getPath());
@@ -127,6 +105,24 @@ public class SitemapModel {
         }
 
         return entries;
+    }
+
+    private static Boolean shouldIncludePort(Page page, String resourceType, Boolean shouldBeIncluded, List<CruiseModelLight> allCruises) {
+        if(WcmConstants.RT_PORT.equals(resourceType)){
+            shouldBeIncluded = false;
+            for (CruiseModelLight light : allCruises) {
+                if( light.getStartDate().after(Calendar.getInstance())){
+                    List<String> portsPath = light.getPortPaths();
+                    if(portsPath != null){
+                        if(portsPath.contains(page.getPath())){
+                            shouldBeIncluded = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return shouldBeIncluded;
     }
 
     private static class SitemapFilter implements Filter<Page> {
@@ -154,6 +150,10 @@ public class SitemapModel {
                     if(isVisible.get("isVisible", String.class) == "false"){
                     	return false;
                     }
+                }
+
+                if(page.getProperties().get("forceSiteMapVisibility" ,false)){
+                    return true;
                 }
                 
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)

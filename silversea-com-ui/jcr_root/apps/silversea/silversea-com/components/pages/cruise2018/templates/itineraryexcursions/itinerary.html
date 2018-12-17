@@ -91,7 +91,7 @@
 
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
-                    <a class="open-lightbox-port cruise-2018-link-open-modal" data-target=".lightbox"
+                    <a class="open-lightbox-port cruise-2018-link-open-modal clickable" data-target=".lightbox"
                        data-sly-test="${expandable}" id="lb-it-${itinerary.itineraryId}"
                        href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
@@ -105,7 +105,7 @@
                     </div>
 
 
-                    <div class="cruise-2018-itineraries-itinerary-row-container ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''} ${expandable ? 'cruise-2018-itineraries-itinerary-row-container-with-excursion' :''}">
+                    <div class="cruise-2018-itineraries-itinerary-row-container clickable ${itineraryList.last ?  'cruise-2018-itineraries-no-border' : ''} ${expandable ? 'cruise-2018-itineraries-itinerary-row-container-with-excursion' :''}">
                         <div class="cruise-2018-itineraries-itinerary-row-thumbnail">
                             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                                  data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=thumbnail, Width='250'}"/>

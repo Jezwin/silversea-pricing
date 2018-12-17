@@ -894,7 +894,7 @@
     <other-restaurants
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-restaurants"
-        sling:message="other silversea's dining restaurants"/>
+        sling:message="Other Silversea Restaurants"/>
     <other-restaurants-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-restaurants-description"
@@ -1188,6 +1188,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="schedule"
         sling:message="Schedule"/>
+    <sort-by
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="sort-by"
+            sling:message="Sort by"/>
     <search
         jcr:primaryType="sling:MessageEntry"
         sling:key="search"
@@ -1480,6 +1484,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-online"
         sling:message="VIEW ONLINE"/>
+    <pre-order
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="pre-order"
+            sling:message="PRE-ORDER NOW"/>
     <view-our-free-brochures
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-our-free-brochures"

@@ -17,8 +17,8 @@
                    href="${externalizedOnlinePath.externalizedTranslatedUrl @ selectors=['modalcontent'] , extension='html'}${brochure.brochurePath}.html"
                    class="btn btn-dark c-brochure__btn effect trackviewonlinebro" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                    <i class="fa fa-search"></i>
-                    <strong>${'view-online' @i18n}</strong>
+                    <i class="fa fa-search" data-sly-test="${!brochure.preOrder}"></i>
+                    <strong>${brochure.preOrder ? 'pre-order' : 'view-online' @i18n}</strong>
                 </a>
             </p>
             <p class="c-brochure__btnwrapper"

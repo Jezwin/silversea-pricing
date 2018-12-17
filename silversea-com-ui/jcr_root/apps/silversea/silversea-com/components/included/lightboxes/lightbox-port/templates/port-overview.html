@@ -5,7 +5,7 @@
                 <div class="lg-port-name">
                     ${model.portItinerary.port.apiTitle}
                 </div>
-                <div class="lg-port-country">
+                <div class="lg-port-country" data-sly-test="${model.portItinerary.port.countryIso2 != 'ZZ'}">
                     ${model.portItinerary.port.country}
                 </div>
                 <div class="lg-port-description">

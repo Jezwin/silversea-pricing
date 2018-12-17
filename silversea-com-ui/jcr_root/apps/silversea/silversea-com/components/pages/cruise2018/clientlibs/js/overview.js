@@ -12,7 +12,7 @@ function pdfInit(uri, countryCode, ccpt) {
                 $('.cruise-2018-pdf-print-link').toggle();
             },
             success: function () {
-                printWin.location =  uri + '.rendition.print.' + countryCode + ccpt + '.pdf';
+                printWin.location = uri + '.rendition.print.' + countryCode + ccpt + '.pdf';
                 printWin.focus();
             }
         });
@@ -82,12 +82,14 @@ $(function () {
             var $body = $('body');
             var number = window.innerWidth < 768 ? 65 : 100;
             var toPosition = $toElement.position().top - number;
+
             //scroll to element
             $("body,html").animate({
                 scrollTop: toPosition
             }, 1500);
 
             $body.focus();
+            history.replaceState(null, null, $(this).attr("href"));
             return false;
         }
     });
@@ -99,13 +101,13 @@ $(function () {
         $('body').addClass('modal-open');
         // HTML layout
         var $modalContent =
-             '<div class="modal-body automatic-modal-body">'
+            '<div class="modal-body automatic-modal-body">'
             + '<div class="cruise-video-lightbox">'
             + '<div class="ratio">'
             + '<div class="video-itinerary" id="currentIdNode" data-video-asset="assetPath" data-video-autoplay="1"></div>'
             + '</div>'
             + '</div>' +
-            '</div>' ;
+            '</div>';
 
         var $link = $(this);
         var currentIdNode = $link.data("current-id-node");
@@ -118,7 +120,7 @@ $(function () {
         $($(this).data('target')).modal('show');
 
         // Append image inside Modal
-        $('.modal.lightbox').on('shown.bs.modal',createVideo);
+        $('.modal.lightbox').on('shown.bs.modal', createVideo);
 
         $(document).on('hide.bs.modal', destroyVideo);
 
@@ -130,11 +132,11 @@ $(function () {
             $(".video-itinerary").initVideo();
         }
 
-        function destroyVideo (e) {
+        function destroyVideo(e) {
             if ($("body").hasClass("cruise") && $(".cruise-2018").length > 0) {
                 var $video = $(".modal.lightbox .cruise-video-lightbox").find('.s7container');
                 $video.find('.s7playpausebutton[selected="false"]').trigger('click');
-                $('.modal.lightbox').off('shown.bs.modal',createVideo);
+                $('.modal.lightbox').off('shown.bs.modal', createVideo);
                 $(document).off('hide.bs.modal', destroyVideo);
                 $(this).find('.lightbox-close').removeClass("lightbox-close-1200");
             }

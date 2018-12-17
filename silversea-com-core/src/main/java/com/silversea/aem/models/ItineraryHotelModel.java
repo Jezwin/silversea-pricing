@@ -72,4 +72,8 @@ public class ItineraryHotelModel {
     public HotelModel getHotel() {
 		return hotel;
 	}
+
+    public String getNote() {
+       return hotel != null ? hotel.getNote() : null;
+    }
 }

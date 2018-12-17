@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.servlet.ServletException;
 import javax.xml.ws.WebServiceException;
@@ -82,18 +83,14 @@ public class LeadResubmissionServlet extends SlingAllMethodsServlet {
 		LOGGER.debug("Starting Resubmission..");
 		final Map<String, Object> authenticationParams = new HashMap<>();
 		authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-
-		try (final ResourceResolver adminResolver = resourceResolverFactory
-				.getServiceResourceResolver(authenticationParams)) {
-			final Session adminSession = adminResolver.adaptTo(Session.class);
-
-			if (adminSession == null) {
-				throw new Exception("Cannot initialize session");
-			}
-			Resource resource = adminResolver.getResource(LEAD_DATA_PATH);
+		//Session adminSession =  request.getResourceResolver();
+		List<Map<String, String>> responseList = new ArrayList<>();
+		try {
+			
+			Resource resource = request.getResourceResolver().getResource(LEAD_DATA_PATH);
 			Iterator<Resource> resItr = resource.listChildren();
 			// data structure
-			List<Map<String, String>> responseList = new ArrayList<>();
+
 			while (resItr.hasNext()) {
 				Map<String, String> responseMap = new HashMap<>();
 				Resource childRes = resItr.next();
@@ -124,19 +121,18 @@ public class LeadResubmissionServlet extends SlingAllMethodsServlet {
 					responseMap.put("status", "success");
 					responseList.add(responseMap);
 					LOGGER.debug("Deleting the child resource..");
-					adminResolver.delete(childRes);
-					adminResolver.commit();
+					request.getResourceResolver().delete(childRes);
+
+					request.getResourceResolver().commit();
+
 				} 
 			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		}
 			finalLeadResponse.put("leadResponse", responseList);
 			LOGGER.debug("The data structure for the re-submission status is :- {}", finalLeadResponse);
 			LeadUtils.writeDomainObject(response, finalLeadResponse);
 
-		} catch (Exception e) {
-			LOGGER.error("Exception occured while resubmitting from the console. "
-					+ "Would not delete the file from under /var/leadservicedata. "
-					+ "You can try submitting again later from the console.", e.getMessage());
-		}
-		LOGGER.debug("Ënding re-submission...");
 	}
 }

@@ -97,7 +97,7 @@
                                 fieldLabel="Exclusive Offer Path"
                                 fieldDescription="Example : /content/silversea-com/en/exclusive-offers/early-booking-offer"
                                 name="./eoId"
-                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                                sling:resourceType="granite/ui/components/foundation/form/textarea" />
                           <featureId
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Feature Id"

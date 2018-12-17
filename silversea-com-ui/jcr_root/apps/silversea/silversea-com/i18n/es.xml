@@ -854,7 +854,7 @@
     <other-restaurants
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="otros restaurantes"/>
+            sling:message="Otros restaurantes Silversea"/>
     <other-restaurants-description
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1147,6 +1147,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Horario"/>
+    <sort-by
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sort by"/>
     <search
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1449,6 +1453,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="VER ONLINE"/>
+    <pre-order
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="PRE-ORDER NOW"/>
     <view-our-free-brochures
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

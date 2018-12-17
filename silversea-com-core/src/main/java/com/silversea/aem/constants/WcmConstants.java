@@ -25,6 +25,7 @@ public interface WcmConstants {
     String PN_BROCHURE_CODE = "brochureCode";
     String PN_BROCHURE_ONLINE_URL = "onlineBrochureUrl";
     String PN_BROCHURE_IS_DIGITAL_ONLY = "brochureDigitalOnly";
+    String PN_BROCHURE_IS_PREORDER = "preOrder";
     String PN_DESTINATION_REFERENCE = "destinationsReference";
     String PN_START_DATE = "startDate";
     final String PN_DESTINATION_ID = "destinationId";

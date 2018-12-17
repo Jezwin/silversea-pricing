@@ -2,7 +2,6 @@
 
 @media (max-width: 767px) {
 
-
   #voyages .findyourcruise2018 .fyc2018-header-container {
     padding-left: 25px;
     padding-right: 25px;
@@ -22,6 +21,16 @@
   /*FILTERS*/
   .parbase.findyourcruise2018 {
     .findyourcruise2018 {
+
+      .fyc2018-header-custom-mobile-title {
+        display: block;
+        font-family: @freight;
+        font-size: 22px;
+        font-weight: normal;
+        text-align: center;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
 
       .fyc2018-pagination-style-mobile {
         text-align: center;
@@ -71,6 +80,7 @@
           transform: translate(-50%, -50%);
           top: 73px;
           position: absolute;
+          margin-right: 0px;
           span {
             color: black;
           }
@@ -84,7 +94,6 @@
           font-size: 16px;
           letter-spacing: 1px;
           line-height: 15px;
-          margin-bottom: 5px;
         }
         .fyc2018-header-container.container {
           position: relative;
@@ -98,6 +107,8 @@
           background-color: @nd-dark;
           border-bottom: solid @white 5px;
           color: @white;
+          padding-left: 15px;
+          padding-right: 15px;
         }
         .fyc2018-header-mobile-filter {
           display: block;
@@ -161,6 +172,12 @@
         font-size: 15px;
         span {
           width: 100%;
+        }
+      }
+
+      #filter-sortby, .filter-sortby {
+        i {
+          margin-left: 5px;
         }
       }
 
@@ -268,6 +285,9 @@
             span {
               width: 88%;
               padding: 18px 5px 15px 5px;
+              i {
+                padding-right: 5px;
+              }
             }
           }
 
@@ -463,7 +483,7 @@
       }
       .c-fyc-v2__result__content__button {
         margin-top: 15px;
-        position:relative;
+        position: relative;
         a {
           width: 250px !important;
           padding: 14px 62px 13px 62px !important;

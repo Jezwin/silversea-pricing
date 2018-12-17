@@ -112,10 +112,10 @@ $(function () {
     };//parsedSscFeJsElement
 
     function isDesktop() {
-        return $("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg");
+        return $(window).width() >= 992;
     };//isDesktop
 
     function isTablet() {
-        return $("body").hasClass("viewport-sm");
+        return $(window).width() >= 768 && $(window).width() < 992;
     };//isTablet
 });

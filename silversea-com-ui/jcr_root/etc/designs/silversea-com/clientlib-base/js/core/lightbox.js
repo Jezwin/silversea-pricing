@@ -4,7 +4,7 @@ $(document).on('shown.bs.modal', function (e) {
     var $modalContent = $(this).find(".modal-content");
     var $lightboxClose = $(this).find(".lightbox-close");
 
-    if ($modalBody.hasClass("cruise-2018-offers")) {
+    if ($modalBody.hasClass("cruise-2018-offers") || $modalBody.find(".cruise-2018").length > 0) {
         setTopLightboxModal(0);
         $(".cruise-2018-modal-exclusive-offer-title .open, .cruise-2018-modal-exclusive-offer-title .times, .cruise-2018-offers .title").each(function () {
             $(this).html($(this).html().toLowerCase());
@@ -69,6 +69,4 @@ function setTopLightboxModal(height, imgId) {
     $modalLightbox.css("visibility", "visible");
 
     //debug
-    console.log("topModalContent", topModalContent);
-    console.log("$modalContenHeight", $modalContenHeight, " $windowHeight", $windowHeight);
 };//setTopLightboxModal

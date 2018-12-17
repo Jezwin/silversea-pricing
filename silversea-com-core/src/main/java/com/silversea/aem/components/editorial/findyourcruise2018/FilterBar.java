@@ -6,7 +6,6 @@ import com.silversea.aem.models.*;
 
 import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRow.singleton;
@@ -18,7 +17,7 @@ import static java.util.stream.Collectors.toSet;
 public class FilterBar {
 
     public static final AbstractFilter<DestinationItem> DESTINATION =
-            new AbstractFilter<DestinationItem>("destination") {
+            new AbstractFilter<DestinationItem>("destination",  Comparator.comparing(cruise -> cruise.getDestination().getName()), AbstractFilter.Sorting.HIDDEN) {
                 @Override
                 protected Stream<FilterRow<DestinationItem>> projection(CruiseModelLight cruiseModelLight) {
                     DestinationItem destination = cruiseModelLight.getDestination();
@@ -26,7 +25,7 @@ public class FilterBar {
                 }
             };
     public static final AbstractFilter<String> TYPE =
-            new AbstractFilter<String>("type") {
+            new AbstractFilter<String>("type", Comparator.comparing(CruiseModelLight::getCruiseType), AbstractFilter.Sorting.HIDDEN) {
                 @Override
                 protected Stream<FilterRow<String>> projection(CruiseModelLight cruiseModelLight) {
                     return singleton(cruiseModelLight.getCruiseType());
@@ -34,7 +33,7 @@ public class FilterBar {
             };
 
     public static final AbstractFilter<PortItem> PORT =
-            new AbstractFilter<PortItem>("port") {
+            new AbstractFilter<PortItem>("port", Comparator.comparing(cruise -> ""), AbstractFilter.Sorting.HIDDEN) {
                 @Override
                 protected Stream<FilterRow<PortItem>> projection(CruiseModelLight cruise) {
                     return cruise.getPorts().stream()
@@ -48,7 +47,7 @@ public class FilterBar {
             };
 
     public static final AbstractFilter<ExclusiveOfferModelLight> OFFERS =
-            new AbstractFilter<ExclusiveOfferModelLight>("eo") {
+            new AbstractFilter<ExclusiveOfferModelLight>("eo",  Comparator.comparing(cruise -> ""), AbstractFilter.Sorting.HIDDEN) {
                 @Override
                 protected Stream<FilterRow<ExclusiveOfferModelLight>> projection(CruiseModelLight cruiseModelLight) {
                     return cruiseModelLight.getExclusiveOffers().stream()
@@ -61,24 +60,36 @@ public class FilterBar {
                 }
             };
 
-    public static final AbstractFilter<FeatureModelLight> FEATURES = new FeatureFilter();
 
+    public static final AbstractFilter<FeatureModelLight> FEATURES = new FeatureFilter();
 
     public static final AbstractFilter<Range<Integer>> DURATION = new DurationFilter();
 
     public static final AbstractFilter<YearMonth> DEPARTURE = new DepartureFilter();
 
     public static final AbstractFilter<ShipItem> SHIP =
-            new AbstractFilter<ShipItem>("ship") {
+            new AbstractFilter<ShipItem>("ship", Comparator.comparing(cruise -> cruise.getShip().getName()), AbstractFilter.Sorting.HIDDEN) {
                 @Override
                 protected Stream<FilterRow<ShipItem>> projection(CruiseModelLight cruise) {
                     return Stream.of(new FilterRow<>(cruise.getShip(), ShipItem::getTitle, cruise.getShip().getId(), ENABLED));
                 }
             };
 
+    public static final AbstractFilter<String> PRICE =
+            new PriceFilter();
+
 
     public static final Collection<AbstractFilter<?>> FILTERS =
-            asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE, OFFERS);
+            asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE, OFFERS, PRICE);
+
+    public static Comparator<? super CruiseModelLight> getComparator(FindYourCruise2018Use findYourCruise2018Use) {
+        for (AbstractFilter<?> filter : FilterBar.FILTERS) {
+            if(AbstractFilter.Sorting.ASC.equals(filter.getSorting()) || AbstractFilter.Sorting.DESC.equals(filter.getSorting())) {
+                return filter.getSortedBy(findYourCruise2018Use);
+            }
+        }
+        return Comparator.comparing(CruiseModelLight::getStartDate);
+    }
 
     void init(FindYourCruise2018Use use, Map<String, String[]> httpRequest, List<CruiseModelLight> allCruises) {
         Map<String, String[]> properties = use.filteringSettings();
