@@ -214,7 +214,7 @@ $(function () {
 
             if (updateHistory) {
                 var current = window.location.href;
-                history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
+                history.replaceState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4) + "?" + url));
             }
             return urlTemplate + ".html?" + url;
         };//createUrl
@@ -611,7 +611,7 @@ $(function () {
             $(".fyc2018-header-reset-all").hide();
             elementFilterSelected = [];
             $(".fyc2018-filters-container").removeClass("fyc2018-filters-container-clear-open");
-            history.pushState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4)));
+            history.replaceState(null, null, encodeURI(current.substr(0, current.indexOf("html") + 4)));
             urlToCompare = "force";
             updateFilters(urlTemplateFilter + ".html?onlyFilters=true");
             updateCruises(urlTemplateCruises + ".html?onlyResults=true", true);
