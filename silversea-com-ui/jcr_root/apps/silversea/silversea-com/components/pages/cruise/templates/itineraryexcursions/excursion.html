@@ -3,7 +3,7 @@
          class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion  ${itineraryLast ? 'cruise-2018-itineraries-port-excursions-last' : ''}"
          id="cruise2018itineraryexcursion">
         <sly data-sly-list.midEx="${mid}">
-            <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
+            <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"
                  data-sly-call="${subExcursion.sub @ itinerary=itinerary, index = midExList.index, id = midEx.landId,
                  description = midEx.description, lightbox= 'lg-midShorex', title = midEx.title, isMid=true, features =null, isLast=midExList.last}">
             </sly>
@@ -11,7 +11,7 @@
         <sly data-sly-list.excursion="${excursions}"
              data-sly-test.lightbox="${itinerary.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}">
             <sly data-sly-test.description="${excursion.longDescription || excursion.apiLongDescription || excursion.description }"/>
-            <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise2018/templates/itineraryexcursions/excursion.html"
+            <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"
                  data-sly-call="${subExcursion.sub @ itinerary=itinerary, index = excursionList.index, id = excursion.shorexId,
                  description = description, lightbox= lightbox, title = excursion.title, isMid=false,features= excursion.features, isLast=excursionList.last}">
             </sly>
