@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ title, slidesDesktop,slidesTablet, slidesMobile, cards }">
+<template data-sly-template.default="${ @ title, slidesDesktop,slidesTablet, slidesMobile, showArrows, cards }">
     <div class="cardSlider-wrapper ">
         <div class="cardSlider">
             <sly data-sly-test="${cards}">
@@ -12,8 +12,9 @@
                     <sly data-sly-list.card="${cards}">
                         <div class="cardSlider-slide">
                             <a class="lightbox-link" data-toggle="modal" data-target="#lightbox-simple"
-                               data-scope="lightbox-cardSlider"
-                               data-callback="cslInitLightbox"
+                               data-slb-scope="lightbox-cardSlider"
+                               data-slb-arrows="${showArrows}"
+                               data-slb-callback="cslInitLightbox"
                                id="lb-sl-${cardList.index}" data-simple-lightbox
                                href="#${currentNode.path @ selectors=['lightbox', cardList.index], extension='html'}"></a>
                             <sly data-sly-test.thumbnail="${card.thumbnail || card.bigPicture}"/>

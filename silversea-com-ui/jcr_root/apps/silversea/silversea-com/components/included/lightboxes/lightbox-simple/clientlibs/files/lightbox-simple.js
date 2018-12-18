@@ -104,14 +104,19 @@ $(function () {
         if (isSimpleLightbox(event)) {
             var $link = $(event.relatedTarget);
             $lightboxSimpleContent.load($link.attr("href").replace("#", ""));
-            addCustomScopeClass($link.data("scope"));
+            addCustomScopeClass($link.data("slb-scope"));
+            if ($link.data("slb-arrows")) {
+                $(".lightbox-simple-next-link,.lightbox-simple-prev-link").removeClass("hidden");
+            } else {
+                $(".lightbox-simple-next-link,.lightbox-simple-prev-link").addClass("hidden");
+            }
         }
     };
 
     const onShown = function (event) {
         if (isSimpleLightbox(event)) {
             toggleScroll();
-            callCallback($(event.relatedTarget).data("callback"));
+            callCallback($(event.relatedTarget).data("slb-callback"));
             setHeader();
             setNavigation();
         }
