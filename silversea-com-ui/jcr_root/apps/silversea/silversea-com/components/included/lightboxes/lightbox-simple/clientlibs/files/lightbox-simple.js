@@ -92,9 +92,9 @@ $(function () {
     function callCallback(callback) {
         if (typeof callback !== "undefined") {
             window[callback]();
-            window.$$lastCallbac = callback;
-        } else if (typeof window.$$lastCallbac !== "undefined") {
-            window[window.$$lastCallbac]();
+            window.$$lastCallback = callback;
+        } else if (typeof window.$$lastCallback !== "undefined") {
+            window[window.$$lastCallback]();
         }
     }
 
@@ -125,7 +125,7 @@ $(function () {
     const onHidden = function (event) {
         toggleScroll();
         $lightboxSimpleContent.html("");
-        delete window.$$lastCallbac;
+        delete window.$$lastCallback;
         removeCustomScopeClass();
     };
 
