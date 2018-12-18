@@ -30,7 +30,7 @@
     <div class="${index<8 ? '' : 'cruise-2018-excursions-accordion'} cruise-2018-itineraries-port-excursions-excursion ${description  ? '' : 'cruise-2018-itineraries-port-excursions-excursion-no-content'} ${isLast == true ? 'cruise-2018-itineraries-port-excursions-excursion-last' : ''}">
         <a
                 class="open-lightbox-land-shorex-hotel" data-target=".lightbox"
-                data-itinerary-id="${itinerary.itineraryId}" data-excursion-id="${id}" id="lb-shorex-${id}"
+                data-itinerary-id="${itinerary.itineraryId}" data-excursion-id="${id}" id="lb-shorex-${id}" rel="nofollow"
                 href="${request.requestURI @ extension='', selectors=['lightboxes.lg-land-shorex-hotel',lightbox]}">
             <div class="cruise-2018-itineraries-port-excursions-moredetails">
                     <span>
