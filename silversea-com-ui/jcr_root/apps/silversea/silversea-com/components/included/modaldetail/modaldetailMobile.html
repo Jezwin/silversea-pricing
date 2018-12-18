@@ -1,4 +1,7 @@
 <template data-sly-template.default data-sly-use.modal="com.silversea.aem.components.included.ModalDetailUse">
+	<head>
+		<meta name="robots" content="noindex">
+	</head>
     <div class="modal-header modal-header-modal-detail">
         <button class="close" type="button" aria-label="Close" data-dismiss="modal" ><span class="close-label">${'close' @ i18n}</span></button>
         <sly data-sly-use.extPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
