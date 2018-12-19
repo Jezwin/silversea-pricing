@@ -34,14 +34,14 @@
                 </div>
             </div>*/-->
         </div>
-        <div class="cruise-2018-itineraries-pdf hidden-xs" data-sly-test="${ cruise.dayUntilDeparture < 120 }">
-            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition' }">
+  <div class="cruise-2018-itineraries-pdf hidden-xs" >
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition' && cruise.dayUntilDeparture < 120}">
                 <a class="btn btn-thin btn-white cruise-2018-itineraries-btn" href="${cruise.cruiseModel.tourBook}"
                    target="_blank"
                    data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
                 </a>
             </sly>
-            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && properties.voyageHighlights}">
                 <div data-lightbox-highlights="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-highlights'}">
                     <a class="btn btn-thin btn-white cruise-2018-itineraries-btn open-lightbox-highlights"
                        data-target=".lightbox" href="#">
