@@ -61,6 +61,7 @@ $(function () {
         }
     });
 
+
     function loadPortsImage() {
         var $itinerayContainer = $(".cruise-2018-itineraries-itinerary-row-thumbnail img");
         if ($itinerayContainer) {

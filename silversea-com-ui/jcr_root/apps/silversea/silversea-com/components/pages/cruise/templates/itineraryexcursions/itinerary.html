@@ -20,7 +20,8 @@
             </div>
             <div class="cruise-2018-itineraries-description">${cruise.cruiseModel.description @ context="html"}</div>
             <div class="cruise-2018-itineraries-voyage-code hidden-xs">${'voyage-number' @ i18n}: ${cruise.cruiseModel.cruiseCode}</div>
-            <div class="cruise-2018-itineraries-120-label" data-sly-test="${ cruise.dayUntilDeparture >= 120 }">${'cruise-itinerary-120-day' @ i18n}</div>
+            <div class="cruise-2018-itineraries-120-label"
+                 data-sly-test="${ cruise.dayUntilDeparture >= 120 }">${'cruise-itinerary-120-day' @ i18n}</div>
             <!--/*            <div class="cruise-2018-itineraries-map">
                 <div class="ratio-big-itinerary"
                      data-sly-test.map="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}">
@@ -34,7 +35,7 @@
                 </div>
             </div>*/-->
         </div>
-  <div class="cruise-2018-itineraries-pdf hidden-xs" >
+        <div class="cruise-2018-itineraries-pdf hidden-xs">
             <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition' && cruise.dayUntilDeparture < 120}">
                 <a class="btn btn-thin btn-white cruise-2018-itineraries-btn" href="${cruise.cruiseModel.tourBook}"
                    target="_blank"
@@ -55,14 +56,16 @@
                  data-ssc-breakpoint-tablet="991" data-ssc-slides-to-scroll-tablet="1"
                  data-ssc-slides-to-show-tablet="3">
                 <sly data-sly-list.portImage="${cruise.portsGallery}">
-                    <div class="cruise-2018-itinerary-slide cruise-2018-slide">
+                    <a href="#lb-mainGallery" data-target=".lightbox"
+                       class="cruise-2018-itinerary-slide cruise-2018-slide open-lightbox-gallery-assets"
+                       data-go-to="${portImage.path}">
                         <div class="cruise-2018-itinerary-slide-thumbnail cruise-2018-slide-thumbnail">
                             <div class="ratio">
                                 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                                      data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=portImage.path, Width='900'}"/>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                 </sly>
             </div>
@@ -91,7 +94,8 @@
 
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <div class="cruise-2018-itineraries-itinerary-row">
-                    <a class="open-lightbox-port cruise-2018-link-open-modal clickable" data-target=".lightbox" rel="nofollow"
+                    <a class="open-lightbox-port cruise-2018-link-open-modal clickable" data-target=".lightbox"
+                       rel="nofollow"
                        data-sly-test="${expandable}" id="lb-it-${itinerary.itineraryId}"
                        href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
@@ -147,7 +151,8 @@
                                 <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=arriveTime}"> ${arriveTimeFormat.value}</sly>
                                 <sly data-sly-test="${arriveTime && (departTime || overnight)}">-</sly>
                                 <sly data-sly-test="${!arriveTime && departTime && !overnight}">${'departure' @i18n}</sly>
-                                <sly data-sly-test="${!overnight}" data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}"> ${arriveTimeFormat.value}</sly>
+                                <sly data-sly-test="${!overnight}"
+                                     data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}"> ${arriveTimeFormat.value}</sly>
                                 <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
                             </div>
                         </div>
