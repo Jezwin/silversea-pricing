@@ -858,7 +858,7 @@
     <other-restaurants-description
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Con la importancia de la comida en la cultura italiana, es de esperar que la comida sea una prioridad en Silversea. Y seguramente lo es. Además, la excelencia gastronómica es un hecho, gracias a nuestra asociación con los prestigiosos Grands Chefs Relais &amp; Châteaux."/>
+            sling:message="Con la importancia de la comida en la cultura italiana, es de esperar que la comida sea una prioridad en Silversea. Y seguramente lo es. La excelencia gastronómica se da por hecho, gracias a nuestras recetas que reflejan nuestra herencia y reinterpretan la tradición. "/>
     <other-suites
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

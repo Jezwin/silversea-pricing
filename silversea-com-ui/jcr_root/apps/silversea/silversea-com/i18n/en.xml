@@ -898,7 +898,7 @@
     <other-restaurants-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-restaurants-description"
-        sling:message="With the importance of food in Italian culture you would expect dining to be a high priority at Silversea. And it most assuredly is. Moreover, gastronomic excellence is a given, thanks to our partnership with the prestigious Grands Chefs Relais &amp; Châteaux."/>
+        sling:message="With the importance of food in Italian culture you would expect dining to be a high priority at Silversea. And it most assuredly is. Moreover, gastronomic excellence is a given, thanks to our recipes that reflect heritage and revamp tradition. "/>
 	<other-suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-suites"
