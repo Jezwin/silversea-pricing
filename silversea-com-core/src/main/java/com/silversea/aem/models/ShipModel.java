@@ -173,6 +173,11 @@ public class ShipModel {
     @Optional
     private String thirdGuestCapacity;
 
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/passengersDeck")
+    @Optional
+    private String passengersDeck;
+
     @Reference
     private ResourceResolverFactory resolverFactory;
 
@@ -394,5 +399,9 @@ public class ShipModel {
 
     public String getWidthM() {
         return widthM;
+    }
+
+    public String getPassengersDeck() {
+        return passengersDeck;
     }
 }
