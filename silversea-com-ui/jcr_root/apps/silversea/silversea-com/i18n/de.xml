@@ -1451,7 +1451,7 @@
     <pre-order
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="PRE-ORDER NOW"/>
+            sling:message="JETZT VORBESTELLEN"/>
     <view-our-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

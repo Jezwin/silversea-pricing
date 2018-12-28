@@ -1452,7 +1452,7 @@
     <pre-order
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="PRE-ORDER NOW"/>
+            sling:message="EFFECTUER UNE PRÉ-RÉSERVATION"/>
     <view-our-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
