@@ -93,18 +93,24 @@
                                             name="./sscFwContentDesktop"/>
                                     <sscFwBackgroundColorDesktop
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Button Color"
-                                            value="rgba(214,5,36,1)"
-                                            freestylePaletteType="{Boolean}true"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Button Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value="#D60524"
                                             name="./sscFwBackgroundColorDesktop"/>
                                     <sscFwColorDesktop
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Color Text"
-                                            value="rgba(244,244,244,1)"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value="#ffffff"
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorDesktop"/>
+                                    <sscFwBorderColorDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Border Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value="#D60524"
+                                            freestylePaletteType="{Boolean}true"
+                                            name="./sscFwBorderColorDesktop"/>
                                     <isTrasparentButtonDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
@@ -211,7 +217,7 @@
                                     <sscFwTextAlignDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value="center"
+                                            value="right"
                                             fieldDescription="Align button: left, center, right, justify"
                                             fieldLabel="Align Button (center, left, right, justify)"
                                             name="./sscFwTextAlignDesktop"/>
@@ -315,348 +321,6 @@
                                             name="./cssDesktop"/>
                                 </items>
                             </defaultDesktop>
-                            <geolocationDesktop
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Geolocation desktop options"
-                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <geoList jcr:primaryType="nt:unstructured"
-                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                             class="full-width">
-                                        <field jcr:primaryType="nt:unstructured"
-                                               sling:resourceType="granite/ui/components/foundation/form/fieldset"
-                                               acs-commons-nested="NODE_STORE" name="./geoListDesktop">
-                                            <layout jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                                    method="absolute"/>
-                                            <items jcr:primaryType="nt:unstructured">
-                                                <column jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/container"
-                                                        class="full-width">
-                                                    <items jcr:primaryType="nt:unstructured">
-                                                        <typeDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Type of link"
-                                                                name="./typeDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <page
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Page"
-                                                                        value="page"/>
-                                                                <video
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Video"
-                                                                        value="video"/>
-                                                                <file
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="File (pdf, image ...)"
-                                                                        value="file"/>
-                                                            </items>
-                                                        </typeDesktop>
-                                                        <analyticTypeDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Analytic type"
-                                                                name="./analyticTypeDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Simple button"
-                                                                        value=""/>
-                                                                <raq
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Quote request"
-                                                                        value="clic-RAQ"/>
-                                                                <bro
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Brochure request"
-                                                                        value="clic-BRO"/>
-                                                                <rac
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Call request"
-                                                                        value="clic-RAC"/>
-                                                                <sfo
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Signup for offer"
-                                                                        value="clic-SFO"/>
-                                                            </items>
-                                                        </analyticTypeDesktop>
-                                                        <linkUrlDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                                fieldLabel="Link url"
-                                                                name="./linkUrlDesktop"
-                                                                fieldDescription="Link valid for any type"
-                                                                rootPath="/content/"/>
-                                                        <sscFwContentDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="Text of the button"
-                                                                fieldLabel="Text"
-                                                                value=""
-                                                                name="./sscFwContentDesktop"/>
-                                                        <sscFwBackgroundColorDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Button Color"
-                                                                value=""
-                                                                freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBackgroundColorDesktop"/>
-                                                        <sscFwColorDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Color Text"
-                                                                value=""
-                                                                freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwColorDesktop"/>
-                                                        <isTrasparentButtonDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Trasparent button"
-                                                                name="./isTrasparentButtonDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </isTrasparentButtonDesktop>
-                                                        <enableToScrollElementDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="Put id o class of element to scroll"
-                                                                fieldLabel="Element to scroll"
-                                                                name="./enableToScrollElementDesktop"/>
-                                                        <enableLightboxDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Enable lightbox"
-                                                                name="./enableLightboxDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </enableLightboxDesktop>
-                                                        <openNewTabDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Open new tab"
-                                                                name="./openNewTabDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </openNewTabDesktop>
-                                                        <isExternalLinkDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="External link"
-                                                                name="./isExternalLinkDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </isExternalLinkDesktop>
-                                                        <sscFwDisplayDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Display"
-                                                                name="./sscFwDisplayDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <none
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="hide"
-                                                                        value="none"/>
-                                                                <inlineBlock
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="inline-block (show)"
-                                                                        value="inline-block"/>
-                                                            </items>
-                                                        </sscFwDisplayDesktop>
-                                                        <sscFwDisplaySndDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Display Arrow"
-                                                                fieldDescription="Arrow"
-                                                                name="./sscFwDisplaySndDesktop">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <none
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="hide"
-                                                                        value="none"/>
-                                                                <inlineBlock
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="inline-block (show)"
-                                                                        value="inline-block"/>
-                                                            </items>
-                                                        </sscFwDisplaySndDesktop>
-                                                        <sscFwTextAlignDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Align button: left, center, right, justify"
-                                                                fieldLabel="Align Button (center, left, right, justify)"
-                                                                name="./sscFwTextAlignDesktop"/>
-                                                        <sscFwTextAlignSndDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Text align button: left, center, right, justify"
-                                                                fieldLabel="Text align Button (center, left, right, justify)"
-                                                                name="./sscFwTextAlignSndDesktop"/>
-                                                        <sscFwFontSizeDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Text align button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Font size text (px, em, %, pt)"
-                                                                name="./sscFwFontSizeDesktop"/>
-                                                        <sscFwFontSizeSndDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Text align button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Font size arrow (px, em, %, pt)"
-                                                                name="./sscFwFontSizeSndDesktop"/>
-                                                        <sscFwWidthDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Width Button (px, em, %, pt)"
-                                                                name="./sscFwWidthDesktop"/>
-                                                        <sscFwWidthSndDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Width arrow (px, em, %, pt)"
-                                                                name="./sscFwWidthSndDesktop"/>
-                                                        <sscFwMarginTopDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin top of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin top (px, em, %, pt)"
-                                                                name="./sscFwMarginTopDesktop"/>
-                                                        <sscFwMarginBottomDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin bottom of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin bottom (px, em, %, pt)"
-                                                                name="./sscFwMarginBottomDesktop"/>
-                                                        <sscFwMarginLeftDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin left of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin left (px, em, %, pt)"
-                                                                name="./sscFwMarginLeftDesktop"/>
-                                                        <sscFwMarginRightDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin right  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin right (px, em, %, pt)"
-                                                                name="./sscFwMarginRightDesktop"/>
-                                                        <sscFwPaddingTopDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding top of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding top (px, em, %, pt)"
-                                                                name="./sscFwPaddingTopDesktop"/>
-                                                        <sscFwPaddingBottomDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding bottom of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding bottom (px, em, %, pt)"
-                                                                name="./sscFwPaddingBottomDesktop"/>
-                                                        <sscFwPaddingLeftDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding left of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding left (px, em, %, pt)"
-                                                                name="./sscFwPaddingLeftDesktop"/>
-                                                        <sscFwPaddingRightDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding right  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding right (px, em, %, pt)"
-                                                                name="./sscFwPaddingRightDesktop"/>
-                                                        <cssDesktop
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                                                fieldLabel="Custom css Desktop"
-                                                                rows="2"
-                                                                fieldDescription="Custom css only Desktop"
-                                                                name="./cssDesktop"/>
-                                                        <geoTagDesktop jcr:primaryType="nt:unstructured"
-                                                                       fieldLabel="Geolocation tag"
-                                                                       name="./geoTagDesktop" rootPath="/etc/tags"
-                                                                       sling:resourceType="cq/gui/components/common/tagspicker"/>
-                                                    </items>
-                                                </column>
-                                            </items>
-                                        </field>
-                                    </geoList>
-                                </items>
-                            </geolocationDesktop>
                         </items>
                     </column>
                 </items>
@@ -746,18 +410,25 @@
                                             name="./sscFwContentTablet"/>
                                     <sscFwBackgroundColorTablet
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Button Color"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Button Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwBackgroundColorTablet"/>
                                     <sscFwColorTablet
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Color Text"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorTablet"/>
+                                    <sscFwBorderColorTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Border Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value=""
+                                            freestylePaletteType="{Boolean}true"
+                                            name="./sscFwBorderColorTablet"/>
                                     <isTrasparentButtonTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
@@ -991,348 +662,6 @@
                                             name="./cssTablet"/>
                                 </items>
                             </defaultTablet>
-                            <geolocationTablet
-                                    jcr:primaryType="nt:unstructured"
-                                    jcr:title="Geolocation Tablet options"
-                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <geoList jcr:primaryType="nt:unstructured"
-                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                             class="full-width">
-                                        <field jcr:primaryType="nt:unstructured"
-                                               sling:resourceType="granite/ui/components/foundation/form/fieldset"
-                                               acs-commons-nested="NODE_STORE" name="./geoListTablet">
-                                            <layout jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                                    method="absolute"/>
-                                            <items jcr:primaryType="nt:unstructured">
-                                                <column jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/container"
-                                                        class="full-width">
-                                                    <items jcr:primaryType="nt:unstructured">
-                                                        <typeTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Type of link"
-                                                                name="./typeTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <page
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Page"
-                                                                        value="page"/>
-                                                                <video
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Video"
-                                                                        value="video"/>
-                                                                <file
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="File (pdf, image ...)"
-                                                                        value="file"/>
-                                                            </items>
-                                                        </typeTablet>
-                                                        <analyticTypeTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Analytic type"
-                                                                name="./analyticTypeTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Simple button"
-                                                                        value=""/>
-                                                                <raq
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Quote request"
-                                                                        value="clic-RAQ"/>
-                                                                <bro
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Brochure request"
-                                                                        value="clic-BRO"/>
-                                                                <rac
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Call request"
-                                                                        value="clic-RAC"/>
-                                                                <sfo
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="Signup for offer"
-                                                                        value="clic-SFO"/>
-                                                            </items>
-                                                        </analyticTypeTablet>
-                                                        <linkUrlTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                                fieldLabel="Link url"
-                                                                name="./linkUrlTablet"
-                                                                fieldDescription="Link valid for any type"
-                                                                rootPath="/content/"/>
-                                                        <sscFwContentTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="Text of the button"
-                                                                fieldLabel="Text"
-                                                                value=""
-                                                                name="./sscFwContentTablet"/>
-                                                        <sscFwBackgroundColorTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Button Color"
-                                                                value=""
-                                                                freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBackgroundColorTablet"/>
-                                                        <sscFwColorTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Color Text"
-                                                                value=""
-                                                                freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwColorTablet"/>
-                                                        <isTrasparentButtonTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Trasparent button"
-                                                                name="./isTrasparentButtonTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </isTrasparentButtonTablet>
-                                                        <enableToScrollElementTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                fieldDescription="Put id o class of element to scroll"
-                                                                fieldLabel="Element to scroll"
-                                                                name="./enableToScrollElementTablet"/>
-                                                        <enableLightboxTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Enable lightbox"
-                                                                name="./enableLightboxTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </enableLightboxTablet>
-                                                        <openNewTabTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Open new tab"
-                                                                name="./openNewTabTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </openNewTabTablet>
-                                                        <isExternalLinkTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="External link"
-                                                                name="./isExternalLinkTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <true
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="true"
-                                                                        value="true"/>
-                                                                <false
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="false"
-                                                                        value="false"/>
-                                                            </items>
-                                                        </isExternalLinkTablet>
-                                                        <sscFwDisplayTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Display"
-                                                                name="./sscFwDisplayTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <none
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="hide"
-                                                                        value="none"/>
-                                                                <inlineBlock
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="inline-block (show)"
-                                                                        value="inline-block"/>
-                                                            </items>
-                                                        </sscFwDisplayTablet>
-                                                        <sscFwDisplaySndTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                                fieldLabel="Display Arrow"
-                                                                fieldDescription="Arrow"
-                                                                name="./sscFwDisplaySndTablet">
-                                                            <items jcr:primaryType="nt:unstructured">
-                                                                <empty
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text=""
-                                                                        value=""/>
-                                                                <none
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="hide"
-                                                                        value="none"/>
-                                                                <inlineBlock
-                                                                        jcr:primaryType="nt:unstructured"
-                                                                        text="inline-block (show)"
-                                                                        value="inline-block"/>
-                                                            </items>
-                                                        </sscFwDisplaySndTablet>
-                                                        <sscFwTextAlignTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Align button: left, center, right, justify"
-                                                                fieldLabel="Align Button (center, left, right, justify)"
-                                                                name="./sscFwTextAlignTablet"/>
-                                                        <sscFwTextAlignSndTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Text align button: left, center, right, justify"
-                                                                fieldLabel="Text align Button (center, left, right, justify)"
-                                                                name="./sscFwTextAlignSndTablet"/>
-                                                        <sscFwFontSizeTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Text align button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Font size text (px, em, %, pt)"
-                                                                name="./sscFwFontSizeTablet"/>
-                                                        <sscFwFontSizeSndTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Text align button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Font size arrow (px, em, %, pt)"
-                                                                name="./sscFwFontSizeSndTablet"/>
-                                                        <sscFwWidthTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Width Button (px, em, %, pt)"
-                                                                name="./sscFwWidthTablet"/>
-                                                        <sscFwWidthSndTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Width arrow (px, em, %, pt)"
-                                                                name="./sscFwWidthSndTablet"/>
-                                                        <sscFwMarginTopTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin top of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin top (px, em, %, pt)"
-                                                                name="./sscFwMarginTopTablet"/>
-                                                        <sscFwMarginBottomTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin bottom of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin bottom (px, em, %, pt)"
-                                                                name="./sscFwMarginBottomTablet"/>
-                                                        <sscFwMarginLeftTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin left of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin left (px, em, %, pt)"
-                                                                name="./sscFwMarginLeftTablet"/>
-                                                        <sscFwMarginRightTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin right  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin right (px, em, %, pt)"
-                                                                name="./sscFwMarginRightTablet"/>
-                                                        <sscFwPaddingTopTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding top of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding top (px, em, %, pt)"
-                                                                name="./sscFwPaddingTopTablet"/>
-                                                        <sscFwPaddingBottomTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding bottom of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding bottom (px, em, %, pt)"
-                                                                name="./sscFwPaddingBottomTablet"/>
-                                                        <sscFwPaddingLeftTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding left of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding left (px, em, %, pt)"
-                                                                name="./sscFwPaddingLeftTablet"/>
-                                                        <sscFwPaddingRightTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding right  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding right (px, em, %, pt)"
-                                                                name="./sscFwPaddingRightTablet"/>
-                                                        <cssTablet
-                                                                jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                                                fieldLabel="Custom css Tablet"
-                                                                rows="2"
-                                                                fieldDescription="Custom css only Tablet"
-                                                                name="./cssTablet"/>
-                                                        <geoTagTablet jcr:primaryType="nt:unstructured"
-                                                                      fieldLabel="Geolocation tag"
-                                                                      name="./geoTagTablet" rootPath="/etc/tags"
-                                                                      sling:resourceType="cq/gui/components/common/tagspicker"/>
-                                                    </items>
-                                                </column>
-                                            </items>
-                                        </field>
-                                    </geoList>
-                                </items>
-                            </geolocationTablet>
                         </items>
                     </column>
                 </items>
@@ -1422,18 +751,25 @@
                                             name="./sscFwContentMobile"/>
                                     <sscFwBackgroundColorMobile
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Button Color"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Button Color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwBackgroundColorMobile"/>
                                     <sscFwColorMobile
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                            fieldLabel="Color Text"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Color Text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                             value=""
                                             freestylePaletteType="{Boolean}true"
                                             name="./sscFwColorMobile"/>
+                                    <sscFwBorderColorMobile
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                            value=""
+                                            freestylePaletteType="{Boolean}true"
+                                            name="./sscFwBorderColorMobile"/>
                                     <isTrasparentButtonMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/select"
@@ -1565,7 +901,7 @@
                                     <sscFwTextAlignMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value=""
+                                            value="center"
                                             fieldDescription="Align button: left, center, right, justify"
                                             fieldLabel="Align Button (center, left, right, justify)"
                                             name="./sscFwTextAlignMobile"/>
@@ -1593,7 +929,7 @@
                                     <sscFwWidthMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value=""
+                                            value="260px"
                                             fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Width Button (px, em, %, pt)"
                                             name="./sscFwWidthMobile"/>
@@ -1635,28 +971,28 @@
                                     <sscFwPaddingTopMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value=""
+                                            value="16px"
                                             fieldDescription="Padding top of  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding top (px, em, %, pt)"
                                             name="./sscFwPaddingTopMobile"/>
                                     <sscFwPaddingBottomMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value=""
+                                            value="13px"
                                             fieldDescription="Padding bottom of  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding bottom (px, em, %, pt)"
                                             name="./sscFwPaddingBottomMobile"/>
                                     <sscFwPaddingLeftMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value=""
+                                            value="20px"
                                             fieldDescription="Padding left of  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding left (px, em, %, pt)"
                                             name="./sscFwPaddingLeftMobile"/>
                                     <sscFwPaddingRightMobile
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            value=""
+                                            value="20px"
                                             fieldDescription="Padding right  the button: put the value + the unit (px, em, %, pt)"
                                             fieldLabel="Padding right (px, em, %, pt)"
                                             name="./sscFwPaddingRightMobile"/>
@@ -1669,30 +1005,45 @@
                                             name="./cssMobile"/>
                                 </items>
                             </defaultMobile>
-                            <geolocationMobile
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+            <geoDesktop
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Geolocation Desktop options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <geolocationDesktop
                                     jcr:primaryType="nt:unstructured"
-                                    jcr:title="Geolocation Mobile options"
+                                    jcr:title="Geolocation desktop options"
                                     sling:resourceType="granite/ui/components/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
                                     <geoList jcr:primaryType="nt:unstructured"
-                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                             class="full-width">
-                                        <field jcr:primaryType="nt:unstructured"
-                                               sling:resourceType="granite/ui/components/foundation/form/fieldset"
-                                               acs-commons-nested="NODE_STORE" name="./geoListMobile">
-                                            <layout jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                                    method="absolute"/>
+                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                             composite="{Boolean}true"
+                                             eaem-show-on-collapse="EAEM.showProductName">
+                                        <field
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                name="./geoListDesktop">
                                             <items jcr:primaryType="nt:unstructured">
-                                                <column jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/foundation/container"
-                                                        class="full-width">
+                                                <column
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
                                                     <items jcr:primaryType="nt:unstructured">
-                                                        <typeMobile
+                                                        <type
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Type of link"
-                                                                name="./typeMobile">
+                                                                name="./type">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1711,12 +1062,12 @@
                                                                         text="File (pdf, image ...)"
                                                                         value="file"/>
                                                             </items>
-                                                        </typeMobile>
-                                                        <analyticTypeMobile
+                                                        </type>
+                                                        <analyticType
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Analytic type"
-                                                                name="./analyticTypeMobile">
+                                                                name="./analyticType">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1739,40 +1090,47 @@
                                                                         text="Signup for offer"
                                                                         value="clic-SFO"/>
                                                             </items>
-                                                        </analyticTypeMobile>
-                                                        <linkUrlMobile
+                                                        </analyticType>
+                                                        <linkUrl
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                                 fieldLabel="Link url"
-                                                                name="./linkUrlMobile"
+                                                                name="./linkUrl"
                                                                 fieldDescription="Link valid for any type"
                                                                 rootPath="/content/"/>
-                                                        <sscFwContentMobile
+                                                        <sscFwContent
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Text of the button"
                                                                 fieldLabel="Text"
                                                                 value=""
-                                                                name="./sscFwContentMobile"/>
-                                                        <sscFwBackgroundColorMobile
+                                                                name="./sscFwContent"/>
+                                                        <sscFwBackgroundColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Button Color"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Button color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwBackgroundColorMobile"/>
-                                                        <sscFwColorMobile
+                                                                name="./sscFwBackgroundColor"/>
+                                                        <sscFwColor
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
-                                                                fieldLabel="Color Text"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
                                                                 freestylePaletteType="{Boolean}true"
-                                                                name="./sscFwColorMobile"/>
-                                                        <isTrasparentButtonMobile
+                                                                name="./sscFwColor"/>
+                                                        <sscFwBorderColor
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
+                                                                value=""
+                                                                freestylePaletteType="{Boolean}true"
+                                                                name="./sscFwBorderColor"/>
+                                                        <isTrasparentButton
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Trasparent button"
-                                                                name="./isTrasparentButtonMobile">
+                                                                name="./isTrasparentButton">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1787,18 +1145,18 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isTrasparentButtonMobile>
-                                                        <enableToScrollElementMobile
+                                                        </isTrasparentButton>
+                                                        <enableToScrollElement
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                                 fieldDescription="Put id o class of element to scroll"
                                                                 fieldLabel="Element to scroll"
-                                                                name="./enableToScrollElementMobile"/>
-                                                        <enableLightboxMobile
+                                                                name="./enableToScrollElement"/>
+                                                        <enableLightbox
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Enable lightbox"
-                                                                name="./enableLightboxMobile">
+                                                                name="./enableLightbox">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1813,12 +1171,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </enableLightboxMobile>
-                                                        <openNewTabMobile
+                                                        </enableLightbox>
+                                                        <openNewTab
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Open new tab"
-                                                                name="./openNewTabMobile">
+                                                                name="./openNewTab">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1833,12 +1191,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </openNewTabMobile>
-                                                        <isExternalLinkMobile
+                                                        </openNewTab>
+                                                        <isExternalLink
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="External link"
-                                                                name="./isExternalLinkMobile">
+                                                                name="./isExternalLink">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1853,13 +1211,12 @@
                                                                         text="false"
                                                                         value="false"/>
                                                             </items>
-                                                        </isExternalLinkMobile>
-                                                        <sscFwDisplayMobile
+                                                        </isExternalLink>
+                                                        <sscFwDisplay
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display"
-                                                                fieldDescription="Arrow"
-                                                                name="./sscFwDisplayMobile">
+                                                                name="./sscFwDisplay">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1874,13 +1231,13 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplayMobile>
-                                                        <sscFwDisplaySndMobile
+                                                        </sscFwDisplay>
+                                                        <sscFwDisplaySnd
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                                                 fieldLabel="Display Arrow"
                                                                 fieldDescription="Arrow"
-                                                                name="./sscFwDisplaySndMobile">
+                                                                name="./sscFwDisplaySnd">
                                                             <items jcr:primaryType="nt:unstructured">
                                                                 <empty
                                                                         jcr:primaryType="nt:unstructured"
@@ -1895,116 +1252,533 @@
                                                                         text="inline-block (show)"
                                                                         value="inline-block"/>
                                                             </items>
-                                                        </sscFwDisplaySndMobile>
-                                                        <sscFwTextAlignMobile
+                                                        </sscFwDisplaySnd>
+                                                        <geoTag jcr:primaryType="nt:unstructured"
+                                                                       fieldLabel="Geolocation tag"
+                                                                       name="./geoTag" rootPath="/etc/tags"
+                                                                       multiple="{Boolean}true"
+                                                                       sling:resourceType="cq/gui/components/coral/common/form/tagfield"/>
+                                                    </items>
+                                                </column>
+                                            </items>
+                                        </field>
+                                    </geoList>
+                                </items>
+                            </geolocationDesktop>
+                        </items>
+                    </column>
+                </items>
+            </geoDesktop>
+            <geoTablet
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Geolocation Tablet options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <geolocationTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Geolocation Tablet options"
+                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <geoList jcr:primaryType="nt:unstructured"
+                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                             composite="{Boolean}true"
+                                             eaem-show-on-collapse="EAEM.showProductName">
+                                        <field
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                name="./geoListTablet">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <column
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <type
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Type of link"
+                                                                name="./type">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <page
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Page"
+                                                                        value="page"/>
+                                                                <video
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Video"
+                                                                        value="video"/>
+                                                                <file
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="File (pdf, image ...)"
+                                                                        value="file"/>
+                                                            </items>
+                                                        </type>
+                                                        <analyticType
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Analytic type"
+                                                                name="./analyticType">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Simple button"
+                                                                        value=""/>
+                                                                <raq
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Quote request"
+                                                                        value="clic-RAQ"/>
+                                                                <bro
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Brochure request"
+                                                                        value="clic-BRO"/>
+                                                                <rac
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Call request"
+                                                                        value="clic-RAC"/>
+                                                                <sfo
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Signup for offer"
+                                                                        value="clic-SFO"/>
+                                                            </items>
+                                                        </analyticType>
+                                                        <linkUrl
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                fieldLabel="Link url"
+                                                                name="./linkUrl"
+                                                                fieldDescription="Link valid for any type"
+                                                                rootPath="/content/"/>
+                                                        <sscFwContent
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldDescription="Text of the button"
+                                                                fieldLabel="Text"
                                                                 value=""
-                                                                fieldDescription="Align button: left, center, right, justify"
-                                                                fieldLabel="Align Button (center, left, right, justify)"
-                                                                name="./sscFwTextAlignMobile"/>
-                                                        <sscFwTextAlignSndMobile
+                                                                name="./sscFwContent"/>
+                                                        <sscFwBackgroundColor
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Button color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
-                                                                fieldDescription="Text align button: left, center, right, justify"
-                                                                fieldLabel="Text align Button (center, left, right, justify)"
-                                                                name="./sscFwTextAlignSndMobile"/>
-                                                        <sscFwFontSizeMobile
+                                                                freestylePaletteType="{Boolean}true"
+                                                                name="./sscFwBackgroundColor"/>
+                                                        <sscFwColor
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
-                                                                fieldDescription="Text align button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Font size text (px, em, %, pt)"
-                                                                name="./sscFwFontSizeMobile"/>
-                                                        <sscFwFontSizeSndMobile
+                                                                freestylePaletteType="{Boolean}true"
+                                                                name="./sscFwColor"/>
+                                                        <sscFwBorderColor
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
-                                                                fieldDescription="Text align button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Font size arrow (px, em, %, pt)"
-                                                                name="./sscFwFontSizeSndMobile"/>
-                                                        <sscFwWidthMobile
+                                                                freestylePaletteType="{Boolean}true"
+                                                                name="./sscFwBorderColor"/>
+                                                        <isTrasparentButton
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Trasparent button"
+                                                                name="./isTrasparentButton">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </isTrasparentButton>
+                                                        <enableToScrollElement
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Width of the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Width Button (px, em, %, pt)"
-                                                                name="./sscFwWidthMobile"/>
-                                                        <sscFwWidthSndMobile
+                                                                fieldDescription="Put id o class of element to scroll"
+                                                                fieldLabel="Element to scroll"
+                                                                name="./enableToScrollElement"/>
+                                                        <enableLightbox
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Enable lightbox"
+                                                                name="./enableLightbox">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </enableLightbox>
+                                                        <openNewTab
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Open new tab"
+                                                                name="./openNewTab">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </openNewTab>
+                                                        <isExternalLink
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="External link"
+                                                                name="./isExternalLink">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </isExternalLink>
+                                                        <sscFwDisplay
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Display"
+                                                                name="./sscFwDisplay">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <none
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="hide"
+                                                                        value="none"/>
+                                                                <inlineBlock
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="inline-block (show)"
+                                                                        value="inline-block"/>
+                                                            </items>
+                                                        </sscFwDisplay>
+                                                        <sscFwDisplaySnd
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Display Arrow"
+                                                                fieldDescription="Arrow"
+                                                                name="./sscFwDisplaySnd">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <none
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="hide"
+                                                                        value="none"/>
+                                                                <inlineBlock
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="inline-block (show)"
+                                                                        value="inline-block"/>
+                                                            </items>
+                                                        </sscFwDisplaySnd>
+                                                        <geoTag jcr:primaryType="nt:unstructured"
+                                                                       fieldLabel="Geolocation tag"
+                                                                       name="./geoTag" rootPath="/etc/tags"
+                                                                       multiple="{Boolean}true"
+                                                                       sling:resourceType="cq/gui/components/coral/common/form/tagfield"/>
+                                                    </items>
+                                                </column>
+                                            </items>
+                                        </field>
+                                    </geoList>
+                                </items>
+                            </geolocationTablet>
+                        </items>
+                    </column>
+                </items>
+            </geoTablet>
+            <geoMobile
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Geolocation Mobile options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <geolocationMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Geolocation Mobile options"
+                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <geoList jcr:primaryType="nt:unstructured"
+                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                             composite="{Boolean}true"
+                                             eaem-show-on-collapse="EAEM.showProductName">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                                            name="./geoListMobile">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                <type
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Type of link"
+                                                                name="./type">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <page
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Page"
+                                                                        value="page"/>
+                                                                <video
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Video"
+                                                                        value="video"/>
+                                                                <file
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="File (pdf, image ...)"
+                                                                        value="file"/>
+                                                            </items>
+                                                        </type>
+                                                        <analyticType
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Analytic type"
+                                                                name="./analyticType">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Simple button"
+                                                                        value=""/>
+                                                                <raq
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Quote request"
+                                                                        value="clic-RAQ"/>
+                                                                <bro
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Brochure request"
+                                                                        value="clic-BRO"/>
+                                                                <rac
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Call request"
+                                                                        value="clic-RAC"/>
+                                                                <sfo
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="Signup for offer"
+                                                                        value="clic-SFO"/>
+                                                            </items>
+                                                        </analyticType>
+                                                        <linkUrl
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                fieldLabel="Link url"
+                                                                name="./linkUrl"
+                                                                fieldDescription="Link valid for any type"
+                                                                rootPath="/content/"/>
+                                                        <sscFwContent
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldDescription="Text of the button"
+                                                                fieldLabel="Text"
                                                                 value=""
-                                                                fieldDescription="Width of the arrow: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Width arrow (px, em, %, pt)"
-                                                                name="./sscFwWidthSndMobile"/>
-                                                        <sscFwMarginTopMobile
+                                                                name="./sscFwContent"/>
+                                                        <sscFwBackgroundColor
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Button color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
-                                                                fieldDescription="Margin top of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin top (px, em, %, pt)"
-                                                                name="./sscFwMarginTopMobile"/>
-                                                        <sscFwMarginBottomMobile
+                                                                freestylePaletteType="{Boolean}true"
+                                                                name="./sscFwBackgroundColor"/>
+                                                        <sscFwColor
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Color text: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
-                                                                fieldDescription="Margin bottom of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin bottom (px, em, %, pt)"
-                                                                name="./sscFwMarginBottomMobile"/>
-                                                        <sscFwMarginLeftMobile
+                                                                freestylePaletteType="{Boolean}true"
+                                                                name="./sscFwColor"/>
+                                                        <sscFwBorderColor
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                fieldLabel="Border color: #D60524 (red), #171D47 (blue), #273233 (sky blue) #ffffff (white), #F4F4F4 (light grey), #98989B medium grey, #263133 (dark grey)"
                                                                 value=""
-                                                                fieldDescription="Margin left of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin left (px, em, %, pt)"
-                                                                name="./sscFwMarginLeftMobile"/>
-                                                        <sscFwMarginRightMobile
+                                                                freestylePaletteType="{Boolean}true"
+                                                                name="./sscFwBorderColor"/>
+                                                        <isTrasparentButton
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Trasparent button"
+                                                                name="./isTrasparentButton">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </isTrasparentButton>
+                                                        <enableToScrollElement
                                                                 jcr:primaryType="nt:unstructured"
                                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Margin right  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Margin right (px, em, %, pt)"
-                                                                name="./sscFwMarginRightMobile"/>
-                                                        <sscFwPaddingTopMobile
+                                                                fieldDescription="Put id o class of element to scroll"
+                                                                fieldLabel="Element to scroll"
+                                                                name="./enableToScrollElement"/>
+                                                        <enableLightbox
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding top of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding top (px, em, %, pt)"
-                                                                name="./sscFwPaddingTopMobile"/>
-                                                        <sscFwPaddingBottomMobile
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Enable lightbox"
+                                                                name="./enableLightbox">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </enableLightbox>
+                                                        <openNewTab
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding bottom of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding bottom (px, em, %, pt)"
-                                                                name="./sscFwPaddingBottomMobile"/>
-                                                        <sscFwPaddingLeftMobile
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Open new tab"
+                                                                name="./openNewTab">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </openNewTab>
+                                                        <isExternalLink
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding left of  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding left (px, em, %, pt)"
-                                                                name="./sscFwPaddingLeftMobile"/>
-                                                        <sscFwPaddingRightMobile
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="External link"
+                                                                name="./isExternalLink">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <true
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="true"
+                                                                        value="true"/>
+                                                                <false
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="false"
+                                                                        value="false"/>
+                                                            </items>
+                                                        </isExternalLink>
+                                                        <sscFwDisplay
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                value=""
-                                                                fieldDescription="Padding right  the button: put the value + the unit (px, em, %, pt)"
-                                                                fieldLabel="Padding right (px, em, %, pt)"
-                                                                name="./sscFwPaddingRightMobile"/>
-                                                        <cssMobile
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Display"
+                                                                fieldDescription="Arrow"
+                                                                name="./sscFwDisplay">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <none
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="hide"
+                                                                        value="none"/>
+                                                                <inlineBlock
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="inline-block (show)"
+                                                                        value="inline-block"/>
+                                                            </items>
+                                                        </sscFwDisplay>
+                                                        <sscFwDisplaySnd
                                                                 jcr:primaryType="nt:unstructured"
-                                                                sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                                                fieldLabel="Custom css Mobile "
-                                                                rows="2"
-                                                                fieldDescription="Custom css only Mobile"
-                                                                name="./cssMobile"/>
-                                                        <geoTagMobile jcr:primaryType="nt:unstructured"
-                                                                      fieldLabel="Geolocation tag"
-                                                                      name="./geoTagMobile" rootPath="/etc/tags"
-                                                                      sling:resourceType="cq/gui/components/common/tagspicker"/>
+                                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                                fieldLabel="Display Arrow"
+                                                                fieldDescription="Arrow"
+                                                                name="./sscFwDisplaySnd">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <empty
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text=""
+                                                                        value=""/>
+                                                                <none
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="hide"
+                                                                        value="none"/>
+                                                                <inlineBlock
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        text="inline-block (show)"
+                                                                        value="inline-block"/>
+                                                            </items>
+                                                        </sscFwDisplaySnd>
+                                                        <geoTag jcr:primaryType="nt:unstructured"
+                                                                  fieldLabel="Geolocation tag"
+                                                                  name="./geoTag" rootPath="/etc/tags"
+                                                                  multiple="{Boolean}true"
+                                                                  sling:resourceType="cq/gui/components/coral/common/form/tagfield"/>
                                                     </items>
                                                 </column>
                                             </items>
@@ -2015,7 +1789,7 @@
                         </items>
                     </column>
                 </items>
-            </mobile>
+            </geoMobile>
         </items>
     </content>
 </jcr:root>

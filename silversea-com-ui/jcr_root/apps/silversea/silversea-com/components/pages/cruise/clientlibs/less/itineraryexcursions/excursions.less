@@ -1,0 +1,242 @@
+.cruise-2018-itineraries-container {
+  .cruise-2018-itineraries-port-excursions-description {
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    margin-top: 15px;
+  }
+
+  .cruise-2018-itineraries-port-excursions-number {
+    text-transform: uppercase;
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 20px;
+    margin-top: 25px;
+  }
+
+  .cruise-2018-itineraries-port-excursions {
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+
+  .cruise-2018-itineraries-port-excursions-last {
+    .cruise-2018-itineraries-port-excursions-excursion-last {
+      border-bottom: none !important;
+    }
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion {
+    width: 100%;
+    padding-right: 30px;
+    padding-left: 13px;
+
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion-no-content a {
+    pointer-events: none;
+  }
+
+  .cruise-2018-itineraries-port-excursions > .cruise-2018-itineraries-port-excursions-excursion {
+    flex: 0 50%;
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion {
+    color: @grey--3;
+    font-family: @suisse;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    min-height: 60px;
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion {
+    border-bottom: 1px solid rgba(152, 152, 155, 0.3);
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+
+  .cruise-2018-itineraries-port-excursions-excursion-view-all {
+    display: none;
+  }
+
+  .cruise-2018-itineraries-port-excursions-btn {
+    text-align: center;
+    flex: 1 1 100%;
+    &.notLast {
+      border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+    }
+  }
+  .cruise-2018-itineraries-port-excursions-btn a {
+    border-radius: @nd-button-border-radius;
+    border-width: 1px !important;
+    display: inline-block;
+    font-family: @suisse;
+    font-size: @nd-button-font-size;
+    font-weight: normal;
+    letter-spacing: @nd-button-letter-spacing;
+    line-height: @nd-button-line-height;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: @nd-button-padding;
+    text-align: center ! important;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: normal;
+
+    &:focus {
+      background-color: white;
+    }
+    span {
+      padding-right: 0 ! important;
+    }
+
+  }
+  .cruise-2018-excursions-accordion {
+    display: none;
+  }
+  .cruise-2018-itineraries-port-excursions-excursion-features {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  .midland {
+    .midland {
+      font-size: 13px;
+      letter-spacing: -0.5px;
+      font-weight: bold;
+    }
+  }
+  .feature {
+    cursor: pointer;
+    float: left;
+    height: 12px;
+    margin-right: 4px;
+    position: relative;
+    z-index: 1;
+    min-width: 12px;
+
+    .tooltip {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      left: -20px;
+      background: @white;
+      border: 1px solid @black;
+      text-align: center;
+      padding: 5px 10px;
+      white-space: nowrap;
+      z-index: 5;
+      color: @grey--3;
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+    }
+
+    &:hover .tooltip {
+      display: block;
+
+      i {
+        &:before {
+          content: "";
+          display: block;
+          font-style: normal;
+        }
+      }
+
+      &:after,
+      &:before {
+        top: 100%;
+        left: 24px;
+        border: solid transparent;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &:after {
+        border-top-color: @white;
+        border-width: 6px;
+        margin-left: -6px;
+      }
+
+      &:before {
+        border-top-color: @black;
+        border-width: 7px;
+        margin-left: -7px;
+      }
+    }
+  }
+  .cruise-2018-itineraries-port-excursions-excursion {
+    position: relative;
+  }
+  .cruise-2018-itineraries-port-excursions-moredetails {
+    display: table;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+    height: calc(100% + 2px);
+    width: 100%;
+    left: 0;
+    top: -1px;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    text-transform: uppercase;
+    font-family: @suisse;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    line-height: 16px;
+    span {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+  .cruise-2018-itineraries-port-excursions::after {
+    content: " ";
+    height: 1px;
+    width: 100%;
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
+  .cruise-2018-itineraries-container {
+    .cruise-2018-itineraries-port-excursions-description {
+      font-size: 12px;
+    }
+
+    .cruise-2018-itineraries-port-excursions-number {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .cruise-2018-itineraries-port-excursions-excursion {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+  }
+}
+
+@media (min-width: @screen-md-max) {
+
+  .cruise-2018-itineraries-container {
+    .cruise-2018-itineraries-port-excursions-moredetails:hover {
+      background-color: @grey--f4;
+      color: @color-second;
+    }
+  }
+}
+

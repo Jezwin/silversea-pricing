@@ -77,4 +77,8 @@ public class ItineraryLandProgramModel {
         return landProgram != null ? CruiseUtils.firstNonNull(landProgram.getAssetSelectionReference(),
                 landProgram.getAssetSelectionReferenceApi()) : null;
     }
+
+    public String getNote() {
+        return landProgram != null ? landProgram.getNote() :  null;
+    }
 }

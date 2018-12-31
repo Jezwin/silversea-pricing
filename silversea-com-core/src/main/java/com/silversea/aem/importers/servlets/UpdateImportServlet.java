@@ -3,6 +3,7 @@ package com.silversea.aem.importers.servlets;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.services.CruisesCacheService;
+import com.silversea.aem.services.GlobalCacheService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -55,6 +56,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         portsGeneration,
         prices,
         replicate,
+        clearGlobalCache,
         stylesconfiguration
     }
 
@@ -141,6 +143,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private ReplicateImporter replicateImporter;
+
+    @Reference
+    private GlobalCacheService globalCacheService;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -230,6 +235,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 hotelsImporter.importHotelImages();
             } else if (mode.equals(Mode.replicate)) {
                 replicateImporter.replicate();
+            }else if (mode.equals(Mode.clearGlobalCache)) {
+                globalCacheService.clear();
             }
 
         } catch (ImporterException e) {

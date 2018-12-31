@@ -1,7 +1,7 @@
-<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse"
-    data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=cruise.cruiseModel.startDate}"
-    data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
-    data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=true}" />
+<sly data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use"
+     data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=cruise.cruiseModel.startDate}"
+     data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
+     data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=true}" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"
       data-sly-use.head="head.js"
       data-sly-use.headlibRenderer="headlibs.html"
@@ -17,7 +17,7 @@
 <meta property="og:image" data-sly-test="${pageHelper.thumbnail}" content="${assetHelper.imageUrl}?wid=1200" />
 <meta property="og:description" data-sly-test="${description}" content="${description}" />
 <sly data-sly-list="${pageHelper.languagePages}">
-<link rel="alternate" hreflang="${item}" href="${pageHelper.languagePages[item] @ extension='html'}" /></sly>
+    <link rel="alternate" hreflang="${item}" href="${pageHelper.languagePages[item] @ extension='html'}" /></sly>
 <!--/* /open graph tag */-->
 <sly data-sly-include="datalayer.html" />
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
@@ -26,8 +26,8 @@
 <sly data-sly-include="customheaderlibs.html" />
 
 <sly data-sly-test.faviconpath="${head.faviconPath}">
-<link rel="icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
-<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
 </sly>
 <link rel="apple-touch-icon" sizes="180x180" href="${head.designPath}/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="${head.designPath}/favicon-16x16.png" sizes="16x16">

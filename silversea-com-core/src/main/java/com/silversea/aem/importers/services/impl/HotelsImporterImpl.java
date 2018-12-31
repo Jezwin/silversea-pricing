@@ -435,11 +435,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     }
 
                                     hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    MediaSet mediaSet = updateMediaSet(resourceResolver, session, hotel,
-                                            hotelContentNode);
-                                    if(mediaSet != null) {
-                                        hotelContentNode.setProperty("assetSelectionReference_api", mediaSet.getPath());
-                                    }
+
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {
                                     final Node hotelContentNode =
@@ -518,7 +514,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 session.refresh(true);
                             }
                         }
-                    } catch (RepositoryException | PersistenceException | ImporterException | WCMException e) {
+                    } catch (RepositoryException | ImporterException | WCMException e) {
                         errorNumber++;
 
                         LOGGER.warn("Import error {}", e.getMessage());
@@ -561,7 +557,7 @@ public class HotelsImporterImpl implements HotelsImporter {
         String path = PATH_DAM_SILVERSEA + "/api-provided/other-resources/hotels/" + hotel.getHotelCod().trim().charAt(0) + "/" + hotel.getHotelCod().trim()+ "/" ;
         String imageUrl = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl(), damPath(hotel));
         String imageUrl2 = upsertAsset(session, resourceResolver, mimeTypeService, hotel.getImageUrl2(), damPath(hotel));
-        LOGGER.debug("Try to save the session for " + hotel.getHotelCod());
+
         if(!imageUrl.equals("") || !imageUrl2.equals("")) {
             return createMediaSet(resourceResolver, resourceResolver.getResource(path),  hotel.getHotelCod().trim(), imageUrl,
                     imageUrl2);

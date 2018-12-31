@@ -4,6 +4,7 @@ public class RequestQuoteModel {
 	private String id;
 	private String thumbnail;
 	private String title;
+	private String apiTitle;
 	private String description;
 	private String type;
 
@@ -53,5 +54,13 @@ public class RequestQuoteModel {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getApiTitle() {
+		return apiTitle;
+	}
+
+	public void setApiTitle(String apiTitle) {
+		this.apiTitle = apiTitle;
 	}
 }

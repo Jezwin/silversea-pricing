@@ -21,7 +21,7 @@ $(function () {
         $modalContent.on('shown.bs.modal', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            history.pushState(null, null, "#lb-detatils"); // push state that hash into the url
+            history.pushState(null, null, location.href.replace(location.hash, "") + "#" + $link.attr("id"));
             //avoid ios issue
             if (window.scrollSupport != null && window.scrollSupport) {
                 window.iNoBounce.enable();
@@ -34,6 +34,9 @@ $(function () {
                 createSlider($modal, $link);
 
             });
+        });
+        $modalContent.on('hide.bs.modal', function (e) {
+            history.replaceState(null, null, location.href.replace(location.hash, ""));
         });
     });
 

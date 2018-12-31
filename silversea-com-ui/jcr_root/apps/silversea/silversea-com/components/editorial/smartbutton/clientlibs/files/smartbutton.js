@@ -1,32 +1,34 @@
 $(function () {
     "use strict";
+    if ($(".smartbtn").length > 0) {
 
-    $(document).ready(function () {
         parsedSscFeJsElement(setSuffixSelector);
 
-        $(".smartbtn").on("click touchstart", function (e) {
-            var $smartbutton = $(this);
-            var idSmartButton = $smartbutton.attr("id");
-            var elementToScroll = $smartbutton.data("scrollelement");
-            var type = $smartbutton.data("type");
+        $(".smartbtn").on("click touchstart", onClickSmartButton);
+    }
 
-            if (type == "video") {
-                e.stopPropagation();
-                e.preventDefault();
-                openVideoModal($smartbutton)
+    function onClickSmartButton(e) {
+        var $smartbutton = $(this);
+        var idSmartButton = $smartbutton.attr("id");
+        var elementToScroll = $smartbutton.data("scrollelement");
+        var type = $smartbutton.data("type");
 
-            } else if (elementToScroll != null) {
-                e.stopPropagation();
-                e.preventDefault();
+        if (type == "video") {
+            e.stopPropagation();
+            e.preventDefault();
+            openVideoModal($smartbutton)
 
-                var target = $(elementToScroll).offset().top;
-                $('html, body').animate({
-                    scrollTop: target - 100
-                }, 1500);
-                return false;
-            }
-        });
-    });
+        } else if (elementToScroll != null) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var target = $(elementToScroll).offset().top;
+            $('html, body').animate({
+                scrollTop: target - 100
+            }, 1500);
+            return false;
+        }
+    };//onClickSmartButton
 
     function setSuffixSelector() {
         $(".smartbtn").each(function () {
@@ -35,10 +37,26 @@ $(function () {
                 scclicktype = $element.data("sscclicktype"),
                 href = $element.attr("href"),
                 selectors = $element.data("selectors"),
-                suffix = $element.data("suffix");
-            if (type == "page" && scclicktype == "clic-RAQ") {
-                href = href.replace("html", selectors + ".html") + "/" + suffix;
+                suffix = $element.data("suffix"),
+                modalcontent = $element.data("lightbox");
+            if (modalcontent == "modalcontent") {
+                href = href.replace("html", modalcontent + ".html");
                 $element.attr("href", href);
+            }
+            if (type == "page" && scclicktype == "clic-RAQ") {
+                if (suffix != null) {
+                    href = href.replace("html", selectors + ".html");
+                }
+                if (selectors != null) {
+                    href = href + "/" + suffix;
+                }
+                $element.attr("href", href);
+            }
+
+            /*Fix for IE content (pseudo element)*/
+            if (/MSIE|Trident/.test(navigator.userAgent)) {
+                var contentIE = $element.data("ie-content");
+                $element.find(".ssc-fw-content").text(contentIE);
             }
         });
     };//setSuffixSelector
@@ -94,10 +112,10 @@ $(function () {
     };//parsedSscFeJsElement
 
     function isDesktop() {
-        return $("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg");
+        return $(window).width() >= 992;
     };//isDesktop
 
     function isTablet() {
-        return $("body").hasClass("viewport-sm");
+        return $(window).width() >= 768 && $(window).width() < 992;
     };//isTablet
 });

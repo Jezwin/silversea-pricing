@@ -408,6 +408,9 @@ public class ImportersUtils {
     public static boolean isResourceToBeUpdated(ResourceResolver resourceResolver, String existingResource,
                                                 URL remoteUrl) {
         Resource existingAsset = resourceResolver.getResource(existingResource);
+        if(!existingAsset.getChild("jcr:content").adaptTo(ValueMap.class).get("dam:assetState", String.class).equals("processed")){
+            return false;
+        }
         String existingSha1 =
                 existingAsset.getChild("jcr:content/metadata").adaptTo(ValueMap.class).get("dam:sha1", String.class);
         try (InputStream is = remoteUrl.openStream()) {

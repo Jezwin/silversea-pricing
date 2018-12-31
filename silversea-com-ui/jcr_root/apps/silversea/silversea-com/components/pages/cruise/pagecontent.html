@@ -1,90 +1,29 @@
-<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
-<div itemscope itemtype="http://schema.org/Product" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}"
-    data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
-    <div class="row">
-        <div class="col-md-12">
-        	<span itemprop="brand" style="display: none">silversea</span>
-            <sly data-sly-use.cruiseHeader="silversea/silversea-com/components/pages/cruise/fragment/header.html" data-sly-call="${cruiseHeader.default @ cruise=cruise}" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="c-tab c-tab__accordion c-tab--cruise">
-                <ul class="c-tab__nav c-tab__nav--fixed dropdown-menu" data-toggle="dropdown" aria-expanded="false">
-                    <li class="c-tab__link c-tab__link--dark" data-state="active">
-                        <a href="#overview"><span>${'itinerary-and-fares' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.excursionsNumber > 0}">
-                        <a href="#excursion"><span>${'excursions' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
-                        <a href="#highlight" data-sly-test.tabname="${properties.reference && properties.voyageHighlights ? 'voyage-highlights-expedition' : 'voyage-highlights'}">
-                            <span data-sly-test.tabname="${!properties.voyageHighlights ? 'expedition-team' : tabname}">${tabname @i18n}</span>
-                        </a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--dark">
-                        <a href="#ship"><span>${'ship' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.landProgramsNumber > 0 || cruise.hotelsNumber > 0}">
-                        <a href="#landnhotel"><span>${'land-and-hotel' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--dark">
-                        <a href="#photonvideo"><span>${'photos-and-videos' @i18n}</span></a>
-                    </li>
-                </ul>
-                <div class="c-tab__body">
-                    <div class="c-tab__content c-tab__content--overview" id="overview" data-state="active">
-                        <!--/* Overview tab */-->
-                        <sly data-sly-use.overview="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/overview.html"
-                            data-sly-call="${overview.default @ cruise=cruise}" />
-                        <sly data-sly-use.itineraries="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/itineraries.html"
-                            data-sly-call="${itineraries.default @ cruise=cruise}" />
-                        <sly data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
-                            data-sly-use.fare="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/fare.html"
-                            data-sly-call="${fare.default @ cruise=cruise}" />
-                        <sly data-sly-use.footNotes="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/footnotes.html"
-                            data-sly-call="${footNotes.default @ cruise=cruise}" />
-                        <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                    </div>
-                    <div class="c-tab__content" id="excursion" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.excursionsNumber > 0}">
-                        <!--/* Excursion tab */-->
-                        <sly data-sly-use.portexcursionslist="silversea/silversea-com/components/pages/cruise/fragment/excursiontab/portexcursionslist.html"
-                            data-sly-call="${portexcursionslist.default @ cruise=cruise}" />
-                    </div>
-                    <div class="c-tab__content" id="ship">
-                        <!--/* Ship tab */-->
-                        <sly data-sly-use.overview="silversea/silversea-com/components/pages/cruise/fragment/shiptab/overview.html"
-                            data-sly-call="${overview.default @ cruise=cruise}" />
-                        <sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/cruise/fragment/shiptab/suitevariation.html"
-                            data-sly-call="${suitevariation.default @ cruise=cruise}" />
-                        <sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/cruise/fragment/shiptab/suitevariation.html"
-                            data-sly-call="${suitevariation.v2 @ cruise=cruise}" />    
-                        <sly data-sly-use.diningvariation="silversea/silversea-com/components/pages/cruise/fragment/shiptab/diningvariation.html"
-                            data-sly-call="${diningvariation.default @ cruise=cruise}" />
-                        <sly data-sly-use.publicareavariation="silversea/silversea-com/components/pages/cruise/fragment/shiptab/publicareavariation.html"
-                            data-sly-call="${publicareavariation.default @ cruise=cruise}" />
-                    </div>
-                    <div class="c-tab__content" id="landnhotel" data-sly-test="${cruise.landProgramsNumber > 0 || cruise.hotelsNumber > 0}">
-                        <!--/* Land and hotel tab */-->
-                        <sly data-sly-use.portlandprogramlist="silversea/silversea-com/components/pages/cruise/fragment/landprogramtab/portlandprogramlist.html"
-                            data-sly-call="${portlandprogramlist.default @ cruise=cruise}" />
-                    </div>
-                    <div class="c-tab__content" id="highlight" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
-                        <!--/* Highlight tab */-->
-                        <sly data-sly-test="${properties.voyageHighlights}" data-sly-include="fragment/highlighttab/hightlight.html" />
-                        <sly data-sly-test="${properties.reference}" data-sly-include="fragment/highlighttab/keypeople.html" />
-                    </div>
-                    <div class="c-tab__content" id="photonvideo">
-                        <!--/* Photos and videos tab */-->
-                        <sly data-sly-use.portextramediagallery="silversea/silversea-com/components/pages/cruise/fragment/phototab/portextramediagallery.html"
-                            data-sly-call="${portextramediagallery.default @ cruise=cruise}" />
-                        <sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/cruise/fragment/phototab/suitevariation.html"
-                            data-sly-call="${suitevariation.default @ cruise=cruise}" />
-                        <sly data-sly-use.diningpublicareavariation="silversea/silversea-com/components/pages/cruise/fragment/phototab/diningpublicareavariation.html"
-                            data-sly-call="${diningpublicareavariation.default @ cruise=cruise}" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div itemscope itemtype="http://schema.org/Product" class="cruise-2018 container"
+     data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use">
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+    <sly data-sly-use.header="/apps/silversea/silversea-com/components/pages/cruise/templates/header.html"
+         data-sly-call="${header.default @ cruise=cruise}"/>
+    <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise/templates/overview.html"
+         data-sly-call="${overview.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+    <sly data-sly-use.menu="/apps/silversea/silversea-com/components/pages/cruise/templates/menu.html"
+         data-sly-call="${menu.navigation @ cruise=cruise}"/>
+    <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise/templates/offers.html"
+         data-sly-call="${offers.default @ offers = cruise.exclusiveOffers, offersNumber = cruise.totalNumberOfOffers, isVenetian=cruise.isVenetianSociety, odd = cruise.areOffersOdd, VSLBPath = cruise.VSLBPath}"/>
+    <hr data-sly-test="${cruise.totalNumberOfOffers != 0}" style="border-color: white;"/>
+    <sly data-sly-use.itineraryexcursions="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itineraryexcursions.html"
+         data-sly-call="${itineraryexcursions.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+    <hr/>
+    <sly data-sly-use.expeditions="/apps/silversea/silversea-com/components/pages/cruise/templates/expeditions.html"
+         data-sly-call="${expeditions.default @ cruise=cruise}"/>
+    <sly data-sly-use.suitesfares="/apps/silversea/silversea-com/components/pages/cruise/templates/suites-fares.html"
+         data-sly-call="${suitesfares.default @ cruise=cruise}"/>
+    <hr/>
+    <sly data-sly-use.ship="/apps/silversea/silversea-com/components/pages/cruise/templates/ship/ship.html"
+         data-sly-call="${ship.default @ cruise=cruise, externalizerHelper=externalizerHelper}"/>
+    <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise/templates/pre-post.html"
+         data-sly-call="${prepost.default @ cruise=cruise}"/>
+    <sly data-sly-use.nextprev="/apps/silversea/silversea-com/components/pages/cruise/templates/next-prev.html"
+         data-sly-call="${nextprev.default @ cruise=cruise}"/>
+    <sly data-sly-use.footer="/apps/silversea/silversea-com/components/pages/cruise/templates/footer.html"
+         data-sly-call="${footer.default @ cruise=cruise}"/>
 </div>

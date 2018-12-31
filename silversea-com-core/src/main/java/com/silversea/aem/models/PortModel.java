@@ -208,6 +208,10 @@ public class PortModel {
         return countryIso3;
     }
 
+    public String getCountryIso2() {
+        return countryIso2;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

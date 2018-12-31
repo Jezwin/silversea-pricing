@@ -1,4 +1,7 @@
 <template data-sly-template.default data-sly-use.modal="com.silversea.aem.components.included.ModalDetailUse">
+	<head>
+		<meta name="robots" content="noindex">
+	</head>
 	 <div class="modal-body automatic-modal-body-modal-detail-desktop automatic-modal-body-modal-detail">     
         <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
         <sly data-sly-use.extPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
@@ -32,7 +35,7 @@
                     		<div class="col-sm-12">
                     			<div class="features-ul">
                     				<ul data-sly-list=${modal.detail.features}>
-                    					<li>${item}</li>
+                    					<li>${item @context='html'}</li>
                     				</ul>
                    				</div>
                  			</div>

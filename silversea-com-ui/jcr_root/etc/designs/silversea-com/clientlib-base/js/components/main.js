@@ -139,15 +139,49 @@ $(function() {
                 $form.find('[name="subscribeemail"]').val($form.find('[name="subscribeemail-custom"]').is(':checked'));
             }
 
+            try {//Try to capture the McId
+                var mcID = _satellite.getVisitorId().getMarketingCloudVisitorID();
+                if (mcID) {
+                    $.CookieManager.setCookie('mcid', mcID);
+                }
+            }catch(err){
+
+            }
+
+            //try to get the last url to be sent
+            try {
+                var lastUrlBeforeLead;
+                var url1 = $.CookieManager.getCookie('url1');
+                var url2 = $.CookieManager.getCookie('url2');
+                var url3 = $.CookieManager.getCookie('url3');
+                var cat1 = $.CookieManager.getCookie('cat1');
+                var cat2 = $.CookieManager.getCookie('cat2');
+                var cat3 = $.CookieManager.getCookie('cat3');
+                if(cat1.indexOf('RAQ') == -1 && cat1.indexOf('BRO') == -1 && cat1.indexOf('SFO') == -1){
+                    lastUrlBeforeLead = url1;
+                }else{
+                    lastUrlBeforeLead = url2;
+                }
+
+                if (lastUrlBeforeLead) {
+                    $.CookieManager.setCookie('lastUrlBeforeLead', lastUrlBeforeLead);
+                }
+            }catch(err){
+
+            }
+
+
+
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
                     'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
                     'sitelanguage', 'sitecurrency', 'isnotagent' , 'subject' , 'inquiry' , 'from_email' , 'bookingnumber' , 'vsnumber', 'state' ];
-            var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue');
+            var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue'),  MCId = $.CookieManager.getCookie('mcid'),  att02 = $.CookieManager.getCookie('lastUrlBeforeLead');
 
             // Set cookie if not created
             if (pos <= 0) {
                 $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues));
             }
+
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo')),
                 form = $form.serializeArray();
@@ -159,9 +193,33 @@ $(function() {
                     leadApiData[cookieValues[index]] = form[i].value;
                 }
             }
+            try {
+                if (typeof marketingEffortValue != "undefined") {
+                    leadApiData['marketingEffort'] = marketingEffortValue;
+                }
 
-            if (marketingEffortValue) {
-                leadApiData['marketingEffort'] = marketingEffortValue;
+                if (typeof MCId != "undefined") {
+                    leadApiData['mcid'] = MCId;
+                }
+
+                //lastURl
+                if (typeof att02 != "undefined") {
+                    leadApiData['att02'] = att02.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+
+                if (typeof eoraq != "undefined") {
+                    leadApiData['att01'] = eoraq.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+
+                if (typeof shipraq != "undefined") {
+                    leadApiData['ship'] = shipraq.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+
+                if (typeof destraq != "undefined") {
+                    leadApiData['preferredDestinations'] = destraq.replace(/[&\\#,+()$~%'"*?<>{}]/g, '');
+                }
+            }catch(err){
+                console.log(err);
             }
 
             if (!$form.hasClass("c-form--rab")) {
@@ -268,7 +326,18 @@ function createCookie(name, value, days) {
 
 function getCookie(cname) {
     var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
+    var decodedCookie = "";
+    try {
+        decodedCookie = decodeURIComponent(document.cookie);
+    }catch (e) {
+        //Cookie may be corrupted - kill the cookie
+        document.cookie.split(';').forEach(function(c) {
+            document.cookie = c.trim().split('=')[0] + '=;' + 'expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+        });
+        console.log("Clear cookie corrupted");
+        console.error(e);
+        return "";
+    }
     var ca = decodedCookie.split(';');
     for(var i = 0; i <ca.length; i++) {
         var c = ca[i];
@@ -755,3 +824,31 @@ $(function() {
 	});
 });
 
+/*
+* Tenp Fix for IOS 12 video iphone
+* */
+
+$( document ).ready(function() {
+
+    function iOSversion() {
+        if (/iP(hone|od|ad)/.test(navigator.platform)) {
+            // supports iOS 2.0 and later: <https://bit.ly/TJjs1V>
+            var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+            return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+        }
+    }
+
+    ver = iOSversion();
+    _iphoneDevice = !!navigator.platform.match(/iPhone|iPod/);
+    if(_iphoneDevice && ver[0] == 12){
+        tIntervalIOSFullScreenTemp = setInterval(function(){
+            var mydiv = $(".s7container[mode='fullscreen']");
+            if (mydiv.length > 0) {
+                $('html').addClass('iosFullScreenVideo');
+                $(window).trigger('resize');
+            }else{
+                $('html').removeClass('iosFullScreenVideo');
+            }
+        }, 1000);
+    }
+});

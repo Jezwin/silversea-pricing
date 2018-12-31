@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Card Slider with Lightbox"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <main
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Main"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Title"
+                                    fieldLabel="Title"
+                                    required="{Boolean}true"
+                                    name="./title"/>
+                            <slidePerPageDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                    fieldDescription="Slide per page Desktop"
+                                    fieldLabel="Slide per page Desktop"
+                                    required="{Boolean}true"
+                                    name="./slidePerPageDesktop"/>
+                            <slidePerPageTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                    fieldDescription="Slide per page Tablet"
+                                    fieldLabel="Slide per page Tablet"
+                                    required="{Boolean}true"
+                                    name="./slidePerPageTablet"/>
+                            <slidePerPageMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                    fieldDescription="Slide per page Mobile"
+                                    fieldLabel="Slide per page Mobile"
+                                    required="{Boolean}true"
+                                    name="./slidePerPageMobile"/>
+                            <products
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                    composite="{Boolean}true"
+                                    eaem-show-on-collapse="EAEM.showProductName"
+                                    fieldLabel="Cards">
+                                <field
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                        name="./cards">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <title
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Title"
+                                                        fieldLabel="Title"
+                                                        required="{Boolean}true"
+                                                        name="./title"/>
+                                                <briefDescription
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="In slider description"
+                                                        fieldLabel="Brief Description"
+                                                        name="./briefDescription"/>
+                                                <longDescription
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Popup Description"
+                                                        fieldLabel="Description"
+                                                        name="./longDescription"/>
+                                                <thumbnail
+                                                        jcr:primaryType="nt:unstructured"
+                                                        rootPath="/content/dam/"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldDescription="thumbnail"
+                                                        fieldLabel="Thumbnail"
+                                                        name="./thumbnail"/>
+                                                <assetSelectionReference
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        allowBulkEdit="{Boolean}true"
+                                                        cq-msm-lockable="assetSelectionReference"
+                                                        fieldLabel="Extra Media Gallery"
+                                                        name="./assetSelection"
+                                                        rootPath="/content/dam/silversea-com"
+                                                        renderReadOnly="{Boolean}true"/>
+                                                <bigPicture
+                                                        jcr:primaryType="nt:unstructured"
+                                                        rootPath="/content/dam/"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldDescription="bigPicture"
+                                                        fieldLabel="BigPicture"
+                                                        name="./bigPicture"/>
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </products>
+                        </items>
+                    </column>
+                </items>
+            </main>
+        </items>
+    </content>
+</jcr:root>

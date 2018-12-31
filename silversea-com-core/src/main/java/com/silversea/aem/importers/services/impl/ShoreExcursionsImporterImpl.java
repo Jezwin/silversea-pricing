@@ -475,24 +475,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                                 "Cannot set properties for excursion " + excursionName);
                                     }
                                     excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                    String destinationPath = assetPath(excursion);
-                                    String imageDam = ImportersUtils
-                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl(), destinationPath);
-                                    String image2Dam = ImportersUtils
-                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl2(), destinationPath);
-                                    String image3Dam = ImportersUtils
-                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl3(), destinationPath);
-                                    String image4Dam = ImportersUtils
-                                            .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
 
-                                    if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("")) {
-                                        excursionContentNode.setProperty("assetSelectionReference_api",
-                                                BaseImporter.createMediaSet(resourceResolver,
-                                                        resourceResolver
-                                                                .resolve(PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + excursion.getShorexCod().trim().charAt(0) + "/" +
-                                                                        excursion.getShorexCod().trim() + "/"),
-                                                        excursion.getShorexCod().trim(), imageDam, image2Dam, image3Dam, image4Dam).getPath());
-                                    }
                                     LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
                                 } else {
                                     final Node excursionContentNode = updateExcursionContentNode(excursion,

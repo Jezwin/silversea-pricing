@@ -138,7 +138,12 @@ public class CruiseItinerary {
                 .map(Collection::stream).orElseGet(Stream::empty)
                 .filter(ex -> !isEmbark || ex.isOkForEmbark())
                 .filter(ex -> !isDebark || ex.isOkForDebarks())
+                .filter(excursion -> !isSpecial(excursion))
                 .collect(toList());
+    }
+
+    private static boolean isSpecial(ExcursionModel excursion) {
+        return "Special Excursion".equals(excursion.getShorexCategory());
     }
 
 

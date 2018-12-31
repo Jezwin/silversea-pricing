@@ -1,0 +1,39 @@
+<template data-sly-template.default="${ @ assetReference, title, description }">
+    <head>
+        <meta name="robots" content="noindex">
+    </head>
+    <div class="lightbox-simple">
+        <sly data-sly-use.templates="./lightbox-simple.html"
+             data-sly-call="${templates.asset @ assetReference = assetReference}"/>
+        <div class="lg-content">
+            <div class="ls-title">${title}</div>
+            <div class="ls-description">${description}</div>
+        </div>
+    </div>
+</template>
+<template data-sly-template.asset="${assetReference}">
+    <head>
+        <meta name="robots" content="noindex">
+    </head>
+    <div class="ls-asset-slider">
+        <sly data-sly-test.selection="${assetReference}"/>
+        <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=selection}"/>
+        <div data-sly-repeat.asset="${setImage.renditionList}" data-image="${asset.path}">
+            <div class="ratio ${asset.type == 'virtual-tour' ? 'ls-virtual-tour' : ''}"
+                 id="lsh-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
+                 data-image-virtual-tour="${asset.path}">
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                     data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}"/>
+                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+                     data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+                <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i>
+                </a>
+                <div data-sly-test="${isVideo}" class="c-video" data-video-asset="${asset.path}"
+                     data-video-autoplay="1"></div>
+            </div>
+            <div data-sly-test="${asset.type == 'virtual-tour'}"
+                 id="lsh-virtual-tour-${assetList.index}-container"></div>
+        </div>
+    </div>
+
+</template>

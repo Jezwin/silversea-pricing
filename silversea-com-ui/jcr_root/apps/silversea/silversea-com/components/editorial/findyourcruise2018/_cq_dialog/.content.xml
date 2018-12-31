@@ -42,13 +42,7 @@
                                 text="Hide header (FYC title and result number)"
                                 name="./hideTitle"
                                 value="true"
-                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
-                            <hideResultNb
-                                jcr:primaryType="nt:unstructured"
-                                text="Hide Result Number"
-                                name="./hideResultNb"
-                                value="true"
-                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                sling:resourceType="granite/ui/components/foundation/form/hidden" />
                             <hideFycTitle
                                 jcr:primaryType="nt:unstructured"
                                 text="Hidden FYC Title (Your search results)"
@@ -65,13 +59,6 @@
                                 sling:resourceType="granite/ui/components/foundation/form/textfield"
                                 fieldLabel="Results label (plural)"
                                 name="./resultsLabelPlural"/>
-                           <marginTop
-                                jcr:primaryType="nt:unstructured"
-                                fieldLabel="Margin top"
-                                value="14"
-                                defaultValue="14"
-                                name="./marginTop"
-                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
                         </items>
                     </column>
                 </items>
@@ -110,7 +97,7 @@
                                 fieldLabel="Exclusive Offer Path"
                                 fieldDescription="Example : /content/silversea-com/en/exclusive-offers/early-booking-offer"
                                 name="./eoId"
-                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                                sling:resourceType="granite/ui/components/foundation/form/textarea" />
                           <featureId
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Feature Id"

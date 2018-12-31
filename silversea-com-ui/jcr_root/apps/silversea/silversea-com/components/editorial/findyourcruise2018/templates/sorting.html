@@ -1,0 +1,46 @@
+<template data-sly-template.default="${@ field, sorting, label}">
+    <span class="fyc2018-sorting-filed-span" data-key="${field}"
+          data-enable="${sorting == 'ASC' || sorting == 'DESC' ? 'true' : 'false'}" data-type="${sorting}"
+          data-label="${label}">
+          <span class="text-uppercase">${label @ i18n}</span>
+    </span>
+</template>
+
+<template data-sly-template.mobile="${@ fyc}">
+    <div class="fyc2018-filter visible-xs" data-open="d">
+        <div class="fyc2018-filter-content">
+            <span id="filter-sortby" data-singular="${'sort-by' @ i18n}">${'sort-by' @ i18n}</span>
+        </div>
+        <div class="filter-sortby fyc2018-filter-value " data-filter="filter-sortby" data-name="sortby">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw fyc2018-spinner"></i>
+            <div class="fyc2018-filter-label col-xs-12">
+                <span class="fyc2018-filter-label-mobile visible-xs">${'sort-by' @ i18n}</span>
+                <span class="fyc2018-filter-clear"><i class="material-icons">close</i></span>
+            </div>
+            <div class=" fyc2018-filter-value-container">
+                <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
+                     data-sly-call="${sortingTemplate.mobileDetail @ field='duration', sorting=fyc.filterBar.DURATION.Sorting, label='duration'}"/>
+                <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
+                     data-sly-call="${sortingTemplate.mobileDetail @ field='departure', sorting=fyc.filterBar.DEPARTURE.Sorting, label='departure'}"/>
+                <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
+                     data-sly-call="${sortingTemplate.mobileDetail @ field='price', sorting=fyc.filterBar.PRICE.Sorting, label='price'}"/>
+            </div>
+            <div class="col-xs-12 visible-xs fyc2018-view-results" data-show="${'show' @ i18n}" data-singular="${'cruise' @ i18n}" data-plural="${'cruises' @ i18n}">
+                <span></span>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template data-sly-template.mobileDetail="${@ field, sorting, label, type}">
+    <div class="col-sm-12 filter-value filter-sorting ${sorting == 'ASC' ? 'filter-selected' : 'filter-no-selected'}" data-key="${field}" data-enable="${sorting == 'ASC' ? 'true' : 'false'}" data-type="asc"
+         data-label="${label @ i18n}">
+        <span><i class="fa fa-sort-amount-asc" data-type="asc"></i> ${label @ i18n}</span>
+    </div>
+    <div class="col-sm-12 filter-value filter-sorting ${sorting == 'DESC' ? 'filter-selected' : 'filter-no-selected'}" data-key="${field}" data-enable="${sorting == 'DESC' ? 'true' : 'false'}" data-type="desc"
+         data-label="${label @ i18n}">
+        <span><i class="fa fa-sort-amount-desc" data-type="desc"></i>${label @ i18n}</span>
+    </div>
+</template>
+

@@ -1,5 +1,8 @@
 <template data-sly-template.default="${ @ cruise}">
     <sly data-sly-use.model="com.silversea.aem.components.included.lightboxes.LightboxSuiteUse"/>
+    <head>
+        <meta name="robots" content="noindex">
+    </head>
     <div class="modal-body lightbox-suite-body">
         <div class="lightbox-suite">
             <sly data-sly-test="${ model.suitePrice.suite.assetSelectionReference }"
