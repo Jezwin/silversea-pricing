@@ -14,8 +14,6 @@ $(function () {
         $imgTop.attr("src", srcImageTop);
         $imgSide.attr("src", srcImageSide);
 
-        $(".passenger-decks").html(deckNumber);
-
         $(".lightbox-deck .lg-deck-number").each(function () {
             $(this).removeClass("lg-active-deck");
         });
