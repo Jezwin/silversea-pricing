@@ -12,6 +12,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.felix.scr.annotations.Properties;
+import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
 import org.apache.felix.scr.annotations.sling.SlingFilterScope;
@@ -32,6 +34,11 @@ import com.day.cq.wcm.api.PageManager;
         generateService = true,
         order = 100,
         scope = SlingFilterScope.REQUEST)
+@Properties({
+		@Property(name = "sling.filter.pattern", value = ".*/silversea-com/.+html$")//,
+	//	@Property(name = "sling.filter.extensions", value = {"pdf"}), version too old - not supported by slign engine
+		//@Property(name = "sling.filter.resourceTypes", value = "silversea/silversea-com/components/pages/page") version too old - not supported by slign engine
+})
 public class AliasNameCheckFilter implements Filter {
     private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(AliasNameCheckFilter.class.getName());
     
@@ -51,36 +58,50 @@ public class AliasNameCheckFilter implements Filter {
     	}
 
 	    //Get request URI and substring last keywords before .html and last /
-	    HttpServletRequest httpRequest = (HttpServletRequest) request;
-		    String pathInfo = httpRequest.getRequestURI().toString();
-		    String  realpagename = "";
-		    if (pathInfo.lastIndexOf(".html") != -1 && pathInfo.lastIndexOf("/") != -1) {
-		    	realpagename = pathInfo.substring(pathInfo.lastIndexOf("/") + 1,pathInfo.lastIndexOf(".html"));
-		    }
-		    //Convert request & response into corresponding SlingHttpServletResponse & SlingHttpServletRequest.
-	        final SlingHttpServletResponse slingResponse = (SlingHttpServletResponse) response;
-	        final SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) request;
-	        final Resource resource = slingRequest.getResource();
-	        
-	        // Check if resource is page type, if not by pass and let process request.
-	        if(resource.getResourceType().equals("cq:Page")) {
-		         PageManager pageManager =  resource.getResourceResolver().adaptTo(PageManager.class);
-		         Page page = pageManager.getPage(resource.getPath());
-		         String aliasName = "";
-		         if (page.getContentResource().getValueMap().containsKey("sling:alias")) {
-		        	 aliasName =  page.getContentResource().getValueMap().get("sling:alias").toString(); 
-		        	 if (realpagename != "" && !realpagename.equals(aliasName)) {
-		        		 Logger.debug("Returning 404 since requested page name doesn't match the sling alias name");
-		        		 slingResponse.setStatus(SlingHttpServletResponse.SC_NOT_FOUND);
-		        	     RequestDispatcher dispatcher = slingRequest.getRequestDispatcher(ERROR_PAGE_PATH);
-		        	     dispatcher.include(slingRequest,slingResponse);
-		 		        return; 
-		        	 }
-		         } else {
-		        	 chain.doFilter(request, response); 
-		         }
-	        }
-         chain.doFilter(request, response);
+		try {
+			final SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) request;
+			String pathInfo = slingRequest.getRequestURI().toString();
+			//Convert request & response into corresponding SlingHttpServletResponse & SlingHttpServletRequest.
+
+			final Resource resource = slingRequest.getResource();
+
+			// Check if resource is page type, if not by pass and let process request.
+			if (resource.getResourceType().equals("cq:Page") && pathInfo.lastIndexOf(".html") == pathInfo.length()-5 ) {
+
+				String realpagename = "";
+				if (pathInfo.lastIndexOf(".html") != -1 && pathInfo.lastIndexOf("/") != -1) {
+					realpagename = pathInfo.substring(pathInfo.lastIndexOf("/") + 1, pathInfo.lastIndexOf(".html"));
+					if(realpagename.contains(".")){
+						chain.doFilter(request, response);
+						return;
+					}
+				}
+
+				PageManager pageManager = resource.getResourceResolver().adaptTo(PageManager.class);
+				Page page = pageManager.getPage(resource.getPath());
+				String aliasName = "";
+				if (page.getContentResource().getValueMap().containsKey("sling:alias")) {
+					aliasName = page.getContentResource().getValueMap().get("sling:alias").toString();
+					if (realpagename != "" && !realpagename.equals(aliasName)) {
+						final SlingHttpServletResponse slingResponse = (SlingHttpServletResponse) response;
+						Logger.debug("Returning 404 since requested page name doesn't match the sling alias name");
+						slingResponse.setStatus(SlingHttpServletResponse.SC_NOT_FOUND);
+						RequestDispatcher dispatcher = slingRequest.getRequestDispatcher(ERROR_PAGE_PATH);
+						dispatcher.include(slingRequest, slingResponse);
+						return;
+					}
+				} else {
+					chain.doFilter(request, response);
+					return;
+				}
+			}
+			chain.doFilter(request, response);
+			return;
+
+		}catch(Exception e){
+			chain.doFilter(request, response);
+		}
+
     }
 
     @Override
