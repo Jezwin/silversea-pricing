@@ -865,7 +865,7 @@
     <other-restaurants-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Avec l'importance de la nourriture dans la culture italienne, vous vous attendez à manger à Silversea. Et c'est assurément le cas. De plus, l'excellence gastronomique est acquise grâce à notre partenariat avec les prestigieux Grands Chefs Relais &amp; Châteaux."/>	
+        sling:message="Avec l'importance de la nourriture dans la culture italienne, vous vous attendez à manger à Silversea. Et c'est assurément le cas. De plus, l’excellence gastronomique est garantie grâce à nos recettes qui reflètent le patrimoine et revisitent la tradition. "/>
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

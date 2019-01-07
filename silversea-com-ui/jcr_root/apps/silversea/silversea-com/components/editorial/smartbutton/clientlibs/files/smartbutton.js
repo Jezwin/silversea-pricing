@@ -37,6 +37,7 @@ $(function () {
                 scclicktype = $element.data("sscclicktype"),
                 href = $element.attr("href"),
                 selectors = $element.data("selectors"),
+                target = $element.attr("target"),
                 suffix = $element.data("suffix"),
                 modalcontent = $element.data("lightbox");
             if (modalcontent == "modalcontent") {
@@ -51,7 +52,12 @@ $(function () {
                     href = href + "/" + suffix;
                 }
                 $element.attr("href", href);
+
             }
+            if (target == "false") {
+                $element.removeAttr("target");
+            }
+            $element.attr("data-scclicktype", scclicktype);
 
             /*Fix for IE content (pseudo element)*/
             if (/MSIE|Trident/.test(navigator.userAgent)) {

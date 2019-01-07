@@ -15,6 +15,7 @@ public class SliderUse extends WCMUsePojo {
     private int slidePerPageDesktop;
     private int slidePerPageTablet;
     private int slidePerPageMobile;
+    private Boolean showArrows;
     private String title;
 
 
@@ -25,10 +26,15 @@ public class SliderUse extends WCMUsePojo {
         slidePerPageTablet = getSlidePerPage("Tablet", slidePerPageDesktop);
         slidePerPageMobile = getSlidePerPage("Mobile", slidePerPageTablet);
         cards = MultiFieldUtils.retrieveMultiField(getResource(), "cards", CardLightbox.class);
+        this.showArrows = "true".equals(getProperties().get("showArrows", String.class));
     }
 
     private Integer getSlidePerPage(String device, int defaultValue) {
         return Optional.ofNullable(getProperties().get("slidePerPage" + device, String.class)).map(Integer::parseInt).orElse(defaultValue);
+    }
+
+    public Boolean isShowArrows() {
+        return showArrows;
     }
 
 
