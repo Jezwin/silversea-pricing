@@ -37,8 +37,7 @@
         <div class="cruise-2018-itineraries-pdf hidden-xs" >
             <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition' && cruise.dayUntilDeparture < 120}">
                 <a class="btn btn-thin btn-white cruise-2018-itineraries-btn"  href='${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}.t.excursion.pdf'
-                   target="_blank" rel="nofollow"
-                   data-sly-test="${cruise.cruiseModel.tourBook}"><span>${'view-all-excursions' @ i18n}</span>
+                   target="_blank" rel="nofollow"><span>${'view-all-excursions' @ i18n}</span>
                 </a>
             </sly>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && properties.voyageHighlights}">
