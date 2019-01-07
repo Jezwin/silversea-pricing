@@ -5,7 +5,8 @@ $(function () {
     $(".open-lightbox-gallery-assets").on("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var $link = $(this),
+        var gotoSlide = $(this).data("go-to");
+        var $link = $("#lb-mainGallery"),
             ajaxContentPath = $link.closest('[data-lightbox-gallery-path]').data('lightbox-gallery-path'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
@@ -23,7 +24,7 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
-                createLigthboxGallerySlider($modal, $link);
+                createLigthboxGallerySlider($modal, $link, gotoSlide);
                 setHeight();
                 setTopLightboxModal(0);
             });
@@ -42,7 +43,7 @@ $(function () {
         }
     }
 
-    function createLigthboxGallerySlider($modal, $link) {
+    function createLigthboxGallerySlider($modal, $link, gotoSlide) {
         var $mainSlider = $modal.find('.main-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -88,6 +89,14 @@ $(function () {
 
         loadLazyImage($mainSlider);
         createInfoAssetSection($mainSlider);
+        if (gotoSlide) {
+            var split = gotoSlide.split("/");
+            var image = split[split.length - 1];
+
+            var $image = $(".ga-slider--main img[data-src*='" + image + "']");
+
+            $($mainSlider).slick('slickGoTo', $image.closest("[data-slick-index]").data("slick-index"), true);
+        }
 
     };//createLigthboxGallerySlider
 
