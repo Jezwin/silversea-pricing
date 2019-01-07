@@ -20,6 +20,9 @@ import org.apache.felix.scr.annotations.sling.SlingFilterScope;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.featureflags.Features;
+import org.apache.sling.models.annotations.Required;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.wcm.api.Page;
@@ -40,6 +43,11 @@ import com.day.cq.wcm.api.PageManager;
 		//@Property(name = "sling.filter.resourceTypes", value = "silversea/silversea-com/components/pages/page") version too old - not supported by slign engine
 })
 public class AliasNameCheckFilter implements Filter {
+
+	@OSGiService
+	@Required
+	private Features features;
+
     private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(AliasNameCheckFilter.class.getName());
     
     private static final String ERROR_PAGE_PATH = "/content/silversea-com/en/error-404.html";
@@ -67,8 +75,13 @@ public class AliasNameCheckFilter implements Filter {
 
 			// Check if resource is page type, if not by pass and let process request.
 			if (resource.getResourceType().equals("cq:Page") && pathInfo.lastIndexOf(".html") == pathInfo.length()-5 ) {
+				if (features.isEnabled("author")){
+						//we are on an author
+					chain.doFilter(request, response);
+					return;
+				}
 
-				String realpagename = "";
+					String realpagename = "";
 				if (pathInfo.lastIndexOf(".html") != -1 && pathInfo.lastIndexOf("/") != -1) {
 					realpagename = pathInfo.substring(pathInfo.lastIndexOf("/") + 1, pathInfo.lastIndexOf(".html"));
 					if(realpagename.contains(".")){
