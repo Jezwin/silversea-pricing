@@ -3,9 +3,14 @@ $(function () {
 
     if ($(".findyourcruise2018").length > 0) {
 
-        var updateCruiseResultsBasedOnWaitlist = function (addUrlParameter) {
+        var getWaitlistFilter = function () {
+            var isNoWaitlist = $(".fyc2018-show-hide-waitlist").find(".waitlist").hasClass("hide-waitlist");
+            return isNoWaitlist ? "waitlist=no_waitlist" : "";
+        };//getWaitlistFilter
+
+        var updateCruiseResultsBasedOnWaitlist = function () {
             var urlTemplate = $("#results-url-request").data("url");
-            var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true"+addUrlParameter;
+            var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
             updateCruises(url);
         };//updateCruiseResultsBasedOnWaitlist
 
@@ -15,7 +20,7 @@ $(function () {
             $spanWaitlist.addClass("show-waitlist");
             var hideLabel = $showHideDiv.attr("data-hide-waitlist");
             $showHideDiv.find("span").text(hideLabel);
-            updateCruiseResultsBasedOnWaitlist("");
+            updateCruiseResultsBasedOnWaitlist();
         };//showWaitlistResults
 
         var hideWaitlistResults = function ($showHideDiv) {
@@ -24,7 +29,7 @@ $(function () {
             $spanWaitlist.addClass("hide-waitlist");
             var showLabel = $showHideDiv.attr("data-show-waitlist");
             $showHideDiv.find("span").text(showLabel);
-            updateCruiseResultsBasedOnWaitlist("&waitlist=no_waitlist")
+            updateCruiseResultsBasedOnWaitlist();
         };//hideWaitlistResults
 
         var onClickShowHideWaitlist = function (e) {
@@ -241,9 +246,11 @@ $(function () {
                 key = $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key");
 
             if (url == "") {
+                url += getWaitlistFilter();
                 url += "pag=" + page;
                 url += "&sortby=" + key + "-" + type.toLowerCase();
             } else {
+                url += "&"+getWaitlistFilter();
                 url += "&pag=" + page;
                 url += "&sortby=" + key + "-" + type.toLowerCase();
             }
