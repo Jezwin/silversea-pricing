@@ -26,7 +26,10 @@
 %><cq:include script="init.jsp"/><%
 
     // read the redirect target from the 'page properties'
-    String location = properties.get("redirectTarget", "");
+    String location = properties.get("cq:redirectTarget", "");
+    if(location == "") {
+        location = properties.get("redirectTarget", "");
+    }
     // resolve variables in location
     location = ELEvaluator.evaluate(location, slingRequest, pageContext);
 
@@ -76,4 +79,4 @@
     }
 
     // a little trick to call the super script
-%><sling:include replaceSelectors="page" /> 
+%><sling:include replaceSelectors="page" />
