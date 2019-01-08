@@ -318,7 +318,8 @@
             <h3 class="cruise-2018-ship-public-title">${'public-areas' @ i18n}</h3>
         </sly>
             <sly data-sly-list.publicArea="${publicAreas}">
-				<div class="cruise-2018-ship-public-slide col-xs-4">
+				<div class="cruise-2018-ship-public-slide col-xs-4 ${(publicAreaList.index==6) || (publicAreaList.index==7) || (publicAreaList.index==8) || (publicAreaList.index==12) 
+                	|| (publicAreaList.index==13) || (publicAreaList.index==14) || (publicAreaList.index==18) || (publicAreaList.index==19) || (publicAreaList.index==20)? 'topPadding30' : ''}">
                     <sly data-sly-test.imageUrl="${publicArea.thumbnail}">
                                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                                 <div class="cruise-2018-ship-public-slide-thumbnail cruise-2018-slide-thumbnail">
