@@ -66,7 +66,7 @@
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
                 </div>
-                <div class="fyc2018-show-hide-waitlist" data-show-waitlist="${'show-waitlist' @ i18n}" data-hide-waitlist="${'hide-waitlist' @ i18n}">
+                <div class="fyc2018-show-hide-waitlist" data-show-waitlist="${'show-waitlist' @ i18n}" data-hide-waitlist="${'hide-waitlist' @ i18n}" data-sly-test="${!properties.preFilterWaitlist}">
                     <span class="waitlist show-waitlist">${'hide-waitlist' @ i18n }</span>
                     <sly data-sly-list="${fyc.filterBar.WAITLIST.rows}">
                         <span class="waitlist hide-waitlist" data-sly-test="${item.key == 'no_waitlist' && item.state == 'CHOSEN'}">${'show-waitlist' @ i18n}</span>
