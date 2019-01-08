@@ -1608,6 +1608,14 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
 	    sling:message="show Less"/>
+    <show-waitlist
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="show-waitlist"
+        sling:message="show waitlist"/>
+    <hide-waitlist
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hide-waitlist"
+        sling:message="hide waitlist"/>
 	<show-all
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-all"
