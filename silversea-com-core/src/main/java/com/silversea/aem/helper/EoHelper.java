@@ -107,7 +107,8 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
             if (eoConfig.isPriorityWeight()) {
                 priorityWeight = Integer.parseInt(
-                        getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "priorityWeight", "0"));
+                        getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "priorityWeight", eoModel.getDefaultPriorityWeight().toString()));
+
             }
             if (eoConfig.isIconVoyage()) {
                 iconVoyage = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "icon",
