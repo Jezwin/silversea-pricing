@@ -3,6 +3,42 @@ $(function () {
 
     if ($(".findyourcruise2018").length > 0) {
 
+        var updateCruiseResultsBasedOnWaitlist = function (addUrlParameter) {
+            var urlTemplate = $("#results-url-request").data("url");
+            var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true"+addUrlParameter;
+            updateCruises(url);
+        };//updateCruiseResultsBasedOnWaitlist
+
+        var showWaitlistResults = function ($showHideDiv) {
+            var $spanWaitlist = $showHideDiv.find(".waitlist");
+            $spanWaitlist.removeClass("hide-waitlist");
+            $spanWaitlist.addClass("show-waitlist");
+            var hideLabel = $showHideDiv.attr("data-hide-waitlist");
+            $showHideDiv.find("span").text(hideLabel);
+            updateCruiseResultsBasedOnWaitlist("");
+        };//showWaitlistResults
+
+        var hideWaitlistResults = function ($showHideDiv) {
+            var $spanWaitlist = $showHideDiv.find(".waitlist");
+            $spanWaitlist.removeClass("show-waitlist");
+            $spanWaitlist.addClass("hide-waitlist");
+            var showLabel = $showHideDiv.attr("data-show-waitlist");
+            $showHideDiv.find("span").text(showLabel);
+            updateCruiseResultsBasedOnWaitlist("&waitlist=no_waitlist")
+        };//hideWaitlistResults
+
+        var onClickShowHideWaitlist = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $showHideDiv = $(this);
+            var isShow = $showHideDiv.find(".waitlist").hasClass("show-waitlist");
+            if (isShow) {
+                hideWaitlistResults($showHideDiv);
+            } else {
+                showWaitlistResults($showHideDiv);
+            }
+        };//onClickShowHideWaitlist
+
         var setSortingKeyType = function () {
             $(".findyourcruise2018 .fyc2018-sorting-dropdown .fyc2018-sorting-filed-span").each(function (e) {
                 var enable = $(this).attr("data-enable"),
@@ -798,5 +834,7 @@ $(function () {
                 setSortingValueOnMobile();
             }
         });
+
+        $(".findyourcruise2018").on("click", ".fyc2018-show-hide-waitlist", onClickShowHideWaitlist);
     }
 });

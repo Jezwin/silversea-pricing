@@ -59,15 +59,18 @@
                     <sly data-sly-test="${fyc.filterBar.TYPE.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.TYPE.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type', open=fyc.filterBar.TYPE.open}"/>
-                    <sly data-sly-test="${fyc.filterBar.WAITLIST.visible}"
-                         data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.WAITLIST.rows, type='filter-waitlist', class='col-sm-12', singular='cruise-waitlist', plural='cruise-waitlist', name='waitlist', open=fyc.filterBar.WAITLIST.open}"/>
                     <sly data-sly-test="${fyc.filterBar.PORT.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='search-port', open=fyc.filterBar.PORT.open}"/>
                     <sly data-sly-test="${fyc.filterBar.FEATURES.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
+                </div>
+                <div class="fyc2018-show-hide-waitlist" data-show-waitlist="${'show-waitlist' @ i18n}" data-hide-waitlist="${'hide-waitlist' @ i18n}">
+                    <span class="waitlist show-waitlist">${'hide-waitlist' @ i18n }</span>
+                    <sly data-sly-list="${fyc.filterBar.WAITLIST.rows}">
+                        <span class="waitlist hide-waitlist" data-sly-test="${item.key == 'no_waitlist' && item.state == 'CHOSEN'}">${'show-waitlist' @ i18n}</span>
+                    </sly>
                 </div>
             </div>
         </div>
