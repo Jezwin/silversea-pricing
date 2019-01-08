@@ -10,7 +10,7 @@
   background-color: @white;
   color: @grey--2b;
 
-  .fyc2018-header-reset-all span, .fyc2018-header-reset-all i{
+  .fyc2018-header-reset-all span, .fyc2018-header-reset-all i {
     color: @grey--2b;
   }
 }
@@ -19,7 +19,6 @@
   .fyc2018-header-custom-mobile-title {
     display: none;
   }
-
   .fyc2018-pagination {
     margin-top: 40px;
     color: black;
@@ -119,7 +118,7 @@
       position: absolute;
       background-color: #263133;
       min-width: 124px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 50000;
       top: 100%;
     }
@@ -130,13 +129,13 @@
     font-size: 13px;
     float: right;
     margin-right: -2px;
-    i{
+    i {
       padding-top: 11px;
       padding-left: 11px;
     }
   }
 
-  @media(min-width: 992px) {
+  @media (min-width: 992px) {
     .fyc2018-header-sorting:hover .fyc2018-sorting-dropdown {
       display: block;
     }
@@ -203,7 +202,7 @@
 
   .fyc2018-filters-container {
     padding-top: 8px;
-
+    position: relative;
     .fyc2018-filters-wrapper {
       table-layout: fixed;
       width: 100%;
@@ -381,7 +380,7 @@
       min-height: 172px !important;
     }
 
-    .filter-destination .filter-value span{
+    .filter-destination .filter-value span {
       font-size: 12px !important;
     }
     .filter-destination.fyc2018-filter-value-clicked {
@@ -517,7 +516,7 @@
       .col-sm-6:nth-child(odd) {
         padding-left: 0px;
       }
-        @media (max-width: 900px) {
+      @media (max-width: 900px) {
         -webkit-transform: translateX(-50%);
         position: absolute !important;
         transform: translateX(-50%);
@@ -746,5 +745,23 @@
     cursor: pointer;
     margin-right: 2px;
     text-decoration: underline;
+    position: absolute;
+    top: 60px;
+    right: 0;
+
+    .waitlist {
+      display: none;
+    }
+  }
+
+  @media (max-width: @screen-sm) {
+    .fyc2018-show-hide-waitlist {
+      font-size: 11px;
+      text-align: center;
+      margin-bottom: 15px;
+      width: 100%;
+      position: relative;
+      top: 0;
+    }
   }
 }

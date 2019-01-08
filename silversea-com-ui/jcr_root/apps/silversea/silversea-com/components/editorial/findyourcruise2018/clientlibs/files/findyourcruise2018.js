@@ -3,15 +3,25 @@ $(function () {
 
     if ($(".findyourcruise2018").length > 0) {
 
+        var showRightSpanWaitlist = function () {
+            var $hideWaitlistSpan = $(".fyc2018-show-hide-waitlist .waitlist.hide-waitlist"),
+                $showWaitlistSpan = $(".fyc2018-show-hide-waitlist .waitlist.show-waitlist");
+            var isHideWaitlist =$hideWaitlistSpan.length > 0;
+            if (isHideWaitlist) {
+                $showWaitlistSpan.remove();
+            }
+            $(".fyc2018-show-hide-waitlist .waitlist").show();
+        };//showRightSpanWaitlist
+
         var getWaitlistFilter = function () {
             var isNoWaitlist = $(".fyc2018-show-hide-waitlist").find(".waitlist").hasClass("hide-waitlist");
-            return isNoWaitlist ? "waitlist=no_waitlist" : "";
+            return isNoWaitlist ? "&waitlist=no_waitlist" : "";
         };//getWaitlistFilter
 
         var updateCruiseResultsBasedOnWaitlist = function () {
             var urlTemplate = $("#results-url-request").data("url");
             var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
-            updateCruises(url);
+            updateCruises(url, true);
         };//updateCruiseResultsBasedOnWaitlist
 
         var showWaitlistResults = function ($showHideDiv) {
@@ -64,7 +74,7 @@ $(function () {
 
         var changeSorting = function () {
             var urlTemplate = $("#results-url-request").data("url");
-            var url = createUrl(urlTemplate,1, true) + "&onlyResults=true";
+            var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
             updateCruises(url, true);
         };//changeSorting
 
@@ -75,9 +85,7 @@ $(function () {
             $containerPortSelected.find(".filter-value").each(function () {
                 if ($(this).data("key") == port.attr("data-key")) {
                     isAlreadyPresent = true;
-                    //if (port.data("state") == "ENABLED") {
                     $(this).remove();
-                    // /}
                 }
             });
             if (!isAlreadyPresent) {
@@ -246,13 +254,13 @@ $(function () {
                 key = $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key");
 
             if (url == "") {
-                url += getWaitlistFilter();
                 url += "pag=" + page;
                 url += "&sortby=" + key + "-" + type.toLowerCase();
+                url += getWaitlistFilter();
             } else {
-                url += "&"+getWaitlistFilter();
                 url += "&pag=" + page;
                 url += "&sortby=" + key + "-" + type.toLowerCase();
+                url += getWaitlistFilter();
             }
 
             if (updateHistory) {
@@ -354,6 +362,7 @@ $(function () {
                         separateYears();
                         searchAnalytics();
                         setSortingValueOnMobile();
+                        showRightSpanWaitlist();
                         urlToCompare = window.location.search;
                     }
                 });
@@ -373,7 +382,6 @@ $(function () {
             } else {
                 //ussing on startup
                 sort = $(".filter-sortby .filter-value.filter-sorting.filter-selected");
-                console.log(sort.attr("data-key"));
             }
 
             if ($(window).width() < 768) {
@@ -565,6 +573,7 @@ $(function () {
         separateYears();
         onLoadFilterUrl = window.location.search;
         searchAnalytics();
+        showRightSpanWaitlist();
         if ($(window).width() < 768) {
             backMobile();
         }
@@ -776,8 +785,8 @@ $(function () {
                 setNumberFilterSelected(idFilter);
                 var urlTemplate = $("#results-url-request").data("url");
                 var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
-                updateCruises(url);
                 checkNumberSelectedFilters();
+                updateCruises(url);
                 if (isMobileAndChangeSorting) {
                     setSortingValueOnMobile($(this));
                 }
