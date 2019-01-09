@@ -169,7 +169,7 @@
 
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper ${itineraryList.last ? '' : 'bordered'}"
                          style="display:none;">
-                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description">${excursionDescription @context='html'} </div>
+                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description" data-sly-use.helperText="${'com.silversea.aem.helper.StringHelper' @ text=excursionDescription, limit=960}"> ${helperText.textTruncate @ context='html'} <span class="cruise-2018-itineraries-port-excursions-description-read-more" data-sly-test="${helperText.textRest}">${"read-more" @ i18n}</span> <span class="cruise-2018-itineraries-port-excursions-description-read-more-content" data-sly-test="${helperText.textRest}">${helperText.textRest @ context='html'}</span> </div>
                         <div data-sly-test="${hasExcursions}"
                              class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">
                             <sly data-sly-test="${hasExcursions}">

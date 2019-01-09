@@ -1,15 +1,15 @@
 package com.silversea.aem.helper;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.xss.XSSAPI;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.xss.XSSAPI;
 
 public class StringHelper extends WCMUsePojo {
 
     private String textTruncate;
     private String textValidName;
+    private String textRest;
 
     @Override
     public void activate() throws Exception {
@@ -27,10 +27,14 @@ public class StringHelper extends WCMUsePojo {
 
             // Return truncate text
             if (textHtmlStrip.length() > limit) {
+                Integer cutPosition = 0;
                 textTruncate = textHtmlStrip.substring(0, limit + 1);
+                cutPosition = limit + 1;
                 if (textHtmlStrip.charAt(limit) != '.') {
                     textTruncate = textTruncate.substring(0, textTruncate.lastIndexOf(".") + 1);
+                    cutPosition = textTruncate.lastIndexOf(".") + 1;
                 }
+                textRest = textHtmlStrip.substring(cutPosition);
             } else {
                 textTruncate = textHtmlStrip;
             }
@@ -46,6 +50,10 @@ public class StringHelper extends WCMUsePojo {
      */
     public String getTextTruncate() {
         return textTruncate;
+    }
+
+    public String getTextRest() {
+        return textRest;
     }
 
     /**

@@ -58,6 +58,12 @@ $(function () {
         if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".cruise-2018-itineraries-container").length > 0) {
             $(document).on('scroll touchmove gesturechange', loadPortsImage);
             loadPortsImage();
+
+            $(".cruise-2018-itineraries-port-excursions-description-read-more").on("click", function (){
+                    $(this).fadeOut();
+                    $(this).closest(".cruise-2018-itineraries-port-excursions-description").find(".cruise-2018-itineraries-port-excursions-description-read-more-content").slideDown();
+                }
+            );
         }
     });
 
