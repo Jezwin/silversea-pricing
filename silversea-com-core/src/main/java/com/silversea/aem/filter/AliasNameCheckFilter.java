@@ -40,7 +40,7 @@ import com.day.cq.wcm.api.PageManager;
         order = 100,
         scope = SlingFilterScope.REQUEST)
 @Properties({
-		@Property(name = "sling.filter.pattern", value = ".*/silversea-com/.+html$")//,
+		@Property(name = "sling.filter.pattern", value = ".*.+html$")//,
 	//	@Property(name = "sling.filter.extensions", value = {"pdf"}), version too old - not supported by slign engine
 		//@Property(name = "sling.filter.resourceTypes", value = "silversea/silversea-com/components/pages/page") version too old - not supported by slign engine
 })
@@ -75,10 +75,10 @@ public class AliasNameCheckFilter implements Filter {
 			final Resource resource = slingRequest.getResource();
 
 			// Check if resource is page type, if not by pass and let process request.
-			if (resource.getResourceType().equals("cq:Page") && pathInfo.lastIndexOf(".html") == pathInfo.length()-5 ) {
+			if (resource.getResourceType().equals("cq:Page") && pathInfo.lastIndexOf(".html") == pathInfo.length()-5 && pathInfo.indexOf(".html") == pathInfo.lastIndexOf(".html")) {
 				if (slingSettingsService.getRunModes().contains("author")){
 					//we are on an author
-					chain.doFilter(request, response);
+				    chain.doFilter(request, response);
 					return;
 				}
 
