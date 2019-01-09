@@ -1,0 +1,31 @@
+<template data-sly-template.default="${@ routes }">
+    <div data-ssc-slides="4"
+         data-ssc-breakpoint-tablet="992"
+         data-ssc-slides-to-show-tablet="3"
+         data-ssc-breakpoint-mobile="600"
+         data-ssc-slides-to-show-mobile="1"
+         class="silversea-slider route-slider activate-progressbar">
+        <sly data-sly-list.route="${routes}">
+            <div class="silversea-slide">
+                <div class="route-content ${routeList.first ? 'route-active' : ''}">
+                    <a class="change-route-onclick" href="${request.requestURI @ selectors=['templates.itineraryexcursions.itinerarydetail',route.page.name]}">
+                        <time data-sly-test="${route.cruise.startDate}"
+                              data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=route.cruise.startDate}"
+                              data-sly-use.startDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=route.cruise.startDate}"
+                              datetime="${startDateTime.value}">
+                            ${startDate.value}
+                        </time>
+                        <time data-sly-test="${route.cruise.endDate}"
+                              data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=route.cruise.endDate}"
+                              data-sly-use.endDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=route.cruise.endDate}"
+                              datetime="${endDateTime.value}">
+                            ${endDate.value}
+                        </time>
+                        <strong> ${route.cruise.departurePortName} <br> ${'to' @ i18n}
+                            <br> ${route.cruise.arrivalPortName}</strong>
+                    </a>
+                </div>
+            </div>
+        </sly>
+    </div>
+</template>

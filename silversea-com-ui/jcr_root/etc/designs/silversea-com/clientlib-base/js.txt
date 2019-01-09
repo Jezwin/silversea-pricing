@@ -36,3 +36,4 @@ components/c-steveandsilversea.js
 included/c-modaldetail.js
 included/c-footer.js
 core/lightbox.js
+core/slider.js

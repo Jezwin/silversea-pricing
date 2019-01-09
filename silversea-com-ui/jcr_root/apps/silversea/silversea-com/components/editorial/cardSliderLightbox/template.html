@@ -1,6 +1,7 @@
-<template data-sly-template.default="${ @ title, slidesDesktop,slidesTablet, slidesMobile, showArrows, cards }">
+<template
+        data-sly-template.default="${ @ showArrows, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector }">
     <div class="cardSlider-wrapper ">
-        <div class="cardSlider">
+        <div class="cardSlider ${backgroundColour}">
             <sly data-sly-test="${cards}">
                 <div class="cardSlider-title">${title}</div>
                 <div data-ssc-slides="${slidesDesktop}"
@@ -16,14 +17,20 @@
                                data-slb-arrows="${showArrows}"
                                data-slb-callback="cslInitLightbox"
                                id="lb-sl-${cardList.index}" data-simple-lightbox
-                               href="#${currentNode.path @ selectors=['lightbox', cardList.index], extension='html'}"></a>
+                               href="#${lightboxPath @ selectors=[selector, cardList.index], extension='html'}"></a>
                             <sly data-sly-test.thumbnail="${card.thumbnail || card.bigPicture}"/>
-                            <div class="cardSlider-slide-thumbnail">
+                            <div class="cardSlider-slide-thumbnail ${style}">
                                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                                      data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=350}"/>
                             </div>
-                            <div class="cardSlider-slide">${card.briefDescription}</div>
-                            <div class="cardSlider-slide-title">${card.title}</div>
+                            <sly data-sly-test="${'squared'==style}">
+                                <div class="cardSlider-slide">${card.briefDescription} </div>
+                                <div class="cardSlider-slide-title">${card.title} </div>
+                            </sly>
+                            <sly data-sly-test="${'circled'==style}">
+                                <div class="cardSlider-slide-title">${card.title} </div>
+                                <div class="cardSlider-slide">${card.briefDescription} </div>
+                            </sly>
                             <div class="cardSlider-slide-moredetails">${'view-more-details' @ i18n}</div>
                         </div>
                     </sly>

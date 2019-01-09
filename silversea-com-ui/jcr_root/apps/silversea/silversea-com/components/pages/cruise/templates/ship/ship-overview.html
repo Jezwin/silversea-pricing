@@ -1,5 +1,5 @@
-<template data-sly-template.default="${ @ cruise, externalizerHelper }">
-    <div class="cruise-2018-ship-overview" data-sly-test.ship="${cruise.cruiseModel.ship}">
+<template data-sly-template.default="${ @ ship, shipAssetGallery, externalizerHelper }">
+    <div class="cruise-2018-ship-overview" data-sly-test.shipModel="${ship}">
         <div class="cruise-2018-ship-overview-title">
             <span class="cruise-2018-ship-overview-title-ship">${'ship' @ i18n}</span> - <span
                 class="cruise-2018-ship-overview-title-title">${ship.title}</span>
@@ -15,7 +15,7 @@
         </div>
         <div class="ship-slider-overview">
             <div class="ship-slider ship-slider--main main-slider">
-                <sly data-sly-repeat.asset="${cruise.shipAssetGallery}" data-image="${asset.path}">
+                <sly data-sly-repeat.asset="${shipAssetGallery}" data-image="${asset.path}">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
                          data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
                     <div data-image="${asset.path}" data-sly-test="${assetHelper.assetType != 'VideoAVS'}">
