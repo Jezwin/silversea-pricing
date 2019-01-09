@@ -60,12 +60,12 @@ public class AliasNameCheckFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		//DEACTIVATE THE FILTER 
+		//DEACTIVATE THE FILTER
     	chain.doFilter(request, response);
 		return;
 
 
-    	if (!(request instanceof SlingHttpServletRequest)) {
+    	/*if (!(request instanceof SlingHttpServletRequest)) {
     		chain.doFilter(request, response);
     		return;
     	}
@@ -118,7 +118,7 @@ public class AliasNameCheckFilter implements Filter {
 
 		}catch(Exception e){
 			chain.doFilter(request, response);
-		}
+		}*/
 
     }
 
