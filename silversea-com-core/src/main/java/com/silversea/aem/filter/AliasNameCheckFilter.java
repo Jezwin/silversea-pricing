@@ -76,7 +76,7 @@ public class AliasNameCheckFilter implements Filter {
 
 			// Check if resource is page type, if not by pass and let process request.
 			if (resource.getResourceType().equals("cq:Page") && pathInfo.lastIndexOf(".html") == pathInfo.length()-5 ) {
-				if (slingSettingsService.getRunModes().contains("local")){
+				if (slingSettingsService.getRunModes().contains("author")){
 					//we are on an author
 					chain.doFilter(request, response);
 					return;
