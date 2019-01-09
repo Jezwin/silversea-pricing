@@ -39,6 +39,11 @@ import com.day.cq.wcm.api.PageManager;
         generateService = true,
         order = 100,
         scope = SlingFilterScope.REQUEST)
+@Properties({
+		@Property(name = "sling.filter.pattern", value = ".*html")//,
+	//	@Property(name = "sling.filter.extensions", value = {"pdf"}), version too old - not supported by slign engine
+		//@Property(name = "sling.filter.resourceTypes", value = "silversea/silversea-com/components/pages/page") version too old - not supported by slign engine
+})
 public class AliasNameCheckFilter implements Filter {
 
 	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(AliasNameCheckFilter.class.getName());
