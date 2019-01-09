@@ -32,7 +32,6 @@ import java.util.stream.Stream;
 import static com.google.common.base.Strings.emptyToNull;
 import static com.silversea.aem.utils.AssetUtils.buildAssetList;
 import static java.util.Comparator.comparing;
-import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
@@ -105,15 +104,13 @@ public class Cruise2018Use extends EoHelper {
     private String selector;
 
     //caching
-    private List<CruiseModelLight> allSameShipCruises;
     private ItineraryLandProgramModel midlandShorexLightbox;
-    
+
     private int hasexcursionsCounter;
 
-	@Override
+    @Override
     public void activate() throws Exception {
         super.activate();
-        allSameShipCruises = null;
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         Locale locale = getCurrentPage().getLanguage(false);
         Lightbox typeLightbox = checkIsLightbox(selectors);
@@ -183,12 +180,16 @@ public class Cruise2018Use extends EoHelper {
             computedPriceFormatted = null;//not shown
         }
         isFeetSquare = "US".equals(countryCode);
-        retrievePreviousCruise(cruiseModel).ifPresent(previous -> {
+
+        CruiseModelLight[] prevNext =
+                retrievePrevNext(cruiseModel, comparing(CruiseModelLight::getStartDate).thenComparing(CruiseModelLight::getDuration).thenComparing(CruiseModelLight::getCruiseCode));
+
+        ofNullable(prevNext[0]).ifPresent(previous -> {
             this.previous = previous.getPath();
             this.previousArrival = previous.getArrivalPortName();
             this.previousDeparture = previous.getDeparturePortName();
         });
-        retrieveNextCruise(cruiseModel).ifPresent(next -> {
+        ofNullable(prevNext[1]).ifPresent(next -> {
             this.next = next.getPath();
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
@@ -610,69 +611,47 @@ public class Cruise2018Use extends EoHelper {
         }
     }
 
-    private List<CruiseModelLight> allSameShipCruises(CruiseModel cruiseModel) {
-        if (allSameShipCruises != null) {
-            return allSameShipCruises;
-        }
-
-        final String lang = LanguageHelper.getLanguage(getCurrentPage());
+    private CruiseModelLight[] retrievePrevNext(CruiseModel cruiseModel, Comparator<CruiseModelLight> comparator) {
         final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
-        allSameShipCruises = ofNullable(cruisesCacheService)
-                .map(cache -> cache.getCruises(lang))
-                .map(List::stream)
-                .orElse(Stream.empty())
-                .filter(cruise -> cruise.getStartDate() != null)
-                .filter(cruise -> of(cruiseModel).map(CruiseModel::getShip)
-                        .map(ShipModel::getName)
-                        .map(name -> StringUtils.equals(name, cruise.getShip().getName()))
-                        .orElse(false)).collect(toList());
-        return allSameShipCruises;
-    }
+        final String lang = LanguageHelper.getLanguage(getCurrentPage());
+        CruiseModelLight[] cruises = new CruiseModelLight[]{null, null};
 
-    private Optional<CruiseModelLight> retrievePreviousCruise(CruiseModel cruiseModel) {
-        boolean seen = false;
-        CruiseModelLight best = null;
-        Comparator<CruiseModelLight> comparator = comparing(CruiseModelLight::getStartDate);
-        for (CruiseModelLight cruise : allSameShipCruises(cruiseModel)) {
-            if (cruise.getStartDate().before(cruiseModel.getStartDate())) {
-                if (!seen || comparator.compare(cruise, best) > 0) {
-                    seen = true;
-                    best = cruise;
+        if (cruisesCacheService == null) {
+            return cruises;
+        }
+        CruiseModelLight givenCruise = cruisesCacheService.getCruiseByCruiseCode(lang, cruiseModel.getCruiseCode());
+        if (givenCruise == null || givenCruise.getShip() == null) {
+            return cruises;
+        }
+        String shipName = givenCruise.getShip().getName();
+        for (CruiseModelLight cruise : cruisesCacheService.getCruises(lang)) {
+            if (cruise.getStartDate() != null && StringUtils.equals(shipName, cruise.getShip().getName())) {
+                double compared = comparator.compare(cruise, givenCruise);
+                if (compared < 0 && (cruises[0] == null || comparator.compare(cruise, cruises[0]) > 0)) {
+                    cruises[0] = cruise;
+                }
+                if (compared > 0 && (cruises[1] == null || comparator.compare(cruise, cruises[1]) < 0)) {
+                    cruises[1] = cruise;
                 }
             }
         }
-        return Optional.ofNullable(best);
+        return cruises;
     }
 
-    private Optional<CruiseModelLight> retrieveNextCruise(CruiseModel cruiseModel) {
-        boolean seen = false;
-        CruiseModelLight best = null;
-        Comparator<CruiseModelLight> comparator = comparing(CruiseModelLight::getStartDate);
-        for (CruiseModelLight cruise : allSameShipCruises(cruiseModel)) {
-            if (cruise.getStartDate().after(cruiseModel.getStartDate())) {
-                if (!seen || comparator.compare(cruise, best) < 0) {
-                    seen = true;
-                    best = cruise;
+    private int firstExcursionsCounter() {
+        int counter = -1;
+        if (this.itinerary.size() > 0) {
+            for (CruiseItinerary cruiseItinerary : this.itinerary) {
+                counter++;
+                if (cruiseItinerary.isHasExcursions()) {
+                    return counter;
                 }
             }
         }
-        return Optional.ofNullable(best);
+
+        return counter;
     }
 
-   private int firstExcursionsCounter() {
-	   int counter= -1;
-	   if (this.itinerary.size() > 0 && this.itinerary  != null) {
-		   for ( CruiseItinerary cruiseItinerary : this.itinerary) {
-			   counter++;
-			   if (cruiseItinerary.isHasExcursions()) {
-				  return counter; 
-			   }
-		   }
-	   }
-	   
-	   return counter;
-   }
-   
     public String getBigItineraryMap() {
         return bigItineraryMap;
     }
@@ -752,8 +731,8 @@ public class Cruise2018Use extends EoHelper {
         }
 
 
-
     }
+
     public List<ExclusiveOfferItem> getExclusiveOffers() {
         return exclusiveOffers;
     }
@@ -881,9 +860,9 @@ public class Cruise2018Use extends EoHelper {
     public long getDayUntilDeparture() {
         return dayUntilDeparture;
     }
-    
+
     public int getHasexcursionsCounter() {
-		return hasexcursionsCounter;
-	}
+        return hasexcursionsCounter;
+    }
 }
 
