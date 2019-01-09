@@ -20,7 +20,7 @@
          requestQuotePagePath=comboCruise.requestQuotePagePath,
          computedPriceFormatted=comboCruise.computedPriceFormatted,
          earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
-    currency=comboCruise.lowestPrice.currency}" />
+    currency=comboCruise.lowestPrice.currency}"/>
     <sly data-sly-use.menu="/apps/silversea/silversea-com/components/pages/cruise/templates/menu.html"
          data-sly-call="${menu.navigation @
          cruiseType='silversea-combocruise',
@@ -33,7 +33,7 @@
          earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
          currency=comboCruise.lowestPrice.currency,
          computedPriceFormatted=comboCruise.computedPriceFormatted,
-         requestQuotePagePath=comboCruise.requestQuotePagePath}" />
+         requestQuotePagePath=comboCruise.requestQuotePagePath}"/>
     <div data-sly-resource="${'par-combocruise-offer' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.itinerary="/apps/silversea/silversea-com/components/pages/combocruise/templates/itineraryexcursions/itinerary.html"
          data-sly-call="${itinerary.default @
@@ -66,7 +66,8 @@
              selector='lightboxes.lg-keyperson'}"/>
     </div>
     <hr class="combocruise-2018-hr-itinerary-suite"/>
-    <div id="menu-cruise2018suites" data-sly-resource="${'par-overview-middle' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    <div id="menu-cruise2018suites"
+         data-sly-resource="${'par-overview-middle' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.suitesfares="/apps/silversea/silversea-com/components/pages/cruise/templates/suites-fares.html"
          data-sly-call="${suitesfares.default @
          prices=comboCruise.prices,
@@ -83,7 +84,7 @@
     <sly data-sly-include="fragment/overviewtab/benefitsandeventsparsys.html"/>
     <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise/templates/pre-post.html"
-         data-sly-call="${prepost.default @ prePost=comboCruise.globalPrePost}"/>
+         data-sly-call="${prepost.default @ prePosts=comboCruise.globalPrePost, activateProgressbar=true}"/>
     <sly data-sly-use.footer="/apps/silversea/silversea-com/components/pages/cruise/templates/footer.html"
          data-sly-call="${footer.default @
          isWaitlist=comboCruise.isWaitlist,

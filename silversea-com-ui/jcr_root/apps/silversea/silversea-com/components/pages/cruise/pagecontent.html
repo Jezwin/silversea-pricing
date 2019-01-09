@@ -77,7 +77,7 @@
          externalizerHelper=externalizerHelper}"/>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise/templates/pre-post.html"
          data-sly-call="${prepost.default @
-         prePost=cruise.prePost}"/>
+         prePosts=cruise.prePost, activateProgressbar=false}"/>
     <sly data-sly-use.nextprev="/apps/silversea/silversea-com/components/pages/cruise/templates/next-prev.html"
          data-sly-call="${nextprev.default @
          previous=cruise.previous,
