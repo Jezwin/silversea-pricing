@@ -20,7 +20,8 @@ public class ImageSetHelper extends WCMUsePojo {
 
         if (path != null) {
             renditionList = AssetUtils.buildAssetList(path, getResourceResolver());
-        } else if (singleImageFallback != null) {
+        }
+        if ((renditionList==null || renditionList.isEmpty()) && singleImageFallback != null) {
             renditionList = Collections.singletonList(getResourceResolver().getResource(singleImageFallback).adaptTo(Asset.class));
         }
     }

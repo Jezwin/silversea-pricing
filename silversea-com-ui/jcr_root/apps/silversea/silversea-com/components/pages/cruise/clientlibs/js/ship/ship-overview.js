@@ -26,7 +26,7 @@ $(function () {
     loadLazyImage($mainSlider);
 
     function loadLazyImage($slider) {
-        var $sliderActive = $slider.closest('.ship-slider-overview').find('.slick-active');
+            var $sliderActive = $slider.closest('.ship-slider-overview').find('.slick-active');
         $(".ship-slider-overview .main-slider").slick("slickSetOption", "draggable", true, false);
         $(".ship-slider-overview .main-slider").slick("slickSetOption", "swipe", true, false);
         // call lazy loading for active image

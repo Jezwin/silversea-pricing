@@ -1,43 +1,44 @@
-<template data-sly-template.default="${ @ cruise, externalizerHelper }">
-
-    <div class="cruise-2018-overview row container" id="cruise2018overview">
-        <div class="cruise-2018-overview-big-pic col-sm-6 col-xs-12"
-             data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
-             data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-map'}">
-            <sly data-sly-list.asset="${cruise.assetsGallery}">
+<template
+        data-sly-template.default="${ @  assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
+    <div class="cruise-2018-overview row container ${isCombo ? 'cruise-2018-overview-single-column' : ''}"
+         data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets',cruiseType]}"
+         data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map',cruiseType]}"
+         id="cruise2018overview">
+        <a href="#" data-sly-test="${bigItineraryMap && isCombo}"
+           class="cruise-2018-overview-map-btn-combo open-lightbox-map hidden-xs" data-target=".lightbox"
+           style="background-image:url('${bigItineraryMap  @ context='unsafe'}')">
+            <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
+        </a>
+        <div class="cruise-2018-overview-big-pic ${isCombo ? 'col-sm-12 cruise-2018-overview-full-width' : 'col-sm-6'} col-xs-12">
+            <sly data-sly-list.asset="${assetsGallery}">
                 <sly data-sly-test="${asset.path && assetList.index < 1}"
                      data-sly-test.firstAssetGalleryImg="${asset.path}"/>
             </sly>
-
-            <sly data-sly-test.cruiseDesktopImg="${cruise.cruiseModel.bigThumbnailItineraryMap || cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary || firstAssetGalleryImg}"/>
-            <sly data-sly-test.cruiseMobileImg="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary || firstAssetGalleryImg}"/>
+            <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
+            <sly data-sly-test.cruiseMobileImg="${bigItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
             <div class="open-lightbox-gallery-assets" data-target=".lightbox" id="lb-mainGallery">
                 <picture data-sly-test="${cruiseDesktopImg || cruiseMobileImg}">
                     <sly data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseDesktopImg}"/>
                     <sly data-sly-use.assetHelperMobile="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseMobileImg}"/>
                     <!--[if IE 9]>
                     <video style="display: none;"><![endif]-->
-                    <source srcset="${assetHelperMobile.imageUrl}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1"
+                    <source srcset="${assetHelperMobile.imageUrl}?wid=800&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1"
                             media="(max-width: 767px)"/>
-                    <source srcset="${assetHelperDesktop.imageUrl}?wid=700&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1"
+                    <source srcset="${assetHelperDesktop.imageUrl}?wid=1900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1"
                             media="(min-width: 768px)"/>
                     <!--[if IE 9]></video><![endif]-->
                     <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                         src="${assetHelperDesktop.imageUrl @ context='unsafe'}?wid=900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit"
+                         src="${assetHelperDesktop.imageUrl @ context='unsafe'}?fmt=pjpeg&pscan=5&qlt=80&fit=hfit"
                          alt="${assetHelperDesktop.metadataResource.valueMap['dc:title']  || currentPage.title}"/>
                 </picture>
             </div>
-            <!--/* <a data-sly-test="${cruise.cruiseModel.bigItineraryMap} "href="#" class="cruise-2018-overview-map-btn open-lightbox-map hidden-xs" data-target=".lightbox" data-sly-test.itineraryMap="${cruise.cruiseModel.bigItineraryMap || cruise.cruiseModel.itinerary}"
-                 style="background-image:url('${itineraryMap @ context='unsafe'}')">
-                <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
-            </a>*/-->
-            <a href="#"
+            <a href="#" data-sly-test="${assetsGallery && !isCombo}"
                class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
                 <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>
             </a>
         </div>
         <div class="ow-slider ow-slider--main main-slider visible-xs">
-            <sly data-sly-repeat.asset="${cruise.assetsGallery}">
+            <sly data-sly-repeat.asset="${assetsGallery}">
                 <div data-image="${asset.path}" data-sly-test="${asset.path}">
                     <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"
                          id="ow-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
@@ -58,27 +59,47 @@
                 </div>
             </sly>
         </div>
-        <div class="cruise-2018-overview-description col-sm-6 col-xs-12">
+        <div class="cruise-2018-overview-description ${isCombo ? 'col-sm-12' : 'col-sm-6'} col-xs-12">
+            <a href="#" data-sly-test="${assetsGallery && isCombo}"
+               class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
+                <div class="cruise-2018-overview-photos-videos-btn-combo">${'photos-and-videos' @ i18n}</div>
+            </a>
             <div class="cruise-2018-overview-description-cruise">
-                <sly data-sly-test="${cruise.showCruiseBeforeName}">${'cruise' @i18n}</sly>
-                ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
-                <sly data-sly-test="${!cruise.showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                <sly data-sly-test="${showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                ${navigationTitle || title}
+                <sly data-sly-test="${!showCruiseBeforeName}">${'cruise' @i18n}</sly>
             </div>
             <div class="cruise-2018-overview-description-from-to">
-                <div>${cruise.cruiseModel.departurePortName} </div>
+                <div class="${isCombo ? 'cruise-2018-overview-description-origin' : ''}">${departurePortName} </div>
                 <div class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</div>
-                <div class="cruise-2018-overview-description-from-to-destination">${cruise.cruiseModel.arrivalPortName}</div>
+                <div class="cruise-2018-overview-description-from-to-destination">${arrivalPortName}</div>
             </div>
-            <div class="cruise-2018-overview-description-date-boxes">
+            <div class="cruise-2018-row-information-cruise hidden-xs">
+                <span class="cruise-2018-row-information-cruise-date"
+                      data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd, yyyy', date=startDate}">
+                    ${dateDay.value}
+                </span>
+                <span class="cruise-2018-row-information-cruise-title">${'to' @ i18n}</span>
+                <span class="cruise-2018-row-information-cruise-date"
+                      data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd, yyyy', date=endDate}">
+                    ${dateDay.value}
+                </span>
+                <span class="cruise-2018-row-information-cruise-duration">
+                    <span class="cruise-2018-row-information-cruise-title duration-label">${'duration' @ i18n}</span>
+                    <span class="duration-value">${duration} ${'days' @ i18n}</span>
+                </span>
+                <span class="cruise-2018-row-information-cruise-">${ship.title}</span>
+            </div>
+            <div class="cruise-2018-overview-description-date-boxes ${isCombo ? 'visible-xs' : ''} ">
                 <div class="cruise-2018-overview-description-date-boxes-box-container">
                     <div class="cruise-2018-overview-description-date-boxes-box bordered">
                         <div class="cruise-2018-overview-description-date-boxes-title">${'departure' @ i18n}</div>
                         <div class="cruise-2018-overview-description-date-boxes-content"
-                             data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}">
+                             data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=startDate}">
                             ${dateDay.value}
                         </div>
                         <div class="cruise-2018-overview-description-date-boxes-subtitle"
-                             data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
+                             data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=startDate}">
                             ${dateYear.value}
                         </div>
                     </div>
@@ -86,39 +107,50 @@
                 <div class="cruise-2018-overview-description-date-boxes-box-container">
                     <div class="cruise-2018-overview-description-date-boxes-box bordered">
                         <div class="cruise-2018-overview-description-date-boxes-title">${'duration' @ i18n}</div>
-                        <div class="cruise-2018-overview-description-date-boxes-content">${cruise.cruiseModel.duration}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-content">${duration}</div>
                         <div class="cruise-2018-overview-description-date-boxes-subtitle">${'days' @ i18n}</div>
                     </div>
                 </div>
                 <div class="cruise-2018-overview-description-date-boxes-box-container cruise-2018-overview-description-date-boxes-ship">
                     <div class="cruise-2018-overview-description-date-boxes-box">
                         <div class="cruise-2018-overview-description-date-boxes-title ship-title">${'ship' @ i18n}</div>
-                        <div class="cruise-2018-overview-description-date-boxes-content ship-content">${cruise.cruiseModel.ship.title}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-content ship-content">${ship.title}</div>
                         <div class="cruise-2018-overview-description-date-boxes-subtitle">&nbsp;</div>
                     </div>
                 </div>
             </div>
-            <div class="cruise-2018-overview-quote ${cruise.lowestPrice.earlyBookingBonus ? 'cruise-2018-overview-quote-with-bb' : ''}">
+            <div class="cruise-2018-overview-quote ${earlyBookingBonus ? 'cruise-2018-overview-quote-with-bb' : ''}">
                 <a class="coolanchorminussmall" href="#menu-cruise2018suites">
-                <span data-sly-test="${cruise.isWaitlist}"
+                <span data-sly-test="${isWaitlist}"
                       class="cruise-2018-overview-quote-price-number">${'waitlist' @ i18n}</span>
-                    <div class="cruise-2018-overview-quote-price" data-sly-test="${!cruise.isWaitlist}">
+                    <div class="cruise-2018-overview-quote-price" data-sly-test="${!isWaitlist}">
                         <div class="cruise-2018-overview-quote-price-from">${'from' @ i18n}</div>
                         <div class="cruise-2018-overview-quote-price-number">
-                            ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
+                            ${currency @ i18n} ${computedPriceFormatted}
                         </div>
+                        <div class="cruise-2018-overview-quote-price-from per-guest" data-sly-test="${isCombo}">(${'per-guest' @ i18n})</div>
                         <div class="cruise-2018-overview-quote-price-bonus"
-                             data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                             data-sly-test="${earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
                     </div>
                 </a>
                 <div class="cruise-2018-overview-quote-rqa">
-                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
-                       id="cruise-2018-rqa"
-                       data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
-                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" rel="nofollow"
-                       data-sscclicktype="clic-RAQ">
-                        <span>${'request-quote' @i18n}</span>
-                    </a>
+                    <sly data-sly-test="${pageProperties.cruiseCode}">
+                        <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
+                           id="cruise-2018-rqa"
+                           data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+                           href="${requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"  rel="nofollow"
+                           data-sscclicktype="clic-RAQ">
+                            <span>${'request-quote' @i18n}</span>
+                        </a>
+                    </sly>
+                    <sly data-sly-test="${!pageProperties.cruiseCode}">
+                        <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
+                           id="cruise-2018-rqa"
+                           href="${requestQuotePagePath @ extension='html', selectors='s'}"  rel="nofollow"
+                           data-sscclicktype="clic-RAQ">
+                            <span>${'request-quote' @i18n}</span>
+                        </a>
+                    </sly>
                 </div>
                 <div class="cruise-2018-overview-quote-suites-fares">
                     <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote coolanchorminussmall"
@@ -128,10 +160,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-md-offset-6 cruise-2018-overview-quote-icons hidden-xs">
-            <div class="col-md-12 cruise-2018-overview-voyage-code">${'voyage-number' @ i18n} : ${cruise.cruiseModel.cruiseCode}</div>
+        <div class="col-md-6 col-md-offset-6 cruise-2018-overview-quote-icons hidden-xs" data-sly-test="${!isCombo}">
+            <div class="col-md-12 cruise-2018-overview-voyage-code">${'voyage-number' @ i18n}
+                : ${cruiseCode}</div>
             <div class="cruise-2018-overview-prev-next col-md-12">
-                <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html'}"
+                <a data-sly-test="${previous}" href="${previous @ extension='html'}"
                    class="previous-block">
                         <span class="previous-content">
                             <i class="fa fa-angle-left"></i>
@@ -140,9 +173,9 @@
                         </span>
 
                 </a>
-                <span data-sly-test="${cruise.next && cruise.previous}"
+                <span data-sly-test="${next && previous}"
                       class="cruise-2018-overview-prev-next-separator"> | </span>
-                <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"
+                <a data-sly-test="${next}" href="${next @ extension='html'}"
                    class="next-block">
                         <span class="next-content">
                             <span class="next-label">${'next-voyage' @ i18n}</span>
@@ -151,8 +184,8 @@
                 </a>
 
             </div>
-            <div class="col-md-12">
-                <a href='${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf'
+            <div class="col-md-12" data-sly-test="${!isCombo}">
+                <a href='${currentPath @ context="uri"}.rendition.download.${countryCode @ context="scriptString"}${ccptCode @ context="scriptString"}${taCode @ context="scriptString"}.t.pdf'
                    target="_blank" id="cruise-2018-pdf-download" rel="nofollow">
                     <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/download-pdf.png"/>
                 </a>
@@ -164,25 +197,24 @@
                 <div class="cruise-2018-overview-quote-icons-facebook" id="cruise-2018-facebook"><i
                         class="fa fa-facebook"></i>
                 </div>
-
             </div>
         </div>
-        <div class="cruise-2018-overview-fares-footnote col-xs-12">
+        <div class="cruise-2018-overview-fares-footnote col-xs-12" data-sly-test="${!isCombo}">
             ${'fares-shown-are-per-guest' @i18n}
         </div>
     </div>
 
     <script lang="javascript">
-        var uri = '${cruise.currentPath @ context="uri"}';
-        var countryCode = '${cruise.countryCode @ context="scriptString"}';
-        var ccpt = '${cruise.ccptCode @ context="scriptString"}';
+        var uri = '${currentPath @ context="uri"}';
+        var countryCode = '${countryCode @ context="scriptString"}';
+        var ccpt = '${ccptCode @ context="scriptString"}';
         var cruiseTypeText = '';
-        if ('${cruise.cruiseModel.cruiseType  @ context='scriptString'}' === 'silversea-expedition') {
+        if ('${cruiseType  @ context='scriptString'}' === 'silversea-expedition') {
             cruiseTypeText = '${'expedition-cruise' @ i18n,context='scriptString'}'
         } else {
             cruiseTypeText = '${'cruise' @ i18n,context='scriptString'}'
         }
-        var shareText = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
+        var shareText = ('${departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${arrivalPortName @ context='scriptString'}, ${(navigationTitle || title) @ context='scriptString'} ') + cruiseTypeText;
         $(document).ready(function () {
                 pdfInit(uri, countryCode, ccpt);
                 socialInit(shareText);

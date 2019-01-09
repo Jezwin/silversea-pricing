@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial.cardSliderLightbox;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.models.CardLightbox;
+import com.silversea.aem.models.CardLightboxImpl;
 import com.silversea.aem.utils.MultiFieldUtils;
 import org.apache.sling.api.request.RequestPathInfo;
 
@@ -20,16 +21,37 @@ public class LightboxUse extends WCMUsePojo {
     public void activate() throws Exception {
         RequestPathInfo requestPathInfo = getRequest().getRequestPathInfo();
         String[] selectors = requestPathInfo.getSelectors();
-        int currentCard = Optional.of(selectors).map(array -> array[1]).map(Integer::parseInt).orElse(0);
-        List<CardLightbox> cards = MultiFieldUtils.retrieveMultiField(getResource(), "cards", CardLightbox.class);
-        card = cards.get(currentCard);
+        List<CardLightboxImpl> cards = MultiFieldUtils.retrieveMultiField(getResource(), "cards", CardLightboxImpl.class);
+        init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), cards);
+
+    }
+
+    protected Integer retrieveCurrentIndex(String[] selectors) {
+        int index = selectors.length - 1;
+        while (index >= 0 && selectors[index].startsWith("country")) {
+            index--;
+        }
+        int finalIndex = index;
+        return Optional.of(selectors).map(array -> array[finalIndex]).map(s -> {
+            try {
+                return Integer.parseInt(s);
+            } catch (Exception e) {
+                return null;
+            }
+        }).orElse(0);
+    }
+
+    protected void init(String path, String selector, int currentCard, List<? extends CardLightbox> cards) {
+        this.card = cards.get(currentCard);
         int size = cards.size();
-        int prevIndex = ((currentCard - 1 + size) % size);
-        int nextIndex = ((currentCard + 1 + size)) % size;
-        this.prev = requestPathInfo.getResourcePath() + "." + selectors[0] + "." + prevIndex + ".html";
-        this.next = requestPathInfo.getResourcePath() + "." + selectors[0] + "." + nextIndex + ".html";
-        this.prevCard = cards.get(prevIndex);
-        this.nextCard = cards.get(nextIndex);
+        if (size > 1) {
+            int prevIndex = (currentCard - 1 + size) % size;
+            int nextIndex = (currentCard + 1 + size) % size;
+            this.prev = path + "." + selector + "." + prevIndex + ".html";
+            this.next = path + "." + selector + "." + nextIndex + ".html";
+            this.prevCard = cards.get(prevIndex);
+            this.nextCard = cards.get(nextIndex);
+        }
     }
 
     public String getPrev() {

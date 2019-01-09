@@ -1,0 +1,89 @@
+.route-slider {
+  margin-bottom: 25px;
+  height: 200px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  .slick-dots {
+    width: 100%;
+  }
+
+  .route-content {
+    width: 98%;
+    vertical-align: top;
+    font-size: 16px;
+    white-space: normal;
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px;
+    min-height: 170px;
+    text-align: center;
+    border: 1px solid #ddd;
+
+    &:hover {
+      background: @grey--e6;
+    }
+
+    &.slick-slide {
+      margin: 0px 4px;
+    }
+
+    a {
+      font-family: @freight;
+      font-size: 16px;
+
+      time {
+        margin: 5px 0 15px;
+        padding: 10px 15px;
+        color: @white;
+        background: @nd-dark;
+        display: inline-block;
+      }
+
+      strong {
+        line-height: 22px;
+        font-weight: 400;
+        display: block;
+        text-transform: uppercase;
+        font-family: @freight;
+      }
+    }
+
+    &.route-active {
+      color: @white;
+      background: @nd-dark;
+      border: none;
+      a {
+        time {
+          color: @black;
+          background: @grey--e6;
+        }
+        strong {
+          color: @white;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @screen-sm) {
+  .route-slider {
+    .route-content {
+      width: 100%;
+      font-size: 18px;
+      padding: 15px;
+      min-height: 190px;
+      a {
+        font-size: 17px;
+      }
+    }
+    .slick-slide {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+   .slick-dots {
+      width: 98%;
+      bottom: -15px;
+    }
+  }
+}

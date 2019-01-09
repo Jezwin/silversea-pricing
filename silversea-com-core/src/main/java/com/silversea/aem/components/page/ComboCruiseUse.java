@@ -1,18 +1,19 @@
 package com.silversea.aem.components.page;
 
+import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
+import com.silversea.aem.components.beans.CruiseItinerary;
+import com.silversea.aem.components.beans.CruisePrePost;
 import com.silversea.aem.components.beans.SuitePrice;
+import com.silversea.aem.components.included.combo.AssetGalleryCruiseUse;
 import com.silversea.aem.helper.PriceHelper;
-import com.silversea.aem.models.ComboCruiseModel;
-import com.silversea.aem.models.ItineraryModel;
-import com.silversea.aem.models.PriceModel;
-import com.silversea.aem.models.SegmentModel;
+import com.silversea.aem.models.*;
 import com.silversea.aem.utils.PathUtils;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+
+import static com.silversea.aem.utils.MultiFieldUtils.retrieveMultiField;
+import static java.util.stream.Collectors.toList;
 
 public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
@@ -20,86 +21,82 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
     private List<SuitePrice> prices = new ArrayList<>();
 
+    private List<KeyPerson> keyPeople;
+
+    private List<CruisePrePost> globalPrePost;
+
     private PriceModel lowestPrice = null;
 
     private boolean isWaitList = true;
 
     private Locale locale;
 
-    private int excursionsNumber = 0;
+    private List<SilverseaAsset> shipAssetGallery;
 
-    private int landProgramsNumber = 0;
+    private SegmentModel segmentModel;
+
+    private List<CruiseItinerary> itinerary;
+
+    private List<SilverseaAsset> assetsGallery;
 
     @Override
     public void activate() throws Exception {
         super.activate();
 
-        // init cruise model from current page
-        if (getRequest().getAttribute("cruiseModel") != null) {
-            comboCruiseModel = (ComboCruiseModel) getRequest().getAttribute("comboCruiseModel");
-        } else {
-            comboCruiseModel = getCurrentPage().adaptTo(ComboCruiseModel.class);
-            getRequest().setAttribute("comboCruiseModel", comboCruiseModel);
-        }
 
-        if (comboCruiseModel == null) {
-            throw new Exception("Cannot get combo cruise model");
-        }
+        // init cruise model from current page
+        comboCruiseModel = retrieveComboCruise().orElseThrow(() -> new Exception("Cannot get combo cruise model"));
+
+        keyPeople = retrieveMultiField(getResource(), "keyPeople", resource -> resource.getChild("path"))
+                .map(path -> path.adaptTo(String.class))
+                .map(getPageManager()::getPage)
+                .filter(page -> page!=null)
+                .map((Page page) -> new KeyPerson(page, getResourceResolver()))
+                .collect(toList());
+        globalPrePost = retrievePrePost(comboCruiseModel);
+
 
         locale = getCurrentPage().getLanguage(false);
+        segmentModel = retrieveSelectedSegment(comboCruiseModel, null);
+        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(getResource(), getResourceResolver(), getCurrentPage());
+        itinerary = Cruise2018Use.retrieveItinerary(segmentModel.getCruise(), getResourceResolver());
+        shipAssetGallery = Cruise2018Use.retrieveShipAssetsGallery(segmentModel.getCruise(), getResourceResolver());
 
-        // init number of elements (excursions, hotels, land programs)
-        for (final SegmentModel segment : comboCruiseModel.getSegments()) {
-            if (segment.getCruise() != null) {
-                for (ItineraryModel itinerary : segment.getCruise().getCompactedItineraries()) {
-                    if (itinerary.getPort() != null) {
-                        excursionsNumber += itinerary.getHasDedicatedShorex() ? itinerary.getExcursions().size() : itinerary.getPort().getExcursions().size();
-                        landProgramsNumber += itinerary.getLandPrograms().size();
-                    }
-                    
-                    if (itinerary.getDepartDate() != null && itinerary.getDate() != null) {
-        				int numberDays = itinerary.getDepartDate().get(Calendar.DATE) - itinerary.getDate().get(Calendar.DATE);
-        				itinerary.setNumberDays(numberDays);
-        			}
+        prices = Cruise2018Use.retrievePrices(getCurrentPage(), geomarket, currency, comboCruiseModel.getPrices());
+        lowestPrice = Cruise2018Use.retrieveLowestPrice(prices);
+        isWaitList = lowestPrice == null;
+    }
 
-                }
-            }
+    private Optional<ComboCruiseModel> retrieveComboCruise() {
+        if (getRequest().getAttribute("cruiseModel") != null) {
+            return Optional.ofNullable((ComboCruiseModel) getRequest().getAttribute("comboCruiseModel"));
         }
+        return Optional.ofNullable(getCurrentPage().adaptTo(ComboCruiseModel.class));
+    }
 
-        // init prices based on geolocation
-        // TODO duplicated with com.silversea.aem.components.page.CruiseUse
-        for (final PriceModel priceModel : comboCruiseModel.getPrices()) {
-            if (priceModel.getGeomarket() != null
-                    && priceModel.getGeomarket().equals(geomarket)
-                    && priceModel.getCurrency().equals(currency)) {
-                // Adding price to suites/prices mapping
-                boolean added = false;
+    private List<CruisePrePost> retrievePrePost(ComboCruiseModel comboCruiseModel) {
+        return comboCruiseModel.getSegments().stream()
+                .map(SegmentModel::getCruise)
+                .map(cruise -> Cruise2018Use.retrieveItinerary(cruise, getResourceResolver()))
+                .flatMap(itineraries -> Cruise2018Use.retrievePrePosts(itineraries).stream())
+                .collect(toList());
+    }
 
-                for (SuitePrice price : prices) {
-                    if (price.getSuite().equals(priceModel.getSuite())) {
-                        price.add(priceModel);
+    private SegmentModel retrieveSelectedSegment(ComboCruiseModel comboCruiseModel, String selector) {
+        return comboCruiseModel != null && !comboCruiseModel.getSegments().isEmpty() ? comboCruiseModel.getSegments().get(0) : null;
+    }
 
-                        added = true;
-                    }
-                }
 
-                if (!added) {
-                    prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale, priceModel.getSuiteCategory()));
-                }
+    /**
+     * @return the total number of cruise fares additions
+     */
+    public int getCruiseFareAdditionsSize() {
+        return comboCruiseModel.getComboCruiseFareAdditions().size();
+    }
 
-                // Init lowest price
-                if (!priceModel.isWaitList()) {
-                    if (lowestPrice == null) {
-                        lowestPrice = priceModel;
-                    } else if (lowestPrice.getComputedPrice() > priceModel.getComputedPrice()) {
-                        lowestPrice = priceModel;
-                    }
 
-                    // Init wait list
-                    isWaitList = false;
-                }
-            }
-        }
+    public List<? extends CardLightbox> getKeyPeople() {
+        return keyPeople;
     }
 
     /**
@@ -107,20 +104,6 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
      */
     public ComboCruiseModel getComboCruiseModel() {
         return comboCruiseModel;
-    }
-
-    /**
-     * @return the number of excursions, of the itineraries or the attached ports
-     */
-    public int getExcursionsNumber() {
-        return excursionsNumber;
-    }
-
-    /**
-     * @return the number of land programs, of the itineraries or the attached ports
-     */
-    public int getLandProgramsNumber() {
-        return landProgramsNumber;
     }
 
     public Calendar getStartDate() {
@@ -157,5 +140,52 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
      */
     public String getRequestQuotePagePath() {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+    }
+
+    public Calendar getEndDate() {
+        int lastIndex = comboCruiseModel.getSegments().size();
+        return comboCruiseModel.getSegments().get(lastIndex - 1).getCruise().getEndDate();
+    }
+
+    public String getDeparturePortName() {
+        int lastIndex = comboCruiseModel.getSegments().size();
+        return comboCruiseModel.getSegments().get(lastIndex - 1).getCruise().getDeparturePortName();
+    }
+
+    public String getArrivalPortName() {
+        return comboCruiseModel.getSegments().get(0).getCruise().getArrivalPortName();
+    }
+
+    public Integer getDuration() {
+        return comboCruiseModel.getDuration();
+    }
+
+    public boolean isEarlyBookingBonus() {
+        return lowestPrice.getEarlyBookingBonus() != null;
+    }
+
+    public boolean isFeetSquare() {
+        return "US".equals(countryCode);
+    }
+
+    public List<SilverseaAsset> getShipAssetGallery() {
+        return shipAssetGallery;
+    }
+
+    public List<SilverseaAsset> getAssetsGallery() {
+        return assetsGallery;
+    }
+
+    public List<CruisePrePost> getGlobalPrePost() {
+        return globalPrePost;
+    }
+
+
+    public List<CruiseItinerary> getItinerary() {
+        return itinerary;
+    }
+
+    public SegmentModel getSegmentModel() {
+        return segmentModel;
     }
 }
