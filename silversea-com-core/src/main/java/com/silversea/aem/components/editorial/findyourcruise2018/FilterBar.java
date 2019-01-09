@@ -56,7 +56,7 @@ public class FilterBar {
             filter.initAllValues(use, filter.selectedKeys(properties, httpRequest), allCruises);
         }
         setOpen(httpRequest.getOrDefault("open", new String[]{"allclose"}));
-        setSortBy(httpRequest.getOrDefault("sortby", new String[]{"departure-desc"}));
+        setSortBy(httpRequest.getOrDefault("sortby", new String[]{"departure-asc"}));
     }
 
     boolean isCruiseMatching(CruiseModelLight cruiseModelLight) {
