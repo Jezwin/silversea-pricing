@@ -1,17 +1,17 @@
-<template data-sly-template.default="${ @ cruise }">
+<template data-sly-template.default="${ @ prePost}">
     <div class="cruise-2018-prepost-wrapper hidden-xs" id="cruise2018prepost">
         <div class="cruise-2018-prepost">
-            <sly data-sly-test.prePosts="${cruise.prePost}">
+            <sly data-sly-test.prePosts="${prePost}">
                 <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n} ${'and' @i18n} ${'hotels' @i18n}</div>
                 <div data-ssc-slides="4" data-ssc-breakpoint="1024"
                      class="cruise-2018-prepost-content cruise-2018-slider">
-                    <sly data-sly-list.prePost="${cruise.prePost}">
+                    <sly data-sly-list.prePost="${prePost}">
                         <div class="cruise-2018-prepost-slide">
                             <sly data-sly-test.typeLB="${prePost.type == 'hotel' ? 'lg-hotel': 'lg-land'}"/>
-                            <a class="open-lightbox-land-shorex-hotel prepost-lightbox-link" data-target=".lightbox" id="lb-prePost-${prePost.id}"
-
-                               href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',typeLB, prePost.itineraryId, prePost.id]}"></a>
-                            <sly data-sly-test.thumbnail = "${prePost.thumbnail || prePost.fallbackThumbnail}"/>
+                            <a class="open-lightbox-land-shorex-hotel prepost-lightbox-link" data-target=".lightbox"
+                               id="lb-prePost-${prePost.id}"
+                               href="${prePost.cruisePath @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',typeLB, prePost.itineraryId, prePost.id]}"></a>
+                            <sly data-sly-test.thumbnail="${prePost.thumbnail || prePost.fallbackThumbnail}"/>
                             <div class="cruise-2018-prepost-slide-thumbnail">
                                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                                      data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=350}"/>

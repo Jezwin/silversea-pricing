@@ -4,7 +4,7 @@ $(function () {
     /***************************************************************************
      * Lightbox Land Shorex Hotel detail
      **************************************************************************/
-    $('.open-lightbox-land-shorex-hotel').on('click', function (e) {
+    $('.cruise-2018-itineraries-container, .cruise-2018-prepost-wrapper').on('click', ".open-lightbox-land-shorex-hotel", function (e) {
         e.preventDefault();
         e.stopPropagation();
         $(".lightbox-prev-link, .lightbox-next-link").hide();

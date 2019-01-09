@@ -1,86 +1,95 @@
-<div data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse" class="container c-cruise c-combo-cruise">
-    <div class="row">
-        <div class="col-md-12">
-            <div data-sly-resource="${'header-combocruise' @ resourceType='silversea/silversea-com/components/editorial/combocruiseheader', wcmmode='disabled'}"></div>
-        </div>
+<div itemscope itemtype="http://schema.org/Product" class="combocruise-2018 container"
+     data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse">
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+    <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise/templates/overview.html"
+         data-sly-call="${overview.default @
+         bigItineraryMap=comboCruise.comboCruiseModel.bigItineraryMap,
+         cruiseType='silversea-combocruise',
+         isCombo=true,
+         cruiseCode=comboCruise.comboCruiseModel.page.name,
+         externalizerHelper=externalizerHelper,
+         assetsGallery=comboCruise.assetsGallery,
+         bigThumbnail=comboCruise.comboCruiseModel.thumbnail,
+         title=comboCruise.comboCruiseModel.title,
+         arrivalPortName=comboCruise.comboCruiseModel.arrivalPortName,
+         departurePortName=comboCruise.comboCruiseModel.departurePortName,
+         startDate=comboCruise.comboCruiseModel.startDate,
+         endDate=comboCruise.comboCruiseModel.endDate,
+         duration=comboCruise.comboCruiseModel.duration,
+         ship=comboCruise.comboCruiseModel.ship,
+         requestQuotePagePath=comboCruise.requestQuotePagePath,
+         computedPriceFormatted=comboCruise.computedPriceFormatted,
+         earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
+    currency=comboCruise.lowestPrice.currency}" />
+    <sly data-sly-use.menu="/apps/silversea/silversea-com/components/pages/cruise/templates/menu.html"
+         data-sly-call="${menu.navigation @
+         cruiseType='silversea-combocruise',
+         arrivalPortName=comboCruise.comboCruiseModel.arrivalPortName,
+         departurePortName=comboCruise.comboCruiseModel.departurePortName,
+         startDate=comboCruise.comboCruiseModel.startDate,
+         endDate=comboCruise.comboCruiseModel.endDate,
+         duration=comboCruise.duration,
+         isWaitlist=comboCruise.isWaitlist,
+         earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
+         currency=comboCruise.lowestPrice.currency,
+         computedPriceFormatted=comboCruise.computedPriceFormatted,
+         requestQuotePagePath=comboCruise.requestQuotePagePath}" />
+    <div data-sly-resource="${'par-combocruise-offer' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    <sly data-sly-use.itinerary="/apps/silversea/silversea-com/components/pages/combocruise/templates/itineraryexcursions/itinerary.html"
+         data-sly-call="${itinerary.default @
+         comboModel= comboCruise.comboCruiseModel,
+         model=comboCruise.segmentModel.cruise,
+         numPorts=comboCruise.comboCruiseModel.portsAmount,
+         numCountries=comboCruise.comboCruiseModel.countriesAmount,
+         numRoutes=comboCruise.comboCruiseModel.routesAmount,
+         dayUntilDeparture=comboCruise.comboCruiseModel.duration,
+         itinerary=comboCruise.itinerary,
+         externalizerHelper=externalizerHelper,
+         itineraryMap=comboCruise.segmentModel.focusedMapReference,
+         customDescription=comboCruise.comboCruiseModel.description,
+         countryCode='',
+         currentPath='',
+         hideVoyageCode=true}"/>
+    <div class="cardSliderLightbox cruise2018-keypeople" data-sly-test="${comboCruise.keyPeople}">
+        <hr/>
+        <sly data-sly-test.title="${'expedition-team' @ i18n}"/>
+        <sly data-sly-use.template="/apps/silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
+             data-sly-call="${template.default @
+             title=title,
+             slidesDesktop=4,
+             slidesTablet=3,
+             slidesMobile=1,
+             style='circled',
+             backgroundColour='grayBackground',
+             cards=comboCruise.keyPeople,
+             lightboxPath=currentPage.path,
+             selector='lightboxes.lg-keyperson'}"/>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="c-tab c-tab__accordion c-tab--cruise">
-                <ul class="c-tab__nav c-tab__nav--fixed dropdown-menu" data-toggle="dropdown" aria-expanded="false">
-                    <li class="c-tab__link c-tab__link--clear" data-state="active">
-                        <a href="#overview"><span>${'overview-and-fares' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--clear">
-                        <a href="#route"><span>${'itineraries' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--clear" data-sly-test="${comboCruise.excursionsNumber > 0}">
-                        <a href="#excursions"><span>${'excursions' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--clear" data-sly-test="${comboCruise.landProgramsNumber > 0}">
-                        <a href="#landnhotel"><span>${'land-programmes' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--clear">
-                        <a href="#ship"><span>${'ship' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--clear">
-                        <a href="#benefitsnevents"><span>${'benefits-and-events' @i18n}</span></a>
-                    </li>
-                </ul>
-                <div class="c-tab__body">
-                    <div class="c-tab__content c-tab__content--overview" id="overview" data-state="active">
-                        <!--/* Overview tab */-->
-                        <sly data-sly-use.overview0="silversea/silversea-com/components/pages/combocruise/fragment/overviewtab/overview.html"
-                            data-sly-call="${overview0.default @ comboCruise=comboCruise}" />
-                        <sly data-sly-include="fragment/overviewtab/gallery.html" />
-                        <sly data-sly-use.map="silversea/silversea-com/components/pages/combocruise/fragment/overviewtab/map.html"
-                            data-sly-call="${map.default @ comboCruise=comboCruise}" />
-                        <div data-sly-resource="${'par-overview-middle' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                        <sly data-sly-use.suitelist="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist.html"
-                            data-sly-call="${suitelist.default @ comboCruise=comboCruise}" />
-                        <sly data-sly-include="fragment/overviewtab/benefitsandeventsparsys.html" />
-                        <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                    </div>
-                    <div class="c-tab__content" id="route">
-                        <!--/* Routes tab */-->
-                        <sly data-sly-use.overview2="silversea/silversea-com/components/pages/combocruise/fragment/routetab/overview.html"
-                            data-sly-call="${overview2.default @ comboCruise=comboCruise}" />
-                        <sly data-sly-use.segmentinfo="silversea/silversea-com/components/pages/combocruise/fragment/routetab/segmentinfo.html"
-                            data-sly-call="${segmentinfo.default @ comboCruise=comboCruise}" />
-                    </div>
-                    <div class="c-tab__content" id="excursions" data-sly-test="${comboCruise.excursionsNumber > 0}">
-                        <!--/* Excursions tab */-->
-                        <div data-sly-resource="${'par-ex-top' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                        <sly data-sly-use.portexcursionslist="silversea/silversea-com/components/pages/combocruise/fragment/excursiontab/portexcursionslist.html"
-                            data-sly-call="${portexcursionslist.default @ comboCruise=comboCruise}" />
-                        <div data-sly-resource="${'par-ex-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                    </div>
-                    <div class="c-tab__content" id="landnhotel" data-sly-test="${comboCruise.landProgramsNumber > 0}">
-                        <!--/* Land and hotel tab */-->
-                        <div data-sly-resource="${'par-lp-top' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                        <sly data-sly-use.portlandprogramlist="silversea/silversea-com/components/pages/combocruise/fragment/landprogramtab/portlandprogramlist.html"
-                            data-sly-call="${portlandprogramlist.default @ comboCruise=comboCruise}" />
-                        <div data-sly-resource="${'par-lp-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                    </div>
-                    <div class="c-tab__content" id="ship">
-                        <!--/* Ship tab */-->
-                        <sly data-sly-use.overview="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/overview.html"
-                            data-sly-call="${overview.default @ comboCruise=comboCruise}" />
-                        <sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/suitevariation.html"
-                            data-sly-call="${suitevariation.default @ comboCruise=comboCruise}" />
-                        <sly data-sly-use.diningvariation="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/diningvariation.html"
-                            data-sly-call="${diningvariation.default @ comboCruise=comboCruise}" />
-                        <sly data-sly-use.publicareavariation="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/publicareavariation.html"
-                            data-sly-call="${publicareavariation.default @ comboCruise=comboCruise}" />
-                    </div>
-                    <div class="c-tab__content" id="benefitsnevents">
-                        <!--/* Benefits and events tab */-->
-                        <sly data-sly-use.benefitsandevents="silversea/silversea-com/components/pages/combocruise/fragment/benefitstab/benefitsandevents.html"
-                            data-sly-call="${benefitsandevents.default @ comboCruise=comboCruise}" />
-                        <div data-sly-resource="${'par-benefitsnevents-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <hr class="combocruise-2018-hr-itinerary-suite"/>
+    <div id="menu-cruise2018suites" data-sly-resource="${'par-overview-middle' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    <sly data-sly-use.suitesfares="/apps/silversea/silversea-com/components/pages/cruise/templates/suites-fares.html"
+         data-sly-call="${suitesfares.default @
+         prices=comboCruise.prices,
+         model=comboCruise.comboCruiseModel,
+         isFeetSquare=comboCruise.isFeetSquare,
+         requestQuotePagePath=comboCruise.requestQuotePagePath,
+         exclusiveOffersCruiseFareAdditions=comboCruise.comboCruiseModel.comboCruiseFareAdditions}"/>
+    <hr/>
+    <sly data-sly-use.ship="/apps/silversea/silversea-com/components/pages/cruise/templates/ship/ship.html"
+         data-sly-call="${ship.default @
+         ship=comboCruise.comboCruiseModel.ship,
+         shipAssetGallery=comboCruise.shipAssetGallery,
+         externalizerHelper=externalizerHelper}"/>
+    <sly data-sly-include="fragment/overviewtab/benefitsandeventsparsys.html"/>
+    <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise/templates/pre-post.html"
+         data-sly-call="${prepost.default @ prePost=comboCruise.globalPrePost}"/>
+    <sly data-sly-use.footer="/apps/silversea/silversea-com/components/pages/cruise/templates/footer.html"
+         data-sly-call="${footer.default @
+         isWaitlist=comboCruise.isWaitlist,
+         earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
+         currency=comboCruise.lowestPrice.currency,
+         computedPriceFormatted=comboCruise.computedPriceFormatted,
+         requestQuotePagePath=comboCruise.requestQuotePagePath}"/>
+    <div data-sly-resource="${'par-events-slider' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 </div>

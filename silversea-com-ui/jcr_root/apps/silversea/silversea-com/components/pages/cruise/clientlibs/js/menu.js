@@ -96,7 +96,8 @@ $(function () {
             easing: 'linear'
         }, 1500);
     });
-    if ($("body.cruise").length > 0 && $(".cruise-2018-overview").length > 0) {
+    var isCorrectPage = $(".cruise-2018-overview").length > 0 && ($("body").hasClass("cruise") || $("body").hasClass("combocruise"));
+    if (isCorrectPage) {
         menu.onScroll();
         $(document).on('scroll resize touchmove gesturechange', menu.onScroll.bind(menu));
     }

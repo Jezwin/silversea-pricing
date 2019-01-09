@@ -34,9 +34,9 @@ $(function () {
         history.pushState(null, null, "#" + id);
     }
 
-    $(".cruise-2018-itineraries-port-excursions-btn").on('click', toggle);
+    $(".cruise-2018-itineraries-container").on('click', ".cruise-2018-itineraries-port-excursions-btn", toggle);
 
-    $(".cruise-2018-itineraries-itinerary-row-container-with-excursion").on('click', toggleExcursions);
+    $(".cruise-2018-itineraries-container").on('click',".cruise-2018-itineraries-itinerary-row-container-with-excursion", toggleExcursions);
 
     $(".cruise-2018-itineraries-itinerary-row-container.cruise-2018-itineraries-itinerary-row-container-with-excursion").mouseover(function (e) {
         var prev = $(this).closest('.cruise-2018-itineraries-itinerary').prev().prev();
@@ -55,7 +55,7 @@ $(function () {
     });
 
     $(document).ready(function () {
-        if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".cruise-2018-itineraries-container").length > 0) {
+        if (($("body").hasClass("combocruise") || $("body").hasClass("cruise")) && $(".cruise-2018-itineraries-container").length > 0) {
             $(document).on('scroll touchmove gesturechange', loadPortsImage);
             loadPortsImage();
 

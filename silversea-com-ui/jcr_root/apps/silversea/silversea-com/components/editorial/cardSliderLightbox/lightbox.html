@@ -6,7 +6,7 @@
         <a href="#${lightboxUse.next}" class="used-by-lightbox-simple-next">${lightboxUse.nextCard.title}</a>
 
         <div class="csl-asset-slider csl-asset-slider--main">
-            <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=card.assetSelection, fallback=card.bigPicture}"/>
+            <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=card.assetSelection, fallback=card.bigPicture || card.thumbnail}"/>
             <div data-sly-repeat.asset="${setImage.renditionList}" data-image="${asset.path}">
                 <div class="ratio">
                     <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
