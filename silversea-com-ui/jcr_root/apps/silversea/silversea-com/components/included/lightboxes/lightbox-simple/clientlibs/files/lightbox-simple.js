@@ -39,13 +39,13 @@ $(function () {
             $lightboxSimple.find('.lightbox-simple-prev-label').html(loadedPrev.html());
             var prevLink = $lightboxSimple.find(".lightbox-simple-prev-link");
             var prevHref = loadedPrev.attr("href");
+            var nextHref = loadedNext.attr("href");
+            if (!prevHref || !nextHref) {
+                return;
+            }
             prevLink.attr("href", prevHref);
             $lightboxSimple.find('.lightbox-simple-next-label').html(loadedNext.html());
             var nextLink = $lightboxSimple.find(".lightbox-simple-next-link");
-            var nextHref = loadedNext.attr("href");
-            if (prevHref === nextHref) {
-                return;
-            }
             nextLink.attr("href", nextHref);
             prevLink.off("click");//remove others click events
             nextLink.off("click");

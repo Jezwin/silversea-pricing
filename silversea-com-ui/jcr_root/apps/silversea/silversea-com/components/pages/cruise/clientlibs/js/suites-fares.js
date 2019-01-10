@@ -1,6 +1,7 @@
 $(function () {
     $(document).ready(function () {
-        if ($("body").hasClass("cruise") && $(".cruise-2018 ").length > 0 && $(".cruise-2018-suites-fares").length > 0) {
+        var isCorrectPage = ($("body").hasClass("cruise") || $("body").hasClass("combocruise")) && $(".cruise-2018-suites-fares").length > 0;
+        if (isCorrectPage) {
             $(document).on('scroll touchmove gesturechange', loadSuitesImage);
             loadSuitesImage();
         }

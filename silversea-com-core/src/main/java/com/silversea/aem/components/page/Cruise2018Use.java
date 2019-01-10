@@ -5,9 +5,9 @@ import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
 import com.google.common.base.Strings;
 import com.silversea.aem.components.beans.*;
+import com.silversea.aem.components.included.combo.AssetGalleryCruiseUse;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
@@ -19,6 +19,7 @@ import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 
 import javax.sound.sampled.Port;
@@ -33,6 +34,7 @@ import java.util.stream.Stream;
 import static com.google.common.base.Strings.emptyToNull;
 import static com.silversea.aem.utils.AssetUtils.buildAssetList;
 import static java.util.Comparator.comparing;
+import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
@@ -113,12 +115,15 @@ public class Cruise2018Use extends EoHelper {
     public void activate() throws Exception {
         super.activate();
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+        Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
         Locale locale = getCurrentPage().getLanguage(false);
         Lightbox typeLightbox = checkIsLightbox(selectors);
         selector = typeLightbox.getSelector();
         switch (typeLightbox) {
             case ASSET_GALLERY:
-                assetsGallery = retrieveAssetsGallery();
+                assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage());
+                arrivalPortName = AssetGalleryCruiseUse.retrieveArrivalPortName(itinerariesResource);
+                departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
                 return;
             case HIGHLIGHTS:
                 highlights = retrieveHighlights();
@@ -149,16 +154,18 @@ public class Cruise2018Use extends EoHelper {
                 break;
         }
 
-        assetsGallery = retrieveAssetsGallery();
+        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage());
+        arrivalPortName = AssetGalleryCruiseUse.retrieveArrivalPortName(itinerariesResource);
+        departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
         cruiseModel = retrieveCruiseModel();
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         VSLBPath = retrieveVenetianSocietyLBPath();
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
-        shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
+        shipAssetGallery = retrieveShipAssetsGallery(cruiseModel, getResourceResolver());
 
-        itinerary = retrieveItinerary(cruiseModel);
+        itinerary = retrieveItinerary(cruiseModel, getResourceResolver());
         portsGallery = retrievePortsGalleryAndVideo(cruiseModel);
 
         showCruiseBeforeName = retrieveShowCruiseBeforeName(locale);
@@ -171,7 +178,7 @@ public class Cruise2018Use extends EoHelper {
 
         dayUntilDeparture = ChronoUnit.DAYS.between(Instant.now(), cruiseModel.getStartDate().toInstant());
         prePosts = retrievePrePosts(itinerary);
-        prices = retrievePrices(cruiseModel);
+        prices = retrievePrices(getCurrentPage(), geomarket, currency, cruiseModel.getPrices());
         lowestPrice = retrieveLowestPrice(prices);
         if (lowestPrice != null) {
             waitlist = false;
@@ -201,7 +208,7 @@ public class Cruise2018Use extends EoHelper {
     private List<SilverseaAsset> retrievePortsGalleryAndVideo(CruiseModel cruiseModel) {
         String assetSelectionReference;
         ValueMap vmProperties = getCurrentPage().getProperties();
-        Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false);
+        Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false, getResourceResolver()));
         List<SilverseaAsset> PortGalleryAndVideo = cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
                 .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> AssetUtils.buildSilverseaAsset(path, getResourceResolver(), "", ""))).distinct().collect(toList());
         assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
@@ -215,7 +222,7 @@ public class Cruise2018Use extends EoHelper {
         return PortGalleryAndVideo;
     }
 
-    private Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
+    public static Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
         Set<CruisePrePost> uniqueValues = new HashSet<>();
         for (CruiseItinerary cruiseItinerary : itinerary) {
             uniqueValues.addAll(cruiseItinerary.getPrePosts());
@@ -240,11 +247,11 @@ public class Cruise2018Use extends EoHelper {
     }
 
 
-    private LinkedList<String> portAssets(PortModel portModel) {
+    private static LinkedList<String> portAssets(PortModel portModel, ResourceResolver resourceResolver) {
         String assetSelectionReference = portModel.getAssetSelectionReference();
         LinkedList<String> assets =
                 ofNullable(emptyToNull(assetSelectionReference)).map(reference -> buildAssetList(reference,
-                        getResourceResolver())).map(list -> list.stream().map(Asset::getPath)).orElseGet(Stream::empty)
+                        resourceResolver)).map(list -> list.stream().map(Asset::getPath)).orElseGet(Stream::empty)
                         .distinct()
                         .collect(toCollection(LinkedList::new));
         if (assets.isEmpty()) {
@@ -255,14 +262,14 @@ public class Cruise2018Use extends EoHelper {
     }
 
 
-    private List<CruiseItinerary> retrieveItinerary(CruiseModel cruiseModel) {
+    public static List<CruiseItinerary> retrieveItinerary(CruiseModel cruiseModel, ResourceResolver resourceResolver) {
         final InheritanceValueMap propertiesInherited =
                 new HierarchyNodeInheritanceValueMap(cruiseModel.getPage().getAbsoluteParent(2).getContentResource());
         String thumbnailInherited = propertiesInherited.getInherited("image/fileReference", String.class);
         List<CruiseItinerary> result = new ArrayList<>();
         List<ItineraryModel> itineraries = cruiseModel.getItineraries();
         int size = itineraries.size();
-        Map<Integer, LinkedList<String>> portAssets = retrievePortsAssets(itineraries, true);
+        Map<Integer, LinkedList<String>> portAssets = retrievePortsAssets(itineraries, true, resourceResolver);
         Set<Calendar> days = new HashSet<>();
         for (int counter = 0; counter < size; counter++) {
             ItineraryModel itinerary = itineraries.get(counter);
@@ -272,17 +279,17 @@ public class Cruise2018Use extends EoHelper {
                     new CruiseItinerary(days.size(), counter == 0, counter == size - 1,
                             ofNullable(portAssets.get(portId).poll())
                                     .orElse(ofNullable(itinerary.getPort().getThumbnail()).orElse(thumbnailInherited)),
-                            itinerary.isOvernight(), itinerary, cruiseModel.getCruiseType(), getResourceResolver()));
+                            itinerary.isOvernight(), itinerary, cruiseModel.getCruiseType(), cruiseModel.getPath(), resourceResolver));
         }
         result.sort(comparing(CruiseItinerary::getDate));
         return result;
     }
 
-    private Map<Integer, LinkedList<String>> retrievePortsAssets(List<ItineraryModel> itineraries,
-                                                                 boolean withDayAtSea) {
+    private static Map<Integer, LinkedList<String>> retrievePortsAssets(List<ItineraryModel> itineraries,
+                                                                        boolean withDayAtSea, ResourceResolver resourceResolver) {
         return itineraries.stream().map(ItineraryModel::getPort).distinct()
                 .filter(port -> withDayAtSea || isNotDayAtSea(port))
-                .collect(Collectors.toMap(PortModel::getCityId, this::portAssets, (l1, l2) -> l1));
+                .collect(Collectors.toMap(PortModel::getCityId, (portModel) -> portAssets(portModel, resourceResolver), (l1, l2) -> l1));
     }
 
     private static boolean isNotDayAtSea(PortModel port) {
@@ -376,11 +383,11 @@ public class Cruise2018Use extends EoHelper {
         return null;
     }
 
-    private List<SilverseaAsset> retrieveShipAssetsGallery(CruiseModel cruiseModel) {
+    public static List<SilverseaAsset> retrieveShipAssetsGallery(CruiseModel cruiseModel, ResourceResolver resourceResolver) {
         if (cruiseModel != null && cruiseModel.getShip() != null) {
             String assetSelectionReference = cruiseModel.getShip().getAssetGallerySelectionReference();
             if (StringUtils.isNotBlank(assetSelectionReference)) {
-                return AssetUtils.buildSilverseaAssetList(assetSelectionReference, getResourceResolver(), null);
+                return AssetUtils.buildSilverseaAssetList(assetSelectionReference, resourceResolver, null);
             }
         }
         return null;
@@ -411,7 +418,7 @@ public class Cruise2018Use extends EoHelper {
                 .publishLink(getResourceResolver(), getCurrentPage().getPath());
     }
 
-    private PriceModel retrieveLowestPrice(List<SuitePrice> prices) {
+    public static PriceModel retrieveLowestPrice(List<SuitePrice> prices) {
         boolean seen = false;
         PriceModel best = null;
         Comparator<PriceModel> comparator = comparing(PriceModel::getComputedPrice);
@@ -455,11 +462,11 @@ public class Cruise2018Use extends EoHelper {
         return list;
     }
 
-    private List<SuitePrice> retrievePrices(CruiseModel cruise) {
-        Locale locale = getCurrentPage().getLanguage(false);
+    public static List<SuitePrice> retrievePrices(Page page, String geomarket, String currency, List<PriceModel> prices) {
+        Locale locale = page.getLanguage(false);
         List<SuitePrice> suites = new ArrayList<>();
         Set<PriceModel> uniqueValues = new HashSet<>();
-        for (PriceModel price : cruise.getPrices()) {
+        for (PriceModel price : prices) {
             if (geomarket.equals(price.getGeomarket())) {
                 if (currency.equals(price.getCurrency())) {
                     if (uniqueValues.add(price)) {
@@ -508,116 +515,6 @@ public class Cruise2018Use extends EoHelper {
         }
     }
 
-
-    private List<SilverseaAsset> retrieveAssetsGallery() {
-        Page currentPage = getCurrentPage();
-        PageManager pageManager = currentPage.getPageManager();
-        ShipModel ship = null;
-        String assetSelectionReference;
-        if (pageManager == null) {
-            return null;
-        }
-        ValueMap vmProperties = currentPage.getProperties();
-        if (vmProperties == null) {
-            return null;
-        }
-        String shipReference = vmProperties.get("shipReference", String.class);
-        if (StringUtils.isNotEmpty(shipReference)) {
-            Page shipPage = pageManager.getPage(shipReference);
-            if (shipPage != null) {
-                ship = shipPage.adaptTo(ShipModel.class);
-            }
-        }
-        assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
-        List<SilverseaAsset> assetsListResult = new ArrayList<>();
-        if (StringUtils.isNotBlank(assetSelectionReference)) {
-            assetsListResult.addAll(AssetUtils
-                    .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                            null));
-        }
-        List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort();
-        assetsListResult.addAll(portsAssetsList);
-        if (ship != null) {
-            assetsListResult.addAll(retrieveAssetsFromShip(ship));
-        }
-        String map = CruiseUtils.firstNonNull(vmProperties.get("bigItineraryMap", String.class),
-                vmProperties.get("bigThumbnailItineraryMap", String.class),
-                vmProperties.get("smallItineraryMap", String.class));
-        String type = null;
-        if (map == null) {
-            map = vmProperties.get("itinerary", String.class);
-            type = "itinerary";
-        }
-        if (map != null) {
-            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, getResourceResolver(), null, type));
-        }
-
-        return assetsListResult.stream().distinct().collect(toList());
-    }
-
-
-    private List<SilverseaAsset> retrieveAssetsFromPort() {
-        Resource itinerariesResource = getResource().hasChildren() ? getResource().getChild("itineraries") : null;
-        List<SilverseaAsset> portsAssetsList = new ArrayList<>();
-        if (itinerariesResource != null && itinerariesResource.hasChildren()) {
-            Iterator<Resource> children = itinerariesResource.getChildren().iterator();
-            ItineraryModel itineraryModel;
-            while (children.hasNext()) {
-                Resource it = children.next();
-                itineraryModel = it.adaptTo(ItineraryModel.class);
-                if (itineraryModel != null && itineraryModel.getPort() != null) {
-                    PortModel portModel = itineraryModel.getPort();
-                    if (!"day-at-sea".equals(portModel.getName())) {
-                        if (StringUtils.isEmpty(this.departurePortName)) {
-                            this.departurePortName = portModel.getApiTitle();
-                        }
-                        this.arrivalPortName = portModel.getApiTitle();
-                        String assetSelectionReference = portModel.getAssetSelectionReference();
-                        if (StringUtils.isNotBlank(assetSelectionReference)) {
-                            List<SilverseaAsset> portAssets = AssetUtils
-                                    .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                            portModel.getTitle());
-                            if (portAssets != null && !portAssets.isEmpty()) {
-                                portsAssetsList.addAll(portAssets);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return portsAssetsList;
-    }
-
-    private List<SilverseaAsset> retrieveAssetsFromShip(ShipModel shipModel) {
-        List<SilverseaAsset> listShipAssets = new ArrayList<>();
-        if (shipModel != null) {
-            List<SilverseaAsset> virtualTourAssets = new ArrayList<>();
-            if (StringUtils.isNotEmpty(shipModel.getPhotoVideoSuiteSelectionReference())) {
-                listShipAssets.addAll(AssetUtils
-                        .buildSilverseaAssetList(shipModel.getPhotoVideoSuiteSelectionReference(),
-                                getResourceResolver(), null));
-            } else {
-                retrieveAssetsFromShip(shipModel.getSuites(), listShipAssets, virtualTourAssets);
-            }
-            retrieveAssetsFromShip(shipModel.getDinings(), listShipAssets, virtualTourAssets);
-            retrieveAssetsFromShip(shipModel.getPublicAreas(), listShipAssets, virtualTourAssets);
-            listShipAssets.addAll(virtualTourAssets);
-        }
-        return listShipAssets;
-    }
-
-    private void retrieveAssetsFromShip(List<? extends ShipAreaModel> shipEntitiy, List<SilverseaAsset> classicAssets,
-                                        List<SilverseaAsset> virtualTourAssets) {
-        if (shipEntitiy != null && !shipEntitiy.isEmpty()) {
-            Map<String, List<SilverseaAsset>> mapAsset =
-                    AssetUtils.addAllShipAreaAssets(getResourceResolver(), shipEntitiy);
-            if (!mapAsset.isEmpty()) {
-                classicAssets.addAll(mapAsset.get("assets"));
-                virtualTourAssets.addAll(mapAsset.get("assetsVirtualTour"));
-            }
-        }
-    }
-
     private CruiseModelLight[] retrievePrevNext(CruiseModel cruiseModel, Comparator<CruiseModelLight> comparator) {
         final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
@@ -658,6 +555,7 @@ public class Cruise2018Use extends EoHelper {
 
         return counter;
     }
+
 
     public String getBigItineraryMap() {
         return bigItineraryMap;
@@ -866,10 +764,6 @@ public class Cruise2018Use extends EoHelper {
 
     public long getDayUntilDeparture() {
         return dayUntilDeparture;
-    }
-
-    public int getHasexcursionsCounter() {
-        return hasexcursionsCounter;
     }
 }
 

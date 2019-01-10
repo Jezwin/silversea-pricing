@@ -10,6 +10,54 @@
     text-transform: capitalize;
   }
 
+  .cruise2018-cruise-intro {
+
+    text-align: center;
+
+    .time {
+      font-size: 15px;
+      font-family: @suisse;
+    }
+
+    .cruise2018-intro-title {
+      font-weight: 400;
+      position: relative;
+      display: block;
+      font-size: 27px;
+      font-family: @freight;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .cruise2018-itinerarydetail-block-loading {
+    position: relative;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .cruise-2018-itineraries-spinner-loading {
+
+    position: absolute;
+    background-image: url('/etc/designs/silversea-com/clientlib-base/images/loader.svg');
+    width: 100%;
+    height: 25%;
+    z-index: 120;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .cruise-2018-itinerary-segment-map {
+    margin-bottom: 40px;
+
+    picture {
+      text-align: center;
+    }
+  }
+
   .cruise-2018-itineraries-btn {
     border-radius: @nd-button-border-radius !important;
     border-width: 1px !important;
@@ -297,6 +345,17 @@
       padding-right: 8px;
     }
   }
+
+  .cruise-2018-itineraries-description-view {
+    text-align: center;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: underline;
+    padding-left: 5px;
+    font-size: 13px;
+    display: none;
+  }
+
   .cruise-2018-itinerary-slider-wrapper {
     .cruise-2018-itinerary-slider {
       visibility: hidden;
@@ -513,6 +572,27 @@
 
 @media screen and (max-width: @screen-sm) {
   .cruise-2018-itineraries-container {
+
+    .cruise-2018-itinerary-segment-map {
+      picture {
+        margin: 0px;
+      }
+    }
+
+    .cruise2018-cruise-intro {
+
+      .time {
+        font-size: 13px;
+      }
+
+      .cruise2018-intro-title {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
 
     .cruise-2018-itineraries-header {
       position: relative;
