@@ -52,7 +52,7 @@
          hideVoyageCode=true}"/>
     <div class="cardSliderLightbox cruise2018-keypeople" data-sly-test="${comboCruise.keyPeople}">
         <hr/>
-        <sly data-sly-test.title="${'expedition-team' @ i18n}"/>
+        <sly data-sly-test.title="${comboCruise.keyPeopleTitle}"/>
         <sly data-sly-use.template="/apps/silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
              data-sly-call="${template.default @
              title=title,

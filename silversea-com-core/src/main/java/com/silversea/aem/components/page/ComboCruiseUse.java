@@ -23,6 +23,8 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
     private List<KeyPerson> keyPeople;
 
+    private String keyPeopleTitle;
+
     private List<CruisePrePost> globalPrePost;
 
     private PriceModel lowestPrice = null;
@@ -50,9 +52,10 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
         keyPeople = retrieveMultiField(getResource(), "keyPeople", resource -> resource.getChild("path"))
                 .map(path -> path.adaptTo(String.class))
                 .map(getPageManager()::getPage)
-                .filter(page -> page!=null)
+                .filter(Objects::nonNull)
                 .map((Page page) -> new KeyPerson(page, getResourceResolver()))
                 .collect(toList());
+        keyPeopleTitle = getResource().getValueMap().get("keyPeopleTitle", String.class);
         globalPrePost = retrievePrePost(comboCruiseModel);
 
 
@@ -162,6 +165,10 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
     public boolean isEarlyBookingBonus() {
         return lowestPrice.getEarlyBookingBonus() != null;
+    }
+
+    public String getKeyPeopleTitle() {
+        return keyPeopleTitle;
     }
 
     public boolean isFeetSquare() {

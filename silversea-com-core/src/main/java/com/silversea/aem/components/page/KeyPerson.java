@@ -71,4 +71,9 @@ public class KeyPerson implements CardLightbox {
     public String getBigPicture() {
         return image.getPath();
     }
+
+    @Override
+    public boolean getNoModal() {
+        return false;
+    }
 }
