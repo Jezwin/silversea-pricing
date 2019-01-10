@@ -1,8 +1,8 @@
 <template data-sly-template.default>
     <div class="lightbox-keyperson">
-        <div class="csl-big-title">${'expedition-team' @ i18n}</div>
         <sly class="cardSliderLightboxContent"
              data-sly-use.lightboxUse="${'com.silversea.aem.components.page.combo.KeyPersonLightbox'}">
+            <div class="csl-big-title">${lightboxUse.keyPeopleTitle}</div>
             <sly data-sly-test.card="${lightboxUse.card}"/>
             <a href="#${lightboxUse.prev}" class="used-by-lightbox-simple-prev"
                data-sly-test="${lightboxUse.prevCard}">${lightboxUse.prevCard.title}</a>
