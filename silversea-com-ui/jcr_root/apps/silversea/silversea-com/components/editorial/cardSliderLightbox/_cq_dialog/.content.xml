@@ -32,6 +32,13 @@
                                     fieldLabel="Title"
                                     required="{Boolean}true"
                                     name="./title"/>
+                            <subtitle
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                    fieldDescription="Subtitle"
+                                    fieldLabel="Subtitle"
+                                    required="{Boolean}true"
+                                    name="./subtitle"/>
                             <showArrows
                                     jcr:primaryType="nt:unstructured"
                                     text="Show lightbox arrows"
