@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.day.cq.dam.commons.util.DamUtil;
 import com.sun.istack.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -135,6 +136,41 @@ public class AssetUtils {
                         sscAsset = new SilverseaAsset();
                         sscAsset.setPath(asset.getPath());
                         sscAsset.setName(asset.getName());
+                        if (StringUtils.isNotEmpty(asset.getMetadataValue("dc:title"))) {
+                            sscAsset.setLabel(asset.getMetadataValue("dc:title"));
+                        } else {
+                            sscAsset.setLabel(label);
+                        }
+                        String metadataValue = asset.getMetadataValue("dam:credit");
+                        sscAsset.setCredits(metadataValue);
+                        renditionList.add(sscAsset);
+                    }
+                }
+            }
+        }
+
+        return renditionList;
+    }
+
+ public static List<SilverseaAsset> buildSilverseaAssetListVideoOnly(String setPath, ResourceResolver resourceResolver, String label) {
+        List<SilverseaAsset> renditionList = new ArrayList<>();
+
+        // Dynamic Media Image Set
+        Resource members = resourceResolver.getResource(setPath + "/jcr:content/related/s7Set");
+
+        if (members != null) {
+            ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
+
+            if (membersCollection != null) {
+                final Iterator<Resource> it = membersCollection.getResources();
+                SilverseaAsset sscAsset = null;
+                while (it.hasNext()) {
+                    Asset asset = it.next().adaptTo(Asset.class);
+                    if (asset != null && DamUtil.isVideo(asset)) {
+                        sscAsset = new SilverseaAsset();
+                        sscAsset.setPath(asset.getPath());
+                        sscAsset.setName(asset.getName());
+                        sscAsset.setType("video");
                         if (StringUtils.isNotEmpty(asset.getMetadataValue("dc:title"))) {
                             sscAsset.setLabel(asset.getMetadataValue("dc:title"));
                         } else {
