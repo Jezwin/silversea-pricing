@@ -13,13 +13,14 @@
                     <sly data-sly-list.card="${cards}">
                         <sly data-sly-test.hasLightbox="${!card.description.isEmpty}"/>
                         <div class="cardSlider-slide">
+                            <sly data-sly-test="${!card.noModal}" data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=lightboxPath, absolute=false}"/>
                             <a class="lightbox-link" data-toggle="modal" data-target="#lightbox-simple"
                                data-slb-scope="lightbox-cardSlider"
                                data-sly-test="${!card.noModal }"
                                data-slb-arrows="${showArrows}"
                                data-slb-callback="cslInitLightbox"
                                id="lb-sl-${cardList.index}" data-simple-lightbox
-                               href="#${lightboxPath @ selectors=[selector, cardList.index], extension='html'}"></a>
+                               href="#${externalizerHelper.externalizedUrl @ selectors=[selector, cardList.index], extension='html'}"></a>
                             <sly data-sly-test.thumbnail="${card.thumbnail || card.bigPicture}"/>
                             <sly data-sly-use.cardTemplate="./silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
                                  data-sly-call="${cardTemplate.singleCard @ thumbnail=thumbnail, style=style, briefDescription=card.briefDescription, title=card.title, noModal=card.noModal }"/>
