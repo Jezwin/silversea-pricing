@@ -765,5 +765,8 @@ public class Cruise2018Use extends EoHelper {
     public long getDayUntilDeparture() {
         return dayUntilDeparture;
     }
+    public Integer getHasexcursionsCounter() {
+        return hasexcursionsCounter;
+    }
 }
 
