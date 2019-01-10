@@ -9,13 +9,18 @@
            style="background-image:url('${bigItineraryMap  @ context='unsafe'}')">
             <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
         </a>
+        <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
+        <sly data-sly-test="${!isCombo}">
+            <sly data-sly-test.cruiseMobileImg="${bigItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
+        </sly>
+        <sly data-sly-test="${isCombo}">
+            <sly data-sly-test.cruiseMobileImg="${cruiseDesktopImg}"/>
+        </sly>
         <div class="cruise-2018-overview-big-pic ${isCombo ? 'col-sm-12 cruise-2018-overview-full-width' : 'col-sm-6'} col-xs-12">
             <sly data-sly-list.asset="${assetsGallery}">
                 <sly data-sly-test="${asset.path && assetList.index < 1}"
                      data-sly-test.firstAssetGalleryImg="${asset.path}"/>
             </sly>
-            <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
-            <sly data-sly-test.cruiseMobileImg="${bigItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
             <div class="open-lightbox-gallery-assets" data-target=".lightbox" id="lb-mainGallery">
                 <picture data-sly-test="${cruiseDesktopImg || cruiseMobileImg}">
                     <sly data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseDesktopImg}"/>
@@ -38,6 +43,12 @@
             </a>
         </div>
         <div class="ow-slider ow-slider--main main-slider visible-xs">
+            <div data-image="${cruiseMobileImg}" data-sly-test="${cruiseMobileImg}">
+                <div class="ratio">
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                         data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=cruiseMobileImg, Width=700}"/>
+                </div>
+            </div>
             <sly data-sly-repeat.asset="${assetsGallery}">
                 <div data-image="${asset.path}" data-sly-test="${asset.path}">
                     <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"

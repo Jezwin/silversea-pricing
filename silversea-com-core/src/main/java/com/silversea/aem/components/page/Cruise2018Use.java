@@ -121,7 +121,7 @@ public class Cruise2018Use extends EoHelper {
         selector = typeLightbox.getSelector();
         switch (typeLightbox) {
             case ASSET_GALLERY:
-                assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage());
+                assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage(), true);
                 arrivalPortName = AssetGalleryCruiseUse.retrieveArrivalPortName(itinerariesResource);
                 departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
                 return;
@@ -154,7 +154,7 @@ public class Cruise2018Use extends EoHelper {
                 break;
         }
 
-        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage());
+        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage(), true);
         arrivalPortName = AssetGalleryCruiseUse.retrieveArrivalPortName(itinerariesResource);
         departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
         cruiseModel = retrieveCruiseModel();

@@ -4,7 +4,7 @@ $(function () {
     /***************************************************************************
      * Lightbox Suite detail
      **************************************************************************/
-    $('.open-lightbox-port').on('click', function (e) {
+    $('.cruise-2018-itineraries-container').on('click',".open-lightbox-port", function (e) {
         e.preventDefault();
         e.stopPropagation();
         var $link = $(this),
