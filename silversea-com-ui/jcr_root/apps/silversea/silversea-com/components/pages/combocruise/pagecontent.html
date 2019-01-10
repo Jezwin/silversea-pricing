@@ -43,6 +43,7 @@
          numCountries=comboCruise.comboCruiseModel.countriesAmount,
          numRoutes=comboCruise.comboCruiseModel.routesAmount,
          dayUntilDeparture=comboCruise.comboCruiseModel.duration,
+         duration=comboCruise.comboCruiseModel.duration,
          itinerary=comboCruise.itinerary,
          externalizerHelper=externalizerHelper,
          itineraryMap=comboCruise.segmentModel.focusedMapReference,
@@ -73,7 +74,9 @@
          prices=comboCruise.prices,
          model=comboCruise.comboCruiseModel,
          isFeetSquare=comboCruise.isFeetSquare,
+         isCombo=true,
          requestQuotePagePath=comboCruise.requestQuotePagePath,
+         cruiseFareAdditionsDescription=comboCruise.comboCruiseModel.comboCruiseFareAdditionsDescription,
          exclusiveOffersCruiseFareAdditions=comboCruise.comboCruiseModel.comboCruiseFareAdditions}"/>
     <hr/>
     <sly data-sly-use.ship="/apps/silversea/silversea-com/components/pages/cruise/templates/ship/ship.html"

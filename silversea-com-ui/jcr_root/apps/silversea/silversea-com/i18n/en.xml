@@ -115,6 +115,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events"
         sling:message="Benefits and events"/>
+    <benefits
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="benefits"
+            sling:message="Benefits"/>
     <benefits-and-events-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events-description"
