@@ -16,6 +16,7 @@ public class EoBean {
     private boolean isAvailable;
     private String eoFootnotes;
     private String icon;
+    private String prePrice;
     private Integer priorityWeight;
 
 
@@ -129,5 +130,13 @@ public class EoBean {
 
     public void setPriorityWeight(Integer priorityWeight) {
         this.priorityWeight = priorityWeight;
+    }
+
+    public String getPrePrice() {
+        return prePrice;
+    }
+
+    public void setPrePrice(String prePrice) {
+        this.prePrice = prePrice;
     }
 }

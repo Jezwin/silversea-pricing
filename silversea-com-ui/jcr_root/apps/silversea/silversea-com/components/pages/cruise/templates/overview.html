@@ -1,5 +1,5 @@
 <template
-        data-sly-template.default="${ @  assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
+        data-sly-template.default="${ @  exclusiveOfferPrePrice, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
     <div class="cruise-2018-overview row container ${isCombo ? 'cruise-2018-overview-single-column' : ''}"
          data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets',cruiseType]}"
          data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map',cruiseType]}"
@@ -128,6 +128,7 @@
                         <div class="cruise-2018-overview-quote-price-number">
                             ${currency @ i18n} ${computedPriceFormatted}
                         </div>
+                        ${ exclusiveOfferPrePrice @ context='html'}
                         <div class="cruise-2018-overview-quote-price-from per-guest" data-sly-test="${isCombo}">(${'per-guest' @ i18n})</div>
                         <div class="cruise-2018-overview-quote-price-bonus"
                              data-sly-test="${earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>

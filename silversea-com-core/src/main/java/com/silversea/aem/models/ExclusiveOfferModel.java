@@ -141,6 +141,11 @@ public class ExclusiveOfferModel {
     private String defaultVoyageIcon;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/prePrice")
+    @Optional
+    private String prePrice;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/priorityWeight")
     @Optional
     private Integer priorityWeight;
@@ -262,20 +267,6 @@ public class ExclusiveOfferModel {
                 }
             }
         }
-
-        // init variations
-//        final Iterator<Page> children = page.listChildren();
-//        while (children.hasNext()) {
-//            final Page child = children.next();
-//
-//            if (child.getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION)) {
-//                final ExclusiveOfferModel variation = child.adaptTo(ExclusiveOfferModel.class);
-//
-//                if (variation != null) {
-//                    variations.add(variation);
-//                }
-//            }
-//        }
 
         path = page.getPath();
     }
@@ -432,4 +423,7 @@ public class ExclusiveOfferModel {
         return priorityWeight;
     }
 
+    public String getDefaultPrePrice() {
+        return prePrice;
+    }
 }

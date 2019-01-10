@@ -10,7 +10,7 @@ public class EoConfigurationBean {
 	private boolean shortDescriptionMain;
 	private boolean footnotesMain;
 
-
+	private boolean prePrice;
 	private boolean priorityWeight;
 
 	private boolean activeGreysSystem;
@@ -172,4 +172,11 @@ public class EoConfigurationBean {
 		this.priorityWeight = priorityWeight;
 	}
 
+	public boolean isPrePrice() {
+		return prePrice;
+	}
+
+	public void setPrePrice(boolean prePrice) {
+		this.prePrice = prePrice;
+	}
 }

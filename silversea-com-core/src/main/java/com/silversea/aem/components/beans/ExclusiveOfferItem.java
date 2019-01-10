@@ -50,6 +50,8 @@ public class ExclusiveOfferItem {
 
     private String positionDescriptionMobileLB;
 
+    private String prePrice;
+
     private Integer priorityWeight;
 
     public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2,
@@ -92,6 +94,7 @@ public class ExclusiveOfferItem {
             positionDescriptionMobileLB = exclusiveOffer.getPositionDescriptionMobileLB();
             voyageIcon = result.getIcon();
             priorityWeight = result.getPriorityWeight();
+            prePrice = result.getPrePrice();
             footnote =  result.getFootnote();
             if (StringUtils.isNotEmpty(result.getFootnote())) {
                 footnotes.add(result.getFootnote());
@@ -248,5 +251,9 @@ public class ExclusiveOfferItem {
 
     public String getFootnote() {
         return footnote;
+    }
+
+    public String getPrePrice() {
+        return prePrice;
     }
 }

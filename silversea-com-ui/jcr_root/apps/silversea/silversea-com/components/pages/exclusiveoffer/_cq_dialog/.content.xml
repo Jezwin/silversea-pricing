@@ -587,6 +587,12 @@
                                                                         sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIcons2018Datasource"
                                                                         addNone="{Boolean}true"/>
                                                             </defaultVoyageIcon>
+															<defaultPrePriceText
+																	jcr:primaryType="nt:unstructured"
+																	sling:resourceType="granite/ui/components/foundation/form/textfield"
+																	fieldDescription="Default Pre price on voyage"
+																	fieldLabel="Default Pre price - (Voyage page)"
+																	name="./defaultPrePriceText" />
 															<defaultPriorityWeight
 																	jcr:primaryType="nt:unstructured"
 																	sling:resourceType="granite/ui/components/foundation/form/numberfield"
@@ -633,6 +639,10 @@
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Map overhead - (Voyage page)"
 																				      	value="mapOverhead"/>
+																					  <prePrice
+																							  jcr:primaryType="nt:unstructured"
+																							  text="Pre price - (Voyage page)"
+																							  value="prePrice"/>
 																					  <priorityWeight
 																							  jcr:primaryType="nt:unstructured"
 																							  text="Priority Weight (Voyage page)"
