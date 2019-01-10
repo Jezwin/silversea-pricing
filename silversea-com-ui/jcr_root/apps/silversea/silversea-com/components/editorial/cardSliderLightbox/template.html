@@ -21,7 +21,7 @@
                                id="lb-sl-${cardList.index}" data-simple-lightbox
                                href="#${lightboxPath @ selectors=[selector, cardList.index], extension='html'}"></a>
                             <sly data-sly-test.thumbnail="${card.thumbnail || card.bigPicture}"/>
-                            <sly data-sly-use.cardTemplate="./template.html"
+                            <sly data-sly-use.cardTemplate="./silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
                                  data-sly-call="${cardTemplate.singleCard @ thumbnail=thumbnail, style=style, briefDescription=card.briefDescription, title=card.title, noModal=card.noModal }"/>
                         </div>
                     </sly>
