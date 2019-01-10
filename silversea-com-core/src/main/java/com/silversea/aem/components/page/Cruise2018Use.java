@@ -547,7 +547,7 @@ public class Cruise2018Use extends EoHelper {
         if (this.itinerary.size() > 0) {
             for (CruiseItinerary cruiseItinerary : this.itinerary) {
                 counter++;
-                if (cruiseItinerary.isHasExcursions()) {
+                if (!cruiseItinerary.getExcursions().isEmpty()) {
                     return counter;
                 }
             }
