@@ -476,6 +476,32 @@
             left: 22px;
             max-width:290px;
           }
+          .fa.fa-play {
+            transform: translate(-45%,-50%) scale(0.65);
+            -webkit-transform: translate(-45%,-50%) scale(0.65);
+            -ms-transform: translate(-45%,-50%) scale(0.65);
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            &:after {
+              background-color: white;
+              opacity: .6;
+              z-index: -1;
+              border: 3px solid #fff;
+              border-radius: 50%;
+              border: 3px solid #fff;
+              border-radius: 50%;
+              content: "";
+              display: block;
+              left: 50%;
+              height: 84px;
+              position: absolute;
+              top: 50%;
+              transform: translate(-55%,-50%);
+              -webkit-transform: translate(-55%,-50%);
+              width: 84px;
+            }
+          }
         }
       }
       .slick-slide[data-slide-type^="video"] {

@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
+import javax.sound.sampled.Port;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -158,7 +159,7 @@ public class Cruise2018Use extends EoHelper {
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel);
 
         itinerary = retrieveItinerary(cruiseModel);
-        portsGallery = retrievePortsGallery(cruiseModel);
+        portsGallery = retrievePortsGalleryAndVideo(cruiseModel);
 
         showCruiseBeforeName = retrieveShowCruiseBeforeName(locale);
 
@@ -197,10 +198,21 @@ public class Cruise2018Use extends EoHelper {
         this.hasexcursionsCounter = firstExcursionsCounter();
     }
 
-    private List<SilverseaAsset> retrievePortsGallery(CruiseModel cruiseModel) {
+    private List<SilverseaAsset> retrievePortsGalleryAndVideo(CruiseModel cruiseModel) {
+        String assetSelectionReference;
+        ValueMap vmProperties = getCurrentPage().getProperties();
         Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false);
-        return cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
+        List<SilverseaAsset> PortGalleryAndVideo = cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
                 .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> AssetUtils.buildSilverseaAsset(path, getResourceResolver(), "", ""))).distinct().collect(toList());
+        assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
+        List<SilverseaAsset> assetsListResult = new ArrayList<>();
+        if (StringUtils.isNotBlank(assetSelectionReference)) {
+            assetsListResult.addAll(AssetUtils
+                    .buildSilverseaAssetListVideoOnly(assetSelectionReference, getResourceResolver(),
+                            null));
+            PortGalleryAndVideo.addAll(0, assetsListResult);
+        }
+        return PortGalleryAndVideo;
     }
 
     private Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
