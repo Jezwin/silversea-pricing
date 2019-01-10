@@ -33,7 +33,7 @@
 <template data-sly-template.singleCard="${ @ thumbnail, style, briefDescription, title, noModal}">
     <div class="cardSlider-slide-thumbnail ${style}">
         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-             data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=350}"/>
+             data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=700}"/>
     </div>
     <sly data-sly-test="${'squared'==style}">
         <div class="cardSlider-slide">${briefDescription} </div>
