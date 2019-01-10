@@ -96,6 +96,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Vorteile und Events"/>
+    <benefits
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Vorteile"/>
     <benefits-and-events-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

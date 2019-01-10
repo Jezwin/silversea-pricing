@@ -1,8 +1,8 @@
 <template
-        data-sly-template.default="${ @ currentPath, countryCode, model,numPorts,numCountries,dayUntilDeparture,numRoutes, portsGallery, itinerary, externalizerHelper, itineraryMap, customDescription, hideVoyageCode }">
+        data-sly-template.default="${ @ duration, currentPath, countryCode, model,numPorts,numCountries,dayUntilDeparture,numRoutes, portsGallery, itinerary, externalizerHelper, itineraryMap, customDescription, hideVoyageCode }">
     <div class="cruise-2018-itineraries-container" id="menu-cruise2018itinerary">
         <sly data-sly-use.itinerarytemplate="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerary.html"
-             data-sly-call="${itinerarytemplate.commonHeader @ currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, portsGallery=portsGallery, externalizerHelper=externalizerHelper}"/>
+             data-sly-call="${itinerarytemplate.commonHeader @ duration=duration, currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, portsGallery=portsGallery, externalizerHelper=externalizerHelper}"/>
 
         <sly data-sly-use.itineraryDetail="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerarydetail.html"
              data-sly-call="${itineraryDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap}"/>
@@ -11,7 +11,7 @@
 </template>
 
 <template
-        data-sly-template.commonHeader="${@ currentPath, countryCode, model, dayUntilDeparture, portsGallery, numPorts,numRoutes, numCountries,customDescription, hideVoyageCode, externalizerHelper }">
+        data-sly-template.commonHeader="${@ duration, currentPath, countryCode, model, dayUntilDeparture, portsGallery, numPorts,numRoutes, numCountries,customDescription, hideVoyageCode, externalizerHelper }">
     <div class="cruise-2018-itineraries-header">
         <sly data-sly-test="${model.cruiseType != 'silversea-expedition'}">
             <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
@@ -20,8 +20,8 @@
             <div class="cruise-2018-itineraries-title">${'itinerary' @ i18n}</div>
         </sly>
         <div class="cruise-2018-itineraries-info">
-            <span class="itineraries-info" data-sly-test="${model.duration}">
-                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/duration.png"/> ${model.duration} ${'days' @ i18n}
+            <span class="itineraries-info" data-sly-test="${duration}">
+                <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/duration.png"/> ${duration} ${'days' @ i18n}
             </span>
             <span class="itineraries-info" data-sly-test="${numPorts}">
                     <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/port.png"/> ${numPorts} ${'ports' @ i18n}
