@@ -23,7 +23,7 @@ $(function () {
 
     const setHeader = function () {
         var header = $("#lightbox-simple .lightbox-close");
-        var number = ($lightboxSimpleContent.offset().top - header.height());
+        var number = ($lightboxSimpleContent.offset().top-$lightboxSimple.offset().top - header.height());
         number = number < 0 ? 0 : number;
         header.css("top", number + "px");
         header.css("left", ($lightboxSimpleContent.offset().left) + "px");
