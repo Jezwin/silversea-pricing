@@ -1,19 +1,21 @@
 <template
-        data-sly-template.default="${ @ showArrows, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector }">
+        data-sly-template.default="${ @ showArrows, subtitle, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector }">
     <div class="cardSlider-wrapper ">
         <div class="cardSlider ${backgroundColour}">
-            <sly data-sly-test="${cards}">
+            <sly>
                 <div class="cardSlider-title">${title}</div>
+                <div class="cardSlider-subTitle">${subtitle @ context='html'}</div>
                 <div data-ssc-slides="${slidesDesktop}"
                      data-ssc-breakpoint-tablet="992"
                      data-ssc-slides-to-show-tablet="${slidesTablet}"
                      data-ssc-breakpoint-mobile="600"
                      data-ssc-slides-to-show-mobile="${slidesMobile}"
                      class="cardSlider-content cardSlider-slider">
-                    <sly data-sly-list.card="${cards}">
+                    <sly data-sly-test="${cards}" data-sly-list.card="${cards}">
                         <sly data-sly-test.hasLightbox="${!card.description.isEmpty}"/>
                         <div class="cardSlider-slide">
-                            <sly data-sly-test="${!card.noModal}" data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=lightboxPath, absolute=false}"/>
+                            <sly data-sly-test="${!card.noModal}"
+                                 data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=lightboxPath, absolute=false}"/>
                             <a class="lightbox-link" data-toggle="modal" data-target="#lightbox-simple"
                                data-slb-scope="lightbox-cardSlider"
                                data-sly-test="${!card.noModal }"

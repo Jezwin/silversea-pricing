@@ -20,6 +20,7 @@ public class SliderUse extends WCMUsePojo {
     private int slidePerPageMobile;
     private String style;
     private String title;
+    private String subtitle;
     private String backgroundColour;
     private Boolean showArrows;
 
@@ -27,6 +28,7 @@ public class SliderUse extends WCMUsePojo {
     public void activate() throws Exception {
         ValueMap properties = getProperties();
         title = properties.get("title", String.class);
+        subtitle = properties.get("subtitle", String.class);
         slidePerPageDesktop = getIntProp(properties, "Desktop", 4);
         slidePerPageTablet = getIntProp(properties, "Tablet", slidePerPageDesktop);
         slidePerPageMobile = getIntProp(properties, "Mobile", slidePerPageTablet);
@@ -47,6 +49,10 @@ public class SliderUse extends WCMUsePojo {
 
     private static Integer getIntProp(ValueMap properties, String device, int defaultValue) {
         return getProp(properties, "slidePerPage" + device).map(Integer::parseInt).orElse(defaultValue);
+    }
+
+    public String getSubtitle() {
+        return subtitle;
     }
 
     private static Stream<Optional<String>> deviceProps(ValueMap properties, String key) {
