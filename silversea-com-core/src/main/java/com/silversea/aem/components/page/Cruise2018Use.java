@@ -208,7 +208,7 @@ public class Cruise2018Use extends EoHelper {
     private List<SilverseaAsset> retrievePortsGalleryAndVideo(CruiseModel cruiseModel) {
         String assetSelectionReference;
         ValueMap vmProperties = getCurrentPage().getProperties();
-        Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false, getResourceResolver()));
+        Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false, getResourceResolver());
         List<SilverseaAsset> PortGalleryAndVideo = cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
                 .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> AssetUtils.buildSilverseaAsset(path, getResourceResolver(), "", ""))).distinct().collect(toList());
         assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
