@@ -37,7 +37,7 @@
                                     text="Show lightbox arrows"
                                     name="./showArrows"
                                     value="true"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                             <style
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/form/select"
@@ -111,6 +111,14 @@
                                                         fieldDescription="bigPicture"
                                                         fieldLabel="BigPicture"
                                                         name="./bigPicture"/>
+                                                <noModal
+                                                        jcr:primaryType="nt:unstructured"
+                                                        rootPath="/content/dam/"
+                                                        sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                                        text="No modal"
+                                                        value="{Boolean}true"
+                                                        fieldDescription="noModal"
+                                                        name="./noModal"/>
                                             </items>
                                         </column>
                                     </items>
