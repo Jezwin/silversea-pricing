@@ -201,10 +201,7 @@ public class Cruise2018Use extends EoHelper {
         Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false);
         return cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
                 .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> {
-                    SilverseaAsset sscAsset = new SilverseaAsset();
-                    sscAsset.setPath(path);
-                    sscAsset.setName(port.getPort().getTitle());
-                    return sscAsset;
+                    return AssetUtils.buildSilverseaAsset(path, getResourceResolver(), "", "");
                 })).distinct().collect(toList());
     }
 
