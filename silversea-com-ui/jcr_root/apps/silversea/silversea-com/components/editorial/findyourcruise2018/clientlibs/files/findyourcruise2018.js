@@ -52,6 +52,7 @@ $(function () {
             } else {
                 showWaitlistResults($showHideDiv);
             }
+            $(".fyc2018-header-reset-all").show();
         };//onClickShowHideWaitlist
 
         var setSortingKeyType = function () {
