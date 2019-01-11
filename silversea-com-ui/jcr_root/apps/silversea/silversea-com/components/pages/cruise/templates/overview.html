@@ -9,13 +9,8 @@
            style="background-image:url('${bigItineraryMap  @ context='unsafe'}')">
             <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
         </a>
-        <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
-        <sly data-sly-test="${!isCombo}">
-            <sly data-sly-test.cruiseMobileImg="${bigItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
-        </sly>
-        <sly data-sly-test="${isCombo}">
-            <sly data-sly-test.cruiseMobileImg="${cruiseDesktopImg}"/>
-        </sly>
+        <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary}"/>
+        <sly data-sly-test.cruiseMobileImg="${isCombo ? cruiseDesktopImg : bigItineraryMap || bigThumbnail || itinerary}"/>
         <div class="cruise-2018-overview-big-pic ${isCombo ? 'col-sm-12 cruise-2018-overview-full-width' : 'col-sm-6'} col-xs-12">
             <sly data-sly-list.asset="${assetsGallery}">
                 <sly data-sly-test="${asset.path && assetList.index < 1}"
@@ -80,11 +75,11 @@
                 ${navigationTitle || title}
                 <sly data-sly-test="${!showCruiseBeforeName}">${'cruise' @i18n}</sly>
             </div>
-            <div class="cruise-2018-overview-description-from-to">
-                <div class="${isCombo ? 'cruise-2018-overview-description-origin' : ''}">${departurePortName} </div>
-                <div class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</div>
-                <div class="cruise-2018-overview-description-from-to-destination">${arrivalPortName}</div>
-            </div>
+            <h1 class="cruise-2018-overview-description-from-to">
+                <span class="${isCombo ? 'cruise-2018-overview-description-origin' : ''}">${departurePortName} </span>
+                <span class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</span>
+                <span class="cruise-2018-overview-description-from-to-destination">${arrivalPortName}</span>
+            </h1>
             <div class="cruise-2018-row-information-cruise hidden-xs">
                 <span class="cruise-2018-row-information-cruise-date"
                       data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd, yyyy', date=startDate}">
@@ -149,7 +144,8 @@
                         <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
                            id="cruise-2018-rqa"
                            data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
-                           href="${requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"  rel="nofollow"
+                           href="${requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"
+                           rel="nofollow"
                            data-sscclicktype="clic-RAQ">
                             <span>${'request-quote' @i18n}</span>
                         </a>
@@ -157,7 +153,7 @@
                     <sly data-sly-test="${!pageProperties.cruiseCode}">
                         <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
                            id="cruise-2018-rqa"
-                           href="${requestQuotePagePath @ extension='html', selectors='s'}"  rel="nofollow"
+                           href="${requestQuotePagePath @ extension='html', selectors='s'}" rel="nofollow"
                            data-sscclicktype="clic-RAQ">
                             <span>${'request-quote' @i18n}</span>
                         </a>
