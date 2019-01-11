@@ -78,10 +78,10 @@
                         <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}" class="cruise-2018-suites-fares-included-eo ${itemList.count > 6 ? 'hidden-xs' : ''}">
                             ${item @ context='html'}
                         </li>
-                        <li class="onclick-show-more-less-benefits benefits-show-more visible-xs">
+                        <li class="onclick-show-more-less-benefits benefits-show-more" data-sly-test="${exclusiveOffersCruiseFareAdditions.size > 6}">
                             ${'show-more' @ i18n}
                         </li>
-                        <li class="onclick-show-more-less-benefits benefits-show-less visible-xs">
+                        <li class="onclick-show-more-less-benefits benefits-show-less" data-sly-test="${exclusiveOffersCruiseFareAdditions.size > 6}">
                             ${'show-less' @ i18n }
                         </li>
                     </sly>
