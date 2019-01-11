@@ -59,7 +59,7 @@
             <div class="cruise-2018-suites-fares-footnote col-xs-12" data-sly-test="${isCombo}">
                 ${'fares-shown-are-per-guest' @i18n}
             </div>
-            <div class="col-xs-12 cruise-2018-suites-fares-included hidden-xs"
+            <div class="col-xs-12 cruise-2018-suites-fares-included ${isCombo ? '' : 'hidden-xs'}"
                  data-sly-test="${exclusiveOffersCruiseFareAdditions && (exclusiveOffersCruiseFareAdditions.size>0 || model.cruiseFareAdditions.size>0)}">
                 <div class="${isCombo ? 'cruise-2018-suites-fares-included-title-combo' : 'cruise-2018-suites-fares-included-title'}">
                     <sly data-sly-test="${!isCombo}">${ 'included-cruise-fare' @ i18n}</sly>
@@ -69,9 +69,22 @@
                     ${cruiseFareAdditionsDescription @ context='html'}
                 </div>
                 <ul class="cruise-2018-suites-fares-included-ul">
-                    <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}"
-                        class="cruise-2018-suites-fares-included-eo">${item @ context='html'}</li>
-                    <li data-sly-repeat="${model.cruiseFareAdditions}">${item @ context='html'}</li>
+                    <sly data-sly-test="${!isCombo}">
+                        <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}"
+                            class="cruise-2018-suites-fares-included-eo">${item @ context='html'}</li>
+                        <li data-sly-repeat="${model.cruiseFareAdditions}">${item @ context='html'}</li>
+                    </sly>
+                    <sly data-sly-test="${isCombo}">
+                        <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}" class="cruise-2018-suites-fares-included-eo ${itemList.count > 6 ? 'hidden-xs' : ''}">
+                            ${item @ context='html'}
+                        </li>
+                        <li class="onclick-show-more-less-benefits benefits-show-more visible-xs">
+                            ${'show-more' @ i18n}
+                        </li>
+                        <li class="onclick-show-more-less-benefits benefits-show-less visible-xs">
+                            ${'show-less' @ i18n }
+                        </li>
+                    </sly>
                 </ul>
             </div>
             <div class="cruise-2018-suites-fares-footnote col-xs-12" data-sly-test="${!isCombo}">
