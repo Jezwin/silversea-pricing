@@ -59,7 +59,7 @@ $(function () {
             $(document).on('scroll touchmove gesturechange', loadPortsImage);
             loadPortsImage();
 
-            $(".cruise-2018-itineraries-port-excursions-description-read-more").on("click", function (){
+            $("body").on("click", ".cruise-2018-itineraries-port-excursions-description-read-more", function (){
                     $(this).fadeOut();
                     $(this).closest(".cruise-2018-itineraries-port-excursions-description").find(".cruise-2018-itineraries-port-excursions-description-read-more-content").slideDown();
                 }
