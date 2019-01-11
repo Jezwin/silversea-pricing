@@ -92,6 +92,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Vantagens e eventos"/>
+    <benefits
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Vantagens"/>
     <benefits-and-events-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1451,7 +1455,7 @@
     <pre-order
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="PRE-ORDER NOW"/>
+            sling:message="FAÇA JÁ A SUA PRÉ-RESERVA"/>
     <view-our-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1567,7 +1571,15 @@
 	<show-less
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
-	    sling:message="show Less"/>                        
+	    sling:message="show Less"/>
+    <show-waitlist
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="show waitlist"/>
+    <hide-waitlist
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="hide waitlist"/>
 	<show-all
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-all"

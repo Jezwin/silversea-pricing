@@ -1,0 +1,12 @@
+<template data-sly-template.default="${ @ ship, shipAssetGallery, externalizerHelper }">
+    <div id="menu-cruise2018ship">
+        <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise/templates/ship/ship-overview.html"
+             data-sly-call="${overview.default @ ship=ship, shipAssetGallery=shipAssetGallery, externalizerHelper=externalizerHelper}"/>
+        <hr/>
+        <sly data-sly-use.dining="/apps/silversea/silversea-com/components/pages/cruise/templates/ship/dining.html"
+             data-sly-call="${dining.default @ ship=ship}"/>
+        <hr/>
+        <sly data-sly-use.publicarea="/apps/silversea/silversea-com/components/pages/cruise/templates/ship/public-areas.html"
+             data-sly-call="${publicarea.default @ ship=ship}"/>
+    </div>
+</template>

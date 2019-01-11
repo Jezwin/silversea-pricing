@@ -14,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Model(adaptables = Page.class)
 public class ComboCruiseModel {
@@ -44,6 +42,21 @@ public class ComboCruiseModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/shipReference")
     private String shipReference;
 
+    @Inject @Optional @Named(JcrConstants.JCR_CONTENT + "/bigItineraryMap")
+    private String bigItineraryMap;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/comboCruiseFareAdditions")
+    @Optional
+    private String comboCruiseFareAdditions;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/comboCruiseFareAdditionsDescription")
+    @Optional
+    private String comboCruiseFareAdditionsDescription;
+
+    private List<String> splitComboCruiseFareAdditions = new ArrayList<>();
+
     private List<SegmentModel> segments = new ArrayList<>();
 
     private ShipModel ship;
@@ -55,6 +68,12 @@ public class ComboCruiseModel {
     private int duration = 0;
 
     private String departurePortName;
+
+    private String arrivalPortName;
+
+    private Calendar startDate;
+
+    private Calendar endDate;
 
     @PostConstruct
     private void init() {
@@ -88,6 +107,12 @@ public class ComboCruiseModel {
                 if (segmentModel.getCruise() != null) {
                     if (departurePortName == null) {
                         departurePortName = segmentModel.getCruise().getDeparturePortName();
+                        startDate = segmentModel.getCruise().getStartDate();
+                    }
+
+                    if (!children.hasNext()) {
+                        arrivalPortName = segmentModel.getCruise().getArrivalPortName();
+                        endDate = segmentModel.getCruise().getEndDate();
                     }
 
                     try {
@@ -99,6 +124,14 @@ public class ComboCruiseModel {
             }
         }
         duration = duration + 1;
+
+        if (comboCruiseFareAdditions != null) {
+            final String[] split = comboCruiseFareAdditions.split("\\r?\\n");
+
+            if (split.length > 0) {
+                splitComboCruiseFareAdditions.addAll(Arrays.asList(split));
+            }
+        }
     }
 
     public String getTitle() {
@@ -147,5 +180,29 @@ public class ComboCruiseModel {
     
     public Page getPage() {
         return page;
+    }
+
+    public List<String> getComboCruiseFareAdditions() {
+        return splitComboCruiseFareAdditions;
+    }
+
+    public String getArrivalPortName() {
+        return arrivalPortName;
+    }
+
+    public Calendar getStartDate() {
+        return startDate;
+    }
+
+    public Calendar getEndDate() {
+        return endDate;
+    }
+
+    public String getBigItineraryMap() {
+        return bigItineraryMap;
+    }
+
+    public String getComboCruiseFareAdditionsDescription() {
+        return comboCruiseFareAdditionsDescription;
     }
 }

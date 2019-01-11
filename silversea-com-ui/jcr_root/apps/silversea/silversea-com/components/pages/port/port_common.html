@@ -1,7 +1,7 @@
 <template data-sly-template.default="${ @ portUse }">
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"
 	data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-	data-sly-use.galleryTemplate="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
+	data-sly-use.galleryTemplate="silversea/silversea-com/components/pages/port/galleryimage.html"
 	/>
 <div class="container" data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
 	<!--googleoff: all-->

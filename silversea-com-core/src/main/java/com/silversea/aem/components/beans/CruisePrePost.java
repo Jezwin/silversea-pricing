@@ -10,8 +10,8 @@ import java.util.Objects;
 public class CruisePrePost {
     public enum PREPOSTMID {
         PRE("PRE"), POST("POST"), MID("MID"), NONE("");
-        String name;
 
+        String name;
         PREPOSTMID(String name) {
             this.name = name;
         }
@@ -31,9 +31,10 @@ public class CruisePrePost {
         public String getName() {
             return name;
         }
-    }
 
+    }
     private final String thumbnail;
+
     private final String fallbackThumbnail;
     private final PREPOSTMID prePost;
     private final String category;
@@ -43,20 +44,21 @@ public class CruisePrePost {
     private final String customTitle;
     private final Integer nights;
     private final String type;
+    private final String cruisePath;
     private final Integer itineraryId;
     private final static List<String> coutoureCollectoinCodes =
             Arrays.asList("05PREHKGTW", "05PSTHKGTW", "06PREDRWAO", "06PREKEFFI", "06PSTDRWAO", "06PSTKEFFI",
                     "07PRECPTNR", "07PREZNZRS", "07PSTZNZRS", "08PRETYOGK", "08PSTMCTRP", "08PSTTYOGK", "09PRECAOBR",
                     "09PSTCAOBR"
             );//Mario dixit
-
-    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, HotelModel hotel) {
+    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, HotelModel hotel, String cruisePath) {
         this.thumbnail = thumbnail;
         this.fallbackThumbnail = fallbackThumbnail;
         this.category = hotel.getCategory();
         this.title = hotel.getPage().getTitle();
         this.id = hotel.getHotelId().toString();
         this.code = hotel.getCode();
+        this.cruisePath = cruisePath;
         this.nights = 0;
         this.customTitle = hotel.getCustomTitle();
         this.prePost = PREPOSTMID.retrieve(hotel.getCode());
@@ -64,12 +66,13 @@ public class CruisePrePost {
         this.itineraryId = itineraryId;
     }
 
-    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, LandProgramModel land) {
+    public CruisePrePost(Integer itineraryId, String thumbnail, String fallbackThumbnail, LandProgramModel land, String cruisePath) {
         this.thumbnail = thumbnail;
         this.fallbackThumbnail = fallbackThumbnail;
         this.title = land.getTitle();
         this.id = land.getLandId().toString();
         this.code = land.getLandCode();
+        this.cruisePath = cruisePath;
         this.category = coutoureCollectoinCodes.contains(code) ? "Couture Collection" : "";
         this.prePost = PREPOSTMID.retrieve(land.getLandCode().substring(2, 6));
         this.nights = numberOfNights(code);
@@ -142,5 +145,9 @@ public class CruisePrePost {
 
     public String getCode() {
         return code;
+    }
+
+    public String getCruisePath() {
+        return cruisePath;
     }
 }

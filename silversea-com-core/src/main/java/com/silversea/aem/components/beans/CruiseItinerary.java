@@ -42,7 +42,7 @@ public class CruiseItinerary {
     private final String cruiseType;
 
     public CruiseItinerary(int day, boolean isEmbark, boolean isDebark, String thumbnail, boolean overnight,
-                           ItineraryModel itinerary, String cruiseType, ResourceResolver resolver) {
+                           ItineraryModel itinerary, String cruiseType, String cruisePath, ResourceResolver resolver) {
         this.day = day;
         this.thumbnail = thumbnail;
         this.name = itinerary.getPort().getTitle();
@@ -71,12 +71,12 @@ public class CruiseItinerary {
                         ofNullable(buildAssetList(CruiseUtils.firstNonNull(hotel.getAssetSelectionReference(),
                                 hotel.getAssetSelectionReferenceApi()), resolver))
                                 .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
-                        itinerary.getPort().getThumbnail(), hotel)),
+                        itinerary.getPort().getThumbnail(), hotel, cruisePath)),
                 landPrograms.stream().map(land -> new CruisePrePost(itinerary.getItineraryId(),
                         ofNullable(buildAssetList(CruiseUtils.firstNonNull(land.getAssetSelectionReference(),
                                 land.getAssetSelectionReferenceApi()), resolver))
                                 .map(list -> list.isEmpty() ? "" : list.get(0).getPath()).orElse(""),
-                        itinerary.getPort().getThumbnail(), land)))
+                        itinerary.getPort().getThumbnail(), land, cruisePath)))
                 .filter(prepost -> !"MID".equals(prepost.getPrePost()))
                 .collect(toList());
         this.shorexSize = mid.size() + (excursions != null ? excursions.size() : 0);
@@ -138,7 +138,12 @@ public class CruiseItinerary {
                 .map(Collection::stream).orElseGet(Stream::empty)
                 .filter(ex -> !isEmbark || ex.isOkForEmbark())
                 .filter(ex -> !isDebark || ex.isOkForDebarks())
+                .filter(excursion -> !isSpecial(excursion))
                 .collect(toList());
+    }
+
+    private static boolean isSpecial(ExcursionModel excursion) {
+        return "Special Excursion".equals(excursion.getShorexCategory());
     }
 
 

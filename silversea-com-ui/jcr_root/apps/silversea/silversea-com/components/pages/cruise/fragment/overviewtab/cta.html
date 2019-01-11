@@ -1,7 +1,0 @@
-<template data-sly-template.default="${ @ cruise }">
-    <div class="c-cruise__cta">
-        <a class="btn btn-thin btn-dark effect" href="#" data-scroll-target=".c-tab__accordion" data-tab-target="#suitenfare-b-version"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-        <a class="btn btn-thin btn-red effect" data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
-            href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-    </div>
-</template>

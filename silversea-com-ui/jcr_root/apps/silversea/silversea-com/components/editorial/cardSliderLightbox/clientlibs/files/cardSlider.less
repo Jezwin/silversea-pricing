@@ -1,9 +1,9 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
 .cardSlider::before {
   content: " ";
   height: 100%;
   width: 200vw;
-  background-color: @grey--f4;
   display: block;
   position: absolute;
   left: -50vw;
@@ -22,15 +22,19 @@
     z-index: 950;
   }
 
-  .cardSlider-content {
 
-    padding-bottom: 25px;
+  .cardSlider-slider {
+    visibility: hidden;
+  }
+
+  .cardSlider-content {
 
     .slick-track {
       margin: auto;
     }
+
     .slick-cloned .o-img {
-      display:block;
+      display: block;
     }
 
     .slick-next:after {
@@ -54,6 +58,7 @@
       transform: rotateZ(135deg);
       top: 37% !important;
     }
+
     .slick-next {
       width: 40px;
       height: 40px;
@@ -61,6 +66,7 @@
       transform: rotateZ(-45deg);
       top: 37% !important;
     }
+
     .slick-prev:after {
       width: 20px;
       padding: 10px;
@@ -76,13 +82,21 @@
   }
 
   .cardSlider-slide {
-    position:relative;
+    position: relative;
     margin-right: 7px;
     margin-left: 7px;
+
     &:focus {
       outline: 0;
     }
 
+  }
+
+  .cardSlider-subTitle {
+    text-align: center;
+    font-family: @suisse;
+    color: #333333;
+    letter-spacing: 0.5px;
   }
 
   .cardSlider-title {
@@ -107,6 +121,7 @@
     font-size: 13px;
     letter-spacing: 0.5px;
     line-height: 20px;
+    min-height: 20px;
     margin-top: 8px;
   }
 
@@ -145,39 +160,89 @@
     margin-top: 12px;
 
   }
-  .cardSlider-slide:hover {
 
-    background-color: white;
+  .cardSlider-slide:hover {
+    background-color: @grey--f4;
   }
+
   .cardSlider-slide:not(:hover) .cardSlider-slide-moredetails {
     visibility: hidden;
   }
 
   .cardSlider-slide-thumbnail {
-    height: 224px;
 
+    margin-bottom: 15px;
   }
 
-  .cardSlider-slide-thumbnail img {
-    height: 224px;
+  .cardSlider-slide-thumbnail.circled img {
+    border-radius: 50%;
+    height: 200px;
+    margin-top: 20px;
+    object-fit: cover;
+  }
 
+  .cardSlider-slide-thumbnail.squared img {
+    height: 224px;
     object-fit: cover;
   }
 
 }
 
+@media (min-width: @screen-md-max) {
+  .cardSlider {
+    &.grayBackgroundDesktop {
+      .cardSlider-slide:hover {
+        background-color: white;
+      }
+    }
+
+    &.grayBackgroundDesktop::before {
+      background-color: @grey--f4;
+    }
+  }
+}
+
+@media (min-width: @screen-md-min) and(max-width: @screen-md-max) {
+  .cardSlider {
+    &.grayBackgroundTablet {
+      .cardSlider-slide:hover {
+        background-color: white;
+      }
+    }
+
+    &.grayBackgroundTablet::before {
+      background-color: @grey--f4;
+    }
+  }
+}
+
 @media (max-width: @screen-md-min) {
   .cardSlider {
+    &.grayBackgroundMobile {
+      .cardSlider-slide:hover {
+        background-color: white;
+      }
+    }
+
+    &.grayBackgroundMobile::before {
+      background-color: @grey--f4;
+    }
+  }
+
+  .cardSlider {
+
     .cardSlider-content {
       .slick-prev {
         width: 40px;
         left: -18px !important;
       }
+
       .slick-next {
         width: 40px;
         right: -18px !important;
       }
     }
+
     .cardSlider-slide-text {
       font-size: 12px;
       line-height: 18px;

@@ -19,11 +19,11 @@
             </div>
             <div class=" fyc2018-filter-value-container">
                 <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                     data-sly-call="${sortingTemplate.mobileDetail @ field='duration', sorting=fyc.filterBar.DURATION.Sorting, label='duration'}"/>
+                     data-sly-call="${sortingTemplate.mobileDetail @ field='duration', sorting=fyc.filterBar.durationSorting, label='duration'}"/>
                 <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                     data-sly-call="${sortingTemplate.mobileDetail @ field='departure', sorting=fyc.filterBar.DEPARTURE.Sorting, label='departure'}"/>
+                     data-sly-call="${sortingTemplate.mobileDetail @ field='departure', sorting=fyc.filterBar.departureSorting, label='departure'}"/>
                 <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                     data-sly-call="${sortingTemplate.mobileDetail @ field='price', sorting=fyc.filterBar.PRICE.Sorting, label='price'}"/>
+                     data-sly-call="${sortingTemplate.mobileDetail @ field='price', sorting=fyc.filterBar.priceSorting, label='price'}"/>
             </div>
             <div class="col-xs-12 visible-xs fyc2018-view-results" data-show="${'show' @ i18n}" data-singular="${'cruise' @ i18n}" data-plural="${'cruises' @ i18n}">
                 <span></span>

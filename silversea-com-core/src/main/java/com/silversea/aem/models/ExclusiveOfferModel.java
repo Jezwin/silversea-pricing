@@ -428,4 +428,8 @@ public class ExclusiveOfferModel {
         return defaultVoyageIcon;
     }
 
+    public Integer getDefaultPriorityWeight() {
+        return priorityWeight;
+    }
+
 }

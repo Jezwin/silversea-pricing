@@ -1,0 +1,96 @@
+<template data-sly-template.default="${ @ cruiseFareAdditionsDescription, isCombo,prices, model, isFeetSquare,requestQuotePagePath, exclusiveOffersCruiseFareAdditions, showTitle, showDescription }">
+<div id="menu-cruise2018suites" class="cruise-2018-suites-fares row container">
+        <div class="cruise-2018-title cruise-2018-suites-fares-title" data-sly-test="${showTitle}">
+            ${ 'suites-and-fares' @ i18n}
+        </div>
+        <div class="cruise-2018-suites-fares-description hidden-xs" data-sly-test="${showDescription}">${'cruise-suites-and-fares-descr' @i18n}</div>
+        <div class="cruise-2018-suites-fares-main row">
+            <sly data-sly-repeat="${prices}">
+                <div class="col-md-4 col-xs-12 col-sm-6 cruise-2018-suites-fares-col">
+                    <div class="cruise-2018-suites-fares-container" id="cruise-2018-container${itemList.index}">
+                        <a class="open-lightbox-suite cruise-2018-link-open-modal" data-target=".lightbox" id="lb-suite-${item.suite.name}"
+                           href="${model.page.path @ extension='html', selectors=['lightboxes.lg-suite', item.suiteCategory, pageProperties.cruiseCode]}" rel="nofollow"></a>
+                        <div class="cruise-2018-suites-fares-image">
+                            <sly data-sly-test="${item.suite.thumbnail}"
+                                 data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                                 data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=item.suite.thumbnail, Width='450'}"/>
+                        </div>
+                        <div class="cruise-2018-suites-fares-description">
+                        <span class="cruise-2018-suites-fares-description-title"
+                              data-sly-text="${item.suite.title}"></span>
+                            <p class="cruise-2018-suites-fares-description-upto">${'up-to' @i18n} ${isFeetSquare ? item.suite.suiteSizeFeet  : item.suite.suiteSizeMeter}</p>
+                        </div>
+                        <div class="cruise-2018-suites-fares-price ">
+                            <span data-sly-test="${item.isWaitList}"
+                                  class="cruise-2018-suites-fares-waiting-list">${'waitlist' @ i18n}</span>
+                            <sly data-sly-test="${!item.isWaitList}">
+                                <div class="cruise-2018-suites-fares-price-text">
+                                    <div class="cruise-2018-suites-fares-price-from">${'from' @ i18n}</div>
+                                    <span class="cruise-2018-suites-fares-price-text">
+	                                 ${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}
+	                            </span>
+                                    <span class="cruise-2018-suites-fares-price-bonus"
+                                          data-sly-test="${item.lowestPrice.earlyBookingBonus}">
+		                            	${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
+                                    </span>
+                                </div>
+                            </sly>
+                        </div>
+                        <div class="cruise-2018-suites-fares-cta">
+                            <div>
+                                <a class="cruise-2018-suites-fares-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
+                                   id="cruise-2018-rqa-${itemList.index}"
+                                   data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+                                   href="${requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"  rel="nofollow"
+                                   data-sscclicktype="clic-RAQ">
+                                    <span>${'request-quote' @i18n}</span>
+                                </a>
+                            </div>
+                            <div>
+                                <a class="cruise-2018-suites-fares-details"
+                                   id="cruise-2018-suites-fares-mode-details${itemList.index}">
+                                    <span>${'view-more-details' @ i18n}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </sly>
+            <div class="cruise-2018-suites-fares-footnote col-xs-12" data-sly-test="${isCombo}">
+                ${'fares-shown-are-per-guest' @i18n}
+            </div>
+            <div class="col-xs-12 cruise-2018-suites-fares-included ${isCombo ? '' : 'hidden-xs'}"
+                 data-sly-test="${exclusiveOffersCruiseFareAdditions && (exclusiveOffersCruiseFareAdditions.size>0 || model.cruiseFareAdditions.size>0)}">
+                <div class="${isCombo ? 'cruise-2018-suites-fares-included-title-combo' : 'cruise-2018-suites-fares-included-title'}">
+                    <sly data-sly-test="${!isCombo}">${ 'included-cruise-fare' @ i18n}</sly>
+                    <sly data-sly-test="${isCombo}">${ 'benefits' @ i18n}</sly>
+                </div>
+                <div class="cruise-2018-suites-fares-included-description-combo" data-sly-test="${cruiseFareAdditionsDescription}">
+                    ${cruiseFareAdditionsDescription @ context='html'}
+                </div>
+                <ul class="cruise-2018-suites-fares-included-ul">
+                    <sly data-sly-test="${!isCombo}">
+                        <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}"
+                            class="cruise-2018-suites-fares-included-eo">${item @ context='html'}</li>
+                        <li data-sly-repeat="${model.cruiseFareAdditions}">${item @ context='html'}</li>
+                    </sly>
+                    <sly data-sly-test="${isCombo}">
+                        <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}" class="cruise-2018-suites-fares-included-eo ${itemList.count > 6 ? 'hidden-xs' : ''}">
+                            ${item @ context='html'}
+                        </li>
+                        <li class="onclick-show-more-less-benefits benefits-show-more visible-xs">
+                            ${'show-more' @ i18n}
+                        </li>
+                        <li class="onclick-show-more-less-benefits benefits-show-less visible-xs">
+                            ${'show-less' @ i18n }
+                        </li>
+                    </sly>
+                </ul>
+            </div>
+            <div class="cruise-2018-suites-fares-footnote col-xs-12" data-sly-test="${!isCombo}">
+                ${'fares-shown-are-per-guest' @i18n}
+            </div>
+        </div>
+
+    </div>
+</template>

@@ -1,0 +1,87 @@
+<template data-sly-template.navigation="${ @ totalNumberOfOffers, cruiseType, startDate, endDate, departurePortName, arrivalPortName, duration, isWaitlist, earlyBookingBonus, currency, computedPriceFormatted, requestQuotePagePath }">
+    <div class="cruise-2018-menu-container-wrapper" id="cruise2018menu">
+        <div class="cruise-2018-menu-container">
+            <div class="cruise-2018-menu ssc-table-full-width">
+                <div class="row-menu-overview">
+                    <sly data-sly-use.menu="/apps/silversea/silversea-com/components/pages/cruise/templates/menu.html"
+                         data-sly-call="${menu.overview @ startDate=startDate, endDate=endDate, departurePortName=departurePortName, arrivalPortName=arrivalPortName, duration=duration, isWaitlist=isWaitlist, earlyBookingBonus=earlyBookingBonus, currency=currency, computedPriceFormatted=computedPriceFormatted, requestQuotePagePath=requestQuotePagePath}"/>
+                </div>
+                <div class="row-menu-navigation">
+                    <div class="cruise-2018-menu-tab-wrapper">
+                        <a href="#menu-cruise2018offers" data-sly-test="${totalNumberOfOffers && totalNumberOfOffers >0}"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-first">
+                            <span data-sly-test="${totalNumberOfOffers == 1}" class="cruise-2018-menu-tab-text">${'offer' @i18n}</span>
+                            <span data-sly-test="${totalNumberOfOffers > 1}" class="cruise-2018-menu-tab-text">${'offers' @i18n}</span>
+                        </a>
+                        <a href="#menu-cruise2018itinerary"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-second">
+                            <sly data-sly-test="${cruiseType != 'silversea-expedition'}">
+                                <span class="cruise-2018-menu-tab-text-big">${'itinerary-and-excursions' @ i18n}</span>
+                            </sly>
+                            <sly data-sly-test="${cruiseType == 'silversea-expedition'}">
+                                <span class="cruise-2018-menu-tab-text-big">${'itinerary' @ i18n}</span>
+                            </sly>
+                            <span class="cruise-2018-menu-tab-text-small">${'itinerary' @ i18n}</span>
+                        </a>
+                        <a href="#menu-cruise2018suites"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-third">
+                            <span class="cruise-2018-menu-tab-text-small">${'suites' @i18n}</span>
+                            <span class="cruise-2018-menu-tab-text-big">${'suites-and-fares' @i18n}</span>
+                        </a>
+                        <a href="#menu-cruise2018ship"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-fourth">
+                            <span class="cruise-2018-menu-tab-text-big">${'ship' @i18n}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template data-sly-template.overview="${ @ startDate, endDate, departurePortName, arrivalPortName, duration, isWaitlist, earlyBookingBonus, currency, computedPriceFormatted, requestQuotePagePath}">
+    <div class="menu-overview-fixed  hidden-xs" id="cruise2018menufixed">
+        <div class="menu-container">
+            <div class="menu-overview-destination col-sm-6 col-md-4">
+                <span class="departurePort">${departurePortName}</span>
+                <span class="to">${'to' @ i18n}</span> ${arrivalPortName}
+            </div>
+            <div class="menu-date-days col-sm-3 hidden-xs hidden-sm">
+                <div
+                        data-sly-use.dateStartDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=startDate}"
+                        data-sly-use.dateEndDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=endDate}"
+                        data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=startDate}">
+                    ${dateStartDay.value}
+                    <span class="menu-date-days-to">${'to-date' @ i18n} </span>
+                    ${dateEndDay.value}, ${dateYear.value}
+                </div>
+                ${duration}
+                <span class="menu-date-days-days">${'days' @ i18n}</span>
+            </div>
+            <div class="menu-price-raq col-sm-6 col-md-5 hidden-xs">
+                <div class="menu-quote-price col-sm-5 col-md-6">
+                    <sly data-sly-test="${isWaitlist}">
+                        <div class="waitlist">${'waitlist' @ i18n}</div>
+                    </sly>
+                    <sly data-sly-test="${!isWaitlist}">
+                        <div class="from ${earlyBookingBonus ? 'display-inline' : ''}">${'from' @ i18n}</div>
+                        <div class="price ${earlyBookingBonus ? 'display-inline' : ''}">
+                            ${currency @ i18n} ${computedPriceFormatted}
+                        </div>
+                        <div class="early-booking" data-sly-test="${earlyBookingBonus}">
+                            ${'with-early' @ i18n} ${'booking-bonus' @ i18n}
+                        </div>
+                    </sly>
+                </div>
+                <div class="menu-raq col-sm-7 col-md-6">
+                    <a class="raq-quote-btn btn btn-thin btn-red effect"
+                       id="menu-overview-raq"
+                        data-sly-test.appendSuffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+                       href="${requestQuotePagePath @ extension='html', selectors='s', suffix=appendSuffix}" rel="nofollow"
+                       data-sscclicktype="clic-RAQ">
+                        <span>${'request-quote' @i18n}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

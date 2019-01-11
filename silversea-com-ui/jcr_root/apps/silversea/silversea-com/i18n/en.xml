@@ -115,6 +115,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events"
         sling:message="Benefits and events"/>
+    <benefits
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="benefits"
+            sling:message="Benefits"/>
     <benefits-and-events-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events-description"
@@ -1608,6 +1612,14 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
 	    sling:message="show Less"/>
+    <show-waitlist
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="show-waitlist"
+        sling:message="show waitlist"/>
+    <hide-waitlist
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hide-waitlist"
+        sling:message="hide waitlist"/>
 	<show-all
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-all"

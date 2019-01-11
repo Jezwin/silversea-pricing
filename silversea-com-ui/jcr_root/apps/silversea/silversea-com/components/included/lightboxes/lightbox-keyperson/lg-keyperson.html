@@ -1,0 +1,31 @@
+<template data-sly-template.default>
+    <div class="lightbox-keyperson">
+        <sly class="cardSliderLightboxContent"
+             data-sly-use.lightboxUse="${'com.silversea.aem.components.page.combo.KeyPersonLightbox'}">
+            <div class="csl-big-title">${lightboxUse.keyPeopleTitle}</div>
+            <sly data-sly-test.card="${lightboxUse.card}"/>
+            <a href="#${lightboxUse.prev}" class="used-by-lightbox-simple-prev"
+               data-sly-test="${lightboxUse.prevCard}">${lightboxUse.prevCard.title}</a>
+            <a href="#${lightboxUse.next}" class="used-by-lightbox-simple-next"
+               data-sly-test="${lightboxUse.nextCard}">${lightboxUse.nextCard.title}</a>
+
+            <div class="csl-asset-slider csl-asset-slider--main">
+                <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @  fallback=card.bigPicture}"/>
+
+                <div data-sly-repeat.asset="${setImage.renditionList}" data-image="${asset.path}">
+                    <div class="ratio">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                             data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="csl-title cardLight">${card.customTitle || card.title || card.name @context='html'}</div>
+            <div class="csl-profession">${card.profession @context='html'}</div>
+            <div class="csl-description">
+                ${card.longDescription || card.briefDescription @context='html'}
+            </div>
+        </sly>
+    </div>
+</template>
+
+<sly data-sly-use.template="./lg-keyperson.html" data-sly-call="${template.lightbox}"/>

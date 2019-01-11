@@ -19,11 +19,11 @@
                     <span class="fyc2018-sorting-span"> <span class="text-uppercase">${'departure' @ i18n}</span></span>
                     <div class="fyc2018-sorting-dropdown">
                         <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                             data-sly-call="${sortingTemplate.default @ field='departure', sorting=fyc.filterBar.DEPARTURE.Sorting, label='departure'}"/>
+                             data-sly-call="${sortingTemplate.default @ field='departure', sorting=fyc.filterBar.departureSorting, label='departure'}"/>
                         <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                             data-sly-call="${sortingTemplate.default @ field='duration', sorting=fyc.filterBar.DURATION.Sorting,  label='duration'}"/>
+                             data-sly-call="${sortingTemplate.default @ field='duration', sorting=fyc.filterBar.durationSorting,  label='duration'}"/>
                         <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                             data-sly-call="${sortingTemplate.default @ field='price', sorting=fyc.filterBar.PRICE.Sorting, label='price'}"/>
+                             data-sly-call="${sortingTemplate.default @ field='price', sorting=fyc.filterBar.priceSorting, label='price'}"/>
                     </div>
                 </div>
                 <div class="fyc2018-header-sorting-type hidden-xs">
@@ -65,6 +65,12 @@
                     <sly data-sly-test="${fyc.filterBar.FEATURES.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
+                </div>
+                <div class="fyc2018-show-hide-waitlist" data-show-waitlist="${'show-waitlist' @ i18n}" data-hide-waitlist="${'hide-waitlist' @ i18n}" data-sly-test="${!properties.preFilterWaitlist}">
+                    <span class="waitlist show-waitlist">${'hide-waitlist' @ i18n }</span>
+                    <sly data-sly-list="${fyc.filterBar.WAITLIST.rows}">
+                        <span class="waitlist hide-waitlist" data-sly-test="${item.key == 'no_waitlist' && item.state == 'CHOSEN'}">${'show-waitlist' @ i18n}</span>
+                    </sly>
                 </div>
             </div>
         </div>

@@ -1,0 +1,34 @@
+<template data-sly-template.default="${ @ isWaitlist,earlyBookingBonus,currency,computedPriceFormatted, requestQuotePagePath }">
+    <div class="fixed-footer-cruise" id="cruise2018fixedfooter">
+        <div class="fixed-footer-info">
+            <div class="fixed-footer-container">
+                <div class="fixed-footer-price col-xs-6">
+                    <div class="fixed-footer-quote-price ${isWaitlist ? 'fixed-footer-quote-price-waitlist-div' : ''}">
+                        <sly data-sly-test="${isWaitlist}">
+                            <div class="fixed-footer-quote-price-waitlist">
+                                ${'waitlist' @ i18n}
+                            </div>
+                        </sly>
+                        <sly data-sly-test="${!isWaitlist}">
+                            <div class="fixed-footer-quote-price-from">${'from' @ i18n}</div>
+                            <div class="fixed-footer-quote-price-number">
+                                ${currency @ i18n} ${computedPriceFormatted}
+                            </div>
+                            <div class="fixed-footer-quote-price-bonus"
+                                 data-sly-test="${earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                        </sly>
+                    </div>
+                </div>
+                <div class="fixed-footer-quote-rqa col-xs-6">
+                    <a class="fixed-footer-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
+                       id="fixed-footer-2018-raq"
+                       data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+                       href="${requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" rel="nofollow"
+                       data-sscclicktype="clic-RAQ">
+                        <span>${'request-quote' @i18n}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -17,6 +17,12 @@
         }
     })();
 
+    var fixCircleHeight = (function () {
+        return function () {
+            $(".cardSlider-slide-thumbnail.circled img").css("height", $(".cardSlider-slide").css("width"));
+        }
+    })();
+
     function initSlider() {
         $(".cardSlider-slider").each(function () {
             var $slider = $(this);
@@ -67,9 +73,17 @@
                 $slider.on('afterChange', function (event, slick, currentSlide) {
                     loadLazyImageInSlider($(this), 'cardSlider-slide');
                 });
+                $slider.on('breakpoint', function () {
+                    createLineProgressBar();
+                    fixCircleHeight();
+
+                });
                 loadLazyImageInSlider($slider);
+                createLineProgressBar();
+                fixCircleHeight();
+                //avoid to see the slider with and without slick (jump effect)
+                $slider.css("visibility", "visible");
             }
-            createLineProgressBar();
         });
     }
 
@@ -82,7 +96,15 @@
     });
 })();
 
-function cslInitLightbox() {
+function cslInitLightbox() { //this is called in the modal lightbox
     $lightboxSimpleContent.find(".lazy").lazy();
-    $lightboxSimple.find(".csl-asset-slider").slick()
+    $lightboxSimple.find(".csl-asset-slider").slick();
+    //for safety...
+    setTimeout(function () {
+        $lightboxSimpleContent.find(".lazy").lazy();
+    }, 500);
+    setTimeout(function () {
+        $lightboxSimpleContent.find(".lazy").lazy();
+    }, 1000);
+
 }

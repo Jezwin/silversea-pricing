@@ -1,4 +1,7 @@
 <template data-sly-template.default="${ @ assetReference, title, description }">
+    <head>
+        <meta name="robots" content="noindex">
+    </head>
     <div class="lightbox-simple">
         <sly data-sly-use.templates="./lightbox-simple.html"
              data-sly-call="${templates.asset @ assetReference = assetReference}"/>
@@ -8,7 +11,10 @@
         </div>
     </div>
 </template>
-<template data-sly-template.asset="${assetReference}">
+<template data-sly-template.asset="${@ assetReference}">
+    <head>
+        <meta name="robots" content="noindex">
+    </head>
     <div class="ls-asset-slider">
         <sly data-sly-test.selection="${assetReference}"/>
         <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=selection}"/>

@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.FilterBar.*;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.DISABLED;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 import static org.junit.Assert.*;
 
 public class FindYourCruise2018UseTest {
@@ -119,14 +119,14 @@ public class FindYourCruise2018UseTest {
 
     @Test
     public void testSort() {
-        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).sortedBy(PRICE, "desc").build();
+        FindYourCruise2018Use use = new UseBuilder().withDestinations(AFRICA_VALUE).sortedBy("price", "desc").build();
         use.init(cruises, "1000");
         assertTrue(use.getCruises().stream().allMatch(cruise -> AFRICA_LABEL.equals(cruise.getCruiseModel().getDestination().getTitle())));
         Long price = Long.MAX_VALUE;
         for (CruiseItem cruiseItem : use.getCruises()) {
             Long computedPrice = cruiseItem.getLowestPrice().getComputedPrice();
 
-            assertTrue(price ==null || computedPrice ==null || price >= computedPrice);
+            assertTrue(price == null || computedPrice == null || price >= computedPrice);
             price = computedPrice;
         }
     }
@@ -242,7 +242,7 @@ public class FindYourCruise2018UseTest {
             JsonElement priceElement = json.getAsJsonObject("lowestPrices").getAsJsonObject("ftUSD").get("price");
             price = priceElement.getAsLong();//cam be null
         } catch (Throwable e) {
-                    }
+        }
         cruiseModel.setPrices(Arrays.asList(new TestPriceModel(price)));
 
         List<PortItem> ports = StreamSupport.stream(json.getAsJsonArray("ports").spliterator(), false)
@@ -366,8 +366,8 @@ public class FindYourCruise2018UseTest {
         }
 
 
-        UseBuilder sortedBy(AbstractFilter filter, String type) {
-            filtersRequest.put("sortby", new String[]{filter.getKind() + "-" + type});
+        UseBuilder sortedBy(String name, String type) {
+            filtersRequest.put("sortby", new String[]{name + "-" + type});
             return this;
         }
 

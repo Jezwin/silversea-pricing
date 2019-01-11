@@ -17,9 +17,10 @@
                     sling:resourceType="silversea/silversea-com/components/editorial/herobanner"
                     type="home"
                     disabledTextBackground="true"/>
-            <display
+            <exclusiveOfferMain
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="silversea/silversea-com/components/displayproperties/exclusiveoffers" />
+                    sling:resourceType="silversea/silversea-ssc/components/editorial/eoMainInformations"
+                    type="home" />
             <findyourcruise
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="silversea/silversea-ssc/components/editorial/findyourcruise_landing"/>

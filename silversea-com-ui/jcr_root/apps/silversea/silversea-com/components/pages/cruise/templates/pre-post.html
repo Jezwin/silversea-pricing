@@ -1,0 +1,30 @@
+<template data-sly-template.default="${ @ prePosts, activateProgressbar}">
+    <div class="cruise-2018-prepost-wrapper hidden-xs" id="cruise2018prepost">
+        <div class="cruise-2018-prepost">
+            <sly data-sly-test="${prePosts}">
+                <div class="cruise-2018-prepost-title">${'pre-post-extensions' @ i18n} ${'and' @i18n} ${'hotels' @i18n}</div>
+                <div data-ssc-slides="4" data-ssc-breakpoint="1024"
+                     class="${activateProgressbar ? 'activate-progressbar' : ''} cruise-2018-prepost-content cruise-2018-slider">
+                    <sly data-sly-list.prePost="${prePosts}">
+                        <div class="cruise-2018-prepost-slide">
+                            <sly data-sly-test.typeLB="${prePost.type == 'hotel' ? 'lg-hotel': 'lg-land'}"/>
+                            <a class="open-lightbox-land-shorex-hotel prepost-lightbox-link" data-target=".lightbox"
+                               id="lb-prePost-${prePost.id}"
+                               href="${prePost.cruisePath @ extension='html', selectors=['lightboxes.lg-land-shorex-hotel',typeLB, prePost.itineraryId, prePost.id]}"></a>
+                            <sly data-sly-test.thumbnail="${prePost.thumbnail || prePost.fallbackThumbnail}"/>
+                            <div class="cruise-2018-prepost-slide-thumbnail">
+                                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                                     data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=350}"/>
+                            </div>
+                            <div class="cruise-2018-prepost-slide-prepost">${prePost.prePost}</div>
+                            <div class="cruise-2018-prepost-slide-title">${prePost.customTitle ? prePost.customTitle : prePost.title}</div>
+                            <div data-sly-test=${prePost.nights} class="cruise-2018-prepost-slide-days">${prePost.nights} ${prePost.nights> 1 ? 'nights' : 'night' @ i18n}</div>
+                            <div data-sly-test=${prePost.category} class="cruise-2018-prepost-slide-collection">${prePost.category}</div>
+                            <div class="cruise-2018-prepost-slide-moredetails">${'view-more-details' @ i18n}</div>
+                        </div>
+                    </sly>
+                </div>
+            </sly>
+        </div>
+    </div>
+</template>

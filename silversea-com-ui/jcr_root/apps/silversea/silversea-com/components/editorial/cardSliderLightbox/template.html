@@ -1,34 +1,50 @@
-<template data-sly-template.default="${ @ title, slidesDesktop,slidesTablet, slidesMobile, showArrows, cards }">
+<template
+        data-sly-template.default="${ @ showArrows, subtitle, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector }">
     <div class="cardSlider-wrapper ">
-        <div class="cardSlider">
-            <sly data-sly-test="${cards}">
+        <div class="cardSlider ${backgroundColour}">
+            <sly>
                 <div class="cardSlider-title">${title}</div>
+                <div class="cardSlider-subTitle">${subtitle @ context='html'}</div>
                 <div data-ssc-slides="${slidesDesktop}"
                      data-ssc-breakpoint-tablet="992"
                      data-ssc-slides-to-show-tablet="${slidesTablet}"
                      data-ssc-breakpoint-mobile="600"
                      data-ssc-slides-to-show-mobile="${slidesMobile}"
                      class="cardSlider-content cardSlider-slider">
-                    <sly data-sly-list.card="${cards}">
+                    <sly data-sly-test="${cards}" data-sly-list.card="${cards}">
+                        <sly data-sly-test.hasLightbox="${!card.description.isEmpty}"/>
                         <div class="cardSlider-slide">
+                            <sly data-sly-test="${!card.noModal}"
+                                 data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=lightboxPath, absolute=false}"/>
                             <a class="lightbox-link" data-toggle="modal" data-target="#lightbox-simple"
                                data-slb-scope="lightbox-cardSlider"
+                               data-sly-test="${!card.noModal }"
                                data-slb-arrows="${showArrows}"
                                data-slb-callback="cslInitLightbox"
                                id="lb-sl-${cardList.index}" data-simple-lightbox
-                               href="#${currentNode.path @ selectors=['lightbox', cardList.index], extension='html'}"></a>
+                               href="#${externalizerHelper.externalizedUrl @ selectors=[selector, cardList.index], extension='html'}"></a>
                             <sly data-sly-test.thumbnail="${card.thumbnail || card.bigPicture}"/>
-                            <div class="cardSlider-slide-thumbnail">
-                                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                                     data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=350}"/>
-                            </div>
-                            <div class="cardSlider-slide">${card.briefDescription}</div>
-                            <div class="cardSlider-slide-title">${card.title}</div>
-                            <div class="cardSlider-slide-moredetails">${'view-more-details' @ i18n}</div>
+                            <sly data-sly-use.cardTemplate="./silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
+                                 data-sly-call="${cardTemplate.singleCard @ thumbnail=thumbnail, style=style, briefDescription=card.briefDescription, title=card.title, noModal=card.noModal }"/>
                         </div>
                     </sly>
                 </div>
             </sly>
         </div>
     </div>
+</template>
+<template data-sly-template.singleCard="${ @ thumbnail, style, briefDescription, title, noModal}">
+    <div class="cardSlider-slide-thumbnail ${style}">
+        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+             data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=700}"/>
+    </div>
+    <sly data-sly-test="${'squared'==style}">
+        <div class="cardSlider-slide">${briefDescription} </div>
+        <div class="cardSlider-slide-title">${title} </div>
+    </sly>
+    <sly data-sly-test="${'circled'==style}">
+        <div class="cardSlider-slide-title">${title} </div>
+        <div class="cardSlider-slide">${briefDescription} </div>
+    </sly>
+    <div class="cardSlider-slide-moredetails" data-sly-test="${!noModal}">${'view-more-details' @ i18n}</div>
 </template>
