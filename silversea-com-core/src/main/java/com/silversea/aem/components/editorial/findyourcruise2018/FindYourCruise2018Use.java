@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
-import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
@@ -169,10 +168,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         Instant today = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).toInstant(ZoneOffset.UTC);
         Predicate<CruiseModelLight> hideToday = cruise -> cruise.getStartDate().toInstant().isAfter(today);
 
-        if (ofNullable(getProperties().get("preFilterWaitlist", Boolean.class)).orElse(false)) {
-            stream = stream.filter(cruise -> cruise.getLowestPrices().get(geomarket + currency) != null);
-        }
-
         Optional<List<String>> voyageCodeList =
                 ofNullable(getProperties().get("voyagecodelist", String.class)).map(list -> list.split(",")).map(Arrays::asList);
         if (voyageCodeList.isPresent()) {
@@ -209,7 +204,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private List<CruiseItem> retrievePaginatedCruises(Pagination pagination, List<CruiseModelLight> lightCruises) {
         int pagSize = pagination.getPageSize();
         return lightCruises.stream()
-                .sorted(FilterBar.getComparator(this))
+                .sorted(filterBar.comparator(this))
                 .skip((pagination.getCurrent() - 1) * pagSize)
                 .limit(pagSize)
                 .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale))
@@ -224,6 +219,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 map.put(key, (String[]) value);
             } else if (value instanceof String) {
                 map.put(key, ((String) value).split(","));
+            } else if (value instanceof Boolean) {
+                map.put(key, new String[]{value.toString()});
             }
         });
         return map;

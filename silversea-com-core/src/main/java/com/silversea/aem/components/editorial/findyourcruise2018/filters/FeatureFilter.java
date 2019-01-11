@@ -1,7 +1,8 @@
-package com.silversea.aem.components.editorial.findyourcruise2018;
+package com.silversea.aem.components.editorial.findyourcruise2018.filters;
 
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.FeatureModelLight;
@@ -11,19 +12,19 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.CHOSEN;
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.CHOSEN;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
-class FeatureFilter extends AbstractFilter<FeatureModelLight> {
+public class FeatureFilter extends AbstractFilter<FeatureModelLight> {
     public FeatureFilter() {
-        super("feature", Comparator.comparing((CruiseModelLight cruise) -> ""), Sorting.HIDDEN);
+        super("feature");
     }
 
     @Override
-    protected Stream<FilterRow<FeatureModelLight>> projection(CruiseModelLight cruise) {
+    public Stream<FilterRow<FeatureModelLight>> projection(CruiseModelLight cruise) {
         return cruise.getFeatures().stream().filter(feature -> feature.getTitle() != null)
                 .map(feature -> new FilterRow<>(feature, FeatureModelLight::getTitle, feature.getFeatureId(), ENABLED));
 

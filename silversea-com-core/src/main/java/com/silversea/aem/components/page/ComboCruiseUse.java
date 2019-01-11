@@ -61,7 +61,7 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
         locale = getCurrentPage().getLanguage(false);
         segmentModel = retrieveSelectedSegment(comboCruiseModel, null);
-        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(getResource(), getResourceResolver(), getCurrentPage());
+        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(getResource(), getResourceResolver(), getCurrentPage(), true);
         itinerary = Cruise2018Use.retrieveItinerary(segmentModel.getCruise(), getResourceResolver());
         shipAssetGallery = Cruise2018Use.retrieveShipAssetsGallery(segmentModel.getCruise(), getResourceResolver());
 
