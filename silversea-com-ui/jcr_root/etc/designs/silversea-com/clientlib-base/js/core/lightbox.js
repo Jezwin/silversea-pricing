@@ -26,6 +26,7 @@ $(document).on('shown.bs.modal', function (e) {
 
 $('.modal.lightbox').on('hidden.bs.modal', function (e) {
     var $modalLightbox = $(".modal.lightbox");
+    $modalLightbox.find(".modal-dialog").removeClass("modal-larger");
     var $lightboxClose = $(this).find(".lightbox-close");
     var $modalContent = $(this).find(".modal-content");
     $modalContent.removeAttr("style");

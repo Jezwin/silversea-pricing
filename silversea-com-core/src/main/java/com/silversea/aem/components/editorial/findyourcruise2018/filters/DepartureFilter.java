@@ -1,24 +1,27 @@
-package com.silversea.aem.components.editorial.findyourcruise2018;
+package com.silversea.aem.components.editorial.findyourcruise2018.filters;
 
 import com.silversea.aem.models.CruiseModelLight;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 
 public class DepartureFilter extends AbstractFilter<YearMonth> {
     private static final Calendar GREGORIAN_CALENDAR = new GregorianCalendar();
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
-    DepartureFilter() {
-        super("departure", Comparator.comparing(CruiseModelLight::getStartDate), Sorting.ASC);
+    public DepartureFilter() {
+        super("departure");
     }
 
     @Override
-    protected Stream<FilterRow<YearMonth>> projection(CruiseModelLight cruise) {
+    public Stream<FilterRow<YearMonth>> projection(CruiseModelLight cruise) {
         //we receive the """"correct"""" time but with the wrong timezone. Just use UTC always.
         YearMonth yearMonth = toLocaleYearMonth(cruise.getStartDate());
         return Stream.of(new DepartureRow(yearMonth, cruise.getLang()));
