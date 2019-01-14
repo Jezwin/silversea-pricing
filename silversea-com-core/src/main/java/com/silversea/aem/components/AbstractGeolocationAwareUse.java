@@ -1,6 +1,7 @@
 package com.silversea.aem.components;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.services.GeolocationTagService;
@@ -8,7 +9,7 @@ import com.silversea.aem.services.GeolocationTagService;
 /**
  * @author aurelienolivier
  */
-public class AbstractGeolocationAwareUse extends WCMUsePojo {
+public class AbstractGeolocationAwareUse extends AbstractSilverUse {
 
     protected GeolocationTagModel geolocation;
 

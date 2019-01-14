@@ -1,34 +1,35 @@
 package com.silversea.aem.components.editorial.cardSliderLightbox;
 
-import com.adobe.cq.sightly.WCMUsePojo;
+import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.CardLightbox;
 import com.silversea.aem.models.CardLightboxImpl;
-import com.silversea.aem.utils.MultiFieldUtils;
 import org.apache.sling.api.request.RequestPathInfo;
 
 import java.util.List;
 import java.util.Optional;
 
 
-public class LightboxUse extends WCMUsePojo {
+public class LightboxUse extends AbstractSilverUse {
     private String prev;
     private String next;
     private CardLightbox prevCard;
     private CardLightbox nextCard;
     private CardLightbox card;
+    private boolean titleInLightbox;
 
     @Override
     public void activate() throws Exception {
         RequestPathInfo requestPathInfo = getRequest().getRequestPathInfo();
         String[] selectors = requestPathInfo.getSelectors();
-        List<CardLightboxImpl> cards = MultiFieldUtils.retrieveMultiField(getResource(), "cards", CardLightboxImpl.class);
+        List<CardLightboxImpl> cards = retrieveMultiField("cards", CardLightboxImpl.class);
         init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), cards);
+        titleInLightbox = getBoolean("titleInLightbox", false);
 
     }
 
     protected Integer retrieveCurrentIndex(String[] selectors) {
         int index = selectors.length - 1;
-        while (index >= 0 && selectors[index].startsWith("country")) {
+        while (index > 0 && selectors[index].startsWith("country")) {
             index--;
         }
         int finalIndex = index;
@@ -39,6 +40,10 @@ public class LightboxUse extends WCMUsePojo {
                 return null;
             }
         }).orElse(0);
+    }
+
+    public boolean isTitleInLightbox() {
+        return titleInLightbox;
     }
 
     protected void init(String path, String selector, int currentCard, List<? extends CardLightbox> cards) {
@@ -73,4 +78,5 @@ public class LightboxUse extends WCMUsePojo {
     public CardLightbox getCard() {
         return card;
     }
+
 }

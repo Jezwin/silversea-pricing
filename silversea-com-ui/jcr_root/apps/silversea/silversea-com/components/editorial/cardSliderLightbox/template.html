@@ -1,5 +1,5 @@
 <template
-        data-sly-template.default="${ @ showArrows, subtitle, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector }">
+        data-sly-template.default="${ @ showArrows, subtitle, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector, invertTitle }">
     <div class="cardSlider-wrapper ">
         <div class="cardSlider ${backgroundColour}">
             <sly>
@@ -25,7 +25,7 @@
                                href="#${externalizerHelper.externalizedUrl @ selectors=[selector, cardList.index], extension='html'}"></a>
                             <sly data-sly-test.thumbnail="${card.thumbnail || card.bigPicture}"/>
                             <sly data-sly-use.cardTemplate="./silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
-                                 data-sly-call="${cardTemplate.singleCard @ thumbnail=thumbnail, style=style, briefDescription=card.briefDescription, title=card.title, noModal=card.noModal }"/>
+                                 data-sly-call="${cardTemplate.singleCard @ thumbnail=thumbnail, style=style, briefDescription=card.briefDescription, title=card.title, noModal=card.noModal, invertTitle=invertTitle }"/>
                         </div>
                     </sly>
                 </div>
@@ -33,16 +33,16 @@
         </div>
     </div>
 </template>
-<template data-sly-template.singleCard="${ @ thumbnail, style, briefDescription, title, noModal}">
+<template data-sly-template.singleCard="${ @ thumbnail, style, briefDescription, title, noModal, invertTitle}">
     <div class="cardSlider-slide-thumbnail ${style}">
         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
              data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=700}"/>
     </div>
-    <sly data-sly-test="${'squared'==style}">
+    <sly data-sly-test="${invertTitle}">
         <div class="cardSlider-slide">${briefDescription} </div>
         <div class="cardSlider-slide-title">${title} </div>
     </sly>
-    <sly data-sly-test="${'circled'==style}">
+    <sly data-sly-test="${!invertTitle}">
         <div class="cardSlider-slide-title">${title} </div>
         <div class="cardSlider-slide">${briefDescription} </div>
     </sly>
