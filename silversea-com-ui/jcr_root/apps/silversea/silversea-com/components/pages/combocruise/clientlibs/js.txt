@@ -1,4 +1,3 @@
 #base=js
 route.js
 itineraryexcursions/itinerary.js
-common.js
