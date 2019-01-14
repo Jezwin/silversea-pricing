@@ -12,7 +12,6 @@ import com.silversea.aem.utils.PathUtils;
 
 import java.util.*;
 
-import static com.silversea.aem.utils.MultiFieldUtils.retrieveMultiField;
 import static java.util.stream.Collectors.toList;
 
 public class ComboCruiseUse extends AbstractGeolocationAwareUse {
@@ -49,7 +48,7 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
         // init cruise model from current page
         comboCruiseModel = retrieveComboCruise().orElseThrow(() -> new Exception("Cannot get combo cruise model"));
 
-        keyPeople = retrieveMultiField(getResource(), "keyPeople", resource -> resource.getChild("path"))
+        keyPeople = retrieveMultiField( "keyPeople", resource -> resource.getChild("path"))
                 .map(path -> path.adaptTo(String.class))
                 .map(getPageManager()::getPage)
                 .filter(Objects::nonNull)

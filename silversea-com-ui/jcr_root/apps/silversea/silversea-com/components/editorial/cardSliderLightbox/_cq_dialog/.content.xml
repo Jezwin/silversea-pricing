@@ -39,29 +39,6 @@
                                     fieldLabel="Subtitle"
                                     required="{Boolean}true"
                                     name="./subtitle"/>
-                            <showArrows
-                                    jcr:primaryType="nt:unstructured"
-                                    text="Show lightbox arrows"
-                                    name="./showArrows"
-                                    value="true"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
-                            <style
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    fieldDescription="Style"
-                                    fieldLabel="Style"
-                                    name="./style">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <squared
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Squared"
-                                            value="squared"/>
-                                    <circled
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Circled"
-                                            value="circled"/>
-                                </items>
-                            </style>
                             <products
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
@@ -225,6 +202,58 @@
                     </column>
                 </items>
             </mobile>
+            <tweaks
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Tweaks"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <style
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Style"
+                                    fieldLabel="Style"
+                                    name="./style">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <squared
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Squared"
+                                            value="squared"/>
+                                    <circled
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Circled"
+                                            value="circled"/>
+                                </items>
+                            </style>
+                            <showArrows
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Show lightbox arrows"
+                                    name="./showArrows"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <invertTitle
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Invert title and sub title"
+                                    name="./invertTitle"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <addTittleInModal
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Show title in lightbox as Title, subtitle"
+                                    name="./addTitleInLightbox"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                        </items>
+                    </column>
+                </items>
+            </tweaks>
         </items>
     </content>
 </jcr:root>

@@ -1,19 +1,16 @@
 package com.silversea.aem.components.editorial.cardSliderLightbox;
 
-import com.adobe.cq.sightly.WCMUsePojo;
+import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.CardLightboxImpl;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static com.silversea.aem.utils.MultiFieldUtils.retrieveMultiField;
-import static java.util.Optional.ofNullable;
+import static java.util.stream.Stream.of;
 
 
-public class SliderUse extends WCMUsePojo {
+public class SliderUse extends AbstractSilverUse {
     private List<CardLightboxImpl> cards;
     private int slidePerPageDesktop;
     private int slidePerPageTablet;
@@ -22,41 +19,41 @@ public class SliderUse extends WCMUsePojo {
     private String title;
     private String subtitle;
     private String backgroundColour;
-    private Boolean showArrows;
+    private boolean showArrows;
+    private boolean invertTitle;
+    private boolean addTitleInLightbox;
 
     @Override
     public void activate() throws Exception {
         ValueMap properties = getProperties();
         title = properties.get("title", String.class);
         subtitle = properties.get("subtitle", String.class);
-        slidePerPageDesktop = getIntProp(properties, "Desktop", 4);
-        slidePerPageTablet = getIntProp(properties, "Tablet", slidePerPageDesktop);
-        slidePerPageMobile = getIntProp(properties, "Mobile", slidePerPageTablet);
-        style = getProp(properties, "style").map(String::toLowerCase).orElse("squared");
-        cards = retrieveMultiField(getResource(), "cards", CardLightboxImpl.class);
-        this.showArrows = "true".equals(getProperties().get("showArrows", String.class));
-        backgroundColour = deviceProps(properties, "grayBackground").map(opt -> opt.orElse("")).collect(Collectors.joining(" "));
+        slidePerPageDesktop = getInt("slidePerPageDesktop", 4);
+        slidePerPageTablet = getInt("slidePerPageTablet", slidePerPageDesktop);
+        slidePerPageMobile = getInt("slidePerPageMobile", slidePerPageTablet);
+        style = getProp("style").map(String::toLowerCase).orElse("squared");
+        cards = retrieveMultiField("cards", CardLightboxImpl.class);
+        showArrows = getBoolean("showArrows", true);
+        invertTitle = getBoolean("invertTitle", false);
+        addTitleInLightbox = getBoolean("addTitleInLightbox", false);
+        backgroundColour = of("Desktop", "Tablet", "Mobile").map(device -> getProp("grayBackground" + device, " ")).collect(Collectors.joining(" "));
+    }
+
+    public boolean isAddTitleInLightbox() {
+        return addTitleInLightbox;
+    }
+
+    public boolean isInvertTitle() {
+        return invertTitle;
     }
 
 
-    private static Optional<String> getProp(ValueMap properties, String key) {
-        return ofNullable(properties.get(key, String.class));
-    }
-
-    public Boolean isShowArrows() {
+    public boolean isShowArrows() {
         return showArrows;
-    }
-
-    private static Integer getIntProp(ValueMap properties, String device, int defaultValue) {
-        return getProp(properties, "slidePerPage" + device).map(Integer::parseInt).orElse(defaultValue);
     }
 
     public String getSubtitle() {
         return subtitle;
-    }
-
-    private static Stream<Optional<String>> deviceProps(ValueMap properties, String key) {
-        return Stream.of("Desktop", "Tablet", "Mobile").map(device -> getProp(properties, key + device));
     }
 
 
