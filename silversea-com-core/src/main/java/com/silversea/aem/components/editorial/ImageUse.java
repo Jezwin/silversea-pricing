@@ -72,6 +72,56 @@ public class ImageUse extends WCMUsePojo {
 			widthResponsiveDesktop = sliderWidth;
 		}
 
+		//We are in EoSlider / DestSlider / Ig2018
+		if(getResource().getValueMap() != null && getResource().getValueMap().get("sling:resourceType", String.class) != null){
+			String resourceType = getResource().getValueMap().get("sling:resourceType", String.class);
+			switch (resourceType){
+				case "silversea/silversea-ssc/components/editorial/inlineGallery":
+					widthResponsiveDesktop = 12/getResource().getValueMap().get("numberItemsDesktop", Integer.class);
+					if(widthResponsiveDesktop < 12){
+						widthResponsiveDesktop = widthResponsiveDesktop + 2;
+					}
+					widthResponsiveMobile = 12;
+					break;
+					case "silversea/silversea-ssc/components/editorial/destinationSlider":
+						String type = getResource().getValueMap().get("type", String.class);
+						switch (type){
+							case "1":
+								widthResponsiveDesktop = 12;
+								break;
+							case "2" :
+								widthResponsiveDesktop = 8;
+								break;
+							case "3":
+								widthResponsiveDesktop = 7;
+								break;
+							case "6":
+								widthResponsiveDesktop = 5;
+								break;
+							default:
+								widthResponsiveDesktop = 12;
+								break;
+
+						}
+
+					widthResponsiveMobile = 12;
+					break;
+
+				case "silversea/silversea-ssc/components/editorial/exclusiveOfferListND":
+					if(getResource().getValueMap().get("eoStyle", String.class).equals("slider")){
+						widthResponsiveDesktop = 12/getResource().getValueMap().get("numberItemsDesktop", Integer.class);
+						if(widthResponsiveDesktop < 12){
+							widthResponsiveDesktop = widthResponsiveDesktop + 2;
+						}
+						widthResponsiveMobile = 12;
+					}else {
+						widthResponsiveDesktop = 12;
+						widthResponsiveMobile = 12;
+					}
+					break;
+			}
+		}
+
 		// Get width from configuration
 		Resource confRes = getResource().adaptTo(Conf.class).getItemResource("responsive/image/");
 		if (confRes != null) {
