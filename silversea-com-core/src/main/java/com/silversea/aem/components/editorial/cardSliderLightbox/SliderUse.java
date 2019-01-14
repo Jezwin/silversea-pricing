@@ -21,7 +21,7 @@ public class SliderUse extends AbstractSilverUse {
     private String backgroundColour;
     private boolean showArrows;
     private boolean invertTitle;
-    private boolean addTitleInLightbox;
+
 
     @Override
     public void activate() throws Exception {
@@ -35,13 +35,10 @@ public class SliderUse extends AbstractSilverUse {
         cards = retrieveMultiField("cards", CardLightboxImpl.class);
         showArrows = getBoolean("showArrows", true);
         invertTitle = getBoolean("invertTitle", false);
-        addTitleInLightbox = getBoolean("addTitleInLightbox", false);
         backgroundColour = of("Desktop", "Tablet", "Mobile").map(device -> getProp("grayBackground" + device, " ")).collect(Collectors.joining(" "));
     }
 
-    public boolean isAddTitleInLightbox() {
-        return addTitleInLightbox;
-    }
+
 
     public boolean isInvertTitle() {
         return invertTitle;

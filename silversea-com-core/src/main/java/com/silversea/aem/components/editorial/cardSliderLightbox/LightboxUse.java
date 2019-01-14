@@ -15,6 +15,7 @@ public class LightboxUse extends AbstractSilverUse {
     private CardLightbox prevCard;
     private CardLightbox nextCard;
     private CardLightbox card;
+    private boolean titleInLightbox;
 
     @Override
     public void activate() throws Exception {
@@ -22,6 +23,7 @@ public class LightboxUse extends AbstractSilverUse {
         String[] selectors = requestPathInfo.getSelectors();
         List<CardLightboxImpl> cards = retrieveMultiField("cards", CardLightboxImpl.class);
         init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), cards);
+        titleInLightbox = getBoolean("titleInLightbox", false);
 
     }
 
@@ -38,6 +40,10 @@ public class LightboxUse extends AbstractSilverUse {
                 return null;
             }
         }).orElse(0);
+    }
+
+    public boolean isTitleInLightbox() {
+        return titleInLightbox;
     }
 
     protected void init(String path, String selector, int currentCard, List<? extends CardLightbox> cards) {

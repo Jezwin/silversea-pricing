@@ -20,8 +20,13 @@
                 </div>
             </div>
         </div>
-        <div class="csl-title cardLight">${card.customTitle || card.title || card.name}</div>
-        <div class="csl-subtitle cardLight">${card.customTitle || card.title || card.name}</div>
+        <sly data-sly-test="${lightboxUse.titleInLightbox}">
+            <div class="csl-title cardLight">${card.customTitle || card.title || card.name}, ${card.briefDescription}</div>
+        </sly>
+        <sly data-sly-test="${!lightboxUse.titleInLightbox}">
+            <div class="csl-title cardLight">${card.customTitle || card.title || card.name}</div>
+        </sly>
+
         <div class="csl-description">
             ${card.longDescription || card.briefDescription @context='html'}
         </div>
@@ -29,5 +34,5 @@
 
 </template>
 
-<sly data-sly-use.template="silversea/silversea-com/components/editorial/cardSliderLightbox/lightbox.html"
+<sly data-sly-use.template="silversea/silversea-com/components/editorial/cardSliderLightbox/lightboxes.html"
      data-sly-call="${template.lightbox}"/>

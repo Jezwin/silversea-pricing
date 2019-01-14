@@ -244,10 +244,10 @@
                                     name="./invertTitle"
                                     value="true"
                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
-                            <addTittleInModal
+                            <titleInLightbox
                                     jcr:primaryType="nt:unstructured"
                                     text="Show title in lightbox as Title, subtitle"
-                                    name="./addTitleInLightbox"
+                                    name="./titleInLightbox"
                                     value="true"
                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                         </items>
