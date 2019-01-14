@@ -10,7 +10,9 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.*;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.CHOSEN;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
@@ -51,7 +53,22 @@ public abstract class AbstractFilter<T> {
     }
 
     public void disableMissingLabels(Collection<CruiseModelLight> cruises) {
-        rows.forEach(row -> row.setState(rowShouldBeEnabled(cruises, row) ? ENABLED : DISABLED));
+        for (FilterRow<T> row : rows) {
+            if (rowShouldBeEnabled(cruises, row)) {
+                enableRow(row);
+            } else {
+                disableRow(row);
+            }
+        }
+    }
+
+    public void enableRow(FilterRow<?> row) {
+        row.setState(ENABLED);
+
+    }
+
+    public void disableRow(FilterRow<?> row) {
+        row.setState(DISABLED);
     }
 
     public final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, Collection<CruiseModelLight> allCruises) {
@@ -105,7 +122,7 @@ public abstract class AbstractFilter<T> {
      * @return True is any cruise matches the row.
      */
     private boolean rowShouldBeEnabled(Collection<CruiseModelLight> cruises, FilterRow<T> row) {
-        return cruises.parallelStream().flatMap(this::projection).anyMatch(row::equals);
+        return cruises.stream().flatMap(this::projection).anyMatch(row::equals);
     }
 
     public int getSelectedCount() {
@@ -132,7 +149,11 @@ public abstract class AbstractFilter<T> {
 
     public JsonElement toJson() {
         JsonArray array = new JsonArray();
-        rows.forEach(row -> array.add(row.toJson()));
+        rows.forEach(row -> {
+            if (!row.isNotVisible()) {
+                array.add(row.toJson());
+            }
+        });
         return array;
     }
 
@@ -151,13 +172,6 @@ public abstract class AbstractFilter<T> {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-    /**
-     * Apply post filtering, such as removing not enabled lines.
-     */
-    public void postFilter() {
-
     }
 
     protected void setRows(Set<FilterRow<T>> rows) {

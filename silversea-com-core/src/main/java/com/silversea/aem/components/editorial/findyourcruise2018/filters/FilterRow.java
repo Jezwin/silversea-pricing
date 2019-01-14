@@ -60,6 +60,10 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
         return CHOSEN.equals(state);
     }
 
+    public boolean isNotVisible() {
+        return NOT_VISIBLE.equals(state);
+    }
+
     public void setState(FilterRowState state) {
         this.state = state;
     }

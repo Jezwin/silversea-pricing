@@ -71,14 +71,10 @@ public class FilterBar {
     void updateFilters(List<CruiseModelLight> allCruises, List<CruiseModelLight> filteredCruises) {
         updateNonSelectedFilters(filteredCruises);
         updateSelectedFilters(allCruises);
-        postFiltering();
+
     }
 
-    private void postFiltering() {
-        for (AbstractFilter<?> filter : FILTERS) {
-            filter.postFilter();
-        }
-    }
+
 
     private void updateNonSelectedFilters(List<CruiseModelLight> cruises) {
         for (AbstractFilter<?> filter : FILTERS) {
@@ -95,7 +91,7 @@ public class FilterBar {
                 filter.getRows().forEach(row -> {
                     if (!row.isChosen() && !possibleRows.contains(row)) {
                         //if necessary we can do the revers and set ENABLED if the setChosen put DISABLED by default
-                        row.setState(DISABLED);
+                        filter.disableRow(row);
                     }
                 });
             }

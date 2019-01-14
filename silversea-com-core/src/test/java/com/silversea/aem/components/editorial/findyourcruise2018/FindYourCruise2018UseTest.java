@@ -199,7 +199,8 @@ public class FindYourCruise2018UseTest {
         assertTrue(DESTINATION.isSelected());
         assertEquals(16, DESTINATION.getRows().size());//world cruise..
         assertTrue(PORT.isSelected());
-        assertEquals(214, PORT.getRows().size());
+        assertEquals(825, PORT.getRows().size());
+        assertEquals(214, PORT.getRows().stream().filter(port ->  !port.isNotVisible()).count());
         assertTrue(PORT.getRows().stream().noneMatch(row -> row.getState().equals(DISABLED)));
         //only africa and asia is chosen others are enabled
         assertTrue(DESTINATION.getRows().stream()
