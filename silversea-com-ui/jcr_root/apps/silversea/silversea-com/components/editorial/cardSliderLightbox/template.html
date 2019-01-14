@@ -38,11 +38,11 @@
         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
              data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=700}"/>
     </div>
-    <sly data-sly-test="${invertTitle}">
+    <sly data-sly-test="${!invertTitle}">
         <div class="cardSlider-slide">${briefDescription} </div>
         <div class="cardSlider-slide-title">${title} </div>
     </sly>
-    <sly data-sly-test="${!invertTitle}">
+    <sly data-sly-test="${invertTitle}">
         <div class="cardSlider-slide-title">${title} </div>
         <div class="cardSlider-slide">${briefDescription} </div>
     </sly>
