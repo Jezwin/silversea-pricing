@@ -128,10 +128,11 @@
                         <div class="cruise-2018-overview-quote-price-number">
                             ${currency @ i18n} ${computedPriceFormatted}
                         </div>
-                        ${ exclusiveOfferPrePrice @ context='html'}
                         <div class="cruise-2018-overview-quote-price-from per-guest" data-sly-test="${isCombo}">(${'per-guest' @ i18n})</div>
-                        <div class="cruise-2018-overview-quote-price-bonus"
-                             data-sly-test="${earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                        <div class="cruise-2018-overview-quote-price-bonus">
+                            <sly data-sly-test="${earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</sly>
+                            <sly data-sly-test="${exclusiveOfferPrePrice}">${exclusiveOfferPrePrice @ context='html'}</sly>
+                        </div>
                     </div>
                 </a>
                 <div class="cruise-2018-overview-quote-rqa">
