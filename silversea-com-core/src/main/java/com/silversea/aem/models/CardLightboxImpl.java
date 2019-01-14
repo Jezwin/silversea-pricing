@@ -75,4 +75,32 @@ public class CardLightboxImpl implements CardLightbox {
     public boolean getNoModal() {
         return noModal != null && noModal;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setBriefDescription(String briefDescription) {
+        this.briefDescription = briefDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setBigPicture(String bigPicture) {
+        this.bigPicture = bigPicture;
+    }
+
+    public void setNoModal(Boolean noModal) {
+        this.noModal = noModal;
+    }
+
+    public void setAssetSelection(String assetSelection) {
+        this.assetSelection = assetSelection;
+    }
 }

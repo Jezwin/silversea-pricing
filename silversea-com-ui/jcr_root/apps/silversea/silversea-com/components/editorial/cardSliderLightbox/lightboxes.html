@@ -21,7 +21,7 @@
             </div>
         </div>
         <sly data-sly-test="${lightboxUse.titleInLightbox}">
-            <div class="csl-title cardLight">${card.customTitle || card.title || card.name}, ${card.briefDescription}</div>
+            <div class="csl-title cardLight">${card.customTitle || card.title || card.name} - ${card.briefDescription}</div>
         </sly>
         <sly data-sly-test="${!lightboxUse.titleInLightbox}">
             <div class="csl-title cardLight">${card.customTitle || card.title || card.name}</div>

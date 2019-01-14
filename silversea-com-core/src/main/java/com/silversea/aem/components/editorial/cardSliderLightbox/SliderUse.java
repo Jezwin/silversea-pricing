@@ -33,11 +33,19 @@ public class SliderUse extends AbstractSilverUse {
         slidePerPageMobile = getInt("slidePerPageMobile", slidePerPageTablet);
         style = getProp("style").map(String::toLowerCase).orElse("squared");
         cards = retrieveMultiField("cards", CardLightboxImpl.class);
-        showArrows = getBoolean("showArrows", true);
         invertTitle = getBoolean("invertTitle", false);
+        cards = retrieveMultiField("cards", resource -> {
+            CardLightboxImpl cardLightbox = resource.adaptTo(CardLightboxImpl.class);
+            if (invertTitle) {
+                String title = cardLightbox.getTitle();
+                cardLightbox.setTitle(cardLightbox.getBriefDescription());
+                cardLightbox.setBriefDescription(title);
+            }
+            return cardLightbox;
+        }).collect(Collectors.toList());
+        showArrows = getBoolean("showArrows", true);
         backgroundColour = of("Desktop", "Tablet", "Mobile").map(device -> getProp("grayBackground" + device, " ")).collect(Collectors.joining(" "));
     }
-
 
 
     public boolean isInvertTitle() {

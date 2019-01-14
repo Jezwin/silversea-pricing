@@ -7,6 +7,7 @@ import org.apache.sling.api.request.RequestPathInfo;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class LightboxUse extends AbstractSilverUse {
@@ -21,7 +22,16 @@ public class LightboxUse extends AbstractSilverUse {
     public void activate() throws Exception {
         RequestPathInfo requestPathInfo = getRequest().getRequestPathInfo();
         String[] selectors = requestPathInfo.getSelectors();
-        List<CardLightboxImpl> cards = retrieveMultiField("cards", CardLightboxImpl.class);
+        boolean invertTitle = getBoolean("invertTitle", false);
+        List<CardLightboxImpl> cards = retrieveMultiField("cards", resource -> {
+            CardLightboxImpl cardLightbox = resource.adaptTo(CardLightboxImpl.class);
+            if (invertTitle) {
+                String title = cardLightbox.getTitle();
+                cardLightbox.setTitle(cardLightbox.getBriefDescription());
+                cardLightbox.setBriefDescription(title);
+            }
+            return cardLightbox;
+        }).collect(Collectors.toList());
         init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), cards);
         titleInLightbox = getBoolean("titleInLightbox", false);
 
