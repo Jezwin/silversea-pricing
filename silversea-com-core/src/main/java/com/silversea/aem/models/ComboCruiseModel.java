@@ -55,6 +55,12 @@ public class ComboCruiseModel {
     @Optional
     private String comboCruiseFareAdditionsDescription;
 
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/comboCruiseFareAdditionsFootnotes")
+    @Optional
+    private String comboCruiseFareAdditionsFootnotes;
+
+
     private List<String> splitComboCruiseFareAdditions = new ArrayList<>();
 
     private List<SegmentModel> segments = new ArrayList<>();
@@ -204,5 +210,9 @@ public class ComboCruiseModel {
 
     public String getComboCruiseFareAdditionsDescription() {
         return comboCruiseFareAdditionsDescription;
+    }
+
+    public String getComboCruiseFareAdditionsFootnotes() {
+        return comboCruiseFareAdditionsFootnotes;
     }
 }
