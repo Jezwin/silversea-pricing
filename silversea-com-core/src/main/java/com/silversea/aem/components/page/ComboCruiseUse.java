@@ -57,7 +57,6 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
         keyPeopleTitle = getResource().getValueMap().get("keyPeopleTitle", String.class);
         globalPrePost = retrievePrePost(comboCruiseModel);
 
-
         locale = getCurrentPage().getLanguage(false);
         segmentModel = retrieveSelectedSegment(comboCruiseModel, null);
         assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(getResource(), getResourceResolver(), getCurrentPage(), true);
