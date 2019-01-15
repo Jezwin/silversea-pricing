@@ -1,5 +1,5 @@
 <template
-        data-sly-template.default="${ @  assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
+        data-sly-template.default="${ @  bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
     <div class="cruise-2018-overview row container ${isCombo ? 'cruise-2018-overview-single-column' : ''}"
          data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets',cruiseType]}"
          data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map',cruiseType]}"
@@ -71,14 +71,24 @@
                 <div class="cruise-2018-overview-photos-videos-btn-combo">${'photos-and-videos' @ i18n}</div>
             </a>
             <div class="cruise-2018-overview-description-cruise">
-                <sly data-sly-test="${showCruiseBeforeName}">${'cruise' @i18n}</sly>
-                ${navigationTitle || title}
-                <sly data-sly-test="${!showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                <sly data-sly-test="${!isCombo}">
+                    <sly data-sly-test="${showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                    ${navigationTitle || title}
+                    <sly data-sly-test="${!showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                </sly>
+                <sly data-sly-test="${isCombo}">
+                    ${smallTitle} - ${departurePortName} ${'to' @ i18n} ${arrivalPortName}
+                </sly>
             </div>
             <h1 class="cruise-2018-overview-description-from-to">
-                <span class="${isCombo ? 'cruise-2018-overview-description-origin' : ''}">${departurePortName} </span>
-                <span class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</span>
-                <span class="cruise-2018-overview-description-from-to-destination">${arrivalPortName}</span>
+                <sly data-sly-test="${!isCombo}">
+                    <span class="${isCombo ? 'cruise-2018-overview-description-origin' : ''}">${departurePortName} </span>
+                    <span class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</span>
+                    <span class="cruise-2018-overview-description-from-to-destination">${arrivalPortName}</span>
+                </sly>
+                <sly data-sly-test="${isCombo}">
+                    ${bigTitle}
+                </sly>
             </h1>
             <div class="cruise-2018-row-information-cruise hidden-xs">
                 <span class="cruise-2018-row-information-cruise-date"

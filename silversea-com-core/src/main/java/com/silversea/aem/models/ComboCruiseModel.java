@@ -56,6 +56,16 @@ public class ComboCruiseModel {
     private String comboCruiseFareAdditionsDescription;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/comboCruiseBigTitle")
+    @Optional
+    private String comboCruiseBigTitle;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/comboCruiseSmallTitle")
+    @Optional
+    private String comboCruiseSmallTitle;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/comboCruiseFareAdditionsFootnotes")
     @Optional
     private String comboCruiseFareAdditionsFootnotes;
@@ -214,5 +224,13 @@ public class ComboCruiseModel {
 
     public String getComboCruiseFareAdditionsFootnotes() {
         return comboCruiseFareAdditionsFootnotes;
+    }
+
+    public String getComboCruiseBigTitle() {
+        return comboCruiseBigTitle;
+    }
+
+    public String getComboCruiseSmallTitle() {
+        return comboCruiseSmallTitle;
     }
 }

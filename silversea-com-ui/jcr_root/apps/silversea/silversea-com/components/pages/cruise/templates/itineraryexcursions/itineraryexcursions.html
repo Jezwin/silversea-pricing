@@ -1,4 +1,4 @@
 <template data-sly-template.default="${ @ cruise, model, externalizerHelper }">
     <sly data-sly-use.itinerary="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerary.html"
-         data-sly-call="${itinerary.default @ currentPath=cruise.currentPath, countryCode=cruise.countryCode, model=model,duration=cruise.duration, numPorts=cruise.numPorts,numCountries=cruise.numCountries, numRoutes=cruise.numRoutes, dayUntilDeparture=cruise.dayUntilDeparture, portsGallery=cruise.portsGallery, itinerary=cruise.itinerary, externalizerHelper=externalizerHelper}"/>
+         data-sly-call="${itinerary.default @ numEO=cruise.totalNumberOfOffers, currentPath=cruise.currentPath, countryCode=cruise.countryCode, model=model,duration=cruise.duration, numPorts=cruise.numPorts,numCountries=cruise.numCountries, numRoutes=cruise.numRoutes, dayUntilDeparture=cruise.dayUntilDeparture, portsGallery=cruise.portsGallery, itinerary=cruise.itinerary, externalizerHelper=externalizerHelper}"/>
 </template>
