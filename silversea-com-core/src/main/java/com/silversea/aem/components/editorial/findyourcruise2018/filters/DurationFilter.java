@@ -12,6 +12,7 @@ import static com.silversea.aem.components.editorial.findyourcruise2018.filters.
 import static java.lang.Integer.parseInt;
 
 public class DurationFilter extends AbstractFilter<Range<Integer>> {
+    public static final String KIND = "duration";
 
     private static final RangeSet<Integer> DURATIONS = TreeRangeSet.create();
 
@@ -23,7 +24,7 @@ public class DurationFilter extends AbstractFilter<Range<Integer>> {
     }
 
     public DurationFilter() {
-        super("duration");
+        super(KIND);
     }
 
     @Override

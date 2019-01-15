@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.AbstractSortOption.SortOptionState.ASC;
 import static com.silversea.aem.components.editorial.findyourcruise2018.AbstractSortOption.SortOptionState.NON_SELECTED;
-import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.Optional.of;
@@ -25,26 +24,27 @@ import static java.util.stream.Collectors.toSet;
 
 public class FilterBar {
 
-    public static final AbstractFilter<YearMonth> DEPARTURE = new DepartureFilter();
-    public static final AbstractFilter<DestinationItem> DESTINATION = new DestinationFilter();
-    public static final AbstractFilter<Range<Integer>> DURATION = new DurationFilter();
-    public static final AbstractFilter<ExclusiveOfferModelLight> OFFERS = new OffersFilter();
-    public static final AbstractFilter<FeatureModelLight> FEATURES = new FeatureFilter();
-    public static final AbstractFilter<PortItem> PORT = new PortFilter();
-    public static final AbstractFilter<String> WAITLIST = new WaitlistFilter();
-    public static final AbstractFilter<ShipItem> SHIP = new ShipFilter();
-    public static final AbstractFilter<String> TYPE = new TypeFilter();
+    private final AbstractFilter<YearMonth> departure = new DepartureFilter();
+    private final AbstractFilter<DestinationItem> destination = new DestinationFilter();
+    private final AbstractFilter<Range<Integer>> duration = new DurationFilter();
+    private final AbstractFilter<ExclusiveOfferModelLight> offers = new OffersFilter();
+    private final AbstractFilter<FeatureModelLight> features = new FeatureFilter();
+    private final AbstractFilter<PortItem> port = new PortFilter();
+    private final AbstractFilter<String> waitlist = new WaitlistFilter();
+    private final AbstractFilter<ShipItem> ship = new ShipFilter();
+    private final AbstractFilter<String> type = new TypeFilter();
 
-    public static final Collection<AbstractFilter<?>> FILTERS =
-            asList(DURATION, SHIP, DEPARTURE, DESTINATION, FEATURES, PORT, TYPE, OFFERS, WAITLIST);
-    private static final DepartureSortOption DEFAULT_SORT = new DepartureSortOption(ASC);
+
+    private final Collection<AbstractFilter<?>> filters =
+            asList(duration, ship, departure, destination, features, port, type, offers, waitlist);
+    private final DepartureSortOption DEFAULT_SORT = new DepartureSortOption(ASC);
 
     private static final Map<String, Function<SortOptionState, AbstractSortOption>> SORT_OPTIONS = new HashMap<>();
 
     static {
         SORT_OPTIONS.put(DepartureSortOption.kind, DepartureSortOption::new);
         SORT_OPTIONS.put(DurationSortOption.kind, DurationSortOption::new);
-        SORT_OPTIONS.put(PriceSortOption.kind, PriceSortOption::new);
+        SORT_OPTIONS.put(PriceSortOption.KIND, PriceSortOption::new);
     }
 
 
@@ -52,7 +52,7 @@ public class FilterBar {
 
     void init(FindYourCruise2018Use use, Map<String, String[]> httpRequest, List<CruiseModelLight> allCruises) {
         Map<String, String[]> properties = use.filteringSettings();
-        for (AbstractFilter<?> filter : FILTERS) {
+        for (AbstractFilter<?> filter : filters) {
             filter.initAllValues(use, filter.selectedKeys(properties, httpRequest), allCruises);
         }
         setOpen(httpRequest.getOrDefault("open", new String[]{"allclose"}));
@@ -60,7 +60,7 @@ public class FilterBar {
     }
 
     boolean isCruiseMatching(CruiseModelLight cruiseModelLight) {
-        for (AbstractFilter<?> filter : FILTERS) {
+        for (AbstractFilter<?> filter : filters) {
             if (!filter.matches(cruiseModelLight)) {
                 return false;
             }
@@ -75,9 +75,8 @@ public class FilterBar {
     }
 
 
-
     private void updateNonSelectedFilters(List<CruiseModelLight> cruises) {
-        for (AbstractFilter<?> filter : FILTERS) {
+        for (AbstractFilter<?> filter : filters) {
             if (!filter.isSelected()) {
                 filter.disableMissingLabels(cruises);
             }
@@ -85,7 +84,7 @@ public class FilterBar {
     }
 
     private void updateSelectedFilters(List<CruiseModelLight> allCruises) {
-        for (AbstractFilter<?> filter : FILTERS) {
+        for (AbstractFilter<?> filter : filters) {
             if (filter.isSelected()) {
                 Set<? extends FilterRow<?>> possibleRows = complementaryProjection(allCruises, filter);
                 filter.getRows().forEach(row -> {
@@ -100,7 +99,7 @@ public class FilterBar {
 
     private <T> Set<FilterRow<T>> complementaryProjection(List<CruiseModelLight> allCruises, AbstractFilter<T> selectedFilter) {
         Stream<CruiseModelLight> stream = allCruises.stream();
-        for (AbstractFilter<?> filter : FILTERS) {
+        for (AbstractFilter<?> filter : filters) {
             if (!filter.equals(selectedFilter) && filter.isSelected()) {
                 stream = stream.filter(filter::matches);
             }
@@ -109,20 +108,20 @@ public class FilterBar {
     }
 
     boolean anyFilterSelected() {
-        return FILTERS.stream().anyMatch(AbstractFilter::isSelected);
+        return filters.stream().anyMatch(AbstractFilter::isSelected);
     }
 
     @Override
     public String toString() {
         JsonArray array = new JsonArray();
-        for (AbstractFilter<?> filter : FILTERS) {
+        for (AbstractFilter<?> filter : filters) {
             array.add(filter.toJson());
         }
         return array.toString();
     }
 
     public void setOpen(String... kinds) {
-        for (AbstractFilter filter : FILTERS) {
+        for (AbstractFilter filter : filters) {
             for (String kind : kinds) {
                 filter.setOpen(kind.equalsIgnoreCase(filter.getKind()));
             }
@@ -149,7 +148,7 @@ public class FilterBar {
     }
 
     public String getPriceSorting() {
-        return getSort(PriceSortOption.kind);
+        return getSort(PriceSortOption.KIND);
     }
 
     public String getDurationSorting() {
@@ -168,4 +167,43 @@ public class FilterBar {
                 .orElseGet(() -> DEFAULT_SORT.comparator(use));
     }
 
+    public AbstractFilter<YearMonth> getDeparture() {
+        return departure;
+    }
+
+    public AbstractFilter<DestinationItem> getDestination() {
+        return destination;
+    }
+
+    public AbstractFilter<Range<Integer>> getDuration() {
+        return duration;
+    }
+
+    public AbstractFilter<ExclusiveOfferModelLight> getOffers() {
+        return offers;
+    }
+
+    public AbstractFilter<FeatureModelLight> getFeatures() {
+        return features;
+    }
+
+    public AbstractFilter<PortItem> getPort() {
+        return port;
+    }
+
+    public AbstractFilter<String> getWaitlist() {
+        return waitlist;
+    }
+
+    public AbstractFilter<ShipItem> getShip() {
+        return ship;
+    }
+
+    public AbstractFilter<String> getType() {
+        return type;
+    }
+
+    public Collection<AbstractFilter<?>> getFilters() {
+        return filters;
+    }
 }

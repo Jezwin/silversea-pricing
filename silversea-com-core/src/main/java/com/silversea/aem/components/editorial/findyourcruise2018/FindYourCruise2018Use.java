@@ -7,6 +7,7 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
+import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
@@ -137,16 +138,16 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         switch (currentPageResourceType) {
             case WcmConstants.RT_DESTINATION:
-                map.put(FilterBar.DESTINATION.getKind() + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
+                map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
                 break;
             case WcmConstants.RT_PORT:
-                map.put(FilterBar.PORT.getKind() + "Id", value);
+                map.put(PortFilter.KIND + "Id", value);
                 break;
             case WcmConstants.RT_SHIP:
-                map.put(FilterBar.SHIP.getKind() + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
+                map.put(ShipFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
                 break;
             case WcmConstants.RT_EXCLUSIVE_OFFER:
-                map.put(FilterBar.OFFERS.getKind() + "Id", new String[]{getCurrentPage().getPath()});
+                map.put(OffersFilter.KIND + "Id", new String[]{getCurrentPage().getPath()});
             case WcmConstants.RT_FEATURE:
                 final Tag[] pageTags = getCurrentPage().getTags();
                 if (pageTags != null) {
@@ -154,7 +155,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                             Arrays.stream(pageTags).filter(tag -> tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES))
                                     .map(tag -> tag.adaptTo(FeatureModel.class)).filter(Objects::nonNull).map(FeatureModel::getFeatureId)
                                     .toArray(String[]::new);
-                    map.put(FilterBar.FEATURES.getKind() + "Id", tags);
+                    map.put(FeatureFilter.KIND + "Id", tags);
                 }
                 break;
         }

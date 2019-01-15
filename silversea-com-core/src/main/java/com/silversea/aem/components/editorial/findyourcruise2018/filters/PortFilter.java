@@ -9,8 +9,9 @@ import static com.silversea.aem.components.editorial.findyourcruise2018.filters.
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.NOT_VISIBLE;
 
 public class PortFilter extends AbstractFilter<PortItem> {
+    public static final String KIND = "port";
     public PortFilter() {
-        super("port");
+        super(KIND);
     }
 
     @Override

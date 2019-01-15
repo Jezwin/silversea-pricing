@@ -8,8 +8,10 @@ import java.util.stream.Stream;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 
 public class OffersFilter extends AbstractFilter<ExclusiveOfferModelLight> {
+    public static final String KIND = "eo";
+
     public OffersFilter() {
-        super("eo");
+        super(KIND);
     }
 
     @Override
