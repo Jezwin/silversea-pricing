@@ -16,14 +16,12 @@ $(function () {
     });
 
     var onClickSlideArrowMobile = function () {
-        $(".change-route-onclick").click();
+        var $route = $(".route-slider .slick-current.slick-active"),
+            url = $route.attr("href");
+        getSegment($route, url);
     };//onClickSlideArrowMobile
 
-    var onClickChangeRoute = (function (e) {
-        e && e.preventDefault();
-        e && e.stopPropagation();
-        var $route = $(this),
-            url = $route.attr("href");
+    function getSegment($route, url) {
         activeRoute($route);
         addSpinnerOnItineraryDetail();
         $.get(url, function (data, status) {
@@ -33,8 +31,15 @@ $(function () {
         }).fail(function () {
             removeSpinnerOnItineraryDetail();
         })
-    });
+    };//getSegment
 
+    var onClickChangeRoute = (function (e) {
+        e && e.preventDefault();
+        e && e.stopPropagation();
+        var $route = $(this),
+            url = $route.attr("href");
+        getSegment($route, url);
+    });
 
     var iAmInComboCruisePage = $("body").hasClass("combocruise"),
         iHaveRoutesDiv = $(".change-route-onclick").length > 0,
@@ -43,7 +48,7 @@ $(function () {
     if (iAmInComboCruisePage && iHaveRoutesDiv) {
         $(".change-route-onclick").on("click", onClickChangeRoute);
         if (isMobile) {
-            $(".route-slider").on("click",".slick-arrow", onClickSlideArrowMobile);
+            $(".route-slider").on('afterChange', onClickSlideArrowMobile);
         }
     }
 });
