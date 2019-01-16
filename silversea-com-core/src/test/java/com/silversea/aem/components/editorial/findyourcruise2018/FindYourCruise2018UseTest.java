@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.silversea.aem.components.beans.CruiseItem;
+import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import org.junit.Before;
@@ -16,16 +17,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.YearMonth;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterBar.*;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 import static org.junit.Assert.*;
@@ -58,6 +55,55 @@ public class FindYourCruise2018UseTest {
 
 
     @Test
+    public void multiThreads() throws InterruptedException {
+        List<Runnable> runners = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            runners.add(this::testMultipleFilters);
+            runners.add(this::testOneDestination);
+            runners.add(this::testSort);
+            runners.add(this::testTwoDestinations);
+            runners.add(this::testProperties);
+        }
+        assertConcurrent("Testing multithreads", runners, 30, 4);
+    }
+
+    public static void assertConcurrent(final String message, final List<? extends Runnable> runnables, final int maxTimeoutSeconds, int numThreads) throws InterruptedException {
+        final List<Throwable> exceptions = Collections.synchronizedList(new ArrayList<>());
+        final ExecutorService threadPool = Executors.newFixedThreadPool(numThreads);
+        try {
+            final CountDownLatch allExecutorThreadsReady = new CountDownLatch(numThreads);
+            final CountDownLatch afterInitBlocker = new CountDownLatch(1);
+            final CountDownLatch allDone = new CountDownLatch(numThreads);
+            for (final Runnable submittedTestRunnable : runnables) {
+                threadPool.submit(() -> {
+                    allExecutorThreadsReady.countDown();
+                    try {
+                        afterInitBlocker.await();
+                        submittedTestRunnable.run();
+                    } catch (final Throwable e) {
+                        exceptions.add(e);
+                    } finally {
+                        allDone.countDown();
+                    }
+                });
+            }
+            // wait until all threads are ready
+            assertTrue("Timeout initializing threads! Perform long lasting initializations before passing runnables to assertConcurrent",
+                    allExecutorThreadsReady.await(runnables.size() * 10, TimeUnit.MILLISECONDS));
+            // start all test runners
+            afterInitBlocker.countDown();
+            assertTrue(message + " timeout! More than" + maxTimeoutSeconds + "seconds", allDone.await(maxTimeoutSeconds, TimeUnit.SECONDS));
+        } finally {
+            threadPool.shutdownNow();
+        }
+        for (Throwable exception : exceptions) {
+            exception.printStackTrace();
+
+        }
+        assertTrue(message + "failed with exception(s)" + exceptions, exceptions.isEmpty());
+    }
+
+    @Test
     public void performance() throws InterruptedException {
         double nOfRun = 2; //set 2000 to test better
         ExecutorService executor = Executors.newFixedThreadPool(1);//use 2 with caution
@@ -88,7 +134,7 @@ public class FindYourCruise2018UseTest {
                     return 0L;
                 }).average().orElse(0);
         System.out.println("******" + average / 1000.0 + "s*****");
-        //on my pc ~0.02s
+        //on my pc ~0.02s, now we are at 0.03
     }
 
 
@@ -106,15 +152,17 @@ public class FindYourCruise2018UseTest {
         assertEquals(expectedCruises, use.getCruises().size());
 
         //test filters
-        assertTrue(DESTINATION.isSelected());
+        AbstractFilter<DestinationItem> destination = use.getFilterBar().getDestination();
+        assertTrue(destination.isSelected());
         //only africa is chosen others are enabled
-        assertTrue(DESTINATION.getRows().stream()
+        assertTrue(destination.getRows().stream()
                 .allMatch(row -> row.isEnabled() || (AFRICA_LABEL.equals(row.getLabel()) && row.isChosen())));
-        assertFalse(PORT.isSelected());
+        assertFalse(use.getFilterBar().getPort().isSelected());
         //silver galapagos doesn't cruise africa
-        assertEquals(DISABLED, SHIP.retrieveState(SILVER_GALAPAGOS));
+        AbstractFilter<ShipItem> ship = use.getFilterBar().getShip();
+        assertEquals(DISABLED, ship.retrieveState(SILVER_GALAPAGOS));
         //silver muse does cruise africa
-        assertEquals(ENABLED, SHIP.retrieveState((SILVER_MUSE)));
+        assertEquals(ENABLED, ship.retrieveState((SILVER_MUSE)));
     }
 
     @Test
@@ -146,20 +194,20 @@ public class FindYourCruise2018UseTest {
 
         //test filters
         FilterBar filters = use.getFilterBar();
-        assertTrue(DESTINATION.isSelected());
+        assertTrue(filters.getDestination().isSelected());
         //only africa and asia is chosen others are enabled
-        assertTrue(DESTINATION.getRows().stream()
+        assertTrue(filters.getDestination().getRows().stream()
                 .allMatch(row -> {
                     if (AFRICA_LABEL.equals(row.getLabel()) || ASIA_LABEL.equals(row.getLabel())) {
                         return row.isChosen();
                     }
                     return row.isEnabled();
                 }));
-        assertFalse(PORT.isSelected());
+        assertFalse(filters.getPort().isSelected());
         //silver galapagos doesn't cruise africa
-        assertEquals(DISABLED, SHIP.retrieveState(SILVER_GALAPAGOS));
+        assertEquals(DISABLED, filters.getShip().retrieveState(SILVER_GALAPAGOS));
         //silver muse does cruise africa
-        assertEquals(ENABLED, SHIP.retrieveState(SILVER_MUSE));
+        assertEquals(ENABLED, filters.getShip().retrieveState(SILVER_MUSE));
 
 
     }
@@ -174,7 +222,7 @@ public class FindYourCruise2018UseTest {
         long expectedCruises = cruises.stream().filter(test).count();
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
         assertEquals(expectedCruises, use.getCruises().size());
-        assertFalse(SHIP.isVisible());
+        assertFalse(use.getFilterBar().getShip().isVisible());
 
     }
 
@@ -196,13 +244,17 @@ public class FindYourCruise2018UseTest {
         assertEquals(expectedCruises, use.getCruises().size());
 
         //test filters
-        assertTrue(DESTINATION.isSelected());
-        assertEquals(16, DESTINATION.getRows().size());//world cruise..
-        assertTrue(PORT.isSelected());
-        assertEquals(214, PORT.getRows().size());
-        assertTrue(PORT.getRows().stream().noneMatch(row -> row.getState().equals(DISABLED)));
+        FilterBar filterBar = use.getFilterBar();
+        AbstractFilter<DestinationItem> destination = filterBar.getDestination();
+        assertTrue(destination.isSelected());
+        assertEquals(16, destination.getRows().size());//world cruise..
+        AbstractFilter<PortItem> portFilter = filterBar.getPort();
+        assertTrue(portFilter.isSelected());
+        assertEquals(825, portFilter.getRows().size());
+        assertEquals(214, portFilter.getRows().stream().filter(port -> !port.isNotVisible()).count());
+        assertTrue(portFilter.getRows().stream().noneMatch(row -> row.getState().equals(DISABLED)));
         //only africa and asia is chosen others are enabled
-        assertTrue(DESTINATION.getRows().stream()
+        assertTrue(destination.getRows().stream()
                 .allMatch(row -> {
                     if (AFRICA_LABEL.equals(row.getLabel()) || ASIA_LABEL.equals(row.getLabel())) {
                         return row.isChosen();
@@ -210,17 +262,18 @@ public class FindYourCruise2018UseTest {
                     return row.isDisabled();//both ports are in asia
                 }));
         //only ohchiminh and danang is chosen others are enabled
-        assertTrue(PORT.getRows().stream()
+        assertTrue(portFilter.getRows().stream()
                 .allMatch(row -> {
                     if (HO_CHI_MINH_CITY.equals(row.getKey()) || DA_NANG.equals(row.getKey())) {
                         return row.isChosen();
                     }
                     return !row.isChosen();//some ports should be enabled some not...
                 }));
-        assertFalse(TYPE.isSelected());
-        assertEquals(DISABLED, TYPE.retrieveState(SILVERSEA_EXPEDITION));//no expeditions at danang
+        AbstractFilter<String> typeFilter = filterBar.getType();
+        assertFalse(typeFilter.isSelected());
+        assertEquals(DISABLED, typeFilter.retrieveState(SILVERSEA_EXPEDITION));//no expeditions at danang
         //silver galapagos doesn't cruise africa nor asia
-        assertEquals(DISABLED, SHIP.retrieveState(SILVER_GALAPAGOS));
+        assertEquals(DISABLED, filterBar.getShip().retrieveState(SILVER_GALAPAGOS));
 
     }
 
@@ -342,27 +395,27 @@ public class FindYourCruise2018UseTest {
         }
 
         UseBuilder withPorts(String... ports) {
-            return with(PORT.getKind(), ports);
+            return with(PortFilter.KIND, ports);
         }
 
         UseBuilder withDestinations(String... destinations) {
-            return with(DESTINATION.getKind(), destinations);
+            return with(DestinationFilter.KIND, destinations);
         }
 
         UseBuilder withType(String... types) {
-            return with(TYPE.getKind(), types);
+            return with("type", types);
         }
 
         UseBuilder withFeature(String... features) {
-            return with(FEATURES.getKind(), features);
+            return with(FeatureFilter.KIND, features);
         }
 
         UseBuilder withShip(String... ships) {
-            return with(SHIP.getKind(), ships);
+            return with(ShipFilter.KIND, ships);
         }
 
         UseBuilder withDuration(String... durations) {
-            return with(DURATION.getKind(), durations);
+            return with(DurationFilter.KIND, durations);
         }
 
 

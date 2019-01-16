@@ -19,8 +19,9 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
 public class FeatureFilter extends AbstractFilter<FeatureModelLight> {
+    public static final String KIND = "feature";
     public FeatureFilter() {
-        super("feature");
+        super(KIND);
     }
 
     @Override

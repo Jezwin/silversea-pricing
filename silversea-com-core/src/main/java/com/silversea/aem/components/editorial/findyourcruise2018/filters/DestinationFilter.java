@@ -8,8 +8,11 @@ import java.util.stream.Stream;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 
 public class DestinationFilter extends AbstractFilter<DestinationItem> {
+    public static final String KIND = "destination";
+
+
     public DestinationFilter() {
-        super("destination");
+        super(KIND);
     }
 
     @Override

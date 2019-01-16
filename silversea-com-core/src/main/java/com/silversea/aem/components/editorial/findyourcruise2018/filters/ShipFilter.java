@@ -7,9 +7,11 @@ import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 
-public  class ShipFilter extends AbstractFilter<ShipItem> {
+public class ShipFilter extends AbstractFilter<ShipItem> {
+    public static final String KIND = "ship";
+
     public ShipFilter() {
-        super("ship");
+        super(KIND);
     }
 
     @Override

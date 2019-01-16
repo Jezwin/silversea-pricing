@@ -6,10 +6,12 @@ import com.silversea.aem.models.PortItem;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.NOT_VISIBLE;
 
 public class PortFilter extends AbstractFilter<PortItem> {
+    public static final String KIND = "port";
     public PortFilter() {
-        super("port");
+        super(KIND);
     }
 
     @Override
@@ -19,7 +21,7 @@ public class PortFilter extends AbstractFilter<PortItem> {
     }
 
     @Override
-    public void postFilter() {
-        getRows().removeIf(FilterRow::isDisabled);
+    public void disableRow(FilterRow<?> row) {
+        row.setState(NOT_VISIBLE);
     }
 }

@@ -38,11 +38,11 @@ public abstract class AbstractSortOption {
     }
 
     public static class PriceSortOption extends AbstractSortOption {
-        public static final String kind = "price";
+        public static final String KIND = "price";
 
 
         public PriceSortOption(SortOptionState state) {
-            super(state, "price");
+            super(state, KIND);
         }
 
         @Override

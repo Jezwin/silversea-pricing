@@ -13,6 +13,10 @@
 .cardSlider {
   position: relative;
 
+  &.hasProgressbar .slick-list {
+    margin-bottom: 50px;
+  }
+
   .lightbox-link {
     height: 100%;
     left: 0;
@@ -23,6 +27,38 @@
   }
 
 
+  .slick-dots {
+    bottom: -40px !important;
+    width: 60%;
+    margin-left: 20%;
+
+  }
+
+  .slick-dots li {
+    height: 1px;
+    margin: 0;
+  }
+
+  .slick-dots li button:before {
+    border-radius: 0;
+  }
+
+  .slick-dots li button {
+    height: 1px;
+    width: 100%;
+  }
+
+  .slick-dots li button:before {
+    background-color: @grey--9 !important;
+    opacity: 0.5;
+
+  }
+
+  .slick-dots li.slick-active {
+    border: 1px solid @grey--3;
+    opacity: 1 !important;
+  }
+
   .cardSlider-slider {
     visibility: hidden;
   }
@@ -30,7 +66,7 @@
   .cardSlider-content {
 
     .slick-track {
-      margin: auto;
+      margin: auto auto 10px;
     }
 
     .slick-cloned .o-img {
@@ -97,6 +133,7 @@
     font-family: @suisse;
     color: #333333;
     letter-spacing: 0.5px;
+    margin-bottom: 40px;
   }
 
   .cardSlider-title {
@@ -118,7 +155,6 @@
     text-align: center;
     color: @grey--3;
     font-family: @suisse;
-    font-size: 13px;
     letter-spacing: 0.5px;
     line-height: 20px;
     min-height: 20px;
@@ -129,7 +165,6 @@
 
     color: @grey--3;
     font-family: @suisse;
-    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.5px;
     line-height: 20px;
@@ -199,6 +234,35 @@
     &.grayBackgroundDesktop::before {
       background-color: @grey--f4;
     }
+
+    .cardSlider-title {
+      font-size: 24px;
+    }
+
+    .cardSlider-subTitle {
+      font-size: 14px;
+    }
+
+    .cardSlider-slide-title {
+      font-size: 12px;
+    }
+
+    .cardSlider-slide {
+      font-size: 13px;
+    }
+
+  }
+
+  .centeredStyleDesktop .slick-slide:not(.slick-current) {
+    transform: scale(0.95);
+    opacity: 0.4;
+
+  }
+
+  .hideArrowsDesktop {
+    .slick-prev, .slick-next {
+      display: none !important;
+    }
   }
 }
 
@@ -212,6 +276,35 @@
 
     &.grayBackgroundTablet::before {
       background-color: @grey--f4;
+    }
+
+    .cardSlider-title {
+      font-size: 24px;
+    }
+
+    .cardSlider-subTitle {
+      font-size: 14px;
+    }
+
+    .cardSlider-slide-title {
+      font-size: 12px;
+    }
+
+    .cardSlider-slide {
+      font-size: 13px;
+    }
+
+  }
+
+  .centeredStyleTablet .slick-slide:not(.slick-current) {
+    transform: scale(0.95);
+    opacity: 0.4;
+
+  }
+
+  .hideArrowsTablet {
+    .slick-prev, .slick-next {
+      display: none !important;
     }
   }
 }
@@ -247,6 +340,34 @@
       font-size: 12px;
       line-height: 18px;
       max-height: 162px;
+    }
+
+    .cardSlider-title {
+      font-size: 24px;
+    }
+
+    .cardSlider-subTitle {
+      font-size: 14px;
+    }
+
+    .cardSlider-slide-title {
+      font-size: 12px;
+    }
+
+    .cardSlider-slide {
+      font-size: 13px;
+    }
+  }
+
+  .centeredStyleMobile .slick-slide:not(.slick-current) {
+    transform: scale(0.95);
+    opacity: 0.4;
+
+  }
+
+  .hideArrowsMobile {
+    .slick-prev, .slick-next {
+      display: none !important;
     }
   }
 }

@@ -32,7 +32,7 @@
             <p data-sly-test="${model.subtitle}">${model.subtitle}</p>
         </div>
 
-        <div class="cruise-2018-itinerary-segment-map" data-sly-test="${itineraryMap}">
+        <div class="cruise-2018-itinerary-segment-map hidden-xs" data-sly-test="${itineraryMap}">
             <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                  data-sly-call="${imageTemplate.default @ imagePath=itineraryMap}"/>
         </div>

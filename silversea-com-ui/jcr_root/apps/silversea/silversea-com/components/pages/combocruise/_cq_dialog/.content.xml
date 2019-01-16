@@ -44,6 +44,20 @@
                                             fieldLabel="API Title"
                                             name="./apiTitle"
                                             renderReadOnly="{Boolean}true"/>
+                                    <comboCruiseBigTitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="comboCruiseBigTitle"
+                                            fieldLabel="Big Title"
+                                            name="./comboCruiseBigTitle"/>
+                                    <comboCruiseSmallTitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="comboCruiseSmallTitle"
+                                            fieldLabel="Small Title"
+                                            name="./comboCruiseSmallTitle"/>
                                     <overview
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
@@ -100,6 +114,14 @@
                                             cq-msm-lockable="comboCruiseFareAdditionsDescription"
                                             fieldLabel="Included in combo cruise description"
                                             name="./comboCruiseFareAdditionsDescription"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <comboCruiseFareAdditionsFootnotes
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="comboCruiseFareAdditionsFootnotes"
+                                            fieldLabel="Included in combo cruise footnotes"
+                                            name="./comboCruiseFareAdditionsFootnotes"
                                             renderReadOnly="{Boolean}true"/>
                                     <assetSelectionReference
                                             jcr:primaryType="nt:unstructured"

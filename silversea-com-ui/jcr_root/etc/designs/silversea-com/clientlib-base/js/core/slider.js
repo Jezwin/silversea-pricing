@@ -50,13 +50,18 @@
                         }
                     });
                 }
-                var breakpointMobile = $slider.data('ssc-breakpoint-mobile');
+                var breakpointMobile = $slider.data('ssc-breakpoint-mobile'),
+                    centetModeMobile = $slider.attr('ssc-centermode-mobile') == "true" ? true : false,
+                    arrowMobile = $slider.attr('ssc-arrow-mobile') == "true" ? true : $slider.attr('ssc-arrow-mobile') == "false" ? false  : true;
                 if (breakpointMobile) {
                     options.responsive.push({
                         breakpoint: breakpointMobile,
                         settings: {
+                            arrows: arrowMobile,
+                            centerMode: centetModeMobile,
                             slidesToShow: $slider.data('ssc-slides-to-show-mobile') || 1,
-                            slidesToScroll: $slider.data('ssc-slides-to-scroll-mobile') || 1
+                            slidesToScroll: $slider.data('ssc-slides-to-scroll-mobile') || 1,
+                            centerPadding: '40px'
                         }
                     });
                 }

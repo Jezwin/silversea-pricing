@@ -1,16 +1,20 @@
 <div data-sly-test="${wcmmode.edit && (!properties.pageReference || !properties.jcr:title)}"
      class="cq-placeholder cq-dd-image" data-emptytext="Card slider with lightbox"></div>
-<div class="cardSliderLightbox" data-sly-use.use="com.silversea.aem.components.editorial.cardSliderLightbox.SliderUse">
-    <sly data-sly-use.template="./template.html"
-         data-sly-call="${template.default @ title=use.title,
+<sly data-sly-use.use="com.silversea.aem.components.editorial.cardSliderLightbox.SliderUse">
+    <div class="cardSliderLightbox ${use.hideArrowsPerDevice}">
+        <sly data-sly-use.template="./template.html"
+             data-sly-call="${template.default @ title=use.title,
                                              subtitle=use.subtitle,
-                                             slidesDesktop=use.slidePerPageDesktop,
-                                             slidesTablet=use.slidePerPageTablet,
-                                             slidesMobile=use.slidePerPageMobile,
+                                             slides=use.slidesPerPage,
+                                             centeredStyle=use.centeredStyle,
+                                             showProgressBar=use.showProgressBar,
                                              style=use.style,
                                              backgroundColour=use.backgroundColour,
                                              cards=use.cards,
-                                             showArrows=use.showArrows.toString,
+                                             showLightboxArrows=use.showLightboxArrows,
+                                             centeredStyleClass=use.centeredClassPerDevice,
+                                             invertTitle = use.invertTitle,
                                              lightboxPath=currentNode.path,
-                                             selector='lightbox'}"/>
-</div>
+                                             selector='lightboxes'}"/>
+    </div>
+</sly>

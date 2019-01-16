@@ -1,79 +1,95 @@
 package com.silversea.aem.components.editorial.cardSliderLightbox;
 
-import com.adobe.cq.sightly.WCMUsePojo;
+import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.CardLightboxImpl;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static com.silversea.aem.utils.MultiFieldUtils.retrieveMultiField;
-import static java.util.Optional.ofNullable;
 
 
-public class SliderUse extends WCMUsePojo {
+public class SliderUse extends AbstractSilverUse {
     private List<CardLightboxImpl> cards;
-    private int slidePerPageDesktop;
-    private int slidePerPageTablet;
-    private int slidePerPageMobile;
+    private DeviceProperty<Integer> slidesPerPage;
+    private DeviceProperty<Boolean> centeredStyle;
+    private String hideArrowsPerDevice;
+    private String centeredClassPerDevice;
     private String style;
     private String title;
     private String subtitle;
-    private String backgroundColour;
-    private Boolean showArrows;
+    private DeviceProperty<String> backgroundColour;
+    private boolean showLightboxArrows;
+    private boolean invertTitle;
+    private boolean showProgressBar;
+    private boolean extendedTitle;
+
 
     @Override
     public void activate() throws Exception {
         ValueMap properties = getProperties();
         title = properties.get("title", String.class);
         subtitle = properties.get("subtitle", String.class);
-        slidePerPageDesktop = getIntProp(properties, "Desktop", 4);
-        slidePerPageTablet = getIntProp(properties, "Tablet", slidePerPageDesktop);
-        slidePerPageMobile = getIntProp(properties, "Mobile", slidePerPageTablet);
-        style = getProp(properties, "style").map(String::toLowerCase).orElse("squared");
-        cards = retrieveMultiField(getResource(), "cards", CardLightboxImpl.class);
-        this.showArrows = "true".equals(getProperties().get("showArrows", String.class));
-        backgroundColour = deviceProps(properties, "grayBackground").map(opt -> opt.orElse("")).collect(Collectors.joining(" "));
+        style = getProp("style").map(String::toLowerCase).orElse("squared");
+        cards = retrieveMultiField("cards", CardLightboxImpl.class);
+        invertTitle = getBoolean("invertTitle", false);
+        cards = retrieveMultiField("cards", resource -> {
+            CardLightboxImpl cardLightbox = resource.adaptTo(CardLightboxImpl.class);
+            if (invertTitle) {
+                String title = cardLightbox.getTitle();
+                cardLightbox.setTitle(cardLightbox.getBriefDescription());
+                cardLightbox.setBriefDescription(title);
+            }
+            return cardLightbox;
+        }).collect(Collectors.toList());
+        showLightboxArrows = getBoolean("showLightboxArrows", true);
+        showProgressBar = getBoolean("showProgressBar", false);
+        extendedTitle = getBoolean("titleInLightbox", false);
+        backgroundColour = getDeviceProp("grayBackground", String.class, " ");
+        int numberOfCards = cards.size();
+        centeredStyle = getDeviceProp("centeredStyle", false).map((device, currentValue) -> numberOfCards > 1 ? currentValue : false);
+        hideArrowsPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "hideArrows" + device : "").toString();
+        centeredClassPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "centeredStyle" + device : "").toString();
+        slidesPerPage = getDeviceProp("slidePerPage", Integer.class, 4)
+                .map((device, currentValue) -> centeredStyle.get(device) ? 1 : currentValue);
     }
 
 
-    private static Optional<String> getProp(ValueMap properties, String key) {
-        return ofNullable(properties.get(key, String.class));
+    public boolean isInvertTitle() {
+        return invertTitle;
     }
 
-    public Boolean isShowArrows() {
-        return showArrows;
+    public String getCenteredClassPerDevice() {
+        return centeredClassPerDevice;
     }
 
-    private static Integer getIntProp(ValueMap properties, String device, int defaultValue) {
-        return getProp(properties, "slidePerPage" + device).map(Integer::parseInt).orElse(defaultValue);
+
+    public boolean isShowLightboxArrows() {
+        return showLightboxArrows;
     }
 
     public String getSubtitle() {
         return subtitle;
     }
 
-    private static Stream<Optional<String>> deviceProps(ValueMap properties, String key) {
-        return Stream.of("Desktop", "Tablet", "Mobile").map(device -> getProp(properties, key + device));
+    public boolean isExtendedTitle() {
+        return extendedTitle;
     }
 
+
+    public String getHideArrowsPerDevice() {
+        return hideArrowsPerDevice;
+    }
 
     public List<CardLightboxImpl> getCards() {
         return cards;
     }
 
-    public int getSlidePerPageDesktop() {
-        return slidePerPageDesktop;
+    public DeviceProperty<Integer> getSlidesPerPage() {
+        return slidesPerPage;
     }
 
-    public int getSlidePerPageTablet() {
-        return slidePerPageTablet;
-    }
-
-    public int getSlidePerPageMobile() {
-        return slidePerPageMobile;
+    public boolean isShowProgressBar() {
+        return showProgressBar;
     }
 
     public String getTitle() {
@@ -81,7 +97,11 @@ public class SliderUse extends WCMUsePojo {
     }
 
     public String getBackgroundColour() {
-        return backgroundColour;
+        return backgroundColour.toString();
+    }
+
+    public DeviceProperty<Boolean> getCenteredStyle() {
+        return centeredStyle;
     }
 
     public String getStyle() {
