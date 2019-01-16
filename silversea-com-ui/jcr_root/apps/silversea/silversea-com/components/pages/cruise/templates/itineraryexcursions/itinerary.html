@@ -5,7 +5,7 @@
              data-sly-call="${itinerarytemplate.commonHeader @ numEO=numEO, duration=duration, currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, portsGallery=portsGallery, externalizerHelper=externalizerHelper}"/>
 
         <sly data-sly-use.itineraryDetail="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerarydetail.html"
-             data-sly-call="${itineraryDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap}"/>
+             data-sly-call="${itineraryDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap, externalizerHelper=externalizerHelper}"/>
     </div>
 </template>
 
@@ -35,7 +35,7 @@
 
         <div class="cruise-2018-itineraries-description">${customDescription || model.description @ context="html"}</div>
         <div class="cruise-2018-itineraries-description-view view-more" data-viewmore="${'view-more' @ i18n }"
-             data-viewless="${'view-less' @ context='html'}">${'view-more' @ i18n}</div>
+             data-viewless="${'view-less' @ i18n}">${'view-more' @ i18n}</div>
         <div class="cruise-2018-itineraries-voyage-code hidden-xs"
              data-sly-test="${!hideVoyageCode}">${'voyage-number' @ i18n}: ${model.cruiseCode}</div>
         <div class="cruise-2018-itineraries-120-label"

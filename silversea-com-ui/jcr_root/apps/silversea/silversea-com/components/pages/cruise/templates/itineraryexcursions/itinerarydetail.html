@@ -4,7 +4,7 @@
          data-sly-call="${itinerary.default @ model=businessUse.cruise, itinerary=businessUse.itinerary, itineraryMap=businessUse.itineraryMap, showIntro=businessUse.showIntro}"/>
 </template>
 
-<template data-sly-template.default="${@ model, itinerary, itineraryMap, showIntro}">
+<template data-sly-template.default="${@ model, itinerary, itineraryMap, showIntro, externalizerHelper, cruiseType}">
     <div class="cruise2018-itinerarydetail-block">
         <div class="cruise-2018-itineraries-spinner"></div>
         <div class="cruise2018-cruise-intro" data-sly-test="${showIntro}">
@@ -32,9 +32,10 @@
             <p data-sly-test="${model.subtitle}">${model.subtitle}</p>
         </div>
 
-        <div class="cruise-2018-itinerary-segment-map hidden-xs" data-sly-test="${itineraryMap}">
-            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                 data-sly-call="${imageTemplate.default @ imagePath=itineraryMap}"/>
+        <div class="cruise-2018-itinerary-segment-map" data-sly-test="${itineraryMap}" data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map.lg-segmentmap',cruiseType,  model.page.name]}">
+            <span class="open-lightbox-map" data-target=".lightbox">
+                ${'open-itinerary-map' @ i18n}
+            </span>
         </div>
         <div class="cruise-2018-itineraries-day-label hidden-xs">${ 'day' @ i18n }</div>
         <sly data-sly-test.list="${itinerary}"/>
