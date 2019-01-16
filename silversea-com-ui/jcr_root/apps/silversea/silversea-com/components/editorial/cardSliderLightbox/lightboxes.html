@@ -22,11 +22,11 @@
                 </div>
             </div>
         </div>
-        <sly data-sly-test="${lightboxUse.titleInLightbox}">
+        <sly data-sly-test="${lightboxUse.extendedTitle}">
             <div class="csl-title cardLight">${card.customTitle || card.title || card.name}
                 - ${card.briefDescription}</div>
         </sly>
-        <sly data-sly-test="${!lightboxUse.titleInLightbox}">
+        <sly data-sly-test="${!lightboxUse.extendedTitle}">
             <div class="csl-title cardLight">${card.customTitle || card.title || card.name}</div>
         </sly>
 

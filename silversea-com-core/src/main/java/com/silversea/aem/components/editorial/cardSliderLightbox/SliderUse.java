@@ -21,6 +21,7 @@ public class SliderUse extends AbstractSilverUse {
     private boolean showLightboxArrows;
     private boolean invertTitle;
     private boolean showProgressBar;
+    private boolean extendedTitle;
 
 
     @Override
@@ -42,6 +43,7 @@ public class SliderUse extends AbstractSilverUse {
         }).collect(Collectors.toList());
         showLightboxArrows = getBoolean("showLightboxArrows", true);
         showProgressBar = getBoolean("showProgressBar", false);
+        extendedTitle = getBoolean("titleInLightbox", false);
         backgroundColour = getDeviceProp("grayBackground", String.class, " ");
         int numberOfCards = cards.size();
         centeredStyle = getDeviceProp("centeredStyle", false).map((device, currentValue) -> numberOfCards > 1 ? currentValue : false);
@@ -67,6 +69,10 @@ public class SliderUse extends AbstractSilverUse {
 
     public String getSubtitle() {
         return subtitle;
+    }
+
+    public boolean isExtendedTitle() {
+        return extendedTitle;
     }
 
 
