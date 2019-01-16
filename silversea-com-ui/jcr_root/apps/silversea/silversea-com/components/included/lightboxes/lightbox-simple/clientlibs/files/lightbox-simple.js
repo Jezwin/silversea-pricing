@@ -43,7 +43,7 @@ $(function () {
             var prevHref = loadedPrev.attr("href");
             var nextHref = loadedNext.attr("href");
             if (!prevHref || !nextHref) {
-                return;
+                return false;
             }
             prevLink.attr("href", prevHref);
             $lightboxSimple.find('.lightbox-simple-next-label').html(loadedNext.html());

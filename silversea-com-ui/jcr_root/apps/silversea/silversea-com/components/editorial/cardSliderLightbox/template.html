@@ -1,16 +1,19 @@
 <template
-        data-sly-template.default="${ @ showArrows, subtitle, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector, invertTitle }">
-    <div class="cardSlider-wrapper ">
-        <div class="cardSlider ${backgroundColour}">
+        data-sly-template.default="${ @ showLightboxArrows, subtitle, title, slides, style, backgroundColour, cards, lightboxPath, selector, invertTitle, centeredStyle, showProgressBar, centeredStyleClass}">
+    <div class="cardSlider-wrapper">
+        <div class="cardSlider ${backgroundColour} ${showProgressBar ? 'hasProgressbar' : ''} ${centeredStyleClass}">
             <sly>
                 <div class="cardSlider-title">${title}</div>
                 <div class="cardSlider-subTitle">${subtitle @ context='html'}</div>
-                <div data-ssc-slides="${slidesDesktop}"
+                <div data-ssc-slides="${slides.desktop}"
                      data-ssc-breakpoint-tablet="992"
-                     data-ssc-slides-to-show-tablet="${slidesTablet}"
+                     data-ssc-slides-to-show-tablet="${slides.tablet}"
                      data-ssc-breakpoint-mobile="600"
-                     data-ssc-slides-to-show-mobile="${slidesMobile}"
-                     class="cardSlider-content cardSlider-slider">
+                     data-ssc-slides-to-show-mobile="${slides.mobile}"
+                     data-sly-attribute.data-ssc-centered-desktop="${centeredStyle.desktop}"
+                     data-sly-attribute.data-ssc-centered-tablet="${centeredStyle.tablet}"
+                     data-sly-attribute.data-ssc-centered-mobile="${centeredStyle.mobile}"
+                     class="cardSlider-content cardSlider-slider ${showProgressBar ? 'activate-progressbar' : ''}">
                     <sly data-sly-test="${cards}" data-sly-list.card="${cards}">
                         <sly data-sly-test.hasLightbox="${!card.description.isEmpty}"/>
                         <div class="cardSlider-slide">
@@ -19,7 +22,7 @@
                             <a class="lightbox-link" data-toggle="modal" data-target="#lightbox-simple"
                                data-slb-scope="lightbox-cardSlider"
                                data-sly-test="${!card.noModal }"
-                               data-slb-arrows="${showArrows}"
+                               data-sly-attribute.data-slb-arrows="${showLightboxArrows ? 'true' : 'false'}"
                                data-slb-callback="cslInitLightbox"
                                id="lb-sl-${cardList.index}" data-simple-lightbox
                                href="#${externalizerHelper.externalizedUrl @ selectors=[selector, cardList.index], extension='html'}"></a>

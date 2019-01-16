@@ -7,20 +7,20 @@ import org.apache.sling.api.resource.ValueMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Stream.of;
-
 
 public class SliderUse extends AbstractSilverUse {
     private List<CardLightboxImpl> cards;
-    private int slidePerPageDesktop;
-    private int slidePerPageTablet;
-    private int slidePerPageMobile;
+    private DeviceProperty<Integer> slidesPerPage;
+    private DeviceProperty<Boolean> centeredStyle;
+    private String hideArrowsPerDevice;
+    private String centeredClassPerDevice;
     private String style;
     private String title;
     private String subtitle;
-    private String backgroundColour;
-    private boolean showArrows;
+    private DeviceProperty<String> backgroundColour;
+    private boolean showLightboxArrows;
     private boolean invertTitle;
+    private boolean showProgressBar;
 
 
     @Override
@@ -28,9 +28,6 @@ public class SliderUse extends AbstractSilverUse {
         ValueMap properties = getProperties();
         title = properties.get("title", String.class);
         subtitle = properties.get("subtitle", String.class);
-        slidePerPageDesktop = getInt("slidePerPageDesktop", 4);
-        slidePerPageTablet = getInt("slidePerPageTablet", slidePerPageDesktop);
-        slidePerPageMobile = getInt("slidePerPageMobile", slidePerPageTablet);
         style = getProp("style").map(String::toLowerCase).orElse("squared");
         cards = retrieveMultiField("cards", CardLightboxImpl.class);
         invertTitle = getBoolean("invertTitle", false);
@@ -43,8 +40,23 @@ public class SliderUse extends AbstractSilverUse {
             }
             return cardLightbox;
         }).collect(Collectors.toList());
-        showArrows = getBoolean("showArrows", true);
-        backgroundColour = of("Desktop", "Tablet", "Mobile").map(device -> getProp("grayBackground" + device, " ")).collect(Collectors.joining(" "));
+        showLightboxArrows = getBoolean("showLightboxArrows", true);
+        showProgressBar = getBoolean("showProgressBar", false);
+        backgroundColour = getDeviceProp("grayBackground", String.class, " ");
+        int numberOfCards = cards.size();
+        centeredStyle = getDeviceProp("centeredStyle", false).map((device, currentValue) -> numberOfCards > 1 ? currentValue : false);
+        hideArrowsPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "hideArrows" + device : "").toString();
+        centeredClassPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "centeredStyle" + device : "").toString();
+        slidesPerPage = getDeviceProp("slidePerPage", Integer.class, 4)
+                .map((device, currentValue) -> {
+                    if (centeredStyle.get(device)) {
+                        return 1;
+                    } else if (currentValue > numberOfCards) {
+                        return numberOfCards;
+                    } else {
+                        return currentValue;
+                    }
+                });
     }
 
 
@@ -52,9 +64,13 @@ public class SliderUse extends AbstractSilverUse {
         return invertTitle;
     }
 
+    public String getCenteredClassPerDevice() {
+        return centeredClassPerDevice;
+    }
 
-    public boolean isShowArrows() {
-        return showArrows;
+
+    public boolean isShowLightboxArrows() {
+        return showLightboxArrows;
     }
 
     public String getSubtitle() {
@@ -62,20 +78,20 @@ public class SliderUse extends AbstractSilverUse {
     }
 
 
+    public String getHideArrowsPerDevice() {
+        return hideArrowsPerDevice;
+    }
+
     public List<CardLightboxImpl> getCards() {
         return cards;
     }
 
-    public int getSlidePerPageDesktop() {
-        return slidePerPageDesktop;
+    public DeviceProperty<Integer> getSlidesPerPage() {
+        return slidesPerPage;
     }
 
-    public int getSlidePerPageTablet() {
-        return slidePerPageTablet;
-    }
-
-    public int getSlidePerPageMobile() {
-        return slidePerPageMobile;
+    public boolean isShowProgressBar() {
+        return showProgressBar;
     }
 
     public String getTitle() {
@@ -83,7 +99,11 @@ public class SliderUse extends AbstractSilverUse {
     }
 
     public String getBackgroundColour() {
-        return backgroundColour;
+        return backgroundColour.toString();
+    }
+
+    public DeviceProperty<Boolean> getCenteredStyle() {
+        return centeredStyle;
     }
 
     public String getStyle() {
