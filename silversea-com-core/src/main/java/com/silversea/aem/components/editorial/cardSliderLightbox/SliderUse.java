@@ -48,15 +48,7 @@ public class SliderUse extends AbstractSilverUse {
         hideArrowsPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "hideArrows" + device : "").toString();
         centeredClassPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "centeredStyle" + device : "").toString();
         slidesPerPage = getDeviceProp("slidePerPage", Integer.class, 4)
-                .map((device, currentValue) -> {
-                    if (centeredStyle.get(device)) {
-                        return 1;
-                    } else if (currentValue > numberOfCards) {
-                        return numberOfCards;
-                    } else {
-                        return currentValue;
-                    }
-                });
+                .map((device, currentValue) -> centeredStyle.get(device) ? 1 : currentValue);
     }
 
 
