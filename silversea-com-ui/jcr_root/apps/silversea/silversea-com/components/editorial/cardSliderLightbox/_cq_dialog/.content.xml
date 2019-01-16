@@ -128,10 +128,16 @@
                             <slidePerPageDesktop
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                    fieldDescription="Slide per page Desktop"
-                                    fieldLabel="Slide per page Desktop"
+                                    fieldDescription="Slides per page Desktop"
+                                    fieldLabel="Slides per page Desktop"
                                     required="{Boolean}true"
                                     name="./slidePerPageDesktop"/>
+                            <centeredStyle
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Use centered style for slides (voids slide per page)"
+                                    name="./centeredStyleDesktop"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                             <grayBackgroundDesktop
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
@@ -158,10 +164,16 @@
                             <slidePerPageTablet
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                    fieldDescription="Slide per page Tablet"
-                                    fieldLabel="Slide per page Tablet"
+                                    fieldDescription="Slides per page Tablet"
+                                    fieldLabel="Slides per page Tablet"
                                     required="{Boolean}true"
                                     name="./slidePerPageTablet"/>
+                            <centeredStyle
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Use centered style for slides (voids slides per page)"
+                                    name="./centeredStyleTablet"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                             <grayBackgroundTablet
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
@@ -188,10 +200,16 @@
                             <slidePerPageMobile
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                    fieldDescription="Slide per page Mobile"
-                                    fieldLabel="Slide per page Mobile"
+                                    fieldDescription="Slides per page Mobile"
+                                    fieldLabel="Slides per page Mobile"
                                     required="{Boolean}true"
                                     name="./slidePerPageMobile"/>
+                            <centeredStyle
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Use centered style for slides (voids slides per page)"
+                                    name="./centeredStyleMobile"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                             <grayBackgroundMobile
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
@@ -232,6 +250,12 @@
                                             value="circled"/>
                                 </items>
                             </style>
+                            <showProgressBar
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Show the progressbar"
+                                    name="./showProgressBar"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                             <showArrows
                                     jcr:primaryType="nt:unstructured"
                                     text="Show lightbox arrows"
