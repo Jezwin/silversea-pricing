@@ -1,0 +1,49 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="SSC - Splitted Dynamic Teaser - (#splitteddynamicteaser-${properties.sscUUID}) (Open and save the properties to show the component with default values)' }"></div>
+
+<sly data-sly-use.use="${'com.silversea.aem.components.editorial.SplittedDynamicTeaserUse'}"/>
+<div id="splitteddynamicteaser-${properties.sscUUID}" class="splitteddynamicteaser">
+    
+</div>
+
+<style data-sly-test="${use.componentProp.cssDesktop}">
+    @media (min-width: 991px) { ${use.componentProp.cssDesktop @ context='html'}  }
+</style>
+<style data-sly-test="${use.componentProp.cssTablet}">
+    @media (max-width: 990px) and (min-width: 768px) { ${use.componentProp.cssTablet @ context='html'}  }
+</style>
+
+
+${use.componentProp.pathRightImageDesktop @ context='html'} <br>
+${use.componentProp.pathLeftImageDesktop @ context='html'} <br>
+${use.componentProp.pathRightOverlayImageDesktop @ context='html'} <br>
+${use.componentProp.pathLeftOverlayImageDesktop @ context='html'} <br>
+${use.componentProp.linkUrlRightImageDesktop @ context='html'} <br>
+${use.componentProp.linkUrlLeftImageDesktop @ context='html'} <br>
+${use.componentProp.textTopDesktop @ context='html'} <br>
+${use.componentProp.textCenterDesktop @ context='html'} <br>
+${use.componentProp.textBottomDesktop @ context='html'} <br>
+${use.componentProp.showLineTextCenterDesktop @ context='html'} <br>
+${use.componentProp.textTopRightDesktop @ context='html'} <br>
+${use.componentProp.textBottomRightDesktop @ context='html'} <br>
+${use.componentProp.smallTextLeftDesktop @ context='html'} <br>
+${use.componentProp.textTopLeftDesktop @ context='html'} <br>
+${use.componentProp.textBottomLeftDesktop @ context='html'} <br>
+${use.componentProp.smallTextRightDesktop @ context='html'} <br>
+${use.componentProp.showArrowSmallTextDesktop @ context='html'} <br>
+${use.componentProp.cssDesktop @ context='html'} <br>
+
+${use.componentProp.textTopTablet @ context='html'} <br>
+${use.componentProp.textCenterTablet @ context='html'} <br>
+${use.componentProp.textBottomTablet @ context='html'} <br>
+${use.componentProp.showLineTextCenterTablet @ context='html'} <br>
+${use.componentProp.textTopRightTablet @ context='html'} <br>
+${use.componentProp.textBottomRightTablet @ context='html'} <br>
+${use.componentProp.smallTextLeftTablet @ context='html'} <br>
+${use.componentProp.textTopLeftTablet @ context='html'} <br>
+${use.componentProp.textBottomLeftTablet @ context='html'} <br>
+${use.componentProp.smallTextRightTablet @ context='html'} <br>
+${use.componentProp.showArrowSmallTextTablet @ context='html'} <br>
+${use.componentProp.cssTablet @ context='html'} <br>
+
+
+

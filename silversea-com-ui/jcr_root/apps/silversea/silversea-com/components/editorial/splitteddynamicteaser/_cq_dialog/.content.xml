@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Splitted Dynamic Teaser"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <desktop
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Desktop options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <defaultDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Default desktop options"
+                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <pathRightImageDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Path right image"
+                                            name="./pathRightImageDesktop"
+                                            fieldDescription="Right Image path"
+                                            rootPath="/content/silversea-com"/>
+                                    <pathLeftImageDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Path left image"
+                                            name="./pathLeftImageDesktop"
+                                            fieldDescription="Left Image path"
+                                            rootPath="/content/silversea-com"/>
+                                    <pathRightOverlayImageDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Path right image overlay"
+                                            name="./pathRightOverlayImageDesktop"
+                                            fieldDescription="Path right image overlay"
+                                            rootPath="/content/silversea-com"/>
+                                    <pathLeftOverlayImageDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Path left image overlay"
+                                            name="./pathLeftOverlayImageDesktop"
+                                            fieldDescription="Path left image overlay"
+                                            rootPath="/content/silversea-com"/>
+                                    <linkUrlRightImageDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Link url right image"
+                                            name="./linkUrlRightImageDesktop"
+                                            fieldDescription="Link url right image"
+                                            rootPath="/content/silversea-com"/>
+                                    <linkUrlLeftImageDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            fieldLabel="Link url left image"
+                                            name="./linkUrlLeftImageDesktop"
+                                            fieldDescription="Link url left image"
+                                            rootPath="/content/silversea-com"/>
+                                    <textTopDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text top"
+                                            fieldLabel="Text top"
+                                            value="text top"
+                                            name="./textTopDesktop"/>
+                                    <textCenterDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text center"
+                                            fieldLabel="Text center"
+                                            value="text center"
+                                            name="./textCenterDesktop"/>
+                                    <textBottomDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text bottom"
+                                            fieldLabel="Text bottom"
+                                            value="text bottom"
+                                            name="./textBottomDesktop"/>
+                                    <showLineTextCenterDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Show line bottom text center"
+                                            name="./showLineTextCenterDesktop">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <true
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="true"
+                                                    value="true"/>
+                                            <false
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="false"
+                                                    value="false"/>
+                                        </items>
+                                    </showLineTextCenterDesktop>
+                                    <textTopRightDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text top right"
+                                            fieldLabel="Text top right"
+                                            value="text top right"
+                                            name="./textTopRightDesktop"/>
+                                    <textBottomRightDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text bottom right"
+                                            fieldLabel="Text bottom right"
+                                            value="text bottom right"
+                                            name="./textBottomRightDesktop"/>
+                                    <smallTextLeftDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Small text left"
+                                            fieldLabel="Small text left"
+                                            value="small text bottom left"
+                                            name="./smallTextLeftDesktop"/>
+                                    <textTopLeftDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text top left"
+                                            fieldLabel="Text top left"
+                                            value="text top left"
+                                            name="./textTopLeftDesktop"/>
+                                    <textBottomLeftDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text bottom left"
+                                            fieldLabel="Text bottom left"
+                                            value="text bottom left"
+                                            name="./textBottomLeftDesktop"/>
+                                    <smallTextRightDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Small text right"
+                                            fieldLabel="Small text right"
+                                            value="small text bottom right"
+                                            name="./smallTextRightDesktop"/>
+                                    <showArrowSmallTextDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Show arrow small text"
+                                            name="./showArrowSmallTextDesktop">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <true
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="true"
+                                                    value="true"/>
+                                            <false
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="false"
+                                                    value="false"/>
+                                        </items>
+                                    </showArrowSmallTextDesktop>
+                                    <cssDesktopList
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="Css custom Desktop style"
+                                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <cssDesktop
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                    composite="{Boolean}true">
+                                                <field
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                        name="./cssDesktop">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <column
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <css
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                                                        fieldLabel="Css style"
+                                                                        rows="4"
+                                                                        name="./css"/>
+                                                            </items>
+                                                        </column>
+                                                    </items>
+                                                </field>
+                                            </cssDesktop>
+                                        </items>
+                                    </cssDesktopList>
+                                </items>
+                            </defaultDesktop>
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Tablet options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <defaultTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    jcr:title="Default Tablet options"
+                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <textTopTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text top"
+                                            fieldLabel="Text top"
+                                            name="./textTopTablet"/>
+                                    <textCenterTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text center"
+                                            fieldLabel="Text center"
+                                            name="./textCenterTablet"/>
+                                    <textBottomTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text bottom"
+                                            fieldLabel="Text bottom"
+                                            name="./textBottomTablet"/>
+                                    <showLineTextCenterTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Show line bottom text center"
+                                            name="./showLineTextCenterTablet">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <empty
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text=""
+                                                    value=""/>
+                                            <true
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="true"
+                                                    value="true"/>
+                                            <false
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="false"
+                                                    value="false"/>
+                                        </items>
+                                    </showLineTextCenterTablet>
+                                    <textTopRightTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text top right"
+                                            fieldLabel="Text top right"
+                                            name="./textTopRightTablet"/>
+                                    <textBottomRightTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text bottom right"
+                                            fieldLabel="Text bottom right"
+                                            name="./textBottomRightTablet"/>
+                                    <smallTextLeftTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Small text left"
+                                            fieldLabel="Small text left"
+                                            name="./smallTextLeftTablet"/>
+                                    <textTopLeftTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text top left"
+                                            fieldLabel="Text top left"
+                                            name="./textTopLeftTablet"/>
+                                    <textBottomLeftTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Text bottom left"
+                                            fieldLabel="Text bottom left"
+                                            name="./textBottomLeftTablet"/>
+                                    <smallTextRightTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Small text right"
+                                            fieldLabel="Small text right"
+                                            name="./smallTextRightTablet"/>
+                                    <showArrowSmallTextTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldLabel="Show arrow small text"
+                                            name="./showArrowSmallTextTablet">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <empty
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text=""
+                                                    value=""/>
+                                            <true
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="true"
+                                                    value="true"/>
+                                            <false
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="false"
+                                                    value="false"/>
+                                        </items>
+                                    </showArrowSmallTextTablet>
+                                    <cssTabletList
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="Css custom Tablet style"
+                                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <cssTablet
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                    composite="{Boolean}true">
+                                                <field
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                        name="./cssTablet">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <column
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <css
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                                                        fieldLabel="Css style"
+                                                                        rows="4"
+                                                                        name="./css"/>
+                                                            </items>
+                                                        </column>
+                                                    </items>
+                                                </field>
+                                            </cssTablet>
+                                        </items>
+                                    </cssTabletList>
+                                </items>
+                            </defaultTablet>
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+        </items>
+    </content>
+</jcr:root>
