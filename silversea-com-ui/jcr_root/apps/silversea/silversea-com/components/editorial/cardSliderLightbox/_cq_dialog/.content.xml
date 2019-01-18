@@ -139,11 +139,11 @@
                                     fieldLabel="Slide style"
                                     name="./centeredStyleDesktop">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <squared
+                                    <slides
                                             jcr:primaryType="nt:unstructured"
                                             text="Slides"
                                             value="slides"/>
-                                    <circled
+                                    <centered
                                             jcr:primaryType="nt:unstructured"
                                             text="Centered"
                                             value="centered"/>
@@ -186,11 +186,11 @@
                                     fieldLabel="Slide style"
                                     name="./centeredStyleTablet">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <squared
+                                    <slides
                                             jcr:primaryType="nt:unstructured"
                                             text="Slides"
                                             value="slides"/>
-                                    <circled
+                                    <centered
                                             jcr:primaryType="nt:unstructured"
                                             text="Centered"
                                             value="centered"/>
@@ -233,11 +233,11 @@
                                     fieldLabel="Slide style"
                                     name="./centeredStyleMobile">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <squared
+                                    <slides
                                             jcr:primaryType="nt:unstructured"
                                             text="Slides"
                                             value="slides"/>
-                                    <circled
+                                    <centered
                                             jcr:primaryType="nt:unstructured"
                                             text="Centered"
                                             value="centered"/>
