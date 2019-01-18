@@ -4,6 +4,8 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.google.common.collect.Sets;
 import com.silversea.aem.models.CustomCss;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -44,6 +46,10 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
 
     }
 
+    protected ValueMap getComponentPropsValueMap() {
+        return new ValueMapDecorator(getComponentProps());
+    }
+
     protected <T> Map getComponentProps() {
         Map componentProp = new HashMap<>();
         getProperties().forEach((key, value) -> {
@@ -71,7 +77,7 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
     private <T> Map setComponentPropsValuesDevices(Map<String, Object> properties, String device, String defaultDevice) {
         Map componentProp = new HashMap<>();
         properties.forEach((key, value) -> {
-            if (key.contains(device)) {
+            if (key.contains(defaultDevice)) {
                 String keyOfDevice = key.replace(defaultDevice, device);
                 if (!properties.containsKey(keyOfDevice)) {
                     properties.put(keyOfDevice, value);

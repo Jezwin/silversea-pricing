@@ -29,34 +29,24 @@
                                     jcr:title="Default desktop options"
                                     sling:resourceType="granite/ui/components/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <pathRightImageDesktop
+                                    <pathImageDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            fieldLabel="Path right image"
-                                            name="./pathRightImageDesktop"
-                                            fieldDescription="Right Image path"
-                                            rootPath="/content/silversea-com"/>
-                                    <pathLeftImageDesktop
+                                            fieldLabel="Path image"
+                                            name="./pathImageDesktop"
+                                            rootPath="/content/dam/silversea-com"/>
+                                    <pathOverlayRightImageDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            fieldLabel="Path left image"
-                                            name="./pathLeftImageDesktop"
-                                            fieldDescription="Left Image path"
-                                            rootPath="/content/silversea-com"/>
-                                    <pathRightOverlayImageDesktop
+                                            fieldLabel="Path overlay right image"
+                                            name="./pathOverlayRightImageDesktop"
+                                            rootPath="/content/dam/silversea-com"/>
+                                    <pathOverlayLeftImageDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            fieldLabel="Path right image overlay"
-                                            name="./pathRightOverlayImageDesktop"
-                                            fieldDescription="Path right image overlay"
-                                            rootPath="/content/silversea-com"/>
-                                    <pathLeftOverlayImageDesktop
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            fieldLabel="Path left image overlay"
-                                            name="./pathLeftOverlayImageDesktop"
-                                            fieldDescription="Path left image overlay"
-                                            rootPath="/content/silversea-com"/>
+                                            fieldLabel="Path overlay left image"
+                                            name="./pathOverlayLeftImageDesktop"
+                                            rootPath="/content/dam/silversea-com"/>
                                     <linkUrlRightImageDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -71,6 +61,13 @@
                                             name="./linkUrlLeftImageDesktop"
                                             fieldDescription="Link url left image"
                                             rootPath="/content/silversea-com"/>
+                                    <sscFwHeightDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Component height (px, em, %, pt)"
+                                            fieldLabel="Component Height (px, em, %, pt)"
+                                            value="300px"
+                                            name="./sscFwHeightDesktop"/>
                                     <textTopDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -220,6 +217,13 @@
                                     jcr:title="Default Tablet options"
                                     sling:resourceType="granite/ui/components/foundation/form/fieldset">
                                 <items jcr:primaryType="nt:unstructured">
+                                    <sscFwHeightTablet
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldDescription="Component height (px, em, %, pt)"
+                                            fieldLabel="Component Height (px, em, %, pt)"
+                                            value=""
+                                            name="./sscFwHeightTablet"/>
                                     <textTopTablet
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"

@@ -1,1 +1,100 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+.splitteddynamicteaser {
+  .splitteddynamicteaser-image {
+    position: relative;
+  }
+
+  .splitteddynamicteaser-left, .splitteddynamicteaser-right {
+    top: 0;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+  }
+
+  .splitteddynamicteaser-left {
+    background-color: #37332d8f;
+  }
+
+  .splitteddynamicteaser-right {
+    left: 50%;
+    background-color: #ff00007d;
+  }
+
+  /*
+
+ By Fabio because he didn't want to use jquery
+  */
+  .splitteddynamicteaser-image:hover .splitteddynamicteaser-left {
+    animation: animation-reduce-left 2s ease forwards;
+  }
+
+  .splitteddynamicteaser-image:hover .splitteddynamicteaser-right {
+    animation: animation-reduce-right 2s ease forwards;
+  }
+
+  .splitteddynamicteaser-left:hover {
+    animation: animation-increment-left 2s ease forwards !important;
+  }
+
+  .splitteddynamicteaser-right:hover {
+    animation: animation-increment-right 2s ease forwards !important;
+  }
+
+  @keyframes animation-reduce-left {
+    0% {
+      z-index: 1;
+      width: 50%;
+    }
+    100% {
+      z-index: 1;
+      width: 10%;
+    }
+  }
+
+  @keyframes animation-increment-right {
+    0% {
+      z-index: 2;
+      width: 50%;
+    }
+    100% {
+      z-index: 2;
+      width: 90%;
+      left: 10%
+
+    }
+  }
+
+  @keyframes animation-increment-left {
+    0% {
+      z-index: 2;
+      left: 0%;
+
+    }
+    100% {
+      z-index: 2;
+      width: 90%;
+      left: 0%;
+
+    }
+  }
+
+  @keyframes animation-reduce-right {
+    0% {
+      z-index: 1;
+      left: 50%;
+
+    }
+    100% {
+      z-index: 1;
+      width: 10%;
+      left: 90%
+
+    }
+  }
+
+}
