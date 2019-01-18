@@ -94,9 +94,10 @@ public class CruiseModelLight {
         isVisible = cruiseModel.isVisible();
 
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-            ports.add(new PortItem(itinerary.getPort().getName(), itinerary.getPort().getApiTitle()));
-            if (itinerary.getPort().getPath() != null){
-            	portPaths.add(itinerary.getPort().getPath());
+            PortModel port = itinerary.getPort();
+            ports.add(new PortItem(port.getName(), port.getApiTitle(), port.getCountryIso3()));
+            if (port.getPath() != null){
+            	portPaths.add(port.getPath());
             }
         }
 

@@ -8,14 +8,12 @@ import com.google.gson.JsonParser;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.models.*;
-import com.silversea.aem.services.CruisesCacheService;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.time.YearMonth;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Function;
@@ -33,7 +31,7 @@ public class FindYourCruise2018UseTest {
 
     private static final String AFRICA_VALUE = "3";
     private static final String ASIA_VALUE = "13";
-    private static final String AFRICA_LABEL = "Africa and Indian Ocean";
+    private static final String AFRICA_LABEL = "Africa & Indian Ocean";
     private static final String ASIA_LABEL = "Asia";
     private static final String SILVER_GALAPAGOS = "Silver Galapagos";
     private static final String SILVER_MUSE = "Silver Muse";
@@ -45,13 +43,15 @@ public class FindYourCruise2018UseTest {
     @Before
     public void before() throws IOException {
         cruises = new ArrayList<>();
-        File cruisesJson = new File("src/test/resources/cruises.json");
+        File cruisesJson = new File("src/test/resources/cruises2.json");
         JsonParser parser = new JsonParser();
         String cruisesString = String.join("", Files.readAllLines(cruisesJson.toPath()));
         JsonElement parse = parser.parse(cruisesString);
         parse.getAsJsonArray()
                 .forEach(jsonElement -> cruises.add(toCruise(jsonElement.getAsJsonObject())));
     }
+
+
 
 
     @Test
@@ -161,8 +161,8 @@ public class FindYourCruise2018UseTest {
         //silver galapagos doesn't cruise africa
         AbstractFilter<ShipItem> ship = use.getFilterBar().getShip();
         assertEquals(DISABLED, ship.retrieveState(SILVER_GALAPAGOS));
-        //silver muse does cruise africa
-        assertEquals(ENABLED, ship.retrieveState((SILVER_MUSE)));
+        //silver muse does not cruise africa
+        assertEquals(DISABLED, ship.retrieveState((SILVER_MUSE)));
     }
 
     @Test
@@ -301,7 +301,7 @@ public class FindYourCruise2018UseTest {
         List<PortItem> ports = StreamSupport.stream(json.getAsJsonArray("ports").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(jsonElement -> new PortItem(jsonElement.get("name").getAsString(),
-                        jsonElement.get("title").getAsString()))
+                        jsonElement.get("name").getAsString(), jsonElement.get("countryISO3").getAsString()))
                 .collect(Collectors.toList());
         List<FeatureModel> features = StreamSupport.stream(json.getAsJsonArray("features").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
@@ -591,64 +591,6 @@ public class FindYourCruise2018UseTest {
         @Override
         public String getDuration() {
             return duration;
-        }
-    }
-
-    class TestCacheService implements CruisesCacheService {
-
-        @Override
-        public List<CruiseModelLight> getCruises(String lang) {
-            return cruises;
-        }
-
-        @Override
-        public CruiseModelLight getCruiseByCruiseCode(String lang, String cruiseCode) {
-            return null;
-        }
-
-        @Override
-        public List<DestinationModelLight> getDestinations(String lang) {
-            return null;
-        }
-
-        @Override
-        public List<ShipModelLight> getShips(String lang) {
-            return null;
-        }
-
-        @Override
-        public List<PortModelLight> getPorts(String lang) {
-            return null;
-        }
-
-        @Override
-        public Set<Integer> getDurations(String lang) {
-            return null;
-        }
-
-        @Override
-        public Set<YearMonth> getDepartureDates(String lang) {
-            return null;
-        }
-
-        @Override
-        public Set<FeatureModelLight> getFeatures(String lang) {
-            return null;
-        }
-
-        @Override
-        public void addOrUpdateCruise(CruiseModelLight cruiseModel, String langIn) {
-
-        }
-
-        @Override
-        public void removeCruise(String lang, String cruiseCode) {
-
-        }
-
-        @Override
-        public void buildCruiseCache() {
-
         }
     }
 

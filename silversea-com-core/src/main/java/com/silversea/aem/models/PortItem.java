@@ -6,16 +6,13 @@ public class PortItem {
 
 	private String title;
 
-	private String cityId;
-	public PortItem(String name, String title) {
-		this.name = name;
-		this.title = title;
-	}
 
-	public PortItem(String name, String title, String cityId) {
+	private String countryISO3;
+
+	public PortItem(String name, String title, String countryISO3 ) {
 		this.name = name;
 		this.title = title;
-		this.cityId = cityId;
+		this.countryISO3 = countryISO3;
 	}
 
 	public String getName() {
@@ -26,8 +23,7 @@ public class PortItem {
 		return title;
 	}
 
-	public String getCityId() {
-		return cityId;
+	public String getCountryISO3() {
+		return countryISO3;
 	}
-
 }
