@@ -19,6 +19,8 @@ public interface CruisesImporter {
      */
     ImportResult updateItems();
 
+    ImportResult updateCheckAlias();
+
     /**
      * @return JSON mapping of cruises
      */

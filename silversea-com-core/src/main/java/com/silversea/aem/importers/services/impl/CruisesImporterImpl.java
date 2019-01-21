@@ -13,6 +13,8 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesImporter;
 import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -417,6 +419,81 @@ public class CruisesImporterImpl implements CruisesImporter {
         LOGGER.info("Ending cruises update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
+    }
+
+    @Override
+    public ImportResult updateCheckAlias() {
+        //Check if the voyage name received from the API is ok or no.
+        //If not ok - then we will need to rewrite the alias.
+        //Only rewrite the alias if it's not the same as the current one
+        //Use the jcr:title or the apiTitle in roder to construct the alias.
+        //convert into valid name (jcr)
+        //Cut before any parenthesis or comma and replace space with dash
+        //First need to check how many changes will it create !
+
+        LOGGER.debug("Starting cruises alias updater");
+
+        final int[] successNumber = {0};
+        final int[] errorNumber = {0};
+
+        final Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
+            final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
+            // cruises mapping
+            final Map<Integer, Map<String, Page>> cruisesMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
+                    "cruiseId");
+
+            cruisesMapping.forEach((integer, stringPageMap) -> stringPageMap.forEach((language, page) -> {
+                        try {
+                            final Node cruiseContentNode = page.getContentResource().adaptTo(Node.class);
+                            if (cruiseContentNode.hasProperty("sling:alias")) {
+                                String currentAlias = cruiseContentNode.getProperty("sling:alias").getString();
+                                String currentTitle = cruiseContentNode.getProperty("jcr:title").getString();
+
+                                if (!currentAlias.contains("-to-") && !currentAlias.contains("-nach-") && !currentAlias.contains("-a-") && !currentTitle.contains(" to ") &&
+                                        !currentTitle.contains(" nach ") && !currentTitle.contains(" a ")) {
+                                    //need to replace !
+                                    CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
+                                    if(cruiseModel != null && cruiseModel.getArrivalPortName() != null && cruiseModel.getDeparturePortName() != null) {
+                                        String newAlias = cruiseModel.getDeparturePortName() + "-to-" + cruiseModel.getArrivalPortName() + "-" + cruiseModel.getCruiseCode();
+                                        LOGGER.error("need to rename a fucking voyage alias !! " + currentAlias + " will be replaced by " + newAlias + " lang " + language);
+                                        //LOGGER.error("need to rename a fucking voyage name !! " + currentTitle+ "will be replaced by " + newAlias);
+                                    }
+                                    successNumber[0]++;
+                                }
+                            }
+                        } catch (Exception e) {
+                            LOGGER.error("Issue while trying to align cruise sling alias ", e);
+                            errorNumber[0]++;
+                        }
+                    }
+                    ));
+
+                //set sling:alias and jcr:title to match voyage name
+          /*  final String alias = JcrUtil.createValidName(StringUtils
+                    .stripAccents(cruise.getVoyageName() + " - " + cruise.getVoyageCod()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                    .replaceAll("-+", "-");
+            if (language.equals("fr") || language.equals("es") || language.equals("pt-br")) {
+                alias.replace("-to-", "-a-");
+            } else if (language.equals("de")) {
+                alias.replace("-to-", "-nach-");
+            }
+            if (!cruiseContentNode.getParent().getName().equals(alias)) {
+                cruiseContentNode.setProperty("sling:alias", alias);
+            }
+            cruiseContentNode.setProperty("jcr:title", cruise.getVoyageCod() + " - " + cruiseTitle );*/
+        } catch (Exception e) {
+            LOGGER.error("Cannot update sling alias of cruises", e);
+            errorNumber[0]++;
+        }
+        LOGGER.error("Number of SUCCESS " + successNumber[0]);
+        return new ImportResult(successNumber[0], errorNumber[0]);
     }
 
     @Override
