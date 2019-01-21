@@ -133,7 +133,7 @@ $(function () {
         }
 
         function destroyVideo(e) {
-            if ($("body").hasClass("cruise") && $(".cruise-2018").length > 0) {
+            if ($("body").hasClass("cruise") && $(".cruise-2018, .combocruise-2018").length > 0) {
                 var $video = $(".modal.lightbox .cruise-video-lightbox").find('.s7container');
                 $video.find('.s7playpausebutton[selected="false"]').trigger('click');
                 $('.modal.lightbox').off('shown.bs.modal', createVideo);
