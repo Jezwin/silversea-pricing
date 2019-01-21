@@ -1,8 +1,48 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
+.splitteddynamicteaser.parbase {
+  position: relative;
+}
+
 .splitteddynamicteaser {
   .splitteddynamicteaser-image {
     position: relative;
+  }
+
+  .splitteddynamicteaser-text {
+    top: 50%;
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 100%;
+    pointer-events: none;
+
+
+    .splitteddynamicteaser-text-top {
+      font-size: 25px;
+    }
+    .splitteddynamicteaser-text-center {
+      font-size: 46px;
+      text-transform: uppercase;
+      &:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        height: 2px;
+        background: white;
+        width: 40%;
+        left: 50%;
+        transform: translate(-50%,-65%);
+        top: 65%;
+      }
+    }
+    .splitteddynamicteaser-text-bottom {
+      font-size: 28px;
+      text-transform: uppercase;
+    }
   }
 
   .splitteddynamicteaser-left, .splitteddynamicteaser-right {
@@ -26,9 +66,14 @@
   }
 
   /*
-
+All animation
  By Fabio because he didn't want to use jquery
   */
+
+  .splitteddynamicteaser:hover  .splitteddynamicteaser-text,  .splitteddynamicteaser:hover  .splitteddynamicteaser-text-center::after {
+    animation: animation-hide-text 2s ease forwards;
+  }
+
   .splitteddynamicteaser-image:hover .splitteddynamicteaser-left {
     animation: animation-reduce-left 2s ease forwards;
   }
@@ -43,6 +88,14 @@
 
   .splitteddynamicteaser-right:hover {
     animation: animation-increment-right 2s ease forwards !important;
+  }
+
+  @keyframes animation-hide-text {
+    0% {}
+    100% {
+      background: transparent;
+      color:transparent;
+    }
   }
 
   @keyframes animation-reduce-left {

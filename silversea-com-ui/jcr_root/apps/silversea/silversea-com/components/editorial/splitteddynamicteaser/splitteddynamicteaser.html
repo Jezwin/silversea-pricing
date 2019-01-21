@@ -5,6 +5,11 @@
 <sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=use.componentProp, property='sscFwHeight'}"/>
 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"></sly>
 <div id="splitteddynamicteaser-${properties.sscUUID}" class="splitteddynamicteaser">
+    <div class="splitteddynamicteaser-text">
+        <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopDesktop}</div>
+        <div class="splitteddynamicteaser-text-center">${use.componentProp.textCenterDesktop}</div>
+        <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomDesktop}</div>
+    </div>
     <div class="splitteddynamicteaser-image ssc-fw-height" style="${fw.allDevices @ context='unsafe'}"
          data-ie-style="${fw.allDevices @ context='unsafe'}">
         <div class="splitteddynamicteaser">
@@ -32,5 +37,3 @@
     ${use.componentProp.cssTablet @ context='html'}
     }
 </style>
-
-
