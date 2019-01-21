@@ -74,6 +74,7 @@ public class Cruise2018Use extends EoHelper {
     private String currentPath;
 
     private String ccptCode;
+    private String taCode;
     private CruiseModel cruiseModel;
 
     private List<CruiseItinerary> itinerary;
@@ -172,6 +173,7 @@ public class Cruise2018Use extends EoHelper {
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
+        taCode = retrieveTaCode(selectors);
 
         numPorts = retrieveNumberOfPorts(cruiseModel);
         numCountries = retrieveNumberOfCountries(cruiseModel);
@@ -408,6 +410,15 @@ public class Cruise2018Use extends EoHelper {
         for (String selectorInfo : selectors) {
             if (selectorInfo.contains("ccpt_")) {
                 return selectorInfo.replace("ccpt_", ".");
+            }
+        }
+        return "";
+    }
+
+    private String retrieveTaCode(String[] selectors) {
+        for (String selectorInfo : selectors) {
+            if (selectorInfo.contains("ta_")) {
+                return selectorInfo.replace("ta_", ".");
             }
         }
         return "";
@@ -743,6 +754,9 @@ public class Cruise2018Use extends EoHelper {
 
     public String getCcptCode() {
         return ccptCode;
+    }
+    public String getTaCode() {
+        return taCode;
     }
 
     public Collection<CruisePrePost> getPrePost() {

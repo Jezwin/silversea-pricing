@@ -23,9 +23,12 @@
   }
 }
 
-.modal-larger {
-  max-width: 930px !important;
-  .lightbox-close{
-    width: 930px !important;
+@media(min-width: @screen-lg-min) {
+  .modal-larger {
+    max-width: 930px !important;
+
+    .lightbox-close {
+      width: 930px !important;
+    }
   }
 }

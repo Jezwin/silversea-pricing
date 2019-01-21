@@ -134,10 +134,21 @@
                                     name="./slidePerPageDesktop"/>
                             <centeredStyle
                                     jcr:primaryType="nt:unstructured"
-                                    text="Use centered style for slides (voids slide per page)"
-                                    name="./centeredStyleDesktop"
-                                    value="true"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Slide style"
+                                    fieldLabel="Slide style"
+                                    name="./centeredStyleDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <slides
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Slides"
+                                            value="slides"/>
+                                    <centered
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Centered"
+                                            value="centered"/>
+                                </items>
+                            </centeredStyle>
                             <grayBackgroundDesktop
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
@@ -170,10 +181,21 @@
                                     name="./slidePerPageTablet"/>
                             <centeredStyle
                                     jcr:primaryType="nt:unstructured"
-                                    text="Use centered style for slides (voids slides per page)"
-                                    name="./centeredStyleTablet"
-                                    value="true"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Slide style"
+                                    fieldLabel="Slide style"
+                                    name="./centeredStyleTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <slides
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Slides"
+                                            value="slides"/>
+                                    <centered
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Centered"
+                                            value="centered"/>
+                                </items>
+                            </centeredStyle>
                             <grayBackgroundTablet
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
@@ -206,10 +228,21 @@
                                     name="./slidePerPageMobile"/>
                             <centeredStyle
                                     jcr:primaryType="nt:unstructured"
-                                    text="Use centered style for slides (voids slides per page)"
-                                    name="./centeredStyleMobile"
-                                    value="true"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Slide style"
+                                    fieldLabel="Slide style"
+                                    name="./centeredStyleMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <slides
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Slides"
+                                            value="slides"/>
+                                    <centered
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Centered"
+                                            value="centered"/>
+                                </items>
+                            </centeredStyle>
                             <grayBackgroundMobile
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
