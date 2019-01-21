@@ -21,6 +21,12 @@ $(function () {
         getSegment($route, url);
     };//onClickSlideArrowMobile
 
+    function lowerCaseContentPort(thisEl){
+        var currentPort = $(thisEl).html();
+        currentPort = currentPort.toLowerCase();
+        $(thisEl).html(currentPort);
+    }
+
     function getSegment($route, url) {
         activeRoute($route);
         addSpinnerOnItineraryDetail();
@@ -28,6 +34,9 @@ $(function () {
             $(".cruise2018-itinerarydetail-block").replaceWith(data);
             //can't find solution with delegate or on()
             $(".cruise-2018-itineraries-itinerary-row-thumbnail img").lazy("lazy");
+            $('.cruise-2018-itineraries-itinerary-row-text-name').each(function () {
+                lowerCaseContentPort(this);
+            });
         }).fail(function () {
             removeSpinnerOnItineraryDetail();
         })
