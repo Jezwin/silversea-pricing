@@ -1,0 +1,39 @@
+<sly data-sly-use.use="com.silversea.aem.components.included.Header2019Use">
+    <div class="header-2019">
+        <div class="header-2019-logo">
+            <div class="ratio">
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                     data-sly-call="${imageTemplate.image @ imagePath=use.logo.path || '/etc/designs/silversea-com/clientlib-base/images/logo.png'}"/>
+            </div>
+        </div>
+        <div class="header-2019-middle">
+            <div class="header-2019-top-section">
+                <sly data-sly-repeat.topLink="${use.topLinks}">
+                    <div class="header-2019-top pipe-separated">
+                        <a class="header-2019-top-link" href="${topLink.page.path}">${topLink.label}</a>
+                    </div>
+                </sly>
+                <div class="header-2019-lang-menu">
+                    <div class="header-2019-lang">
+                        <span class="header-2019-lang-link">EN</span>
+                    </div>
+                    <sly data-sly-repeat.language="${use.languages}">
+                        <div class="header-2019-lang">
+                            <a class="header-2019-lang-link" href="${language.page.path}">${language.label}</a>
+                        </div>
+                    </sly>
+                </div>
+                <div class="header-2019-search">
+
+                </div>
+            </div>
+            <div class="header-2019-first-level-section">
+                <sly data-sly-repeat.firstLevel="${use.firstLevelLinks}">
+                    <div class="header-2019-first-level pipe-separated">
+                        <a class="header-2019-first-level-link" href="${firstLevel.page.path}">${firstLevel.label}</a>
+                    </div>
+                </sly>
+            </div>
+        </div>
+    </div>
+</sly>

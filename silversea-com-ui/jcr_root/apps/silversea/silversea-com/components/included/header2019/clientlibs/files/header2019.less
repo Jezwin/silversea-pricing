@@ -1,0 +1,154 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+@lang-delay: 0.5s;
+
+.c-header__container {
+  display: none !important;
+}
+
+.header-2019 {
+  width: 100vw;
+  background-color: white;
+
+  div {
+    display: inline-block;
+    font-family: @suisse;
+  }
+
+  .header-2019-first-level {
+    text-transform: uppercase;
+    margin-top: 29px;
+    line-height: 16px;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+    color: @grey--3;
+  }
+
+  .header-2019-first-level:hover a {
+    text-decoration: none;
+    position: relative;
+  }
+
+  .header-2019-first-level:hover a:after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: @grey--3;
+    pointer-events: none;
+  }
+
+  .header-2019-lang-menu {
+    display: inline-block;
+    z-index: 100;
+    width: 2em;
+
+  }
+
+  .pipe-separated:not(:last-child):after {
+    content: "|";
+    display: inline;
+    margin-left: 12px;
+    margin-right: 12px;
+    color: @grey--3;
+    opacity: 0.5;
+    line-height: 10px;
+    vertical-align: middle;
+  }
+
+  .header-2019-first-level.pipe-separated:not(:last-child):after {
+    font-size: 10px;
+  }
+
+  .header-2019-top.pipe-separated:not(:last-child):after {
+    font-size: 9px;
+  }
+
+  .header-2019-logo {
+    height: 100px;
+    width: 187px;
+    background-color: black;
+    float: left;
+    margin-right: 12px;
+  }
+
+  .header-2019-top {
+    text-align: right;
+  }
+
+  .header-2019-top-link {
+    text-transform: capitalize;
+    font-size: 11px;
+    line-height: 14px;
+    color: #333333;
+    opacity: 0.8;
+    letter-spacing: 0.92px;
+    height: 14px;
+
+  }
+
+
+  .header-2019-middle {
+    padding-right: 25px;
+    border-right: 2px solid #9B9B9B80;
+
+  }
+
+  div.header-2019-top-section {
+    display: block;
+    text-align: right;
+    margin-top: 17px;
+    margin-bottom: 17px;
+    margin-right: 5%;
+    white-space: nowrap;
+    position: relative;
+
+
+    .header-2019-lang-menu {
+      transition: height @lang-delay, background-color @lang-delay;
+      height: 30px;
+      position: absolute;
+      min-width: 50px;
+      margin-left: 0;
+      left: 98%;
+      top: -8px;
+      font-size: 13px;
+
+      &.clicked .header-2019-lang {
+        animation: an-clicked 0.5s forwards;
+        @keyframes an-clicked {
+          to {
+            background: @grey--f4;
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+      }
+
+      &:not(.clicked) .header-2019-lang:not(:first-child) {
+        background: white;
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .header-2019-lang {
+        display: block;
+        cursor: pointer;
+        line-height: 22px;
+        text-align: center;
+        color: #333333;
+        padding: 9px 4px 4px;
+
+        &:hover {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+
+}
+
