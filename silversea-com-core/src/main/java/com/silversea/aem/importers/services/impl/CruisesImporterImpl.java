@@ -452,22 +452,27 @@ public class CruisesImporterImpl implements CruisesImporter {
             cruisesMapping.forEach((integer, stringPageMap) -> stringPageMap.forEach((language, page) -> {
                         try {
                             final Node cruiseContentNode = page.getContentResource().adaptTo(Node.class);
+                            String currentAlias = "";
                             if (cruiseContentNode.hasProperty("sling:alias")) {
-                                String currentAlias = cruiseContentNode.getProperty("sling:alias").getString();
-                                String currentTitle = cruiseContentNode.getProperty("jcr:title").getString();
+                                currentAlias = cruiseContentNode.getProperty("sling:alias").getString();
+                            }else{
+                                currentAlias = JcrUtil.createValidName(StringUtils
+                                        .stripAccents(cruiseContentNode.getProperty("jcr:title").getString()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                                        .replaceAll("-+", "-");
+                            }
 
-                                if (!currentAlias.contains("-to-") && !currentAlias.contains("-nach-") && !currentAlias.contains("-a-") && !currentTitle.contains(" to ") &&
-                                        !currentTitle.contains(" nach ") && !currentTitle.contains(" a ")) {
+                                if (!currentAlias.contains("-to-") && !currentAlias.contains("-nach-") && !currentAlias.contains("-a-")) {
                                     //need to replace !
                                     CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
                                     if(cruiseModel != null && cruiseModel.getArrivalPortName() != null && cruiseModel.getDeparturePortName() != null) {
-                                        String newAlias = cruiseModel.getDeparturePortName() + "-to-" + cruiseModel.getArrivalPortName() + "-" + cruiseModel.getCruiseCode();
-                                        LOGGER.error("need to rename a fucking voyage alias !! " + currentAlias + " will be replaced by " + newAlias + " lang " + language);
-                                        //LOGGER.error("need to rename a fucking voyage name !! " + currentTitle+ "will be replaced by " + newAlias);
+                                        String newAlias = JcrUtil.createValidName(StringUtils
+                                                .stripAccents(cruiseModel.getDeparturePortName() + "-to-" + cruiseModel.getArrivalPortName() + " - " + cruiseModel.getCruiseCode()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                                                .replaceAll("-+", "-");
+                                        cruiseContentNode.setProperty("jcr:alias", newAlias);
+
                                     }
                                     successNumber[0]++;
                                 }
-                            }
                         } catch (Exception e) {
                             LOGGER.error("Issue while trying to align cruise sling alias ", e);
                             errorNumber[0]++;
@@ -475,19 +480,6 @@ public class CruisesImporterImpl implements CruisesImporter {
                     }
                     ));
 
-                //set sling:alias and jcr:title to match voyage name
-          /*  final String alias = JcrUtil.createValidName(StringUtils
-                    .stripAccents(cruise.getVoyageName() + " - " + cruise.getVoyageCod()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
-                    .replaceAll("-+", "-");
-            if (language.equals("fr") || language.equals("es") || language.equals("pt-br")) {
-                alias.replace("-to-", "-a-");
-            } else if (language.equals("de")) {
-                alias.replace("-to-", "-nach-");
-            }
-            if (!cruiseContentNode.getParent().getName().equals(alias)) {
-                cruiseContentNode.setProperty("sling:alias", alias);
-            }
-            cruiseContentNode.setProperty("jcr:title", cruise.getVoyageCod() + " - " + cruiseTitle );*/
         } catch (Exception e) {
             LOGGER.error("Cannot update sling alias of cruises", e);
             errorNumber[0]++;
