@@ -1,5 +1,9 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
+@div-time: 2s;
+@text-time: 6s;
+@image-time: 3s;
+
 .splitteddynamicteaser.parbase {
   position: relative;
 }
@@ -22,6 +26,7 @@
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
+    --webkit-transform: translate(-50%, -50%);
     text-align: center;
     color: white;
     width: 100%;
@@ -44,6 +49,7 @@
         width: 48%;
         left: 50%;
         transform: translate(-50%, -65%);
+        --webkit-transform: translate(-50%, -65%);
         top: 65%;
       }
     }
@@ -70,6 +76,7 @@
     z-index: 100;
     position: absolute;
     transform: translate(-50%, -3%);
+    --webkit-transform: translate(-50%, -3%);
     width: 100%;
     pointer-events: none;
     text-transform: uppercase;
@@ -116,7 +123,8 @@
       top: 50%;
       position: absolute;
       right: -8%;
-      transform: translate(8%,-50%);
+      transform: translate(8%, -50%);
+      --webkit-transform: translate(8%, -50%);
       text-align: left;
       font-size: 15px;
       color: transparent;
@@ -132,7 +140,8 @@
       top: 50%;
       position: absolute;
       left: -9%;
-      transform: translate(9%,-50%);
+      transform: translate(9%, -50%);
+      --webkit-transform: translate(9%, -50%);
       text-align: right;
       color: transparent;
       font-size: 15px;
@@ -141,51 +150,67 @@
   }
 
   /*
-All animation
- By Fabio because he didn't want to use jquery
+  All new animation with transition
   */
 
-  .splitteddynamicteaser:hover .splitteddynamicteaser-text, .splitteddynamicteaser:hover .splitteddynamicteaser-text-center::after {
-    animation: animation-hide-text 2s ease forwards;
-  }
-
+  //animation to reduce the left
   .splitteddynamicteaser-image:hover .splitteddynamicteaser-left {
-    animation: animation-reduce-left 2s ease forwards;
+    width: 10%;
+    transition: width 2s;
   }
 
-  .splitteddynamicteaser-image:hover .splitteddynamicteaser-right {
-    animation: animation-reduce-right 2s ease forwards;
-  }
-
-  .splitteddynamicteaser-left:hover {
-    animation: animation-increment-left 2s ease forwards !important;
-
-    .splitteddynamicteaser-text-overlay-left {
-      animation: animation-show-text 6s ease forwards !important;
-    }
-    picture div {
-      animation: animation-show-image-left 3s ease forwards !important;
-    }
-
-    .splitteddynamicteaser-small-text-overlay-right {
-      animation: animation-show-text 6s ease forwards !important;
-    }
-  }
-
+  //amimation to increase the right side + show all the text inside the right side + show the image right
   .splitteddynamicteaser-right:hover {
-    animation: animation-increment-right 2s ease forwards !important;
+    width: 90% !important;
+    left: 10% !important;
+    z-index: 2;
 
     .splitteddynamicteaser-text-overlay-right {
-      animation: animation-show-text 6s ease forwards !important;
+      animation: animation-show-text @text-time ease forwards !important;
     }
 
     picture div {
-      animation: animation-show-image-right 3s ease forwards !important;
+      animation: animation-show-image-right @image-time ease forwards !important;
     }
 
     .splitteddynamicteaser-small-text-overlay-left {
-      animation: animation-show-text 6s ease forwards !important;
+      animation: animation-show-text @text-time ease forwards !important;
     }
+  }
+
+  //needed to have beautiful effects to repositioning the div 50%
+  .splitteddynamicteaser-right, .splitteddynamicteaser-left {
+    transition: width 2s, left 2s;
+  }
+  //animation to reduce the right
+  .splitteddynamicteaser-image:hover .splitteddynamicteaser-right {
+    width: 10%;
+    left: 90%;
+    z-index: 1;
+  }
+
+  //amimation to increase the left side + show all the text inside the left side + show the image left
+  .splitteddynamicteaser-left:hover {
+    width: 90% !important;
+    transition: width 2s;
+    z-index: 2;
+
+
+    .splitteddynamicteaser-text-overlay-left {
+      animation: animation-show-text @text-time ease forwards !important;
+    }
+    picture div {
+      animation: animation-show-image-left @image-time ease forwards !important;
+    }
+
+    .splitteddynamicteaser-small-text-overlay-right {
+      animation: animation-show-text @text-time ease forwards !important;
+    }
+  }
+
+  //animation hide text on the map (You  only live twice + the white line)
+  .splitteddynamicteaser:hover .splitteddynamicteaser-text, .splitteddynamicteaser:hover .splitteddynamicteaser-text-center::after {
+    animation: animation-hide-text @div-time ease forwards;
   }
 
   @keyframes animation-hide-text {
@@ -197,28 +222,6 @@ All animation
     }
   }
 
-  @keyframes animation-reduce-left {
-    0% {
-      z-index: 1;
-      width: 50%;
-    }
-    100% {
-      z-index: 1;
-      width: 10%;
-    }
-  }
-
-  @keyframes animation-increment-right {
-    0% {
-      z-index: 2;
-      width: 50%;
-    }
-    100% {
-      z-index: 2;
-      width: 90%;
-      left: 10%;
-    }
-  }
 
   @keyframes animation-show-image-right {
     0% {
@@ -258,33 +261,7 @@ All animation
     100% {
       color: white;
       opacity: 1;
+      z-index: 5;
     }
   }
-  @keyframes animation-increment-left {
-    0% {
-      z-index: 2;
-      left: 0%;
-
-    }
-    100% {
-      z-index: 2;
-      width: 90%;
-      left: 0%;
-
-    }
-  }
-  @keyframes animation-reduce-right {
-    0% {
-      z-index: 1;
-      left: 50%;
-
-    }
-    100% {
-      z-index: 1;
-      width: 10%;
-      left: 90%
-
-    }
-  }
-
 }
