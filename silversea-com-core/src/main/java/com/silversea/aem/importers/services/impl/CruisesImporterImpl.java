@@ -470,6 +470,8 @@ public class CruisesImporterImpl implements CruisesImporter {
                                                 .replaceAll("-+", "-");
                                         cruiseContentNode.setProperty("jcr:alias", newAlias);
 
+                                        LOGGER.info("Renamed " + currentAlias + " to " +newAlias + " for lang " + language);
+
                                     }
                                     successNumber[0]++;
                                 }
@@ -479,12 +481,20 @@ public class CruisesImporterImpl implements CruisesImporter {
                         }
                     }
                     ));
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
 
+
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
         } catch (Exception e) {
             LOGGER.error("Cannot update sling alias of cruises", e);
             errorNumber[0]++;
         }
-        LOGGER.error("Number of SUCCESS " + successNumber[0]);
+        LOGGER.info("Number of SUCCESS " + successNumber[0]);
         return new ImportResult(successNumber[0], errorNumber[0]);
     }
 
