@@ -14,21 +14,23 @@
         <div class="splitteddynamicteaser">
             <div class="splitteddynamicteaser-full-image">
                 <sly data-sly-call="${imageTemplate.imageTrasparent @ imagePath=use.componentProp.pathImageDesktop}"></sly>
-                <div class="splitteddynamicteaser-left"></div>
-                <div class="splitteddynamicteaser-right"></div>
+                <div class="splitteddynamicteaser-left">
+                    <div class="splitteddynamicteaser-text-overlay-left">
+                        <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopLeftDesktop @ context='html'}</div>
+                        <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomLeftDesktop @ context='html'}</div>
+                    </div>
+                </div>
+                <div class="splitteddynamicteaser-right">
+                    <div class="splitteddynamicteaser-text-overlay-right">
+                        <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopRightDesktop @ context='html'}</div>
+                        <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomRightDesktop @ context='html'}</div>
+                    </div>
+                </div>
             </div>
             <div class="splitteddynamicteaser-overlay-right-image">
-                <div class="splitteddynamicteaser-text-overlay-right">
-                    <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopRightDesktop @ context='html'}</div>
-                    <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomRightDesktop @ context='html'}</div>
-                </div>
                 <sly data-sly-call="${imageTemplate.imageTrasparent @ imagePath=use.componentProp.pathOverlayRightImageDesktop}"></sly>
             </div>
             <div class="splitteddynamicteaser-overlay-left-image">
-                <div class="splitteddynamicteaser-text-overlay-left">
-                    <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopLeftDesktop @ context='html'}</div>
-                    <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomLeftDesktop @ context='html'}</div>
-                </div>
                 <sly data-sly-call="${imageTemplate.imageTrasparent @ imagePath=use.componentProp.pathOverlayLeftImageDesktop}"></sly>
             </div>
         </div>
@@ -45,5 +47,3 @@
     ${use.componentProp.cssTablet @ context='html'}
     }
 </style>
-
-${use.componentProp.pathImageDesktop @ context='html'}
