@@ -1,29 +1,37 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder"
      data-emptytext="SSC - Splitted Dynamic Teaser - (#splitteddynamicteaser-${properties.sscUUID}) (Open and save the properties to show the component with default values)' }"></div>
-
 <sly data-sly-use.use="${'com.silversea.aem.components.editorial.SplittedDynamicTeaserUse'}"/>
 <sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=use.componentProp, property='sscFwHeight'}"/>
 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"></sly>
 <div id="splitteddynamicteaser-${properties.sscUUID}" class="splitteddynamicteaser">
     <div class="splitteddynamicteaser-text">
-        <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopDesktop}</div>
-        <div class="splitteddynamicteaser-text-center">${use.componentProp.textCenterDesktop}</div>
-        <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomDesktop}</div>
+        <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopDesktop @ context='html'}</div>
+        <div class="splitteddynamicteaser-text-center">${use.componentProp.textCenterDesktop @ context='html'}</div>
+        <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomDesktop @ context='html'}</div>
     </div>
     <div class="splitteddynamicteaser-image ssc-fw-height" style="${fw.allDevices @ context='unsafe'}"
          data-ie-style="${fw.allDevices @ context='unsafe'}">
         <div class="splitteddynamicteaser">
             <div class="splitteddynamicteaser-full-image">
-                <sly data-sly-call="${imageTemplate.image @ imagePath=use.componentProp.pathImageDesktop}"></sly>
+                <sly data-sly-call="${imageTemplate.imageTrasparent @ imagePath=use.componentProp.pathImageDesktop}"></sly>
                 <div class="splitteddynamicteaser-left"></div>
                 <div class="splitteddynamicteaser-right"></div>
             </div>
             <div class="splitteddynamicteaser-overlay-right-image">
-                <sly data-sly-call="${imageTemplate.image @ imagePath=use.componentProp.pathOverlayRightImageDesktop}"></sly>
+                <div class="splitteddynamicteaser-text-overlay-right">
+                    <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopRightDesktop @ context='html'}</div>
+                    <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomRightDesktop @ context='html'}</div>
+                </div>
+                <sly data-sly-call="${imageTemplate.imageTrasparent @ imagePath=use.componentProp.pathOverlayRightImageDesktop}"></sly>
             </div>
             <div class="splitteddynamicteaser-overlay-left-image">
-                <sly data-sly-call="${imageTemplate.image @ imagePath=use.componentProp.pathOverlayLeftImageDesktop}"></sly>
+                <div class="splitteddynamicteaser-text-overlay-left">
+                    <div class="splitteddynamicteaser-text-top">${use.componentProp.textTopLeftDesktop @ context='html'}</div>
+                    <div class="splitteddynamicteaser-text-bottom">${use.componentProp.textBottomLeftDesktop @ context='html'}</div>
+                </div>
+                <sly data-sly-call="${imageTemplate.imageTrasparent @ imagePath=use.componentProp.pathOverlayLeftImageDesktop}"></sly>
             </div>
+        </div>
     </div>
 </div>
 
@@ -37,3 +45,5 @@
     ${use.componentProp.cssTablet @ context='html'}
     }
 </style>
+
+${use.componentProp.pathImageDesktop @ context='html'}

@@ -73,21 +73,21 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text top"
                                             fieldLabel="Text top"
-                                            value="text top"
+                                            value="Silversea 2021 World Cruise"
                                             name="./textTopDesktop"/>
                                     <textCenterDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text center"
                                             fieldLabel="Text center"
-                                            value="text center"
+                                            value="You only live twice"
                                             name="./textCenterDesktop"/>
                                     <textBottomDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text bottom"
                                             fieldLabel="Text bottom"
-                                            value="text bottom"
+                                            value="The world is up to you."
                                             name="./textBottomDesktop"/>
                                     <showLineTextCenterDesktop
                                             jcr:primaryType="nt:unstructured"
@@ -110,42 +110,42 @@
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text top right"
                                             fieldLabel="Text top right"
-                                            value="text top right"
+                                            value="the  uncharted"
                                             name="./textTopRightDesktop"/>
                                     <textBottomRightDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text bottom right"
                                             fieldLabel="Text bottom right"
-                                            value="text bottom right"
+                                            value="2021  the first-ever expedition  world cruise"
                                             name="./textBottomRightDesktop"/>
                                     <smallTextLeftDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Small text left"
                                             fieldLabel="Small text left"
-                                            value="small text bottom left"
+                                            value="change  the world"
                                             name="./smallTextLeftDesktop"/>
                                     <textTopLeftDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text top left"
                                             fieldLabel="Text top left"
-                                            value="text top left"
+                                            value="the  finest"
                                             name="./textTopLeftDesktop"/>
                                     <textBottomLeftDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Text bottom left"
                                             fieldLabel="Text bottom left"
-                                            value="text bottom left"
+                                            value="2021  the connoisseur way  to discover the world"
                                             name="./textBottomLeftDesktop"/>
                                     <smallTextRightDesktop
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             fieldDescription="Small text right"
                                             fieldLabel="Small text right"
-                                            value="small text bottom right"
+                                            value="change  the world"
                                             name="./smallTextRightDesktop"/>
                                     <showArrowSmallTextDesktop
                                             jcr:primaryType="nt:unstructured"
