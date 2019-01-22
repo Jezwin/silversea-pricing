@@ -48,7 +48,7 @@
       }
     }
     .splitteddynamicteaser-text-bottom {
-      font-size: 26px;
+      font-size: 25px;
       text-transform: uppercase;
       margin-top: 15px;
       font-family: @suisse;
@@ -89,12 +89,6 @@
       opacity: 0.6;
       line-height: 1;
     }
-
-    picture {
-      div {
-        width: 0 !important;
-      }
-    }
   }
 
   .splitteddynamicteaser-left, .splitteddynamicteaser-right {
@@ -107,15 +101,43 @@
     background-repeat: no-repeat;
     z-index: 1;
     color: transparent;
+
+    picture {
+      div {
+        opacity: 0;
+      }
+    }
   }
 
   .splitteddynamicteaser-left {
     background-color: rgb(45, 52, 47);
+
+    .splitteddynamicteaser-small-text-overlay-right {
+      top: 50%;
+      position: absolute;
+      right: -8%;
+      transform: translate(8%,-50%);
+      text-align: left;
+      font-size: 15px;
+      color: transparent;
+      font-weight: bold;
+    }
   }
 
   .splitteddynamicteaser-right {
     left: 50%;
     background-color: rgb(66, 11, 8);
+
+    .splitteddynamicteaser-small-text-overlay-left {
+      top: 50%;
+      position: absolute;
+      left: -9%;
+      transform: translate(9%,-50%);
+      text-align: right;
+      color: transparent;
+      font-size: 15px;
+      font-weight: bold;
+    }
   }
 
   /*
@@ -136,30 +158,33 @@ All animation
   }
 
   .splitteddynamicteaser-left:hover {
-    animation: animation-increment-left 2s ease forwards, animation-show-text 6s ease forwards !important;
+    animation: animation-increment-left 2s ease forwards !important;
+
+    .splitteddynamicteaser-text-overlay-left {
+      animation: animation-show-text 6s ease forwards !important;
+    }
+    picture div {
+      animation: animation-show-image-left 3s ease forwards !important;
+    }
+
+    .splitteddynamicteaser-small-text-overlay-right {
+      animation: animation-show-text 6s ease forwards !important;
+    }
   }
 
   .splitteddynamicteaser-right:hover {
-    animation: animation-increment-right 2s ease forwards, animation-show-text 6s ease forwards !important;
-  }
+    animation: animation-increment-right 2s ease forwards !important;
 
-  .splitteddynamicteaser-right:hover picture div {
-    width: 100% !important;
-    left: -5% !important;
-  }
-
-  .splitteddynamicteaser-left:hover picture div {
-    width: 100% !important;
-    left: 5% !important;
-  }
-
-  @keyframes animation-show-image {
-    0% {
-      width: 10%;
+    .splitteddynamicteaser-text-overlay-right {
+      animation: animation-show-text 6s ease forwards !important;
     }
-    100% {
-      width: 10%;
-      left: -10% !important;
+
+    picture div {
+      animation: animation-show-image-right 3s ease forwards !important;
+    }
+
+    .splitteddynamicteaser-small-text-overlay-left {
+      animation: animation-show-text 6s ease forwards !important;
     }
   }
 
@@ -195,6 +220,36 @@ All animation
     }
   }
 
+  @keyframes animation-show-image-right {
+    0% {
+      opacity: 0;
+      left: -50%;
+    }
+    66% { //trick to show the image without animation
+      opacity: 0;
+      left: -5%;
+    }
+    100% {
+      opacity: 1;
+      left: -5%;
+    }
+  }
+
+  @keyframes animation-show-image-left {
+    0% {
+      opacity: 0;
+      left: 50%;
+    }
+    66% { //trick to show the image without animation
+      opacity: 0;
+      left: 5%;
+    }
+    100% {
+      opacity: 1;
+      left: 5%;
+    }
+  }
+
   @keyframes animation-show-text {
     0% {
       color: transparent;
@@ -205,7 +260,6 @@ All animation
       opacity: 1;
     }
   }
-
   @keyframes animation-increment-left {
     0% {
       z-index: 2;
@@ -219,7 +273,6 @@ All animation
 
     }
   }
-
   @keyframes animation-reduce-right {
     0% {
       z-index: 1;
