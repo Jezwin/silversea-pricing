@@ -67,13 +67,13 @@
   }
 
   .splitteddynamicteaser-text-overlay-left, .splitteddynamicteaser-text-overlay-right {
-    top: 50%;
     z-index: 100;
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -3%);
     width: 100%;
     pointer-events: none;
     text-transform: uppercase;
+    bottom: 3%;
 
     .splitteddynamicteaser-text-top {
       font-size: 45px;
@@ -88,6 +88,12 @@
       letter-spacing: -0.5px;
       opacity: 0.6;
       line-height: 1;
+    }
+
+    picture {
+      div {
+        width: 0 !important;
+      }
     }
   }
 
@@ -135,6 +141,26 @@ All animation
 
   .splitteddynamicteaser-right:hover {
     animation: animation-increment-right 2s ease forwards, animation-show-text 6s ease forwards !important;
+  }
+
+  .splitteddynamicteaser-right:hover picture div {
+    width: 100% !important;
+    left: -5% !important;
+  }
+
+  .splitteddynamicteaser-left:hover picture div {
+    width: 100% !important;
+    left: 5% !important;
+  }
+
+  @keyframes animation-show-image {
+    0% {
+      width: 10%;
+    }
+    100% {
+      width: 10%;
+      left: -10% !important;
+    }
   }
 
   @keyframes animation-hide-text {
