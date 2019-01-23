@@ -1,8 +1,10 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
-@div-time: 2s;
-@text-time: 6s;
-@image-time: 3s;
+@div-time: 1s;
+@text-time: 2s;
+@image-time: 1.5s;
+@color-left-side: rgb(67, 81, 76);
+@color-right-side: rgb(98,0,24);
 
 .splitteddynamicteaser.parbase {
   position: relative;
@@ -54,11 +56,11 @@
       }
     }
     .splitteddynamicteaser-text-bottom {
-      font-size: 25px;
+      font-size: 24px;
       text-transform: uppercase;
       margin-top: 15px;
       font-family: @suisse;
-      letter-spacing: -0.8px;
+      letter-spacing: 0.5px;
     }
   }
 
@@ -70,6 +72,21 @@
   .splitteddynamicteaser-text-overlay-right {
     text-align: right;
     left: 48%;
+  }
+  .splitteddynamicteaser-text-overlay-left {
+    .splitteddynamicteaser-text-top {
+      small {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .splitteddynamicteaser-text-overlay-right {
+    .splitteddynamicteaser-text-top {
+      small {
+        margin-right: 10px;
+      }
+    }
   }
 
   .splitteddynamicteaser-text-overlay-left, .splitteddynamicteaser-text-overlay-right {
@@ -83,16 +100,23 @@
     bottom: 3%;
 
     .splitteddynamicteaser-text-top {
-      font-size: 45px;
+      font-size: 47px;
       font-family: @freight;
-      line-height: 0.9;
+      line-height: 0.8;
+      letter-spacing: 1.1px;
+      text-transform: none;
+      font-style: italic;
+      small {
+        font-size: 60%;
+        text-transform: capitalize;
+      }
     }
     .splitteddynamicteaser-text-bottom {
-      font-size: 20px;
+      font-size: 14px;
       text-transform: uppercase;
       margin-top: 15px;
       font-family: @suisse;
-      letter-spacing: -0.5px;
+      letter-spacing: 1.4px;
       opacity: 0.6;
       line-height: 1;
     }
@@ -121,7 +145,7 @@
   }
 
   .splitteddynamicteaser-left {
-    background-color: rgb(45, 52, 47);
+    background-color: @color-left-side;
 
     .splitteddynamicteaser-small-text-overlay-right {
       top: 50%;
@@ -132,13 +156,13 @@
       text-align: left;
       font-size: 15px;
       color: transparent;
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 
   .splitteddynamicteaser-right {
     left: 50%;
-    background-color: rgb(66, 11, 8);
+    background-color:@color-right-side;
 
     .splitteddynamicteaser-small-text-overlay-left {
       top: 50%;
@@ -149,7 +173,7 @@
       text-align: right;
       color: transparent;
       font-size: 15px;
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 
