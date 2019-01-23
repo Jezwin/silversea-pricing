@@ -468,12 +468,17 @@ public class CruisesImporterImpl implements CruisesImporter {
                                         String newAlias = JcrUtil.createValidName(StringUtils
                                                 .stripAccents(cruiseModel.getDeparturePortName() + "-to-" + cruiseModel.getArrivalPortName() + " - " + cruiseModel.getCruiseCode()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
                                                 .replaceAll("-+", "-");
-                                        cruiseContentNode.setProperty("jcr:alias", newAlias);
+                                        if (language.equals("fr") || language.equals("es") || language.equals("pt-br")) {
+                                            newAlias.replace("-to-", "-a-");
+                                        } else if (language.equals("de")) {
+                                            newAlias.replace("-to-", "-nach-");
+                                        }
+                                        cruiseContentNode.setProperty("sling:alias", newAlias);
 
                                         LOGGER.info("Renamed " + currentAlias + " to " +newAlias + " for lang " + language);
-
+                                        successNumber[0]++;
                                     }
-                                    successNumber[0]++;
+
                                 }
                         } catch (Exception e) {
                             LOGGER.error("Issue while trying to align cruise sling alias ", e);
