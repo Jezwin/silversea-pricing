@@ -40,12 +40,14 @@ public class CruiseModelLight {
 
     private List<PortItem> ports = new ArrayList<>();
 
+    private Set<String> countries = new HashSet<>();
+
     private Map<String, PriceModelLight> lowestPrices = new HashMap<String, PriceModelLight>();
 
     private List<FeatureModelLight> features = new ArrayList<>();
 
     private List<ExclusiveOfferModelLight> exclusiveOffers = new ArrayList<>();
-    
+
     private List<String> portPaths = new ArrayList<>();
 
     public CruiseModelLight(CruiseModel cruiseModel) {
@@ -95,7 +97,8 @@ public class CruiseModelLight {
 
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
             PortModel port = itinerary.getPort();
-            ports.add(new PortItem(port.getName(), port.getApiTitle(), port.getCountryIso3()));
+            ports.add(new PortItem(port.getName(), port.getApiTitle()));
+            countries.add(port.getCountryIso3());
             if (port.getPath() != null){
             	portPaths.add(port.getPath());
             }
@@ -135,6 +138,10 @@ public class CruiseModelLight {
 
     public DestinationItem getDestination() {
         return destination;
+    }
+
+    public Set<String> getCountries() {
+        return countries;
     }
 
     public ShipItem getShip() {

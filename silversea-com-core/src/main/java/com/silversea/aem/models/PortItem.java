@@ -7,12 +7,9 @@ public class PortItem {
 	private String title;
 
 
-	private String countryISO3;
-
-	public PortItem(String name, String title, String countryISO3 ) {
+	public PortItem(String name, String title ) {
 		this.name = name;
 		this.title = title;
-		this.countryISO3 = countryISO3;
 	}
 
 	public String getName() {
@@ -23,7 +20,4 @@ public class PortItem {
 		return title;
 	}
 
-	public String getCountryISO3() {
-		return countryISO3;
-	}
 }
