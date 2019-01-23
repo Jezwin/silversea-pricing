@@ -35,9 +35,9 @@ $(function () {
             e.stopPropagation();
             $leftSide.attr("href", attrHrefLeft);
             //workaround for real ipad
-            $leftSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom").addClass("splitteddynamicteaser-color-white");
+            $leftSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom, .splitteddynamicteaser-text-small, .splitteddynamicteaser-arrow").addClass("splitteddynamicteaser-color-white");
             $rightSide.removeAttr("href");
-            $rightSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom").removeClass("splitteddynamicteaser-color-white");
+            $rightSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom, .splitteddynamicteaser-text-small, .splitteddynamicteaser-arrow").removeClass("splitteddynamicteaser-color-white");
         }
     };//addEventClickLeftSide
 
@@ -54,9 +54,9 @@ $(function () {
             e.stopPropagation();
             $rightSide.attr("href", attrHrefRight);
             //workaround for real ipad
-            $rightSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom").addClass("splitteddynamicteaser-color-white");
+            $rightSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom,.splitteddynamicteaser-text-small, .splitteddynamicteaser-arrow").addClass("splitteddynamicteaser-color-white");
             $leftSide.removeAttr("href");
-            $leftSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom").removeClass("splitteddynamicteaser-color-white");
+            $leftSide.find(".splitteddynamicteaser-text-top, .splitteddynamicteaser-text-bottom, .splitteddynamicteaser-text-small, .splitteddynamicteaser-arrow").removeClass("splitteddynamicteaser-color-white");
         }
     };//addEventClickRightSide
 
