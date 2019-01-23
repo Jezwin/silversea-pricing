@@ -237,17 +237,14 @@
 
   //animation hide text on the map (You  only live twice + the white line)
   .splitteddynamicteaser:hover .splitteddynamicteaser-text, .splitteddynamicteaser:hover .splitteddynamicteaser-text-center::after {
-    animation: animation-hide-text @div-time ease forwards;
+    background: transparent;
+    color: transparent;
+  }
+  //animation hide text on the map (You  only live twice + the white line)
+  .splitteddynamicteaser .splitteddynamicteaser-text, .splitteddynamicteaser .splitteddynamicteaser-text-center::after {
+   transition: background @text-time, color @text-time;
   }
 
-  @keyframes animation-hide-text {
-    0% {
-    }
-    100% {
-      background: transparent;
-      color: transparent;
-    }
-  }
 
   @keyframes animation-show-image-right {
     0% {
@@ -303,7 +300,7 @@
     .splitteddynamicteaser-arrow-tablet {
       display: block;
     }
-    
+
     .splitteddynamicteaser-text-overlay-left, .splitteddynamicteaser-text-overlay-right {
 
       .splitteddynamicteaser-text-top {
