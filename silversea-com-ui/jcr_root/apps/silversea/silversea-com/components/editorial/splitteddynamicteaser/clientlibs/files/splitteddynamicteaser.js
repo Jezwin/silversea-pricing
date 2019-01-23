@@ -3,9 +3,15 @@ $(function () {
     var isSplittedDynamicTeaseronTablet = $(".splitteddynamicteaser").length > 0 && $(window).width() >= 768 && $(window).width() < 992;
 
     if (isSplittedDynamicTeaseronTablet) {
-        console.log("r");
         $(".splitteddynamicteaser").each(addEventClickBothSide);
+        fixScrollOnTablet();
     }
+
+    function fixScrollOnTablet() {
+        $(window).on('scroll', function () {
+            $(".splitteddynamicteaser .splitteddynamicteaser-color-white").removeClass("splitteddynamicteaser-color-white");
+        });
+    };//fixScrollOnTablet
 
     function addEventClickBothSide() {
         var $splitteddynamicteaser = $(this);
