@@ -38,7 +38,7 @@
             </a>
         </div>
         <div class="ow-slider ow-slider--main main-slider visible-xs">
-            <div data-image="${cruiseMobileImg}" data-sly-test="${cruiseMobileImg}">
+            <div data-image="${cruiseMobileImg}" data-sly-test="${cruiseMobileImg && isCombo}">
                 <div class="ratio">
                     <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                          data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=cruiseMobileImg, Width=700}"/>
