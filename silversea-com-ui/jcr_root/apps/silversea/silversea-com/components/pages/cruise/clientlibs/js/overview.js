@@ -70,7 +70,28 @@ function loadLazyImageOverview($slider) {
 
 }
 
+//change bottom vule voyage number depending of the height of pre price
+function changeBottomValueVoyageNumber() {
+    var $quotePriceBonusDiv = $(".cruise-2018-overview-quote-price-bonus"),
+        isVisiblequotePriceBonus = $quotePriceBonusDiv.length > 0;
+    if (isVisiblequotePriceBonus) {
+        var heightDiv = $quotePriceBonusDiv.height(),
+            $voyageCodeDiv = $(".cruise-2018-overview-quote-icons"),
+            canChangeBottomValue = heightDiv > 36;
+        if (canChangeBottomValue) {
+            var pxBottom = (heightDiv / 36) * 10;
+            $voyageCodeDiv.css("bottom", "-" + pxBottom + "px")
+        }
+    }
+};//changeBottomValueVoyageNumber
+
+
+
 $(function () {
+    if ($(window).width() > 990) {
+        changeBottomValueVoyageNumber();
+    }
+
     if ($(window).width() < 768) {
         createOverviewGallerySlider();
     }
