@@ -14,6 +14,7 @@
          arrivalPortName=comboCruise.comboCruiseModel.arrivalPortName,
          departurePortName=comboCruise.comboCruiseModel.departurePortName,
          numEO=0,
+         isWaitlist=comboCruise.isWaitList,
          startDate=comboCruise.comboCruiseModel.startDate,
          endDate=comboCruise.comboCruiseModel.endDate,
          duration=comboCruise.comboCruiseModel.duration,
@@ -32,7 +33,7 @@
          startDate=comboCruise.comboCruiseModel.startDate,
          endDate=comboCruise.comboCruiseModel.endDate,
          duration=comboCruise.duration,
-         isWaitlist=comboCruise.isWaitlist,
+         isWaitlist=comboCruise.isWaitList,
          earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
          currency=comboCruise.lowestPrice.currency,
          computedPriceFormatted=comboCruise.computedPriceFormatted,
@@ -95,7 +96,7 @@
          data-sly-call="${prepost.default @ prePosts=comboCruise.globalPrePost, activateProgressbar=true}"/>
     <sly data-sly-use.footer="/apps/silversea/silversea-com/components/pages/cruise/templates/footer.html"
          data-sly-call="${footer.default @
-         isWaitlist=comboCruise.isWaitlist,
+         isWaitlist=comboCruise.isWaitList,
          earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
          currency=comboCruise.lowestPrice.currency,
          computedPriceFormatted=comboCruise.computedPriceFormatted,
