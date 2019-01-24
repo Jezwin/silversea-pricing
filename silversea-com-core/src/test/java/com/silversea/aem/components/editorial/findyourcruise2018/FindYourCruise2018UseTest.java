@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 
 import com.google.common.base.Strings;
+import com.google.common.util.concurrent.Futures;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -17,14 +18,19 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
-import static java.util.stream.Collectors.toList;
+import static java.util.concurrent.CompletableFuture.allOf;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.*;
 
 public class FindYourCruise2018UseTest {
@@ -108,7 +114,7 @@ public class FindYourCruise2018UseTest {
     }
 
     @Test
-    public void performance() throws InterruptedException {
+    public void performance() {
         double nOfRun = 2; //set 2000 to test better (15 min total)
         ExecutorService executor = Executors.newFixedThreadPool(1);//use 2 with caution
         Map<String, List<UseBuilder>> builders = new HashMap<>();
@@ -134,31 +140,22 @@ public class FindYourCruise2018UseTest {
             builders.get("Multiples 2").add(new UseBuilder("destination=1&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
         }
         AtomicInteger counter = new AtomicInteger();
-        Function<Map.Entry<String, UseBuilder>, Callable<Map.Entry<String, Long>>> test = entry -> () -> {
+        BiFunction<String, UseBuilder, Long> task = (key, use) -> {
             long current = System.currentTimeMillis();
-            entry.getValue().build().init(cruises, "1000");
+            use.build().init(cruises, "1000");
             long res = (System.currentTimeMillis() - current);
             counter.incrementAndGet();
-            return new HashMap.SimpleEntry<>(entry.getKey(), res);
+            return res;
         };
-        Map<String, Double> results = executor.invokeAll(
-                builders.entrySet().stream().flatMap(entry -> entry.getValue().stream().map(value -> new HashMap.SimpleEntry<>(entry.getKey(), value))).map(test).collect(toList())).stream()
-                .map(future -> {
-                    try {
-                        return future.get();
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                        fail();
-                        throw new RuntimeException();
-                    }
-                }).collect(Collectors.toMap(Map.Entry::getKey, entry -> {
-                    List<Long> list = new LinkedList<>();
-                    list.add(entry.getValue());
-                    return list;
-                }, (list1, list2) -> {
-                    list1.addAll(list2);
-                    return list1;
-                })).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream().mapToLong(l -> l).average().orElse(0)));
+
+        Map<String, Double> results = builders.entrySet().stream()
+                .collect(toMap(Map.Entry::getKey,
+                        entry -> entry.getValue().stream()
+                                .map(use -> supplyAsync(() -> task.apply(entry.getKey(), use), executor))
+                                .mapToLong(CompletableFuture::join)
+                                .average().orElse(0)
+                ));
+
         System.out.println("Executed " + counter.get() + " find your cruise");
         double totalAverage = results.values().stream().mapToDouble(l -> l).average().orElse(0);
         results.forEach((key, value) -> System.out.println((value > totalAverage ? "**" : "") + key + ": " + (value / 1000)));
