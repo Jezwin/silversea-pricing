@@ -1,0 +1,338 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+@div-time: 1s;
+@text-time: 2s;
+@image-time: 1.5s;
+@color-left-side: rgb(67, 81, 76);
+@color-right-side: rgb(98, 0, 24);
+
+.splitteddynamicteaser.parbase {
+  position: relative;
+}
+
+.splitteddynamicteaser {
+  cursor: pointer;
+  .splitteddynamicteaser-image {
+    position: relative;
+  }
+
+  .splitteddynamicteaser-full-image picture {
+    div {
+      z-index: 10;
+      pointer-events: none;
+    }
+  }
+  .splitteddynamicteaser-text {
+    top: 50%;
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    --webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 100%;
+    pointer-events: none;
+
+    .splitteddynamicteaser-text-top {
+      font-size: 20px;
+      font-family: @suisse;
+    }
+    .splitteddynamicteaser-text-center {
+      font-size: 50px;
+      text-transform: uppercase;
+      font-family: @freight;
+      &:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        height: 2px;
+        background: white;
+        width: 48%;
+        left: 50%;
+        transform: translate(-50%, -65%);
+        --webkit-transform: translate(-50%, -65%);
+        top: 65%;
+      }
+    }
+    .splitteddynamicteaser-text-bottom {
+      font-size: 24px;
+      text-transform: uppercase;
+      margin-top: 15px;
+      font-family: @suisse;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .splitteddynamicteaser-text-overlay-left {
+    text-align: left;
+    left: 52%;
+  }
+
+  .splitteddynamicteaser-text-overlay-right {
+    text-align: right;
+    left: 48%;
+  }
+  .splitteddynamicteaser-text-overlay-left {
+    .splitteddynamicteaser-text-top {
+      small {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .splitteddynamicteaser-text-overlay-right {
+    .splitteddynamicteaser-text-top {
+      small {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .splitteddynamicteaser-text-overlay-left, .splitteddynamicteaser-text-overlay-right {
+    z-index: 100;
+    position: absolute;
+    transform: translate(-50%, -3%);
+    --webkit-transform: translate(-50%, -3%);
+    width: 100%;
+    pointer-events: none;
+    text-transform: uppercase;
+    bottom: 3%;
+
+    .splitteddynamicteaser-text-top {
+      font-size: 47px;
+      font-family: @freight;
+      line-height: 0.8;
+      letter-spacing: 1.1px;
+      text-transform: none;
+      font-style: italic;
+      small {
+        font-size: 60%;
+        text-transform: capitalize;
+      }
+    }
+    .splitteddynamicteaser-text-bottom {
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-top: 15px;
+      font-family: @suisse;
+      letter-spacing: 1.4px;
+      opacity: 0.6;
+      line-height: 1;
+    }
+  }
+
+  .splitteddynamicteaser-left, .splitteddynamicteaser-right {
+    top: 0;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    color: transparent;
+
+    picture {
+      div {
+        opacity: 0;
+      }
+    }
+  }
+
+  .splitteddynamicteaser-color-white {
+    color: white;
+  }
+
+  .splitteddynamicteaser-left {
+    background-color: @color-left-side;
+
+    .splitteddynamicteaser-small-text-overlay-right {
+      top: 50%;
+      position: absolute;
+      right: -9%;
+      transform: translate(9%, -50%);
+      --webkit-transform: translate(9%, -50%);
+      text-align: left;
+      font-size: 15px;
+      color: transparent;
+      font-weight: normal;
+    }
+  }
+
+  .splitteddynamicteaser-right {
+    left: 50%;
+    background-color: @color-right-side;
+
+    .splitteddynamicteaser-small-text-overlay-left {
+      top: 50%;
+      position: absolute;
+      left: -10%;
+      transform: translate(10%, -50%);
+      --webkit-transform: translate(10%, -50%);
+      text-align: right;
+      color: transparent;
+      font-size: 15px;
+      font-weight: normal;
+    }
+  }
+
+  /*
+  All new animation with transition
+  */
+
+  //animation to reduce the left
+  .splitteddynamicteaser-image:hover .splitteddynamicteaser-left {
+    width: 10%;
+    transition: width 2s;
+  }
+
+  //amimation to increase the right side + show all the text inside the right side + show the image right
+  .splitteddynamicteaser-right:hover {
+    width: 90% !important;
+    left: 10% !important;
+    z-index: 2;
+
+    .splitteddynamicteaser-text-overlay-right {
+      animation: animation-show-text @text-time ease forwards !important;
+    }
+
+    picture div {
+      animation: animation-show-image-right @image-time ease forwards !important;
+    }
+
+    .splitteddynamicteaser-small-text-overlay-left {
+      animation: animation-show-text @text-time ease forwards !important;
+    }
+  }
+
+  //needed to have beautiful effects to repositioning the div 50%
+  .splitteddynamicteaser-right, .splitteddynamicteaser-left {
+    transition: width 2s, left 2s;
+  }
+  //animation to reduce the right
+  .splitteddynamicteaser-image:hover .splitteddynamicteaser-right {
+    width: 10%;
+    left: 90%;
+    z-index: 1;
+  }
+
+  //amimation to increase the left side + show all the text inside the left side + show the image left
+  .splitteddynamicteaser-left:hover {
+    width: 90% !important;
+    transition: width 2s;
+    z-index: 2;
+
+    .splitteddynamicteaser-text-overlay-left {
+      animation: animation-show-text @text-time ease forwards !important;
+    }
+    picture div {
+      animation: animation-show-image-left @image-time ease forwards !important;
+    }
+
+    .splitteddynamicteaser-small-text-overlay-right {
+      animation: animation-show-text @text-time ease forwards !important;
+    }
+  }
+
+  //animation hide text on the map (You  only live twice + the white line)
+  .splitteddynamicteaser:hover .splitteddynamicteaser-text, .splitteddynamicteaser:hover .splitteddynamicteaser-text-center::after {
+    background: transparent;
+    color: transparent;
+  }
+  //animation hide text on the map (You  only live twice + the white line)
+  .splitteddynamicteaser .splitteddynamicteaser-text, .splitteddynamicteaser .splitteddynamicteaser-text-center::after {
+   transition: background @text-time, color @text-time;
+  }
+
+
+  @keyframes animation-show-image-right {
+    0% {
+      opacity: 0;
+      left: -50%;
+    }
+    66% { //trick to show the image without animation
+      opacity: 0;
+      left: -5%;
+    }
+    100% {
+      opacity: 1;
+      left: -5%;
+    }
+  }
+
+  @keyframes animation-show-image-left {
+    0% {
+      opacity: 0;
+      left: 50%;
+    }
+    66% { //trick to show the image without animation
+      opacity: 0;
+      left: 5%;
+    }
+    100% {
+      opacity: 1;
+      left: 5%;
+    }
+  }
+
+  @keyframes animation-show-text {
+    0% {
+      color: transparent;
+    }
+    100% {
+      color: white;
+      z-index: 5;
+    }
+  }
+
+  .splitteddynamicteaser-arrow {
+    display: none;
+  }
+
+  .splitteddynamicteaser-arrow-desktop {
+    display: block;
+  }
+}
+
+@media (max-width: 990px) and (min-width: 768px) {
+  .splitteddynamicteaser {
+    .splitteddynamicteaser-arrow-tablet {
+      display: block;
+    }
+
+    .splitteddynamicteaser-text-overlay-left, .splitteddynamicteaser-text-overlay-right {
+
+      .splitteddynamicteaser-text-top {
+        font-size: 35px;
+      }
+      .splitteddynamicteaser-text-bottom {
+        font-size: 14px;
+      }
+    }
+
+    div.splitteddynamicteaser-small-text-overlay-left, div.splitteddynamicteaser-small-text-overlay-right {
+      font-size: 11px !important;
+    }
+    .splitteddynamicteaser-text {
+
+      .splitteddynamicteaser-text-top {
+        font-size: 15px;
+      }
+      .splitteddynamicteaser-text-center {
+        font-size: 40px;
+      }
+      .splitteddynamicteaser-text-bottom {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .splitteddynamicteaser {
+    display: none;
+  }
+}
+
+
