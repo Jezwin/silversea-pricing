@@ -2,13 +2,13 @@ package com.silversea.aem.components.editorial;
 
 import com.adobe.cq.commerce.common.ValueMapDecorator;
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 import com.silversea.aem.models.CustomCss;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -54,7 +54,7 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
     }
 
     protected Map<String, Object> getComponentProps() {
-        Map<String,Object> componentProp = new HashMap<>();
+        Map<String, Object> componentProp = new HashMap<>();
         getProperties().forEach((key, value) -> {
             if (!IGNORED_KEYS.contains(key)) {
                 componentProp.put(key, value);
@@ -140,11 +140,20 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
         return args[index];
     }
 
-    protected <T> DeviceProperty<T> getDeviceProp(String key, Class<T> type, T... defaultValue) {
+
+    protected DeviceProperty<String> getDeviceProp(String key, String... defaultValue) {
         return new DeviceProperty<>(
-                getProp(key + DESKTOP, type, fromVarArgs(defaultValue, 0)),
-                getProp(key + TABLET, type, fromVarArgs(defaultValue, 1)),
-                getProp(key + MOBILE, type, fromVarArgs(defaultValue, 2))
+                getProp(key + DESKTOP).filter(Strings::isNullOrEmpty).orElse(fromVarArgs(defaultValue, 0)),
+                getProp(key + TABLET).filter(Strings::isNullOrEmpty).orElse(fromVarArgs(defaultValue, 0)),
+                getProp(key + MOBILE).filter(Strings::isNullOrEmpty).orElse(fromVarArgs(defaultValue, 0))
+        );
+    }
+
+    protected DeviceProperty<Integer> getDeviceProp(String key, Integer... defaultValue) {
+        return new DeviceProperty<>(
+                getInt(key + DESKTOP, fromVarArgs(defaultValue, 0)),
+                getInt(key + TABLET, fromVarArgs(defaultValue, 1)),
+                getInt(key + MOBILE, fromVarArgs(defaultValue, 2))
         );
     }
 
@@ -170,54 +179,5 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
                 .orElse(Stream.empty());
     }
 
-    public static class DeviceProperty<T> {
-
-        private final T desktop;
-        private final T tablet;
-        private final T mobile;
-
-        public DeviceProperty(T desktop, T tablet, T mobile) {
-            this.desktop = desktop;
-            this.tablet = tablet == null ? desktop : tablet;
-            this.mobile = mobile == null ? this.tablet : mobile;
-        }
-
-        public T getMobile() {
-            return mobile;
-        }
-
-        public T getTablet() {
-            return tablet;
-        }
-
-        public T getDesktop() {
-            return desktop;
-        }
-
-        public T get(String device) {
-            switch (device) {
-                case TABLET:
-                    return getTablet();
-                case MOBILE:
-                    return getMobile();
-                default:
-                    return getDesktop();
-
-            }
-        }
-
-        /**
-         * @param mapFunction A function giving a new value using as parameters ["Desktop", "Tablet", "Mobile"] and the current value;
-         * @return A new device property.
-         */
-        public <P> DeviceProperty<P> map(BiFunction<String, T, P> mapFunction) {
-            return new DeviceProperty<>(mapFunction.apply(DESKTOP, desktop), mapFunction.apply(TABLET, tablet), mapFunction.apply(MOBILE, mobile));
-        }
-
-        @Override
-        public String toString() {
-            return Stream.of(desktop, tablet, mobile).filter(Objects::nonNull).map(Object::toString).collect(Collectors.joining(" "));
-        }
-    }
 
 }

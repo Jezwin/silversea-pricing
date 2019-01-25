@@ -51,16 +51,15 @@ public class SliderUse extends AbstractSilverUse {
         showLightboxArrows = getBoolean("showLightboxArrows", true);
         showProgressBar = getBoolean("showProgressBar", false);
         extendedTitle = getBoolean("titleInLightbox", false);
-        backgroundColour = getDeviceProp("grayBackground", String.class, " ");
+        backgroundColour = getDeviceProp("grayBackground", " ");
         int numberOfCards = cards.size();
-        centeredStyle = getDeviceProp("centeredStyle", String.class, "slides", "slides", "centered").map((device, value) -> "centered".equals(value))
+        centeredStyle = getDeviceProp("centeredStyle", "slides", "slides", "centered").map((device, value) -> "centered".equals(value))
                 .map((device, currentValue) -> numberOfCards > 1 ? currentValue : false);
-        titleFontSize = getDeviceProp("titleFontSize", String.class, "24px");
-        subtitleFontSize = getDeviceProp("subtitleFontSize", String.class, "14px", "14px", "12px");
+        titleFontSize = getDeviceProp("titleFontSize", "24px");
+        subtitleFontSize = getDeviceProp("subtitleFontSize", "14px", "14px", "12px");
         hideArrowsPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "hideArrows" + device : "").toString();
         centeredClassPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "centeredStyle" + device : "").toString();
-        slidesPerPage = getDeviceProp("slidePerPage", Integer.class, 4)
-                .map((device, currentValue) -> centeredStyle.get(device) ? 1 : currentValue);
+        slidesPerPage = getDeviceProp("slidePerPage", 4).map((device, currentValue) -> centeredStyle.get(device) ? 1 : currentValue);
     }
 
 

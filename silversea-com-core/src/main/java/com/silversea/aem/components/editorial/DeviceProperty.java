@@ -47,17 +47,6 @@ public class DeviceProperty<T> {
         }
     }
 
-    public ValueMap toValueMap(String property) {
-        if (map != null) {
-            return map;
-        }
-        map = new ValueMapDecorator(new HashMap<>());
-        map.put(property + "Desktop", desktop);
-        map.put(property + "Tablet", tablet);
-        map.put(property + "Mobile", mobile);
-        return map;
-    }
-
     /**
      * @param mapFunction A function giving a new value using as parameters ["Desktop", "Tablet", "Mobile"] and the current value;
      * @return A new device property.
