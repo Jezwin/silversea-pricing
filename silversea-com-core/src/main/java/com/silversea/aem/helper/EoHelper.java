@@ -213,14 +213,6 @@ public class EoHelper extends AbstractGeolocationAwareUse {
                         footnote = footnote.replace(endTag, "</span>");
                     }
                 }
-                if (StringUtils.isNotEmpty(prePrice)) {
-                    String originalPrePrice = prePrice;
-                    prePrice = prePrice.replace(keyToReplace, valueToReplace);
-                    prePrice = prePrice.replace("\n", "<br>");
-                    if (eoValue.getType().equalsIgnoreCase("style") && originalPrePrice != prePrice) {
-                        prePrice = prePrice.replace(endTag, "</span>");
-                    }
-                }
                 if (cruiseFares != null && cruiseFares.length > 0) {
                     for (int i = 0; i < cruiseFares.length; i++) {
                         if (StringUtils.isNotEmpty(cruiseFares[i].additionalFare)) {

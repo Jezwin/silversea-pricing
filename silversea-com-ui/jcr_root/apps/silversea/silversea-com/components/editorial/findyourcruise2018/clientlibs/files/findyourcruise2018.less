@@ -10,7 +10,7 @@
   background-color: @white;
   color: @grey--2b;
 
-  .fyc2018-header-reset-all span, .fyc2018-header-reset-all i{
+  .fyc2018-header-reset-all span, .fyc2018-header-reset-all i {
     color: @grey--2b;
   }
 
@@ -19,8 +19,67 @@
   }
 }
 
+.fyc2018-result, .fycOld {
+  .tooltip-pre {
+    position: relative;
+    text-decoration: underline;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    z-index: 1000;
+    line-height: 15px;
+  }
+
+  .tooltip-pre .tooltiptext {
+    visibility: hidden;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity .3s;
+    background: #fff;
+    border: 1px solid #000;
+    text-transform: none;
+  }
+
+  .tooltip-pre .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+
+  .tooltip-pre:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .prePriceContent {
+    font-size: 11px;
+    line-height: 18px;
+    display: block;
+    color: black;
+    @media (max-width: 767px) {
+      text-transform: uppercase;
+      text-align: center;
+    }
+  }
+
+}
 
 .findyourcruise2018 {
+
   .fyc2018-header-custom-mobile-title {
     display: none;
   }
@@ -124,7 +183,7 @@
       position: absolute;
       background-color: #263133;
       min-width: 124px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 50000;
       top: 100%;
     }
@@ -135,13 +194,13 @@
     font-size: 13px;
     float: right;
     margin-right: -2px;
-    i{
+    i {
       padding-top: 11px;
       padding-left: 11px;
     }
   }
 
-  @media(min-width: 992px) {
+  @media (min-width: 992px) {
     .fyc2018-header-sorting:hover .fyc2018-sorting-dropdown {
       display: block;
     }
@@ -386,7 +445,7 @@
       min-height: 172px !important;
     }
 
-    .filter-destination .filter-value span{
+    .filter-destination .filter-value span {
       font-size: 12px !important;
     }
     .filter-destination.fyc2018-filter-value-clicked {
@@ -522,7 +581,7 @@
       .col-sm-6:nth-child(odd) {
         padding-left: 0px;
       }
-        @media (max-width: 900px) {
+      @media (max-width: 900px) {
         -webkit-transform: translateX(-50%);
         position: absolute !important;
         transform: translateX(-50%);

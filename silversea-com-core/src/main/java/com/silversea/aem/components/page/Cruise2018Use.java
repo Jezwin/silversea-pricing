@@ -159,6 +159,7 @@ public class Cruise2018Use extends EoHelper {
         departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
         cruiseModel = retrieveCruiseModel();
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         exclusiveOfferPrePrice = retrieveExclusiveOfferPrePrice(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);

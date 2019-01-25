@@ -4,6 +4,7 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.ExclusiveOfferModelLight;
 import com.silversea.aem.models.PriceModelLight;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.Locale;
      */
     public class CruiseItem {
 
-        private CruiseModelLight cruiseModel;
+    private final String prePrice;
+    private CruiseModelLight cruiseModel;
 
         private PriceModelLight lowestPrice;
 
@@ -38,6 +40,8 @@ import java.util.Locale;
                 }
             }
 
+            this.prePrice = retrieveExclusiveOfferPrePrice(exclusiveOffers, market);
+
             this.locale = locale;
         }
 
@@ -58,14 +62,25 @@ import java.util.Locale;
         }
 
         public String getPricePrefix() {
-            for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
-                if (exclusiveOffer.getPricePrefix() != null) {
-                    return exclusiveOffer.getPricePrefix();
+            return prePrice;
+        }
+
+    private static String retrieveExclusiveOfferPrePrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
+        Integer priorityWeight = Integer.MAX_VALUE;
+        String prePrice = null;
+        for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
+            boolean isMarktetPresent = exclusiveOffer.getPrePriceCache().containsKey(market);
+            if (isMarktetPresent){
+                String geo = exclusiveOffer.getPrePriceCache().get(market);
+                boolean isTheRightPrePrice = StringUtils.isNotEmpty(geo) && exclusiveOffer.getPriorityWeight() < priorityWeight;
+                if (isTheRightPrePrice) {
+                    priorityWeight = exclusiveOffer.getPriorityWeight();
+                    prePrice = geo;
                 }
             }
-
-            return null;
         }
+        return prePrice;
+    }
 
         public List<ExclusiveOfferModelLight> getExclusiveOffers() {
             return exclusiveOffers;
