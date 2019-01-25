@@ -84,8 +84,8 @@
                         ${cruiseItem.lowestPrice.currency @ i18n} ${cruiseItem.lowestPriceFormated}
                     </strong>
                     <span data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
-                    <div class="tooltip" data-sly-test="${cruiseItem.pricePrefix}">View all exclusive offer
-                <span class="tooltiptext"><span class="hidden-xs">${'view-all-exclusive-offer' @ i18n}</span>
+                    <div class="tooltip-pre" data-sly-test="${cruiseItem.pricePrefix}">
+                        <span class="tooltiptext"><span class="hidden-xs">${'view-all-exclusive-offer' @ i18n}</span>
                                         <span class="hidden-xs" data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}">${cruiseItem.lowestPrice.earlyBookingBonus @ context='html'}</span>
                                         <span class="prePriceContent">${cruiseItem.pricePrefix @ context='html'}</span>
                                     </span>
