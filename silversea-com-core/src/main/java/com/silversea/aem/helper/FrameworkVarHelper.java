@@ -1,5 +1,6 @@
 package com.silversea.aem.helper;
 
+import com.silversea.aem.components.editorial.DeviceProperty;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.awt.*;
@@ -45,6 +46,20 @@ public class FrameworkVarHelper extends AbstractFrameworkHelper {
             map.putAll(properties);
             setComponentProperties(map);
         }
+
+        /*
+         * With this lines you can use the helper like this ...Helper @ property='x,y,z', x=devicePropertyX, y=devicePropertyY
+         */
+        for (String attribute : getCssAttributes()) {
+            DeviceProperty deviceProperty = get(attribute, DeviceProperty.class);
+            if (deviceProperty != null) {
+                for (String device : DEVICES) {
+                    getComponentProperties().put(attribute + device, deviceProperty.get(device));
+                }
+            }
+        }
+
+
     }
 
     @Override
@@ -74,7 +89,7 @@ public class FrameworkVarHelper extends AbstractFrameworkHelper {
             return Optional.of(
                     new Color(valueOf(m.group(1)), valueOf(m.group(2)), valueOf(m.group(3))).darker())
                     .map(color -> "rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")");
-        } else if(input.startsWith("#")) {
+        } else if (input.startsWith("#")) {
             return Optional.of(
                     Color.decode(input).darker())
                     .map(color -> "rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")");
