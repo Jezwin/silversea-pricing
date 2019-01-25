@@ -1,11 +1,11 @@
 package com.silversea.aem.components.editorial;
 
+import com.adobe.cq.commerce.common.ValueMapDecorator;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.google.common.collect.Sets;
 import com.silversea.aem.models.CustomCss;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.api.wrappers.ValueMapDecorator;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -53,8 +53,8 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
         return new ValueMapDecorator(getComponentProps());
     }
 
-    protected <T> Map getComponentProps() {
-        Map componentProp = new HashMap<>();
+    protected Map<String, Object> getComponentProps() {
+        Map<String,Object> componentProp = new HashMap<>();
         getProperties().forEach((key, value) -> {
             if (!IGNORED_KEYS.contains(key)) {
                 componentProp.put(key, value);
