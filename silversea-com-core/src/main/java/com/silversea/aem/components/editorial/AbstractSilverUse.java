@@ -19,6 +19,9 @@ import static java.util.stream.StreamSupport.stream;
 public abstract class AbstractSilverUse extends WCMUsePojo {
 
     protected static Set<String> IGNORED_KEYS = Sets.newHashSet("jcr", "sling", "cq", "sscUUID", "cssDesktop", "cssTablet", "cssMobile");
+    public static final String TABLET = "Tablet";
+    public static final String MOBILE = "Mobile";
+    public static final String DESKTOP = "Desktop";
 
     protected Optional<String> getProp(String key) {
         return getProp(key, String.class);
@@ -125,19 +128,31 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
         return componentProp;
     }
 
-    protected <T> DeviceProperty<T> getDeviceProp(String key, Class<T> type, T defaultValue) {
+
+    private <T> T fromVarArgs(T[] args, int index) {
+        if (args == null || args.length == 0) {
+            return null;
+        }
+        int length = args.length;
+        if (length <= index) {
+            return args[length - 1];
+        }
+        return args[index];
+    }
+
+    protected <T> DeviceProperty<T> getDeviceProp(String key, Class<T> type, T... defaultValue) {
         return new DeviceProperty<>(
-                getProp(key + "Desktop", type, defaultValue),
-                getProp(key + "Tablet", type, null),
-                getProp(key + "Mobile", type, null)
+                getProp(key + DESKTOP, type, fromVarArgs(defaultValue, 0)),
+                getProp(key + TABLET, type, fromVarArgs(defaultValue, 1)),
+                getProp(key + MOBILE, type, fromVarArgs(defaultValue, 2))
         );
     }
 
-    protected DeviceProperty<Boolean> getDeviceProp(String key, Boolean defaultValue) {
+    protected DeviceProperty<Boolean> getDeviceProp(String key, Boolean... defaultValue) {
         return new DeviceProperty<>(
-                getBoolean(key + "Desktop", defaultValue),
-                getBoolean(key + "Tablet", defaultValue),
-                getBoolean(key + "Mobile", defaultValue)
+                getBoolean(key + DESKTOP, fromVarArgs(defaultValue, 0)),
+                getBoolean(key + TABLET, fromVarArgs(defaultValue, 1)),
+                getBoolean(key + MOBILE, fromVarArgs(defaultValue, 2))
         );
     }
 
@@ -164,7 +179,7 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
         public DeviceProperty(T desktop, T tablet, T mobile) {
             this.desktop = desktop;
             this.tablet = tablet == null ? desktop : tablet;
-            this.mobile = mobile == null ? tablet : mobile;
+            this.mobile = mobile == null ? this.tablet : mobile;
         }
 
         public T getMobile() {
@@ -181,9 +196,9 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
 
         public T get(String device) {
             switch (device) {
-                case "Tablet":
+                case TABLET:
                     return getTablet();
-                case "Mobile":
+                case MOBILE:
                     return getMobile();
                 default:
                     return getDesktop();
@@ -196,7 +211,7 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
          * @return A new device property.
          */
         public <P> DeviceProperty<P> map(BiFunction<String, T, P> mapFunction) {
-            return new DeviceProperty<>(mapFunction.apply("Desktop", desktop), mapFunction.apply("Tablet", tablet), mapFunction.apply("Mobile", mobile));
+            return new DeviceProperty<>(mapFunction.apply(DESKTOP, desktop), mapFunction.apply(TABLET, tablet), mapFunction.apply(MOBILE, mobile));
         }
 
         @Override

@@ -42,7 +42,7 @@
              data-sly-test="${ dayUntilDeparture >= 120 && model.cruiseType != 'silversea-expedition' }">${'cruise-itinerary-120-day' @ i18n}</div>
 
     </div>
-    <div class="cruise-2018-itineraries-pdf hidden-xs">`
+    <div class="cruise-2018-itineraries-pdf hidden-xs">
         <sly data-sly-test="${model.cruiseType != 'silversea-expedition' && dayUntilDeparture < 120}">
             <a class="btn btn-thin btn-white cruise-2018-itineraries-btn"  data-sly-test="${model.tourBook}"
                href='${currentPath @ context="uri"}.rendition.download.${countryCode @ context="scriptString"}.t.excursion.pdf'

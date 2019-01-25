@@ -46,7 +46,8 @@ public class SliderUse extends AbstractSilverUse {
         extendedTitle = getBoolean("titleInLightbox", false);
         backgroundColour = getDeviceProp("grayBackground", String.class, " ");
         int numberOfCards = cards.size();
-        centeredStyle = getDeviceProp("centeredStyle", false).map((device, currentValue) -> numberOfCards > 1 ? currentValue : false);
+        centeredStyle = getDeviceProp("centeredStyle", String.class, "slides", "slides", "centered").map((device, value) -> "centered".equals(value))
+                .map((device, currentValue) -> numberOfCards > 1 ? currentValue : false);
         hideArrowsPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "hideArrows" + device : "").toString();
         centeredClassPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "centeredStyle" + device : "").toString();
         slidesPerPage = getDeviceProp("slidePerPage", Integer.class, 4)

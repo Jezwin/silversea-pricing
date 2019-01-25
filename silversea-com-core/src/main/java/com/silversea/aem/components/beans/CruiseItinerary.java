@@ -123,23 +123,20 @@ public class CruiseItinerary {
     }
 
 
-    public static List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark,
-                                                          ItineraryModel itinerary) {
+    public static List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark, ItineraryModel itinerary) {
         if (itinerary.getHasDedicatedShorex()) {
-            List<ExcursionModel> dedicated = ofNullable(itinerary.getExcursions())
+            return ofNullable(itinerary.getExcursions())
                     .map(Collection::stream).orElseGet(Stream::empty)
                     .map(ItineraryExcursionModel::getExcursion)
                     .collect(toList());
-            if (!dedicated.isEmpty()) {
-                return dedicated;
-            }
+        } else {
+            return ofNullable(itinerary.getPort().getExcursions())
+                    .map(Collection::stream).orElseGet(Stream::empty)
+                    .filter(ex -> !isEmbark || ex.isOkForEmbark())
+                    .filter(ex -> !isDebark || ex.isOkForDebarks())
+                    .filter(excursion -> !isSpecial(excursion))
+                    .collect(toList());
         }
-        return ofNullable(itinerary.getPort().getExcursions())
-                .map(Collection::stream).orElseGet(Stream::empty)
-                .filter(ex -> !isEmbark || ex.isOkForEmbark())
-                .filter(ex -> !isDebark || ex.isOkForDebarks())
-                .filter(excursion -> !isSpecial(excursion))
-                .collect(toList());
     }
 
     private static boolean isSpecial(ExcursionModel excursion) {
