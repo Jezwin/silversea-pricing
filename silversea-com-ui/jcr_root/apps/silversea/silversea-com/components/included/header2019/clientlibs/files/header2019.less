@@ -1,13 +1,14 @@
-@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
-
-@lang-delay: 0.5s;
+@lang-delay: 0.2s;
 
 .c-header__container {
   display: none !important;
 }
 
 .header-2019 {
-  width: 100vw;
+  color: @grey--3;
+  width: 120%;
+  position: relative;
+  margin-left: -10%;
   background-color: white;
 
   div {
@@ -17,19 +18,21 @@
 
   .header-2019-first-level {
     text-transform: uppercase;
-    margin-top: 29px;
+    //margin-top: 29px;
     line-height: 16px;
     letter-spacing: 1.5px;
     font-size: 12px;
     color: @grey--3;
+    cursor: pointer;
   }
 
-  .header-2019-first-level:hover a {
+  .header-2019-first-level:hover .header-2019-first-level-link, .header-2019-first-level:not(:hover) .header-2019-bordered.header-2019-first-level-link {
     text-decoration: none;
     position: relative;
+
   }
 
-  .header-2019-first-level:hover a:after {
+  .header-2019-first-level:hover .header-2019-first-level-link:after, .header-2019-first-level:not(:hover) .header-2019-bordered.header-2019-first-level-link:after {
     content: '';
     width: 100%;
     position: absolute;
@@ -41,14 +44,8 @@
     pointer-events: none;
   }
 
-  .header-2019-lang-menu {
-    display: inline-block;
-    z-index: 100;
-    width: 2em;
 
-  }
-
-  .pipe-separated:not(:last-child):after {
+  .pipe-separated:not(:last-of-type):after {
     content: "|";
     display: inline;
     margin-left: 12px;
@@ -83,7 +80,7 @@
     text-transform: capitalize;
     font-size: 11px;
     line-height: 14px;
-    color: #333333;
+    color: @grey--3;
     opacity: 0.8;
     letter-spacing: 0.92px;
     height: 14px;
@@ -92,33 +89,41 @@
 
 
   .header-2019-middle {
-    padding-right: 25px;
-    border-right: 2px solid #9B9B9B80;
+    width: ~"calc(100% - 200px)";
 
+    .header-2019-first-level-section {
+      width: 100%;
+    }
   }
+
 
   div.header-2019-top-section {
     display: block;
-    text-align: right;
     margin-top: 17px;
-    margin-bottom: 17px;
-    margin-right: 5%;
     white-space: nowrap;
     position: relative;
 
 
+    .header-2019-lang-menu-wrapper {
+      display: inline-block;
+      position: relative;
+      width: 32px;
+      margin-left: -10px;
+      margin-right: 10px;
+    }
+
     .header-2019-lang-menu {
+      display: inline-block;
+      z-index: 100;
+      width: 35px;
       transition: height @lang-delay, background-color @lang-delay;
       height: 30px;
       position: absolute;
-      min-width: 50px;
-      margin-left: 0;
-      left: 98%;
-      top: -8px;
-      font-size: 13px;
+      min-width: 35px;
+      left: -5px;
 
       &.clicked .header-2019-lang {
-        animation: an-clicked 0.5s forwards;
+        animation: an-clicked @lang-delay forwards;
         @keyframes an-clicked {
           to {
             background: @grey--f4;
@@ -130,22 +135,120 @@
 
       &:not(.clicked) .header-2019-lang:not(:first-child) {
         background: white;
-        visibility: hidden;
+        display: none;
         opacity: 0;
+        padding-top: 9px;
       }
 
       .header-2019-lang {
         display: block;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
         cursor: pointer;
         line-height: 22px;
         text-align: center;
-        color: #333333;
-        padding: 9px 4px 4px;
+        width: 50px;
+        padding-bottom: 6px;
+        height: 25px !important;
 
         &:hover {
           font-weight: bold;
         }
       }
+    }
+
+    .header-2019-lang-menu.clicked + .header-2019-lang-menu-arrows .fa-angle-down {
+      transform: rotate(540deg);
+      z-index: 300;
+    }
+
+    .header-2019-lang-menu-arrow {
+      font-size: 20px;
+      position: absolute;
+
+      &.fa-angle-down {
+        transition: all @lang-delay;
+        top: 0;
+      }
+    }
+  }
+
+  .header-2019-phone {
+    text-align: center;
+
+    .header-2019-phone-number {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: @grey--3;
+      line-height: 14px;
+
+    }
+
+    .header-2019-phone-sub {
+      font-size: 9px;
+      letter-spacing: 1px;
+      line-height: 12px;
+      color: @grey--3;
+    }
+
+    div {
+      width: 100%;
+      text-align: center;
+      float: left;
+    }
+  }
+
+
+  .header-2019-raq {
+    text-transform: uppercase;
+    opacity: 0.8;
+    color: @red;
+    letter-spacing: 1.5px;
+    text-align: center;
+    line-height: 14px;
+    font-size: 12px;
+    display: inline-block;
+  }
+
+  .header-2019-beforebar {
+    padding-bottom: 20px;
+    min-width: 75%;
+    width: 75%;
+    left: 0;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    text-align: right;
+    height: 100%;
+    vertical-align: top;
+  }
+
+  .header-2019-afterbar {
+    min-width: 20%;
+    width: 20%;
+    left: 0;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .header-2019-afterbar {
+    position: relative;
+
+    &:first-of-type:before {
+      content: "";
+      width: 1px;
+      background-color: #9b9b9b;
+      position: absolute;
+      left: 0;
+      opacity: 0.5;
+      top: -60px;
+      overflow: hidden;
+      height: 100px;
     }
   }
 

@@ -44,10 +44,6 @@ public class AssetGalleryCruiseUse extends WCMUsePojo {
         }
     }
 
-    private Optional<String> retrieveBigItineraryMap(Page page) {
-        return Optional.ofNullable(page).map(Page::getProperties).map(prop -> prop.get("bigItineraryMap", String.class));
-    }
-
     public static List<SilverseaAsset> retrieveAssetsGallery(Resource itinerariesResource, ResourceResolver resourceResolver, Page currentPage, boolean onlyAssetSelectionReference) {
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
@@ -120,6 +116,10 @@ public class AssetGalleryCruiseUse extends WCMUsePojo {
             }
         }
         return portsAssetsList;
+    }
+
+    private Optional<String> retrieveBigItineraryMap(Page page) {
+        return Optional.ofNullable(page).map(Page::getProperties).map(prop -> prop.get("bigItineraryMap", String.class));
     }
 
     public static String retrieveArrivalPortName(Resource itinerariesResource) {
