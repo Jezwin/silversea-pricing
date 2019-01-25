@@ -1,5 +1,5 @@
 @needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, margin-top, margin-right, margin-bottom, margin-left, background-color, display, text-align, color, border-color, background-position;
-@double-needed-properties: height, width, display, text-align;
+@double-needed-properties: height, width, display, text-align, font-size;
 
 
 .for ( @array ) when (default()) {
@@ -19,24 +19,26 @@
 
 .generate-class(@property, @suffix) {
   .ssc-fw-@{property}@{suffix} {
-    @{property}: ~"var(--ssc-fw-@{property}@{suffix}-desktop)";
-    @media @ffw-media-tablet{
+      @{property}: ~"var(--ssc-fw-@{property}@{suffix}-desktop)";
+    @media @ffw-media-tablet {
         @{property}: ~"var(--ssc-fw-@{property}@{suffix}-tablet, var(--ssc-fw-@{property}@{suffix}-desktop))";
     }
-    @media @ffw-media-mobile{
+    @media @ffw-media-mobile {
         @{property}: ~"var(--ssc-fw-@{property}@{suffix}-mobile, var(--ssc-fw-@{property}@{suffix}-desktop))";
     }
   }
-};
-
-.for( @needed-properties );
-.-each( @property ) {
-  .generate-class( @property,  ~'');
 }
 
-.for( @double-needed-properties );
+;
+
+.for(@needed-properties);
 .-each( @property ) {
-  .generate-class( @property,  ~'-snd');
+  .generate-class(@property, ~'');
+}
+
+.for(@double-needed-properties);
+.-each( @property ) {
+  .generate-class(@property, ~'-snd');
 }
 
 
