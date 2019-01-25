@@ -48,8 +48,6 @@ $(function () {
     };//addEventClickLeftSide
 
     function addEventClickRightSide(e) {
-        e.preventDefault();
-        e.stopPropagation();
         var $rightSide = $(this),
             $fullImage = $rightSide.parent(),
             $leftSide = $fullImage.find(".splitteddynamicteaser-left"),
