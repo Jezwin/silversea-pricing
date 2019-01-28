@@ -382,3 +382,19 @@
     }
   }
 }
+
+.cardSlider-wrapper .ssc-fw-font-size {
+  font-size: var(--ssc-fw-font-size-desktop) !important;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .cardSlider-wrapper .ssc-fw-font-size {
+    font-size: var(--ssc-fw-font-size-tablet, var(--ssc-fw-font-size-desktop)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .cardSlider-wrapper .ssc-fw-font-size {
+    font-size: var(--ssc-fw-font-size-mobile, var(--ssc-fw-font-size-desktop)) !important;
+  }
+}
