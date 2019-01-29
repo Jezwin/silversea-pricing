@@ -6,6 +6,26 @@
     height: 0;
   }
 }
-#lightbox-simple-content{
+
+#lightbox-simple-content {
   min-height: 60vh;
+}
+
+@media screen and (max-width: @screen-sm) {
+  #lightbox-simple {
+    #lightbox-simple-content.modal-content {
+      overflow-y: scroll;
+      max-height: 99vh;
+      top: 50px;
+    }
+
+    .modal-header {
+      position: fixed;
+      top: 0;
+      width: 100vw;
+      z-index: 100;
+      opacity: 1 !important;
+    }
+  }
+
 }
