@@ -3,7 +3,7 @@ function pdfInit(uri, countryCode, ccpt) {
     $('#cruise-2018-pdf-print').on('click', function (e) {
         e.preventDefault();
         $.ajax({
-            url: uri + '.rendition.print.' + countryCode + ccpt + '.pdf',
+            url: uri + '.rendition.print.' + countryCode + ccpt + '.t.pdf',
             beforeSend: function () {
                 $('.cruise-2018-pdf-print-link').toggle();
                 printWin = window.open('', '_blank');
@@ -12,7 +12,7 @@ function pdfInit(uri, countryCode, ccpt) {
                 $('.cruise-2018-pdf-print-link').toggle();
             },
             success: function () {
-                printWin.location = uri + '.rendition.print.' + countryCode + ccpt + '.pdf';
+                printWin.location = uri + '.rendition.print.' + countryCode + ccpt + '.t.pdf';
                 printWin.focus();
             }
         });
