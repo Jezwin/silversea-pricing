@@ -35,14 +35,14 @@
 
         <div class="cruise-2018-itineraries-description">${customDescription || model.description @ context="html"}</div>
         <div class="cruise-2018-itineraries-description-view view-more" data-viewmore="${'view-more' @ i18n }"
-             data-viewless="${'view-less' @ context='html'}">${'view-more' @ i18n}</div>
+             data-viewless="${'view-less' @ i18n}">${'view-more' @ i18n}</div>
         <div class="cruise-2018-itineraries-voyage-code hidden-xs"
              data-sly-test="${!hideVoyageCode}">${'voyage-number' @ i18n}: ${model.cruiseCode}</div>
         <div class="cruise-2018-itineraries-120-label"
              data-sly-test="${ dayUntilDeparture >= 120 && model.cruiseType != 'silversea-expedition' }">${'cruise-itinerary-120-day' @ i18n}</div>
 
     </div>
-    <div class="cruise-2018-itineraries-pdf hidden-xs">`
+    <div class="cruise-2018-itineraries-pdf hidden-xs">
         <sly data-sly-test="${model.cruiseType != 'silversea-expedition' && dayUntilDeparture < 120}">
             <a class="btn btn-thin btn-white cruise-2018-itineraries-btn"  data-sly-test="${model.tourBook}"
                href='${currentPath @ context="uri"}.rendition.download.${countryCode @ context="scriptString"}.t.excursion.pdf'

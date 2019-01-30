@@ -22,7 +22,7 @@ $(function () {
                 $itineraryDescription.css("height", "100%");
                 var lessLabel = $viewMoreDiv.attr("data-viewless");
                 $viewMoreDiv.text(lessLabel);
-                $itineraryDescription.text(itineraryDescriptionText);
+                $itineraryDescription.html(itineraryDescriptionText);
                 $viewMoreDiv.addClass("view-less");
                 $viewMoreDiv.removeClass("view-more");
             } else {
@@ -45,7 +45,7 @@ $(function () {
         itineraryDescriptionTextTruncate = null;
 
     if (iAmInComboCruisePage && iHaveItineraryDescription && iAmMobile && iHaveToShowViewMoreLess) {
-        itineraryDescriptionText = $(".cruise-2018-itineraries-description").text();
+        itineraryDescriptionText = $(".cruise-2018-itineraries-description").html();
         itineraryDescriptionTextTruncate = truncateItineraryDescription($itineraryDescription);
         $(".cruise-2018-itineraries-description-view").show();
         $(".cruise-2018-itineraries-description-view").on("click",createViewMoreLessDiv);
