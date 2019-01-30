@@ -24,7 +24,9 @@ $(function () {
             updateCruises(url, true);
         };//updateCruiseResultsBasedOnWaitlist
 
-        var onClickChangeSortType = function () {
+        var onClickChangeSortType = function (e) {
+            e.stopPropagation();
+            e.preventDefault();
             var $divSortType = $(this),
                 isAsc = $divSortType.attr("data-type") == "ASC",
                 type = isAsc ? "DESC" : "ASC",
@@ -89,7 +91,6 @@ $(function () {
             var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
             updateCruises(url, true);
         };//changeSorting
-
 
         var createPortSelectedList = function (port) {
             var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
@@ -634,17 +635,22 @@ $(function () {
             e.preventDefault();
             e.stopPropagation();
             var key = $(this).data("key"),
-                label = $(this).data("label");
+                label = $(this).data("label"),
+                keyOld = $(".findyourcruise2018 .fyc2018-sorting-span").data("key");
             $(this).attr("data-enable", "true");
             $(".findyourcruise2018 .fyc2018-sorting-span span").text(label);
             $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
+            console.log(keyOld, key);
 
-            var type = $(".fyc2018-header-sorting-type").attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
-            $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
+            if (keyOld == key) {
+                var type = $(".fyc2018-header-sorting-type").attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
+                $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
 
-            var icon = "fa fa-sort-amount-" + type;
-            $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
-            $(".findyourcruise2018 .fyc2018-header-sorting-type").append("<i class='" + icon + "'></i>");
+                var icon = "fa fa-sort-amount-" + type;
+                $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
+                $(".findyourcruise2018 .fyc2018-header-sorting-type").append("<i class='" + icon + "'></i>");
+            }
+
             if ($(window).width() < 992) {
                 $(".fyc2018-sorting-dropdown").hide();
             }
