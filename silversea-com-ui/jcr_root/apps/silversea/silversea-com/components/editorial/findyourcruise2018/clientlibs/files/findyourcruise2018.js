@@ -24,6 +24,17 @@ $(function () {
             updateCruises(url, true);
         };//updateCruiseResultsBasedOnWaitlist
 
+        var onClickChangeSortType = function () {
+            var $divSortType = $(this),
+                isAsc = $divSortType.attr("data-type") == "ASC",
+                type = isAsc ? "DESC" : "ASC",
+                icon = "fa fa-sort-amount-" + type.toLowerCase();
+            $divSortType.find("i").remove();
+            $divSortType.append("<i class='" + icon + "'></i>");
+            $divSortType.attr("data-type", type);
+            changeSorting();
+        };//onClickChangeSortType
+
         var showWaitlistResults = function ($showHideDiv) {
             var $spanWaitlist = $showHideDiv.find(".waitlist");
             $spanWaitlist.removeClass("hide-waitlist");
@@ -853,5 +864,8 @@ $(function () {
         });
 
         $(".findyourcruise2018").on("click", ".fyc2018-show-hide-waitlist", onClickShowHideWaitlist);
+
+        $(".findyourcruise2018").on("click", ".fyc2018-header-sorting-type", onClickChangeSortType);
+
     }
 });
