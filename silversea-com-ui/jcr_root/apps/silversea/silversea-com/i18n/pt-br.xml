@@ -243,7 +243,7 @@
     <cruise-itinerary-120-day
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information."/>
+            sling:message="Informamos que as seguintes excursões são fornecidas como amostra do que poderá ser oferecido neste cruzeiro e podem estar sujeitas a alterações. Para informações mais detalhadas, sugerimos que visite my.silversea.com 120 dias antes do embarque."/>
     <cruise-excursion-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
