@@ -640,7 +640,6 @@ $(function () {
             $(this).attr("data-enable", "true");
             $(".findyourcruise2018 .fyc2018-sorting-span span").text(label);
             $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
-            console.log(keyOld, key);
 
             if (keyOld == key) {
                 var type = $(".fyc2018-header-sorting-type").attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
