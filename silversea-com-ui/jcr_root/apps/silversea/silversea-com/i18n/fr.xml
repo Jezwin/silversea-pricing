@@ -1581,11 +1581,11 @@
     <show-waitlist
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="show waitlist"/>
+            sling:message="Afficher la liste d'attente"/>
     <hide-waitlist
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="hide waitlist"/>
+            sling:message="Masquer la liste d'attente"/>
     <show-all
             jcr:primaryType="sling:MessageEntry"
             sling:key="show-all"
