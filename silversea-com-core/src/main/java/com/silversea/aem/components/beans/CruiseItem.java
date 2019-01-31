@@ -15,7 +15,7 @@ import java.util.Locale;
      */
     public class CruiseItem {
 
-    private final String prePrice;
+    private final String postPrice;
     private CruiseModelLight cruiseModel;
 
         private PriceModelLight lowestPrice;
@@ -40,7 +40,7 @@ import java.util.Locale;
                 }
             }
 
-            this.prePrice = retrieveExclusiveOfferPrePrice(exclusiveOffers, market);
+            this.postPrice = retrieveExclusiveOfferPostPrice(exclusiveOffers, market);
 
             this.locale = locale;
         }
@@ -61,25 +61,36 @@ import java.util.Locale;
             return isWaitList;
         }
 
-        public String getPricePrefix() {
-            return prePrice;
+    public String getPricePrefix() {
+        for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
+            if (exclusiveOffer.getPricePrefix() != null) {
+                return exclusiveOffer.getPricePrefix();
+            }
         }
 
-    private static String retrieveExclusiveOfferPrePrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
-        Integer priorityWeight = Integer.MAX_VALUE;
-        String prePrice = null;
+        return null;
+    }
+
+        public String getPostPrice() {
+            return postPrice;
+        }
+
+    private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
+        Integer priorityWeight = Integer.MIN_VALUE;
+                ;
+        String postPrice = null;
         for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
-            boolean isMarktetPresent = exclusiveOffer.getPrePriceCache().containsKey(market);
-            if (isMarktetPresent){
-                String geo = exclusiveOffer.getPrePriceCache().get(market);
-                boolean isTheRightPrePrice = StringUtils.isNotEmpty(geo) && exclusiveOffer.getPriorityWeight() < priorityWeight;
-                if (isTheRightPrePrice) {
+            boolean isMarketPresent = exclusiveOffer.getPostPriceCache().containsKey(market);
+            if (isMarketPresent){
+                String geo = exclusiveOffer.getPostPriceCache().get(market);
+                boolean isTheRightPostPrice = StringUtils.isNotEmpty(geo) && exclusiveOffer.getPriorityWeight() > priorityWeight;
+                if (isTheRightPostPrice) {
                     priorityWeight = exclusiveOffer.getPriorityWeight();
-                    prePrice = geo;
+                    postPrice = geo;
                 }
             }
         }
-        return prePrice;
+        return postPrice;
     }
 
         public List<ExclusiveOfferModelLight> getExclusiveOffers() {

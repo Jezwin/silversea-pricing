@@ -78,6 +78,7 @@
                     </dl>
                 </div>
                 <p class="c-fyc__result__content__price ${!cruiseItem.isWaitList ? 'c-fyc__result__content__price_isWaitList' : ''}">
+                    <span data-sly-test="${cruiseItem.pricePrefix}" class="price-prefixe">${cruiseItem.pricePrefix}<br /></span>
                     <strong data-sly-test="${cruiseItem.isWaitList}">${'waitlist' @ i18n}</strong>
                     <span data-sly-test="${!cruiseItem.isWaitList}" class="price-prefixe visible-xs-inline">${'from' @ i18n} <br /></span>
                     <strong data-sly-test="${!cruiseItem.isWaitList}">
@@ -87,7 +88,7 @@
                     <div class="tooltip-pre" data-sly-test="${cruiseItem.pricePrefix}">
                         <span class="tooltiptext"><span class="hidden-xs">${'view-all-exclusive-offer' @ i18n}</span>
                                         <span class="hidden-xs" data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}">${cruiseItem.lowestPrice.earlyBookingBonus @ context='html'}</span>
-                                        <span class="prePriceContent">${cruiseItem.pricePrefix @ context='html'}</span>
+                                        <span class="prePriceContent">${cruiseItem.postPrefix @ context='html'}</span>
                                     </span>
                     </div>
                 </p>

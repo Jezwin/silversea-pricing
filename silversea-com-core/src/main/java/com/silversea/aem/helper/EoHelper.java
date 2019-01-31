@@ -35,7 +35,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
         if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
             eoBean = new EoBean();
             String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null,
-                    shortTitle = null, eofootnotes = null, iconVoyage = null, prePrice = null;
+                    shortTitle = null, eofootnotes = null, iconVoyage = null, postPrice = null;
             Integer priorityWeight = 0;
 
             ExclusiveOfferFareModel[] cruiseFares = null;
@@ -105,8 +105,8 @@ public class EoHelper extends AbstractGeolocationAwareUse {
                         eoModel.getCustomMainSettings(), eoModel.getDefaultShortTitle());
             }
 
-            if (eoConfig.isPrePrice()) {
-                prePrice = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "prePrice", eoModel.getDefaultPrePrice());
+            if (eoConfig.isPostPrice()) {
+                postPrice = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "postPrice", eoModel.getDefaultPostPrice());
             }
 
             if (eoConfig.isPriorityWeight()) {
@@ -257,8 +257,8 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             if (StringUtils.isNotEmpty(iconVoyage)) {
                 eoBean.setIcon(iconVoyage);
             }
-            if (StringUtils.isNotEmpty(prePrice)) {
-                eoBean.setPrePrice(prePrice);
+            if (StringUtils.isNotEmpty(postPrice)) {
+                eoBean.setPostPrice(postPrice);
             }
             if (cruiseFares != null && cruiseFares.length > 0) {
                 eoBean.setCruiseFares(cruiseFares);

@@ -18,20 +18,26 @@ public class ExclusiveOfferModelLight {
     private String title;
 
     private List<String> geomarkets = new ArrayList<>();
+    private String pricePrefix;
     private String path;
-    private Map<String, String> prePriceCache;
+    private Map<String, String> postPriceCache;
 
     public ExclusiveOfferModelLight(ExclusiveOfferModel exclusiveOfferModel) {
 
         title = exclusiveOfferModel.getTitle();
+        pricePrefix = exclusiveOfferModel.getPricePrefix();
         path = exclusiveOfferModel.getPath();
         geomarkets = exclusiveOfferModel.getGeomarkets();
         priorityWeight = exclusiveOfferModel.getDefaultPriorityWeight();
-        prePriceCache = retrievePrePriceCache(exclusiveOfferModel);
+        postPriceCache = retrievePostPriceCache(exclusiveOfferModel);
     }
 
     public List<String> getGeomarkets() {
         return geomarkets;
+    }
+
+    public String getPricePrefix() {
+        return pricePrefix;
     }
 
     public String getPath() {
@@ -42,29 +48,29 @@ public class ExclusiveOfferModelLight {
         return title;
     }
 
-    private Map<String, String> retrievePrePriceCache(ExclusiveOfferModel exclusiveOfferModel) {
+    private Map<String, String> retrievePostPriceCache(ExclusiveOfferModel exclusiveOfferModel) {
         Gson gson = new GsonBuilder().create();
-        Map<String, String> prePriceOfferCache = new HashMap<>();
+        Map<String, String> postPriceOfferCache = new HashMap<>();
         String[] customVoyageSettings = exclusiveOfferModel.getCustomVoyageSettings();
         for (String setting : customVoyageSettings) {
             CustomVoyageSettingsModel customSettings = gson.fromJson(setting, CustomVoyageSettingsModel.class);
-            boolean isPrePrice = customSettings.getType().equalsIgnoreCase("prePrice"),
-                    isPrePricePresent = StringUtils.isNotEmpty(customSettings.getValue()),
-                    isPrePriceActive = Boolean.valueOf(customSettings.getActive());
-            if (isPrePrice && isPrePricePresent && isPrePriceActive) {
-                String prePrice = customSettings.getValue();
+            boolean isPostPrice = customSettings.getType().equalsIgnoreCase("postPrice"),
+                    isPostPricePresent = StringUtils.isNotEmpty(customSettings.getValue()),
+                    isPostPriceActive = Boolean.valueOf(customSettings.getActive());
+            if (isPostPrice && isPostPricePresent && isPostPriceActive) {
+                String postPrice = customSettings.getValue();
                 customSettings.getTags().ifPresent(tags -> {
                     for (String tag : tags) {
-                        prePriceOfferCache.put(tag, prePrice);
+                        postPriceOfferCache.put(tag, postPrice);
                     }
                 });
             }
         }
-        return prePriceOfferCache;
+        return postPriceOfferCache;
     }
 
-    public Map<String, String> getPrePriceCache() {
-        return prePriceCache;
+    public Map<String, String> getPostPriceCache() {
+        return postPriceCache;
     }
 
     public Integer getPriorityWeight() {

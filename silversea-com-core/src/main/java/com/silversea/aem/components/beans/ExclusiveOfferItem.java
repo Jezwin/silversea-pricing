@@ -50,7 +50,7 @@ public class ExclusiveOfferItem {
 
     private String positionDescriptionMobileLB;
 
-    private String prePrice;
+    private String postPrice;
 
     private Integer priorityWeight;
 
@@ -94,7 +94,7 @@ public class ExclusiveOfferItem {
             positionDescriptionMobileLB = exclusiveOffer.getPositionDescriptionMobileLB();
             voyageIcon = result.getIcon();
             priorityWeight = result.getPriorityWeight();
-            prePrice = result.getPrePrice();
+            postPrice = result.getPostPrice();
             footnote =  result.getFootnote();
             if (StringUtils.isNotEmpty(result.getFootnote())) {
                 footnotes.add(result.getFootnote());
@@ -253,7 +253,7 @@ public class ExclusiveOfferItem {
         return footnote;
     }
 
-    public String getPrePrice() {
-        return prePrice;
+    public String getPostPrice() {
+        return postPrice;
     }
 }

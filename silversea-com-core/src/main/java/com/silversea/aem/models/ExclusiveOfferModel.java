@@ -3,7 +3,6 @@ package com.silversea.aem.models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.constants.WcmConstants;
 
 @Model(adaptables = Page.class)
 public class ExclusiveOfferModel {
@@ -141,9 +139,9 @@ public class ExclusiveOfferModel {
     private String defaultVoyageIcon;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/prePrice")
+    @Named(JcrConstants.JCR_CONTENT + "/defaultPostPrice")
     @Optional
-    private String prePrice;
+    private String defaultPostPrice;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/priorityWeight")
@@ -423,7 +421,7 @@ public class ExclusiveOfferModel {
         return priorityWeight;
     }
 
-    public String getDefaultPrePrice() {
-        return prePrice;
+    public String getDefaultPostPrice() {
+        return defaultPostPrice;
     }
 }

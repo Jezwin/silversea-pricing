@@ -50,13 +50,13 @@ public class Cruise2018Use extends EoHelper {
         EO_CONFIG.setMapOverheadVoyage(true);
         EO_CONFIG.setCruiseFareVoyage(true);
         EO_CONFIG.setPriorityWeight(true);
-        EO_CONFIG.setPrePrice(true);
+        EO_CONFIG.setPostPrice(true);
         EO_CONFIG.setIconVoyage(true);
     }
 
     private List<ExclusiveOfferItem> exclusiveOffers;
     private List<String> exclusiveOffersCruiseFareAdditions;
-    private String exclusiveOfferPrePrice;
+    private String exclusiveOfferPostPrice;
     private boolean venetianSociety;
     private String VSLBPath;
 
@@ -161,7 +161,7 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
 
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
-        exclusiveOfferPrePrice = retrieveExclusiveOfferPrePrice(exclusiveOffers);
+        exclusiveOfferPostPrice = retrieveExclusiveOfferPostPrice(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         VSLBPath = retrieveVenetianSocietyLBPath();
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
@@ -207,17 +207,17 @@ public class Cruise2018Use extends EoHelper {
         this.hasexcursionsCounter = firstExcursionsCounter();
     }
 
-    private static String retrieveExclusiveOfferPrePrice(List<ExclusiveOfferItem> exclusiveOffers) {
-        Integer priorityWeight = Integer.MAX_VALUE;
-        String prePrice = null;
+    private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferItem> exclusiveOffers) {
+        Integer priorityWeight = Integer.MIN_VALUE;
+        String postPrice = null;
         for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
-            boolean isTheRightPrePrice = StringUtils.isNotEmpty(exclusiveOffer.getPrePrice()) && exclusiveOffer.getPriorityWeight() < priorityWeight;
-            if (isTheRightPrePrice) {
+            boolean isTheRightPostPrice = StringUtils.isNotEmpty(exclusiveOffer.getPostPrice()) && exclusiveOffer.getPriorityWeight() > priorityWeight;
+            if (isTheRightPostPrice) {
                 priorityWeight = exclusiveOffer.getPriorityWeight();
-                prePrice = exclusiveOffer.getPrePrice();
+                postPrice = exclusiveOffer.getPostPrice();
             }
         }
-        return prePrice;
+        return postPrice;
     }
 
     private List<SilverseaAsset> retrievePortsGallery(CruiseModel cruiseModel) {
@@ -623,12 +623,12 @@ public class Cruise2018Use extends EoHelper {
         return arrivalPortName;
     }
 
-    public String getExclusiveOfferPrePrice() {
-        return exclusiveOfferPrePrice;
+    public String getExclusiveOfferPostPrice() {
+        return exclusiveOfferPostPrice;
     }
 
-    public void setExclusiveOfferPrePrice(String exclusiveOfferPrePrice) {
-        this.exclusiveOfferPrePrice = exclusiveOfferPrePrice;
+    public void setExclusiveOfferPostPrice(String exclusiveOfferPostPrice) {
+        this.exclusiveOfferPostPrice = exclusiveOfferPostPrice;
     }
 
     public enum Lightbox {
