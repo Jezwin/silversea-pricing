@@ -1,6 +1,8 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="BreadCrumb"></div>
-<section class="c-breadcrumb">
+<section class="c-breadcrumb" data-sly-use.breadcrumb="com.silversea.aem.components.editorial.BreadcrumbUse">
     <div>
-        <a class="c-vertical-teaser__link--block" href="${target.page.path @ extension='html'}"></a>
+        <sly data-sly-list.bcItem="${breadcrumb.BreadCrumbList}">
+            <a class="c-breadcrumb-link" href="${bcItem.path @ extension='html'}"></a>
+        </sly>
     </div>
 </section>
