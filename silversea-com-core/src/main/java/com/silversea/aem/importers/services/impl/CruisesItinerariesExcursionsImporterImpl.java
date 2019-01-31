@@ -271,7 +271,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                             // Checking if the itinerary correspond to excursion informations
                             if (itineraryModel.isItineraryBasedOnDayOnly(excursionDiff.getVoyageId(),
-                            		excursionDiff.getDate().toGregorianCalendar())  && excursionDiff.getCityId().equals(itineraryModel.getPortId())) {
+                            		excursionDiff.getDate().toGregorianCalendar())) {
 
                                 // Trying to write or update excursion data on itinerary
                                 try {
