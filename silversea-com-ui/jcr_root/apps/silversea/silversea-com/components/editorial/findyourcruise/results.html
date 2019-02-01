@@ -84,13 +84,11 @@
                     <strong data-sly-test="${!cruiseItem.isWaitList}">
                         ${cruiseItem.lowestPrice.currency @ i18n} ${cruiseItem.lowestPriceFormated}
                     </strong>
-                    <span data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
-                    <div class="tooltip-pre" data-sly-test="${cruiseItem.pricePrefix}">
-                        <span class="tooltiptext"><span class="hidden-xs">${'view-all-exclusive-offer' @ i18n}</span>
-                                        <span class="hidden-xs" data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}">${cruiseItem.lowestPrice.earlyBookingBonus @ context='html'}</span>
-                                        <span class="prePriceContent">${cruiseItem.postPrefix @ context='html'}</span>
-                                    </span>
-                    </div>
+                <div class="fyc-including" data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}">${'including' @ i18n}</div>
+                <div  data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">access_alarm</i>  10% ${'early-booking-bonus' @ i18n}</div>
+                <div data-sly-test="${cruiseItem.postPrice}"  class="price-suffixe">
+                    ${cruiseItem.postPrice @ context='html'}
+                </div>
                 </p>
                 <p class="c-fyc__result__content__button text-center">
                     <a data-sly-test.suffix="${'{0}{1}' @ format=[cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"

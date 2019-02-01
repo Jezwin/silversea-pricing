@@ -20,61 +20,22 @@
 }
 
 .findyourcruise2018, .fycOld {
-  .tooltip-pre {
-    position: relative;
-    text-decoration: underline;
+
+  .fyc-including {
     font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    z-index: 1000;
-    line-height: 15px;
+    line-height: 12px;
+    font-style: italic;
+    text-transform: lowercase;
   }
 
-  .tooltip-pre .tooltiptext {
-    visibility: hidden;
-    width: 100%;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity .3s;
-    background: #fff;
-    border: 1px solid #000;
-    text-transform: none;
-  }
-
-  .tooltip-pre .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
-
-  .tooltip-pre:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .prePriceContent {
+  .price-suffixe i {
     font-size: 11px;
-    line-height: 18px;
-    display: block;
-    color: black;
-    @media (max-width: 767px) {
-      text-transform: uppercase;
-      text-align: center;
-    }
   }
+
+  .c-fyc-v2__result__content__price__notWaitList {
+   line-height: 20px !important;
+  }
+
 
 }
 
