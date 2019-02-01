@@ -18,4 +18,8 @@ public class CountryFilter extends AbstractFilter<String> {
         return cruise.getCountries().stream().map(iso -> new FilterRow<>(iso, iso, ENABLED));
     }
 
+    @Override
+    public boolean isVisible() {
+        return false;
+    }
 }
