@@ -469,9 +469,9 @@ public class CruisesImporterImpl implements CruisesImporter {
                                                 .stripAccents(cruiseModel.getDeparturePortName() + "-to-" + cruiseModel.getArrivalPortName() + " - " + cruiseModel.getCruiseCode()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
                                                 .replaceAll("-+", "-");
                                         if (language.equals("fr") || language.equals("es") || language.equals("pt-br")) {
-                                            newAlias.replace("-to-", "-a-");
+                                            newAlias = newAlias.replace("-to-", "-a-");
                                         } else if (language.equals("de")) {
-                                            newAlias.replace("-to-", "-nach-");
+                                            newAlias = newAlias.replace("-to-", "-nach-");
                                         }
                                         cruiseContentNode.setProperty("sling:alias", newAlias);
 
