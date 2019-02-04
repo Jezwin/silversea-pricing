@@ -13,6 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.day.cq.commons.Externalizer;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
 import org.apache.felix.scr.annotations.sling.SlingFilterScope;
@@ -59,7 +60,9 @@ public class OldVoyagePageRedirectFilter implements Filter {
 						if(null != parentNode && null != parentNode.getProperty("sling:resourceType") && 
 							parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
 							slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
-							slingResponse.sendRedirect(resource.getParent().getPath()+ WcmConstants.HTML_SUFFIX);
+							Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
+							slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
+									+ WcmConstants.HTML_SUFFIX);
 						    return;
 						}
 					} catch (IllegalStateException | RepositoryException e) {
