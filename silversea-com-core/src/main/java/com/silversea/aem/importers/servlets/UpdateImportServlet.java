@@ -57,6 +57,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         prices,
         replicate,
         clearGlobalCache,
+        testAliasCruiseAlign,
         stylesconfiguration
     }
 
@@ -235,6 +236,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 hotelsImporter.importHotelImages();
             } else if (mode.equals(Mode.replicate)) {
                 replicateImporter.replicate();
+            } else if (mode.equals(Mode.testAliasCruiseAlign)) {
+                cruisesImporter.updateCheckAlias();
             }else if (mode.equals(Mode.clearGlobalCache)) {
                 globalCacheService.clear();
             }
