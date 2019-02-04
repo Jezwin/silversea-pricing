@@ -11,7 +11,7 @@
 </template>
 <template data-sly-template.design2018="${@ footer}">
 	<div class="c-footer-2018 container ab-test-footer-to-show">
-		<sly data-sly-use.breadcrumbTemplate="templates/breadcrumb.html" data-sly-call="${breadcrumbTemplate.default}" />
+		<sly data-sly-use.breadcrumbTemplate="templates/breadcrumb.html" data-sly-call="${breadcrumbTemplate.default @ footer= footer}" />
 		<sly data-sly-use.socialSignUpTemplate="templates/social-and-signup.html" data-sly-call="${socialSignUpTemplate.default @ footer= footer}" />
 		<sly data-sly-use.requestBrochureTemplate="templates/request-brochure.html" data-sly-call="${requestBrochureTemplate.default @ footer= footer}" />
 		<sly data-sly-use.callRaqTemplate="templates/call-and-raq.html" data-sly-call="${callRaqTemplate.default @ footer= footer}" />
