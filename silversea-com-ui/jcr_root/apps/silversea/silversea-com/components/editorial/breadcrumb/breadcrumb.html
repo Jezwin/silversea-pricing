@@ -1,0 +1,8 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="BreadCrumb"></div>
+<section class="c-breadcrumb" data-sly-use.breadcrumb="com.silversea.aem.components.editorial.BreadcrumbUse" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <div>
+        <sly data-sly-list.bcItem="${breadcrumb.BreadCrumbList}">
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemtype="https://schema.org/Thing" itemprop="item" class="c-breadcrumb-link" href="${bcItem.page.path @ extension='html'}"><span itemprop="name">${bcItem.NavigationTitle}</span></a> <meta itemprop="position" content="${bcItemList.index}" /> </span> <sly data-sly-test="${!bcItemList.last}"> > </sly>
+        </sly>
+    </div>
+</section>

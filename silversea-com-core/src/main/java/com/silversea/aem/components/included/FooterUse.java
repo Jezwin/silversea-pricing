@@ -1,6 +1,7 @@
 package com.silversea.aem.components.included;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -59,6 +60,8 @@ public class FooterUse extends WCMUsePojo {
     private String currentPath;
     private HierarchyNodeInheritanceValueMap inheritanceValueMap;
 
+    private Boolean forceBreadcrumb = false;
+
     /**
      * Initialize the component.
      */
@@ -113,7 +116,15 @@ public class FooterUse extends WCMUsePojo {
         ctaLabelDesktop = getFromProp("ctaLabelDesktop");
         ctaLabelMobile = getFromProp("ctaLabelMobile");
 
+        final String[] forceBreadcrumbList = getInheritanceValueMap().getInherited("templateName",
+                String[].class);
+        if(forceBreadcrumbList != null) {
+            String currentTemplateName = getCurrentPage().getTemplate().getPageTypePath();
 
+            if (Arrays.stream(forceBreadcrumbList).anyMatch(t -> t.equals(currentTemplateName))) {
+                forceBreadcrumb = true;
+            }
+        }
         final String[] bottomLine = getInheritanceValueMap().getInherited("referencelegal",
                 String[].class);//globalCacheService
               //  .getCache("prop_referencelegal" + currentPath, String[].class, () -> getInheritanceValueMap().getInherited("referencelegal",
@@ -229,6 +240,10 @@ public class FooterUse extends WCMUsePojo {
 
     public Page getPageBlog() {
         return pageBlog;
+    }
+
+    public Boolean getForceBreadcrumb() {
+        return forceBreadcrumb;
     }
 
     public Iterator<Page> getPagesBottomLineIterator() {
