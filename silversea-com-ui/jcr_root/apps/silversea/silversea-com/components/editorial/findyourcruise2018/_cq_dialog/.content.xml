@@ -98,6 +98,11 @@
                                     fieldLabel="Port Name"
                                     name="./portId"
                                     sling:resourceType="granite/ui/components/foundation/form/textfield"/>
+                            <countryId
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Country ISO3"
+                                    name="./countryId"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield"/>
                             <eoId
                                     jcr:primaryType="nt:unstructured"
                                     fieldLabel="Exclusive Offer Path"
