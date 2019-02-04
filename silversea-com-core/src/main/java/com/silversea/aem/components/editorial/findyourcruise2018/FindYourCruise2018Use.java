@@ -5,6 +5,9 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
@@ -264,4 +267,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return super.geomarket + super.currency;
     }
 
+    public String toJson() {
+        JsonArray array = new JsonArray();
+        Gson gson = new Gson();
+        cruises.forEach(cruise -> array.add(gson.toJsonTree(cruise)));
+        return array.toString();
+    }
 }

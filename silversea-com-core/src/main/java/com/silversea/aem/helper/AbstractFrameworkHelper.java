@@ -9,7 +9,7 @@ import java.util.function.Function;
 import static com.google.common.collect.ImmutableMap.of;
 
 public abstract class AbstractFrameworkHelper extends WCMUsePojo {
-    private static final String[] DEVICES = new String[]{"Desktop", "Tablet", "Mobile"};
+    protected static final String[] DEVICES = new String[]{"Desktop", "Tablet", "Mobile"};
 
     private String[] cssAttributes;
     private Map<String, Object> componentProperties;
@@ -20,7 +20,7 @@ public abstract class AbstractFrameworkHelper extends WCMUsePojo {
         componentProperties = getProperties();
     }
 
-    private <T> String forEach(T[] elements, Function<T, String> function) {
+    protected <T> String forEach(T[] elements, Function<T, String> function) {
         StringBuilder builder = new StringBuilder();
         for (T element : elements) {
             builder.append(function.apply(element)).append(" ");
@@ -64,5 +64,9 @@ public abstract class AbstractFrameworkHelper extends WCMUsePojo {
 
     protected void setComponentProperties(Map<String, Object> componentProperties) {
         this.componentProperties = componentProperties;
+    }
+
+    protected String[] getCssAttributes() {
+        return cssAttributes;
     }
 }

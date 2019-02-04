@@ -6,16 +6,10 @@ public class PortItem {
 
 	private String title;
 
-	private String cityId;
-	public PortItem(String name, String title) {
-		this.name = name;
-		this.title = title;
-	}
 
-	public PortItem(String name, String title, String cityId) {
+	public PortItem(String name, String title ) {
 		this.name = name;
 		this.title = title;
-		this.cityId = cityId;
 	}
 
 	public String getName() {
@@ -24,10 +18,6 @@ public class PortItem {
 
 	public String getTitle() {
 		return title;
-	}
-
-	public String getCityId() {
-		return cityId;
 	}
 
 }

@@ -244,6 +244,9 @@ public class ApiUpdater implements Runnable {
             importResult = hotelsImporter.disactiveAllItemDeltaByAPI();
             LOGGER.info("Hotels desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
+            //Check all cruises alias to make sure we are aligned with the [departureport]-to-[arrivalport]-[voyagecode]
+            importResult = cruisesImporter.updateCheckAlias();
+            LOGGER.info("Cruise Alias Updater : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             comboCruisesImporter.markSegmentsForActivation();
 

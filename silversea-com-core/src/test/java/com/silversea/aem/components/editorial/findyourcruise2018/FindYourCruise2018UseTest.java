@@ -2,29 +2,35 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 
 import com.google.common.base.Strings;
+import com.google.common.util.concurrent.Futures;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.models.*;
-import com.silversea.aem.services.CruisesCacheService;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.time.YearMonth;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
+import static java.util.concurrent.CompletableFuture.allOf;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.*;
 
 public class FindYourCruise2018UseTest {
@@ -33,19 +39,19 @@ public class FindYourCruise2018UseTest {
 
     private static final String AFRICA_VALUE = "3";
     private static final String ASIA_VALUE = "13";
-    private static final String AFRICA_LABEL = "Africa and Indian Ocean";
+    private static final String AFRICA_LABEL = "Africa & Indian Ocean";
     private static final String ASIA_LABEL = "Asia";
     private static final String SILVER_GALAPAGOS = "Silver Galapagos";
     private static final String SILVER_MUSE = "Silver Muse";
     private static final String SILVERSEA_EXPEDITION = "silversea-expedition";
     private static final String SILVERSEA_CRUISE = "silversea-cruise";
-    private static final String HO_CHI_MINH_CITY = "ho-chi-minh-city";
-    private static final String DA_NANG = "da-nang";
+    private static final String HO_CHI_MINH_CITY = "Ho Chi Minh City";
+    private static final String DA_NANG = "Da Nang";
 
     @Before
     public void before() throws IOException {
         cruises = new ArrayList<>();
-        File cruisesJson = new File("src/test/resources/cruises.json");
+        File cruisesJson = new File("src/test/resources/cruises2.json");
         JsonParser parser = new JsonParser();
         String cruisesString = String.join("", Files.readAllLines(cruisesJson.toPath()));
         JsonElement parse = parser.parse(cruisesString);
@@ -61,8 +67,10 @@ public class FindYourCruise2018UseTest {
             runners.add(this::testMultipleFilters);
             runners.add(this::testOneDestination);
             runners.add(this::testSort);
+            runners.add(this::testCountry);
             runners.add(this::testTwoDestinations);
             runners.add(this::testProperties);
+
         }
         assertConcurrent("Testing multithreads", runners, 30, 4);
     }
@@ -81,7 +89,9 @@ public class FindYourCruise2018UseTest {
                         afterInitBlocker.await();
                         submittedTestRunnable.run();
                     } catch (final Throwable e) {
-                        exceptions.add(e);
+                        if (!(e instanceof java.lang.InterruptedException)) {
+                            exceptions.add(e);
+                        }
                     } finally {
                         allDone.countDown();
                     }
@@ -104,37 +114,65 @@ public class FindYourCruise2018UseTest {
     }
 
     @Test
-    public void performance() throws InterruptedException {
-        double nOfRun = 2; //set 2000 to test better
+    public void performance() {
+        double nOfRun = 2; //set 2000 to test better (15 min total)
         ExecutorService executor = Executors.newFixedThreadPool(1);//use 2 with caution
-        List<UseBuilder> builders = new ArrayList<>();
+        Map<String, List<UseBuilder>> builders = new HashMap<>();
+        builders.put("No filters", new LinkedList<>());
+        builders.put("Only destinations", new LinkedList<>());
+        builders.put("Type", new LinkedList<>());
+        builders.put("Duration", new LinkedList<>());
+        builders.put("Duration & Destination", new LinkedList<>());
+        builders.put("Ports & Destination", new LinkedList<>());
+        builders.put("Countries", new LinkedList<>());
+        builders.put("Multiples", new LinkedList<>());
+        builders.put("Multiples 2", new LinkedList<>());
         for (int i = 0; i < nOfRun; i++) {
-            builders.add(new UseBuilder());
-            builders.add(new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE));
-            builders.add(new UseBuilder().withType(SILVERSEA_EXPEDITION));
-            builders.add(new UseBuilder().withDuration("8"));
-            builders.add(new UseBuilder().withDuration("8").withDestinations(ASIA_VALUE));
-            builders.add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_VALUE));
-            builders.add(new UseBuilder().withShip(SILVER_GALAPAGOS).withDestinations(ASIA_VALUE)
-                    .withPorts(HO_CHI_MINH_CITY, DA_NANG));
-            builders.add(new UseBuilder(
-                    "destination=1&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
+            builders.get("No filters").add(new UseBuilder());
+            builders.get("Only destinations").add(new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE));
+            builders.get("Type").add(new UseBuilder().withType(SILVERSEA_EXPEDITION));
+            builders.get("Duration").add(new UseBuilder().withDuration("8"));
+            builders.get("Duration & Destination").add(new UseBuilder().withDuration("8").withDestinations(ASIA_VALUE));
+            builders.get("Ports & Destination").add(new UseBuilder().withPorts(HO_CHI_MINH_CITY).withDestinations(ASIA_VALUE));
+            builders.get("Countries").add(new UseBuilder().withCountry("VNM", "ESP", "ITA"));
+            builders.get("Multiples").add(new UseBuilder().withShip(SILVER_GALAPAGOS).withDestinations(ASIA_VALUE)
+                    .withPorts(HO_CHI_MINH_CITY, DA_NANG).withCountry("VNM", "ECU", "CHN"));
+            builders.get("Multiples 2").add(new UseBuilder("destination=1&ship=10.4.5.6&type=silversea-cruise&port=Singapore.Sydney"));
         }
-        Function<UseBuilder, Callable<Long>> test = useBuilder -> () -> {
+        AtomicInteger counter = new AtomicInteger();
+        BiFunction<String, UseBuilder, Long> task = (key, use) -> {
             long current = System.currentTimeMillis();
-            useBuilder.build().init(cruises, "1000");
-            return (System.currentTimeMillis() - current);
+            use.build().init(cruises, "1000");
+            long res = (System.currentTimeMillis() - current);
+            counter.incrementAndGet();
+            return res;
         };
-        double average = executor.invokeAll(builders.stream().map(test).collect(Collectors.toList())).stream()
-                .mapToLong(future -> {
-                    try {
-                        return future.get();
-                    } catch (InterruptedException | ExecutionException e) {
-                    }
-                    return 0L;
-                }).average().orElse(0);
-        System.out.println("******" + average / 1000.0 + "s*****");
-        //on my pc ~0.02s, now we are at 0.03
+
+        Map<String, Double> results = builders.entrySet().stream()
+                .collect(toMap(Map.Entry::getKey,
+                        entry -> entry.getValue().stream()
+                                .map(use -> supplyAsync(() -> task.apply(entry.getKey(), use), executor))
+                                .mapToLong(CompletableFuture::join)
+                                .average().orElse(0)
+                ));
+
+        System.out.println("Executed " + counter.get() + " find your cruise");
+        double totalAverage = results.values().stream().mapToDouble(l -> l).average().orElse(0);
+        results.forEach((key, value) -> System.out.println((value > totalAverage ? "**" : "") + key + ": " + (value / 1000)));
+        System.out.println("Total average: " + totalAverage / 1000);
+        /*On MY PC (13 min total)
+        Executed 18000 find your cruise
+        **Type: 0.0672
+        Duration & Destination: 0.0248
+        **Countries: 0.0461
+        Multiples 2: 0.0032
+        Only destinations: 0.03323
+        Ports & Destination: 0.0041
+        **Duration: 0.1014
+        Multiples: 0.0032
+        **No filters: 0.1088
+        Total average: 0.0436
+         */
     }
 
 
@@ -161,8 +199,8 @@ public class FindYourCruise2018UseTest {
         //silver galapagos doesn't cruise africa
         AbstractFilter<ShipItem> ship = use.getFilterBar().getShip();
         assertEquals(DISABLED, ship.retrieveState(SILVER_GALAPAGOS));
-        //silver muse does cruise africa
-        assertEquals(ENABLED, ship.retrieveState((SILVER_MUSE)));
+        //silver muse does not cruise africa
+        assertEquals(DISABLED, ship.retrieveState((SILVER_MUSE)));
     }
 
     @Test
@@ -227,6 +265,15 @@ public class FindYourCruise2018UseTest {
     }
 
     @Test
+    public void testCountry() {
+        FindYourCruise2018Use use = new UseBuilder().withCountry("CUB", "ESP").build();
+        Predicate<CruiseModelLight> test = cruise -> cruise.getCountries().stream().anyMatch(country -> "CUB".equals(country) || "ESP".equals(country));
+        use.init(cruises, "1000");
+        assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
+        assertEquals(89, use.getCruises().size());
+    }
+
+    @Test
     public void testMultipleFilters() {
         FindYourCruise2018Use use =
                 new UseBuilder().withDestinations(AFRICA_VALUE, ASIA_VALUE).withPorts(HO_CHI_MINH_CITY, DA_NANG)
@@ -247,11 +294,11 @@ public class FindYourCruise2018UseTest {
         FilterBar filterBar = use.getFilterBar();
         AbstractFilter<DestinationItem> destination = filterBar.getDestination();
         assertTrue(destination.isSelected());
-        assertEquals(16, destination.getRows().size());//world cruise..
+        assertEquals("Wrong numbers of multiple results", 18, destination.getRows().size());//world cruise..
         AbstractFilter<PortItem> portFilter = filterBar.getPort();
         assertTrue(portFilter.isSelected());
-        assertEquals(825, portFilter.getRows().size());
-        assertEquals(214, portFilter.getRows().stream().filter(port -> !port.isNotVisible()).count());
+        assertEquals("Wrong number of ports", 965, portFilter.getRows().size());
+        assertEquals("Wrong number of visible ports in asia and africa", 193, portFilter.getRows().stream().filter(port -> !port.isNotVisible()).count());
         assertTrue(portFilter.getRows().stream().noneMatch(row -> row.getState().equals(DISABLED)));
         //only africa and asia is chosen others are enabled
         assertTrue(destination.getRows().stream()
@@ -298,11 +345,15 @@ public class FindYourCruise2018UseTest {
         }
         cruiseModel.setPrices(Arrays.asList(new TestPriceModel(price)));
 
+        Set<String> countries = StreamSupport.stream(json.getAsJsonArray("ports").spliterator(), false)
+                .map(JsonElement::getAsJsonObject)
+                .map(jsonElement -> jsonElement.get("countryISO3").getAsString()).collect(Collectors.toSet());
+
         List<PortItem> ports = StreamSupport.stream(json.getAsJsonArray("ports").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(jsonElement -> new PortItem(jsonElement.get("name").getAsString(),
-                        jsonElement.get("title").getAsString()))
-                .collect(Collectors.toList());
+                        jsonElement.get("name").getAsString()))
+                .collect(toList());
         List<FeatureModel> features = StreamSupport.stream(json.getAsJsonArray("features").spliterator(), false)
                 .map(JsonElement::getAsJsonObject)
                 .map(jsonObject -> new FeatureModel() {
@@ -315,12 +366,17 @@ public class FindYourCruise2018UseTest {
                     public String getName() {
                         return jsonObject.get("name").getAsString();
                     }
-                }).collect(Collectors.toList());
+                }).collect(toList());
         cruiseModel.setFeatures(features);
         return new CruiseModelLight(cruiseModel) {
             @Override
             public List<PortItem> getPorts() {
                 return ports;
+            }
+
+            @Override
+            public Set<String> getCountries() {
+                return countries;
             }
         };
     }
@@ -416,6 +472,10 @@ public class FindYourCruise2018UseTest {
 
         UseBuilder withDuration(String... durations) {
             return with(DurationFilter.KIND, durations);
+        }
+
+        UseBuilder withCountry(String... countries) {
+            return with(CountryFilter.KIND, countries);
         }
 
 
@@ -591,64 +651,6 @@ public class FindYourCruise2018UseTest {
         @Override
         public String getDuration() {
             return duration;
-        }
-    }
-
-    class TestCacheService implements CruisesCacheService {
-
-        @Override
-        public List<CruiseModelLight> getCruises(String lang) {
-            return cruises;
-        }
-
-        @Override
-        public CruiseModelLight getCruiseByCruiseCode(String lang, String cruiseCode) {
-            return null;
-        }
-
-        @Override
-        public List<DestinationModelLight> getDestinations(String lang) {
-            return null;
-        }
-
-        @Override
-        public List<ShipModelLight> getShips(String lang) {
-            return null;
-        }
-
-        @Override
-        public List<PortModelLight> getPorts(String lang) {
-            return null;
-        }
-
-        @Override
-        public Set<Integer> getDurations(String lang) {
-            return null;
-        }
-
-        @Override
-        public Set<YearMonth> getDepartureDates(String lang) {
-            return null;
-        }
-
-        @Override
-        public Set<FeatureModelLight> getFeatures(String lang) {
-            return null;
-        }
-
-        @Override
-        public void addOrUpdateCruise(CruiseModelLight cruiseModel, String langIn) {
-
-        }
-
-        @Override
-        public void removeCruise(String lang, String cruiseCode) {
-
-        }
-
-        @Override
-        public void buildCruiseCache() {
-
         }
     }
 

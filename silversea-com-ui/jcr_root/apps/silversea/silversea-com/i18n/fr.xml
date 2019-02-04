@@ -248,7 +248,7 @@
     <cruise-itinerary-120-day
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information."/>
+            sling:message="Veuillez noter que les excursions suivantes vous sont présentées en tant qu'échantillon de ce qui pourrait vous être proposé lors de cette croisière et qu'elles sont susceptibles d'être modifiées. Nous invitons les passagers à consulter my.silversea.com 120 jours avant leur départ pour accéder aux informations les plus récentes."/>
     <cruise-excursion-description
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1581,11 +1581,11 @@
     <show-waitlist
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="show waitlist"/>
+            sling:message="Afficher la liste d'attente"/>
     <hide-waitlist
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="hide waitlist"/>
+            sling:message="Masquer la liste d'attente"/>
     <show-all
             jcr:primaryType="sling:MessageEntry"
             sling:key="show-all"
