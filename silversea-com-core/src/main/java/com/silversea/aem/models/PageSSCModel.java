@@ -18,6 +18,10 @@ public class PageSSCModel {
         if (page.getProperties().get("breadcrumbTitle") != null){
             navigationTitle = page.getProperties().get("breadcrumbTitle", String.class);
         }
+
+        if(navigationTitle == null || navigationTitle.isEmpty()){
+            navigationTitle = page.getTitle();
+        }
     }
 
     public String getNavigationTitle(){

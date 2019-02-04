@@ -16,7 +16,13 @@ public class BreadcrumbUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        Page currentPage = getCurrentPage();
+        Page currentPage = null;
+        if(getProperties().get("rootReference") != null){
+            currentPage = getPageManager().getPage(getProperties().get("rootReference", String.class));
+        }else{
+            currentPage = getCurrentPage();
+        }
+
         breadCrumbList = new ArrayList<>();
         breadCrumbList.add(new PageSSCModel(currentPage));
         Integer currentPageLevel = currentPage.getDepth();
