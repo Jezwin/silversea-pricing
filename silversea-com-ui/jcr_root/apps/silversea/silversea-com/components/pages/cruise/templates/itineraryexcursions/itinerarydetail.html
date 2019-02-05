@@ -32,7 +32,12 @@
             <p data-sly-test="${model.subtitle}">${model.subtitle}</p>
         </div>
 
-        <div class="cruise-2018-itinerary-segment-map" data-sly-test="${itineraryMap}" data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map.lg-segmentmap',cruiseType,  model.page.name]}">
+        <div class="cruise-2018-itinerary-segment-map hidden-xs" data-sly-test="${itineraryMap}">
+            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                 data-sly-call="${imageTemplate.default @ imagePath=itineraryMap}"/>
+        </div>
+        <div class="cruise-2018-itinerary-segment-map visible-xs" data-sly-test="${itineraryMap}"
+             data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map.lg-segmentmap',cruiseType,  model.page.name]}">
             <span class="open-lightbox-map" data-target=".lightbox">
                 ${'open-itinerary-map' @ i18n}
             </span>
@@ -138,7 +143,13 @@
 
                     <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more-wrapper ${itineraryList.last ? '' : 'bordered'}"
                          style="display:none;">
-                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description" data-sly-use.helperText="${'com.silversea.aem.helper.StringHelper' @ text=excursionDescription, limit=960}"> ${helperText.textTruncate @ context='html'} <span class="cruise-2018-itineraries-port-excursions-description-read-more" data-sly-test="${helperText.textRest}">${"read-more" @ i18n}</span> <span class="cruise-2018-itineraries-port-excursions-description-read-more-content" data-sly-test="${helperText.textRest}">${helperText.textRest @ context='html'}</span> </div>
+                        <div class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-description"
+                             data-sly-use.helperText="${'com.silversea.aem.helper.StringHelper' @ text=excursionDescription, limit=960}"> ${helperText.textTruncate @ context='html'}
+                            <span class="cruise-2018-itineraries-port-excursions-description-read-more"
+                                  data-sly-test="${helperText.textRest}">${"read-more" @ i18n}</span> <span
+                                    class="cruise-2018-itineraries-port-excursions-description-read-more-content"
+                                    data-sly-test="${helperText.textRest}">${helperText.textRest @ context='html'}</span>
+                        </div>
                         <div data-sly-test="${hasExcursions}"
                              class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">
                             <sly data-sly-test="${hasExcursions}">
