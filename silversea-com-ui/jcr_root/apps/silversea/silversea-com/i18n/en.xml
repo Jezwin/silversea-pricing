@@ -878,7 +878,7 @@
     <offer-accumulated
             jcr:primaryType="sling:MessageEntry"
             sling:key="offer-accumulated"
-            sling:message="Angebote können kombiniert sein"/>
+            sling:message="Offers can be combined"/>
     <offers
             jcr:primaryType="sling:MessageEntry"
             sling:key="offers"
