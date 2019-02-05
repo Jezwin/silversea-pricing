@@ -14,9 +14,9 @@ $(function () {
         };//showRightSpanWaitlist
 
         var getWaitlistFilter = function () {
-            var isNoWaitlist = $(".fyc2018-show-hide-waitlist").find(".waitlist").hasClass("hide-waitlist");
-            return isNoWaitlist ? "&waitlist=no_waitlist" : "";
-        };//getWaitlistFilter
+            var isNoWaitlist = $(".fyc2018-show-hide-waitlist").find(".waitlist").hasClass("show-waitlist");
+            return isNoWaitlist ? "&waitlist=no_waitlist,waitlist" : "";
+        };//
 
         var updateCruiseResultsBasedOnWaitlist = function () {
             var urlTemplate = $("#results-url-request").data("url");
