@@ -834,6 +834,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Angebot"/>
+    <offer-accumulated
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Offers can be accumulated"/>
     <offers
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
