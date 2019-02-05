@@ -881,7 +881,7 @@
             sling:message="Offers"/>
     <open-itinerary-map
             jcr:primaryType="sling:MessageEntry"
-            sling:key="offers-for-this-cruise"
+            sling:key="open-itinerary-map"
             sling:message="Open itinerary map"/>
     <offers-for-this-cruise
             jcr:primaryType="sling:MessageEntry"
