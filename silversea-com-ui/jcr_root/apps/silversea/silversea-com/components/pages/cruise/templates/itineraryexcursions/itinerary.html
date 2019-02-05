@@ -5,7 +5,7 @@
              data-sly-call="${itinerarytemplate.commonHeader @ numEO=numEO, duration=duration, currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, portsGallery=portsGallery, externalizerHelper=externalizerHelper, numExcursions=numExcursions}"/>
 
         <sly data-sly-use.itineraryDetail="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerarydetail.html"
-             data-sly-call="${itineraryDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap}"/>
+             data-sly-call="${itineraryDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap, externalizerHelper=externalizerHelper}"/>
     </div>
 </template>
 

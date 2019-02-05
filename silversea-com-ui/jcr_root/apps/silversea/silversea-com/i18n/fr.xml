@@ -839,6 +839,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="offres"/>
+    <open-itinerary-map
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Open itinerary map"/>
     <offers-for-this-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1574,10 +1578,6 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="show-less"
             sling:message="show Less"/>
-    <show-more
-            jcr:mixinTypes="[sling:Message]"
-            jcr:primaryType="nt:folder"
-            sling:message="show More"/>
     <show-waitlist
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
