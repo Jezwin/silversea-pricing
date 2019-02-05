@@ -22,7 +22,6 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 
-import javax.sound.sampled.Port;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -34,7 +33,6 @@ import java.util.stream.Stream;
 import static com.google.common.base.Strings.emptyToNull;
 import static com.silversea.aem.utils.AssetUtils.buildAssetList;
 import static java.util.Comparator.comparing;
-import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
@@ -74,6 +72,7 @@ public class Cruise2018Use extends EoHelper {
     private String currentPath;
 
     private String ccptCode;
+    private String taCode;
     private CruiseModel cruiseModel;
 
     private List<CruiseItinerary> itinerary;
@@ -110,6 +109,7 @@ public class Cruise2018Use extends EoHelper {
     private ItineraryLandProgramModel midlandShorexLightbox;
 
     private int hasexcursionsCounter;
+    private int numExcursions;
 
     @Override
     public void activate() throws Exception {
@@ -172,6 +172,7 @@ public class Cruise2018Use extends EoHelper {
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
+        taCode = retrieveTaCode(selectors);
 
         numPorts = retrieveNumberOfPorts(cruiseModel);
         numCountries = retrieveNumberOfCountries(cruiseModel);
@@ -413,6 +414,15 @@ public class Cruise2018Use extends EoHelper {
         return "";
     }
 
+    private String retrieveTaCode(String[] selectors) {
+        for (String selectorInfo : selectors) {
+            if (selectorInfo.contains("ta_")) {
+                return selectorInfo.replace("ta_", ".");
+            }
+        }
+        return "";
+    }
+
     private String retrieveCurrentPath() {
         return getSlingScriptHelper().getService(Externalizer.class)
                 .publishLink(getResourceResolver(), getCurrentPage().getPath());
@@ -548,6 +558,7 @@ public class Cruise2018Use extends EoHelper {
             for (CruiseItinerary cruiseItinerary : this.itinerary) {
                 counter++;
                 if (cruiseItinerary.isHasExcursions()) {
+                    this.numExcursions++;
                     return counter;
                 }
             }
@@ -612,6 +623,10 @@ public class Cruise2018Use extends EoHelper {
 
     public String getArrivalPortName() {
         return arrivalPortName;
+    }
+
+    public int getNumExcursions() {
+        return numExcursions;
     }
 
     public enum Lightbox {
@@ -743,6 +758,9 @@ public class Cruise2018Use extends EoHelper {
 
     public String getCcptCode() {
         return ccptCode;
+    }
+    public String getTaCode() {
+        return taCode;
     }
 
     public Collection<CruisePrePost> getPrePost() {

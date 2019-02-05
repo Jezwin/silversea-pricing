@@ -1,39 +1,25 @@
 package com.silversea.aem.components.editorial.cardSliderLightbox;
 
-import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.CardLightbox;
-import com.silversea.aem.models.CardLightboxImpl;
 import org.apache.sling.api.request.RequestPathInfo;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
-public class LightboxUse extends AbstractSilverUse {
+public class LightboxUse extends SliderUse {
     private String prev;
     private String next;
     private CardLightbox prevCard;
     private CardLightbox nextCard;
     private CardLightbox card;
-    private boolean titleInLightbox;
 
     @Override
     public void activate() throws Exception {
+        super.activate();
         RequestPathInfo requestPathInfo = getRequest().getRequestPathInfo();
         String[] selectors = requestPathInfo.getSelectors();
-        boolean invertTitle = getBoolean("invertTitle", false);
-        List<CardLightboxImpl> cards = retrieveMultiField("cards", resource -> {
-            CardLightboxImpl cardLightbox = resource.adaptTo(CardLightboxImpl.class);
-            if (invertTitle) {
-                String title = cardLightbox.getTitle();
-                cardLightbox.setTitle(cardLightbox.getBriefDescription());
-                cardLightbox.setBriefDescription(title);
-            }
-            return cardLightbox;
-        }).collect(Collectors.toList());
-        init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), cards);
-        titleInLightbox = getBoolean("titleInLightbox", false);
+        init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), getCards());
 
     }
 
@@ -50,10 +36,6 @@ public class LightboxUse extends AbstractSilverUse {
                 return null;
             }
         }).orElse(0);
-    }
-
-    public boolean isTitleInLightbox() {
-        return titleInLightbox;
     }
 
     protected void init(String path, String selector, int currentCard, List<? extends CardLightbox> cards) {

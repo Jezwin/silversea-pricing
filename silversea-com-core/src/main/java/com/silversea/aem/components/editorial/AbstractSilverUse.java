@@ -1,11 +1,14 @@
 package com.silversea.aem.components.editorial;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 import org.apache.sling.api.resource.Resource;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,6 +18,10 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.StreamSupport.stream;
 
 public abstract class AbstractSilverUse extends WCMUsePojo {
+
+    public static final String TABLET = "Tablet";
+    public static final String MOBILE = "Mobile";
+    public static final String DESKTOP = "Desktop";
 
     protected Optional<String> getProp(String key) {
         return getProp(key, String.class);
@@ -53,6 +60,38 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
 
     }
 
+
+    private <T> T fromVarArgs(T[] args, int index) {
+        if (args == null || args.length == 0) {
+            return null;
+        }
+        int length = args.length;
+        if (length <= index) {
+            return args[length - 1];
+        }
+        return args[index];
+    }
+
+
+    protected DeviceProperty<String> getDeviceProp(String key, String... defaultValue) {
+        return getDeviceProp(key, String.class, defaultValue);
+    }
+
+    protected DeviceProperty<Integer> getDeviceProp(String key, Integer... defaultValue) {
+        return getDeviceProp(key, Integer.class, defaultValue);
+    }
+
+    protected DeviceProperty<Boolean> getDeviceProp(String key, Boolean... defaultValue) {
+        return getDeviceProp(key, Boolean.class, defaultValue);
+    }
+
+    protected <T> DeviceProperty<T> getDeviceProp(String key, Class<T> typeClass, T[] defaults) {
+        return new DeviceProperty<>(
+                getProp(key + DESKTOP, typeClass, fromVarArgs(defaults, 0)),
+                getProp(key + TABLET, typeClass, fromVarArgs(defaults, 1)),
+                getProp(key + MOBILE, typeClass, fromVarArgs(defaults, 2)));
+    }
+
     protected <T> List<T> retrieveMultiField(String child, Class<T> adaptable) {
         return retrieveMultiField(child, element -> element.adaptTo(adaptable)).collect(Collectors.toList());
     }
@@ -66,5 +105,6 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
                 .map(stream -> stream.map(map).filter(Objects::nonNull))
                 .orElse(Stream.empty());
     }
+
 
 }

@@ -1,16 +1,37 @@
 <template
-        data-sly-template.default="${ @ showArrows, subtitle, title, slidesDesktop,slidesTablet, slidesMobile, style, backgroundColour, cards, lightboxPath, selector, invertTitle }">
-    <div class="cardSlider-wrapper ">
-        <div class="cardSlider ${backgroundColour}">
+        data-sly-template.singleCard="${ @ thumbnail, style, briefDescription, title, noModal, invertTitle, lightboxTitleTag}">
+    <div class="cardSlider-slide-thumbnail ${style}">
+        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+             data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=700}"/>
+    </div>
+    <sly data-sly-test="${!invertTitle}">
+        <div class="cardSlider-slide">${briefDescription} </div>
+        <div data-sly-element="${lightboxTitleTag}" class="cardSlider-slide-title">${title} </div>
+    </sly>
+    <sly data-sly-test="${invertTitle}">
+        <div class="cardSlider-slide-title" data-sly-element="${lightboxTitleTag}">${title} </div>
+        <div class="cardSlider-slide">${briefDescription} </div>
+    </sly>
+    <div class="cardSlider-slide-moredetails" data-sly-test="${!noModal}">${'view-more-details' @ i18n}</div>
+</template>
+<template
+        data-sly-template.default="${ @ showLightboxArrows, subtitle, title, slides, style, backgroundColour, cards, lightboxPath, selector, invertTitle, centeredStyle, showProgressBar, centeredStyleClass, titleTag, lightboxTitleTag, titleFontSize, subtitleFontSize}">
+    <div class="cardSlider-wrapper"
+         data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ property='sscFwFontSize,sscFwFontSizeSnd', sscFwFontSize=titleFontSize, sscFwFontSizeSnd=subtitleFontSize}">
+        <div class="cardSlider ${backgroundColour} ${showProgressBar ? 'hasProgressbar' : ''} ${centeredStyleClass}"
+             style="${fw.allDevices @context='unsafe'}" data-ie-style="${fw.allDevices @ context='unsafe'}">
             <sly>
-                <div class="cardSlider-title">${title}</div>
-                <div class="cardSlider-subTitle">${subtitle @ context='html'}</div>
-                <div data-ssc-slides="${slidesDesktop}"
+                <div data-sly-element="${titleTag}" class="cardSlider-title ssc-fw-font-size">${title}</div>
+                <div class="cardSlider-subTitle ssc-fw-font-size-snd">${subtitle @ context='html'}</div>
+                <div data-ssc-slides="${slides.desktop}"
                      data-ssc-breakpoint-tablet="992"
-                     data-ssc-slides-to-show-tablet="${slidesTablet}"
+                     data-ssc-slides-to-show-tablet="${slides.tablet}"
                      data-ssc-breakpoint-mobile="600"
-                     data-ssc-slides-to-show-mobile="${slidesMobile}"
-                     class="cardSlider-content cardSlider-slider">
+                     data-ssc-slides-to-show-mobile="${slides.mobile}"
+                     data-sly-attribute.data-ssc-centered-desktop="${centeredStyle.desktop}"
+                     data-sly-attribute.data-ssc-centered-tablet="${centeredStyle.tablet}"
+                     data-sly-attribute.data-ssc-centered-mobile="${centeredStyle.mobile}"
+                     class="cardSlider-content cardSlider-slider ${showProgressBar ? 'activate-progressbar' : ''}">
                     <sly data-sly-test="${cards}" data-sly-list.card="${cards}">
                         <sly data-sly-test.hasLightbox="${!card.description.isEmpty}"/>
                         <div class="cardSlider-slide">
@@ -19,32 +40,17 @@
                             <a class="lightbox-link" data-toggle="modal" data-target="#lightbox-simple"
                                data-slb-scope="lightbox-cardSlider"
                                data-sly-test="${!card.noModal }"
-                               data-slb-arrows="${showArrows}"
+                               data-sly-attribute.data-slb-arrows="${showLightboxArrows ? 'true' : 'false'}"
                                data-slb-callback="cslInitLightbox"
                                id="lb-sl-${cardList.index}" data-simple-lightbox
                                href="#${externalizerHelper.externalizedUrl @ selectors=[selector, cardList.index], extension='html'}"></a>
                             <sly data-sly-test.thumbnail="${card.thumbnail || card.bigPicture}"/>
                             <sly data-sly-use.cardTemplate="./silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
-                                 data-sly-call="${cardTemplate.singleCard @ thumbnail=thumbnail, style=style, briefDescription=card.briefDescription, title=card.title, noModal=card.noModal, invertTitle=invertTitle }"/>
+                                 data-sly-call="${cardTemplate.singleCard @ thumbnail=thumbnail, style=style, briefDescription=card.briefDescription, title=card.title, noModal=card.noModal, invertTitle=invertTitle, lightboxTitleTag=lightboxTitleTag}"/>
                         </div>
                     </sly>
                 </div>
             </sly>
         </div>
     </div>
-</template>
-<template data-sly-template.singleCard="${ @ thumbnail, style, briefDescription, title, noModal, invertTitle}">
-    <div class="cardSlider-slide-thumbnail ${style}">
-        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-             data-sly-call="${imageTemplate.image @ imagePath=thumbnail, width=700}"/>
-    </div>
-    <sly data-sly-test="${!invertTitle}">
-        <div class="cardSlider-slide">${briefDescription} </div>
-        <div class="cardSlider-slide-title">${title} </div>
-    </sly>
-    <sly data-sly-test="${invertTitle}">
-        <div class="cardSlider-slide-title">${title} </div>
-        <div class="cardSlider-slide">${briefDescription} </div>
-    </sly>
-    <div class="cardSlider-slide-moredetails" data-sly-test="${!noModal}">${'view-more-details' @ i18n}</div>
 </template>

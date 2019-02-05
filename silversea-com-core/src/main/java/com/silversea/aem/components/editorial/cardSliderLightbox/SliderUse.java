@@ -1,26 +1,32 @@
 package com.silversea.aem.components.editorial.cardSliderLightbox;
 
 import com.silversea.aem.components.editorial.AbstractSilverUse;
+import com.silversea.aem.components.editorial.DeviceProperty;
 import com.silversea.aem.models.CardLightboxImpl;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Stream.of;
-
 
 public class SliderUse extends AbstractSilverUse {
     private List<CardLightboxImpl> cards;
-    private int slidePerPageDesktop;
-    private int slidePerPageTablet;
-    private int slidePerPageMobile;
+    private DeviceProperty<Integer> slidesPerPage;
+    private DeviceProperty<Boolean> centeredStyle;
+    private DeviceProperty<String> titleFontSize;
+    private DeviceProperty<String> subtitleFontSize;
+    private String hideArrowsPerDevice;
+    private String centeredClassPerDevice;
     private String style;
     private String title;
     private String subtitle;
-    private String backgroundColour;
-    private boolean showArrows;
+    private String titleTag;
+    private String lightboxTitleTag;
+    private DeviceProperty<String> backgroundColour;
+    private boolean showLightboxArrows;
     private boolean invertTitle;
+    private boolean showProgressBar;
+    private boolean extendedTitle;
 
 
     @Override
@@ -28,10 +34,9 @@ public class SliderUse extends AbstractSilverUse {
         ValueMap properties = getProperties();
         title = properties.get("title", String.class);
         subtitle = properties.get("subtitle", String.class);
-        slidePerPageDesktop = getInt("slidePerPageDesktop", 4);
-        slidePerPageTablet = getInt("slidePerPageTablet", slidePerPageDesktop);
-        slidePerPageMobile = getInt("slidePerPageMobile", slidePerPageTablet);
         style = getProp("style").map(String::toLowerCase).orElse("squared");
+        titleTag = getProp("titleTag", "div");
+        lightboxTitleTag = getProp("lightboxTitleTag", "div");
         cards = retrieveMultiField("cards", CardLightboxImpl.class);
         invertTitle = getBoolean("invertTitle", false);
         cards = retrieveMultiField("cards", resource -> {
@@ -43,8 +48,18 @@ public class SliderUse extends AbstractSilverUse {
             }
             return cardLightbox;
         }).collect(Collectors.toList());
-        showArrows = getBoolean("showArrows", true);
-        backgroundColour = of("Desktop", "Tablet", "Mobile").map(device -> getProp("grayBackground" + device, " ")).collect(Collectors.joining(" "));
+        showLightboxArrows = getBoolean("showLightboxArrows", true);
+        showProgressBar = getBoolean("showProgressBar", false);
+        extendedTitle = getBoolean("titleInLightbox", false);
+        backgroundColour = getDeviceProp("grayBackground", " ");
+        int numberOfCards = cards.size();
+        centeredStyle = getDeviceProp("centeredStyle", "slides", "slides", "centered").map((device, value) -> "centered".equals(value))
+                .map((device, currentValue) -> numberOfCards > 1 ? currentValue : false);
+        titleFontSize = getDeviceProp("titleFontSize", "24px");
+        subtitleFontSize = getDeviceProp("subtitleFontSize", "14px", "14px", "12px");
+        hideArrowsPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "hideArrows" + device : "").toString();
+        centeredClassPerDevice = centeredStyle.map((device, isCentered) -> isCentered ? "centeredStyle" + device : "").toString();
+        slidesPerPage = getDeviceProp("slidePerPage", 4).map((device, currentValue) -> centeredStyle.get(device) ? 1 : currentValue);
     }
 
 
@@ -52,30 +67,46 @@ public class SliderUse extends AbstractSilverUse {
         return invertTitle;
     }
 
+    public String getCenteredClassPerDevice() {
+        return centeredClassPerDevice;
+    }
 
-    public boolean isShowArrows() {
-        return showArrows;
+    public String getLightboxTitleTag() {
+        return lightboxTitleTag;
+    }
+
+
+    public boolean isShowLightboxArrows() {
+        return showLightboxArrows;
     }
 
     public String getSubtitle() {
         return subtitle;
     }
 
+    public boolean isExtendedTitle() {
+        return extendedTitle;
+    }
+
+
+    public String getTitleTag() {
+        return titleTag;
+    }
+
+    public String getHideArrowsPerDevice() {
+        return hideArrowsPerDevice;
+    }
 
     public List<CardLightboxImpl> getCards() {
         return cards;
     }
 
-    public int getSlidePerPageDesktop() {
-        return slidePerPageDesktop;
+    public DeviceProperty<Integer> getSlidesPerPage() {
+        return slidesPerPage;
     }
 
-    public int getSlidePerPageTablet() {
-        return slidePerPageTablet;
-    }
-
-    public int getSlidePerPageMobile() {
-        return slidePerPageMobile;
+    public boolean isShowProgressBar() {
+        return showProgressBar;
     }
 
     public String getTitle() {
@@ -83,11 +114,23 @@ public class SliderUse extends AbstractSilverUse {
     }
 
     public String getBackgroundColour() {
-        return backgroundColour;
+        return backgroundColour.toString();
+    }
+
+    public DeviceProperty<Boolean> getCenteredStyle() {
+        return centeredStyle;
     }
 
     public String getStyle() {
         return style;
+    }
+
+    public DeviceProperty<String> getTitleFontSize() {
+        return titleFontSize;
+    }
+
+    public DeviceProperty<String> getSubtitleFontSize() {
+        return subtitleFontSize;
     }
 
 }

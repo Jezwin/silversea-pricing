@@ -1,8 +1,8 @@
 <template
-        data-sly-template.default="${ @ duration, currentPath, countryCode, model,numPorts,numCountries,dayUntilDeparture,numRoutes, portsGallery, itinerary, externalizerHelper, itineraryMap, customDescription, hideVoyageCode, numEO }">
+        data-sly-template.default="${ @ duration, currentPath, countryCode, model,numPorts,numCountries,dayUntilDeparture,numRoutes, portsGallery, itinerary, externalizerHelper, itineraryMap, customDescription, hideVoyageCode, numEO, numExcursions }">
     <div class="cruise-2018-itineraries-container" id="menu-cruise2018itinerary">
         <sly data-sly-use.itinerarytemplate="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerary.html"
-             data-sly-call="${itinerarytemplate.commonHeader @ numEO=numEO, duration=duration, currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, portsGallery=portsGallery, externalizerHelper=externalizerHelper}"/>
+             data-sly-call="${itinerarytemplate.commonHeader @ numEO=numEO, duration=duration, currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, portsGallery=portsGallery, externalizerHelper=externalizerHelper, numExcursions=numExcursions}"/>
 
         <sly data-sly-use.itineraryDetail="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerarydetail.html"
              data-sly-call="${itineraryDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap, externalizerHelper=externalizerHelper}"/>
@@ -10,7 +10,7 @@
 </template>
 
 <template
-        data-sly-template.commonHeader="${@ duration, currentPath, countryCode, model, dayUntilDeparture, portsGallery, numPorts,numRoutes, numCountries,customDescription, hideVoyageCode, externalizerHelper,numEO }">
+        data-sly-template.commonHeader="${@ duration, currentPath, countryCode, model, dayUntilDeparture, portsGallery, numPorts,numRoutes, numCountries,customDescription, hideVoyageCode, externalizerHelper,numEO,numExcursions }">
     <div class="cruise-2018-itineraries-header ${numEO &&  numEO > 0 ? '' : 'cruise-2018-itineraries-header-no-eo'}">
         <sly data-sly-test="${model.cruiseType != 'silversea-expedition'}">
             <div class="cruise-2018-itineraries-title">${'itinerary-and-excursions' @ i18n}</div>
@@ -42,8 +42,8 @@
              data-sly-test="${ dayUntilDeparture >= 120 && model.cruiseType != 'silversea-expedition' }">${'cruise-itinerary-120-day' @ i18n}</div>
 
     </div>
-    <div class="cruise-2018-itineraries-pdf hidden-xs">`
-        <sly data-sly-test="${model.cruiseType != 'silversea-expedition' && dayUntilDeparture < 120}">
+    <div class="cruise-2018-itineraries-pdf hidden-xs">
+        <sly data-sly-test="${model.cruiseType != 'silversea-expedition' && dayUntilDeparture < 120 && numExcursions > 0}">
             <a class="btn btn-thin btn-white cruise-2018-itineraries-btn"  data-sly-test="${model.tourBook}"
                href='${currentPath @ context="uri"}.rendition.download.${countryCode @ context="scriptString"}.t.excursion.pdf'
                target="_blank" rel="nofollow"><span>${'view-all-excursions' @ i18n}</span>

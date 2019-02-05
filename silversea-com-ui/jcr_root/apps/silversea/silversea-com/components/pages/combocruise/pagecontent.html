@@ -14,6 +14,7 @@
          arrivalPortName=comboCruise.comboCruiseModel.arrivalPortName,
          departurePortName=comboCruise.comboCruiseModel.departurePortName,
          numEO=0,
+         isWaitlist=comboCruise.isWaitList,
          startDate=comboCruise.comboCruiseModel.startDate,
          endDate=comboCruise.comboCruiseModel.endDate,
          duration=comboCruise.comboCruiseModel.duration,
@@ -32,7 +33,7 @@
          startDate=comboCruise.comboCruiseModel.startDate,
          endDate=comboCruise.comboCruiseModel.endDate,
          duration=comboCruise.duration,
-         isWaitlist=comboCruise.isWaitlist,
+         isWaitlist=comboCruise.isWaitList,
          earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
          currency=comboCruise.lowestPrice.currency,
          computedPriceFormatted=comboCruise.computedPriceFormatted,
@@ -57,19 +58,22 @@
          hideVoyageCode=true}"/>
     <div class="cardSliderLightbox cruise2018-keypeople" data-sly-test="${comboCruise.keyPeople}">
         <hr/>
+        <sly data-sly-use.slides="${'com.silversea.aem.helper.DevicePropertyHelper' @ desktop=4,tablet=3,mobile=1}"/>
+        <sly data-sly-use.titleFontSize="${'com.silversea.aem.helper.DevicePropertyHelper' @ desktop='24px',tablet='24px',mobile='24px'}"/>
+        <sly data-sly-use.subtitleFontSize="${'com.silversea.aem.helper.DevicePropertyHelper' @ desktop='14px',tablet='14px',mobile='14px'}"/>
         <sly data-sly-test.title="${comboCruise.keyPeopleTitle}"/>
         <sly data-sly-use.template="/apps/silversea/silversea-com/components/editorial/cardSliderLightbox/template.html"
-             data-sly-call="${template.default @
-             title=title,
-             slidesDesktop=4,
-             slidesTablet=3,
-             slidesMobile=1,
-             style='circled',
-             backgroundColour='grayBackground',
-             cards=comboCruise.keyPeople,
-             lightboxPath=currentPage.path,
-             invertTitle=true,
-             selector='lightboxes.lg-keyperson'}"/>
+        data-sly-call="${template.default @
+        title=title,
+        slides=slides.deviceProperty,
+        style='circled',
+        backgroundColour='grayBackground',
+        cards=comboCruise.keyPeople,
+        lightboxPath=currentPage.path,
+        titleFontSize=titleFontSize.deviceProperty,
+        subtitleFontSize=subtitleFontSize.deviceProperty,
+        invertTitle=true,
+        selector='lightboxes.lg-keyperson'}"/>
     </div>
     <hr class="combocruise-2018-hr-itinerary-suite"/>
     <div id="menu-cruise2018suites"
@@ -95,7 +99,7 @@
          data-sly-call="${prepost.default @ prePosts=comboCruise.globalPrePost, activateProgressbar=true}"/>
     <sly data-sly-use.footer="/apps/silversea/silversea-com/components/pages/cruise/templates/footer.html"
          data-sly-call="${footer.default @
-         isWaitlist=comboCruise.isWaitlist,
+         isWaitlist=comboCruise.isWaitList,
          earlyBookingBonus=comboCruise.lowestPrice.earlyBookingBonus,
          currency=comboCruise.lowestPrice.currency,
          computedPriceFormatted=comboCruise.computedPriceFormatted,

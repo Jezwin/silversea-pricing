@@ -12,7 +12,7 @@
 
 .lightbox-map {
   .ratio-big-itinerary {
-    height: 460px;
+    height: 445px;
   }
   .ratio-small-itinerary img {
     height: 80px !important;
@@ -65,9 +65,12 @@
 }
 
 
-.modal-larger {
-  max-width: 930px !important;
-  .lightbox-close {
-    width: 930px !important;
+@media(min-width: @screen-lg-min) {
+  .modal-larger {
+    max-width: 930px !important;
+
+    .lightbox-close {
+      width: 930px !important;
+    }
   }
 }

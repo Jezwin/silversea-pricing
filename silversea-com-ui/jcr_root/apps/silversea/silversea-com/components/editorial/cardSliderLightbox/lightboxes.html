@@ -2,8 +2,10 @@
     <sly class="cardSliderLightboxContent"
          data-sly-use.lightboxUse="${'com.silversea.aem.components.editorial.cardSliderLightbox.LightboxUse'}">
         <sly data-sly-test.card="${lightboxUse.card}"/>
-        <a href="#${lightboxUse.prev}" class="used-by-lightbox-simple-prev">${lightboxUse.prevCard.title}</a>
-        <a href="#${lightboxUse.next}" class="used-by-lightbox-simple-next">${lightboxUse.nextCard.title}</a>
+        <sly data-sly-use.prevUrl="${'com.silversea.aem.helper.ExternalizerHelper' @ path=lightboxUse.prev, absolute=false}"/>
+        <sly data-sly-use.nextUrl="${'com.silversea.aem.helper.ExternalizerHelper' @ path=lightboxUse.next, absolute=false}"/>
+        <a href="#${prevUrl.externalizedUrl}" data-sly-test="${lightboxUse.cards.size>1}"  class="used-by-lightbox-simple-prev">${lightboxUse.prevCard.title}</a>
+        <a href="#${nextUrl.externalizedUrl}" data-sly-test="${lightboxUse.cards.size>1}" class="used-by-lightbox-simple-next">${lightboxUse.nextCard.title}</a>
 
         <div class="csl-asset-slider csl-asset-slider--main">
             <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=card.assetSelection, fallback=card.bigPicture || card.thumbnail}"/>
@@ -20,10 +22,11 @@
                 </div>
             </div>
         </div>
-        <sly data-sly-test="${lightboxUse.titleInLightbox}">
-            <div class="csl-title cardLight">${card.customTitle || card.title || card.name} - ${card.briefDescription}</div>
+        <sly data-sly-test="${lightboxUse.extendedTitle}">
+            <div class="csl-title cardLight">${card.customTitle || card.title || card.name}
+                - ${card.briefDescription}</div>
         </sly>
-        <sly data-sly-test="${!lightboxUse.titleInLightbox}">
+        <sly data-sly-test="${!lightboxUse.extendedTitle}">
             <div class="csl-title cardLight">${card.customTitle || card.title || card.name}</div>
         </sly>
 

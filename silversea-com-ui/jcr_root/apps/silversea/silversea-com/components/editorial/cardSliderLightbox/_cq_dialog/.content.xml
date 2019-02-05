@@ -128,16 +128,46 @@
                             <slidePerPageDesktop
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                    fieldDescription="Slide per page Desktop"
-                                    fieldLabel="Slide per page Desktop"
+                                    fieldDescription="Slides per page Desktop"
+                                    fieldLabel="Slides per page Desktop"
                                     required="{Boolean}true"
                                     name="./slidePerPageDesktop"/>
+                            <centeredStyle
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Slide style"
+                                    fieldLabel="Slide style"
+                                    name="./centeredStyleDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <slides
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Slides"
+                                            value="slides"/>
+                                    <centered
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Centered"
+                                            value="centered"/>
+                                </items>
+                            </centeredStyle>
                             <grayBackgroundDesktop
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
                                     name="./grayBackgroundDesktop"
                                     value="grayBackgroundDesktop"
                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <titleFontSize
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Title Font Size"
+                                    fieldLabel="Title Font Size"
+                                    name="./titleFontSizeDesktop"/>
+                            <subtitleFontSize
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="SubTitle Font Size"
+                                    fieldLabel="SubTitle Font Size"
+                                    name="./subtitleFontSizeDesktop"/>
+
                         </items>
                     </column>
                 </items>
@@ -158,16 +188,45 @@
                             <slidePerPageTablet
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                    fieldDescription="Slide per page Tablet"
-                                    fieldLabel="Slide per page Tablet"
+                                    fieldDescription="Slides per page Tablet"
+                                    fieldLabel="Slides per page Tablet"
                                     required="{Boolean}true"
                                     name="./slidePerPageTablet"/>
+                            <centeredStyle
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Slide style"
+                                    fieldLabel="Slide style"
+                                    name="./centeredStyleTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <slides
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Slides"
+                                            value="slides"/>
+                                    <centered
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Centered"
+                                            value="centered"/>
+                                </items>
+                            </centeredStyle>
                             <grayBackgroundTablet
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
                                     name="./grayBackgroundTablet"
                                     value="grayBackgroundTablet"
                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <titleFontSize
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Title Font Size"
+                                    fieldLabel="Title Font Size"
+                                    name="./titleFontSizeTablet"/>
+                            <subtitleFontSize
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="SubTitle Font Size"
+                                    fieldLabel="SubTitle Font Size"
+                                    name="./subtitleFontSizeTablet"/>
                         </items>
                     </column>
                 </items>
@@ -188,16 +247,45 @@
                             <slidePerPageMobile
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                    fieldDescription="Slide per page Mobile"
-                                    fieldLabel="Slide per page Mobile"
+                                    fieldDescription="Slides per page Mobile"
+                                    fieldLabel="Slides per page Mobile"
                                     required="{Boolean}true"
                                     name="./slidePerPageMobile"/>
+                            <centeredStyle
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Slide style"
+                                    fieldLabel="Slide style"
+                                    name="./centeredStyleMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <slides
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Slides"
+                                            value="slides"/>
+                                    <centered
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Centered"
+                                            value="centered"/>
+                                </items>
+                            </centeredStyle>
                             <grayBackgroundMobile
                                     jcr:primaryType="nt:unstructured"
                                     text="Gray Background"
                                     name="./grayBackgroundMobile"
                                     value="grayBackgroundMobile"
                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <titleFontSize
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Title Font Size"
+                                    fieldLabel="Title Font Size"
+                                    name="./titleFontSizeTablet"/>
+                            <subtitleFontSize
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="SubTitle Font Size"
+                                    fieldLabel="SubTitle Font Size"
+                                    name="./subtitleFontSizeTablet"/>
                         </items>
                     </column>
                 </items>
@@ -232,6 +320,12 @@
                                             value="circled"/>
                                 </items>
                             </style>
+                            <showProgressBar
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Show the progressbar"
+                                    name="./showProgressBar"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                             <showArrows
                                     jcr:primaryType="nt:unstructured"
                                     text="Show lightbox arrows"
@@ -250,6 +344,56 @@
                                     name="./titleInLightbox"
                                     value="true"
                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <titleTag
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Title Tag"
+                                    fieldLabel="Title tag"
+                                    name="./titleTag">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <div
+                                            jcr:primaryType="nt:unstructured"
+                                            text="div"
+                                            value="div"/>
+                                    <h1
+                                            jcr:primaryType="nt:unstructured"
+                                            text="h1"
+                                            value="h1"/>
+                                    <h2
+                                            jcr:primaryType="nt:unstructured"
+                                            text="h2"
+                                            value="h2"/>
+                                    <h3
+                                            jcr:primaryType="nt:unstructured"
+                                            text="h3"
+                                            value="h3"/>
+                                </items>
+                            </titleTag>
+                            <lightboxTitleTag
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldDescription="Lightbox Title Tag"
+                                    fieldLabel="Lightbox Title tag"
+                                    name="./lightboxTitleTag">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <div
+                                            jcr:primaryType="nt:unstructured"
+                                            text="div"
+                                            value="div"/>
+                                    <h1
+                                            jcr:primaryType="nt:unstructured"
+                                            text="h1"
+                                            value="h1"/>
+                                    <h2
+                                            jcr:primaryType="nt:unstructured"
+                                            text="h2"
+                                            value="h2"/>
+                                    <h3
+                                            jcr:primaryType="nt:unstructured"
+                                            text="h3"
+                                            value="h3"/>
+                                </items>
+                            </lightboxTitleTag>
                         </items>
                     </column>
                 </items>
