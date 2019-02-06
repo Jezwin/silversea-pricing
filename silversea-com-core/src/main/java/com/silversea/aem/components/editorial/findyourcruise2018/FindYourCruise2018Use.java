@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
+import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
@@ -17,6 +18,7 @@ import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -131,7 +133,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             this.cruises = retrievePaginatedCruises(pagination, filteredCruises);
         }
         return pagination;
-
     }
 
     private Map<String, String[]> addFilterByPage() {

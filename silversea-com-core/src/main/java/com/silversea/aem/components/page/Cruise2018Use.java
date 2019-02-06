@@ -50,11 +50,13 @@ public class Cruise2018Use extends EoHelper {
         EO_CONFIG.setMapOverheadVoyage(true);
         EO_CONFIG.setCruiseFareVoyage(true);
         EO_CONFIG.setPriorityWeight(true);
+        EO_CONFIG.setPostPrice(true);
         EO_CONFIG.setIconVoyage(true);
     }
 
     private List<ExclusiveOfferItem> exclusiveOffers;
     private List<String> exclusiveOffersCruiseFareAdditions;
+    private String exclusiveOfferPostPrice;
     private boolean venetianSociety;
     private String VSLBPath;
 
@@ -159,7 +161,9 @@ public class Cruise2018Use extends EoHelper {
         departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
         cruiseModel = retrieveCruiseModel();
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
+        exclusiveOfferPostPrice = retrieveExclusiveOfferPostPrice(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         VSLBPath = retrieveVenetianSocietyLBPath();
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
@@ -205,6 +209,21 @@ public class Cruise2018Use extends EoHelper {
         });
         this.hasexcursionsCounter = firstExcursionsCounter();
     }
+
+
+    private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferItem> exclusiveOffers) {
+        Integer priorityWeight = Integer.MIN_VALUE;
+        String postPrice = null;
+        for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
+            boolean isTheRightPostPrice = StringUtils.isNotEmpty(exclusiveOffer.getPostPrice()) && exclusiveOffer.getPriorityWeight() > priorityWeight;
+            if (isTheRightPostPrice) {
+                priorityWeight = exclusiveOffer.getPriorityWeight();
+                postPrice = exclusiveOffer.getPostPrice();
+            }
+        }
+        return postPrice;
+    }
+
 
     private List<SilverseaAsset> retrievePortsGalleryAndVideo(CruiseModel cruiseModel) {
         String assetSelectionReference;
@@ -625,6 +644,14 @@ public class Cruise2018Use extends EoHelper {
         return arrivalPortName;
     }
 
+    public String getExclusiveOfferPostPrice() {
+        return exclusiveOfferPostPrice;
+    }
+
+    public void setExclusiveOfferPostPrice(String exclusiveOfferPostPrice) {
+        this.exclusiveOfferPostPrice = exclusiveOfferPostPrice;
+    }
+    
     public int getNumExcursions() {
         return numExcursions;
     }
