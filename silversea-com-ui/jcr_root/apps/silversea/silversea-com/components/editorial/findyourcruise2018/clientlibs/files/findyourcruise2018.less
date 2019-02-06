@@ -60,7 +60,6 @@ margin-bottom: ;
   .fyc2018-header-custom-mobile-title {
     display: none;
   }
-
   .fyc2018-pagination {
     margin-top: 40px;
     color: black;
@@ -171,6 +170,7 @@ margin-bottom: ;
     font-size: 13px;
     float: right;
     margin-right: -2px;
+    cursor: pointer;
     i {
       padding-top: 11px;
       padding-left: 11px;
@@ -193,7 +193,7 @@ margin-bottom: ;
 
   min-height: 727px;
   .c-fyc-v2__result-wrapper {
-    margin-top: 60px;
+    margin-top: 90px;
   }
 
   .fyc2018-no-results {
@@ -244,7 +244,7 @@ margin-bottom: ;
 
   .fyc2018-filters-container {
     padding-top: 8px;
-
+    position: relative;
     .fyc2018-filters-wrapper {
       table-layout: fixed;
       width: 100%;
@@ -771,6 +771,39 @@ margin-bottom: ;
         border: 1px solid;
         border-color: #171d474f;
       }
+    }
+  }
+}
+
+/*Subfilters style rules*/
+.findyourcruise2018 {
+  .fyc2018-show-hide-waitlist {
+    color: black;
+    float: right;
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    font-family: @suisse;
+    cursor: pointer;
+    margin-right: 2px;
+    text-decoration: underline;
+    position: absolute;
+    top: 60px;
+    right: 0;
+
+    .waitlist {
+      display: none;
+    }
+  }
+
+  @media (max-width: @screen-sm) {
+    .fyc2018-show-hide-waitlist {
+      font-size: 11px;
+      text-align: center;
+      margin-bottom: 15px;
+      width: 100%;
+      position: relative;
+      top: 0;
     }
   }
 }

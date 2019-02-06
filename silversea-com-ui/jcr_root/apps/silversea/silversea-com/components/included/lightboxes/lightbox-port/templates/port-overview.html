@@ -8,6 +8,18 @@
                 <div class="lg-port-country" data-sly-test="${model.portItinerary.port.countryIso2 != 'ZZ'}">
                     ${model.portItinerary.port.country}
                 </div>
+                <div class="lg-port-date-time">
+                    <sly data-sly-test.arriveTime="${model.portItinerary.arriveTime}" />
+                    <sly data-sly-test.departTime="${model.portItinerary.departTime}" />
+                    <sly data-sly-test.overnight="${model.portItinerary.overnight}"/>
+                    <sly data-sly-test="${arriveTime && !departTime}">${'arrive' @i18n}</sly>
+                    <sly data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=arriveTime}"> ${arriveTimeFormat.value}</sly>
+                    <sly data-sly-test="${arriveTime && (departTime || overnight)}">-</sly>
+                    <sly data-sly-test="${!arriveTime && departTime && !overnight}">${'departure' @i18n}</sly>
+                    <sly data-sly-test="${!overnight}"
+                         data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}"> ${arriveTimeFormat.value}</sly>
+                    <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
+                </div>
                 <div class="lg-port-description">
                     ${model.portItinerary.port.description @ context='html'}
                 </div>

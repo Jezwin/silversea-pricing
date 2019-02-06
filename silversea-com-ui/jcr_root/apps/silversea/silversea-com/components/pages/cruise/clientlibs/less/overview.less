@@ -46,10 +46,11 @@
     border-radius: 45px;
     vertical-align: middle;
     text-align: center;
-    background-size: contain;
     top: 10%;
     transform: translate(-10%,-36%);
     right: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .cruise-2018-overview-map-btn-label {
@@ -67,7 +68,7 @@
     font-family: @suisse;
     font-size: 13px;
     letter-spacing: 1px;
-
+    text-transform: capitalize;
   }
 
   .cruise-2018-overview-photos-videos-btn {
@@ -94,6 +95,7 @@
     font-family: @suisse;
     height: 34px;
     min-width: 156px;
+    text-align: center;
 
   }
 
@@ -438,6 +440,10 @@
 
     .cruise-2018-overview-quote-suites-fares {
       display: none;
+    }
+
+    .cruise-2018-overview-full-width {
+      margin-left: 0px !important;
     }
 
     .cruise-2018-overview-big-pic {

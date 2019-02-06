@@ -16,7 +16,7 @@ $(document).on('shown.bs.modal', function (e) {
         setTopLightboxModal(0);
         $modalLightbox.find(".modal-header").hide();
     }
-    if ($("body").hasClass("cruise") && $(".cruise-2018-overview").height() > 0) {
+    if ($(".cruise-2018, .combocruise-2018").length > 0) {
         setTimeout(function () {
             $(".modal.lightbox").css("visibility", "visible");
         }, 1500);
@@ -26,6 +26,7 @@ $(document).on('shown.bs.modal', function (e) {
 
 $('.modal.lightbox').on('hidden.bs.modal', function (e) {
     var $modalLightbox = $(".modal.lightbox");
+    $modalLightbox.find(".modal-dialog").removeClass("modal-larger");
     var $lightboxClose = $(this).find(".lightbox-close");
     var $modalContent = $(this).find(".modal-content");
     $modalContent.removeAttr("style");

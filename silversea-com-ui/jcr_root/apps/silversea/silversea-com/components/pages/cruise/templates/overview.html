@@ -1,5 +1,4 @@
-<template
-        data-sly-template.default="${ @  exclusiveOfferPostPrice, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
+<template data-sly-template.default="${ @  exclusiveOfferPostPrice,bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
     <div class="cruise-2018-overview row container ${isCombo ? 'cruise-2018-overview-single-column' : ''}"
          data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets',cruiseType]}"
          data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map',cruiseType]}"
@@ -9,13 +8,13 @@
            style="background-image:url('${bigItineraryMap  @ context='unsafe'}')">
             <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
         </a>
+        <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary}"/>
+        <sly data-sly-test.cruiseMobileImg="${isCombo ? cruiseDesktopImg : bigItineraryMap || bigThumbnail || itinerary}"/>
         <div class="cruise-2018-overview-big-pic ${isCombo ? 'col-sm-12 cruise-2018-overview-full-width' : 'col-sm-6'} col-xs-12">
             <sly data-sly-list.asset="${assetsGallery}">
                 <sly data-sly-test="${asset.path && assetList.index < 1}"
                      data-sly-test.firstAssetGalleryImg="${asset.path}"/>
             </sly>
-            <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
-            <sly data-sly-test.cruiseMobileImg="${bigItineraryMap || bigThumbnail || itinerary || firstAssetGalleryImg}"/>
             <div class="open-lightbox-gallery-assets" data-target=".lightbox" id="lb-mainGallery">
                 <picture data-sly-test="${cruiseDesktopImg || cruiseMobileImg}">
                     <sly data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseDesktopImg}"/>
@@ -28,7 +27,7 @@
                             media="(min-width: 768px)"/>
                     <!--[if IE 9]></video><![endif]-->
                     <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                         src="${assetHelperDesktop.imageUrl @ context='unsafe'}?fmt=pjpeg&pscan=5&qlt=80&fit=hfit"
+                         src="${assetHelperDesktop.imageUrl @ context='unsafe'}?wid=1900&fmt=pjpeg&pscan=5&qlt=80&fit=hfit"
                          alt="${assetHelperDesktop.metadataResource.valueMap['dc:title']  || currentPage.title}"/>
                 </picture>
             </div>
@@ -38,6 +37,12 @@
             </a>
         </div>
         <div class="ow-slider ow-slider--main main-slider visible-xs">
+            <div data-image="${cruiseMobileImg}" data-sly-test="${cruiseMobileImg && isCombo}">
+                <div class="ratio">
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                         data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=cruiseMobileImg, Width=700}"/>
+                </div>
+            </div>
             <sly data-sly-repeat.asset="${assetsGallery}">
                 <div data-image="${asset.path}" data-sly-test="${asset.path}">
                     <div class="ratio ${asset.type == 'virtual-tour' ? 'ow-virtual-tour' : ''}  ${asset.type == 'itinerary' ? 'ow-itinerary' : ''}"
@@ -65,15 +70,25 @@
                 <div class="cruise-2018-overview-photos-videos-btn-combo">${'photos-and-videos' @ i18n}</div>
             </a>
             <div class="cruise-2018-overview-description-cruise">
-                <sly data-sly-test="${showCruiseBeforeName}">${'cruise' @i18n}</sly>
-                ${navigationTitle || title}
-                <sly data-sly-test="${!showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                <sly data-sly-test="${!isCombo}">
+                    <sly data-sly-test="${showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                    ${navigationTitle || title}
+                    <sly data-sly-test="${!showCruiseBeforeName}">${'cruise' @i18n}</sly>
+                </sly>
+                <sly data-sly-test="${isCombo}">
+                    ${smallTitle} - ${departurePortName} ${'to' @ i18n} ${arrivalPortName}
+                </sly>
             </div>
-            <div class="cruise-2018-overview-description-from-to">
-                <div class="${isCombo ? 'cruise-2018-overview-description-origin' : ''}">${departurePortName} </div>
-                <div class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</div>
-                <div class="cruise-2018-overview-description-from-to-destination">${arrivalPortName}</div>
-            </div>
+            <h1 class="cruise-2018-overview-description-from-to">
+                <sly data-sly-test="${!isCombo}">
+                    <span class="${isCombo ? 'cruise-2018-overview-description-origin' : ''}">${departurePortName} </span>
+                    <span class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</span>
+                    <span class="cruise-2018-overview-description-from-to-destination">${arrivalPortName}</span>
+                </sly>
+                <sly data-sly-test="${isCombo}">
+                    ${bigTitle}
+                </sly>
+            </h1>
             <div class="cruise-2018-row-information-cruise hidden-xs">
                 <span class="cruise-2018-row-information-cruise-date"
                       data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd, yyyy', date=startDate}">
@@ -144,7 +159,8 @@
                         <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote"
                            id="cruise-2018-rqa"
                            data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
-                           href="${requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"  rel="nofollow"
+                           href="${requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"
+                           rel="nofollow"
                            data-sscclicktype="clic-RAQ">
                             <span>${'request-quote' @i18n}</span>
                         </a>
@@ -152,7 +168,7 @@
                     <sly data-sly-test="${!pageProperties.cruiseCode}">
                         <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
                            id="cruise-2018-rqa"
-                           href="${requestQuotePagePath @ extension='html', selectors='s'}"  rel="nofollow"
+                           href="${requestQuotePagePath @ extension='html', selectors='s'}" rel="nofollow"
                            data-sscclicktype="clic-RAQ">
                             <span>${'request-quote' @i18n}</span>
                         </a>

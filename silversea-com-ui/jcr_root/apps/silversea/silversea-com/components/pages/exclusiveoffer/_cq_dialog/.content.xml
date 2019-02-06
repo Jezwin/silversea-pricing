@@ -195,6 +195,13 @@
 																text="Active system"
 																fieldDescription="Active the new EO System"
 																value="true"/>
+															<ghostOffer
+																	jcr:primaryType="nt:unstructured"
+																	sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																	name="./ghostOffer"
+																	text="Active Offer as ghost"
+																	fieldDescription="Active the new EO as ghost"
+																	value="true"/>
 															<categoryEO
 		                                                       jcr:primaryType="nt:unstructured"
 		                                                       sling:resourceType="cq/gui/components/common/tagspicker"

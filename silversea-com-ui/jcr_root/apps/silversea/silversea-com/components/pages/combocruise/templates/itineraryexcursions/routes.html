@@ -4,11 +4,14 @@
          data-ssc-slides-to-show-tablet="3"
          data-ssc-breakpoint-mobile="600"
          data-ssc-slides-to-show-mobile="1"
+         ssc-centermode-mobile="true"
+         ssc-arrow-mobile="false"
          class="silversea-slider route-slider activate-progressbar">
         <sly data-sly-list.route="${routes}">
-            <div class="silversea-slide">
+            <a class="silversea-slide change-route-onclick"
+               href="${request.requestURI @ selectors=['templates.itineraryexcursions.itinerarydetail',route.page.name]}">
                 <div class="route-content ${routeList.first ? 'route-active' : ''}">
-                    <a class="change-route-onclick" href="${request.requestURI @ selectors=['templates.itineraryexcursions.itinerarydetail',route.page.name]}">
+                    <div class="route-content-square">
                         <time data-sly-test="${route.cruise.startDate}"
                               data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=route.cruise.startDate}"
                               data-sly-use.startDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=route.cruise.startDate}"
@@ -23,9 +26,9 @@
                         </time>
                         <strong> ${route.cruise.departurePortName} <br> ${'to' @ i18n}
                             <br> ${route.cruise.arrivalPortName}</strong>
-                    </a>
+                    </div>
                 </div>
-            </div>
+            </a>
         </sly>
     </div>
 </template>

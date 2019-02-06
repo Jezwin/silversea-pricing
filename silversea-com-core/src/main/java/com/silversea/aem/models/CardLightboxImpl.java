@@ -30,18 +30,14 @@ public class CardLightboxImpl implements CardLightbox {
 
     @Inject
     @Optional
+    private Boolean noModal;
+
+
+    @Inject
+    @Optional
     private String assetSelection;
 
     public CardLightboxImpl() {
-    }
-
-    public CardLightboxImpl(String title, String briefDescription, String longDescription, String thumbnail, String bigPicture, String assetSelection) {
-        this.title = title;
-        this.briefDescription = briefDescription;
-        this.longDescription = longDescription;
-        this.thumbnail = thumbnail;
-        this.bigPicture = bigPicture;
-        this.assetSelection = assetSelection;
     }
 
     @Override
@@ -74,4 +70,37 @@ public class CardLightboxImpl implements CardLightbox {
         return bigPicture;
     }
 
+
+    @Override
+    public boolean getNoModal() {
+        return noModal != null && noModal;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setBriefDescription(String briefDescription) {
+        this.briefDescription = briefDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setBigPicture(String bigPicture) {
+        this.bigPicture = bigPicture;
+    }
+
+    public void setNoModal(Boolean noModal) {
+        this.noModal = noModal;
+    }
+
+    public void setAssetSelection(String assetSelection) {
+        this.assetSelection = assetSelection;
+    }
 }

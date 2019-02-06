@@ -1,699 +1,704 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:language="fr"
-    jcr:mixinTypes="[mix:language]"
-    jcr:primaryType="nt:folder">
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:language="fr"
+          jcr:mixinTypes="[mix:language]"
+          jcr:primaryType="nt:folder">
     <aboard
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="à bord du"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="à bord du"/>
     <AC
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Adventurer Class"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Adventurer Class"/>
     <adjust-your-search-filters
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="modifiez vos filtres de recherche"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="modifiez vos filtres de recherche"/>
     <all-departure-dates
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Toutes les dates de départ"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Toutes les dates de départ"/>
     <all-destinations
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Toutes les destinations"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Toutes les destinations"/>
     <all-ships
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Tous les navires"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Tous les navires"/>
     <and
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="et"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="et"/>
     <archives
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Archives"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Archives"/>
     <arrive
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Arriver"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Arriver"/>
     <aud
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="AU$"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="AU$"/>
     <aud0
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:key="AUD"
-        sling:message="AU$"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:key="AUD"
+            sling:message="AU$"/>
     <avaible-on
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="disponible sur"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="disponible sur"/>
     <available-on
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="disponible sur"/>
-	<available-on-ships
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="&#xa;est disponible sur les navires suivants"/>	
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="disponible sur"/>
+    <available-on-ships
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="&#xa;est disponible sur les navires suivants"/>
     <award-label
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Silversea reçoit régulièrement les éloges émanant d’une clientèle de marque et de publications spécialisées"/>
-   	<agency-name
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Agency name"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Silversea reçoit régulièrement les éloges émanant d’une clientèle de marque et de publications spécialisées"/>
+    <agency-name
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Agency name"/>
     <B1
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veranda 1"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veranda 1"/>
     <B2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veranda 2"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veranda 2"/>
     <B3
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veranda 3"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veranda 3"/>
     <B4
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veranda 4"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veranda 4"/>
     <B5
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veranda 5"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veranda 5"/>
     <B6
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veranda 6"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veranda 6"/>
     <benefits-and-events
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Avantages et événements"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Avantages et événements"/>
+    <benefits
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Avantages"/>
     <benefits-and-events-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="En plus de nos tarifs tout compris, vous profiterez des attentions et services exclusifs que nous réservons à nos clients World Cruise 2019. Une impressionnante gamme d’options supplémentaires et des événements culturels exclusifs vous attendent pour le voyage de votre vie."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="En plus de nos tarifs tout compris, vous profiterez des attentions et services exclusifs que nous réservons à nos clients World Cruise 2019. Une impressionnante gamme d’options supplémentaires et des événements culturels exclusifs vous attendent pour le voyage de votre vie."/>
     <benefits-and-events-title
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="De nombreuses commodités pour encore plus de confort"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="De nombreuses commodités pour encore plus de confort"/>
     <benefits-ands-events-title
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="De nombreuses commodités pour encore plus de confort"/>
-	<brochures
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="brochures"
-        sling:message="Brochures"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="De nombreuses commodités pour encore plus de confort"/>
+    <brochures
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="brochures"
+            sling:message="Brochures"/>
     <blog
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Notre blog"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Notre blog"/>
     <blog-posts
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Articles de blog"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Articles de blog"/>
     <booking-bonus
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="booking bonus"/>
-	<booking-number
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nombre de réservations"/>	
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="booking bonus"/>
+    <booking-number
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nombre de réservations"/>
     <brochure-text
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Obtenez un aperçu plus détaillé de toutes les croisières et expéditions de luxe de Silversea en lisant nos brochures, c'est entièrement gratuit."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Obtenez un aperçu plus détaillé de toutes les croisières et expéditions de luxe de Silversea en lisant nos brochures, c'est entièrement gratuit."/>
     <built-date
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Date de construction"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Date de construction"/>
     <by
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Par"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Par"/>
     <call-reservations-team-1
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Contactez notre service de réservations"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Contactez notre service de réservations"/>
     <call-reservations-team-2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="ou contactez votre agent de voyages"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="ou contactez votre agent de voyages"/>
     <call-reservations-team-learn-excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Appelez notre équipe de réservation pour en savoir plus au sujet de nos excursions"/>
     <check-phone-format
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veuillez vérifier le format du numéro de téléphone"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veuillez vérifier le format du numéro de téléphone"/>
     <city
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Ville"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Ville"/>
     <clear-all-filters
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Supprimer tous les filtres"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Supprimer tous les filtres"/>
     <click-to-call
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Cliquez pour téléphoner"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Cliquez pour téléphoner"/>
     <close
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Fermer"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Fermer"/>
     <code
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="code"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="code"/>
     <cruise
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="croisière"/>
     <cruises
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="croisières"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="croisières"/>
     <combo-cruis-overview-subtitle
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="De vastes ponts, des bars panoramiques, des options de dîner gourmet et des hébergements exclusivement composés de suites, sont la garantie du plus confortable des voyages. Avec, en plus, le luxe incomparable qui a fait de Silversea le choix privilégié des voyageurs avisés d’aujourd’hui."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="De vastes ponts, des bars panoramiques, des options de dîner gourmet et des hébergements exclusivement composés de suites, sont la garantie du plus confortable des voyages. Avec, en plus, le luxe incomparable qui a fait de Silversea le choix privilégié des voyageurs avisés d’aujourd’hui."/>
     <combo-cruis-overview-title
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="CHOISISSEZ VOTRE SUITE ET DEMANDEZ UN DEVIS"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="CHOISISSEZ VOTRE SUITE ET DEMANDEZ UN DEVIS"/>
     <combocruise-suite-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="De vastes ponts, des bars panoramiques, des options de dîner gourmet et des hébergements exclusivement composés de suites, sont la garantie du plus confortable des voyages. Avec, en plus, le luxe incomparable qui a fait de Silversea le choix privilégié des voyageurs avisés d’aujourd’hui."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="De vastes ponts, des bars panoramiques, des options de dîner gourmet et des hébergements exclusivement composés de suites, sont la garantie du plus confortable des voyages. Avec, en plus, le luxe incomparable qui a fait de Silversea le choix privilégié des voyageurs avisés d’aujourd’hui."/>
     <combocruise-suite-descriptions
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="De vastes ponts, des bars panoramiques, des options de dîner gourmet et des hébergements exclusivement composés de suites, sont la garantie du plus confortable des voyages. Avec, en plus, le luxe incomparable qui a fait de Silversea le choix privilégié des voyageurs avisés d’aujourd’hui."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="De vastes ponts, des bars panoramiques, des options de dîner gourmet et des hébergements exclusivement composés de suites, sont la garantie du plus confortable des voyages. Avec, en plus, le luxe incomparable qui a fait de Silversea le choix privilégié des voyageurs avisés d’aujourd’hui."/>
     <coordinates
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Coordonnées"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Coordonnées"/>
     <copyright
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Silversea Cruises Ltd."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Silversea Cruises Ltd."/>
     <countries
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Pays"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pays"/>
     <country
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Pays"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pays"/>
     <country-code
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Code du pays"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Code du pays"/>
     <credits
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="crédits"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="crédits"/>
     <crew
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="équipage"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="équipage"/>
     <crew-capacity
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Capacité équipage"/>
-     <cruise
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Capacité équipage"/>
+    <cruise
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="croisière"/>
     <cruise-enrichments-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les croisières Silversea encouragent vos passions et vous donnent l’occasion de profiter d’expériences inédites"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les croisières Silversea encouragent vos passions et vous donnent l’occasion de profiter d’expériences inédites"/>
     <cruise-itinerary-120-day
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information."/>
+            sling:message="Veuillez noter que les excursions suivantes vous sont présentées en tant qu'échantillon de ce qui pourrait vous être proposé lors de cette croisière et qu'elles sont susceptibles d'être modifiées. Nous invitons les passagers à consulter my.silversea.com 120 jours avant leur départ pour accéder aux informations les plus récentes."/>
     <cruise-excursion-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les excursions constituent le temps fort de la croisière et vous permettent de découvrir votre destination à 360 degrés. Vous pouvez également profiter d’une organisation sur mesure avec votre Concierge Silver Shore au moins deux semaines avant d’embarquer."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les excursions constituent le temps fort de la croisière et vous permettent de découvrir votre destination à 360 degrés. Vous pouvez également profiter d’une organisation sur mesure avec votre Concierge Silver Shore au moins deux semaines avant d’embarquer."/>
     <cruise-itinerary
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Itinéraire de croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Itinéraire de croisière"/>
     <cruise-itinerary-descr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les destinations que vous visiterez sont au cœur de chaque croisière. Explorez la galerie ci-dessous pour en savoir plus."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les destinations que vous visiterez sont au cœur de chaque croisière. Explorez la galerie ci-dessous pour en savoir plus."/>
     <cruise-itinerary-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
     <cruise-itinerary-description-v2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
     <cruise-itinerary-description-expedition
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
     <cruise-itinerary-description-v2-expedition
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nos itinéraires sont sans égal. Vous trouverez ci-dessous des informations détaillées au sujet des ports d’escale, des horaires d’arrivée et de départ ainsi que des renseignements supplémentaires sur les destinations que vous visiterez."/>
     <cruise-itinerary-link
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Cliquez ici pour voir toutes les photos et les vidéos"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Cliquez ici pour voir toutes les photos et les vidéos"/>
     <cruise-ship-publicarea-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Renommées pour leur excellence culinaire et leur esprit d’innovation, les croisières de luxe Silversea proposent plusieurs options de dîner pendant les voyages, ainsi que de nombreux établissements spécialisés sur tous les bateaux de croisière."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Renommées pour leur excellence culinaire et leur esprit d’innovation, les croisières de luxe Silversea proposent plusieurs options de dîner pendant les voyages, ainsi que de nombreux établissements spécialisés sur tous les bateaux de croisière."/>
     <cruise-ship-restaurant-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Découvrez tous nos espaces à bord, où vous passerez d’agréables moments en compagnie de voyageurs partageant vos centres d’intérêt et profiterez de notre service personnalisé tout inclus."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Découvrez tous nos espaces à bord, où vous passerez d’agréables moments en compagnie de voyageurs partageant vos centres d’intérêt et profiterez de notre service personnalisé tout inclus."/>
     <cruise-ship-restaurant-description-expedition
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Découvrez tous nos espaces à bord, où vous passerez d’agréables moments en compagnie de voyageurs partageant vos centres d’intérêt et profiterez de notre service personnalisé tout inclus."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Découvrez tous nos espaces à bord, où vous passerez d’agréables moments en compagnie de voyageurs partageant vos centres d’intérêt et profiterez de notre service personnalisé tout inclus."/>
     <cruise-ship-suite-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les suites avec vue sur l’océan de Silversea comptent parmi les plus spacieuses dans l’univers des croisières. Le service de majordome est compris.  Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs tarifs et pourrez sélectionner la suite de votre choix."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les suites avec vue sur l’océan de Silversea comptent parmi les plus spacieuses dans l’univers des croisières. Le service de majordome est compris.  Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs tarifs et pourrez sélectionner la suite de votre choix."/>
     <cruise-ship-suite-description-expedition
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les suites avec vue sur l’océan de Silversea comptent parmi les plus spacieuses dans l’univers des croisières. Le service de majordome est compris.  Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs tarifs et pourrez sélectionner la suite de votre choix."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les suites avec vue sur l’océan de Silversea comptent parmi les plus spacieuses dans l’univers des croisières. Le service de majordome est compris.  Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs tarifs et pourrez sélectionner la suite de votre choix."/>
     <cruise-suites-and-fares-descr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix."/>
     <cruise-suites-and-fares-descr-v2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix. "/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les suites Silversea avec vue sur l’océan comptent parmi les plus spacieuses dans le panorama des croisières de luxe. Dans chacune d’elles, les services d’un majordome sont inclus grâce à un service en mer de haut niveau et presque toutes sont dotées d’une véranda privée en teck. Vous n’aurez qu’à franchir le seuil de votre porte pour respirer l’air marin ! Choisissez votre suite et demandez un devis. En réservant à l’avance, vous bénéficierez des meilleurs prix et pourrez choisir la suite de votre choix. "/>
     <cruise-type
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="type de croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="type de croisière"/>
     <cruise-types
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Types de croisière"/>
     <CV
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Classic Veranda"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Classic Veranda"/>
     <date
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Date"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Date"/>
     <day
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Jour"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Jour"/>
     <days
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Jours"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Jours"/>
     <deck
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Pont"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pont"/>
     <deck-plan-details
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Plan du pont et détails"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Plan du pont et détails"/>
     <deck-plans
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Plans du pont"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Plans du pont"/>
     <depart
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Départ"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Départ"/>
     <departure
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Départ"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Départ"/>
     <departures
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Départs"/>
     <departure-date
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="date de départ"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="date de départ"/>
     <description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Description"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Description"/>
     <description-tag
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="Explore voyage {0} from {1}to {2} on {3} in {4} and experience luxury cruising."
-        sling:message="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising."/>
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="Explore voyage {0} from {1}to {2} on {3} in {4} and experience luxury cruising."
+            sling:message="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising."/>
     <destination
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="destination"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="destination"/>
     <destinations
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Destinations"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Destinations"/>
     <destination-discover-more
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="En savoir plus sur cette destination"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="En savoir plus sur cette destination"/>
     <destination-view-cruise
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir les croisières pour cette destination"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir les croisières pour cette destination"/>
     <details-about-your-request
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Détails de votre demande"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Détails de votre demande"/>
     <download-brochure
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Télécharger la brochure"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Télécharger la brochure"/>
     <dining
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Dîner"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Dîner"/>
     <dining-location
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Dining location"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Dining location"/>
     <dining-plan
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Dining plan"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Dining plan"/>
     <dining-features
-       jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Dining features"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Dining features"/>
     <dining-overview
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Aperçu des repas"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Aperçu des repas"/>
     <dining-virtual-tour
-       jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Dining virtual tour"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Dining virtual tour"/>
     <dir
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Sir"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sir"/>
     <discover-more
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="En savoir plus"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="En savoir plus"/>
     <dr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Dr."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Dr."/>
     <duration
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Durée"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Durée"/>
     <durations
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Durées"/>
     <DV
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Midship Veranda"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Midship Veranda"/>
     <DX
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Deluxe Veranda"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Deluxe Veranda"/>
     <early-booking-bonus
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Early Booking Bonus"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Early Booking Bonus"/>
     <EC
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Explorer Class"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Explorer Class"/>
     <email-address
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Adresse e-mail"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Adresse e-mail"/>
     <enrichments
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Enrichissement"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Enrichissement"/>
     <ES
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Explorer"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Explorer"/>
     <eur
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="€"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="€"/>
     <eur0
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:key="EUR"
-        sling:message="€"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:key="EUR"
+            sling:message="€"/>
     <EX
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Expédition"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Expédition"/>
     <example
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Exemple"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Exemple"/>
     <exclusive-offer-not-available
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Cette offre exclusive n’est pas disponible dans votre pays"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Cette offre exclusive n’est pas disponible dans votre pays"/>
     <exclusive-offers
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Offres exclusives"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Offres exclusives"/>
     <excursion-code
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Code de l’excursion"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Code de l’excursion"/>
     <excursion
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Excursion" />
+            sling:message="Excursion"/>
     <excursion-s
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Excursion(s)"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Excursion(s)"/>
     <excursions
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Excursions"/>
-     <expedition-cruise
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="croisière d'expedition"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Excursions"/>
+    <expedition-cruise
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="croisière d'expedition"/>
     <expedition-itinerary
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Itinéraire de l'expédition"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Itinéraire de l'expédition"/>
     <expedition-team
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="l’équipe"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="l’équipe"/>
     <expedition-team-descr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Entre 11 et 13 spécialistes qualifiés, beaucoup d’entre eux titulaires d’un doctorat ou du titre de Professeur, seront présents pendant chaque traversée et excursion à terre.  Ils donneront des cours, organiseront des travaux pratiques, feront office de guides pendant des balades en Zodiac et dans la nature."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Entre 11 et 13 spécialistes qualifiés, beaucoup d’entre eux titulaires d’un doctorat ou du titre de Professeur, seront présents pendant chaque traversée et excursion à terre.  Ils donneront des cours, organiseront des travaux pratiques, feront office de guides pendant des balades en Zodiac et dans la nature."/>
     <fares
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Prix"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Prix"/>
     <fares-from
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Prix à partir de "/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Prix à partir de "/>
     <fares-shown-are-per-guest
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les tarifs sont indiqués par personne"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les tarifs sont indiqués par personne"/>
     <fax
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="fax"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="fax"/>
     <feature-exclusive-offers
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="OFFRES SPÉCIALES / PROGRAMMES"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="OFFRES SPÉCIALES / PROGRAMMES"/>
     <feature-no-exclusive-offers-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="En effectuant vos réservations à l’avance, vous bénéficierez de réductions sur les tarifs du voyage, sur demande."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="En effectuant vos réservations à l’avance, vous bénéficierez de réductions sur les tarifs du voyage, sur demande."/>
     <feature-no-exclusive-offers-title
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Programme de garantie :"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Programme de garantie :"/>
     <features
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Caractéristiques"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Caractéristiques"/>
     <feature
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Caractéristique"/>
     <feet
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Pieds"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pieds"/>
     <find-a-port
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Trouver un port"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Trouver un port"/>
     <find-your-cruise
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="trouvez votre croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="trouvez votre croisière"/>
     <first
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="premier"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="premier"/>
     <first-name
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Prénom"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Prénom"/>
     <follow-us
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Suivez-nous"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Suivez-nous"/>
     <footnotes
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Notes de bas de page"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Notes de bas de page"/>
     <for-exclusive-offers
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message=" offres exclusives et nouveautés"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message=" offres exclusives et nouveautés"/>
     <free-brochure
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Une brochure"/>
-	<floating-brochure-ctatext
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="floating-brochure-ctatext"
-        sling:message="Get our free brochures"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Une brochure"/>
+    <floating-brochure-ctatext
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="floating-brochure-ctatext"
+            sling:message="Get our free brochures"/>
     <floating-brochure-heading
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="floating-brochure-heading"
-        sling:message="Silversea Brochures"/>
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="floating-brochure-heading"
+            sling:message="Silversea Brochures"/>
     <from
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="à partir de"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="à partir de"/>
     <G1
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Grand 1"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Grand 1"/>
     <G2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Grand 2"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Grand 2"/>
     <gbp
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="£"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="£"/>
     <gbp0
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:key="GBP"
-        sling:message="£"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:key="GBP"
+            sling:message="£"/>
     <get-our-free-brochures
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Demandez nos brochures gratuites"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Demandez nos brochures gratuites"/>
     <get-our-free-brochures1
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="&#xa;Obtenez nos brochures gratuites"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="&#xa;Obtenez nos brochures gratuites"/>
     <get-your-free-brochures
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Demandez nos brochures gratuites"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Demandez nos brochures gratuites"/>
     <guests
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="clients"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="clients"/>
     <guests-capacity
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Capacité d’accueil"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Capacité d’accueil"/>
     <highlight
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Point fort"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Point fort"/>
     <hotel
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Hôtel"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Hôtel"/>
     <hotels
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Hôtels"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Hôtels"/>
     <hours
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Heures"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Heures"/>
     <i-am-not-a-travel-agent
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Je ne suis pas un agent de voyages"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Je ne suis pas un agent de voyages"/>
     <i-m-currently-booked
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="J’ai une réservation de croisière Silversea en cours"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="J’ai une réservation de croisière Silversea en cours"/>
     <in
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="depuis"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="depuis"/>
     <included-cruise-fare
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="inclus dans le prix de la croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="inclus dans le prix de la croisière"/>
     <incorrect-email-address
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Adresse e-mail incorrecte"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Adresse e-mail incorrecte"/>
     <itineraries
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Itinéraires"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Itinéraires"/>
     <itinerary-and-fares
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Itinéraires et tarifs"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Itinéraires et tarifs"/>
     <is-available-on
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="est disponible sur"/>
     <key-fact
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Donnée essentielle"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Donnée essentielle"/>
     <lady
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Lady"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Lady"/>
     <load-more
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -707,133 +712,141 @@
             jcr:primaryType="nt:folder"
             sling:message="S'il vous plaît, changer les filtres."/>
     <land-and-hotel
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Land et Hotels"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Land et Hotels"/>
     <land-programme
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Programme d’excursions à terre"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Programme d’excursions à terre"/>
     <land-programme-s
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Programme(s) d’excursions à terre"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Programme(s) d’excursions à terre"/>
     <land-programmes
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Programmes d’excursions à terre"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Programmes d’excursions à terre"/>
     <land-programmes-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Notre programme d’excursions à terre (sur plusieurs jours, à la demi-journée, avant ou après la croisière) offre des occasions supplémentaires d’en savoir plus sur les points d’intérêts et trésors cachés des pays que vous visitez."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Notre programme d’excursions à terre (sur plusieurs jours, à la demi-journée, avant ou après la croisière) offre des occasions supplémentaires d’en savoir plus sur les points d’intérêts et trésors cachés des pays que vous visitez."/>
     <last
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="derniere"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="derniere"/>
     <last-name
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nom de famille"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nom de famille"/>
     <length
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="longueur"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="longueur"/>
     <location
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="LOCALISATION"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="LOCALISATION"/>
     <location-images
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Images du site"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Images du site"/>
     <lord
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Lord"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Lord"/>
     <mail-me-brochure
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="M'ENVOYER CETTE BROCHURE"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="M'ENVOYER CETTE BROCHURE"/>
     <ME
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Medallion"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Medallion"/>
     <menu
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Menu"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Menu"/>
     <meters
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Mètres"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Mètres"/>
     <miss
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Mademoiselle"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Mademoiselle"/>
     <more
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Plus"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Plus"/>
     <more-features
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="caractéristiques supplémentaires"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="caractéristiques supplémentaires"/>
     <more-info
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Plus d’infos"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Plus d’infos"/>
     <mr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="M."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="M."/>
     <mrs
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Mme"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Mme"/>
     <ms
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Mme"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Mme"/>
     <my-silversea
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Mon Silversea"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Mon Silversea"/>
     <next
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Suivante"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Suivante"/>
     <next-voyage
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="voyage suivant"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="voyage suivant"/>
     <no-results-search
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nous sommes désolés, rien ne correspond aux termes de votre recherche. Veuillez réessayer avec d'autres mots clés."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nous sommes désolés, rien ne correspond aux termes de votre recherche. Veuillez réessayer avec d'autres mots clés."/>
     <no-port-found
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Aucun port trouvé"/>
     <note
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="note"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="note"/>
     <O1
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Owner's 1"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Owner's 1"/>
     <O2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Owner's 2"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Owner's 2"/>
     <offer
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="offre"/>
+    <offer-accumulated
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les offres peuvent être cumulées"/>
     <offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="offres"/>
+    <open-itinerary-map
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Open itinerary map"/>
     <offers-for-this-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -843,106 +856,106 @@
             jcr:primaryType="nt:folder"
             sling:message="Offre pour cette croisière"/>
     <other-recent-journals
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Autres journaux récents"/>
-	<other-suites
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="&#xa;d'autres suites de luxe avec vue sur l'océan"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Autres journaux récents"/>
+    <other-suites
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="&#xa;d'autres suites de luxe avec vue sur l'océan"/>
     <other-suites-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les suites Silversea offrent l'un des ratios d'espace par invité les plus élevés de tous les hébergements de luxe. Toutes nos suites offrent une vue sur l'océan, et beaucoup avec une véranda privée en teck."/>	
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les suites Silversea offrent l'un des ratios d'espace par invité les plus élevés de tous les hébergements de luxe. Toutes nos suites offrent une vue sur l'océan, et beaucoup avec une véranda privée en teck."/>
     <other-recent-story
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="D’autres histoires récentes"/>
-	<other-restaurants
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Autres restaurants Silversea"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="D’autres histoires récentes"/>
+    <other-restaurants
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Autres restaurants Silversea"/>
     <other-restaurants-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Avec l'importance de la nourriture dans la culture italienne, vous vous attendez à manger à Silversea. Et c'est assurément le cas. De plus, l’excellence gastronomique est garantie grâce à nos recettes qui reflètent le patrimoine et revisitent la tradition. "/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Avec l'importance de la nourriture dans la culture italienne, vous vous attendez à manger à Silversea. Et c'est assurément le cas. De plus, l’excellence gastronomique est garantie grâce à nos recettes qui reflètent le patrimoine et revisitent la tradition. "/>
     <overview
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Vue d’ensemble"/>
-    <overnight-in-port 
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nuit à quai"/>
-    <overnights-in-port 
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Nuits à quai"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Vue d’ensemble"/>
+    <overnight-in-port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nuit à quai"/>
+    <overnights-in-port
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Nuits à quai"/>
     <overview-and-fares
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Vue d’ensemble et tarifs"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Vue d’ensemble et tarifs"/>
     <per-guest
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Par personne"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Par personne"/>
     <perform-a-new-search
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Faites une nouvelle recherche"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Faites une nouvelle recherche"/>
     <phone
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="phone"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="phone"/>
     <photos-and-videos
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Photos et vidéos"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Photos et vidéos"/>
     <plan
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Plan"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Plan"/>
     <port-country
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="pays"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="pays"/>
     <port-name
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="nom du port"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="nom du port"/>
     <port-results
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="résultats"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="résultats"/>
     <port-search-alphabetically
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="chercher par ordre alphabétique"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="chercher par ordre alphabétique"/>
     <ports
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Ports"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Ports"/>
     <port
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Port"/>
     <postal-address
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Adresse postale"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Adresse postale"/>
     <postal-code
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Code postal"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Code postal"/>
     <pre-cruise-hotels
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Hôtels avant la croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Hôtels avant la croisière"/>
     <pre-post-hotels
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:key="pre-post-hotels    "
-        sling:message="Hôtels avant et après"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:key="pre-post-hotels    "
+            sling:message="Hôtels avant et après"/>
     <pre-post-extensions
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -956,225 +969,225 @@
             jcr:primaryType="nt:folder"
             sling:message="nuits"/>
     <pressure
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Pression"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pression"/>
     <pressureUnit
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="hPa"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="hPa"/>
     <prev
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Page précédente"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Page précédente"/>
     <prev2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Préc"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Préc"/>
     <previous
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Précédent"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Précédent"/>
     <previous-voyage
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voyage précédent"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voyage précédent"/>
     <prof
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Prof"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Prof"/>
     <public-areas
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Espaces publics"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Espaces publics"/>
     <public-areas-location
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Public Areas location"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Public Areas location"/>
     <public-areas-plan
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Public Areas plan"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Public Areas plan"/>
     <public-areas-features
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Public Areas features"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Public Areas features"/>
     <public-areas-overview
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Aperçu des espaces publics"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Aperçu des espaces publics"/>
     <public-areas-virtual-tour
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Public Areas virtual tour"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Public Areas virtual tour"/>
     <R1
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Royal 1"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Royal 1"/>
     <R2
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Royal 2"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Royal 2"/>
     <read-less
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Lire moins"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Lire moins"/>
     <read-more
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Lire plus"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Lire plus"/>
     <receive-emails-with-news
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Oui ! Je souhaite recevoir les nouveautés et offres spéciales Silversea par e-mail."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Oui ! Je souhaite recevoir les nouveautés et offres spéciales Silversea par e-mail."/>
     <refine-your-search
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Affinez votre recherche"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Affinez votre recherche"/>
     <refurb-date
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Dernière rénovation"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Dernière rénovation"/>
     <request-free-brochure
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Demandez une brochure gratuite"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Demandez une brochure gratuite"/>
     <request-a-brochure
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Demander une brochure"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Demander une brochure"/>
     <request-a-call
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Prendre un RDV téléphonique"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Prendre un RDV téléphonique"/>
     <request-or-download
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Demandez ou téléchargez"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Demandez ou téléchargez"/>
     <request-quote
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="demandez un devis"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="demandez un devis"/>
     <request-quote-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Laissez-nous prendre soin de votre prochaine croisière de luxe"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Laissez-nous prendre soin de votre prochaine croisière de luxe"/>
     <required-city
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Indiquez votre ville"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Indiquez votre ville"/>
     <required-email
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Indiquez votre adresse e-mail"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Indiquez votre adresse e-mail"/>
     <required-email-address
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="L’adresse e-mail est obligatoire"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="L’adresse e-mail est obligatoire"/>
     <required-fields
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Champs obligatoires"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Champs obligatoires"/>
     <required-firstname
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Saisissez votre prénom"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Saisissez votre prénom"/>
     <required-lastname
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Saisissez votre nom de famille"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Saisissez votre nom de famille"/>
     <required-phone-number
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Saisissez votre numéro de téléphone"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Saisissez votre numéro de téléphone"/>
     <required-postal-address
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Saisissez votre adresse postale"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Saisissez votre adresse postale"/>
     <required-postal-code
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Saisissez votre code postal"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Saisissez votre code postal"/>
     <required-postal-code-and-city
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Saisissez votre code postal et votre ville"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Saisissez votre code postal et votre ville"/>
     <required-state
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Saisissez votre état"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Saisissez votre état"/>
     <required-title
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veuillez indiquer votre titre"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veuillez indiquer votre titre"/>
     <restaurants
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Restaurants"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Restaurants"/>
     <restaurants-public-areas
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="restaurants et espaces publics"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="restaurants et espaces publics"/>
     <restaurants-public-areas-descr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="À bord, vous ne verrez pas le temps passer. Découvrez les options du dîner, à l’enseigne de l’excellence culinaire, et les lieux uniques où vous profiterez de notre style de vie exclusif en compagnie de voyageurs du monde entier. "/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="À bord, vous ne verrez pas le temps passer. Découvrez les options du dîner, à l’enseigne de l’excellence culinaire, et les lieux uniques où vous profiterez de notre style de vie exclusif en compagnie de voyageurs du monde entier. "/>
     <result
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="résultats"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="résultats"/>
     <results
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="résultats"/>
-   	<results-your-area
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Results In Your Area"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="résultats"/>
+    <results-your-area
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Results In Your Area"/>
     <routes
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Routes"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Routes"/>
     <routes-description
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Au départ de San Francisco jusqu’à Londres, réservez le Tale of Tales, la plus audacieuse des croisières autour du monde. 5 continents, 31 pays, 52 ports et 17 nuits en seulement 132 jours, composent l’histoire que vous racontera ce voyage."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Au départ de San Francisco jusqu’à Londres, réservez le Tale of Tales, la plus audacieuse des croisières autour du monde. 5 continents, 31 pays, 52 ports et 17 nuits en seulement 132 jours, composent l’histoire que vous racontera ce voyage."/>
     <scroll-to-continue
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Faites défiler pour continuer"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Faites défiler pour continuer"/>
     <schedule
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Programme"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Programme"/>
     <sort-by
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Sort by"/>
     <search
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Recherche"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Recherche"/>
     <search-port
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Recherche de port"/>
     <search-more
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir plus d’options"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir plus d’options"/>
     <select-and-view-the-route
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Sélectionnez et visualisez l’itinéraire"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sélectionnez et visualisez l’itinéraire"/>
     <select-and-view-the-itineraries
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Sélectionnez et visualisez l’itinéraire"/>
-	<select-inquiry
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Sélectionnez une demande"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sélectionnez et visualisez l’itinéraire"/>
+    <select-inquiry
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sélectionnez une demande"/>
     <selected-port
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1184,203 +1197,203 @@
             jcr:primaryType="nt:folder"
             sling:message="Ports sélectionnés"/>
     <select-language
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Choisissez votre langue"/>
-	<select-subject
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Sélectionnez un sujet"/>	
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Choisissez votre langue"/>
+    <select-subject
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Sélectionnez un sujet"/>
     <select-the-brochure-language
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Choisissez la langue de la brochure"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Choisissez la langue de la brochure"/>
     <select-your-suite
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="SELECTIONNEZ VOTRE SUITE"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="SELECTIONNEZ VOTRE SUITE"/>
     <select-your-suite-and-request-a-quote
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="CHOISISSEZ VOTRE SUITE ET DEMANDEZ UN DEVIS"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="CHOISISSEZ VOTRE SUITE ET DEMANDEZ UN DEVIS"/>
     <ship
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Navire"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Navire"/>
     <sign-up
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Recevez les"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Recevez les"/>
     <sign-up-button
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Recevoir"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Recevoir"/>
     <sign-up-for-offers
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Abonnez-vous aux Offres"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Abonnez-vous aux Offres"/>
     <silversea-blog-archive
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Archives du blog de Silversea"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Archives du blog de Silversea"/>
     <silversea-brochures
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Brochures Silversea"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Brochures Silversea"/>
     <silversea-cruise
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Croisières Silversea"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Croisières Silversea"/>
     <silversea-expedition
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Silversea Expeditions"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Silversea Expeditions"/>
     <silversea-voyage-journal
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Journal de voyage Silversea"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Journal de voyage Silversea"/>
     <SL
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Silver&#xa;"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Silver&#xa;"/>
     <state
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="state"
-        sling:message="State"/>
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="state"
+            sling:message="State"/>
     <starting
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Départ"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Départ"/>
     <submit
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Soumettre"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Soumettre"/>
     <suite
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Suite"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Suite"/>
     <suite-location
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Emplacement de la suite"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Emplacement de la suite"/>
     <suite-plan
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Plan de la suite"/>
-     <suite-features
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Caractéristiques de la suite"/>
-     <suite-overview
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Vue d’ensemble de la suite"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Plan de la suite"/>
+    <suite-features
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Caractéristiques de la suite"/>
+    <suite-overview
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Vue d’ensemble de la suite"/>
     <suite-virtual-tour
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Tour virtuel de la suite"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Tour virtuel de la suite"/>
     <suites
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Suites"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Suites"/>
     <suites-and-fares
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Suites &amp; tarifs"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Suites &amp; tarifs"/>
     <suites-descr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Les suites avec vue sur l’océan de Silversea comptent parmi les plus spacieuses dans l’univers des croisières. Le service de majordome est compris. "/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Les suites avec vue sur l’océan de Silversea comptent parmi les plus spacieuses dans l’univers des croisières. Le service de majordome est compris. "/>
     <suites-plan
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Plan de la suite"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Plan de la suite"/>
     <SV
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Superior Veranda"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Superior Veranda"/>
     <temperature
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Température"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Température"/>
     <temperatureUnit
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="C"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="C"/>
     <the-difference-between-each-single-suite-is-availa
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:key="the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship"
-        sling:message="Les caractéristiques des suites sont disponibles sur le plan du pont du bateau."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:key="the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship"
+            sling:message="Les caractéristiques des suites sont disponibles sur le plan du pont du bateau."/>
     <the-search-box-allows
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Le champ recherche vous permet de taper un sujet spécifique ou un voyage souhaité que vous pourrez consulter immédiatement."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Le champ recherche vous permet de taper un sujet spécifique ou un voyage souhaité que vous pourrez consulter immédiatement."/>
     <title
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Titre"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Titre"/>
     <title-tag
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="Luxury Cruise from {0} to {1} {2} | Silversea"
-        sling:message="Luxury Cruise from {0} to {1} {2} | Silversea"/>
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="Luxury Cruise from {0} to {1} {2} | Silversea"
+            sling:message="Luxury Cruise from {0} to {1} {2} | Silversea"/>
     <to
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="À"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="À"/>
     <to-date
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="au"/>
     <tonnage
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Tonnage"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Tonnage"/>
     <tons
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Tonnes"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Tonnes"/>
     <TS
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Terrasse"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Terrasse"/>
     <type-here-to-search
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Entrez votre recherche ici"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Entrez votre recherche ici"/>
     <cad
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="CAD"
-        sling:message="C$"/>
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="CAD"
+            sling:message="C$"/>
     <usd
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="US$"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="US$"/>
     <usd0
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:key="USD"
-        sling:message="US$"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:key="USD"
+            sling:message="US$"/>
     <vent
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Km"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Km"/>
     <VI
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Vista"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Vista"/>
     <view
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir"/>
     <view-cruises
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir Les Croisieres"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir Les Croisieres"/>
     <view-all
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir tout"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir tout"/>
     <view-all-offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1389,222 +1402,230 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Voir moins d'options de restauration"/>
-	<view-voyage-highlights
+    <view-voyage-highlights
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Voir les temps forts de la croisière"/>
     <view-all-excursions
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir toutes les excursions"/>
-	<view-all-pictures
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir toutes les images"/>	
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir toutes les excursions"/>
+    <view-all-pictures
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir toutes les images"/>
     <view-all-public-areas
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir tous les espaces publics"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir tous les espaces publics"/>
     <view-all-restaurants
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir tous les restaurants"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir tous les restaurants"/>
     <view-all-ship-descr
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir la description complète du bateau"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir la description complète du bateau"/>
     <view-all-suites
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir toutes les suites"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir toutes les suites"/>
     <view-more
-    	jcr:primaryType="sling:MessageEntry"
-    	sling:key="view-more"
-    	sling:message="En savoir plus" />
-     <view-more-features
-    	jcr:primaryType="sling:MessageEntry"
-    	sling:key="view-more-features"
-    	sling:message="En savoir plus" />
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-more"
+            sling:message="En savoir plus"/>
+    <view-more-features
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-more-features"
+            sling:message="En savoir plus"/>
     <view-more-details
-    	jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-    	sling:message="En savoir plus" />
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="En savoir plus"/>
     <view-deck
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="voir le pont"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="voir le pont"/>
     <view-deck-plan
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir le plan du pont"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir le plan du pont"/>
     <view-less
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir moins"/>
-     <view-less-features
-         jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voir moins"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir moins"/>
+    <view-less-features
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voir moins"/>
     <view-online
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="VOIR EN LIGNE"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="VOIR EN LIGNE"/>
     <pre-order
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="EFFECTUER UNE PRÉ-RÉSERVATION"/>
     <view-our-free-brochures
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Consultez votre brochure"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Consultez votre brochure"/>
     <virtual-tour
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Tour virtuel"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Tour virtuel"/>
     <voyage
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voyage"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voyage"/>
     <voyage-number
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voyage"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voyage"/>
     <voyage-highlights
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Temps forts du Voyage"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Temps forts du Voyage"/>
     <voyage-highlights-expedition
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Équipe encadrant les temps forts du voyage"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Équipe encadrant les temps forts du voyage"/>
     <voyage-highlights-introduction
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Pendant votre voyage, vous irez de découverte en découverte. Un programme gratuit d’excursions à terre, réservé à des petits groupes et dirigé par une équipe de guides experts, ainsi que des conférences vous permettront de découvrir en profondeur les régions que vous visiterez."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Pendant votre voyage, vous irez de découverte en découverte. Un programme gratuit d’excursions à terre, réservé à des petits groupes et dirigé par une équipe de guides experts, ainsi que des conférences vous permettront de découvrir en profondeur les régions que vous visiterez."/>
     <voyages
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Voyages"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Voyages"/>
     <VR
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Veranda"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Veranda"/>
     <VS
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="View"/>
-	<vsnumber
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="par rapport au nombre"/>	
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="View"/>
+    <vsnumber
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="par rapport au nombre"/>
     <waitlist
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Liste d’attente"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Liste d’attente"/>
     <weather
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Météo"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Météo"/>
     <when-do-you-want-to-leave
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Quand voulez-vous partir ? "/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Quand voulez-vous partir ? "/>
     <where-would-you-like-to-go
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Où souhaitez-vous aller ?"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Où souhaitez-vous aller ?"/>
     <windUnit
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Km"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Km"/>
     <with
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="avec"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="avec"/>
     <with-early
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="avec early"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="avec early"/>
     <you-can-utilize-this-page
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="Vous pouvez utiliser cette page en saisissant simplement votre recherche dans le champ ci-dessous."/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Vous pouvez utiliser cette page en saisissant simplement votre recherche dans le champ ci-dessous."/>
     <your-email-address
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="votre adresse e-mail"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="votre adresse e-mail"/>
     <your-search-results
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="vos résultats de recherche :"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="vos résultats de recherche :"/>
     <your-location
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="your location"/>
-	<luxury-cruises
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="luxury-cruises"
-	    sling:message="Luxury Cruises"/>
-	<expedition-cruises
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="expedition-cruises"
-	    sling:message="Expedition Cruises"/>
-	<view-more
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="view-more"
-	    sling:message="View more"/>
-	<an-introduction-to-silversea-cruises
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="an-introduction-to-silversea-cruises"
-	    sling:message="An Introduction to Silversea Cruises"/>
-	<an-introduction-to-silversea-expeditions
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="an-introduction-to-silversea-expeditions"
-	    sling:message="An Introduction to Silversea Expeditions"/>
-	<view-our-brochures
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="view-our-brochures"
-	    sling:message="Voir nos brochures"/>
-	<show-less
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="show-less"
-	    sling:message="show Less"/>                        
-	<show-all
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="show-all"
-	    sling:message="Show All"/>
-	<more-about-silversea
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="more-about-silversea"
-	    sling:message="À propos de silversea"/>
-	<learn-more-about-silversea
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="learn-more-about-silversea"
-	    sling:message="Demandez ou téléchargez notre brochure gratuite pour en savoir davantage sur nos navires de luxe et les destinations fascinantes que nous proposons. Abonnez-vous pour recevoir les offres exclusives et les actualités Silversea."/>
-	<related-destinations
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="related-destinations"
-	    sling:message="Related Destinations"/>
-	<view-destination
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="view-destination"
-	    sling:message="View Destination"/>	    
-	<world-cruises
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="world-cruises"
-	    sling:message="Tour du monde"/>
-	<grand-voyages
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="grand-voyages"
-	    sling:message="Grand Voyages"/>
-	<VS-EO-Title
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="VS-EO-Title"
-	    sling:message="Croisière Venetian Society"/>
-	<VS-EO-Message
-	    jcr:primaryType="sling:MessageEntry"
-	    sling:key="VS-EO-Message"
-	    sling:message=" les membres du club Venetian Society bénéficient d’une réduction de 5% sur le prix de la croisière"/>
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="your location"/>
+    <luxury-cruises
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="luxury-cruises"
+            sling:message="Luxury Cruises"/>
+    <expedition-cruises
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="expedition-cruises"
+            sling:message="Expedition Cruises"/>
+    <view-more
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-more"
+            sling:message="View more"/>
+    <an-introduction-to-silversea-cruises
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="an-introduction-to-silversea-cruises"
+            sling:message="An Introduction to Silversea Cruises"/>
+    <an-introduction-to-silversea-expeditions
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="an-introduction-to-silversea-expeditions"
+            sling:message="An Introduction to Silversea Expeditions"/>
+    <view-our-brochures
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-our-brochures"
+            sling:message="Voir nos brochures"/>
+    <show-less
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="show-less"
+            sling:message="show Less"/>
+    <show-waitlist
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Afficher la liste d'attente"/>
+    <hide-waitlist
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Masquer la liste d'attente"/>
+    <show-all
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="show-all"
+            sling:message="Show All"/>
+    <more-about-silversea
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="more-about-silversea"
+            sling:message="À propos de silversea"/>
+    <learn-more-about-silversea
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="learn-more-about-silversea"
+            sling:message="Demandez ou téléchargez notre brochure gratuite pour en savoir davantage sur nos navires de luxe et les destinations fascinantes que nous proposons. Abonnez-vous pour recevoir les offres exclusives et les actualités Silversea."/>
+    <related-destinations
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="related-destinations"
+            sling:message="Related Destinations"/>
+    <view-destination
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-destination"
+            sling:message="View Destination"/>
+    <world-cruises
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="world-cruises"
+            sling:message="Tour du monde"/>
+    <grand-voyages
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="grand-voyages"
+            sling:message="Grand Voyages"/>
+    <VS-EO-Title
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="VS-EO-Title"
+            sling:message="Croisière Venetian Society"/>
+    <VS-EO-Message
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="VS-EO-Message"
+            sling:message=" les membres du club Venetian Society bénéficient d’une réduction de 5% sur le prix de la croisière"/>
     <tour-book
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1710,256 +1731,260 @@
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
             sling:message="neuf"/>
-    <ABW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aruba" />
-    <AFG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afghanistan" />
-    <AGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Angola" />
-    <AIA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Anguilla" />
-    <ALA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Aland" />
-    <ALB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Albanie" />
-    <AND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Andorre" />
-    <ANT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antilles néerlandaises" />
-    <ARE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Émirats Arabes Unis" />
-    <ARG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Argentine" />
-    <ARM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Arménie" />
-    <ASM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Samoa américaines" />
-    <ATA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antarctique" />
-    <ATF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Terres australes et antarctiques françaises" />
-    <ATG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antigua-et-Barbuda" />
-    <AUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Australie" />
-    <AUT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Autriche" />
-    <AZE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Azerbaïdjan" />
-    <BDI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Burundi" />
-    <BEL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Belgique" />
-    <BEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bénin" />
-    <BES jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saba, Saint-Eustache et Bonaire" />
-    <BFA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Burkina Faso" />
-    <BGD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bangladesh" />
-    <BGR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bulgarie" />
-    <BHR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bahreïn" />
-    <BHS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bahamas" />
-    <BIH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bosnie-Herzégovine" />
-    <BLM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint Barthélemy" />
-    <BLR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Biélorussie" />
-    <BLZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Belize" />
-    <BMU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bermudes" />
-    <BOL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bolivie" />
-    <BRA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Brésil" />
-    <BRB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Barbades" />
-    <BRN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Brunei" />
-    <BTN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bhoutan" />
-    <BVT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île Bouvet" />
-    <BWA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Botswana" />
-    <CAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République centrafricaine" />
-    <CAN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Canada" />
-    <CCK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Cocos" />
-    <CHE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Suisse" />
-    <CHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Chili" />
-    <CHN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Chine" />
-    <CIV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Côte-d'Ivoire" />
-    <CMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cameroun" />
-    <COD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République démocratique du Congo" />
-    <COG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République du Congo" />
-    <COK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Cook" />
-    <COL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Colombie" />
-    <COM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Comores" />
-    <CPV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cap vert" />
-    <CRI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Costa Rica" />
-    <CUB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cuba" />
-    <CUW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Curaçao" />
-    <CXR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Christmas" />
-    <CYM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Caïmans" />
-    <CYP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Chypre" />
-    <CZE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République Tchèque" />
-    <DEU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Allemagne" />
-    <DJI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Djibouti" />
-    <DMA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Dominique" />
-    <DNK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Danemark" />
-    <DOM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République Dominicaine" />
-    <DZA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Algérie" />
-    <ECU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Équateur" />
-    <EGY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Égypte" />
-    <ERI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Érythrée" />
-    <ESH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sahara occidental" />
-    <ESP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Espagne" />
-    <EST jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Estonie" />
-    <ETH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Éthiopie" />
-    <FIN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Finlande" />
-    <FJI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Fiji" />
-    <FLK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Falkland" />
-    <FRA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="France" />
-    <FRO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Féroé" />
-    <FSM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Micronésie" />
-    <GAB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gabon" />
-    <GBR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Royaume-Uni" />
-    <GEO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="État de Géorgie" />
-    <GGY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guernesey" />
-    <GHA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ghana" />
-    <GIB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gribraltar" />
-    <GIN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinée" />
-    <GLP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guadeloupe" />
-    <GMB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gambie" />
-    <GNB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinée-Bissau" />
-    <GNQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinée équatoriale" />
-    <GRC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Grèce" />
-    <GRD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Grenade" />
-    <GRL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Groenland" />
-    <GTM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guatémala" />
-    <GUF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guyane française" />
-    <GUM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guam" />
-    <GUY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guyane" />
-    <HKG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Hong Kong" />
-    <HMD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Heard et îles MacDonald" />
-    <HND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Honduras" />
-    <HRV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Croatie" />
-    <HTI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Haïti" />
-    <HUN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Hongrie" />
-    <IDN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Indonésie" />
-    <IMN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île de Man" />
-    <IND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Inde" />
-    <IOT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Territoire Britannique de l'Océan Indien" />
-    <IRL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Irlande" />
-    <IRN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Iran" />
-    <IRQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Irak" />
-    <ISL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Islande" />
-    <ISR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Israël" />
-    <ITA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Italie" />
-    <JAM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jamaïque" />
-    <JEY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jersey" />
-    <JOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jordanie" />
-    <JPN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Japon" />
-    <KAZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kazakhstan" />
-    <KEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kenya" />
-    <KGZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kirghizistan" />
-    <KHM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cambodge" />
-    <KIR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kiribati" />
-    <KNA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Kitts-et-Nevis" />
-    <KOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Corée du Sud" />
-    <KWT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Koweït" />
-    <LAO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Laos" />
-    <LBN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Liban" />
-    <LBR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Libéria" />
-    <LBY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Libye" />
-    <LCA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sainte-Lucie" />
-    <LIE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Liechtenstein" />
-    <LKA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sri Lanka" />
-    <LSO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lesotho" />
-    <LTU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lituanie" />
-    <LUX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Luxembourg" />
-    <LVA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lettonie" />
-    <MAC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Macao" />
-    <MAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Martin" />
-    <MAR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Maroc" />
-    <MCO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Monaco" />
-    <MDA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Moldavie" />
-    <MDG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Madagascar" />
-    <MDV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Maldives" />
-    <MEX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mexique" />
-    <MHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Marshall" />
-    <MKD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Macédoine" />
-    <MLI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mali" />
-    <MLT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malte" />
-    <MMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Myanmar" />
-    <MNE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Monténégro" />
-    <MNG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mongolie" />
-    <MNP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Mariannes du Nord" />
-    <MOZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mozambique" />
-    <MRT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mauritanie" />
-    <MSR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Montserrat" />
-    <MTQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Martinique" />
-    <MUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île Maurice" />
-    <MWI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malawi" />
-    <MYS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malaysie" />
-    <MYT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mayotte" />
-    <NAM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Namibie" />
-    <NCL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nouvelle-Calédonie" />
-    <NER jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niger" />
-    <NFK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île Norfolk" />
-    <NGA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nigéria" />
-    <NIC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nicaragua" />
-    <NIU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niue" />
-    <NLD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pays-Bas" />
-    <NOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Norvège" />
-    <NPL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Népal" />
-    <NRU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nauru" />
-    <NZL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nouvelle Zélande" />
-    <OMN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Oman" />
-    <PAK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pakistan" />
-    <PAN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Panama" />
-    <PCN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Pitcairn" />
-    <PER jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pérou" />
-    <PHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Philippines" />
-    <PLW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Palaos" />
-    <PNG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Papouasie-Nouvelle-Guinée" />
-    <POL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pologne" />
-    <PRI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Puerto Rico" />
-    <PRK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Corée du Nord" />
-    <PRT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Portugal" />
-    <PRY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Paraguay" />
-    <PSE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Territoire Palestinien" />
-    <PYF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Polynésie française" />
-    <QAT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Qatar" />
-    <REU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="La Réunion" />
-    <ROU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Roumanie" />
-    <RUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Russie" />
-    <RWA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Rwanda" />
-    <SAU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Arabie Saoudite" />
-    <SCG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Serbie et Montenegro" />
-    <SDN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Soudan" />
-    <SEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sénégal" />
-    <SGP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Singapour" />
-    <SGS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Géorgie du Sud et les îles Sandwich" />
-    <SHN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sainte-Hélène" />
-    <SJM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Svalbard et Jan Mayen" />
-    <SLB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Salomon" />
-    <SLE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sierra Leone" />
-    <SLV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Le Salvador" />
-    <SMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="San Marin" />
-    <SOM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Somalie" />
-    <SPM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint Pierre et Miquelon" />
-    <SRB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Serbie" />
-    <SSD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Soudan du Sud" />
-    <STP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sao Tomé-et-Principe" />
-    <SUR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Surinam" />
-    <SVK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Slovaquie" />
-    <SVN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Slovénie" />
-    <SWE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Suède" />
-    <SWZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Swaziland" />
-    <SXM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Martin" />
-    <SYC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Seychelles" />
-    <SYR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Syrie" />
-    <TCA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Turques et Caïques" />
-    <TCD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tchad" />
-    <TGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Togo" />
-    <THA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Thaïlande" />
-    <TJK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tajikistan" />
-    <TKL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tokelau" />
-    <TKM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Turkménistan" />
-    <TLS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Timor oriental" />
-    <TON jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tonga" />
-    <TTO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Trinité et Tobago" />
-    <TUN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tunisie" />
-    <TUR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Turquie" />
-    <TUV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tuvalu" />
-    <TWN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Taiwan" />
-    <TZA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tanzanie" />
-    <UGA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ouganda" />
-    <UKR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ukraine" />
-    <UMI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Mineures éloignées des États-Unis" />
-    <URY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Uruguay" />
-    <USA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="États-Unis (USA)" />
-    <UZB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ouzbékistan" />
-    <VAT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vatican" />
-    <VCT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Vincent-et-les-Grenadines" />
-    <VEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vénézuela" />
-    <VGB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Vierges britanniques" />
-    <VIR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Vierges des États-Unis" />
-    <VNM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vietnam" />
-    <VUT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vanuatu" />
-    <WLF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Wallis et Futuna" />
-    <WSM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Samoa" />
-    <XKX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kosovo" />
-    <YEM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Yemen" />
-    <ZAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afrique du Sud" />
-    <ZMB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Zambie" />
-    <ZWE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Zimbabwe" />
+    <ABW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aruba"/>
+    <AFG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afghanistan"/>
+    <AGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Angola"/>
+    <AIA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Anguilla"/>
+    <ALA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Aland"/>
+    <ALB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Albanie"/>
+    <AND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Andorre"/>
+    <ANT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antilles néerlandaises"/>
+    <ARE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Émirats Arabes Unis"/>
+    <ARG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Argentine"/>
+    <ARM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Arménie"/>
+    <ASM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Samoa américaines"/>
+    <ATA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antarctique"/>
+    <ATF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]"
+         sling:message="Terres australes et antarctiques françaises"/>
+    <ATG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antigua-et-Barbuda"/>
+    <AUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Australie"/>
+    <AUT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Autriche"/>
+    <AZE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Azerbaïdjan"/>
+    <BDI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Burundi"/>
+    <BEL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Belgique"/>
+    <BEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bénin"/>
+    <BES jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saba, Saint-Eustache et Bonaire"/>
+    <BFA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Burkina Faso"/>
+    <BGD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bangladesh"/>
+    <BGR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bulgarie"/>
+    <BHR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bahreïn"/>
+    <BHS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bahamas"/>
+    <BIH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bosnie-Herzégovine"/>
+    <BLM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint Barthélemy"/>
+    <BLR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Biélorussie"/>
+    <BLZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Belize"/>
+    <BMU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bermudes"/>
+    <BOL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bolivie"/>
+    <BRA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Brésil"/>
+    <BRB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Barbades"/>
+    <BRN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Brunei"/>
+    <BTN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bhoutan"/>
+    <BVT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île Bouvet"/>
+    <BWA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Botswana"/>
+    <CAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République centrafricaine"/>
+    <CAN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Canada"/>
+    <CCK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Cocos"/>
+    <CHE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Suisse"/>
+    <CHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Chili"/>
+    <CHN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Chine"/>
+    <CIV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Côte-d'Ivoire"/>
+    <CMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cameroun"/>
+    <COD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République démocratique du Congo"/>
+    <COG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République du Congo"/>
+    <COK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Cook"/>
+    <COL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Colombie"/>
+    <COM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Comores"/>
+    <CPV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cap vert"/>
+    <CRI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Costa Rica"/>
+    <CUB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cuba"/>
+    <CUW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Curaçao"/>
+    <CXR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Christmas"/>
+    <CYM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Caïmans"/>
+    <CYP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Chypre"/>
+    <CZE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République Tchèque"/>
+    <DEU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Allemagne"/>
+    <DJI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Djibouti"/>
+    <DMA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Dominique"/>
+    <DNK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Danemark"/>
+    <DOM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="République Dominicaine"/>
+    <DZA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Algérie"/>
+    <ECU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Équateur"/>
+    <EGY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Égypte"/>
+    <ERI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Érythrée"/>
+    <ESH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sahara occidental"/>
+    <ESP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Espagne"/>
+    <EST jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Estonie"/>
+    <ETH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Éthiopie"/>
+    <FIN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Finlande"/>
+    <FJI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Fiji"/>
+    <FLK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Falkland"/>
+    <FRA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="France"/>
+    <FRO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Féroé"/>
+    <FSM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Micronésie"/>
+    <GAB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gabon"/>
+    <GBR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Royaume-Uni"/>
+    <GEO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="État de Géorgie"/>
+    <GGY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guernesey"/>
+    <GHA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ghana"/>
+    <GIB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gribraltar"/>
+    <GIN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinée"/>
+    <GLP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guadeloupe"/>
+    <GMB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gambie"/>
+    <GNB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinée-Bissau"/>
+    <GNQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinée équatoriale"/>
+    <GRC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Grèce"/>
+    <GRD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Grenade"/>
+    <GRL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Groenland"/>
+    <GTM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guatémala"/>
+    <GUF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guyane française"/>
+    <GUM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guam"/>
+    <GUY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guyane"/>
+    <HKG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Hong Kong"/>
+    <HMD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Heard et îles MacDonald"/>
+    <HND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Honduras"/>
+    <HRV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Croatie"/>
+    <HTI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Haïti"/>
+    <HUN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Hongrie"/>
+    <IDN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Indonésie"/>
+    <IMN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île de Man"/>
+    <IND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Inde"/>
+    <IOT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]"
+         sling:message="Territoire Britannique de l'Océan Indien"/>
+    <IRL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Irlande"/>
+    <IRN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Iran"/>
+    <IRQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Irak"/>
+    <ISL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Islande"/>
+    <ISR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Israël"/>
+    <ITA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Italie"/>
+    <JAM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jamaïque"/>
+    <JEY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jersey"/>
+    <JOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jordanie"/>
+    <JPN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Japon"/>
+    <KAZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kazakhstan"/>
+    <KEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kenya"/>
+    <KGZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kirghizistan"/>
+    <KHM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cambodge"/>
+    <KIR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kiribati"/>
+    <KNA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Kitts-et-Nevis"/>
+    <KOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Corée du Sud"/>
+    <KWT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Koweït"/>
+    <LAO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Laos"/>
+    <LBN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Liban"/>
+    <LBR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Libéria"/>
+    <LBY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Libye"/>
+    <LCA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sainte-Lucie"/>
+    <LIE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Liechtenstein"/>
+    <LKA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sri Lanka"/>
+    <LSO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lesotho"/>
+    <LTU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lituanie"/>
+    <LUX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Luxembourg"/>
+    <LVA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lettonie"/>
+    <MAC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Macao"/>
+    <MAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Martin"/>
+    <MAR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Maroc"/>
+    <MCO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Monaco"/>
+    <MDA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Moldavie"/>
+    <MDG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Madagascar"/>
+    <MDV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Maldives"/>
+    <MEX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mexique"/>
+    <MHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Marshall"/>
+    <MKD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Macédoine"/>
+    <MLI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mali"/>
+    <MLT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malte"/>
+    <MMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Myanmar"/>
+    <MNE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Monténégro"/>
+    <MNG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mongolie"/>
+    <MNP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Mariannes du Nord"/>
+    <MOZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mozambique"/>
+    <MRT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mauritanie"/>
+    <MSR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Montserrat"/>
+    <MTQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Martinique"/>
+    <MUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île Maurice"/>
+    <MWI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malawi"/>
+    <MYS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malaysie"/>
+    <MYT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mayotte"/>
+    <NAM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Namibie"/>
+    <NCL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nouvelle-Calédonie"/>
+    <NER jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niger"/>
+    <NFK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Île Norfolk"/>
+    <NGA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nigéria"/>
+    <NIC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nicaragua"/>
+    <NIU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niue"/>
+    <NLD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pays-Bas"/>
+    <NOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Norvège"/>
+    <NPL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Népal"/>
+    <NRU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nauru"/>
+    <NZL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nouvelle Zélande"/>
+    <OMN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Oman"/>
+    <PAK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pakistan"/>
+    <PAN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Panama"/>
+    <PCN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Pitcairn"/>
+    <PER jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pérou"/>
+    <PHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Philippines"/>
+    <PLW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Palaos"/>
+    <PNG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Papouasie-Nouvelle-Guinée"/>
+    <POL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pologne"/>
+    <PRI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Puerto Rico"/>
+    <PRK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Corée du Nord"/>
+    <PRT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Portugal"/>
+    <PRY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Paraguay"/>
+    <PSE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Territoire Palestinien"/>
+    <PYF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Polynésie française"/>
+    <QAT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Qatar"/>
+    <REU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="La Réunion"/>
+    <ROU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Roumanie"/>
+    <RUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Russie"/>
+    <RWA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Rwanda"/>
+    <SAU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Arabie Saoudite"/>
+    <SCG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Serbie et Montenegro"/>
+    <SDN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Soudan"/>
+    <SEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sénégal"/>
+    <SGP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Singapour"/>
+    <SGS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]"
+         sling:message="Géorgie du Sud et les îles Sandwich"/>
+    <SHN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sainte-Hélène"/>
+    <SJM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Svalbard et Jan Mayen"/>
+    <SLB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Salomon"/>
+    <SLE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sierra Leone"/>
+    <SLV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Le Salvador"/>
+    <SMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="San Marin"/>
+    <SOM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Somalie"/>
+    <SPM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint Pierre et Miquelon"/>
+    <SRB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Serbie"/>
+    <SSD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Soudan du Sud"/>
+    <STP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sao Tomé-et-Principe"/>
+    <SUR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Surinam"/>
+    <SVK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Slovaquie"/>
+    <SVN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Slovénie"/>
+    <SWE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Suède"/>
+    <SWZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Swaziland"/>
+    <SXM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Martin"/>
+    <SYC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Seychelles"/>
+    <SYR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Syrie"/>
+    <TCA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Turques et Caïques"/>
+    <TCD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tchad"/>
+    <TGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Togo"/>
+    <THA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Thaïlande"/>
+    <TJK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tajikistan"/>
+    <TKL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tokelau"/>
+    <TKM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Turkménistan"/>
+    <TLS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Timor oriental"/>
+    <TON jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tonga"/>
+    <TTO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Trinité et Tobago"/>
+    <TUN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tunisie"/>
+    <TUR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Turquie"/>
+    <TUV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tuvalu"/>
+    <TWN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Taiwan"/>
+    <TZA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tanzanie"/>
+    <UGA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ouganda"/>
+    <UKR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ukraine"/>
+    <UMI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]"
+         sling:message="Îles Mineures éloignées des États-Unis"/>
+    <URY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Uruguay"/>
+    <USA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="États-Unis (USA)"/>
+    <UZB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ouzbékistan"/>
+    <VAT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vatican"/>
+    <VCT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Vincent-et-les-Grenadines"/>
+    <VEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vénézuela"/>
+    <VGB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Vierges britanniques"/>
+    <VIR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Îles Vierges des États-Unis"/>
+    <VNM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vietnam"/>
+    <VUT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vanuatu"/>
+    <WLF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Wallis et Futuna"/>
+    <WSM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Samoa"/>
+    <XKX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kosovo"/>
+    <YEM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Yemen"/>
+    <ZAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afrique du Sud"/>
+    <ZMB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Zambie"/>
+    <ZWE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Zimbabwe"/>
 </jcr:root>

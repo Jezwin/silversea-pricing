@@ -1,7 +1,6 @@
 .route-slider {
-  margin-bottom: 25px;
   height: 200px;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 40px;
 
   .slick-dots {
@@ -28,7 +27,7 @@
       margin: 0px 4px;
     }
 
-    a {
+    .route-content-square {
       font-family: @freight;
       font-size: 16px;
 
@@ -53,37 +52,60 @@
       color: @white;
       background: @nd-dark;
       border: none;
-      a {
-        time {
-          color: @black;
-          background: @grey--e6;
-        }
-        strong {
-          color: @white;
-        }
+
+      time {
+        color: @black;
+        background: @grey--e6;
       }
+
+      strong {
+        color: @white;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) and (min-width: 600px) {
+  .route-slider {
+    .route-content {
+      padding: 0px !important;
+      padding-top: 35px !important;
     }
   }
 }
 
 @media (max-width: @screen-sm) {
   .route-slider {
+    margin-bottom: 62px;
     .route-content {
       width: 100%;
-      font-size: 18px;
-      padding: 15px;
-      min-height: 190px;
-      a {
+      font-size: 22px;
+      padding: 35px;
+      min-height: 219px;
+
+      .route-content-square {
         font-size: 17px;
       }
     }
-    .slick-slide {
-      margin-left: 10px;
-      margin-right: 10px;
+
+    .slick-slide:not(.slick-current) {
+      transform: scale(0.95);
+      opacity: 0.6;
+      background-color: #f4f4f4;
     }
-   .slick-dots {
-      width: 98%;
-      bottom: -15px;
+
+    .slick-dots {
+      width: 60%;
+      bottom: -40px;
+    }
+  }
+}
+
+@media (max-width: @screen-sm) and (orientation: landscape) {
+  .route-slider {
+    .route-content {
+      padding: 0px;
+      padding-top: 35px;
     }
   }
 }

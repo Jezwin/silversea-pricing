@@ -1,16 +1,13 @@
 package com.silversea.aem.components.editorial.cardSliderLightbox;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.models.CardLightbox;
-import com.silversea.aem.models.CardLightboxImpl;
-import com.silversea.aem.utils.MultiFieldUtils;
 import org.apache.sling.api.request.RequestPathInfo;
 
 import java.util.List;
 import java.util.Optional;
 
 
-public class LightboxUse extends WCMUsePojo {
+public class LightboxUse extends SliderUse {
     private String prev;
     private String next;
     private CardLightbox prevCard;
@@ -19,16 +16,16 @@ public class LightboxUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
+        super.activate();
         RequestPathInfo requestPathInfo = getRequest().getRequestPathInfo();
         String[] selectors = requestPathInfo.getSelectors();
-        List<CardLightboxImpl> cards = MultiFieldUtils.retrieveMultiField(getResource(), "cards", CardLightboxImpl.class);
-        init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), cards);
+        init(requestPathInfo.getResourcePath(), selectors[0], retrieveCurrentIndex(selectors), getCards());
 
     }
 
     protected Integer retrieveCurrentIndex(String[] selectors) {
         int index = selectors.length - 1;
-        while (index >= 0 && selectors[index].startsWith("country")) {
+        while (index > 0 && selectors[index].startsWith("country")) {
             index--;
         }
         int finalIndex = index;
@@ -73,4 +70,5 @@ public class LightboxUse extends WCMUsePojo {
     public CardLightbox getCard() {
         return card;
     }
+
 }

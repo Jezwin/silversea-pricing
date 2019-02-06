@@ -33,6 +33,9 @@ public class SuitePrice {
         if (!price.isWaitList()) {
             lowestPrice = price;
             isWaitList = false;
+            if(price.getComputedPrice() == 0){
+                isWaitList = true;
+            }
         }
 
         this.locale = locale;

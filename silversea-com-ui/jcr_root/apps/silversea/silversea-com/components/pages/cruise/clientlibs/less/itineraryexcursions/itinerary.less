@@ -51,10 +51,20 @@
   }
 
   .cruise-2018-itinerary-segment-map {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: underline;
+    padding-left: 5px;
+    font-size: 13px;
 
     picture {
       text-align: center;
+
+      img {
+        width: 100%;
+      }
     }
   }
 
@@ -103,7 +113,7 @@
   }
 
   .cruise-2018-itineraries-120-label {
-    font-size: 10px;
+    font-size: 11px;
     color: grey;
     padding: 0px 90px;
     text-align: center;
@@ -522,6 +532,46 @@
             }
           }
         }
+        .cruise-2018-itinerary-slide{
+          position:relative;
+          .cruise-2018-itinerary-slide-thumbnail__label{
+            color: #fff;
+            font-size: 12px;
+            padding: 6px;
+            padding-bottom: 3px;
+            bottom: 10px;
+            background-color: rgba(0,0,0,0.5);
+            position: absolute;
+            left: 22px;
+            max-width:290px;
+          }
+          .fa.fa-play {
+            transform: translate(-45%,-50%) scale(0.65);
+            -webkit-transform: translate(-45%,-50%) scale(0.65);
+            -ms-transform: translate(-45%,-50%) scale(0.65);
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            &:after {
+              background-color: white;
+              opacity: .6;
+              z-index: -1;
+              border: 3px solid #fff;
+              border-radius: 50%;
+              border: 3px solid #fff;
+              border-radius: 50%;
+              content: "";
+              display: block;
+              left: 50%;
+              height: 84px;
+              position: absolute;
+              top: 50%;
+              transform: translate(-55%,-50%);
+              -webkit-transform: translate(-55%,-50%);
+              width: 84px;
+            }
+          }
+        }
       }
       .slick-slide[data-slide-type^="video"] {
         position: relative;
@@ -552,6 +602,10 @@
       p {
         font-size: 14px;
       }
+    }
+
+    .cruise-2018-itineraries-header-no-eo {
+      background-color: white !important;
     }
 
     .cruise-2018-itineraries-header {
@@ -603,7 +657,7 @@
     }
 
     .cruise-2018-itineraries-120-label {
-      font-size: 9px;
+      font-size: 10px;
       padding: 0px 18px;
       margin-bottom: 10px;
     }

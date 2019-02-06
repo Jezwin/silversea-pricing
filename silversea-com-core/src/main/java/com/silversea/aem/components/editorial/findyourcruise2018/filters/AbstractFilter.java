@@ -1,61 +1,35 @@
-package com.silversea.aem.components.editorial.findyourcruise2018;
+package com.silversea.aem.components.editorial.findyourcruise2018.filters;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use;
 import com.silversea.aem.models.CruiseModelLight;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.CHOSEN;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
 public abstract class AbstractFilter<T> {
 
-    protected enum Sorting {
-        ASC(id -> id), DESC(Comparator::reversed), NONE(id -> id), HIDDEN(id -> id);
-
-
-        private UnaryOperator<Comparator<CruiseModelLight>> operator;
-
-        Sorting(UnaryOperator<Comparator<CruiseModelLight>> operator) {
-            this.operator = operator;
-        }
-
-        public UnaryOperator<Comparator<CruiseModelLight>> getOperator() {
-            return operator;
-        }
-
-
-    }
-
     private final String kind;
-    private final BiFunction<FindYourCruise2018Use, Sorting, Comparator<CruiseModelLight>> sortedBy;
     private Set<FilterRow<T>> rows;
     private Set<FilterRow<T>> selectedRows;
-    private Sorting sorting;
     private boolean visible;
     private boolean open;
 
-    AbstractFilter(String kind, Comparator<CruiseModelLight> sortedBy, Sorting sortingGiven) {
+    public AbstractFilter(String kind) {
         this.kind = kind;
-        this.sortedBy = (use, sorting) -> sorting.getOperator().apply(sortedBy);
-        this.sorting = sortingGiven;
-    }
-
-    AbstractFilter(String kind, BiFunction<FindYourCruise2018Use, Sorting, Comparator<CruiseModelLight>> sortedBy, Sorting sorting) {
-        this.kind = kind;
-        this.sortedBy = sortedBy;
-        this.sorting = sorting;
     }
 
 
-    protected abstract Stream<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
+    public abstract Stream<FilterRow<T>> projection(CruiseModelLight cruiseModelLight);
 
     public Collection<FilterRow<T>> getRows() {
         return rows;
@@ -74,15 +48,30 @@ public abstract class AbstractFilter<T> {
                 .orElseThrow(() -> new IllegalArgumentException("Could not find " + key));
     }
 
-    final boolean matches(CruiseModelLight cruise) {
+    public final boolean matches(CruiseModelLight cruise) {
         return selectedRows.isEmpty() || matches(selectedRows, cruise);
     }
 
-    void disableMissingLabels(Collection<CruiseModelLight> cruises) {
-        rows.forEach(row -> row.setState(rowShouldBeEnabled(cruises, row) ? ENABLED : DISABLED));
+    public void disableMissingLabels(Collection<CruiseModelLight> cruises) {
+        for (FilterRow<T> row : rows) {
+            if (rowShouldBeEnabled(cruises, row)) {
+                enableRow(row);
+            } else {
+                disableRow(row);
+            }
+        }
     }
 
-    final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, Collection<CruiseModelLight> allCruises) {
+    public void enableRow(FilterRow<?> row) {
+        row.setState(ENABLED);
+
+    }
+
+    public void disableRow(FilterRow<?> row) {
+        row.setState(DISABLED);
+    }
+
+    public final void initAllValues(FindYourCruise2018Use use, String[] selectedKeys, Collection<CruiseModelLight> allCruises) {
         this.selectedRows = new HashSet<>();
         this.rows = retrieveAllValues(use, selectedKeys, this.selectedRows::add, allCruises);
     }
@@ -100,31 +89,13 @@ public abstract class AbstractFilter<T> {
     }
 
 
-    protected String[] selectedKeys(Map<String, String[]> properties, Map<String, String[]> httpRequest) {
+    public String[] selectedKeys(Map<String, String[]> properties, Map<String, String[]> httpRequest) {
         Optional<String[]> valueFromProperty = ofNullable(properties.get(getKind() + "Id"));
         if (valueFromProperty.isPresent()) {
             setVisible(false);
             return valueFromProperty.get();
         }
         setVisible(true);
-        Optional<String[]> sortBy = ofNullable(httpRequest.get("sortby"));
-        if (sortBy.isPresent()) {
-            for (String sort : sortBy.get()) {
-                //duration-asc or duration-desc
-                String[] value = sort.split("-");
-                if (value.length > 1 && value[0].equalsIgnoreCase(getKind())) {
-                    setSorting(Sorting.valueOf(value[1].toUpperCase()));
-                } else if (value.length > 1 && getSorting().equals(Sorting.ASC) || getSorting().equals(Sorting.DESC)) {
-                    setSorting(Sorting.NONE);
-                }
-            }
-        } else {
-            if (getKind().equals(FilterBar.DEPARTURE.getKind())) {
-                setSorting(Sorting.ASC);
-            } else if (!getSorting().equals(Sorting.HIDDEN)) {
-                setSorting(Sorting.NONE);
-            }
-        }
         return httpRequest.getOrDefault(getKind(), ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
@@ -151,7 +122,7 @@ public abstract class AbstractFilter<T> {
      * @return True is any cruise matches the row.
      */
     private boolean rowShouldBeEnabled(Collection<CruiseModelLight> cruises, FilterRow<T> row) {
-        return cruises.parallelStream().flatMap(this::projection).anyMatch(row::equals);
+        return cruises.stream().flatMap(this::projection).anyMatch(row::equals);
     }
 
     public int getSelectedCount() {
@@ -178,7 +149,11 @@ public abstract class AbstractFilter<T> {
 
     public JsonElement toJson() {
         JsonArray array = new JsonArray();
-        rows.forEach(row -> array.add(row.toJson()));
+        rows.forEach(row -> {
+            if (!row.isNotVisible()) {
+                array.add(row.toJson());
+            }
+        });
         return array;
     }
 
@@ -199,26 +174,8 @@ public abstract class AbstractFilter<T> {
         this.visible = visible;
     }
 
-    /**
-     * Apply post filtering, such as removing not enabled lines.
-     */
-    protected void postFilter() {
-
-    }
-
     protected void setRows(Set<FilterRow<T>> rows) {
         this.rows = rows;
     }
 
-    public Sorting getSorting() {
-        return sorting;
-    }
-
-    public void setSorting(Sorting sorting) {
-        this.sorting = sorting;
-    }
-
-    public Comparator<CruiseModelLight> getSortedBy(FindYourCruise2018Use findYourCruise2018Use) {
-        return sortedBy.apply(findYourCruise2018Use, getSorting());
-    }
 }

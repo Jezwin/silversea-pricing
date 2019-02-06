@@ -23,7 +23,9 @@ $(function () {
 
     const setHeader = function () {
         var header = $("#lightbox-simple .lightbox-close");
-        header.css("top", ($lightboxSimpleContent.position().top - header.height()) + "px");
+        var number = ($lightboxSimpleContent.offset().top-$lightboxSimple.offset().top - header.height());
+        number = number < 0 ? 0 : number;
+        header.css("top", number + "px");
         header.css("left", ($lightboxSimpleContent.offset().left) + "px");
     };
 
@@ -41,7 +43,7 @@ $(function () {
             var prevHref = loadedPrev.attr("href");
             var nextHref = loadedNext.attr("href");
             if (!prevHref || !nextHref) {
-                return;
+                return false;
             }
             prevLink.attr("href", prevHref);
             $lightboxSimple.find('.lightbox-simple-next-label').html(loadedNext.html());
@@ -98,6 +100,17 @@ $(function () {
         }
     }
 
+    function setScrollEvent(callback) {
+        $lightboxSimple.bind('scroll', callback);
+        $(window).resize('resize', callback)
+    }
+
+    function removeScrollEvent(callback) {
+        $lightboxSimple.unbind('scroll', callback)
+        $(window).unbind('resize', callback)
+
+    }
+
     //--
 
     const onShow = function (event) {
@@ -119,6 +132,7 @@ $(function () {
             callCallback($(event.relatedTarget).data("slb-callback"));
             setHeader();
             setNavigation();
+            setScrollEvent(setHeader)
         }
     };
 
@@ -127,6 +141,7 @@ $(function () {
         $lightboxSimpleContent.html("");
         delete window.$$lastCallback;
         removeCustomScopeClass();
+        removeScrollEvent(setHeader)
     };
 
 

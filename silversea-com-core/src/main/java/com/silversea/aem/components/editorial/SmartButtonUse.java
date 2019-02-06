@@ -1,6 +1,5 @@
 package com.silversea.aem.components.editorial;
 
-import com.adobe.cq.sightly.WCMBindings;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.Page;
 import com.google.common.collect.Sets;
@@ -8,20 +7,16 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.helper.UrlHelper;
 import com.silversea.aem.models.SmartButtonModel;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static com.silversea.aem.utils.MultiFieldUtils.retrieveMultiField;
-import static java.util.Collections.emptyList;
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.StreamSupport.stream;
 
 public class SmartButtonUse extends AbstractGeolocationAwareUse {
 
@@ -70,7 +65,7 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
         LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " start geolocation process");
         ValueMap properties = new ValueMapDecorator(new LinkedHashMap<>());
         for (String device : DEVICES) {
-            geoList = retrieveMultiField(getResource(), "geoList" + device, SmartButtonModel.class);
+            geoList = retrieveMultiField("geoList" + device, SmartButtonModel.class);
             LOGGER.debug(SmartButtonUse.class.toString().toUpperCase() + " geo {} process {}", device);
             AtomicBoolean foundBestMatch = new AtomicBoolean(false);
             for (int i = 0; i < geoList.size() && !foundBestMatch.get(); i++) {

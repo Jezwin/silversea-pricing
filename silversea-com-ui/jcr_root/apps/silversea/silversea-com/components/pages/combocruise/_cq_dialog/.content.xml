@@ -44,6 +44,20 @@
                                             fieldLabel="API Title"
                                             name="./apiTitle"
                                             renderReadOnly="{Boolean}true"/>
+                                    <comboCruiseBigTitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="comboCruiseBigTitle"
+                                            fieldLabel="Big Title"
+                                            name="./comboCruiseBigTitle"/>
+                                    <comboCruiseSmallTitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="comboCruiseSmallTitle"
+                                            fieldLabel="Small Title"
+                                            name="./comboCruiseSmallTitle"/>
                                     <overview
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
@@ -90,8 +104,24 @@
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="comboCruiseFareAdditions"
-                                            fieldLabel="Combo Cruise fare additions"
+                                            fieldLabel="Included in combo cruise"
                                             name="./comboCruiseFareAdditions"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <comboCruiseFareAdditionsDescription
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="comboCruiseFareAdditionsDescription"
+                                            fieldLabel="Included in combo cruise description"
+                                            name="./comboCruiseFareAdditionsDescription"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <comboCruiseFareAdditionsFootnotes
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="comboCruiseFareAdditionsFootnotes"
+                                            fieldLabel="Included in combo cruise footnotes"
+                                            name="./comboCruiseFareAdditionsFootnotes"
                                             renderReadOnly="{Boolean}true"/>
                                     <assetSelectionReference
                                             jcr:primaryType="nt:unstructured"
@@ -101,7 +131,7 @@
                                             fieldLabel="Extra media gallery"
                                             renderReadOnly="{Boolean}true"
                                             name="./assetSelectionReference"
-                                            rootPath="/content/dam/silversea-com" />
+                                            rootPath="/content/dam/silversea-com"/>
                                     <bigItineraryMap
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -110,7 +140,15 @@
                                             fieldLabel="Big Itinerary map"
                                             renderReadOnly="{Boolean}true"
                                             name="./bigItineraryMap"
-                                            rootPath="/content/dam/silversea-com" />
+                                            rootPath="/content/dam/silversea-com"/>
+                                    <keypeopleTitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="keyPeopleTitle"
+                                            fieldLabel="Key People Title"
+                                            name="./keyPeopleTitle"
+                                    />
                                     <keypeople
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/multifield"

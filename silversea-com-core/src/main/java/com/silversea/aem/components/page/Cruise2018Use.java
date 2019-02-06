@@ -74,6 +74,7 @@ public class Cruise2018Use extends EoHelper {
     private String currentPath;
 
     private String ccptCode;
+    private String taCode;
     private CruiseModel cruiseModel;
 
     private List<CruiseItinerary> itinerary;
@@ -110,6 +111,7 @@ public class Cruise2018Use extends EoHelper {
     private ItineraryLandProgramModel midlandShorexLightbox;
 
     private int hasexcursionsCounter;
+    private int numExcursions;
 
     @Override
     public void activate() throws Exception {
@@ -121,7 +123,7 @@ public class Cruise2018Use extends EoHelper {
         selector = typeLightbox.getSelector();
         switch (typeLightbox) {
             case ASSET_GALLERY:
-                assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage());
+                assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage(), false);
                 arrivalPortName = AssetGalleryCruiseUse.retrieveArrivalPortName(itinerariesResource);
                 departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
                 return;
@@ -154,7 +156,7 @@ public class Cruise2018Use extends EoHelper {
                 break;
         }
 
-        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage());
+        assetsGallery = AssetGalleryCruiseUse.retrieveAssetsGallery(itinerariesResource, getResourceResolver(), getCurrentPage(), false);
         arrivalPortName = AssetGalleryCruiseUse.retrieveArrivalPortName(itinerariesResource);
         departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
         cruiseModel = retrieveCruiseModel();
@@ -168,12 +170,13 @@ public class Cruise2018Use extends EoHelper {
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel, getResourceResolver());
 
         itinerary = retrieveItinerary(cruiseModel, getResourceResolver());
-        portsGallery = retrievePortsGallery(cruiseModel);
+        portsGallery = retrievePortsGalleryAndVideo(cruiseModel);
 
         showCruiseBeforeName = retrieveShowCruiseBeforeName(locale);
 
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
+        taCode = retrieveTaCode(selectors);
 
         numPorts = retrieveNumberOfPorts(cruiseModel);
         numCountries = retrieveNumberOfCountries(cruiseModel);
@@ -207,6 +210,7 @@ public class Cruise2018Use extends EoHelper {
         this.hasexcursionsCounter = firstExcursionsCounter();
     }
 
+
     private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferItem> exclusiveOffers) {
         Integer priorityWeight = Integer.MIN_VALUE;
         String postPrice = null;
@@ -220,15 +224,22 @@ public class Cruise2018Use extends EoHelper {
         return postPrice;
     }
 
-    private List<SilverseaAsset> retrievePortsGallery(CruiseModel cruiseModel) {
+
+    private List<SilverseaAsset> retrievePortsGalleryAndVideo(CruiseModel cruiseModel) {
+        String assetSelectionReference;
+        ValueMap vmProperties = getCurrentPage().getProperties();
         Map<Integer, LinkedList<String>> portsAssets = retrievePortsAssets(cruiseModel.getItineraries(), false, getResourceResolver());
-        return cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
-                .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> {
-                    SilverseaAsset sscAsset = new SilverseaAsset();
-                    sscAsset.setPath(path);
-                    sscAsset.setName(port.getPort().getTitle());
-                    return sscAsset;
-                })).distinct().collect(toList());
+        List<SilverseaAsset> PortGalleryAndVideo = cruiseModel.getItineraries().stream().filter(port -> portsAssets.containsKey(port.getPortId()))
+                .flatMap(port -> portsAssets.get(port.getPortId()).stream().map(path -> AssetUtils.buildSilverseaAsset(path, getResourceResolver(), "", ""))).distinct().collect(toList());
+        assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
+        List<SilverseaAsset> assetsListResult = new ArrayList<>();
+        if (StringUtils.isNotBlank(assetSelectionReference)) {
+            assetsListResult.addAll(AssetUtils
+                    .buildSilverseaAssetListVideoOnly(assetSelectionReference, getResourceResolver(),
+                            null));
+            PortGalleryAndVideo.addAll(0, assetsListResult);
+        }
+        return PortGalleryAndVideo;
     }
 
     public static Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
@@ -422,6 +433,15 @@ public class Cruise2018Use extends EoHelper {
         return "";
     }
 
+    private String retrieveTaCode(String[] selectors) {
+        for (String selectorInfo : selectors) {
+            if (selectorInfo.contains("ta_")) {
+                return selectorInfo.replace("ta_", ".");
+            }
+        }
+        return "";
+    }
+
     private String retrieveCurrentPath() {
         return getSlingScriptHelper().getService(Externalizer.class)
                 .publishLink(getResourceResolver(), getCurrentPage().getPath());
@@ -557,6 +577,7 @@ public class Cruise2018Use extends EoHelper {
             for (CruiseItinerary cruiseItinerary : this.itinerary) {
                 counter++;
                 if (cruiseItinerary.isHasExcursions()) {
+                    this.numExcursions++;
                     return counter;
                 }
             }
@@ -629,6 +650,10 @@ public class Cruise2018Use extends EoHelper {
 
     public void setExclusiveOfferPostPrice(String exclusiveOfferPostPrice) {
         this.exclusiveOfferPostPrice = exclusiveOfferPostPrice;
+    }
+    
+    public int getNumExcursions() {
+        return numExcursions;
     }
 
     public enum Lightbox {
@@ -761,6 +786,9 @@ public class Cruise2018Use extends EoHelper {
     public String getCcptCode() {
         return ccptCode;
     }
+    public String getTaCode() {
+        return taCode;
+    }
 
     public Collection<CruisePrePost> getPrePost() {
         return prePosts;
@@ -781,6 +809,9 @@ public class Cruise2018Use extends EoHelper {
 
     public long getDayUntilDeparture() {
         return dayUntilDeparture;
+    }
+    public Integer getHasexcursionsCounter() {
+        return hasexcursionsCounter;
     }
 }
 

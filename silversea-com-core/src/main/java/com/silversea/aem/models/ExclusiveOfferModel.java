@@ -16,6 +16,7 @@ import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.eclipse.jetty.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,6 +93,11 @@ public class ExclusiveOfferModel {
     @Named(JcrConstants.JCR_CONTENT + "/activeSystem")
     @Optional
     private String activeSystem;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/ghostOffer")
+    @Optional
+    private String ghostOffer;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/defaultTitle")
@@ -423,5 +429,8 @@ public class ExclusiveOfferModel {
 
     public String getDefaultPostPrice() {
         return defaultPostPrice;
+    }
+    public boolean isGhostOffer() {
+        return StringUtils.isNotEmpty(ghostOffer) ? Boolean.valueOf(ghostOffer) : false;
     }
 }

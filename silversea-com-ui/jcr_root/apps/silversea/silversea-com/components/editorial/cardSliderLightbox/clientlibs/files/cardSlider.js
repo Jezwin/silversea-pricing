@@ -27,23 +27,23 @@
         $(".cardSlider-slider").each(function () {
             var $slider = $(this);
             if ($slider) {
-                try {
-                } catch (e) {
-
-                }
+                var data = $slider.data();
                 var options = {
                     dots: $slider.hasClass('activate-progressbar'),
+                    centerMode: data.hasOwnProperty("sscCenteredDesktop"),
                     draggable: true,
                     slidesToShow: $slider.data('ssc-slides') || 3,
                     slidesToScroll: $slider.data('ssc-slides') || 3,
                     responsive: []
                 };
                 var breakpoint = $slider.data('ssc-breakpoint');
+
                 if (breakpoint) {
                     options.responsive.push(
                         {
                             breakpoint: breakpoint,
                             settings: {
+                                centerMode: data.hasOwnProperty("sscCenteredDesktop"),
                                 slidesToShow: $slider.data('ssc-slides') - 1 || 3,
                                 slidesToScroll: $slider.data('ssc-slides') - 1 || 3
                             }
@@ -54,6 +54,7 @@
                     options.responsive.push({
                         breakpoint: breakpointTablet,
                         settings: {
+                            centerMode: data.hasOwnProperty("sscCenteredTablet"),
                             slidesToShow: $slider.data('ssc-slides-to-show-tablet') || 1,
                             slidesToScroll: $slider.data('ssc-slides-to-scroll-tablet') || 1
                         }
@@ -64,6 +65,7 @@
                     options.responsive.push({
                         breakpoint: breakpointMobile,
                         settings: {
+                            centerMode: data.hasOwnProperty("sscCenteredMobile"),
                             slidesToShow: $slider.data('ssc-slides-to-show-mobile') || 1,
                             slidesToScroll: $slider.data('ssc-slides-to-scroll-mobile') || 1
                         }

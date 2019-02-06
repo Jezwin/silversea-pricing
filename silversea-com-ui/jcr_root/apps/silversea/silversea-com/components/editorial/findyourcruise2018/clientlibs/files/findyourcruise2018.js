@@ -3,6 +3,71 @@ $(function () {
 
     if ($(".findyourcruise2018").length > 0) {
 
+        var showRightSpanWaitlist = function () {
+            var $hideWaitlistSpan = $(".fyc2018-show-hide-waitlist .waitlist.hide-waitlist"),
+                $showWaitlistSpan = $(".fyc2018-show-hide-waitlist .waitlist.show-waitlist");
+            var isHideWaitlist =$hideWaitlistSpan.length > 0;
+            if (isHideWaitlist) {
+                $showWaitlistSpan.remove();
+            }
+            $(".fyc2018-show-hide-waitlist .waitlist").show();
+        };//showRightSpanWaitlist
+
+        var getWaitlistFilter = function () {
+            var isNoWaitlist = $(".fyc2018-show-hide-waitlist").find(".waitlist").hasClass("show-waitlist");
+            return isNoWaitlist ? "&waitlist=no_waitlist,waitlist" : "";
+        };//
+
+        var updateCruiseResultsBasedOnWaitlist = function () {
+            var urlTemplate = $("#results-url-request").data("url");
+            var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
+            updateCruises(url, true);
+        };//updateCruiseResultsBasedOnWaitlist
+
+        var onClickChangeSortType = function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var $divSortType = $(this),
+                isAsc = $divSortType.attr("data-type") == "ASC",
+                type = isAsc ? "DESC" : "ASC",
+                icon = "fa fa-sort-amount-" + type.toLowerCase();
+            $divSortType.find("i").remove();
+            $divSortType.append("<i class='" + icon + "'></i>");
+            $divSortType.attr("data-type", type);
+            changeSorting();
+        };//onClickChangeSortType
+
+        var showWaitlistResults = function ($showHideDiv) {
+            var $spanWaitlist = $showHideDiv.find(".waitlist");
+            $spanWaitlist.removeClass("hide-waitlist");
+            $spanWaitlist.addClass("show-waitlist");
+            var hideLabel = $showHideDiv.attr("data-hide-waitlist");
+            $showHideDiv.find("span").text(hideLabel);
+            updateCruiseResultsBasedOnWaitlist();
+        };//showWaitlistResults
+
+        var hideWaitlistResults = function ($showHideDiv) {
+            var $spanWaitlist = $showHideDiv.find(".waitlist");
+            $spanWaitlist.removeClass("show-waitlist");
+            $spanWaitlist.addClass("hide-waitlist");
+            var showLabel = $showHideDiv.attr("data-show-waitlist");
+            $showHideDiv.find("span").text(showLabel);
+            updateCruiseResultsBasedOnWaitlist();
+        };//hideWaitlistResults
+
+        var onClickShowHideWaitlist = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $showHideDiv = $(this);
+            var isShow = $showHideDiv.find(".waitlist").hasClass("show-waitlist");
+            if (isShow) {
+                hideWaitlistResults($showHideDiv);
+            } else {
+                showWaitlistResults($showHideDiv);
+            }
+            $(".fyc2018-header-reset-all").show();
+        };//onClickShowHideWaitlist
+
         var setSortingKeyType = function () {
             $(".findyourcruise2018 .fyc2018-sorting-dropdown .fyc2018-sorting-filed-span").each(function (e) {
                 var enable = $(this).attr("data-enable"),
@@ -23,10 +88,9 @@ $(function () {
 
         var changeSorting = function () {
             var urlTemplate = $("#results-url-request").data("url");
-            var url = createUrl(urlTemplate,1, true) + "&onlyResults=true";
+            var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
             updateCruises(url, true);
         };//changeSorting
-
 
         var createPortSelectedList = function (port) {
             var $containerPortSelected = $(".filter-port .fyc2018-filter-selected-content");
@@ -34,9 +98,7 @@ $(function () {
             $containerPortSelected.find(".filter-value").each(function () {
                 if ($(this).data("key") == port.attr("data-key")) {
                     isAlreadyPresent = true;
-                    //if (port.data("state") == "ENABLED") {
                     $(this).remove();
-                    // /}
                 }
             });
             if (!isAlreadyPresent) {
@@ -207,9 +269,11 @@ $(function () {
             if (url == "") {
                 url += "pag=" + page;
                 url += "&sortby=" + key + "-" + type.toLowerCase();
+                url += getWaitlistFilter();
             } else {
                 url += "&pag=" + page;
                 url += "&sortby=" + key + "-" + type.toLowerCase();
+                url += getWaitlistFilter();
             }
 
             if (updateHistory) {
@@ -311,6 +375,7 @@ $(function () {
                         separateYears();
                         searchAnalytics();
                         setSortingValueOnMobile();
+                        showRightSpanWaitlist();
                         urlToCompare = window.location.search;
                     }
                 });
@@ -330,7 +395,6 @@ $(function () {
             } else {
                 //ussing on startup
                 sort = $(".filter-sortby .filter-value.filter-sorting.filter-selected");
-                console.log(sort.attr("data-key"));
             }
 
             if ($(window).width() < 768) {
@@ -522,6 +586,7 @@ $(function () {
         separateYears();
         onLoadFilterUrl = window.location.search;
         searchAnalytics();
+        showRightSpanWaitlist();
         if ($(window).width() < 768) {
             backMobile();
         }
@@ -570,17 +635,21 @@ $(function () {
             e.preventDefault();
             e.stopPropagation();
             var key = $(this).data("key"),
-                label = $(this).data("label");
+                label = $(this).data("label"),
+                keyOld = $(".findyourcruise2018 .fyc2018-sorting-span").data("key");
             $(this).attr("data-enable", "true");
             $(".findyourcruise2018 .fyc2018-sorting-span span").text(label);
             $(".findyourcruise2018 .fyc2018-sorting-span").attr("data-key", key);
 
-            var type = $(".fyc2018-header-sorting-type").attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
-            $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
+            if (keyOld == key) {
+                var type = $(".fyc2018-header-sorting-type").attr("data-type").toLowerCase() == "asc" ? "desc" : "asc";
+                $(".findyourcruise2018 .fyc2018-header-sorting-type").attr("data-type", type);
 
-            var icon = "fa fa-sort-amount-" + type;
-            $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
-            $(".findyourcruise2018 .fyc2018-header-sorting-type").append("<i class='" + icon + "'></i>");
+                var icon = "fa fa-sort-amount-" + type;
+                $(".findyourcruise2018 .fyc2018-header-sorting-type i").remove();
+                $(".findyourcruise2018 .fyc2018-header-sorting-type").append("<i class='" + icon + "'></i>");
+            }
+
             if ($(window).width() < 992) {
                 $(".fyc2018-sorting-dropdown").hide();
             }
@@ -733,8 +802,8 @@ $(function () {
                 setNumberFilterSelected(idFilter);
                 var urlTemplate = $("#results-url-request").data("url");
                 var url = createUrl(urlTemplate, 1, true) + "&onlyResults=true";
-                updateCruises(url);
                 checkNumberSelectedFilters();
+                updateCruises(url);
                 if (isMobileAndChangeSorting) {
                     setSortingValueOnMobile($(this));
                 }
@@ -798,5 +867,10 @@ $(function () {
                 setSortingValueOnMobile();
             }
         });
+
+        $(".findyourcruise2018").on("click", ".fyc2018-show-hide-waitlist", onClickShowHideWaitlist);
+
+        $(".findyourcruise2018").on("click", ".fyc2018-header-sorting-type", onClickChangeSortType);
+
     }
 });

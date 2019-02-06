@@ -40,7 +40,7 @@ import com.day.cq.wcm.api.PageManager;
         order = 100,
         scope = SlingFilterScope.REQUEST)
 @Properties({
-		@Property(name = "sling.filter.pattern", value = ".*.+html$")//,
+		@Property(name = "sling.filter.pattern", value = ".*html")//,
 	//	@Property(name = "sling.filter.extensions", value = {"pdf"}), version too old - not supported by slign engine
 		//@Property(name = "sling.filter.resourceTypes", value = "silversea/silversea-com/components/pages/page") version too old - not supported by slign engine
 })
@@ -60,8 +60,12 @@ public class AliasNameCheckFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		//DEACTIVATE THE FILTER
+    	chain.doFilter(request, response);
+		return;
 
-    	if (!(request instanceof SlingHttpServletRequest)) {
+
+    	/*if (!(request instanceof SlingHttpServletRequest)) {
     		chain.doFilter(request, response);
     		return;
     	}
@@ -114,7 +118,7 @@ public class AliasNameCheckFilter implements Filter {
 
 		}catch(Exception e){
 			chain.doFilter(request, response);
-		}
+		}*/
 
     }
 

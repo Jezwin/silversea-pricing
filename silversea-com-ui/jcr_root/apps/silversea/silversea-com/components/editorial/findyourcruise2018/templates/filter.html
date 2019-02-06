@@ -19,11 +19,11 @@
                     <span class="fyc2018-sorting-span"> <span class="text-uppercase">${'departure' @ i18n}</span></span>
                     <div class="fyc2018-sorting-dropdown">
                         <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                             data-sly-call="${sortingTemplate.default @ field='departure', sorting=fyc.filterBar.DEPARTURE.Sorting, label='departure'}"/>
+                             data-sly-call="${sortingTemplate.default @ field='departure', sorting=fyc.filterBar.departureSorting, label='departure'}"/>
                         <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                             data-sly-call="${sortingTemplate.default @ field='duration', sorting=fyc.filterBar.DURATION.Sorting,  label='duration'}"/>
+                             data-sly-call="${sortingTemplate.default @ field='duration', sorting=fyc.filterBar.durationSorting,  label='duration'}"/>
                         <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
-                             data-sly-call="${sortingTemplate.default @ field='price', sorting=fyc.filterBar.PRICE.Sorting, label='price'}"/>
+                             data-sly-call="${sortingTemplate.default @ field='price', sorting=fyc.filterBar.priceSorting, label='price'}"/>
                     </div>
                 </div>
                 <div class="fyc2018-header-sorting-type hidden-xs">
@@ -34,7 +34,7 @@
                             class="text-uppercase">${'clear-all-filters' @ i18n}</span></span>
                 </div>
                 <script>
-                    window.portsList = '${fyc.filterBar.PORT.toString @ context="scriptString" }';
+                    window.portsList = '${fyc.filterBar.port.toString @ context="scriptString" }';
                 </script>
             </div>
             <div class="fyc2018-filters-container">
@@ -44,28 +44,35 @@
                      id="filter-url-request">
                     <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
                          data-sly-call="${sortingTemplate.mobile @ fyc=fyc}"/>
-                    <sly data-sly-test="${fyc.filterBar.DESTINATION.visible}"
+                    <sly data-sly-test="${fyc.filterBar.destination.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DESTINATION.rows, type='filter-destination', singular='destination', plural='destinations', name='destination', fyc=fyc, open=fyc.filterBar.DESTINATION.open}"/>
-                    <sly data-sly-test="${fyc.filterBar.DEPARTURE.visible}"
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.destination.rows, type='filter-destination', singular='destination', plural='destinations', name='destination', fyc=fyc, open=fyc.filterBar.destination.open}"/>
+                    <sly data-sly-test="${fyc.filterBar.departure.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DEPARTURE.rows, type='filter-departure', class='col-sm-4 col-md-3', singular='departure', plural='departures', name='departure', open=fyc.filterBar.DEPARTURE.open}"/>
-                    <sly data-sly-test="${fyc.filterBar.DURATION.visible}"
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.departure.rows, type='filter-departure', class='col-sm-4 col-md-3', singular='departure', plural='departures', name='departure', open=fyc.filterBar.departure.open}"/>
+                    <sly data-sly-test="${fyc.filterBar.duration.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.DURATION.rows, type='filter-duration', singular='duration', plural='durations', label='days', name='duration',open=fyc.filterBar.DURATION.open}"/>
-                    <sly data-sly-test="${fyc.filterBar.SHIP.visible}"
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.duration.rows, type='filter-duration', singular='duration', plural='durations', label='days', name='duration',open=fyc.filterBar.duration.open}"/>
+                    <sly data-sly-test="${fyc.filterBar.ship.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.SHIP.rows, type='filter-ship', singular='ship', plural='ships', name='ship', open=fyc.filterBar.SHIP.open}"/>
-                    <sly data-sly-test="${fyc.filterBar.TYPE.visible}"
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.ship.rows, type='filter-ship', singular='ship', plural='ships', name='ship', open=fyc.filterBar.ship.open}"/>
+                    <sly data-sly-test="${fyc.filterBar.type.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.TYPE.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type', open=fyc.filterBar.TYPE.open}"/>
-                    <sly data-sly-test="${fyc.filterBar.PORT.visible}"
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.type.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type', open=fyc.filterBar.type.open}"/>
+                    <sly data-sly-test="${fyc.filterBar.port.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.PORT.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='search-port', open=fyc.filterBar.PORT.open}"/>
-                    <sly data-sly-test="${fyc.filterBar.FEATURES.visible}"
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.port.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='search-port', open=fyc.filterBar.port.open}"/>
+                    <sly data-sly-test="${fyc.filterBar.features.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.FEATURES.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.features.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
                 </div>
+                <div class="fyc2018-show-hide-waitlist" data-show-waitlist="${'show-waitlist' @ i18n}" data-hide-waitlist="${'hide-waitlist' @ i18n}" data-sly-test="${!properties.preFilterWaitlist}">
+                    <span class="waitlist show-waitlist">${'hide-waitlist' @ i18n }</span>
+                    <sly data-sly-list="${fyc.filterBar.waitlist.rows}">
+                        <span class="waitlist hide-waitlist" data-sly-test="${item.key == 'no_waitlist' && item.state == 'CHOSEN'}">${'show-waitlist' @ i18n}</span>
+                    </sly>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

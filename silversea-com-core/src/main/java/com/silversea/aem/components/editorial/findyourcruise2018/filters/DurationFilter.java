@@ -1,4 +1,4 @@
-package com.silversea.aem.components.editorial.findyourcruise2018;
+package com.silversea.aem.components.editorial.findyourcruise2018.filters;
 
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeSet;
@@ -8,10 +8,11 @@ import com.silversea.aem.models.CruiseModelLight;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.ENABLED;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 import static java.lang.Integer.parseInt;
 
-public final class DurationFilter extends AbstractFilter<Range<Integer>> {
+public class DurationFilter extends AbstractFilter<Range<Integer>> {
+    public static final String KIND = "duration";
 
     private static final RangeSet<Integer> DURATIONS = TreeRangeSet.create();
 
@@ -22,12 +23,12 @@ public final class DurationFilter extends AbstractFilter<Range<Integer>> {
         DURATIONS.add(Range.atLeast(19));
     }
 
-    DurationFilter() {
-        super("duration", Comparator.comparing((CruiseModelLight cruise) -> Integer.parseInt(cruise.getDuration())), Sorting.NONE);
+    public DurationFilter() {
+        super(KIND);
     }
 
     @Override
-    protected Stream<FilterRow<Range<Integer>>> projection(CruiseModelLight cruise) {
+    public Stream<FilterRow<Range<Integer>>> projection(CruiseModelLight cruise) {
         Range<Integer> integerRange = DURATIONS.rangeContaining(parseInt(cruise.getDuration()));
         return Stream.of(new FilterRow<>(integerRange, DurationFilter::rangeToString, integerRange.lowerEndpoint().toString(), ENABLED));
     }

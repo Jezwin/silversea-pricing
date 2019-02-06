@@ -1,4 +1,4 @@
-package com.silversea.aem.components.editorial.findyourcruise2018;
+package com.silversea.aem.components.editorial.findyourcruise2018.filters;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static com.silversea.aem.components.editorial.findyourcruise2018.FilterRowState.*;
+import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.*;
 
 public class FilterRow<T> implements Comparable<FilterRow<T>> {
 
@@ -60,19 +60,23 @@ public class FilterRow<T> implements Comparable<FilterRow<T>> {
         return CHOSEN.equals(state);
     }
 
+    public boolean isNotVisible() {
+        return NOT_VISIBLE.equals(state);
+    }
+
     public void setState(FilterRowState state) {
         this.state = state;
     }
 
-    static <T> Stream<FilterRow<T>> singleton(T value, String label) {
+    public static <T> Stream<FilterRow<T>> singleton(T value, String label) {
         return Stream.of(new FilterRow<>(value, notUsed -> label, label, ENABLED));
     }
 
-    static Stream<FilterRow<String>> singleton(String value) {
+    public static Stream<FilterRow<String>> singleton(String value) {
         return Stream.of(new FilterRow<>(value, notUsed -> value, value, ENABLED));
     }
 
-    static <T> Stream<FilterRow<T>> singleton(T value, Function<T, String> label, String key) {
+    public static <T> Stream<FilterRow<T>> singleton(T value, Function<T, String> label, String key) {
         return Stream.of(new FilterRow<>(value, label, key, ENABLED));
     }
 

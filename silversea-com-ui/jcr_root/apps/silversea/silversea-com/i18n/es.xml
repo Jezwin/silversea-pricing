@@ -97,6 +97,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Beneficios y eventos"/>
+    <benefits
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Beneficios"/>
     <benefits-and-events-description
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -244,7 +248,7 @@
     <cruise-itinerary-120-day
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information."/>
+            sling:message="Nota: Las excursiones siguientes son ejemplos de las actividades que pueden ofrecerse con este crucero y están sujetas a variaciones. Invitamos a los pasajeros a visitar my.silversea.com 120 días antes de zarpar, para consultar la información más actualizada."/>
     <cruise-excursion-description
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -831,10 +835,18 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="oferta"/>
+    <offer-accumulated
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Las ofertas se pueden acumular"/>
     <offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="ofertas"/>
+    <open-itinerary-map
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Open itinerary map"/>
     <offers-for-this-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -1573,6 +1585,14 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="show-less"
             sling:message="show Less"/>
+    <show-waitlist
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Mostrar lista de espera"/>
+    <hide-waitlist
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ocultar lista de espera"/>
     <show-all
             jcr:primaryType="sling:MessageEntry"
             sling:key="show-all"

@@ -15,4 +15,5 @@ public interface CardLightbox {
 
     String getBigPicture();
 
+    boolean getNoModal();
 }

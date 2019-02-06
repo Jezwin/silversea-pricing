@@ -5,9 +5,13 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
+import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
@@ -27,7 +31,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
-import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
@@ -139,16 +142,16 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         switch (currentPageResourceType) {
             case WcmConstants.RT_DESTINATION:
-                map.put(FilterBar.DESTINATION.getKind() + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
+                map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
                 break;
             case WcmConstants.RT_PORT:
-                map.put(FilterBar.PORT.getKind() + "Id", value);
+                map.put(PortFilter.KIND + "Id", value);
                 break;
             case WcmConstants.RT_SHIP:
-                map.put(FilterBar.SHIP.getKind() + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
+                map.put(ShipFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
                 break;
             case WcmConstants.RT_EXCLUSIVE_OFFER:
-                map.put(FilterBar.OFFERS.getKind() + "Id", new String[]{getCurrentPage().getPath()});
+                map.put(OffersFilter.KIND + "Id", new String[]{getCurrentPage().getPath()});
             case WcmConstants.RT_FEATURE:
                 final Tag[] pageTags = getCurrentPage().getTags();
                 if (pageTags != null) {
@@ -156,7 +159,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                             Arrays.stream(pageTags).filter(tag -> tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES))
                                     .map(tag -> tag.adaptTo(FeatureModel.class)).filter(Objects::nonNull).map(FeatureModel::getFeatureId)
                                     .toArray(String[]::new);
-                    map.put(FilterBar.FEATURES.getKind() + "Id", tags);
+                    map.put(FeatureFilter.KIND + "Id", tags);
                 }
                 break;
         }
@@ -169,10 +172,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         Instant today = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).toInstant(ZoneOffset.UTC);
         Predicate<CruiseModelLight> hideToday = cruise -> cruise.getStartDate().toInstant().isAfter(today);
-
-        if (ofNullable(getProperties().get("preFilterWaitlist", Boolean.class)).orElse(false)) {
-            stream = stream.filter(cruise -> cruise.getLowestPrices().get(geomarket + currency) != null);
-        }
 
         Optional<List<String>> voyageCodeList =
                 ofNullable(getProperties().get("voyagecodelist", String.class)).map(list -> list.split(",")).map(Arrays::asList);
@@ -210,7 +209,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private List<CruiseItem> retrievePaginatedCruises(Pagination pagination, List<CruiseModelLight> lightCruises) {
         int pagSize = pagination.getPageSize();
         return lightCruises.stream()
-                .sorted(FilterBar.getComparator(this))
+                .sorted(filterBar.comparator(this))
                 .skip((pagination.getCurrent() - 1) * pagSize)
                 .limit(pagSize)
                 .map(cruise -> new CruiseItem(cruise, geomarket, currency, locale))
@@ -225,6 +224,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 map.put(key, (String[]) value);
             } else if (value instanceof String) {
                 map.put(key, ((String) value).split(","));
+            } else if (value instanceof Boolean) {
+                map.put(key, new String[]{value.toString()});
             }
         });
         return map;
@@ -267,4 +268,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return super.geomarket + super.currency;
     }
 
+    public String toJson() {
+        JsonArray array = new JsonArray();
+        Gson gson = new Gson();
+        cruises.forEach(cruise -> array.add(gson.toJsonTree(cruise)));
+        return array.toString();
+    }
 }

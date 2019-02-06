@@ -1,13 +1,13 @@
 <template
-        data-sly-template.default="${ @ currentPath, countryCode, comboModel, model,numPorts,numCountries,dayUntilDeparture,numRoutes, itinerary, externalizerHelper, itineraryMap, customDescription, hideVoyageCode }">
+        data-sly-template.default="${ @ duration, currentPath, countryCode, comboModel, model,numPorts,numCountries,dayUntilDeparture,numRoutes, itinerary, externalizerHelper, itineraryMap, customDescription, hideVoyageCode,cruiseType }">
     <div class="cruise-2018-itineraries-container" id="menu-cruise2018itinerary">
         <sly data-sly-use.itineraryTemplate="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerary.html"
-             data-sly-call="${itineraryTemplate.commonHeader @ currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, externalizerHelper=externalizerHelper, itineraryMap=itineraryMap, customDescription=customDescription, hideVoyageCode=hideVoyageCode}"/>
+             data-sly-call="${itineraryTemplate.commonHeader @ duration=duration, currentPath=currentPath, countryCode=countryCode, model=model, numPorts=numPorts,numCountries=numCountries, numRoutes=numRoutes, dayUntilDeparture=dayUntilDeparture, externalizerHelper=externalizerHelper, itineraryMap=itineraryMap, customDescription=customDescription, hideVoyageCode=hideVoyageCode}"/>
 
         <sly data-sly-use.route="/apps/silversea/silversea-com/components/pages/combocruise/templates/itineraryexcursions/routes.html"
              data-sly-call="${ route.default @ routes= comboModel.segments}"/>
 
         <sly data-sly-use.itinerayDetail="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerarydetail.html"
-             data-sly-call="${itinerayDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap, showIntro=true}"/>
+             data-sly-call="${itinerayDetail.default @ currentPath=currentPath, countryCode=countryCode, model=model, itinerary=itinerary,itineraryMap=itineraryMap, showIntro=true, externalizerHelper=externalizerHelper, cruiseType=cruiseType}"/>
     </div>
 </template>

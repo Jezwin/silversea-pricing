@@ -1,13 +1,12 @@
 package com.silversea.aem.components.included.combo;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.*;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.CruiseUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.request.RequestPathInfo;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -16,7 +15,7 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
-public class AssetGalleryCruiseUse extends WCMUsePojo {
+public class AssetGalleryCruiseUse extends AbstractSilverUse {
 
     private List<SilverseaAsset> assetsGallery;
     private String arrivalPortName;
@@ -34,21 +33,41 @@ public class AssetGalleryCruiseUse extends WCMUsePojo {
         //handle the map lightbox
         boolean isLigthboxMap = selectorString.contains("lg-map");
         if (isLigthboxMap) {
-            retrieveBigItineraryMap(getCurrentPage()).ifPresent(this::setBigItineraryMap);
+            //handle the map lightbox of the segment
+            boolean isLigthboxSegmentMap = selectorString.contains("lg-segmentmap");
+            if (isLigthboxSegmentMap) {
+                String segmentName = getSelectorValue(getRequest().getRequestPathInfo().getSelectors(), "lightboxes.lg-map.lg-segmentmap.silversea-combocruise").orElse("");
+                retrireveSegmentMap(getCurrentPage(), segmentName).ifPresent(this::setBigItineraryMap);
+            } else {
+                retrieveBigItineraryMap(getCurrentPage()).ifPresent(this::setBigItineraryMap);
+            }
         } else {
             ComboCruiseModel comboCruiseModel = getCurrentPage().adaptTo(ComboCruiseModel.class);
-            List<SilverseaAsset> cruisesAssetsGallery = retrieveAssetsGallery(getResource(), getResourceResolver(), getCurrentPage());
+            List<SilverseaAsset> cruisesAssetsGallery = retrieveAssetsGallery(getResource(), getResourceResolver(), getCurrentPage(), true);
             setAssetsGallery(cruisesAssetsGallery);
             setArrivalPortName(comboCruiseModel.getArrivalPortName());
             setDeparturePortName(comboCruiseModel.getDeparturePortName());
         }
     }
 
+    private Optional<String> retrireveSegmentMap(Page currentPage, String segmentName) {
+        if (currentPage.hasChild(segmentName)) {
+            Iterator<Page> pageIterator = currentPage.listChildren();
+            while(pageIterator.hasNext()) {
+                Page p = pageIterator.next();
+                if (p.getName().equalsIgnoreCase(segmentName)) {
+                    return getProp("focusedMapReference", p.getContentResource(), String.class);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
     private Optional<String> retrieveBigItineraryMap(Page page) {
         return Optional.ofNullable(page).map(Page::getProperties).map(prop -> prop.get("bigItineraryMap", String.class));
     }
 
-    public static List<SilverseaAsset> retrieveAssetsGallery(Resource itinerariesResource, ResourceResolver resourceResolver, Page currentPage) {
+    public static List<SilverseaAsset> retrieveAssetsGallery(Resource itinerariesResource, ResourceResolver resourceResolver, Page currentPage, boolean onlyAssetSelectionReference) {
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
         String assetSelectionReference;
@@ -73,21 +92,23 @@ public class AssetGalleryCruiseUse extends WCMUsePojo {
                     .buildSilverseaAssetList(assetSelectionReference, resourceResolver,
                             null));
         }
-        List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort(itinerariesResource, resourceResolver);
-        assetsListResult.addAll(portsAssetsList);
-        if (ship != null) {
-            assetsListResult.addAll(retrieveAssetsFromShip(ship, resourceResolver));
-        }
-        String map = CruiseUtils.firstNonNull(vmProperties.get("bigItineraryMap", String.class),
-                vmProperties.get("bigThumbnailItineraryMap", String.class),
-                vmProperties.get("smallItineraryMap", String.class));
-        String type = null;
-        if (map == null) {
-            map = vmProperties.get("itinerary", String.class);
-            type = "itinerary";
-        }
-        if (map != null) {
-            assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, resourceResolver, null, type));
+        if (!onlyAssetSelectionReference) {
+            List<SilverseaAsset> portsAssetsList = retrieveAssetsFromPort(itinerariesResource, resourceResolver);
+            assetsListResult.addAll(portsAssetsList);
+            if (ship != null) {
+                assetsListResult.addAll(retrieveAssetsFromShip(ship, resourceResolver));
+            }
+            String map = CruiseUtils.firstNonNull(vmProperties.get("bigItineraryMap", String.class),
+                    vmProperties.get("bigThumbnailItineraryMap", String.class),
+                    vmProperties.get("smallItineraryMap", String.class));
+            String type = null;
+            if (map == null) {
+                map = vmProperties.get("itinerary", String.class);
+                type = "itinerary";
+            }
+            if (map != null) {
+                assetsListResult.add(0, AssetUtils.buildSilverseaAsset(map, resourceResolver, null, type));
+            }
         }
 
         return assetsListResult.stream().distinct().collect(toList());
