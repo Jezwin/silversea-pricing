@@ -139,7 +139,7 @@ public class ExclusiveOfferModel {
     private String defaultVoyageIcon;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/defaultPostPrice")
+    @Named(JcrConstants.JCR_CONTENT + "/defaultPostPrices")
     @Optional
     private String defaultPostPrice;
 
