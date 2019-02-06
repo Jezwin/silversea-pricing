@@ -5,6 +5,9 @@
             <sly data-sly-test="${offersNumber == 1}">${ 'offer-for-this-cruise' @ i18n}</sly>
             <sly data-sly-test="${offersNumber > 1}">${ 'offers-for-this-cruise' @ i18n}</sly>
         </div>
+        <div class="offers-description" data-sly-test="${offersNumber > 1}">
+            ${'offer-accumulated' @ i18n }
+        </div>
         <div class="row offer-slider ${offersNumber > 1  ? 'offer-slider-padding' : ''}">
             <sly data-sly-list.offer="${offers}">
                 <div class="col-sm-6 offer-item ">
