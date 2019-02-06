@@ -498,6 +498,9 @@ $(function () {
                 $(this).removeClass("fyc2018-filter-value-clicked");
                 $(this).removeClass("fyc2018-filter-content-clicked");
             });
+            if ($(window).width() > 767 && $(window).width() < 991) {
+                $(".fyc2018-results-div").css("pointer-events", "initial");
+            }
         };//closeAllFiltersDiv
         var searchAnalytics = function () {
             var dataLayer = window.dataLayer[0];
@@ -733,6 +736,9 @@ $(function () {
                     window.iNoBounce.enable();
                     var numberResults = $(".findyourcruise2018 .fyc2018-header-total-num").text();
                     setNumberResultOnMobileBtn(numberResults);
+                }
+                if ($(window).width() > 767 && $(window).width() < 991) {
+                    $(".fyc2018-results-div").css("pointer-events", "none");
                 }
                 close();
                 if (classShowElement != null && $parent != null && idShowElement != null) {
