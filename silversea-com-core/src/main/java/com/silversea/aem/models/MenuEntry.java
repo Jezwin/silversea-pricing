@@ -25,6 +25,11 @@ public class MenuEntry {
         this.label = label;
     }
 
+    public MenuEntry(Page page){
+        this.page = page;
+        this.label = CruiseUtils.firstNonNull(page.getNavigationTitle(), page.getTitle());
+    }
+
     public Page getPage() {
         return page;
     }
@@ -34,7 +39,7 @@ public class MenuEntry {
     }
 
     public ExternalLink toExternalLink(Externalizer externalizer, ResourceResolver resourceResolver) {
-        return new ExternalLink(externalizer.externalLink(resourceResolver, Externalizer.LOCAL, page.getPath()),
-                CruiseUtils.firstNonNull(label, page.getNavigationTitle(), page.getTitle()));
+        return new ExternalLink(page.getPath(), CruiseUtils.firstNonNull(label, page.getNavigationTitle(), page.getTitle()), externalizer,
+                resourceResolver);
     }
 }

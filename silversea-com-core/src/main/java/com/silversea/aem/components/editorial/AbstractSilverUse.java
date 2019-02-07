@@ -77,12 +77,16 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
     }
 
     protected <T> List<T> retrieveMultiField(String child, Class<T> adaptable) {
-        return retrieveMultiField(child, element -> element.adaptTo(adaptable)).collect(Collectors.toList());
+        return retrieveMultiField(getResource(), child, element -> element.adaptTo(adaptable)).collect(Collectors.toList());
     }
 
 
     protected <T> Stream<T> retrieveMultiField(String child, Function<Resource, T> map) {
-        return ofNullable(getResource())
+        return retrieveMultiField(getResource(), child, map);
+    }
+
+    public static <T> Stream<T> retrieveMultiField(Resource resource, String child, Function<Resource, T> map) {
+        return ofNullable(resource)
                 .map(value -> value.getChild(child))
                 .map(Resource::getChildren)
                 .map(iterator -> stream(iterator.spliterator(), false))

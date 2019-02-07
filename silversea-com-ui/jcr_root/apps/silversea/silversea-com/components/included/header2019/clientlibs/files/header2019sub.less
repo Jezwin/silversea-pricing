@@ -3,7 +3,7 @@
   left: 0;
   position: fixed;
   width: 100vw;
-  z-index: 9999999;
+  z-index: 99999;
   display: none;
   transition-delay: 1s;
 
@@ -14,9 +14,9 @@
     left: 0;
     background-color: @grey--f4;
     height: 470px;
-    padding: 15px 0 30px;
     display: block;
     font-family: @suisse;
+    overflow: hidden;
 
     .header-2019-submenu {
       display: none;
@@ -24,22 +24,59 @@
       justify-content: space-evenly;
       align-items: flex-start;
       flex-direction: row;
-      max-width: 1100px;
+      max-width: 940px;
+      width: 90%;
       height: 100%;
       margin-left: auto;
       margin-right: auto;
 
       .header-2019-submenu-snd {
         flex-grow: 1;
+        flex-basis: 0;
         vertical-align: top;
         height: 100%;
         margin-right: 16px;
+
+        &.header-2019-submenu-snd-first .header-2019-submenu-snd-title:before, &.header-2019-submenu-snd-last .header-2019-submenu-snd-title:after {
+          content: " ";
+          position: absolute;
+          bottom: 0;
+          width: 100vw;
+          border-bottom: 2px solid rgba(155, 155, 155, 0.5);
+          overflow: hidden;
+        }
+
+        &.header-2019-submenu-snd-first .header-2019-submenu-snd-title:before {
+          right: 100%;
+        }
+
+
+        &.header-2019-submenu-snd-last .header-2019-submenu-snd-title:after {
+          left: 100%;
+        }
+
+        .header-2019-submenu-snd-picture-wrapper {
+          position: relative;
+          height: 125px;
+          width: 100%;
+          margin-bottom:15px;
+          picture{
+            width:100%;
+            height: 100%;
+          }
+        }
+
+        .header-2019-submenu-snd-title-wrapper {
+          position: relative;
+          margin-bottom: 16.5px;
+        }
 
         .header-2019-submenu-snd-title {
           color: @grey--3;;
           font-family: @freight;
           font-size: 22px;
-          padding-bottom: 15px;
+          padding-top: 15px;
+          padding-bottom: 16.5px;
           letter-spacing: 1px;
 
           line-height: 26px;
@@ -51,17 +88,21 @@
           display: flex;
           flex-flow: column wrap;
           align-items: stretch;
-          height: 95%;
+          height: 85%;
 
           .header-2019-submenu-entry {
             color: @grey--3;;
             font-size: 12px;
             line-height: 16px;
             letter-spacing: 1.5px;
-            margin-top: 14.5px;
             text-transform: uppercase;
-            margin-bottom: 12px;
             margin-right: 20px;
+            min-height: 42px;
+            max-height: 42px;
+            a:hover{
+              text-decoration: underline;
+              
+            }
           }
 
         }

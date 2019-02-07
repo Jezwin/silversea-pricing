@@ -10,7 +10,7 @@
         <layout
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/foundation/layouts/tabs"
-                type="nav"/>
+                type="large"/>
         <items jcr:primaryType="nt:unstructured">
             <main
                     jcr:primaryType="nt:unstructured"
@@ -30,6 +30,12 @@
                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                     fieldLabel="Logo path"
                                     name="./logoPath"
+                                    rootPath="/"/>
+                            <searchPath
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldLabel="Search Result page"
+                                    name="./searchpath"
                                     rootPath="/"/>
                             <requestaquote
                                     jcr:primaryType="nt:unstructured"
@@ -104,97 +110,940 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <links
+
+
+                            <content
                                     jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                    composite="{Boolean}true"
-                                    fieldLabel="Middle Links">
-                                <field
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <layout
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/container"
-                                        name="./secondRow">
-                                    <items jcr:primaryType="nt:unstructured">
-                                        <column
+                                        sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                                        type="nav"/>
+                                <items jcr:primaryType="nt:unstructured">
+                                    <firstLink
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="1st Link"
+                                            autofocus="{Boolean}true"
+                                            sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/container">
-                                            <items jcr:primaryType="nt:unstructured">
-                                                <label
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                        fieldDescription="Link Label"
-                                                        fieldLabel="Link Label"
-                                                        name="./label"/>
-                                                <subMenu
-                                                        jcr:primaryType="nt:unstructured"
-                                                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                                        composite="{Boolean}true"
-                                                        fieldLabel="SubMenu Entries">
-                                                    <field
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <label
                                                             jcr:primaryType="nt:unstructured"
-                                                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                                                            name="./subMenu">
-                                                        <items jcr:primaryType="nt:unstructured">
-                                                            <column
-                                                                    jcr:primaryType="nt:unstructured"
-                                                                    sling:resourceType="granite/ui/components/coral/foundation/container">
-                                                                <items jcr:primaryType="nt:unstructured">
-                                                                    <title
-                                                                            jcr:primaryType="nt:unstructured"
-                                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                            fieldDescription="Link Label"
-                                                                            required="{Boolean}true"
-                                                                            fieldLabel="Link Label"
-                                                                            name="./title"/>
-                                                                    <picture
-                                                                            jcr:primaryType="nt:unstructured"
-                                                                            rootPath="/content/silversea-com/"
-                                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                                            fieldDescription="Picture"
-                                                                            fieldLabel="Picture"
-                                                                            name="./picture"/>
-                                                                    <entries
-                                                                            jcr:primaryType="nt:unstructured"
-                                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
-                                                                            composite="{Boolean}true"
-                                                                            fieldLabel="Category Entries">
-                                                                        <field
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="Link Label"
+                                                            fieldLabel="Link Label"
+                                                            name="./label1"/>
+                                                    <directLink
+                                                            jcr:primaryType="nt:unstructured"
+                                                            rootPath="/content/silversea-com/"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Page"
+                                                            fieldLabel="Direct Link"
+                                                            name="./directLink1"/>
+                                                    <subMenu
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="SubMenu Entries">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./submenu1">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <title
                                                                                 jcr:primaryType="nt:unstructured"
-                                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
-                                                                                name="./entries">
-                                                                            <items jcr:primaryType="nt:unstructured">
-                                                                                <column
-                                                                                        jcr:primaryType="nt:unstructured"
-                                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
-                                                                                    <items jcr:primaryType="nt:unstructured">
-                                                                                        <path
-                                                                                                jcr:primaryType="nt:unstructured"
-                                                                                                rootPath="/content/silversea-com/"
-                                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                                                                fieldDescription="Page"
-                                                                                                required="{Boolean}true"
-                                                                                                fieldLabel="Page"
-                                                                                                name="./page"/>
-                                                                                        <label
-                                                                                                jcr:primaryType="nt:unstructured"
-                                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                                                                fieldDescription="Label"
-                                                                                                fieldLabel="Label"
-                                                                                                name="./label"/>
-                                                                                    </items>
-                                                                                </column>
-                                                                            </items>
-                                                                        </field>
-                                                                    </entries>
-                                                                </items>
-                                                            </column>
-                                                        </items>
-                                                    </field>
-                                                </subMenu>
-                                            </items>
-                                        </column>
-                                    </items>
-                                </field>
-                            </links>
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                fieldDescription="Sub Menu Title"
+                                                                                required="{Boolean}true"
+                                                                                fieldLabel="Sub Menu Title"
+                                                                                name="./title"/>
+                                                                        <picture
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/dam/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Picture"
+                                                                                fieldLabel="Picture"
+                                                                                name="./picture"/>
+                                                                        <parentPage
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/silversea-com/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Parent page"
+                                                                                fieldLabel="Parent page"
+                                                                                name="./parentPage"/>
+                                                                        <excludedPages
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Excluded pages from parent page">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./excludedPages">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Excluded Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Excluded Page"
+                                                                                                    name="./path"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </excludedPages>
+                                                                        <entries
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Manual Entries">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./manualEntries">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Page"
+                                                                                                    name="./page"/>
+                                                                                            <label
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                                    fieldDescription="Label"
+                                                                                                    fieldLabel="Label"
+                                                                                                    name="./label"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </entries>
+                                                                    </items>
+                                                                </column>
+                                                            </items>
+                                                        </field>
+                                                    </subMenu>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </firstLink>
+                                    <secondLink
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="2nd Link"
+                                            sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <label
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="Link Label"
+                                                            fieldLabel="Link Label"
+                                                            name="./label2"/>
+                                                    <directLink
+                                                            jcr:primaryType="nt:unstructured"
+                                                            rootPath="/content/silversea-com/"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Page"
+                                                            fieldLabel="Direct Link"
+                                                            name="./directLink2"/>
+                                                    <subMenu
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="SubMenu Entries">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./subMenu2">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <title
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                fieldDescription="Sub Menu Title"
+                                                                                required="{Boolean}true"
+                                                                                fieldLabel="Sub Menu Title"
+                                                                                name="./title"/>
+                                                                        <picture
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/dam/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Picture"
+                                                                                fieldLabel="Picture"
+                                                                                name="./picture"/>
+                                                                        <parentPage
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/silversea-com/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Parent page"
+                                                                                fieldLabel="Parent page"
+                                                                                name="./parentPage"/>
+                                                                        <excludedPages
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Excluded pages from parent page">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./excludedPages">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Excluded Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Excluded Page"
+                                                                                                    name="./path"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </excludedPages>
+                                                                        <entries
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Manual Entries">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./manualEntries">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Page"
+                                                                                                    name="./page"/>
+                                                                                            <label
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                                    fieldDescription="Label"
+                                                                                                    fieldLabel="Label"
+                                                                                                    name="./label"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </entries>
+                                                                    </items>
+                                                                </column>
+                                                            </items>
+                                                        </field>
+                                                    </subMenu>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </secondLink>
+                                    <thirdLink
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="3rd Link"
+                                            sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <label
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="Link Label"
+                                                            fieldLabel="Link Label"
+                                                            name="./label3"/>
+                                                    <directLink
+                                                            jcr:primaryType="nt:unstructured"
+                                                            rootPath="/content/silversea-com/"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Page"
+                                                            fieldLabel="Direct Link"
+                                                            name="./directLink3"/>
+                                                    <subMenu
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="SubMenu Entries">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./subMenu3">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <title
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                fieldDescription="Sub Menu Title"
+                                                                                required="{Boolean}true"
+                                                                                fieldLabel="Sub Menu Title"
+                                                                                name="./title"/>
+                                                                        <picture
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/dam/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Picture"
+                                                                                fieldLabel="Picture"
+                                                                                name="./picture"/>
+                                                                        <parentPage
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/silversea-com/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Parent page"
+                                                                                fieldLabel="Parent page"
+                                                                                name="./parentPage"/>
+                                                                        <excludedPages
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Excluded pages from parent page">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./excludedPages">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Excluded Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Excluded Page"
+                                                                                                    name="./path"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </excludedPages>
+                                                                        <entries
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Manual Entries">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./manualEntries">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Page"
+                                                                                                    name="./page"/>
+                                                                                            <label
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                                    fieldDescription="Label"
+                                                                                                    fieldLabel="Label"
+                                                                                                    name="./label"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </entries>
+                                                                    </items>
+                                                                </column>
+                                                            </items>
+                                                        </field>
+                                                    </subMenu>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </thirdLink>
+                                    <fourthLink
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="4th Link"
+                                            sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <label
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="Link Label"
+                                                            fieldLabel="Link Label"
+                                                            name="./label4"/>
+                                                    <directLink
+                                                            jcr:primaryType="nt:unstructured"
+                                                            rootPath="/content/silversea-com/"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Page"
+                                                            fieldLabel="Direct Link"
+                                                            name="./directLink4"/>
+                                                    <subMenu
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="SubMenu Entries">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./subMenu4">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <title
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                fieldDescription="Sub Menu Title"
+                                                                                required="{Boolean}true"
+                                                                                fieldLabel="Sub Menu Title"
+                                                                                name="./title"/>
+                                                                        <picture
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/dam/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Picture"
+                                                                                fieldLabel="Picture"
+                                                                                name="./picture"/>
+                                                                        <parentPage
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/silversea-com/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Parent page"
+                                                                                fieldLabel="Parent page"
+                                                                                name="./parentPage"/>
+                                                                        <excludedPages
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Excluded pages from parent page">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./excludedPages">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Excluded Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Excluded Page"
+                                                                                                    name="./path"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </excludedPages>
+                                                                        <entries
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Manual Entries">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./manualEntries">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Page"
+                                                                                                    name="./page"/>
+                                                                                            <label
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                                    fieldDescription="Label"
+                                                                                                    fieldLabel="Label"
+                                                                                                    name="./label"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </entries>
+                                                                    </items>
+                                                                </column>
+                                                            </items>
+
+                                                        </field>
+                                                    </subMenu>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </fourthLink>
+                                    <fifthLink
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="5th Link"
+                                            sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <label
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="Link Label"
+                                                            fieldLabel="Link Label"
+                                                            name="./label5"/>
+                                                    <directLink
+                                                            jcr:primaryType="nt:unstructured"
+                                                            rootPath="/content/silversea-com/"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Page"
+                                                            fieldLabel="Direct Link"
+                                                            name="./directLink5"/>
+                                                    <subMenu
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="SubMenu Entries">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./subMenu5">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <title
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                fieldDescription="Sub Menu Title"
+                                                                                required="{Boolean}true"
+                                                                                fieldLabel="Sub Menu Title"
+                                                                                name="./title"/>
+                                                                        <picture
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/dam/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Picture"
+                                                                                fieldLabel="Picture"
+                                                                                name="./picture"/>
+                                                                        <parentPage
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/silversea-com/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Parent page"
+                                                                                fieldLabel="Parent page"
+                                                                                name="./parentPage"/>
+                                                                        <excludedPages
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Excluded pages from parent page">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./excludedPages">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Excluded Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Excluded Page"
+                                                                                                    name="./path"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </excludedPages>
+                                                                        <entries
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Manual Entries">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./manualEntries">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Page"
+                                                                                                    name="./page"/>
+                                                                                            <label
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                                    fieldDescription="Label"
+                                                                                                    fieldLabel="Label"
+                                                                                                    name="./label"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </entries>
+                                                                    </items>
+                                                                </column>
+                                                            </items>
+                                                        </field>
+
+                                                    </subMenu>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </fifthLink>
+                                    <sixthLink
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="6th Link"
+                                            sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <label
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="Link Label"
+                                                            fieldLabel="Link Label"
+                                                            name="./label6"/>
+                                                    <directLink
+                                                            jcr:primaryType="nt:unstructured"
+                                                            rootPath="/content/silversea-com/"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Page"
+                                                            fieldLabel="Direct Link"
+                                                            name="./directLink6"/>
+                                                    <subMenu
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="SubMenu Entries">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./subMenu6">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <title
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                fieldDescription="Sub Menu Title"
+                                                                                required="{Boolean}true"
+                                                                                fieldLabel="Sub Menu Title"
+                                                                                name="./title"/>
+                                                                        <picture
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/dam/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Picture"
+                                                                                fieldLabel="Picture"
+                                                                                name="./picture"/>
+                                                                        <parentPage
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/silversea-com/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Parent page"
+                                                                                fieldLabel="Parent page"
+                                                                                name="./parentPage"/>
+                                                                        <excludedPages
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Excluded pages from parent page">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./excludedPages">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Excluded Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Excluded Page"
+                                                                                                    name="./path"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </excludedPages>
+                                                                        <entries
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Manual Entries">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./manualEntries">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Page"
+                                                                                                    name="./page"/>
+                                                                                            <label
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                                    fieldDescription="Label"
+                                                                                                    fieldLabel="Label"
+                                                                                                    name="./label"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </entries>
+                                                                    </items>
+                                                                </column>
+                                                            </items>
+                                                        </field>
+
+                                                    </subMenu>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </sixthLink>
+                                    <seventhlink
+                                            jcr:primaryType="nt:unstructured"
+                                            jcr:title="7th Link"
+                                            sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+
+                                                    <label
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                            fieldDescription="Link Label"
+                                                            fieldLabel="Link Label"
+                                                            name="./label7"/>
+                                                    <directLink
+                                                            jcr:primaryType="nt:unstructured"
+                                                            rootPath="/content/silversea-com/"
+                                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                            fieldDescription="Page"
+                                                            fieldLabel="Direct Link"
+                                                            name="./directLink7"/>
+                                                    <subMenu
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                            composite="{Boolean}true"
+                                                            fieldLabel="SubMenu Entries">
+                                                        <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                name="./subMenu7">
+                                                            <items jcr:primaryType="nt:unstructured">
+                                                                <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                    <items jcr:primaryType="nt:unstructured">
+                                                                        <title
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                fieldDescription="Sub Menu Title"
+                                                                                required="{Boolean}true"
+                                                                                fieldLabel="Sub Menu Title"
+                                                                                name="./title"/>
+                                                                        <picture
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/dam/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Picture"
+                                                                                fieldLabel="Picture"
+                                                                                name="./picture"/>
+                                                                        <parentPage
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                rootPath="/content/silversea-com/"
+                                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                fieldDescription="Parent page"
+                                                                                fieldLabel="Parent page"
+                                                                                name="./parentPage"/>
+                                                                        <excludedPages
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Excluded pages from parent page">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./excludedPages">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Excluded Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Excluded Page"
+                                                                                                    name="./path"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </excludedPages>
+                                                                        <entries
+                                                                                jcr:primaryType="nt:unstructured"
+                                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                                composite="{Boolean}true"
+                                                                                fieldLabel="Manual Entries">
+                                                                            <field
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                                    name="./manualEntries">
+                                                                                <items jcr:primaryType="nt:unstructured">
+                                                                                    <column
+                                                                                            jcr:primaryType="nt:unstructured"
+                                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                                            <path
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    rootPath="/content/silversea-com/"
+                                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                                                    fieldDescription="Page"
+                                                                                                    required="{Boolean}true"
+                                                                                                    fieldLabel="Page"
+                                                                                                    name="./page"/>
+                                                                                            <label
+                                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                                                                    fieldDescription="Label"
+                                                                                                    fieldLabel="Label"
+                                                                                                    name="./label"/>
+                                                                                        </items>
+                                                                                    </column>
+                                                                                </items>
+                                                                            </field>
+                                                                        </entries>
+                                                                    </items>
+                                                                </column>
+                                                            </items>
+
+                                                        </field>
+                                                    </subMenu>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </seventhlink>
+                                </items>
+                            </content>
                         </items>
                     </column>
                 </items>

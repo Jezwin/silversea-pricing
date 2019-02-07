@@ -10,22 +10,22 @@ import java.util.Collections;
 import java.util.List;
 
 @Model(adaptables = Resource.class)
-public class FirstLevelMenuLinkSubMenu {
+public class HeaderSecondRowMenu {
 
     private final String label;
     private final boolean menu;
     private final List<SubMenuEntry> subMenu;
 
-    public FirstLevelMenuLinkSubMenu(ExternalLink label) {
-        this.label = label.getLabel();
-        this.subMenu = Collections.singletonList(new SubMenuEntry(label));
+    public HeaderSecondRowMenu(ExternalLink externalLink) {
+        this.label = externalLink.getLabel();
+        this.subMenu = Collections.singletonList(new SubMenuEntry(externalLink));
         this.menu = false;
     }
 
     @Inject
-    public FirstLevelMenuLinkSubMenu(@Named("label") String label, @Named("subMenu") @Optional List<SubMenuEntry> subMenu) {
+    public HeaderSecondRowMenu(@Named("label") String label, @Named("subMenu") @Optional List<SubMenuEntry> subMenu) {
         this.label = label;
-        if (subMenu == null || subMenu.isEmpty()) {//this is a case of misconfiguration
+        if (subMenu == null || subMenu.isEmpty()) {
             subMenu = Collections.singletonList(new SubMenuEntry(new ExternalLink("", label)));//TODO
         }
         this.subMenu = subMenu;
