@@ -94,7 +94,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     }
 
     private List<OfferPriorityModel> retrievePriorityOffer() {
-        return retrieveMultiField("offerPriorityModel", OfferPriorityModel.class);
+        return retrieveMultiField("priorityOffer", OfferPriorityModel.class);
     }
 
     private String retrieveRequestQuotePath(Resource resource) {

@@ -5,17 +5,22 @@ import com.silversea.aem.models.CruiseModelLight;
 
 import java.util.Locale;
 
-public class CruiseItemFYC extends CruiseItem {
+public class CruiseItemFYC {
 
+    private CruiseItem cruiseItem;
     private String postPrice;
 
-    public CruiseItemFYC(CruiseModelLight cruiseModelLight, String market, String currency, Locale locale) {
-        super(cruiseModelLight, market, currency, locale);
+    public CruiseItemFYC(CruiseItem cruiseItem, String postPrice) {
+        this.cruiseItem = cruiseItem;
+        this.postPrice = postPrice;
     }
-
 
     public String getPostPrice() {
         return postPrice;
+    }
+
+    public CruiseItem getCruiseItem() {
+        return cruiseItem;
     }
 }
 

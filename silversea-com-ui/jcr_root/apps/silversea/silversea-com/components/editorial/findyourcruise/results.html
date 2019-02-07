@@ -4,7 +4,7 @@
         <div class="c-fyc__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseItem.cruiseModel.thumbnail}">
             <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=450&fmt=pjpeg&pscan=5&qlt=80" />
             <sly data-sly-test.thumbnailFallback="${currentDesign.path}/clientlib-base/images/cruise-thumbnail.jpg" />
-            <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail ? thumbnail : thumbnailFallback @ context='uri'})"> 
+            <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail ? thumbnail : thumbnailFallback @ context='uri'})">
                 <span  data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag">
                     <span class="flag__icon icon-star"></span>
                     <span class="flag__text">${'exclusive offer' @ i18n}</span>
@@ -18,7 +18,7 @@
                         <li class="cruise-destination" data-destinationname="${cruiseItem.cruiseModel.destination.name @ context='unsafe'}">${cruiseItem.cruiseModel.destination.title}</li>
                         <li class="cruise-type" data-cruisetype="${cruiseItem.cruiseModel.cruiseType @ context='unsafe'}">${cruiseItem.cruiseModel.cruiseType @ i18n}</li>
                         <li class="cruise-code hidden-xs"><strong>${cruiseItem.cruiseModel.cruiseCode}</strong></li>
-                       
+
                         <li class="meta_feature_inner hidden-xs">
                             <span class="feature" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
                                 <i class="icon-star"></i> ${'offer' @ i18n}
@@ -99,7 +99,7 @@
             </div>
         </div>
         <a class="c-fyc__result__link" href="${cruiseItem.cruiseModel.path @ extension='html'}"></a>
-       
+
         <script data-sly-test="${cruiseItemList.first}" data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}">
 	        $( document ).ready(function() {
 	        	var dataLayerVar = window.dataLayer[0];
@@ -115,7 +115,7 @@
 	        	dataLayerVar.track_voyage_arrival_harbor = "${cruiseItem.cruiseModel.arrivalPortName @ context='unsafe'}";
 	        });
         </script>
-        
+
         <sly data-sly-test="${!cruiseItem.isWaitList}">
 	         <script data-sly-test="${cruiseItemList.first}">
 	         $(document)
@@ -132,6 +132,6 @@
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />
 <div class="v2-feature-wrapper hidden-xs"></div>
 </template>
-<sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise/results.html"  	
- 	 data-sly-use.fyc="${'com.silversea.aem.components.editorial.FindYourCruiseUse' @ psize='15'}" 
+<sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise/results.html"
+ 	 data-sly-use.fyc="${'com.silversea.aem.components.editorial.FindYourCruiseUse' @ psize='15'}"
  	 data-sly-call="${resultsTemplate.resultsv1 @ fyc=fyc}" />

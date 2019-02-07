@@ -76,17 +76,21 @@ public class CruiseItem {
     private static Map<String, String> retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
         return exclusiveOffers.stream().filter(exclusiveOffer -> !exclusiveOffer.getPostPriceCache().isEmpty()).collect(Collectors.toMap(exclusiveOffer -> exclusiveOffer.getPath(), exclusiveOffer -> {
             boolean isDefault = exclusiveOffer.getPostPriceCache().containsKey("default"),
-                    isMarketPresent = exclusiveOffer.getPostPriceCache().containsKey(market);
+                    isNotEmptyDefault = exclusiveOffer.getPostPriceCache().get("default") != null,
+                    isMarketPresent = exclusiveOffer.getPostPriceCache().containsKey(market),
+                    isNotEmptyMarket = exclusiveOffer.getPostPriceCache().get(market) != null;
+
             String value = null;
-            if (isDefault) {
+            if (isDefault && isNotEmptyDefault) {
                 value = exclusiveOffer.getPostPriceCache().get("default");
             }
 
-            if (isMarketPresent) {
+            if (isMarketPresent && isNotEmptyMarket) {
                 value = exclusiveOffer.getPostPriceCache().get(market);
             }
-            return value;
+            return value != null ? value : "";
         }, (eo1, eo2) -> eo1));
+
     }
 
     public List<ExclusiveOfferModelLight> getExclusiveOffers() {
