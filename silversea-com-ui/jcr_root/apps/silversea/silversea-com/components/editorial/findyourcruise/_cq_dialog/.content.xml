@@ -29,6 +29,12 @@
                                 sling:resourceType="granite/ui/components/foundation/form/textfield"
                                 fieldLabel="Title"
                                 name="./jcr:title"/>
+                            <noPageContext
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Do not take in account the page as prefilter"
+                                    name="./noPageContent"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>

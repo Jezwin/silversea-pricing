@@ -44,6 +44,12 @@
                                     name="./hideTitle"
                                     value="true"
                                     sling:resourceType="granite/ui/components/foundation/form/hidden"/>
+                            <noPageContext
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Do not take in account the page as prefilter"
+                                    name="./noPageContent"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <hideFycTitle
                                     jcr:primaryType="nt:unstructured"
                                     text="Hidden FYC Title (Your search results)"
