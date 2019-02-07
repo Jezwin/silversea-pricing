@@ -4,18 +4,16 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.ExclusiveOfferModelLight;
 import com.silversea.aem.models.PriceModelLight;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Represent a cruise item used to display cruise informations (especially geolocated) in find your cruise
  */
 public class CruiseItem {
 
-    private final String postPrice;
+    private final Map<String, String> postPriceMap;
     private CruiseModelLight cruiseModel;
 
     private PriceModelLight lowestPrice;
@@ -40,7 +38,7 @@ public class CruiseItem {
             }
         }
 
-        this.postPrice = retrieveExclusiveOfferPostPrice(exclusiveOffers, market);
+        this.postPriceMap = retrieveExclusiveOfferPostPrice(exclusiveOffers, market);
 
         this.locale = locale;
     }
@@ -71,29 +69,24 @@ public class CruiseItem {
         return null;
     }
 
-    public String getPostPrice() {
-        return postPrice;
+    public Map<String, String> getPostPriceMap() {
+        return postPriceMap;
     }
 
-    private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
-        Integer priorityWeight = Integer.MIN_VALUE;
-        String postPrice = null;
-        for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
-
+    private static Map<String, String> retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
+        return exclusiveOffers.stream().filter(exclusiveOffer -> !exclusiveOffer.getPostPriceCache().isEmpty()).collect(Collectors.toMap(exclusiveOffer -> exclusiveOffer.getPath(), exclusiveOffer -> {
             boolean isDefault = exclusiveOffer.getPostPriceCache().containsKey("default"),
-                    isTheRightPostPrice = exclusiveOffer.getPriorityWeight() > priorityWeight;
-            if (isTheRightPostPrice && isDefault) {
-                priorityWeight = exclusiveOffer.getPriorityWeight();
-                postPrice = exclusiveOffer.getPostPriceCache().get("default");
+                    isMarketPresent = exclusiveOffer.getPostPriceCache().containsKey(market);
+            String value = null;
+            if (isDefault) {
+                value = exclusiveOffer.getPostPriceCache().get("default");
             }
 
-            boolean isMarketPresent = exclusiveOffer.getPostPriceCache().containsKey(market);
             if (isMarketPresent) {
-                String geo = exclusiveOffer.getPostPriceCache().get(market);
-                postPrice = StringUtils.isNotEmpty(geo) ? geo : postPrice;
+                value = exclusiveOffer.getPostPriceCache().get(market);
             }
-        }
-        return postPrice;
+            return value;
+        }, (eo1, eo2) -> eo1));
     }
 
     public List<ExclusiveOfferModelLight> getExclusiveOffers() {
