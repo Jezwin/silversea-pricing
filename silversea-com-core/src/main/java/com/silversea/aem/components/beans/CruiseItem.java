@@ -79,9 +79,6 @@ public class CruiseItem {
         Integer priorityWeight = Integer.MIN_VALUE;
         String postPrice = null;
         for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
-            if(exclusiveOffer.getPostPriceCache().isEmpty()){
-                return null;
-            }
             boolean isDefault = exclusiveOffer.getPostPriceCache().containsKey("default"),
                     isTheRightPostPrice = exclusiveOffer.getPriorityWeight() > priorityWeight;
             if (isTheRightPostPrice && isDefault) {
