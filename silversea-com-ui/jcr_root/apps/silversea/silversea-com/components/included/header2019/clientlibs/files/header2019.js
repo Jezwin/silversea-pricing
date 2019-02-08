@@ -1,7 +1,8 @@
 $(function () {
+    const $langMenu = $(".header-2019");
+    const openLangMenuClass = "lang-menu-open";
+
     function langMenu() {
-        const $langMenu = $(".header-2019");
-        const openLangMenuClass = "lang-menu-open";
 
         function toggleLangMenu(e) {
             if ($langMenu.toggleClass(openLangMenuClass).attr('class').indexOf(openLangMenuClass) > 0) {
@@ -105,7 +106,8 @@ $(function () {
                 $(".header-2019-wrapper").addClass("sticked");
                 $(".header-2019-top-section").removeClass("search-visible");
             } else {
-                $(".header-2019-wrapper").removeClass("sticked")
+                $(".header-2019-wrapper").removeClass("sticked");
+                $(".header-2019 input").blur();
             }
         }));
 
