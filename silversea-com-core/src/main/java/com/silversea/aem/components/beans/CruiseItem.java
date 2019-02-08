@@ -4,6 +4,8 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.ExclusiveOfferModelLight;
 import com.silversea.aem.models.PriceModelLight;
+import com.silversea.aem.models.PriorityExclusiveOfferModel;
+import org.apache.commons.collections.map.HashedMap;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class CruiseItem {
 
-    private final Map<String, String> postPriceMap;
+    private final Map<String, List<PriorityExclusiveOfferModel>> postPriceMap;
     private CruiseModelLight cruiseModel;
 
     private PriceModelLight lowestPrice;
@@ -69,28 +71,24 @@ public class CruiseItem {
         return null;
     }
 
-    public Map<String, String> getPostPriceMap() {
+    public Map<String, List<PriorityExclusiveOfferModel>> getPostPriceMap() {
         return postPriceMap;
     }
 
-    private static Map<String, String> retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
-        return exclusiveOffers.stream().filter(exclusiveOffer -> !exclusiveOffer.getPostPriceCache().isEmpty()).collect(Collectors.toMap(exclusiveOffer -> exclusiveOffer.getPath(), exclusiveOffer -> {
-            boolean isDefault = exclusiveOffer.getPostPriceCache().containsKey("default"),
-                    isNotEmptyDefault = exclusiveOffer.getPostPriceCache().get("default") != null,
-                    isMarketPresent = exclusiveOffer.getPostPriceCache().containsKey(market),
-                    isNotEmptyMarket = exclusiveOffer.getPostPriceCache().get(market) != null;
-
-            String value = null;
-            if (isDefault && isNotEmptyDefault) {
-                value = exclusiveOffer.getPostPriceCache().get("default");
+    private static Map<String, List<PriorityExclusiveOfferModel>> retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
+        Map<String, List<PriorityExclusiveOfferModel>> postPrice = new HashedMap();
+        for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
+            if (!exclusiveOffer.getPostPriceCache().isEmpty()) {
+                Map<String, String> postPriceCache = exclusiveOffer.getPostPriceCache();
+                List<PriorityExclusiveOfferModel> priorityExclusiveOfferModelList = new ArrayList<>();
+                for (Map.Entry<String, String> entry : postPriceCache.entrySet()) {
+                    PriorityExclusiveOfferModel priorityExclusiveOfferModel = new PriorityExclusiveOfferModel(entry.getKey(), entry.getValue());
+                    priorityExclusiveOfferModelList.add(priorityExclusiveOfferModel);
+                }
+                postPrice.put(exclusiveOffer.getPath(), priorityExclusiveOfferModelList);
             }
-
-            if (isMarketPresent && isNotEmptyMarket) {
-                value = exclusiveOffer.getPostPriceCache().get(market);
-            }
-            return value != null ? value : "";
-        }, (eo1, eo2) -> eo1));
-
+        }
+        return postPrice;
     }
 
     public List<ExclusiveOfferModelLight> getExclusiveOffers() {

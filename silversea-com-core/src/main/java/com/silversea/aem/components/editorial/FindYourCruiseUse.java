@@ -16,12 +16,18 @@ import com.silversea.aem.utils.PathUtils;
 import com.silversea.aem.ws.client.factory.WorldAndGrandVoyageCache;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Stream;
+
+import static java.util.Optional.ofNullable;
+import static java.util.stream.StreamSupport.stream;
 
 /**
  * selectors : destination_all date_all duration_all ship_all cruisetype_all
@@ -156,6 +162,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private StringBuilder availableFeaturesJson;
     private StringBuilder worldAndGrandVoyageCruiseJson;
     private List<Integer> paginationV2;
+    private List<OfferPriorityModel> priorityOffer;
+
 
     @Override
     @SuppressWarnings("unchecked")
@@ -180,6 +188,9 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         availableCruiseTypesJson.append("{\"all\":true,");
         availableFeaturesJson.append("{");
         worldAndGrandVoyageCruiseJson.append("{");
+
+        priorityOffer = retrieveMultiField("priorityOffer", OfferPriorityModel.class);
+
 
         // Get type from configuration
         final Conf confRes = getResource().adaptTo(Conf.class);
@@ -679,6 +690,15 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     }
 
+    protected <T> Stream<T> retrieveMultiField(String child, Function<Resource, T> map) {
+        return ofNullable(getResource())
+                .map(value -> value.getChild(child))
+                .map(Resource::getChildren)
+                .map(iterator -> stream(iterator.spliterator(), false))
+                .map(stream -> stream.map(map).filter(Objects::nonNull))
+                .orElse(Stream.empty());
+    }
+
     /**
      * @return pagination according to the active page
      */
@@ -1001,5 +1021,9 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     public String getWorldAndGrandVoyageCruiseJson() {
         return worldAndGrandVoyageCruiseJson.toString();
+    }
+
+    public List<OfferPriorityModel> getPriorityOffer() {
+        return priorityOffer;
     }
 }
