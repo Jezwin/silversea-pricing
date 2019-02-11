@@ -35,25 +35,23 @@ public class FindYourCruiseOfferHelper extends AbstractGeolocationAwareUse {
             String postPrice = null;
             for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
                 boolean isCustomPriority = !priorityOfferMap.isEmpty() && priorityOfferMap.get(exclusiveOffer.getPath()) != null;
-                Integer priority;
+                Integer priority = Integer.MIN_VALUE;
                 if (isCustomPriority) {
                     priority = Integer.valueOf(priorityOfferMap.get(exclusiveOffer.getPath()));
-                } else {
+                } else if (exclusiveOffer.getPriorityWeight() != null) {
                     priority = exclusiveOffer.getPriorityWeight();
                 }
-                if (priority > priorityWeight) {
+                if (priority > priorityWeight && (cruise.getPostPriceMap().get(exclusiveOffer.getPath()) !=null)) {
                     priorityWeight = priority;
-                    String postPriceDefault = "";
                     List<PriorityExclusiveOfferModel> priorityExclusiveOfferModelList = cruise.getPostPriceMap().get(exclusiveOffer.getPath());
                     for (PriorityExclusiveOfferModel priorityExclusiveOfferModel : priorityExclusiveOfferModelList) {
                         if (priorityExclusiveOfferModel.getMarket().equalsIgnoreCase("default")) {
-                            postPriceDefault = priorityExclusiveOfferModel.getPostPrice();
+                            postPrice = priorityExclusiveOfferModel.getPostPrice();
                         }
                         if(priorityExclusiveOfferModel.getMarket().equalsIgnoreCase(super.geomarket)) {
                             postPrice = priorityExclusiveOfferModel.getPostPrice();
                         }
                     }
-                    postPrice = StringUtils.isEmpty(postPrice) ? postPriceDefault : postPrice;
                 }
             }
              CruiseItemFYC cruiseItemFYC = new CruiseItemFYC(cruise, postPrice);
