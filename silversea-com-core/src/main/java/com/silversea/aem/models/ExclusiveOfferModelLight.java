@@ -31,7 +31,7 @@ public class ExclusiveOfferModelLight {
         priorityWeight = exclusiveOfferModel.getDefaultPriorityWeight();
         postPriceCache = new HashMap<>();
         try {
-            if(!exclusiveOfferModel.getActiveSystem()) {
+            if(exclusiveOfferModel.getActiveSystem()) {
                 postPriceCache = retrievePostPriceCache(exclusiveOfferModel);
             }
         }catch (Exception e){
