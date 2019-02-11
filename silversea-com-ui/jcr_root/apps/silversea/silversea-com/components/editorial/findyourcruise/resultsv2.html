@@ -85,8 +85,7 @@
                             <span data-sly-test="${!cruise.cruiseItem.isWaitList}" class="price-prefixe">${'from' @ i18n}</span>
                             <span data-sly-test="${!cruise.cruiseItem.isWaitList}" class="price-prefixe text-uppercase">${cruise.cruiseItem.lowestPrice.currency @ i18n}</span>
                             <span data-sly-test="${!cruise.cruiseItem.isWaitList}">${cruise.cruiseItem.lowestPriceFormated}</span>
-                            <div class="fyc-including" data-sly-test="${!cruise.cruiseItem.isWaitList && (cruise.cruiseItem.lowestPrice.earlyBookingBonus || cruise.postPrice)}">${'including' @ i18n}</div>
-                            <div  data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">access_alarm</i>  10% ${'early-booking-bonus' @ i18n}</div>
+                            <div  data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">access_alarm</i> ${'with' @ i18n} 10% ${'early-booking-bonus' @ i18n}</div>
                             <div data-sly-test="${!cruise.cruiseItem.isWaitList && cruise.postPrice}"  class="price-suffixe">
                                 ${cruise.postPrice @ context='html'}
                             </div>
