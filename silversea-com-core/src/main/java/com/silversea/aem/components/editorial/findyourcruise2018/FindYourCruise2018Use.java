@@ -147,29 +147,30 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
         Map<String, String[]> map = new HashMap<>();
         String[] value = new String[]{getCurrentPage().getName()};
-
-        switch (currentPageResourceType) {
-            case WcmConstants.RT_DESTINATION:
-                map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
-                break;
-            case WcmConstants.RT_PORT:
-                map.put(PortFilter.KIND + "Id", value);
-                break;
-            case WcmConstants.RT_SHIP:
-                map.put(ShipFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
-                break;
-            case WcmConstants.RT_EXCLUSIVE_OFFER:
-                map.put(OffersFilter.KIND + "Id", new String[]{getCurrentPage().getPath()});
-            case WcmConstants.RT_FEATURE:
-                final Tag[] pageTags = getCurrentPage().getTags();
-                if (pageTags != null) {
-                    String[] tags =
-                            Arrays.stream(pageTags).filter(tag -> tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES))
-                                    .map(tag -> tag.adaptTo(FeatureModel.class)).filter(Objects::nonNull).map(FeatureModel::getFeatureId)
-                                    .toArray(String[]::new);
-                    map.put(FeatureFilter.KIND + "Id", tags);
-                }
-                break;
+        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() || getProperties().get("noPageContent", Boolean.class).equals("false")) {
+            switch (currentPageResourceType) {
+                case WcmConstants.RT_DESTINATION:
+                    map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
+                    break;
+                case WcmConstants.RT_PORT:
+                    map.put(PortFilter.KIND + "Id", value);
+                    break;
+                case WcmConstants.RT_SHIP:
+                    map.put(ShipFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
+                    break;
+                case WcmConstants.RT_EXCLUSIVE_OFFER:
+                    map.put(OffersFilter.KIND + "Id", new String[]{getCurrentPage().getPath()});
+                case WcmConstants.RT_FEATURE:
+                    final Tag[] pageTags = getCurrentPage().getTags();
+                    if (pageTags != null) {
+                        String[] tags =
+                                Arrays.stream(pageTags).filter(tag -> tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES))
+                                        .map(tag -> tag.adaptTo(FeatureModel.class)).filter(Objects::nonNull).map(FeatureModel::getFeatureId)
+                                        .toArray(String[]::new);
+                        map.put(FeatureFilter.KIND + "Id", tags);
+                    }
+                    break;
+            }
         }
         return map;
     }

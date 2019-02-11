@@ -29,7 +29,14 @@ public class ExclusiveOfferModelLight {
         path = exclusiveOfferModel.getPath();
         geomarkets = exclusiveOfferModel.getGeomarkets();
         priorityWeight = exclusiveOfferModel.getDefaultPriorityWeight();
-        postPriceCache = retrievePostPriceCache(exclusiveOfferModel);
+        postPriceCache = new HashMap<>();
+        try {
+            if(!exclusiveOfferModel.getActiveSystem()) {
+                postPriceCache = retrievePostPriceCache(exclusiveOfferModel);
+            }
+        }catch (Exception e){
+            LOGGER.error("Issue in FYC CAche when try to create postPriceCache", e);
+        }
     }
 
     public List<String> getGeomarkets() {
@@ -54,6 +61,7 @@ public class ExclusiveOfferModelLight {
         if (StringUtils.isNotEmpty(exclusiveOfferModel.getDefaultPostPrice())) {
             postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
         }
+        postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
         String[] customVoyageSettings = exclusiveOfferModel.getCustomVoyageSettings();
         for (String setting : customVoyageSettings) {
             CustomVoyageSettingsModel customSettings = gson.fromJson(setting, CustomVoyageSettingsModel.class);

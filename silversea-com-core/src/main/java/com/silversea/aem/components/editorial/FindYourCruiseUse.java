@@ -305,39 +305,41 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         // Apply default filtering for specific pages types
         final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
-        switch (currentPageResourceType) {
-            case WcmConstants.RT_DESTINATION:
-                destinationFilter = getCurrentPage().getName();
-                prefilterByDestination = true;
-                break;
-            case WcmConstants.RT_PORT:
-                portFilter = getCurrentPage().getName();
-                prefilterByPort = true;
-                break;
-            case WcmConstants.RT_SHIP:
-                shipFilter = getCurrentPage().getName();
-                prefilterByShip = true;
-                break;
-            case WcmConstants.RT_EXCLUSIVE_OFFER:
-                exclusiveOfferFilter = getCurrentPage().getPath();
-                break;
-            case WcmConstants.RT_FEATURE:
-                final Tag[] pageTags = getCurrentPage().getTags();
+        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() || getProperties().get("noPageContent", Boolean.class).equals("false")) {
+            switch (currentPageResourceType) {
+                case WcmConstants.RT_DESTINATION:
+                    destinationFilter = getCurrentPage().getName();
+                    prefilterByDestination = true;
+                    break;
+                case WcmConstants.RT_PORT:
+                    portFilter = getCurrentPage().getName();
+                    prefilterByPort = true;
+                    break;
+                case WcmConstants.RT_SHIP:
+                    shipFilter = getCurrentPage().getName();
+                    prefilterByShip = true;
+                    break;
+                case WcmConstants.RT_EXCLUSIVE_OFFER:
+                    exclusiveOfferFilter = getCurrentPage().getPath();
+                    break;
+                case WcmConstants.RT_FEATURE:
+                    final Tag[] pageTags = getCurrentPage().getTags();
 
-                if (pageTags != null) {
-                    for (final Tag pageTag : pageTags) {
-                        if (pageTag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
-                            final FeatureModel featureModel = pageTag.adaptTo(FeatureModel.class);
+                    if (pageTags != null) {
+                        for (final Tag pageTag : pageTags) {
+                            if (pageTag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                                final FeatureModel featureModel = pageTag.adaptTo(FeatureModel.class);
 
-                            if (featureModel != null) {
-                                featuresFilter.add(new FeatureModelLight(featureModel));
+                                if (featureModel != null) {
+                                    featuresFilter.add(new FeatureModelLight(featureModel));
+                                }
                             }
                         }
                     }
-                }
 
-                prefilterByFeature = true;
-                break;
+                    prefilterByFeature = true;
+                    break;
+            }
         }
 
         // get cruises from cache

@@ -60,7 +60,7 @@
                 ${'fares-shown-are-per-guest' @i18n}
             </div>
             <div class="col-xs-12 cruise-2018-suites-fares-included ${isCombo ? '' : 'hidden-xs'}"
-                 data-sly-test="${exclusiveOffersCruiseFareAdditions && (exclusiveOffersCruiseFareAdditions.size>0 || model.cruiseFareAdditions.size>0)}">
+                 data-sly-test="${exclusiveOffersCruiseFareAdditions.size>0 || model.cruiseFareAdditions.size>0}">
                 <div class="${isCombo ? 'cruise-2018-suites-fares-included-title-combo' : 'cruise-2018-suites-fares-included-title'}">
                     <sly data-sly-test="${!isCombo}">${ 'included-cruise-fare' @ i18n}</sly>
                     <sly data-sly-test="${isCombo}">${ 'benefits' @ i18n}</sly>
