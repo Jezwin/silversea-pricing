@@ -116,9 +116,11 @@ $(function () {
 
     }
 
-
-    sticking();
-    langMenu();
-    subMenu();
-    searchForm();
+    var isDesktop = $(window).width() > 991;
+    if (isDesktop) {
+        sticking();
+        langMenu();
+        subMenu();
+        searchForm();
+    }
 });

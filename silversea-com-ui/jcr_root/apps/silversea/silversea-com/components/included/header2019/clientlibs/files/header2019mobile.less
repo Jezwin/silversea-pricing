@@ -1,6 +1,31 @@
+@header2019-border-entry: 1px solid fade(#9B9B9B, 50%);
+
+.header2019-single-entry() {
+  color: #333333;
+  font-family: @suisse;
+  font-size: 12px;
+  letter-spacing: 1px;
+  line-height: 15px;
+  text-transform: uppercase;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  border-bottom: @header2019-border-entry;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: 600;
+  height: 60px;
+}
+
 .header-2019-mobile {
+
   .header2019-container {
     background: #000;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    position: relative;
+    right: 50%;
+    width: 100vw;
   }
 
   .header2019-logo {
@@ -54,9 +79,6 @@
     color: #fff;
     padding-top: 14px;
 
-    .header2019-icon-close {
-      display: none;
-    }
 
     .header2019-icon-phone {
       margin-right: 18px;
@@ -67,9 +89,19 @@
 .header-2019-mobile {
 
   .header2019-container-list {
+    position: absolute;
+    top: 0;
+    z-index: 200;
+    display: none;
+
     .row.header2019-row-header {
       background-color: white;
-      border-bottom: 1px solid #9B9B9B;
+      border-bottom: @header2019-border-entry;
+      position: fixed;
+      top: 0;
+      z-index: 2000;
+      padding-top: 8px;
+      padding-bottom: 6px;
 
       .header2019-nav-burger {
         background: white;
@@ -77,12 +109,13 @@
 
       button.header2019-nav-burgerbtn {
         background-color: white;
+        margin-right: 40px;
       }
 
       i.material-icons.header2019-icon-close {
         color: black;
         opacity: 0.4;
-        font-size: 31px;
+        font-size: 35px;
       }
     }
   }
@@ -91,26 +124,46 @@
     position: absolute;
     top: 0px;
     z-index: 200;
-    height: 100vh;
 
     .row.header2019-row-list {
       background-color: white;
+      height: 100vh;
+      margin-top: 75px;
+
 
       .col-xs-12 {
-        color: #333333;
-        font-family: @suisse;
-        font-size: 12px;
-        letter-spacing: 1px;
-        line-height: 15px;
-        text-transform: uppercase;
-        padding-top: 25px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #9B9B9B;
-        opacity: 0.5;
-        display: table-cell;
-        vertical-align: middle;
-        font-weight: 600;
-        height: 60px;
+        .header2019-single-entry();
+
+        &:hover {
+          background-color: #F4F4F4;
+        }
+      }
+    }
+
+    .row.header2019-container-fixed {
+      position: fixed;
+      bottom: 0px;
+      background-color: white;
+      width: 100%;
+      border-top: @header2019-border-entry;
+
+      .col-xs-6, .col-xs-12 {
+        .header2019-single-entry();
+        text-align: center;
+      }
+
+      .col-xs-6 {
+        border-right: @header2019-border-entry;
+      }
+
+      .header-2019-lang {
+        text-align: center;
+      }
+
+      .header-2019-raq {
+        background-color: #D60524;
+        color: white;
+        padding-left: 0px;
       }
     }
   }
