@@ -61,7 +61,6 @@ public class ExclusiveOfferModelLight {
         if (StringUtils.isNotEmpty(exclusiveOfferModel.getDefaultPostPrice())) {
             postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
         }
-        postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
         String[] customVoyageSettings = exclusiveOfferModel.getCustomVoyageSettings();
         for (String setting : customVoyageSettings) {
             CustomVoyageSettingsModel customSettings = gson.fromJson(setting, CustomVoyageSettingsModel.class);
