@@ -1,37 +1,3 @@
 <div class="c-pageheader">
-    <h1 class="c-pageheader__title">${currentPage.title || currentPage.navigationTitle}</h1>
-    <div class="c-pageheader__decription text">
-        ${pageProperties.longDescription || currentPage.description @ context='html' }
-    </div>
-    <div class="c-pageheader__deckplan hidden-xs" data-sly-test="${pageProperties.deckPlan}">
-        <a data-sly-test.deckPlan="${pageProperties.deckPlan}" href="${deckPlan}" target="_blank" class="hidden-xs">
-                <strong>${'view-deck-plan' @ i18n}</strong>
-        </a>
-    </div>
-    <div class="c-pageheader__properties" data-sly-test="${pageProperties.guestsCapacity || pageProperties.crewCapacity || pageProperties.builtDate || pageProperties.tonnage}">
-        <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet h-important">
-            <li class="c-list-inline__item c-list-inline__item--no-separated">
-                <strong>${'key-fact' @ i18n} :</strong>
-            </li>
-            <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.guestsCapacity}">
-                ${'guests-capacity' @ i18n}: ${pageProperties.guestsCapacity}
-            </li>
-            <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.crewCapacity}">
-                ${'crew-capacity' @ i18n}: ${pageProperties.crewCapacity}
-            </li>
-            <li class="c-list-inline__item c-list-inline__item--no-separated"
-                data-sly-test="${pageProperties.refurbDate}"
-                data-sly-use.refurbDate="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=pageProperties.refurbDate}">
-                ${'refurb-date' @ i18n}: ${refurbDate.value}
-            </li>
-            <li class="c-list-inline__item c-list-inline__item--no-separated"
-                data-sly-test="${pageProperties.builtDate}"
-                data-sly-use.builtDate="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=pageProperties.builtDate}">
-                ${'built-date' @ i18n}: ${builtDate.value}
-            </li>
-            <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.tonnage}">
-                ${'tonnage' @ i18n}: ${pageProperties.tonnage} <span class="h-lower">${'tons' @ i18n}</span>
-            </li>
-        </ul>
-    </div>
+
 </div>
