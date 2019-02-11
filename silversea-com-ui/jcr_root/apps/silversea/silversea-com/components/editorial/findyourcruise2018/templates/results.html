@@ -107,16 +107,16 @@
                                 <span data-sly-test="${cruise.cruiseItem.pricePrefix}"
                                       class="price-prefixe">${cruise.cruiseItem.pricePrefix}</span>
                                 <span data-sly-test="${cruise.cruiseItem.isWaitList}">${'waitlist' @ i18n}</span>
-                                <span data-sly-test="${!cruise.cruiseItem.isWaitList}"
-                                      class="price-prefixe">${'from' @ i18n}</span>
-                                <span data-sly-test="${!cruise.cruiseItem.isWaitList}"
-                                      class="price-prefixe text-uppercase price-mobile">${cruise.cruiseItem.lowestPrice.currency @ i18n}</span>
-                                <span class="price-mobile" data-sly-test="${!cruise.cruiseItem.isWaitList}">${cruise.cruiseItem.lowestPriceFormated}</span>
-                                <div class="fyc-including" data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus || cruise.postPrice}">${'including' @ i18n}</div>
-                                <div  data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">access_alarm</i>  10% ${'early-booking-bonus' @ i18n}</div>
-                                <div data-sly-test="${cruise.postPrice}"  class="price-suffixe">
-                                    ${cruise.postPrice @ context='html'}
-                                </div>
+                                <sly data-sly-test="${!cruise.cruiseItem.isWaitList}">
+                                    <span class="price-prefixe">${'from' @ i18n}</span>
+                                    <span class="price-prefixe text-uppercase price-mobile">${cruise.cruiseItem.lowestPrice.currency @ i18n}</span>
+                                    <span class="price-mobile">${cruise.cruiseItem.lowestPriceFormated}</span>
+                                    <div class="fyc-including" data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus || cruise.postPrice}">${'including' @ i18n}</div>
+                                    <div  data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">access_alarm</i>  10% ${'early-booking-bonus' @ i18n}</div>
+                                    <div data-sly-test="${cruise.postPrice}"  class="price-suffixe">
+                                        ${cruise.postPrice @ context='html'}
+                                    </div>
+                                </sly>
                             </div>
 
                             <div class="c-fyc-v2__result__content__button text-center">

@@ -31,7 +31,9 @@ public class ExclusiveOfferModelLight {
         priorityWeight = exclusiveOfferModel.getDefaultPriorityWeight();
         postPriceCache = new HashMap<>();
         try {
-            postPriceCache = retrievePostPriceCache(exclusiveOfferModel);
+            if(!exclusiveOfferModel.getActiveSystem()) {
+                postPriceCache = retrievePostPriceCache(exclusiveOfferModel);
+            }
         }catch (Exception e){
             LOGGER.error("Issue in FYC CAche when try to create postPriceCache", e);
         }
@@ -56,8 +58,8 @@ public class ExclusiveOfferModelLight {
     private Map<String, String> retrievePostPriceCache(ExclusiveOfferModel exclusiveOfferModel) {
         Gson gson = new GsonBuilder().create();
         Map<String, String> postPriceOfferCache = new HashMap<>();
-        if(!exclusiveOfferModel.getActiveSystem()){
-            return postPriceOfferCache;
+        if (StringUtils.isNotEmpty(exclusiveOfferModel.getDefaultPostPrice())) {
+            postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
         }
         postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
         String[] customVoyageSettings = exclusiveOfferModel.getCustomVoyageSettings();
