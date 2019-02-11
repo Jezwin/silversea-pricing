@@ -1,0 +1,8 @@
+<template data-sly-template.default="${  @footer } ">
+<div class="c-footer-breadcrumb marginTopMobile5 marginBottomDesktopMobile5 hidden-xs" data-sly-test="${currentPage.properties.displayBreadcrumb || footer.forceBreadcrumb}">
+    <div class="container paddingTopDesktop0 paddingBottomDesktop0 paddingTopTablet0 paddingBottomTablet0">
+        <sly data-sly-resource="${'breadcrumb' @ resourceType='silversea/silversea-com/components/editorial/breadcrumb'}"></sly>
+        <hr class="marginBottomDesktop10"/>
+    </div>
+</div>
+</template>

@@ -33,10 +33,11 @@ public class FilterBar {
     private final AbstractFilter<String> waitlist = new WaitlistFilter();
     private final AbstractFilter<ShipItem> ship = new ShipFilter();
     private final AbstractFilter<String> type = new TypeFilter();
+    private final AbstractFilter<String> country = new CountryFilter();
 
 
     private final Collection<AbstractFilter<?>> filters =
-            asList(duration, ship, departure, destination, features, port, type, offers, waitlist);
+            asList(duration, ship, departure, destination, features, port, country, type, offers, waitlist);
     private final DepartureSortOption DEFAULT_SORT = new DepartureSortOption(ASC);
 
     private static final Map<String, Function<SortOptionState, AbstractSortOption>> SORT_OPTIONS = new HashMap<>();
@@ -205,5 +206,9 @@ public class FilterBar {
 
     public Collection<AbstractFilter<?>> getFilters() {
         return filters;
+    }
+
+    public AbstractFilter<String> getCountry() {
+        return country;
     }
 }

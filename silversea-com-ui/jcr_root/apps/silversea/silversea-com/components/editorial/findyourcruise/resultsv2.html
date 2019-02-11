@@ -1,25 +1,25 @@
 <template data-sly-template.resultsv2="${@ fyc}">
 <div class="clearfix c-fyc-v2__results__wrapper" >
-
-    <div class="c-fyc-v2__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
-        <div class="c-fyc-v2__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseItem.cruiseModel.thumbnail}">
+    <sly data-sly-use.fwHelper="${'com.silversea.aem.helper.FindYourCruiseOfferHelper' @ priorityOffer=fyc.priorityOffer, cruises=fyc.cruises}"/>
+    <div class="c-fyc-v2__result" data-sly-repeat.cruise="${fwHelper.cruisesFYC}">
+        <div class="c-fyc-v2__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruise.cruiseItem.cruiseModel.thumbnail}">
             <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=450&fmt=pjpeg&pscan=5&qlt=80" />
             <sly data-sly-test.thumbnailFallback="${currentDesign.path}/clientlib-base/images/cruise-thumbnail.jpg" />
-            <div class="c-fyc-v2__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail ? thumbnail : thumbnailFallback @ context='uri'})">
-                <span data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag"> <span class="flag__icon icon-star"></span> <span class="flag__text">${'exclusive offer' @ i18n}</span>
+            <div class="c-fyc-v2__result__image" style="background-image: url(${cruise.cruiseItem.cruiseModel.thumbnail ? thumbnail : thumbnailFallback @ context='uri'})">
+                <span data-sly-test="${cruise.cruiseItem.exclusiveOffers.size > 0 || cruise.cruiseItem.cruiseModel.features.size > 0}" class="flag"> <span class="flag__icon icon-star"></span> <span class="flag__text">${'exclusive offer' @ i18n}</span>
                 </span>
             </div>
             <div class="c-fyc-v2__result__content">
                 <div class="c-fyc-v2__result__content__inner">
-                    <span class="c-fyc-v2__result__content__title">${cruiseItem.cruiseModel.departurePortName}
+                    <span class="c-fyc-v2__result__content__title">${cruise.cruiseItem.cruiseModel.departurePortName}
 						<em class="text-lowercase">${'to' @ i18n}</em>
-						${cruiseItem.cruiseModel.arrivalPortName}
+						${cruise.cruiseItem.cruiseModel.arrivalPortName}
 					</span>
                     <ul class="c-fyc-v2__result__content__summary clearfix">
                         <li class="c-fyc-v2__result__content__summary__item">
                             <dl>
                                 <dt class="visible-xs">${'departure' @ i18n}</dt>
-                                <dd class="c-fyc-v2__result__content__summary__depdate" data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd', date=cruiseItem.cruiseModel.startDate}" data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruiseItem.cruiseModel.startDate}" data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}" data-date="${dateFull.value}"> ${dateMonthDay.value} ${dateYear.value}
+                                <dd class="c-fyc-v2__result__content__summary__depdate" data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd', date=cruise.cruiseItem.cruiseModel.startDate}" data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseItem.cruiseModel.startDate}" data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruise.cruiseItem.cruiseModel.startDate}" data-date="${dateFull.value}"> ${dateMonthDay.value} ${dateYear.value}
                                 </dd>
                             </dl>
                         </li>
@@ -28,7 +28,7 @@
                             <dl>
                                 <dt class="visible-xs">${'duration' @ i18n}</dt>
                                 <dd>
-                                    <i class="fa fa-clock-o hidden-xs"></i>${cruiseItem.cruiseModel.duration} ${'days' @ i18n}
+                                    <i class="fa fa-clock-o hidden-xs"></i>${cruise.cruiseItem.cruiseModel.duration} ${'days' @ i18n}
                                 </dd>
                             </dl>
                         </li>
@@ -37,24 +37,24 @@
                             <dl>
                                 <dt>${'ship' @ i18n}</dt>
                                 <dd>
-                                    <strong class="text-capitalize">${cruiseItem.cruiseModel.ship.title}</strong>
+                                    <strong class="text-capitalize">${cruise.cruiseItem.cruiseModel.ship.title}</strong>
                                 </dd>
                             </dl>
                         </li>
                     </ul>
                     <ul class="c-fyc-v2__result__content__itinerary hidden-xs">
-                        <li class="cruise-destination" data-destinationname="${cruiseItem.cruiseModel.destination.name @ context='unsafe'}">${cruiseItem.cruiseModel.ports[0].title} <span class="cruise-infix">${'to' @ i18n}</span>
-                            <sly data-sly-list="${cruiseItem.cruiseModel.ports}">
+                        <li class="cruise-destination" data-destinationname="${cruise.cruiseItem.cruiseModel.destination.name @ context='unsafe'}">${cruise.cruiseItem.cruiseModel.ports[0].title} <span class="cruise-infix">${'to' @ i18n}</span>
+                            <sly data-sly-list="${cruise.cruiseItem.cruiseModel.ports}">
                                 <span data-sly-test="${itemList.last}">${item.title}</span>
                             </sly>
                         </li>
-                        <li class="cruise-ship_2 hidden-xs" data-shipname="${cruiseItem.cruiseModel.ship.name @ context='unsafe'}">${cruiseItem.cruiseModel.ship.title}</li>
-                        <li class="cruise-type" data-cruisetype="${cruiseItem.cruiseModel.cruiseType @ context='unsafe'}">${cruiseItem.cruiseModel.cruiseType @ i18n}</li>
+                        <li class="cruise-ship_2 hidden-xs" data-shipname="${cruise.cruiseItem.cruiseModel.ship.name @ context='unsafe'}">${cruise.cruiseItem.cruiseModel.ship.title}</li>
+                        <li class="cruise-type" data-cruisetype="${cruise.cruiseItem.cruiseModel.cruiseType @ context='unsafe'}">${cruise.cruiseItem.cruiseModel.cruiseType @ i18n}</li>
 
 
                         <li class="destination-ports">
                             <div class="c-fyc-v2__result__content__itinerary__ports">
-                                <sly data-sly-list="${cruiseItem.cruiseModel.ports}">
+                                <sly data-sly-list="${cruise.cruiseItem.cruiseModel.ports}">
                                     <span>${item.title}</span>
                                     <i data-sly-test="${!itemList.last}" class="c-fyc-v2__result__content__itinerary__next-port-symbol fa fa-angle-right"></i>
                                 </sly>
@@ -62,36 +62,40 @@
                             <label class="view-more">
                             <input  type="checkbox"/>${'view more' @ i18n}</label>
                         </li>
-                        <li class="meta_feature_inner hidden-xs"><span class="feature" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
+                        <li class="meta_feature_inner hidden-xs"><span class="feature" data-sly-test="${cruise.cruiseItem.exclusiveOffers.size > 0 || cruise.cruiseItem.cruiseModel.features.size > 0}">
 								<i class="icon-star"></i> ${'offer' @ i18n} <span
 								class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
                             </span>
-                            <span data-sly-list="${cruiseItem.cruiseModel.features}">
+                            <span data-sly-list="${cruise.cruiseItem.cruiseModel.features}">
                                    <span class="feature">
 	                                <i class="${item.icon}"></i>
 	                                <span class="tooltip"><i></i>${item.title}</span>
 	                            </span>
                             </span>
-                            <span data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="bar-for-code">|</span>
-                            <span class="cruise-code hidden-xs">#${cruiseItem.cruiseModel.cruiseCode}</span>
+                            <span data-sly-test="${cruise.cruiseItem.exclusiveOffers.size > 0 || cruise.cruiseItem.cruiseModel.features.size > 0}" class="bar-for-code">|</span>
+                            <span class="cruise-code hidden-xs">#${cruise.cruiseItem.cruiseModel.cruiseCode}</span>
                         </li>
 
 
                     </ul>
                     <div class="c-fyc-v2__result__content__price">
-                        <div class="${cruiseItem.isWaitList ? 'c-fyc-v2__result__content__price__isWaitList' : 'c-fyc-v2__result__content__price__notWaitList'}">
-                            <span data-sly-test="${cruiseItem.pricePrefix}" class="price-prefixe">${cruiseItem.pricePrefix}</span>
-                            <span data-sly-test="${cruiseItem.isWaitList}">${'waitlist' @ i18n}</span>
-                            <span data-sly-test="${!cruiseItem.isWaitList}" class="price-prefixe">${'from' @ i18n}</span>
-                            <span data-sly-test="${!cruiseItem.isWaitList}" class="price-prefixe text-uppercase">${cruiseItem.lowestPrice.currency @ i18n}</span>
-                            <span data-sly-test="${!cruiseItem.isWaitList}">${cruiseItem.lowestPriceFormated}</span>
-                            <div data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} 10% ${'early-booking-bonus' @ i18n}</div>
+                        <div class="${cruise.cruiseItem.isWaitList ? 'c-fyc-v2__result__content__price__isWaitList' : 'c-fyc-v2__result__content__price__notWaitList'}">
+                            <span data-sly-test="${cruise.cruiseItem.pricePrefix}" class="price-prefixe">${cruise.cruiseItem.pricePrefix}</span>
+                            <span data-sly-test="${cruise.cruiseItem.isWaitList}">${'waitlist' @ i18n}</span>
+                            <span data-sly-test="${!cruise.cruiseItem.isWaitList}" class="price-prefixe">${'from' @ i18n}</span>
+                            <span data-sly-test="${!cruise.cruiseItem.isWaitList}" class="price-prefixe text-uppercase">${cruise.cruiseItem.lowestPrice.currency @ i18n}</span>
+                            <span data-sly-test="${!cruise.cruiseItem.isWaitList}">${cruise.cruiseItem.lowestPriceFormated}</span>
+                            <div class="fyc-including" data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus || cruise.postPrice}">${'including' @ i18n}</div>
+                            <div  data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">access_alarm</i>  10% ${'early-booking-bonus' @ i18n}</div>
+                            <div data-sly-test="${cruise.postPrice}"  class="price-suffixe">
+                                ${cruise.postPrice @ context='html'}
+                            </div>
                         </div>
 
                         <div class="c-fyc-v2__result__content__button text-center">
 
-                            <a data-sly-test.suffix="${'{0}{1}' @ format=[cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n}
-					</a> <a href="${cruiseItem.cruiseModel.path @ extension='html'}" class="btn effect c-fyc-btn-discover-more ab-test-v2-show" data-sscclicktype="clic-results-viewmore">${'view-more' @i18n} </a>
+                            <a data-sly-test.suffix="${'{0}{1}' @ format=[cruise.cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n}
+					</a> <a href="${cruise.cruiseItem.cruiseModel.path @ extension='html'}" class="btn effect c-fyc-btn-discover-more ab-test-v2-show" data-sscclicktype="clic-results-viewmore">${'view-more' @i18n} </a>
                         </div>
 
                     </div>
@@ -99,32 +103,32 @@
 
             </div>
         </div>
-        <a class="c-fyc-v2__result__link" href="${cruiseItem.cruiseModel.path @ extension='html'}"></a>
+        <a class="c-fyc-v2__result__link" href="${cruise.cruiseItem.cruiseModel.path @ extension='html'}"></a>
 
-        <script data-sly-test="${cruiseItemList.first}" data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}">
+        <script data-sly-test="${cruiseItemList.first}" data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruise.cruiseItem.cruiseModel.startDate}">
             $(document)
                 .ready(
                     function() {
                         var dataLayerVar = window.dataLayer[0];
-	        	        dataLayerVar.track_destination_id = "${cruiseItem.cruiseModel.destinationId @ context='unsafe'}";
-	        	        dataLayerVar.track_destination_name = "${cruiseItem.cruiseModel.destination.name @ context='unsafe'}";
-	        	        dataLayerVar.track_voyage_id = "${cruiseItem.cruiseModel.CruiseCode @ context='unsafe'}";
+	        	        dataLayerVar.track_destination_id = "${cruise.cruiseItem.cruiseModel.destinationId @ context='unsafe'}";
+	        	        dataLayerVar.track_destination_name = "${cruise.cruiseItem.cruiseModel.destination.name @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_id = "${cruise.cruiseItem.cruiseModel.CruiseCode @ context='unsafe'}";
 	        	        dataLayerVar.track_departure_date = "${dateFull.value @ context='unsafe'}";
-	        	        dataLayerVar.track_voyage_duration = "${cruiseItem.cruiseModel.Duration @ context='unsafe'}";
-	        	        dataLayerVar.track_voyage_type = "${cruiseItem.cruiseModel.CruiseType @ context='unsafe'}";
-	        	        dataLayerVar.track_shipname = "${cruiseItem.cruiseModel.ship.name @ context='unsafe'}";
-	        	        dataLayerVar.track_ship_id = "${cruiseItem.cruiseModel.ship.id @ context='unsafe'}";
-	        	        dataLayerVar.track_voyage_departure_harbor = "${cruiseItem.cruiseModel.departurePortName @ context='unsafe'}";
-	        	        dataLayerVar.track_voyage_arrival_harbor = "${cruiseItem.cruiseModel.arrivalPortName @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_duration = "${cruise.cruiseItem.cruiseModel.Duration @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_type = "${cruise.cruiseItem.cruiseModel.CruiseType @ context='unsafe'}";
+	        	        dataLayerVar.track_shipname = "${cruise.cruiseItem.cruiseModel.ship.name @ context='unsafe'}";
+	        	        dataLayerVar.track_ship_id = "${cruise.cruiseItem.cruiseModel.ship.id @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_departure_harbor = "${cruise.cruiseItem.cruiseModel.departurePortName @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_arrival_harbor = "${cruise.cruiseItem.cruiseModel.arrivalPortName @ context='unsafe'}";
                     });
 
         </script>
-         <sly data-sly-test="${!cruiseItem.isWaitList}">
+         <sly data-sly-test="${!cruise.cruiseItem.isWaitList}">
 	         <script data-sly-test="${cruiseItemList.first}">
 	         $(document)
 	         .ready(
 	             function() {
-	         		window.dataLayer[0].track_revenue = "${cruiseItem.lowestPrice.currency @ context='unsafe'} ${cruiseItem.lowestPriceFormated @ context='unsafe'}";
+	         		window.dataLayer[0].track_revenue = "${cruise.cruiseItem.lowestPrice.currency @ context='unsafe'} ${cruise.cruiseItem.lowestPriceFormated @ context='unsafe'}";
 	             });
 	         </script>
          </sly>

@@ -22,7 +22,6 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 
-import javax.sound.sampled.Port;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -34,7 +33,6 @@ import java.util.stream.Stream;
 import static com.google.common.base.Strings.emptyToNull;
 import static com.silversea.aem.utils.AssetUtils.buildAssetList;
 import static java.util.Comparator.comparing;
-import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
@@ -52,11 +50,13 @@ public class Cruise2018Use extends EoHelper {
         EO_CONFIG.setMapOverheadVoyage(true);
         EO_CONFIG.setCruiseFareVoyage(true);
         EO_CONFIG.setPriorityWeight(true);
+        EO_CONFIG.setPostPrice(true);
         EO_CONFIG.setIconVoyage(true);
     }
 
     private List<ExclusiveOfferItem> exclusiveOffers;
     private List<String> exclusiveOffersCruiseFareAdditions;
+    private String exclusiveOfferPostPrice;
     private boolean venetianSociety;
     private String VSLBPath;
 
@@ -111,6 +111,7 @@ public class Cruise2018Use extends EoHelper {
     private ItineraryLandProgramModel midlandShorexLightbox;
 
     private int hasexcursionsCounter;
+    private int numExcursions;
 
     @Override
     public void activate() throws Exception {
@@ -160,7 +161,9 @@ public class Cruise2018Use extends EoHelper {
         departurePortName = StringUtils.isEmpty(departurePortName) ? arrivalPortName : departurePortName;
         cruiseModel = retrieveCruiseModel();
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
+        exclusiveOfferPostPrice = retrieveExclusiveOfferPostPrice(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         VSLBPath = retrieveVenetianSocietyLBPath();
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
@@ -206,6 +209,21 @@ public class Cruise2018Use extends EoHelper {
         });
         this.hasexcursionsCounter = firstExcursionsCounter();
     }
+
+
+    private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferItem> exclusiveOffers) {
+        Integer priorityWeight = Integer.MIN_VALUE;
+        String postPrice = null;
+        for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
+            boolean isTheRightPostPrice = StringUtils.isNotEmpty(exclusiveOffer.getPostPrice()) && exclusiveOffer.getPriorityWeight() > priorityWeight;
+            if (isTheRightPostPrice) {
+                priorityWeight = exclusiveOffer.getPriorityWeight();
+                postPrice = exclusiveOffer.getPostPrice();
+            }
+        }
+        return postPrice;
+    }
+
 
     private List<SilverseaAsset> retrievePortsGalleryAndVideo(CruiseModel cruiseModel) {
         String assetSelectionReference;
@@ -559,6 +577,7 @@ public class Cruise2018Use extends EoHelper {
             for (CruiseItinerary cruiseItinerary : this.itinerary) {
                 counter++;
                 if (cruiseItinerary.isHasExcursions()) {
+                    this.numExcursions++;
                     return counter;
                 }
             }
@@ -623,6 +642,18 @@ public class Cruise2018Use extends EoHelper {
 
     public String getArrivalPortName() {
         return arrivalPortName;
+    }
+
+    public String getExclusiveOfferPostPrice() {
+        return exclusiveOfferPostPrice;
+    }
+
+    public void setExclusiveOfferPostPrice(String exclusiveOfferPostPrice) {
+        this.exclusiveOfferPostPrice = exclusiveOfferPostPrice;
+    }
+    
+    public int getNumExcursions() {
+        return numExcursions;
     }
 
     public enum Lightbox {

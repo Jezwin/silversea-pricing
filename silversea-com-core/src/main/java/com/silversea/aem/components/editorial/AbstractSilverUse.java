@@ -13,6 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.StreamSupport.stream;
 
@@ -38,10 +39,21 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
         return getProp(key).map("true"::equals).orElse(defaultValue);
     }
 
+    protected Optional<String> getSelectorValue(String[] selectors, String fixedSelectors) {
+        for (String selector : selectors) {
+            if (!fixedSelectors.contains(selector)) return of(selector);
+        }
+        return Optional.empty();
+    }
 
     protected <T> Optional<T> getProp(String key, Class<T> type) {
         return ofNullable(getProperties()).map(props -> props.get(key, type));
     }
+
+    protected <T> Optional<T> getProp(String key, Resource resource, Class<T> type) {
+        return of(resource.getValueMap()).map(props -> props.get(key, type));
+    }
+
 
     protected <T> T getProp(String key, Class<T> type, T defaultValue) {
         return getProp(key, type).orElse(defaultValue);

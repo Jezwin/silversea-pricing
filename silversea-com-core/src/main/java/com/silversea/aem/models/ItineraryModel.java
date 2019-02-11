@@ -241,12 +241,12 @@ public class ItineraryModel {
         return cruiseId;
     }
 
-    public PortModel getPort() {
-        return port;
-    }
-
     public Boolean getHasDedicatedShorex() {
         return hasDedicatedShorex;
+    }
+
+    public PortModel getPort() {
+        return port;
     }
 
     public Integer getPortId() {

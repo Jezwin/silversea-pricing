@@ -71,6 +71,7 @@ function loadLazyImageOverview($slider) {
 }
 
 $(function () {
+
     if ($(window).width() < 768) {
         createOverviewGallerySlider();
     }

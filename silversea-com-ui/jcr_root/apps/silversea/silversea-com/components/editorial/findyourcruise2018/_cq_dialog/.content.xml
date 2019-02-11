@@ -44,6 +44,12 @@
                                     name="./hideTitle"
                                     value="true"
                                     sling:resourceType="granite/ui/components/foundation/form/hidden"/>
+                            <noPageContext
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Do not take in account the page as prefilter"
+                                    name="./noPageContent"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <hideFycTitle
                                     jcr:primaryType="nt:unstructured"
                                     text="Hidden FYC Title (Your search results)"
@@ -60,6 +66,39 @@
                                     sling:resourceType="granite/ui/components/foundation/form/textfield"
                                     fieldLabel="Results label (plural)"
                                     name="./resultsLabelPlural"/>
+                            <priorityOffer jcr:primaryType="nt:unstructured"
+                                           sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                           composite="{Boolean}true"
+                                           fieldLabel="Priority Offer"
+                                           eaem-show-on-collapse="EAEM.showProductName">
+                                <field
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                        name="./priorityOffer">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <offerPath
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldLabel="Offer path"
+                                                        name="./offerPath"
+                                                        fieldDescription="Offer path"
+                                                        rootPath="/content/silversea-com/"/>
+                                                <priority
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Priority"
+                                                        fieldLabel="priority"
+                                                        value=""
+                                                        name="./priority"/>
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </priorityOffer>
                         </items>
                     </column>
                 </items>
@@ -97,6 +136,11 @@
                                     jcr:primaryType="nt:unstructured"
                                     fieldLabel="Port Name"
                                     name="./portId"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield"/>
+                            <countryId
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Country ISO3"
+                                    name="./countryId"
                                     sling:resourceType="granite/ui/components/foundation/form/textfield"/>
                             <eoId
                                     jcr:primaryType="nt:unstructured"

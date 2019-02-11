@@ -16,6 +16,7 @@ public class EoBean {
     private boolean isAvailable;
     private String eoFootnotes;
     private String icon;
+    private String postPrice;
     private Integer priorityWeight;
 
 
@@ -129,5 +130,13 @@ public class EoBean {
 
     public void setPriorityWeight(Integer priorityWeight) {
         this.priorityWeight = priorityWeight;
+    }
+
+    public String getPostPrice() {
+        return postPrice;
+    }
+
+    public void setPostPrice(String postPrice) {
+        this.postPrice = postPrice;
     }
 }

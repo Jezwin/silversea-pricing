@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial;
 
 import com.silversea.aem.services.GlobalCacheService;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.caconfig.resource.ConfigurationResourceResolver;
 
 import com.adobe.cq.sightly.WCMUsePojo;
@@ -70,6 +71,61 @@ public class ImageUse extends WCMUsePojo {
 
 		if (sliderWidth != null) {
 			widthResponsiveDesktop = sliderWidth;
+		}
+
+		//We are in EoSlider / DestSlider / Ig2018
+		ValueMap currentValueMap = getResource().getValueMap();
+		if (currentValueMap.get("sling:resourceType", String.class) != null) {
+			String resourceType = currentValueMap.get("sling:resourceType", String.class);
+			switch (resourceType) {
+				case "silversea/silversea-ssc/components/editorial/inlineGallery":
+					if(currentValueMap.get("numberItemsDesktop", Integer.class) != null) {
+						widthResponsiveDesktop = 12 / currentValueMap.get("numberItemsDesktop", Integer.class);
+						if (widthResponsiveDesktop < 12) {
+							widthResponsiveDesktop = widthResponsiveDesktop + 2;
+						}
+						widthResponsiveMobile = 12;
+					}
+					break;
+				case "silversea/silversea-ssc/components/editorial/destinationSlider":
+					String type = currentValueMap.get("type", String.class);
+					switch (type) {
+						case "1":
+							widthResponsiveDesktop = 12;
+							break;
+						case "2":
+							widthResponsiveDesktop = 8;
+							break;
+						case "3":
+							widthResponsiveDesktop = 7;
+							break;
+						case "6":
+							widthResponsiveDesktop = 5;
+							break;
+						default:
+							widthResponsiveDesktop = 12;
+							break;
+
+					}
+
+					widthResponsiveMobile = 12;
+					break;
+
+				case "silversea/silversea-ssc/components/editorial/exclusiveOfferListND":
+					if (getResource().getValueMap().get("eoStyle", String.class).equals("slider")) {
+						if(currentValueMap.get("numberItemsDesktop", Integer.class) != null) {
+							widthResponsiveDesktop = 12 / currentValueMap.get("numberItemsDesktop", Integer.class);
+							if (widthResponsiveDesktop < 12) {
+								widthResponsiveDesktop = widthResponsiveDesktop + 2;
+							}
+							widthResponsiveMobile = 12;
+						}
+					} else {
+						widthResponsiveDesktop = 12;
+						widthResponsiveMobile = 12;
+					}
+					break;
+			}
 		}
 
 		// Get width from configuration

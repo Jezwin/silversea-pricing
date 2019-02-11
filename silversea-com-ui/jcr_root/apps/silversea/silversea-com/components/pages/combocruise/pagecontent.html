@@ -51,6 +51,7 @@
          itinerary=comboCruise.itinerary,
          externalizerHelper=externalizerHelper,
          itineraryMap=comboCruise.segmentModel.focusedMapReference,
+         cruiseType='silversea-combocruise',
          customDescription=comboCruise.comboCruiseModel.description,
          countryCode='',
          currentPath='',
@@ -93,7 +94,6 @@
          ship=comboCruise.comboCruiseModel.ship,
          shipAssetGallery=comboCruise.shipAssetGallery,
          externalizerHelper=externalizerHelper}"/>
-    <sly data-sly-include="fragment/overviewtab/benefitsandeventsparsys.html"/>
     <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise/templates/pre-post.html"
          data-sly-call="${prepost.default @ prePosts=comboCruise.globalPrePost, activateProgressbar=true}"/>
