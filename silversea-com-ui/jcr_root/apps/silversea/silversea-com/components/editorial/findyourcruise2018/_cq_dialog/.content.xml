@@ -66,6 +66,39 @@
                                     sling:resourceType="granite/ui/components/foundation/form/textfield"
                                     fieldLabel="Results label (plural)"
                                     name="./resultsLabelPlural"/>
+                            <priorityOffer jcr:primaryType="nt:unstructured"
+                                           sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                           composite="{Boolean}true"
+                                           fieldLabel="Priority Offer"
+                                           eaem-show-on-collapse="EAEM.showProductName">
+                                <field
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                        name="./priorityOffer">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <offerPath
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldLabel="Offer path"
+                                                        name="./offerPath"
+                                                        fieldDescription="Offer path"
+                                                        rootPath="/content/silversea-com/"/>
+                                                <priority
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Priority"
+                                                        fieldLabel="priority"
+                                                        value=""
+                                                        name="./priority"/>
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </priorityOffer>
                         </items>
                     </column>
                 </items>

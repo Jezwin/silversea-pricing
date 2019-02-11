@@ -16,6 +16,7 @@ import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.FeatureModel;
+import com.silversea.aem.models.OfferPriorityModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -52,10 +53,13 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private Pagination pagination;
     private String requestQuotePagePath;
+    private List<OfferPriorityModel> priorityOffer;
+
 
     @Override
     public void activate() throws Exception {
         super.activate();
+
         Page currentPage = getCurrentPage();
         Resource resource = getResource();
         SlingHttpServletRequest request = getRequest();
@@ -65,7 +69,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         lang = LanguageHelper.getLanguage(currentPage);
         locale = currentPage.getLanguage(false);
         tagManager = resourceResolver.adaptTo(TagManager.class);
-
+        priorityOffer = retrievePriorityOffer();
 
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
@@ -87,6 +91,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             dullInit();
         }
 
+    }
+
+    public List<OfferPriorityModel> retrievePriorityOffer() {
+        return retrieveMultiField("priorityOffer", OfferPriorityModel.class);
     }
 
     private String retrieveRequestQuotePath(Resource resource) {
@@ -274,5 +282,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         Gson gson = new Gson();
         cruises.forEach(cruise -> array.add(gson.toJsonTree(cruise)));
         return array.toString();
+    }
+
+    public List<OfferPriorityModel> getPriorityOffer() {
+        return priorityOffer;
     }
 }

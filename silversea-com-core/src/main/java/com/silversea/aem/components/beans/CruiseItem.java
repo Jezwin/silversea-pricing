@@ -4,18 +4,18 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.ExclusiveOfferModelLight;
 import com.silversea.aem.models.PriceModelLight;
-import org.apache.commons.lang3.StringUtils;
+import com.silversea.aem.models.PriorityExclusiveOfferModel;
+import org.apache.commons.collections.map.HashedMap;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Represent a cruise item used to display cruise informations (especially geolocated) in find your cruise
  */
 public class CruiseItem {
 
-    private final String postPrice;
+    private final Map<String, List<PriorityExclusiveOfferModel>> postPriceMap;
     private CruiseModelLight cruiseModel;
 
     private PriceModelLight lowestPrice;
@@ -40,7 +40,7 @@ public class CruiseItem {
             }
         }
 
-        this.postPrice = retrieveExclusiveOfferPostPrice(exclusiveOffers, market);
+        this.postPriceMap = retrieveExclusiveOfferPostPrice(exclusiveOffers, market);
 
         this.locale = locale;
     }
@@ -71,25 +71,21 @@ public class CruiseItem {
         return null;
     }
 
-    public String getPostPrice() {
-        return postPrice;
+    public Map<String, List<PriorityExclusiveOfferModel>> getPostPriceMap() {
+        return postPriceMap;
     }
 
-    private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
-        Integer priorityWeight = Integer.MIN_VALUE;
-        String postPrice = null;
+    private static Map<String, List<PriorityExclusiveOfferModel>> retrieveExclusiveOfferPostPrice(List<ExclusiveOfferModelLight> exclusiveOffers, String market) {
+        Map<String, List<PriorityExclusiveOfferModel>> postPrice = new HashedMap();
         for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
-            boolean isDefault = exclusiveOffer.getPostPriceCache().containsKey("default"),
-                    isTheRightPostPrice = exclusiveOffer.getPriorityWeight() > priorityWeight;
-            if (isTheRightPostPrice && isDefault) {
-                priorityWeight = exclusiveOffer.getPriorityWeight();
-                postPrice = exclusiveOffer.getPostPriceCache().get("default");
-            }
-
-            boolean isMarketPresent = exclusiveOffer.getPostPriceCache().containsKey(market);
-            if (isMarketPresent) {
-                String geo = exclusiveOffer.getPostPriceCache().get(market);
-                postPrice = StringUtils.isNotEmpty(geo) ? geo : postPrice;
+            if (!exclusiveOffer.getPostPriceCache().isEmpty()) {
+                Map<String, String> postPriceCache = exclusiveOffer.getPostPriceCache();
+                List<PriorityExclusiveOfferModel> priorityExclusiveOfferModelList = new ArrayList<>();
+                for (Map.Entry<String, String> entry : postPriceCache.entrySet()) {
+                    PriorityExclusiveOfferModel priorityExclusiveOfferModel = new PriorityExclusiveOfferModel(entry.getKey(), entry.getValue());
+                    priorityExclusiveOfferModelList.add(priorityExclusiveOfferModel);
+                }
+                postPrice.put(exclusiveOffer.getPath(), priorityExclusiveOfferModelList);
             }
         }
         return postPrice;
