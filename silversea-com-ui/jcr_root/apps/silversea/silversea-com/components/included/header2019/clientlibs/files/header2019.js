@@ -9,6 +9,9 @@ $(function () {
                 $(document).one("click", function () {
                     $langMenu.removeClass(openLangMenuClass);
                 });
+                $(window).one("scroll", function () {
+                    $langMenu.removeClass(openLangMenuClass);
+                });
             }
             e.stopPropagation();
         }
@@ -103,10 +106,10 @@ $(function () {
         $(window).scroll(sscThrottled(function () {
             var scrollPosition = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
             if (scrollPosition > 0) {
-                $(".header-2019-wrapper").addClass("sticked");
+                $(".header2019, .header-2019-wrapper").addClass("sticked");
                 $(".header-2019-top-section").removeClass("search-visible");
             } else {
-                $(".header-2019-wrapper").removeClass("sticked");
+                $(".header2019, .header-2019-wrapper").removeClass("sticked");
                 $(".header-2019 input").blur();
             }
         }));

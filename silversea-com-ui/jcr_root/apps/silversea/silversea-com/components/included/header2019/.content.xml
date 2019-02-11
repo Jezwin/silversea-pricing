@@ -3,5 +3,4 @@
     jcr:primaryType="cq:Component"
     jcr:title="Header 2019"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
-          allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - Editorial"/>
+    componentGroup=".hidden"/>

@@ -1,14 +1,16 @@
 @lang-delay: 0.2s;
 @sticky-menu-delay: 0.5s;
-@header-height: 100px;
+@header-height: 110px;
 @header-height-sticked: 60px;
-
-.c-header__container {
-  display: none !important;
-}
 
 
 .header2019 {
+  display: none;
+
+  &.sticked {
+    margin-top: @header-height-sticked;
+  }
+
   margin-top: @header-height;
 
 
@@ -29,7 +31,7 @@
       z-index: 999999999999;
 
       .header-2019 {
-        height: 60px;
+        height: @header-height-sticked;
       }
 
       .header-2019-top-section {
@@ -62,6 +64,10 @@
 
     &:not(.sticked) {
       position: absolute;
+
+      .header-2019 {
+        height: @header-height;
+      }
 
       .header-2019-top-section {
         height: 50px;
@@ -117,9 +123,10 @@
       }
 
       &:not(.lang-menu-open) {
-        .header-2019-beforebar {
+        & {
           overflow: hidden;
         }
+
 
         .header-2019-lang:not(:first-child) {
           background: white;

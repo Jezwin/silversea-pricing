@@ -1,13 +1,19 @@
-<header class="c-header" id="header" data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/header'}"></header>
-<sly data-sly-include="pagecontent.html" />
-<footer class="c-footer" id="footer" data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/footer'}"></footer>
-<sly data-sly-use.cookieDisclaimerUse="com.silversea.aem.components.included.CookieDisclaimerUse" />
+<header class="c-header" id="header">
+    <sly data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/header'}"/>
+    <div class="header2019" data-sly-resource="${'header2019' @ resourceType='silversea/silversea-com/components/included/header2019'}"/>
+</header>
+<sly data-sly-include="pagecontent.html"/>
+<footer class="c-footer" id="footer"
+        data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/footer'}"></footer>
+<sly data-sly-use.cookieDisclaimerUse="com.silversea.aem.components.included.CookieDisclaimerUse"/>
 <div class="c-floating-bar ${wcmmode.edit ? 'editor' : ''}">
-    <div data-sly-test="${wcmmode.edit || cookieDisclaimerUse.showCookieMsg}" data-sly-resource="${'cookie-disclaimer' @ resourceType='silversea/silversea-com/components/included/cookiedisclaimer'}"></div>
+    <div data-sly-test="${wcmmode.edit || cookieDisclaimerUse.showCookieMsg}"
+         data-sly-resource="${'cookie-disclaimer' @ resourceType='silversea/silversea-com/components/included/cookiedisclaimer'}"></div>
 </div>
-<div data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}" data-sly-unwrap></div>
-<sly data-sly-include="modal.html" />
-<sly data-sly-include="footerlibs.html" />
+<div data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}"
+     data-sly-unwrap></div>
+<sly data-sly-include="modal.html"/>
+<sly data-sly-include="footerlibs.html"/>
 <script data-keepinline="true" type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -19,6 +25,12 @@
             "query-input": "required name=search_term_string"
         },
         "logo": "https://www.silversea.com/etc/designs/silversea-com/clientlib-base/images/logo.png",
-        "sameAs": ["https://www.facebook.com/SilverseaCruises/", "https://twitter.com/silversea", "https://plus.google.com/+silverseacruises", "https://www.instagram.com/silverseacruises/", "https://www.linkedin.com/company/silversea-cruises"]
+        "sameAs": [
+            "https://www.facebook.com/SilverseaCruises/",
+            "https://twitter.com/silversea",
+            "https://plus.google.com/+silverseacruises",
+            "https://www.instagram.com/silverseacruises/",
+            "https://www.linkedin.com/company/silversea-cruises"
+        ]
     }
 </script>

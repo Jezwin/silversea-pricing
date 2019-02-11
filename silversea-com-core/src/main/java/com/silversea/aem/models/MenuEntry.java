@@ -20,7 +20,7 @@ public class MenuEntry {
     private final String label;
 
     @Inject
-    public MenuEntry(@Named("page") Page page, @Named("label") String label) {
+    public MenuEntry(@Named("page") Page page, @Named("label") @Optional String label) {
         this.page = page;
         this.label = label;
     }
