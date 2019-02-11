@@ -189,11 +189,4 @@ public class Header2019Use extends AbstractSilverUse {
         return requestAQuotePath;
     }
 
-    public List<ExternalLink> getMobileLinks() {
-        return mobileLinks;
-    }
-
-    public ExternalLink getMySilverseaPath() {
-        return mySilverseaPath;
-    }
 }
