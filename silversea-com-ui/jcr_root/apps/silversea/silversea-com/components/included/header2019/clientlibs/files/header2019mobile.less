@@ -1,5 +1,5 @@
 .header-2019-mobile {
-  .container {
+  .header2019-container {
     background: #000;
   }
 
@@ -60,6 +60,58 @@
 
     .header2019-icon-phone {
       margin-right: 18px;
+    }
+  }
+}
+
+.header-2019-mobile {
+
+  .header2019-container-list {
+    .row.header2019-row-header {
+      background-color: white;
+      border-bottom: 1px solid #9B9B9B;
+
+      .header2019-nav-burger {
+        background: white;
+      }
+
+      button.header2019-nav-burgerbtn {
+        background-color: white;
+      }
+
+      i.material-icons.header2019-icon-close {
+        color: black;
+        opacity: 0.4;
+        font-size: 31px;
+      }
+    }
+  }
+
+  .container.header2019-container-list {
+    position: absolute;
+    top: 0px;
+    z-index: 200;
+    height: 100vh;
+
+    .row.header2019-row-list {
+      background-color: white;
+
+      .col-xs-12 {
+        color: #333333;
+        font-family: @suisse;
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 15px;
+        text-transform: uppercase;
+        padding-top: 25px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #9B9B9B;
+        opacity: 0.5;
+        display: table-cell;
+        vertical-align: middle;
+        font-weight: 600;
+        height: 60px;
+      }
     }
   }
 }

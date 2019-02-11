@@ -1,12 +1,13 @@
 <template data-sly-template.default>
     <sly data-sly-use.use="com.silversea.aem.components.included.header.Header2019Use">
         <div class="header-2019-mobile">
-            <div class="container">
+            <div class="container header2019-container">
                 <div class="row">
                     <div class="col-sm-3 col-xs-5 header2019-logo">
-                        <sly data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper" />
+                        <sly data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
                         <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link">
-                            <img class="header2019-logo-img" src="${currentDesign.path}/clientlib-base/images/logo.png" alt="${pageHelper.homePage.title || currentPage.title}" />
+                            <img class="header2019-logo-img" src="${currentDesign.path}/clientlib-base/images/logo.png"
+                                 alt="${pageHelper.homePage.title || currentPage.title}"/>
                         </a>
                     </div>
                     <div class="col-sm-9 col-xs-7 header2019-nav-wrapper">
@@ -15,10 +16,40 @@
                                 <span class="header2019-nav-title hidden-xs">${'menu' @ i18n}</span>
                                 <i class="material-icons header2019-icon-phone">phone</i>
                                 <i class="material-icons header2019-icon-menu">menu</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container header2019-container-list">
+                <div class="row header2019-row-header">
+                    <div class="col-sm-3 col-xs-5 header2019-logo">
+                        <sly data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
+                        <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link">
+                            <img class="header2019-logo-img" src="${currentDesign.path}/clientlib-base/images/logo.png"
+                                 alt="${pageHelper.homePage.title || currentPage.title}"/>
+                        </a>
+                    </div>
+                    <div class="col-sm-9 col-xs-7 header2019-nav-wrapper">
+                        <div class="header2019-nav-burger">
+                            <button type="button" class="header2019-nav-burgerbtn">
                                 <i class="material-icons header2019-icon-close">close</i>
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="row header2019-row-list">
+                    <div class="col-xs-12"><span>Find your Cruise</span></div>
+                    <div class="col-xs-12"><span>Destinations</span></div>
+                    <div class="col-xs-12"><span>Ships</span></div>
+                    <div class="col-xs-12"><span>Why silversea</span></div>
+                    <div class="col-xs-12"><span>Expeditions</span></div>
+                    <div class="col-xs-12"><span>Brochures</span></div>
+                </div>
+                <div class="row header2019-container-fixed">
+                    <div class="col-xs-6"><span>MySilversea</span></div>
+                    <div class="col-xs-6"><span>EN</span></div>
+                    <div class="col-xs-12"><span>Request a quote</span></div>
                 </div>
             </div>
         </div>
