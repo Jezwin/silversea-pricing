@@ -51,7 +51,9 @@ public class ExclusiveOfferModelLight {
     private Map<String, String> retrievePostPriceCache(ExclusiveOfferModel exclusiveOfferModel) {
         Gson gson = new GsonBuilder().create();
         Map<String, String> postPriceOfferCache = new HashMap<>();
-        postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
+        if (StringUtils.isNotEmpty(exclusiveOfferModel.getDefaultPostPrice())) {
+            postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
+        }
         String[] customVoyageSettings = exclusiveOfferModel.getCustomVoyageSettings();
         for (String setting : customVoyageSettings) {
             CustomVoyageSettingsModel customSettings = gson.fromJson(setting, CustomVoyageSettingsModel.class);

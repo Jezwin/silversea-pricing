@@ -5,9 +5,9 @@ public class PriorityExclusiveOfferModel {
     private String market;
     private String postPrice;
 
-    public PriorityExclusiveOfferModel(String market, String priority) {
+    public PriorityExclusiveOfferModel(String market, String postPrice) {
         this.market = market;
-        this.postPrice = priority;
+        this.postPrice = postPrice;
     }
 
     public String getPostPrice() {
