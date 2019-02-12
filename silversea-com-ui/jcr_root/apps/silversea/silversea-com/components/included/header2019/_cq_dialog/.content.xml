@@ -1048,6 +1048,56 @@
                     </column>
                 </items>
             </secondRow>
+            <mobileLevel
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Mobile and Tablet Level"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <toplinks
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                    composite="{Boolean}true"
+                                    fieldLabel="Top Links">
+                                <field
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                        name="./topLinks">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <path
+                                                        jcr:primaryType="nt:unstructured"
+                                                        rootPath="/content/silversea-com/"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldDescription="Page"
+                                                        required="{Boolean}true"
+                                                        fieldLabel="Page"
+                                                        name="./page"/>
+                                                <label
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Label"
+                                                        fieldLabel="Label"
+                                                        name="./label"/>
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </toplinks>
+                        </items>
+                    </column>
+                </items>
+            </mobileLevel>
         </items>
     </content>
 </jcr:root>

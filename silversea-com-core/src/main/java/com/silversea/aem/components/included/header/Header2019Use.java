@@ -36,6 +36,7 @@ public class Header2019Use extends AbstractSilverUse {
     private SilverseaAsset logo;
     private List<ExternalLink> topLinks;
     private List<HeaderSecondRowMenu> secondRow;
+    private List<ExternalLink> mobileLinks;
 
     private List<ExternalLink> languages;
     private Page homePage;
@@ -45,6 +46,7 @@ public class Header2019Use extends AbstractSilverUse {
 
     private final static String TOP_LINKS = "jcr:content/header2019/topLinks";
     private final static String SUB_MENU = "jcr:content/header2019/subMenu";
+    private final static String MOBILE_LINKS = "jcr:content/header2019/mobileLinks";
 
     @Override
     public void activate() throws Exception {
@@ -58,7 +60,9 @@ public class Header2019Use extends AbstractSilverUse {
         topLinks = findParentWithResourceChild(TOP_LINKS)
                 .map(topLinksParent -> retrieveTopLinks(topLinksParent, externalizer))
                 .orElseGet(Collections::emptyList);
-
+        mobileLinks = findParentWithResourceChild(MOBILE_LINKS)
+                .map(topLinksParent -> retrieveTopLinks(topLinksParent, externalizer))
+                .orElseGet(Collections::emptyList);
         getInheritedProp(inheritedProps, "logoPath").ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
         requestAQuotePath = getInheritedProp(inheritedProps, "requestaquote").orElse("");
         search = getInheritedProp(inheritedProps, "searchpath").map(getPageManager()::getPage).orElse(null);
@@ -184,4 +188,7 @@ public class Header2019Use extends AbstractSilverUse {
         return requestAQuotePath;
     }
 
+    public List<ExternalLink> getMobileLinks() {
+        return mobileLinks;
+    }
 }

@@ -15,7 +15,7 @@
                                 <button type="button" class="header2019-nav-burgerbtn">
                                     <span class="header2019-nav-title hidden-xs">${'menu' @ i18n}</span>
                                     <i class="material-icons header2019-icon-phone">phone</i>
-                                    <span class="header2019-open-menu"><i class="material-icons header2019-icon-menu">menu</i></span>
+                                    <span class="header2019-open-menu"><i class="material-icons header2019-icon-menu">${'menu' @ i18n}</i></span>
                                     <span class="header2019-close-menu"><i class="material-icons header2019-icon-close">close</i></span>
                                 </button>
                             </div>
@@ -24,19 +24,23 @@
                 </div>
                 <div class="container header2019-container-list">
                     <div class="row header2019-row-list">
-                        <div class="col-xs-12"><span>Find your Cruise</span></div>
-                        <div class="col-xs-12"><span>Destinations</span></div>
-                        <div class="col-xs-12"><span>Ships</span></div>
-                        <div class="col-xs-12"><span>Why silversea</span></div>
-                        <div class="col-xs-12"><span>Expeditions</span></div>
-                        <div class="col-xs-12"><span>Brochures</span></div>
+
+                        <sly data-sly-repeat.mobileLink="${use.mobileLinks}">
+                            <div class="col-xs-12">
+                                <a class="header-2019-top-link" href="${mobileLink.link @ extension='html'}">
+                                    <span>${mobileLink.label}</span>
+                                </a>
+                            </div>
+                        </sly>
                         <div class="header2019-container-fixed">
                             <div class="col-xs-6"><span>MySilversea</span></div>
                             <div class="col-xs-6 header-2019-lang">
-                                <div>EN</div>
+                                <div>${'en' @ i18n}</div>
                                 <div class="header-2019-arrow"><i class="material-icons">keyboard_arrow_down</i></div>
                             </div>
-                            <div class="col-xs-12 header-2019-raq"><span>Request a quote</span></div>
+                            <div class="col-xs-12 header-2019-raq">
+                                <a href="${use.requestAQuotePath @ extension='html'}"> <span>${'request-quote' @ i18n}</span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
