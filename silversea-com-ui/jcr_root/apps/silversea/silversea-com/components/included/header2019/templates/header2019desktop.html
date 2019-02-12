@@ -13,13 +13,14 @@
                         <div class="header-2019-beforebar header-2019-beforebar-first">
                             <sly data-sly-repeat.topLink="${use.topLinks}">
                                 <div class="header-2019-top pipe-separated">
-                                    <a class="header-2019-top-link" href="${topLink.link @ extension='html'}">${topLink.label}</a>
+                                    <a class="header-2019-top-link"
+                                       href="${topLink.link @ extension='html'}">${topLink.label}</a>
                                 </div>
                             </sly>
                             <div class="header-2019-lang-menu-wrapper">
                                 <div class="header-2019-lang-menu">
                                     <div class="header-2019-lang header-2019-top-link">
-                                        <span class="header-2019-lang-link">EN</span>
+                                        <span class="header-2019-lang-link">${use.homePage.navigationTitle || use.homePage.title}</span>
                                     </div>
                                     <sly data-sly-repeat.language="${use.languages}">
                                         <div class="header-2019-lang header-2019-top-link">
@@ -92,7 +93,7 @@
             </div>
             <div data-sly-test="${secondLevelMenu.picture}" class="header-2019-submenu-snd-picture-wrapper">
                 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='900'}"/>
+                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='600'}"/>
             </div>
             <div class="header-2019-submenu-snd-category">
                 <div data-sly-repeat.entry="${secondLevelMenu.entries}" class="header-2019-submenu-entry">
