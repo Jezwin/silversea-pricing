@@ -60,7 +60,7 @@
                                 <div class="header-2019-first-level pipe-separated">
                                     <a class="header-2019-first-level-link "
                                        data-menu-index="${secondRowElementList.index}"
-                                       data-sly-element="${secondRowElement.hasMenu ? 'div' : 'a'}"
+                                       data-sly-element="${secondRowElement.link=='' ? 'div' : 'a'}"
                                        href="${secondRowElement.link @ extension='html'}">${secondRowElement.label}</a>
                                 </div>
                             </sly>
@@ -92,7 +92,7 @@
             </div>
             <div data-sly-test="${secondLevelMenu.picture}" class="header-2019-submenu-snd-picture-wrapper">
                 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='600'}"/>
+                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='900'}"/>
             </div>
             <div class="header-2019-submenu-snd-category">
                 <div data-sly-repeat.entry="${secondLevelMenu.entries}" class="header-2019-submenu-entry">
@@ -103,4 +103,4 @@
         </div>
     </div>
 </template>
-<sly data-sly-use.template="./header2019.html" data-sly-call="${template.default}"/>
+<sly data-sly-use.template="./header2019desktop.html" data-sly-call="${template.default}"/>

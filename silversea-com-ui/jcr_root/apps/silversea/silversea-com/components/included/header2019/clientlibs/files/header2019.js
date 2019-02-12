@@ -169,7 +169,10 @@ $(function () {
 
     }
 
-    if (location.href.indexOf("newMenu") > 0) {
+    if (location.href.indexOf("oldMenu") > 0) {
+        localStorage.newMenu = false;
+    } else if (location.href.indexOf("newMenu") > 0 || localStorage.newMenu==="true") {
+        localStorage.newMenu = true;
         $("header>div").toggle();
     }
     var isDesktop = $(window).width() > 991;

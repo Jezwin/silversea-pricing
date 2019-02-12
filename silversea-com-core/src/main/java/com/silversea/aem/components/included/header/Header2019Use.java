@@ -5,12 +5,10 @@ import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageFilter;
-import com.google.common.base.Strings;
 import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.GlobalCacheService;
 import com.silversea.aem.services.TypeReference;
-import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -61,6 +59,9 @@ public class Header2019Use extends AbstractSilverUse {
         topLinks = findParentWithResourceChild(TOP_LINKS)
                 .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, TOP_LINKS))
                 .orElseGet(Collections::emptyList);
+
+        getInheritedProp(inheritedProps, "logoPath")
+                .ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
         mobileLinks = findParentWithResourceChild(MOBILE_LINKS)
                 .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, MOBILE_LINKS))
                 .orElseGet(Collections::emptyList);
@@ -93,18 +94,21 @@ public class Header2019Use extends AbstractSilverUse {
         Resource subMenuParent = findSubMenuParent().orElse(null);
         return IntStream.range(1, MAX_NUM_OF_SND_ROW + 1)
                 .mapToObj(i -> secondRow(externalizer, inheritedProps, subMenuParent, i))
-                .filter(menuLink -> !Strings.isNullOrEmpty(menuLink.getLabel()))
+                .filter(entry -> entry.getLink() != null || entry.getLabel() != null)
                 .collect(toList());
     }
 
-    private HeaderSecondRowMenu secondRow(Externalizer externalizer, InheritanceValueMap inheritedProps, Resource subMenuParent, int index) {
-        Optional<String> linkO = getInheritedProp(inheritedProps, "directLink" + index);
-        String label = getInheritedProp(inheritedProps, "label" + index).orElseGet(() -> linkO.map(link -> getPageManager().getPage(link))
-                .map(page -> CruiseUtils.firstNonNull(page.getNavigationTitle(), page.getTitle())).orElse(""));
-        return linkO
-                .map(link -> new HeaderSecondRowMenu(new ExternalLink(link, label, externalizer, getResourceResolver())))
-                .orElseGet(() -> new HeaderSecondRowMenu(label, subEntries(externalizer, subMenuParent, index)));
+
+    private HeaderSecondRowMenu secondRow(Externalizer externalizer, InheritanceValueMap props, Resource subMenuParent, int index) {
+        //if there is a subMenu it'll have a subMenu. If there isn't the direct link it won't be a link. If there is no label nor link it will be null
+        String label = getInheritedProp(props, "label" + index).orElse(null);
+        ExternalLink externalLink = getInheritedProp(props, "directLink" + index).map(link -> {
+            MenuEntry menuEntry = new MenuEntry(getPageManager().getPage(link), label);
+            return menuEntry.toExternalLink(externalizer, getResourceResolver());
+        }).orElse(new ExternalLink(null, label));
+        return new HeaderSecondRowMenu(externalLink, subEntries(externalizer, subMenuParent, index));
     }
+
 
     private List<SubMenuEntry> subEntries(Externalizer externalizer, Resource subMenuParent, int index) {
         return ofNullable(subMenuParent)
