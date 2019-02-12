@@ -3,15 +3,18 @@ $(function () {
     const openLangMenuClass = "lang-menu-open";
 
     function openMenuMobile() {
-        $(".header2019-container,.header2019-container-list").toggle();
-        $("#header2019-mobile-overlay").show();
-        $("body").addClass("body-mobile-no-scroll");
+        $(".header2019-open-menu, .header2019-close-menu").toggle();
+        $(".header2019-container-list").addClass("header2019-container-list-opened");
+        $("body").removeClass("body-mobile-no-scroll");
+        $("html").removeClass("body-mobile-no-scroll");
+
     };//openMenuMobile
 
     function closeMenuMobile() {
-        $(".header2019-container,.header2019-container-list").toggle();
-        $("#header2019-mobile-overlay").hide();
         $("body").removeClass("body-mobile-no-scroll");
+        $("html").removeClass("body-mobile-no-scroll");
+        $(".header2019-open-menu, .header2019-close-menu").toggle();
+        $(".header2019-container-list").removeClass("header2019-container-list-opened");
     };//closeMenuMobile
 
 
@@ -138,7 +141,6 @@ $(function () {
     } else {
         $(".header-2019-mobile").on("click", ".header2019-open-menu",openMenuMobile);
         $(".header-2019-mobile").on("click", ".header2019-close-menu",closeMenuMobile);
-
     }
 
 });

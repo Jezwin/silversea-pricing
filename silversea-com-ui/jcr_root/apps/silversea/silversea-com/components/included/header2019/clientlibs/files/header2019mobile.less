@@ -1,19 +1,27 @@
+/*to be removed*/
+.c-header__container {
+  display: none;
+}
+
+.header2019 {
+  display: block;
+  margin-top: 0px;
+}
+
 @header2019-border-entry: 1px solid fade(#9B9B9B, 50%);
 
 .header2019-single-entry() {
   color: #333333;
   font-family: @suisse;
   font-size: 12px;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   line-height: 15px;
   text-transform: uppercase;
-  padding-top: 25px;
-  padding-bottom: 20px;
+  padding-top: 22px;
   border-bottom: @header2019-border-entry;
   display: table-cell;
   vertical-align: middle;
-  font-weight: 600;
-  height: 60px;
+  height: 55px;
 }
 
 .header-2019-mobile {
@@ -102,51 +110,31 @@
     cursor: pointer;
   }
 
-  .header2019-container-list {
-    position: absolute;
-    top: 0;
-    z-index: 200;
+  .header2019-close-menu {
     display: none;
-
-    .row.header2019-row-header {
-      background-color: white;
-      border-bottom: @header2019-border-entry;
-      position: fixed;
-      top: 0;
-      z-index: 2000;
-      padding-top: 8px;
-      padding-bottom: 6px;
-
-      .header2019-nav-burger {
-        background: white;
-      }
-
-      button.header2019-nav-burgerbtn {
-        background-color: white;
-        margin-right: 40px;
-      }
-
-      i.material-icons.header2019-icon-close {
-        color: black;
-        opacity: 0.4;
-        font-size: 35px;
-      }
-    }
   }
-
+  .header2019-container-list-opened {
+    right: 0px !important;
+  }
   .container.header2019-container-list {
+    width: 100vw;
+    float: right;
+    white-space: nowrap;
+    right: -100vw;
     position: absolute;
-    top: 0px;
-    z-index: 200;
+    transition: right 0.4s;
 
     .row.header2019-row-list {
       background-color: white;
       height: 100vh;
-      margin-top: 75px;
-
+      overflow: scroll;
+      width: 100vw;
+      float: right;
 
       .col-xs-12 {
         .header2019-single-entry();
+        height: 56px;
+
 
         &:hover {
           background-color: #F4F4F4;
@@ -154,12 +142,12 @@
       }
     }
 
-    .row.header2019-container-fixed {
-      position: fixed;
+    div.header2019-container-fixed {
       bottom: 0px;
       background-color: white;
-      width: 100%;
+      position: fixed;
       border-top: @header2019-border-entry;
+      width: 100vw;
 
       .col-xs-6, .col-xs-12 {
         .header2019-single-entry();
@@ -172,12 +160,14 @@
 
       .header-2019-lang {
         padding-left: 0px;
+        padding-right: 0px;
       }
 
-      .header-2019-raq {
+      div.header-2019-raq {
         background-color: #D60524;
-        color: white;
+        color: white !important;
         padding-left: 0px;
+        padding-right: 0px;
       }
     }
   }
