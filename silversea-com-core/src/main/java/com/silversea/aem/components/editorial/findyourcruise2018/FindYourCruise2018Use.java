@@ -7,10 +7,8 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
-import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
@@ -19,7 +17,6 @@ import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.OfferPriorityModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -147,7 +144,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
         Map<String, String[]> map = new HashMap<>();
         String[] value = new String[]{getCurrentPage().getName()};
-        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() || getProperties().get("noPageContent", Boolean.class).equals("false")) {
+        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() ||
+                getProperties().get("noPageContent", Boolean.class).equals("false")) {
             switch (currentPageResourceType) {
                 case WcmConstants.RT_DESTINATION:
                     map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
@@ -188,11 +186,12 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             stream = stream.filter(cruise -> voyageCodeList.get().contains(cruise.getCruiseCode()));
         }
 
+        stream = stream.filter(getProp("periodslist").map(DepartureFilter::prefilterPeriods).orElse(cruise -> true));
+
         stream = stream.filter(hideToday);
 
         return stream.collect(Collectors.toList());
     }
-
 
     private FilterBar initFilters(Map<String, String[]> httpRequest, List<CruiseModelLight> allCruises) {
         FilterBar filterBar = new FilterBar();
