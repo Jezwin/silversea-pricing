@@ -1,6 +1,7 @@
 <template data-sly-template.default>
     <sly data-sly-use.use="com.silversea.aem.components.included.header.Header2019Use">
         <div class="header-2019-mobile">
+            <div id="header2019-mobile-overlay"></div>
             <div class="container header2019-container">
                 <div class="row">
                     <div class="col-sm-3 col-xs-5 header2019-logo">
@@ -15,7 +16,7 @@
                             <button type="button" class="header2019-nav-burgerbtn">
                                 <span class="header2019-nav-title hidden-xs">${'menu' @ i18n}</span>
                                 <i class="material-icons header2019-icon-phone">phone</i>
-                                <i class="material-icons header2019-icon-menu">menu</i>
+                                <span class="header2019-open-menu"><i class="material-icons header2019-icon-menu">menu</i></span>
                             </button>
                         </div>
                     </div>
@@ -32,7 +33,7 @@
                     </div>
                     <div class="col-sm-9 col-xs-7 header2019-nav-wrapper">
                         <div class="header2019-nav-burger">
-                            <button type="button" class="header2019-nav-burgerbtn">
+                            <button type="button" class="header2019-nav-burgerbtn header2019-close-menu">
                                 <i class="material-icons header2019-icon-close">close</i>
                             </button>
                         </div>
@@ -48,7 +49,9 @@
                 </div>
                 <div class="row header2019-container-fixed">
                     <div class="col-xs-6"><span>MySilversea</span></div>
-                    <div class="col-xs-6 header-2019-lang"><span>EN</span></div>
+                    <div class="col-xs-6 header-2019-lang">
+                        <span>EN</span>
+                    </div>
                     <div class="col-xs-12 header-2019-raq"><span>Request a quote</span></div>
                 </div>
             </div>

@@ -2,6 +2,19 @@ $(function () {
     const $langMenu = $(".header-2019");
     const openLangMenuClass = "lang-menu-open";
 
+    function openMenuMobile() {
+        $(".header2019-container,.header2019-container-list").toggle();
+        $("#header2019-mobile-overlay").show();
+        $("body").addClass("body-mobile-no-scroll");
+    };//openMenuMobile
+
+    function closeMenuMobile() {
+        $(".header2019-container,.header2019-container-list").toggle();
+        $("#header2019-mobile-overlay").hide();
+        $("body").removeClass("body-mobile-no-scroll");
+    };//closeMenuMobile
+
+
     function langMenu() {
 
         function toggleLangMenu(e) {
@@ -122,5 +135,10 @@ $(function () {
         langMenu();
         subMenu();
         searchForm();
+    } else {
+        $(".header-2019-mobile").on("click", ".header2019-open-menu",openMenuMobile);
+        $(".header-2019-mobile").on("click", ".header2019-close-menu",closeMenuMobile);
+
     }
+
 });
