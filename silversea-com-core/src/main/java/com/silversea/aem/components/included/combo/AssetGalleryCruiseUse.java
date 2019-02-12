@@ -56,7 +56,7 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             while(pageIterator.hasNext()) {
                 Page p = pageIterator.next();
                 if (p.getName().equalsIgnoreCase(segmentName)) {
-                    return getProp("focusedMapReference", p.getContentResource(), String.class);
+                    return getProp(p.getContentResource().getValueMap(), "focusedMapReference");
                 }
             }
         }

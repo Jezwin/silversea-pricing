@@ -102,10 +102,11 @@ public class Header2019Use extends AbstractSilverUse {
     private HeaderSecondRowMenu secondRow(Externalizer externalizer, InheritanceValueMap props, Resource subMenuParent, int index) {
         //if there is a subMenu it'll have a subMenu. If there isn't the direct link it won't be a link. If there is no label nor link it will be null
         String label = getInheritedProp(props, "label" + index).orElse(null);
-        ExternalLink externalLink = getInheritedProp(props, "directLink" + index).map(link -> {
-            MenuEntry menuEntry = new MenuEntry(getPageManager().getPage(link), label);
-            return menuEntry.toExternalLink(externalizer, getResourceResolver());
-        }).orElse(new ExternalLink(null, label));
+        ExternalLink externalLink = getInheritedProp(props, "directLink" + index)
+                .map(link -> getPageManager().getPage(link))
+                .map(page -> new MenuEntry(page, label))
+                .map(menuEntry -> menuEntry.toExternalLink(externalizer, getResourceResolver()))
+                .orElse(new ExternalLink(null, label));
         return new HeaderSecondRowMenu(externalLink, subEntries(externalizer, subMenuParent, index));
     }
 
