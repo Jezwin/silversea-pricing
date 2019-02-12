@@ -169,6 +169,9 @@ $(function () {
 
     }
 
+    if (location.href.indexOf("newMenu") > 0) {
+        $("header>div").toggle();
+    }
     var isDesktop = $(window).width() > 991;
     if (isDesktop) {
         sticking();
@@ -180,5 +183,4 @@ $(function () {
         $(".header-2019-mobile").on("click", ".header2019-close-menu", closeMenuMobile);
         $(".header-2019-mobile").on("click", ".header-2019-lang", openLanguages);
     }
-
 });

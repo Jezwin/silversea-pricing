@@ -1,86 +1,87 @@
-<template data-sly-template.default="${ @ use}">
-    <div class="header-2019-wrapper visible-lg visible-md">
-        <div class="header-2019">
-            <div class="header-2019-logo">
-                <div class="ratio" style="position: relative;">
-                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                         data-sly-call="${imageTemplate.image @ imagePath=use.logo.path || '/etc/designs/silversea-com/clientlib-base/images/logo.png'}"/>
+<template data-sly-template.default>
+    <sly data-sly-use.use="com.silversea.aem.components.included.header.Header2019Use">
+        <div class="header-2019-wrapper">
+            <div class="header-2019">
+                <div class="header-2019-logo">
+                    <div class="ratio" style="position: relative;">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                             data-sly-call="${imageTemplate.image @ imagePath=use.logo.path || '/etc/designs/silversea-com/clientlib-base/images/logo.png'}"/>
+                    </div>
                 </div>
-            </div>
-            <div class="header-2019-middle">
-                <div class="header-2019-top-section">
-                    <div class="header-2019-beforebar">
-                        <sly data-sly-repeat.topLink="${use.topLinks}">
-                            <div class="header-2019-top pipe-separated">
-                                <a class="header-2019-top-link"
-                                   href="${topLink.link @ extension='html'}">${topLink.label}</a>
-                            </div>
-                        </sly>
-                        <div class="header-2019-lang-menu-wrapper">
-                            <div class="header-2019-lang-menu">
-                                <div class="header-2019-lang header-2019-top-link">
-                                    <span class="header-2019-lang-link">EN</span>
+                <div class="header-2019-middle">
+                    <div class="header-2019-top-section">
+                        <div class="header-2019-beforebar header-2019-beforebar-first">
+                            <sly data-sly-repeat.topLink="${use.topLinks}">
+                                <div class="header-2019-top pipe-separated">
+                                    <a class="header-2019-top-link" href="${topLink.link @ extension='html'}">${topLink.label}</a>
                                 </div>
-                                <sly data-sly-repeat.language="${use.languages}">
+                            </sly>
+                            <div class="header-2019-lang-menu-wrapper">
+                                <div class="header-2019-lang-menu">
                                     <div class="header-2019-lang header-2019-top-link">
-                                        <a class="header-2019-lang-link"
-                                           href="${language.link @ extension='html'}">${language.label}</a>
+                                        <span class="header-2019-lang-link">EN</span>
                                     </div>
-                                </sly>
-                            </div>
-                            <div class="header-2019-lang-menu-arrows">
-                                <span class="header-2019-lang-menu-arrow fa fa-angle-down"></span>
-                            </div>
-                        </div>
-                        <div class="header-2019-search">
-                            <form action="${use.search.path @ extension ='html'}" class="header-2019-search-form">
-                                <div class="header-2019-search-wrapper">
-                                    <input class="header-2019-search-input" type="search"
-                                           placeholder="${'type-here-to-search' @ i18n}"
-                                           name="q">
-                                    <button class="header-2019-search-button" type="submit"><span
-                                            class="header-2019-search-button-text">${'search' @i18n}</span>
-                                    </button>
+                                    <sly data-sly-repeat.language="${use.languages}">
+                                        <div class="header-2019-lang header-2019-top-link">
+                                            <a class="header-2019-lang-link"
+                                               href="${language.link @ extension='html'}">${language.label}</a>
+                                        </div>
+                                    </sly>
                                 </div>
-                            </form>
-                            <i class="fa fa-lg fa-search"></i>
-                        </div>
-                    </div>
-                    <div class="header-2019-phone header-2019-afterbar">
-                        <div class="header-2019-phone-number">
-                            <sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html"/>
-                            <sly data-sly-call="${googleForwardingNumberTemplate.header}"/>
-                        </div>
-                        <div class="header-2019-phone-sub">${'call-reservations-team-2' @i18n}</div>
-                    </div>
-                </div>
-                <div class="header-2019-first-level-section">
-                    <div class="header-2019-beforebar">
-                        <sly data-sly-repeat.secondRowElement="${use.secondRow}">
-                            <div class="header-2019-first-level pipe-separated">
-                                <a class="header-2019-first-level-link "
-                                   data-menu-index="${secondRowElementList.index}"
-                                   data-sly-element="${secondRowElement.hasMenu ? 'div' : 'a'}"
-                                   href="${secondRowElement.link @ extension='html'}">${secondRowElement.label}</a>
+                                <div class="header-2019-lang-menu-arrows">
+                                    <span class="header-2019-lang-menu-arrow fa fa-angle-down"></span>
+                                </div>
                             </div>
-                        </sly>
+                            <div class="header-2019-search">
+                                <form action="${use.search.path @ extension ='html'}" class="header-2019-search-form">
+                                    <div class="header-2019-search-wrapper">
+                                        <input class="header-2019-search-input" type="search"
+                                               placeholder="${'type-here-to-search' @ i18n}"
+                                               name="q">
+                                        <button class="header-2019-search-button" type="submit"><span
+                                                class="header-2019-search-button-text">${'search' @i18n}</span>
+                                        </button>
+                                    </div>
+                                </form>
+                                <i class="fa fa-lg fa-search"></i>
+                            </div>
+                        </div>
+                        <div class="header-2019-phone header-2019-afterbar">
+                            <div class="header-2019-phone-number">
+                                <sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html"/>
+                                <sly data-sly-call="${googleForwardingNumberTemplate.header}"/>
+                            </div>
+                            <div class="header-2019-phone-sub">${'call-reservations-team-2' @i18n}</div>
+                        </div>
                     </div>
-                    <span class="header-2019-raq header-2019-afterbar">
-                    <a href="${use.requestAQuotePath.link @ extension='html'}">${'request-quote' @ i18n}</a>
+                    <div class="header-2019-first-level-section">
+                        <div class="header-2019-beforebar header-2019-beforebar-snd">
+                            <sly data-sly-repeat.secondRowElement="${use.secondRow}">
+                                <div class="header-2019-first-level pipe-separated">
+                                    <a class="header-2019-first-level-link "
+                                       data-menu-index="${secondRowElementList.index}"
+                                       data-sly-element="${secondRowElement.hasMenu ? 'div' : 'a'}"
+                                       href="${secondRowElement.link @ extension='html'}">${secondRowElement.label}</a>
+                                </div>
+                            </sly>
+                        </div>
+                        <span class="header-2019-raq header-2019-afterbar">
+                    <a href="${use.requestAQuotePath @ extension='html'}">${'request-quote' @ i18n}</a>
                 </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="header-2019-submenu-positioner">
-        <div id="header-2019-submenu-container">
-            <sly data-sly-repeat.secondRowElement="${use.secondRow}">
-                <sly data-sly-use.template="./templates/header2019desktop.html" data-sly-test="${secondRowElement.hasMenu}"
-                     data-sly-call="${template.subMenu @ secondRowElement=secondRowElement, index=secondRowElementList.index}"/>
-            </sly>
-        </div>
+        <div id="header-2019-submenu-positioner">
+            <div id="header-2019-submenu-container">
+                <sly data-sly-repeat.secondRowElement="${use.secondRow}">
+                    <sly data-sly-use.template="./header2019.html" data-sly-test="${secondRowElement.hasMenu}"
+                         data-sly-call="${template.subMenu @ secondRowElement=secondRowElement, index=secondRowElementList.index}"/>
+                </sly>
+            </div>
 
-    </div>
+        </div>
+    </sly>
 </template>
 <template data-sly-template.subMenu="${ @ secondRowElement, index }">
     <div class="header-2019-submenu" id="header-2019-secondrow-${index}-submenu">
@@ -91,7 +92,7 @@
             </div>
             <div data-sly-test="${secondLevelMenu.picture}" class="header-2019-submenu-snd-picture-wrapper">
                 <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='900'}"/>
+                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='600'}"/>
             </div>
             <div class="header-2019-submenu-snd-category">
                 <div data-sly-repeat.entry="${secondLevelMenu.entries}" class="header-2019-submenu-entry">
@@ -102,3 +103,4 @@
         </div>
     </div>
 </template>
+<sly data-sly-use.template="./header2019.html" data-sly-call="${template.default}"/>
