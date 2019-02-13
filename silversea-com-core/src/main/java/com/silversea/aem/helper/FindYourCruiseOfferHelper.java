@@ -48,7 +48,7 @@ public class FindYourCruiseOfferHelper extends AbstractGeolocationAwareUse {
                         if (priorityExclusiveOfferModel.getMarket().equalsIgnoreCase("default")) {
                             postPrice = priorityExclusiveOfferModel.getPostPrice();
                         }
-                        if(priorityExclusiveOfferModel.getMarket().equalsIgnoreCase(super.geomarket)) {
+                        if(super.isBestMatch(priorityExclusiveOfferModel.getMarket())) {
                             postPrice = priorityExclusiveOfferModel.getPostPrice();
                         }
                     }
