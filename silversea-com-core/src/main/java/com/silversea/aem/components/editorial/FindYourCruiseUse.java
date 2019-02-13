@@ -305,7 +305,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         // Apply default filtering for specific pages types
         final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
-        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() || getProperties().get("noPageContent", Boolean.class).equals("false")) {
+        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() || getProperties().get("noPageContent", String.class).equals("false")) {
             switch (currentPageResourceType) {
                 case WcmConstants.RT_DESTINATION:
                     destinationFilter = getCurrentPage().getName();
