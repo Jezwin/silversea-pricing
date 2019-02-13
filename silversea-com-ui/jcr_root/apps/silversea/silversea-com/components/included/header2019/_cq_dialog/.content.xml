@@ -30,19 +30,19 @@
                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                     fieldLabel="Logo path"
                                     name="./logoPath"
-                                    rootPath="/"/>
+                                    rootPath="/content"/>
                             <searchPath
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                     fieldLabel="Search Result page"
                                     name="./searchpath"
-                                    rootPath="/"/>
+                                    rootPath="/content/silversea-com"/>
                             <requestaquote
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                     fieldLabel="Request a quote path"
                                     name="./requestaquote"
-                                    rootPath="/"/>
+                                    rootPath="/content/silversea-com"/>
                         </items>
                     </column>
                 </items>
@@ -1061,15 +1061,15 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <toplinks
+                            <mobileLinks
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
                                     composite="{Boolean}true"
-                                    fieldLabel="Top Links">
+                                    fieldLabel="Mobile and Tablet Links">
                                 <field
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/container"
-                                        name="./topLinks">
+                                        name="./mobileLinks">
                                     <items jcr:primaryType="nt:unstructured">
                                         <column
                                                 jcr:primaryType="nt:unstructured"
@@ -1093,7 +1093,15 @@
                                         </column>
                                     </items>
                                 </field>
-                            </toplinks>
+                            </mobileLinks>
+                            <mySilverseaPath
+                                    jcr:primaryType="nt:unstructured"
+                                    rootPath="/content/silversea-com/"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldDescription="Page mysilversea"
+                                    required="{Boolean}true"
+                                    fieldLabel="Page mysilversea"
+                                    name="./mySilverseaPath"/>
                         </items>
                     </column>
                 </items>

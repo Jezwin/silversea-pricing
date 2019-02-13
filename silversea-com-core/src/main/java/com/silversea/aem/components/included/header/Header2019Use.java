@@ -40,7 +40,8 @@ public class Header2019Use extends AbstractSilverUse {
 
     private List<ExternalLink> languages;
     private Page homePage;
-    private String requestAQuotePath;
+    private ExternalLink requestAQuotePath;
+    private ExternalLink mySilverseaPath;
 
     private Page search;
 
@@ -64,9 +65,9 @@ public class Header2019Use extends AbstractSilverUse {
                 .map(topLinksParent -> retrieveTopLinks(topLinksParent, externalizer))
                 .orElseGet(Collections::emptyList);
         getInheritedProp(inheritedProps, "logoPath").ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
-        requestAQuotePath = getInheritedProp(inheritedProps, "requestaquote").orElse("");
+        requestAQuotePath = getInheritedProp(inheritedProps, "requestaquote").map(getPageManager()::getPage).map(MenuEntry::new).map(entry -> entry.toExternalLink(externalizer,getResourceResolver())).orElse(null);
+        mySilverseaPath = getInheritedProp(inheritedProps, "mySilverseaPath").map(getPageManager()::getPage).map(MenuEntry::new).map(entry -> entry.toExternalLink(externalizer,getResourceResolver())).orElse(null);
         search = getInheritedProp(inheritedProps, "searchpath").map(getPageManager()::getPage).orElse(null);
-
     }
 
     private Optional<Resource> findParentWithResourceChild(String child) {
@@ -184,11 +185,15 @@ public class Header2019Use extends AbstractSilverUse {
         return logo;
     }
 
-    public String getRequestAQuotePath() {
+    public ExternalLink getRequestAQuotePath() {
         return requestAQuotePath;
     }
 
     public List<ExternalLink> getMobileLinks() {
         return mobileLinks;
+    }
+
+    public ExternalLink getMySilverseaPath() {
+        return mySilverseaPath;
     }
 }

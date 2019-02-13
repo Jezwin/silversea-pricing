@@ -11,10 +11,10 @@ $(function () {
     };//openMenuMobile
 
     function closeMenuMobile() {
-        $("body").removeClass("body-mobile-no-scroll");
-        $("html").removeClass("body-mobile-no-scroll");
         $(".header2019-open-menu, .header2019-close-menu").toggle();
         $(".header2019-container-list").removeClass("header2019-container-list-opened");
+        $("body").removeClass("body-mobile-no-scroll");
+        $("html").removeClass("body-mobile-no-scroll");
     };//closeMenuMobile
 
 

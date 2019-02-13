@@ -13,7 +13,8 @@
                         <div class="header-2019-beforebar">
                             <sly data-sly-repeat.topLink="${use.topLinks}">
                                 <div class="header-2019-top pipe-separated">
-                                    <a class="header-2019-top-link" href="${topLink.link @ extension='html'}">${topLink.label}</a>
+                                    <a class="header-2019-top-link"
+                                       href="${topLink.link @ extension='html'}">${topLink.label}</a>
                                 </div>
                             </sly>
                             <div class="header-2019-lang-menu-wrapper">
@@ -66,7 +67,7 @@
                             </sly>
                         </div>
                         <span class="header-2019-raq header-2019-afterbar">
-                    <a href="${use.requestAQuotePath @ extension='html'}">${'request-quote' @ i18n}</a>
+                    <a href="${use.requestAQuotePath.link @ extension='html'}">${'request-quote' @ i18n}</a>
                 </span>
                     </div>
                 </div>
