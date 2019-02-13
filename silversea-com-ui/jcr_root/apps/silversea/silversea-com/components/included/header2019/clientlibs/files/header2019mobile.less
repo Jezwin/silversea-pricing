@@ -89,12 +89,60 @@
 
 
     .header2019-icon-phone {
-      margin-right: 18px;
+      margin-right: 15px;
     }
   }
 }
 
 .header-2019-mobile {
+
+  .header-2019-lang-list {
+    position: absolute;
+    width: 100%;
+    right: 0px;
+    bottom: 0;
+  }
+
+  .header-2019-single-lang {
+    display: block !important;
+    width: 100%;
+    padding-right: 15px;
+    border: 1px solid black;
+    height: 55px;
+    display: table-cell;
+    vertical-align: middle;
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    line-height: 15px;
+    text-transform: uppercase;
+    padding-top: 22px;
+    text-align: center;
+    border: @header2019-border-entry;
+  }
+
+  .header2019-phone-number {
+    display: inline-block;
+  }
+
+  .header2019-open-menu {
+    display: inline-block;
+
+    i {
+      padding-left: 7px;
+    }
+  }
+
+  .header2019-close-menu {
+    i {
+      padding-left: 7px;
+    }
+  }
+
+  .header-2019-mysilversea {
+    text-transform: capitalize;
+  }
 
   #header2019-mobile-overlay {
     position: fixed;
@@ -113,9 +161,11 @@
   .header2019-close-menu {
     display: none;
   }
+
   .header2019-container-list-opened {
     right: 0px !important;
   }
+
   .container.header2019-container-list {
     width: 100vw;
     float: right;
@@ -160,10 +210,11 @@
 
       .header-2019-lang {
         padding-left: 0px;
-        padding-right: 0px;
+
         div {
           display: inline-block;
         }
+
         .header-2019-arrow {
           position: absolute;
           top: 55%;
@@ -174,7 +225,11 @@
       a.header-2019-raq {
         background-color: #D60524;
         color: white !important;
-        padding-left: 0px;
+
+        &:hover {
+          background-color: #D60524;
+          color: white !important;
+        }
       }
     }
   }
