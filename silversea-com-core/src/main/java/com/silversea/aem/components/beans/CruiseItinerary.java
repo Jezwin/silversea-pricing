@@ -1,5 +1,6 @@
 package com.silversea.aem.components.beans;
 
+import com.google.common.base.Strings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.silversea.aem.components.beans.CruisePrePost.PREPOSTMID;
@@ -8,6 +9,8 @@ import com.silversea.aem.models.*;
 import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.ResourceResolver;
 
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,6 +44,8 @@ public class CruiseItinerary {
     private final String excursionDescription;
     private final boolean overnight;
     private final String cruiseType;
+
+    private static final DateTimeFormatter excursionTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public CruiseItinerary(int day, boolean isEmbark, boolean isDebark, String thumbnail, boolean overnight,
                            ItineraryModel itinerary, String cruiseType, String cruisePath, ResourceResolver resolver) {
@@ -128,11 +133,14 @@ public class CruiseItinerary {
         Stream<ExcursionModel> dedicated = ofNullable(itinerary.getExcursions())
                 .map(Collection::stream).orElseGet(Stream::empty)
                 .map(ItineraryExcursionModel::getExcursion);
+
+        ;
         if (itinerary.getHasDedicatedShorex()) {
             return dedicated.collect(Collectors.toList());
         } else {
-            return Stream.concat(
-                    ofNullable(itinerary.getPort().getExcursions())//generics
+            return Stream.concat(Optional.of(itinerary)
+                            .filter(CruiseItinerary::isTimeGoodForGenericExcursion)
+                            .map(itineraryModel -> itineraryModel.getPort().getExcursions())//generics
                             .map(Collection::stream).orElseGet(Stream::empty)
                             .filter(ex -> !isEmbark || ex.isOkForEmbark())
                             .filter(ex -> !isDebark || ex.isOkForDebarks())
@@ -140,6 +148,22 @@ public class CruiseItinerary {
                     dedicated.filter(CruiseItinerary::isSpecial)//dedicated special
             ).collect(toList());
         }
+    }
+
+    private static boolean isTimeGoodForGenericExcursion(ItineraryModel itineraryModel) {
+        boolean okForDepart = ofNullable(itineraryModel.getDepartTime())
+                .filter(string -> !Strings.isNullOrEmpty(string))
+                .map(excursionTimeFormatter::parse)
+                .map(time -> time.get(ChronoField.HOUR_OF_DAY))
+                .map(hours -> hours >= 6)
+                .orElse(true);
+        boolean okForArrive = ofNullable(itineraryModel.getArriveTime())
+                .filter(string -> !Strings.isNullOrEmpty(string))
+                .map(excursionTimeFormatter::parse)
+                .map(time -> time.get(ChronoField.HOUR_OF_DAY))
+                .map(hours -> hours <= 22)
+                .orElse(true);
+        return okForArrive && okForDepart;
     }
 
     private static boolean isSpecial(ExcursionModel excursion) {
