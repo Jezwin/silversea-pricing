@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
 
 public class DepartureFilter extends AbstractFilter<YearMonth> {
-    private static final Calendar GREGORIAN_CALENDAR = new GregorianCalendar();
+    private final Calendar GREGORIAN_CALENDAR = new GregorianCalendar();
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     public DepartureFilter() {
