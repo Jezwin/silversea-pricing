@@ -9,6 +9,7 @@ import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.ResourceResolver;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.utils.AssetUtils.buildAssetList;
@@ -124,18 +125,20 @@ public class CruiseItinerary {
 
 
     public static List<ExcursionModel> retrieveExcursions(boolean isEmbark, boolean isDebark, ItineraryModel itinerary) {
+        Stream<ExcursionModel> dedicated = ofNullable(itinerary.getExcursions())
+                .map(Collection::stream).orElseGet(Stream::empty)
+                .map(ItineraryExcursionModel::getExcursion);
         if (itinerary.getHasDedicatedShorex()) {
-            return ofNullable(itinerary.getExcursions())
-                    .map(Collection::stream).orElseGet(Stream::empty)
-                    .map(ItineraryExcursionModel::getExcursion)
-                    .collect(toList());
+            return dedicated.collect(Collectors.toList());
         } else {
-            return ofNullable(itinerary.getPort().getExcursions())
-                    .map(Collection::stream).orElseGet(Stream::empty)
-                    .filter(ex -> !isEmbark || ex.isOkForEmbark())
-                    .filter(ex -> !isDebark || ex.isOkForDebarks())
-                    .filter(excursion -> !isSpecial(excursion))
-                    .collect(toList());
+            return Stream.concat(
+                    ofNullable(itinerary.getPort().getExcursions())//generics
+                            .map(Collection::stream).orElseGet(Stream::empty)
+                            .filter(ex -> !isEmbark || ex.isOkForEmbark())
+                            .filter(ex -> !isDebark || ex.isOkForDebarks())
+                            .filter(excursion -> !isSpecial(excursion)),
+                    dedicated.filter(CruiseItinerary::isSpecial)//dedicated special
+            ).collect(toList());
         }
     }
 

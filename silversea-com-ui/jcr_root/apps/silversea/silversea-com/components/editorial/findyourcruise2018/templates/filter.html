@@ -61,7 +61,7 @@
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.type.rows, type='filter-cruise-type', class='col-sm-12', singular='cruise-type', plural='cruise-types', name='type', open=fyc.filterBar.type.open}"/>
                     <sly data-sly-test="${fyc.filterBar.port.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
-                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.port.rows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='search-port', open=fyc.filterBar.port.open}"/>
+                         data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.port.visibleRows, type='filter-port', class='col-sm-12', singular='port', plural='ports', name='port', autocomplete=true, placeholder='search-port', open=fyc.filterBar.port.open}"/>
                     <sly data-sly-test="${fyc.filterBar.features.visible}"
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.features.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
@@ -72,6 +72,7 @@
                         <span class="waitlist hide-waitlist" data-sly-test="${item.key == 'no_waitlist' && item.state == 'CHOSEN'}">${'show-waitlist' @ i18n}</span>
                     </sly>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

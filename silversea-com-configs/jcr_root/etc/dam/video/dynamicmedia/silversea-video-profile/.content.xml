@@ -4,6 +4,28 @@
     avsEnabled="true"
     description=""
     name="Silversea Video Profile">
+         <MP4_x0020_-_x0020_0x1080_x0020_px_x002c__x0020_8000_x0020_kbps
+        jcr:primaryType="nt:unstructured"
+        audioBitrate="128"
+        audioBitrateCustom="false"
+        audioCodec="Dolby AAC-LC"
+        extension="mp4"
+        height="1080"
+        keepAspectRatio="true"
+        videoBitrate="8000"
+        videoCodec="MP4 H264 (.mp4)"
+        width="0"/>
+     <MP4_x0020_-_x0020_0x1080_x0020_px_x002c__x0020_6000_x0020_kbps
+        jcr:primaryType="nt:unstructured"
+        audioBitrate="128"
+        audioBitrateCustom="false"
+        audioCodec="Dolby AAC-LC"
+        extension="mp4"
+        height="1080"
+        keepAspectRatio="true"
+        videoBitrate="6000"
+        videoCodec="MP4 H264 (.mp4)"
+        width="0"/>
     <MP4_x0020_-_x0020_0x1080_x0020_px_x002c__x0020_15000_x0020_kbps
         jcr:primaryType="nt:unstructured"
         audioBitrate="128"

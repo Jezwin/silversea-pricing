@@ -5,15 +5,21 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
+import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.FeatureModel;
+import com.silversea.aem.models.OfferPriorityModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -47,10 +53,13 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private Pagination pagination;
     private String requestQuotePagePath;
+    private List<OfferPriorityModel> priorityOffer;
+
 
     @Override
     public void activate() throws Exception {
         super.activate();
+
         Page currentPage = getCurrentPage();
         Resource resource = getResource();
         SlingHttpServletRequest request = getRequest();
@@ -60,7 +69,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         lang = LanguageHelper.getLanguage(currentPage);
         locale = currentPage.getLanguage(false);
         tagManager = resourceResolver.adaptTo(TagManager.class);
-
+        priorityOffer = retrievePriorityOffer();
 
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
@@ -82,6 +91,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             dullInit();
         }
 
+    }
+
+    public List<OfferPriorityModel> retrievePriorityOffer() {
+        return retrieveMultiField("priorityOffer", OfferPriorityModel.class);
     }
 
     private String retrieveRequestQuotePath(Resource resource) {
@@ -128,36 +141,36 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             this.cruises = retrievePaginatedCruises(pagination, filteredCruises);
         }
         return pagination;
-
     }
 
     private Map<String, String[]> addFilterByPage() {
         final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
         Map<String, String[]> map = new HashMap<>();
         String[] value = new String[]{getCurrentPage().getName()};
-
-        switch (currentPageResourceType) {
-            case WcmConstants.RT_DESTINATION:
-                map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
-                break;
-            case WcmConstants.RT_PORT:
-                map.put(PortFilter.KIND + "Id", value);
-                break;
-            case WcmConstants.RT_SHIP:
-                map.put(ShipFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
-                break;
-            case WcmConstants.RT_EXCLUSIVE_OFFER:
-                map.put(OffersFilter.KIND + "Id", new String[]{getCurrentPage().getPath()});
-            case WcmConstants.RT_FEATURE:
-                final Tag[] pageTags = getCurrentPage().getTags();
-                if (pageTags != null) {
-                    String[] tags =
-                            Arrays.stream(pageTags).filter(tag -> tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES))
-                                    .map(tag -> tag.adaptTo(FeatureModel.class)).filter(Objects::nonNull).map(FeatureModel::getFeatureId)
-                                    .toArray(String[]::new);
-                    map.put(FeatureFilter.KIND + "Id", tags);
-                }
-                break;
+        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() || getProperties().get("noPageContent", Boolean.class).equals("false")) {
+            switch (currentPageResourceType) {
+                case WcmConstants.RT_DESTINATION:
+                    map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});
+                    break;
+                case WcmConstants.RT_PORT:
+                    map.put(PortFilter.KIND + "Id", value);
+                    break;
+                case WcmConstants.RT_SHIP:
+                    map.put(ShipFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("shipId", String.class)});
+                    break;
+                case WcmConstants.RT_EXCLUSIVE_OFFER:
+                    map.put(OffersFilter.KIND + "Id", new String[]{getCurrentPage().getPath()});
+                case WcmConstants.RT_FEATURE:
+                    final Tag[] pageTags = getCurrentPage().getTags();
+                    if (pageTags != null) {
+                        String[] tags =
+                                Arrays.stream(pageTags).filter(tag -> tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES))
+                                        .map(tag -> tag.adaptTo(FeatureModel.class)).filter(Objects::nonNull).map(FeatureModel::getFeatureId)
+                                        .toArray(String[]::new);
+                        map.put(FeatureFilter.KIND + "Id", tags);
+                    }
+                    break;
+            }
         }
         return map;
     }
@@ -264,4 +277,14 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return super.geomarket + super.currency;
     }
 
+    public String toJson() {
+        JsonArray array = new JsonArray();
+        Gson gson = new Gson();
+        cruises.forEach(cruise -> array.add(gson.toJsonTree(cruise)));
+        return array.toString();
+    }
+
+    public List<OfferPriorityModel> getPriorityOffer() {
+        return priorityOffer;
+    }
 }

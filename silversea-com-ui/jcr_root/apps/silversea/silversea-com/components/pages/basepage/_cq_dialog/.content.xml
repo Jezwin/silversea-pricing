@@ -72,6 +72,15 @@
                                                 renderReadOnly="{Boolean}true"
                                                 text="Hide in Footer"
                                                 value="true"/>
+                                            <displayBreadcrumb
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                                    allowBulkEdit="{Boolean}true"
+                                                    cq-msm-lockable="displayBreadcrumb"
+                                                    name="./displayBreadcrumb"
+                                                    renderReadOnly="{Boolean}true"
+                                                    text="Display Breadcrumb"
+                                                    value="true"/>
                                             <abtestmanual
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/foundation/form/checkbox"
@@ -184,6 +193,14 @@
                                                 fieldLabel="Navigation Title"
                                                 name="./navTitle"
                                                 renderReadOnly="{Boolean}true"/>
+                                            <breadcrumbTitle
+                                                    cq:showOnCreate="{Boolean}true"
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                    allowBulkEdit="{Boolean}true"
+                                                    cq-msm-lockable="breadcrumbTitle"
+                                                    fieldLabel="BreadCrumb Title"
+                                                    name="./breadcrumbTitle"/>
                                             <subtitle
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/foundation/form/textfield"
@@ -553,14 +570,13 @@
                                             sling:resourceType="cq/gui/components/coral/common/wcm/pagethumbnail"
                                             page="${empty param.item ? requestPathInfo.suffix : param.item}"/>
                                     <thumbnail
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            fieldLabel="thumbnail"
-                                            name="./image/fileReference"
-                                            required="{Boolean}false"
-                                            rootPath="/content/dam/silversea-com/"/>
-
-
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="/libs/granite/ui/components/coral/foundation/form/pathfield"
+                                        fieldLabel="thumbnail"
+                                        multiple="{Boolean}false"
+                                        name="./image/fileReference"
+                                        pickerSrc="/mnt/overlay/dam/cfm/admin/content/v2/associated-content/assetpicker.html?root=/content/dam/silversea-com"
+                                        required="{Boolean}false"/>
                                 </items>
                             </column>
                         </items>

@@ -1,5 +1,4 @@
-<template
-        data-sly-template.default="${ @  bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
+<template data-sly-template.default="${ @  exclusiveOfferPostPrice,bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
     <div class="cruise-2018-overview row container ${isCombo ? 'cruise-2018-overview-single-column' : ''}"
          data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets',cruiseType]}"
          data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map',cruiseType]}"
@@ -145,13 +144,18 @@
                             ${currency @ i18n} ${computedPriceFormatted}
                         </div>
                         <div class="cruise-2018-overview-quote-price-from per-guest" data-sly-test="${isCombo}">(${'per-guest' @ i18n})</div>
-                        <div class="cruise-2018-overview-quote-price-bonus"
-                             data-sly-test="${earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                        <div class="cruise-2018-overview-quote-price-bonus">
+                            <sly data-sly-test="${earlyBookingBonus}"><i class="material-icons">access_alarm</i> ${'with' @ i18n} 10% ${'early-booking-bonus' @ i18n}</sly>
+                            <sly data-sly-test="${exclusiveOfferPostPrice}">
+                                <br><sly data-sly-test="${earlyBookingBonus}">${'and' @ i18n}</sly>
+                                ${exclusiveOfferPostPrice @ context='html'}
+                            </sly>
+                        </div>
                     </div>
                 </a>
                 <div class="cruise-2018-overview-quote-rqa">
                     <sly data-sly-test="${pageProperties.cruiseCode}">
-                        <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
+                        <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote"
                            id="cruise-2018-rqa"
                            data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
                            href="${requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"

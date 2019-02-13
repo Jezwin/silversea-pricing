@@ -3,7 +3,6 @@ package com.silversea.aem.models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +16,12 @@ import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.eclipse.jetty.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.constants.WcmConstants;
 
 @Model(adaptables = Page.class)
 public class ExclusiveOfferModel {
@@ -96,6 +95,11 @@ public class ExclusiveOfferModel {
     private String activeSystem;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/ghostOffer")
+    @Optional
+    private String ghostOffer;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/defaultTitle")
     @Optional
     private String defaultTitle;
@@ -139,6 +143,11 @@ public class ExclusiveOfferModel {
     @Named(JcrConstants.JCR_CONTENT + "/defaultVoyageIcon")
     @Optional
     private String defaultVoyageIcon;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/defaultPostPrices")
+    @Optional
+    private String defaultPostPrice;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/priorityWeight")
@@ -262,20 +271,6 @@ public class ExclusiveOfferModel {
                 }
             }
         }
-
-        // init variations
-//        final Iterator<Page> children = page.listChildren();
-//        while (children.hasNext()) {
-//            final Page child = children.next();
-//
-//            if (child.getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION)) {
-//                final ExclusiveOfferModel variation = child.adaptTo(ExclusiveOfferModel.class);
-//
-//                if (variation != null) {
-//                    variations.add(variation);
-//                }
-//            }
-//        }
 
         path = page.getPath();
     }
@@ -432,4 +427,10 @@ public class ExclusiveOfferModel {
         return priorityWeight;
     }
 
+    public String getDefaultPostPrice() {
+        return defaultPostPrice;
+    }
+    public boolean isGhostOffer() {
+        return StringUtils.isNotEmpty(ghostOffer) ? Boolean.valueOf(ghostOffer) : false;
+    }
 }

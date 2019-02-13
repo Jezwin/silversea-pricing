@@ -875,10 +875,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
         sling:message="Offer"/>
+    <offer-accumulated
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offer-accumulated"
+            sling:message="All offers are combinable and subject to availability."/>
     <offers
             jcr:primaryType="sling:MessageEntry"
             sling:key="offers"
             sling:message="Offers"/>
+    <open-itinerary-map
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="open-itinerary-map"
+            sling:message="Open itinerary map"/>
     <offers-for-this-cruise
             jcr:primaryType="sling:MessageEntry"
             sling:key="offers-for-this-cruise"
@@ -1612,10 +1620,6 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
 	    sling:message="show Less"/>
-    <show-more
-            jcr:primaryType="sling:MessageEntry"
-            sling:key="show-more"
-            sling:message="show More"/>
     <show-waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="show-waitlist"
