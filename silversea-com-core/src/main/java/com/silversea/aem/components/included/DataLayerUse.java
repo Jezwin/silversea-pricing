@@ -121,6 +121,9 @@ public class DataLayerUse extends WCMUsePojo {
         if (externalizer != null) {
             currentPageUrl = externalizer.publishLink(getResourceResolver(), "https",
                     getCurrentPage().getPath()) + ".html";
+           /* if(RT_PORT.equals(type)){
+                currentPageUrl = ;
+            }*/
         }
 
         // tree structure data
