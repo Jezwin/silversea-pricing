@@ -41,20 +41,22 @@ public class FindYourCruiseOfferHelper extends AbstractGeolocationAwareUse {
                 } else if (exclusiveOffer.getPriorityWeight() != null) {
                     priority = exclusiveOffer.getPriorityWeight();
                 }
-                if (priority > priorityWeight && (cruise.getPostPriceMap().get(exclusiveOffer.getPath()) !=null)) {
+                if (priority > priorityWeight && (cruise.getPostPriceMap().get(exclusiveOffer.getPath()) != null)) {
                     priorityWeight = priority;
+                    String postPriceOfThisOffer = null, postPrceDefaultOfThisOffer = null;
                     List<PriorityExclusiveOfferModel> priorityExclusiveOfferModelList = cruise.getPostPriceMap().get(exclusiveOffer.getPath());
                     for (PriorityExclusiveOfferModel priorityExclusiveOfferModel : priorityExclusiveOfferModelList) {
-                        if (priorityExclusiveOfferModel.getMarket().equalsIgnoreCase("default")) {
-                            postPrice = priorityExclusiveOfferModel.getPostPrice();
+                        if (priorityExclusiveOfferModel.getMarket().equalsIgnoreCase("default") && StringUtils.isEmpty(postPrceDefaultOfThisOffer)) {
+                            postPrceDefaultOfThisOffer = priorityExclusiveOfferModel.getPostPrice();
                         }
-                        if(super.isBestMatch(priorityExclusiveOfferModel.getMarket())) {
-                            postPrice = priorityExclusiveOfferModel.getPostPrice();
+                        if (super.isBestMatch(priorityExclusiveOfferModel.getMarket()) && StringUtils.isEmpty(postPriceOfThisOffer)) {
+                            postPriceOfThisOffer = priorityExclusiveOfferModel.getPostPrice();
                         }
                     }
+                    postPrice = StringUtils.isNotEmpty(postPriceOfThisOffer) ? postPriceOfThisOffer : postPrceDefaultOfThisOffer;
                 }
             }
-             CruiseItemFYC cruiseItemFYC = new CruiseItemFYC(cruise, postPrice);
+            CruiseItemFYC cruiseItemFYC = new CruiseItemFYC(cruise, postPrice);
             cruisesFYC.add(cruiseItemFYC);
         }
         return cruisesFYC;
