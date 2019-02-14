@@ -59,10 +59,10 @@ public class Header2019Use extends AbstractSilverUse {
         languages = globalCacheService.getCache(homePage, new TypeReference<List<ExternalLink>>() {
         }, () -> retrieveHomeLanguages(externalizer, homePage));
         topLinks = findParentWithResourceChild(TOP_LINKS)
-                .map(topLinksParent -> retrieveTopLinks(topLinksParent, externalizer))
+                .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, TOP_LINKS))
                 .orElseGet(Collections::emptyList);
         mobileLinks = findParentWithResourceChild(MOBILE_LINKS)
-                .map(topLinksParent -> retrieveTopLinks(topLinksParent, externalizer))
+                .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, MOBILE_LINKS))
                 .orElseGet(Collections::emptyList);
         getInheritedProp(inheritedProps, "logoPath").ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
         requestAQuotePath = getInheritedProp(inheritedProps, "requestaquote").map(getPageManager()::getPage).map(MenuEntry::new).map(entry -> entry.toExternalLink(externalizer,getResourceResolver())).orElse(null);
@@ -83,8 +83,8 @@ public class Header2019Use extends AbstractSilverUse {
                 .findAny().orElse(Optional.empty());
     }
 
-    private List<ExternalLink> retrieveTopLinks(Resource parent, Externalizer externalizer) {
-        return retrieveMultiField(parent, TOP_LINKS, resource -> resource.adaptTo(MenuEntry.class))
+    private List<ExternalLink> retrieveLinks(Resource parent, Externalizer externalizer, String links) {
+        return retrieveMultiField(parent, links, resource -> resource.adaptTo(MenuEntry.class))
                 .map(entry -> entry.toExternalLink(externalizer, getResourceResolver()))
                 .collect(toList());
     }

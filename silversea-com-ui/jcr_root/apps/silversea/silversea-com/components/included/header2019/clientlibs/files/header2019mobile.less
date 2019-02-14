@@ -24,271 +24,279 @@
   height: 55px;
 }
 
-.header-2019-mobile {
-
-  .header2019-container {
-    background: #000;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    position: relative;
-    right: 50%;
-    width: 100vw;
-  }
-
-  .header2019-logo {
-    padding: 0px 15px 0px 10px;
-
-    .header2019-logo-link {
-      height: 60px;
-      display: table-cell;
-      vertical-align: middle;
-      padding-left: 0px;
 
 
-      img.header2019-logo-img {
-        width: 165%;
-      }
-    }
-  }
+@media (max-width: 768px) {
 
-  .header2019-nav-wrapper {
-    position: static;
-    padding: 0;
-  }
+  .header-2019-mobile {
 
-  .header2019-nav-burger {
-    display: inline-block;
-    float: right;
-    height: 60px;
-    max-width: 120px;
-    background: #000;
-    color: #fff;
-  }
-
-  button.header2019-nav-burgerbtn {
-    display: inline-block;
-    text-transform: uppercase;
-    line-height: 1.42857;
-    text-align: center;
-    font-weight: 600;
-    white-space: nowrap;
-    vertical-align: middle;
-    height: 100%;
-    width: 100%;
-    border-width: 0px;
-    border-style: initial;
-    border-color: initial;
-    border-image: initial;
-    padding: 6px 12px;
-    border-radius: 0px;
-    font-size: 18px;
-    background-color: #000;
-    color: #fff;
-    padding-top: 14px;
-
-
-    .header2019-icon-phone {
-      margin-right: 15px;
-    }
-  }
-}
-
-.header-2019-mobile {
-
-  .header-2019-lang-list {
-    bottom: -300px;
-    transition: bottom 0.4s;
-    position: absolute;
-    width: 50%;
-    right: 0px;
-  }
-
-  .header-2019-lang-list-opened {
-    bottom: 56px;
-    background-color: white;
-
-  }
-
-  .header-2019-lang-opened {
-    display: none !important;
-  }
-
-  .header-2019-lang-en-opened {
-    bottom: 219px;
-    border: 1px solid rgba(155, 155, 155, 0.5);
-    background-color: rgba(155, 155, 155, 0.5);
-  }
-
-  .header-2019-single-lang-en {
-    text-align: center !important;
-    padding-right: 0px !important;
-    background-color: rgba(155, 155, 155, 0.5);
-    color: white !important;
-
-    .header-2019-lang-en {
-      position: relative;
-      text-align: center;
-      display: block;
-      height: 100%;
-    }
-
-    span {
-      position: absolute;
-      top: 50%;
-      left: 44%;
-      transform: translate(-50%,-50%);
-    }
-    .header-2019-arrow {
-      left: 54% !important;
-    }
-
-  }
-
-  .header-2019-lang-link {
-    text-align: center;
-    display: block;
-    height: 100%;
-    position: relative;
-
-    span {
-      position: absolute;
-      top: 50%;
+    .header2019-container {
+      background: #000;
       left: 50%;
-      transform: translate(-50%,-50%);
-    }
-  }
-
-  .header-2019-single-lang {
-    display: block !important;
-    width: 100%;
-    padding-right: 15px;
-    border: 1px solid black;
-    height: 55px;
-    display: table-cell;
-    vertical-align: middle;
-    color: #333;
-    font-family: 'Suisse Regular', sans-serif;
-    font-size: 12px;
-    letter-spacing: 1.2px;
-    line-height: 15px;
-    text-transform: uppercase;
-    text-align: center;
-    border: @header2019-border-entry;
-  }
-
-  .header2019-phone-number {
-    display: inline-block;
-  }
-
-  .header2019-open-menu {
-    display: inline-block;
-
-    i {
-      padding-left: 7px;
-    }
-  }
-
-  .header2019-close-menu {
-    i {
-      padding-left: 7px;
-    }
-  }
-
-  .header-2019-mysilversea {
-    text-transform: capitalize;
-  }
-
-  #header2019-mobile-overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 200;
-    display: none;
-    cursor: pointer;
-  }
-
-  .header2019-close-menu {
-    display: none;
-  }
-
-  .header2019-container-list-opened {
-    right: 0px !important;
-  }
-
-  .container.header2019-container-list {
-    width: 100vw;
-    float: right;
-    white-space: nowrap;
-    right: -100vw;
-    position: absolute;
-    transition: right 0.4s;
-
-    .row.header2019-row-list {
-      background-color: white;
-      height: 100vh;
-      overflow: scroll;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      position: relative;
+      right: 50%;
       width: 100vw;
-      float: right;
-
-      .col-xs-12 {
-        .header2019-single-entry();
-        height: 56px;
-
-
-        &:hover {
-          background-color: #F4F4F4;
-        }
-      }
     }
 
-    div.header2019-container-fixed {
-      bottom: 0px;
-      background-color: white;
-      position: fixed;
-      border-top: @header2019-border-entry;
-      width: 100vw;
+    .header2019-logo {
+      padding: 0px 15px 0px 10px;
 
-      .col-xs-6, .col-xs-12 {
-        .header2019-single-entry();
-        text-align: center;
-      }
-
-      .col-xs-6 {
-        border-right: @header2019-border-entry;
-      }
-
-      .header-2019-lang {
+      .header2019-logo-link {
+        height: 60px;
+        display: table-cell;
+        vertical-align: middle;
         padding-left: 0px;
 
 
-        div {
-          display: inline-block;
+        img.header2019-logo-img {
+          width: 165%;
         }
+      }
+    }
 
-        .header-2019-arrow {
-          position: absolute;
-          top: 55%;
-          transform: translateY(-50%);
+    .header2019-nav-wrapper {
+      position: static;
+      padding: 0;
+      padding-right: 8px;
+    }
+
+    .header2019-nav-burger {
+      display: inline-block;
+      float: right;
+      height: 60px;
+      max-width: 120px;
+      background: #000;
+      color: #fff;
+    }
+
+    button.header2019-nav-burgerbtn {
+      display: inline-block;
+      text-transform: uppercase;
+      line-height: 1.42857;
+      text-align: center;
+      font-weight: 600;
+      white-space: nowrap;
+      vertical-align: middle;
+      height: 100%;
+      width: 100%;
+      border-width: 0px;
+      border-style: initial;
+      border-color: initial;
+      border-image: initial;
+      padding: 6px 12px;
+      border-radius: 0px;
+      font-size: 18px;
+      background-color: #000;
+      color: #fff;
+      padding-top: 14px;
+
+
+      .header2019-icon-phone {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .header-2019-mobile {
+
+    .header-2019-lang-list {
+      bottom: -300px;
+      transition: bottom 0.4s;
+      position: absolute;
+      width: 50%;
+      right: 0px;
+    }
+
+    .header-2019-lang-list-opened {
+      bottom: 56px;
+      background-color: white;
+
+    }
+
+    .header-2019-lang-opened {
+      display: none !important;
+    }
+
+    .header-2019-lang-en-opened {
+      bottom: 219px;
+      border: 1px solid rgba(155, 155, 155, 0.5);
+      background-color: rgba(155, 155, 155, 0.5);
+    }
+
+    .header-2019-single-lang-en {
+      text-align: center !important;
+      background-color: rgba(155, 155, 155, 0.5);
+      color: white !important;
+
+      .header-2019-lang-en {
+        position: relative;
+        text-align: center;
+        display: block;
+        height: 100%;
+      }
+
+      span {
+        position: absolute;
+        top: 50%;
+        left: 49%;
+        transform: translate(-54%, -50%);
+      }
+
+      .header-2019-arrow {
+        left: 50% !important;
+        transform: translate(-50%, -50%);
+        margin-left: 18px;
+      }
+
+    }
+
+    .header-2019-lang-link {
+      text-align: center;
+      display: block;
+      height: 100%;
+      position: relative;
+
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .header-2019-single-lang {
+      display: block !important;
+      width: 100%;
+      padding-right: 15px;
+      border: 1px solid black;
+      height: 55px;
+      display: table-cell;
+      vertical-align: middle;
+      color: #333;
+      font-family: 'Suisse Regular', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      line-height: 15px;
+      text-transform: uppercase;
+      text-align: center;
+      border: @header2019-border-entry;
+    }
+
+    .header2019-phone-number {
+      display: inline-block;
+    }
+
+    .header2019-open-menu {
+      display: inline-block;
+
+      i {
+        padding-left: 7px;
+      }
+    }
+
+    .header2019-close-menu {
+      i {
+        padding-left: 7px;
+      }
+    }
+
+    .header-2019-mysilversea {
+      text-transform: capitalize;
+    }
+
+    #header2019-mobile-overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 200;
+      display: none;
+      cursor: pointer;
+    }
+
+    .header2019-close-menu {
+      display: none;
+    }
+
+    .header2019-container-list-opened {
+      right: 0px !important;
+    }
+
+    .container.header2019-container-list {
+      width: 100vw;
+      float: right;
+      white-space: nowrap;
+      right: -100vw;
+      position: absolute;
+      transition: right 0.4s;
+      height: 100vh;
+
+      .row.header2019-row-list {
+        background-color: white;
+        height: ~"calc(80% - 120px)";
+        overflow: scroll;
+        width: 100vw;
+        float: right;
+
+        .col-xs-12 {
+          .header2019-single-entry();
+          height: 56px;
+
+
+          &:hover {
+            background-color: #F4F4F4;
+          }
         }
       }
 
-      a.header-2019-raq {
-        background-color: #D60524;
-        color: white !important;
-        z-index: 3000;
+      div.header2019-container-fixed {
+        bottom: 0px;
+        background-color: white;
+        position: fixed;
+        border-top: @header2019-border-entry;
+        width: 100vw;
 
-        &:hover {
-          background-color: #D60524 !important;
+        .col-xs-6, .col-xs-12 {
+          .header2019-single-entry();
+          text-align: center;
+        }
+
+        .col-xs-6 {
+          border-right: @header2019-border-entry;
+        }
+
+        .header-2019-lang {
+          padding-left: 0px;
+
+
+          div {
+            display: inline-block;
+          }
+
+          .header-2019-arrow {
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+          }
+        }
+
+        a.header-2019-raq {
+          background-color: #D60524;
           color: white !important;
+          z-index: 3000;
+
+          &:hover {
+            background-color: #D60524 !important;
+            color: white !important;
+          }
         }
       }
     }
   }
 }
-

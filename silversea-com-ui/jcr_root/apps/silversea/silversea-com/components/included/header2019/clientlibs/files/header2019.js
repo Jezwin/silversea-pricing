@@ -31,6 +31,9 @@ $(function () {
         $(".header-2019-lang").addClass(" header-2019-lang-opened");
         $(".header-2019-lang-list").addClass("header-2019-lang-list-opened");
         $(document).one("click", closeLanguages);
+        $(".header-2019-lang-link").one("click", function (e) {
+            e.stopPropagation();
+        });
         //avoid ios issue
         if (window.scrollSupport != null && window.scrollSupport) {
             window.iNoBounce.enable();
