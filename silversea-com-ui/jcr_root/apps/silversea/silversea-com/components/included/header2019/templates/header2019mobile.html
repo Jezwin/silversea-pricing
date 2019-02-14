@@ -41,10 +41,16 @@
                             <div class="header-2019-arrow"><i class="material-icons">keyboard_arrow_down</i></div>
                         </a>
                         <div class="header-2019-lang-list">
+                            <div class="header-2019-single-lang header-2019-single-lang-en">
+                                <div class="header-2019-lang-en">
+                                    <span>${'en' @ i18n}</span>
+                                    <span class="header-2019-arrow"><i class="material-icons">keyboard_arrow_up</i></span>
+                                </div>
+                            </div>
                             <sly data-sly-repeat.language="${use.languages}">
                                 <div class="header-2019-single-lang">
                                     <a class="header-2019-lang-link"
-                                       href="${language.link @ extension='html'}">${language.label}</a>
+                                       href="${language.link @ extension='html'}"><span>${language.label}</span></a>
                                 </div>
                             </sly>
                         </div>

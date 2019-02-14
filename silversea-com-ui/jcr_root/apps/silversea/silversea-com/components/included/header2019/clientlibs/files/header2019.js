@@ -2,21 +2,55 @@ $(function () {
     const $langMenu = $(".header-2019");
     const openLangMenuClass = "lang-menu-open";
 
-    function openMenuMobile() {
+    function openMenuMobile(e) {
+        e.preventDefault();
+        e.stopPropagation();
         $(".header2019-open-menu, .header2019-close-menu").toggle();
         $(".header2019-container-list").addClass("header2019-container-list-opened");
-        $("body").removeClass("body-mobile-no-scroll");
-        $("html").removeClass("body-mobile-no-scroll");
+        setTimeout(function () {
+            $("body").addClass("body-mobile-no-scroll");
+            $("html").addClass("body-mobile-no-scroll");
+        }, 250);
+
 
     };//openMenuMobile
 
-    function closeMenuMobile() {
+    function closeMenuMobile(e) {
+        e.preventDefault();
+        e.stopPropagation();
         $(".header2019-open-menu, .header2019-close-menu").toggle();
         $(".header2019-container-list").removeClass("header2019-container-list-opened");
         $("body").removeClass("body-mobile-no-scroll");
         $("html").removeClass("body-mobile-no-scroll");
+        closeLanguages(e);
     };//closeMenuMobile
 
+    function openLanguages(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(".header-2019-lang").addClass(" header-2019-lang-opened");
+        $(".header-2019-lang-list").addClass("header-2019-lang-list-opened");
+        $(document).one("click", closeLanguages);
+        //avoid ios issue
+        if (window.scrollSupport != null && window.scrollSupport) {
+            window.iNoBounce.enable();
+        }
+    };//openLanguages
+
+    function closeLanguages(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(".header-2019-lang-list").removeClass("header-2019-lang-list-opened");
+        if (window.iNoBounce != null) {
+            try {
+                window.iNoBounce.disable();
+            } catch (error) {
+            }
+        }
+        setTimeout(function () {
+            $(".header-2019-lang").removeClass(" header-2019-lang-opened");
+        }, 250);
+    };//closeLanguages
 
     function langMenu() {
 
@@ -139,8 +173,9 @@ $(function () {
         subMenu();
         searchForm();
     } else {
-        $(".header-2019-mobile").on("click", ".header2019-open-menu",openMenuMobile);
-        $(".header-2019-mobile").on("click", ".header2019-close-menu",closeMenuMobile);
+        $(".header-2019-mobile").on("click", ".header2019-open-menu", openMenuMobile);
+        $(".header-2019-mobile").on("click", ".header2019-close-menu", closeMenuMobile);
+        $(".header-2019-mobile").on("click", ".header-2019-lang", openLanguages);
     }
 
 });

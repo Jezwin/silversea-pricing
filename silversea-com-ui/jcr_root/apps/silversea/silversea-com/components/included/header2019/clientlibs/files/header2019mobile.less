@@ -97,10 +97,66 @@
 .header-2019-mobile {
 
   .header-2019-lang-list {
+    bottom: -300px;
+    transition: bottom 0.4s;
     position: absolute;
-    width: 100%;
+    width: 50%;
     right: 0px;
-    bottom: 0;
+  }
+
+  .header-2019-lang-list-opened {
+    bottom: 56px;
+    background-color: white;
+
+  }
+
+  .header-2019-lang-opened {
+    display: none !important;
+  }
+
+  .header-2019-lang-en-opened {
+    bottom: 219px;
+    border: 1px solid rgba(155, 155, 155, 0.5);
+    background-color: rgba(155, 155, 155, 0.5);
+  }
+
+  .header-2019-single-lang-en {
+    text-align: center !important;
+    padding-right: 0px !important;
+    background-color: rgba(155, 155, 155, 0.5);
+    color: white !important;
+
+    .header-2019-lang-en {
+      position: relative;
+      text-align: center;
+      display: block;
+      height: 100%;
+    }
+
+    span {
+      position: absolute;
+      top: 50%;
+      left: 44%;
+      transform: translate(-50%,-50%);
+    }
+    .header-2019-arrow {
+      left: 54% !important;
+    }
+
+  }
+
+  .header-2019-lang-link {
+    text-align: center;
+    display: block;
+    height: 100%;
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
   }
 
   .header-2019-single-lang {
@@ -112,12 +168,11 @@
     display: table-cell;
     vertical-align: middle;
     color: #333;
-    font-family: 'Suisse Regular',sans-serif;
+    font-family: 'Suisse Regular', sans-serif;
     font-size: 12px;
     letter-spacing: 1.2px;
     line-height: 15px;
     text-transform: uppercase;
-    padding-top: 22px;
     text-align: center;
     border: @header2019-border-entry;
   }
@@ -211,6 +266,7 @@
       .header-2019-lang {
         padding-left: 0px;
 
+
         div {
           display: inline-block;
         }
@@ -225,9 +281,10 @@
       a.header-2019-raq {
         background-color: #D60524;
         color: white !important;
+        z-index: 3000;
 
         &:hover {
-          background-color: #D60524;
+          background-color: #D60524 !important;
           color: white !important;
         }
       }
