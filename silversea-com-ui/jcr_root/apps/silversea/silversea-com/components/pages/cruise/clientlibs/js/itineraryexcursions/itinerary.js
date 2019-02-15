@@ -29,7 +29,6 @@ $(function () {
         $arrow.find('i').toggle();
 
 
-        console.log(e);
         var id = $(e.target).closest(".cruise-2018-itineraries-itinerary").attr("id");
         history.pushState(null, null, "#" + id);
     }
