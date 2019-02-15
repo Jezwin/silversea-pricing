@@ -1,5 +1,11 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
+@media (max-width: 991px) and (min-width: 768px) {
+  .pt-BR div.c-fyc-v2__result__content__price .price-suffixe {
+    font-size: 7px !important;
+  }
+}
+
 .find-your-cruise-component {
   .findyourcruise2018 {
     display: none;
@@ -34,7 +40,11 @@
       font-size: 12px !important;
     }
     .c-fyc-v2__result__content__price__notWaitList {
-      letter-spacing: 0.2px !important;
+      letter-spacing: 0px !important;
+      font-size: 18px !important;
+    }
+    .c-fyc-v2__result__content__price__isWaitList {
+      font-size: 18px !important;
     }
   }
 
