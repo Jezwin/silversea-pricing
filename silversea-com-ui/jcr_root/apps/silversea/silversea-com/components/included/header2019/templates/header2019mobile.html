@@ -1,65 +1,68 @@
-<template data-sly-template.default>
-    <sly data-sly-use.use="com.silversea.aem.components.included.header.Header2019Use">
-        <sly data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
-        <div class="header-2019-mobile visible-xs visible-sm">
-            <div class="container header2019-container">
-                <div class="row">
-                    <div class="col-sm-3 col-xs-5 header2019-logo">
-                        <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link">
-                            <img class="header2019-logo-img" src="${currentDesign.path}/clientlib-base/images/logo.png"
-                                 alt="${pageHelper.homePage.title || currentPage.title}"/>
-                        </a>
-                    </div>
-                    <div class="col-sm-9 col-xs-7 header2019-nav-wrapper">
-                        <div class="header2019-nav-burger">
-                            <button type="button" class="header2019-nav-burgerbtn">
-                                <div class="header2019-phone-number">
-                                    <sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html"/>
-                                    <sly data-sly-call="${googleForwardingNumberTemplate.header2019}"/>
-                                </div>
-                                <div class="header2019-open-menu">
-                                    <i class="material-icons header2019-icon-menu">menu</i>
-                                </div>
-                                <span class="header2019-close-menu"><i class="material-icons header2019-icon-close">close</i></span>
-                            </button>
-                        </div>
-                    </div>
+<template data-sly-template.default="${ @ use}">
+    <sly data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
+    <div class="header-2019-mobile visible-xs visible-sm">
+        <div class="container header2019-container">
+            <div class="row">
+                <div class="col-sm-3 col-xs-5 header2019-logo">
+                    <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link">
+                        <img class="header2019-logo-img" src="${currentDesign.path}/clientlib-base/images/logo.png"
+                             alt="${pageHelper.homePage.title || currentPage.title}"/>
+                    </a>
                 </div>
-            </div>
-            <div class="container header2019-container-list">
-                <div class="row header2019-row-list">
-                    <sly data-sly-repeat.mobileLink="${use.mobileLinks}">
-                        <a class="header-2019-top-link col-xs-12" href="${mobileLink.link @ extension='html'}">
-                            <span>${mobileLink.label}</span>
-                        </a>
-                    </sly>
-                    <div class="header2019-container-fixed">
-                        <a class="col-xs-6" href="${use.mySilverseaPath.link @ extension='html'}">
-                            <span class="header-2019-mysilversea">${'my-silversea' @ i18n }</span></a>
-                        <a class="col-xs-6 header-2019-lang">
-                            <div>${'en' @ i18n}</div>
-                            <div class="header-2019-arrow"><i class="material-icons">keyboard_arrow_down</i></div>
-                        </a>
-                        <div class="header-2019-lang-list">
-                            <div class="header-2019-single-lang header-2019-single-lang-en">
-                                <div class="header-2019-lang-en">
-                                    <span>${'en' @ i18n}</span>
-                                    <span class="header-2019-arrow"><i
-                                            class="material-icons">keyboard_arrow_up</i></span>
-                                </div>
+                <div class="col-sm-9 col-xs-7 header2019-nav-wrapper">
+                    <div class="header2019-nav-burger">
+                        <button type="button" class="header2019-nav-burgerbtn">
+                            <div class="header2019-phone-number">
+                                <sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html"/>
+                                <sly data-sly-call="${googleForwardingNumberTemplate.header2019}"/>
                             </div>
-                            <sly data-sly-repeat.language="${use.languages}">
-                                <div class="header-2019-single-lang">
-                                    <a class="header-2019-lang-link"
-                                       href="${language.link @ extension='html'}"><span>${language.label}</span></a>
-                                </div>
-                            </sly>
-                        </div>
-                        <a class="col-xs-12 header-2019-raq" href="${use.requestAQuotePath.link @ extension='html'}">
-                            <span>${'request-quote' @ i18n}</span></a>
+                            <div class="header2019-raq-bar hidden-xs">
+                                <a href="${use.requestAQuotePath.link @ extension='html'}">
+                                    <span>${'request-quote' @ i18n}</span></a>
+                            </div>
+                            <div class="header2019-open-menu">
+                                <i class="material-icons header2019-icon-menu">menu</i>
+                            </div>
+                            <span class="header2019-close-menu"><i
+                                    class="material-icons header2019-icon-close">close</i></span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </sly>
+        <div class="container header2019-container-list">
+            <div class="row header2019-row-list">
+                <sly data-sly-repeat.mobileLink="${use.mobileLinks}">
+                    <a class="header-2019-top-link col-xs-12" href="${mobileLink.link @ extension='html'}">
+                        <span>${mobileLink.label}</span>
+                    </a>
+                </sly>
+                <div class="header2019-container-fixed">
+                    <a class="col-xs-6" href="${use.mySilverseaPath.link @ extension='html'}">
+                        <span class="header-2019-mysilversea">${'my-silversea' @ i18n }</span></a>
+                    <a class="col-xs-6 header-2019-lang">
+                        <div>${'en' @ i18n}</div>
+                        <div class="header-2019-arrow"><i class="material-icons">keyboard_arrow_down</i></div>
+                    </a>
+                    <div class="header-2019-lang-list">
+                        <div class="header-2019-single-lang header-2019-single-lang-en">
+                            <div class="header-2019-lang-en">
+                                <span>${'en' @ i18n}</span>
+                                <span class="header-2019-arrow"><i
+                                        class="material-icons">keyboard_arrow_up</i></span>
+                            </div>
+                        </div>
+                        <sly data-sly-repeat.language="${use.languages}">
+                            <div class="header-2019-single-lang">
+                                <a class="header-2019-lang-link"
+                                   href="${language.link @ extension='html'}"><span>${language.label}</span></a>
+                            </div>
+                        </sly>
+                    </div>
+                    <a class="col-xs-12 header-2019-raq" href="${use.requestAQuotePath.link @ extension='html'}">
+                        <span>${'request-quote' @ i18n}</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
