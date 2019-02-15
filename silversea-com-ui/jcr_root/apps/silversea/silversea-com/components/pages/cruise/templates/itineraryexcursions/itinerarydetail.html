@@ -1,7 +1,7 @@
 <template data-sly-template.changeRoute="${@ javaClassPathBeanUse }">
     <sly data-sly-use.businessUse="${javaClassPathBeanUse}"/>
     <sly data-sly-use.itinerary="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itinerarydetail.html"
-         data-sly-call="${itinerary.default @ model=businessUse.cruise, itinerary=businessUse.itinerary, itineraryMap=businessUse.itineraryMap, showIntro=businessUse.showIntro}"/>
+         data-sly-call="${itinerary.default @ model=businessUse.cruise, itinerary=businessUse.itinerary, itineraryMap=businessUse.itineraryMap, showIntro=businessUse.showIntro, cruiseType='silversea-combocruise'}"/>
 </template>
 
 <template data-sly-template.default="${@ model, itinerary, itineraryMap, showIntro, externalizerHelper, cruiseType}">
@@ -36,8 +36,9 @@
             <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                  data-sly-call="${imageTemplate.default @ imagePath=itineraryMap}"/>
         </div>
+        <sly data-sly-use.externalizerHelper2="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
         <div class="cruise-2018-itinerary-segment-map visible-xs" data-sly-test="${itineraryMap}"
-             data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map.lg-segmentmap',cruiseType,  model.page.name]}">
+             data-lightbox-map-path="${externalizerHelper2.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map.lg-segmentmap',cruiseType,  model.page.name]}">
             <span class="open-lightbox-map" data-target=".lightbox">
                 ${'open-itinerary-map' @ i18n}
             </span>

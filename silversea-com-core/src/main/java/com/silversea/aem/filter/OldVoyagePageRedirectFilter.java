@@ -56,7 +56,8 @@ public class OldVoyagePageRedirectFilter implements Filter {
 				final SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) request;
 				final Resource resource = slingRequest.getResource();
 				if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
-					Node parentNode = resource.getResourceResolver().getResource(resource.getParent().getPath() + "/jcr:content").adaptTo(Node.class);
+					Resource parentResourceTry  = resource.getResourceResolver().resolve(resource.getParent().getPath());
+					Node parentNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content").adaptTo(Node.class);
 					try {
 						if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
 								parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {

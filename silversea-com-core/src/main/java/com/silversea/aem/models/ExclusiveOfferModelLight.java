@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +32,10 @@ public class ExclusiveOfferModelLight {
         priorityWeight = exclusiveOfferModel.getDefaultPriorityWeight();
         postPriceCache = new HashMap<>();
         try {
-            if(exclusiveOfferModel.getActiveSystem()) {
+            if (exclusiveOfferModel.getActiveSystem()) {
                 postPriceCache = retrievePostPriceCache(exclusiveOfferModel);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Issue in FYC CAche when try to create postPriceCache", e);
         }
     }
@@ -62,18 +63,20 @@ public class ExclusiveOfferModelLight {
             postPriceOfferCache.put("default", exclusiveOfferModel.getDefaultPostPrice());
         }
         String[] customVoyageSettings = exclusiveOfferModel.getCustomVoyageSettings();
-        for (String setting : customVoyageSettings) {
-            CustomVoyageSettingsModel customSettings = gson.fromJson(setting, CustomVoyageSettingsModel.class);
-            boolean isPostPrice = customSettings.getType().equalsIgnoreCase("postPrice"),
-                    isPostPricePresent = StringUtils.isNotEmpty(customSettings.getValue()),
-                    isPostPriceActive = Boolean.valueOf(customSettings.getActive());
-            if (isPostPrice && isPostPricePresent && isPostPriceActive) {
-                String postPrice = customSettings.getValue();
-                customSettings.getTags().ifPresent(tags -> {
-                    for (String tag : tags) {
-                        postPriceOfferCache.put(tag, postPrice);
-                    }
-                });
+        if (ArrayUtils.isNotEmpty(customVoyageSettings)) {
+            for (String setting : customVoyageSettings) {
+                CustomVoyageSettingsModel customSettings = gson.fromJson(setting, CustomVoyageSettingsModel.class);
+                boolean isPostPrice = customSettings.getType().equalsIgnoreCase("postPrice"),
+                        isPostPricePresent = StringUtils.isNotEmpty(customSettings.getValue()),
+                        isPostPriceActive = Boolean.valueOf(customSettings.getActive());
+                if (isPostPrice && isPostPricePresent && isPostPriceActive) {
+                    String postPrice = customSettings.getValue();
+                    customSettings.getTags().ifPresent(tags -> {
+                        for (String tag : tags) {
+                            postPriceOfferCache.put(tag, postPrice);
+                        }
+                    });
+                }
             }
         }
         return postPriceOfferCache;

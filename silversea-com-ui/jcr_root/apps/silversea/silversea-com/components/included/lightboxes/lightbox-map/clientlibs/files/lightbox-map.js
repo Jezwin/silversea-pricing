@@ -19,7 +19,7 @@ $(function () {
     /***************************************************************************
      * Lightbox Map for "cruise page" 2018"
      **************************************************************************/
-    $(".cruise-2018-itineraries-container").on("click", ".open-lightbox-map", function (e) {
+    $(".cruise-2018-itineraries-container,#cruise2018overview").on("click", ".open-lightbox-map", function (e) {
         e.preventDefault();
         e.stopPropagation();
         var $link = $(this),
