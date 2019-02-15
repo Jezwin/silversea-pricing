@@ -21,6 +21,23 @@
 
 .findyourcruise2018, .fycOld {
 
+  @media (max-width: 991px) and (min-width: 768px) {
+    div.c-fyc-v2__result__content__price .price-suffixe {
+      font-size: 8px !important;
+    }
+
+    .c-fyc-v2__result__content__price {
+      letter-spacing: 0.2px !important;
+    }
+
+    .c-fyc-v2-filter__reset a {
+      font-size: 12px !important;
+    }
+    .c-fyc-v2__result__content__price__notWaitList {
+      letter-spacing: 0.2px !important;
+    }
+  }
+
   .fyc-including {
     font-size: 10px;
     line-height: 12px;
@@ -35,24 +52,23 @@
   }
 
   .c-fyc-v2__result__content__price__notWaitList {
-   line-height: 20px !important;
+    line-height: 20px !important;
   }
- @media (max-width: 767px) {
-   .fyc-including {
-     margin-bottom: 5px !important;
-     text-align: center;
-   }
 
-   .c-fyc__result__content__price c-fyc__result__content__price_isWaitList {
-margin-bottom: ;
-   }
+  @media (max-width: 767px) {
+    .fyc-including {
+      margin-bottom: 5px !important;
+      text-align: center;
+    }
 
-   .price-suffixe {
-     font-size: 10px !important;
-     text-align: center;
-     margin-bottom: 6px !important;
-   }
- }
+
+
+    .price-suffixe {
+      font-size: 10px !important;
+      text-align: center;
+      margin-bottom: 6px !important;
+    }
+  }
 
 }
 
@@ -61,15 +77,19 @@ margin-bottom: ;
   .fyc2018-header-custom-mobile-title {
     display: none;
   }
+
   .fyc2018-pagination {
     margin-top: 40px;
     color: black;
+
     .previous-page, .next-page {
       font-weight: 800;
     }
+
     .fyc2018-pag-link {
       cursor: pointer;
     }
+
     li {
       span.active {
         font-weight: 800;
@@ -86,11 +106,13 @@ margin-bottom: ;
         }
 
       }
+
       .fa {
         color: @black;
         margin: 4px;
         vertical-align: -9%;
       }
+
       letter-spacing: 2px;
       text-transform: uppercase;
       font-family: @suisse;
@@ -99,6 +121,7 @@ margin-bottom: ;
       margin-right: 30px;
       color: black;
     }
+
     ul {
       text-align: center;
       margin-bottom: 40px;
@@ -109,10 +132,12 @@ margin-bottom: ;
   .fyc2018-header-mobile-filter {
     display: none;
   }
+
   .fyc2018-header-reset-all {
     font-weight: 400;
     display: none;
     margin-right: 30px;
+
     span {
       color: #fff;
       font-size: 13px;
@@ -129,6 +154,7 @@ margin-bottom: ;
     position: relative;
     display: inline-block;
     width: 124px;
+
     span {
       color: #fff;
       font-size: 13px;
@@ -136,6 +162,7 @@ margin-bottom: ;
       letter-spacing: 1.5px;
       cursor: pointer;
     }
+
     .fyc2018-sorting-span {
       padding: 10px;
     }
@@ -148,6 +175,7 @@ margin-bottom: ;
       cursor: pointer;
       display: block;
       padding: 14px 0px;
+
       span {
         color: @white;
         padding: 12px 13px;
@@ -172,6 +200,7 @@ margin-bottom: ;
     float: right;
     margin-right: -2px;
     cursor: pointer;
+
     i {
       padding-top: 11px;
       padding-left: 11px;
@@ -186,6 +215,7 @@ margin-bottom: ;
 
   .fyc2018-sorting-filed-span:hover {
     background-color: #f4f4f4;
+
     span {
       color: #263133;
       font-weight: 600;
@@ -193,6 +223,7 @@ margin-bottom: ;
   }
 
   min-height: 727px;
+
   .c-fyc-v2__result-wrapper {
     margin-top: 90px;
   }
@@ -205,6 +236,7 @@ margin-bottom: ;
     font-size: 20px;
     font-family: @suisse;
     color: #263133;
+
     span {
       left: 50%;
       position: absolute;
@@ -238,6 +270,7 @@ margin-bottom: ;
       font-weight: normal;
       text-transform: uppercase;
     }
+
     .fyc2018-header-total-num {
       font-family: @freight-bold;
     }
@@ -246,14 +279,17 @@ margin-bottom: ;
   .fyc2018-filters-container {
     padding-top: 8px;
     position: relative;
+
     .fyc2018-filters-wrapper {
       table-layout: fixed;
       width: 100%;
       display: table !important;
       height: auto !important;
+
       .fyc2018-filter:last-child {
         border-right: 0px;
       }
+
       .fyc2018-filter {
         display: table-cell;
         vertical-align: top;
@@ -265,6 +301,7 @@ margin-bottom: ;
         border-right: 4px solid @white;
         cursor: pointer;
         position: relative;
+
         .fyc2018-filter-value-clicked {
           z-index: 1000;
           display: block !important;
@@ -279,6 +316,7 @@ margin-bottom: ;
           display: none;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           cursor: auto;
+
           .filter-value {
             /*padding: 0px;*/
           }
@@ -286,12 +324,14 @@ margin-bottom: ;
 
         .fyc2018-filter-content-clicked {
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+
           span {
             -webkit-user-select: none;
             -khtml-user-select: none;
             -moz-user-select: -moz-none;
             -o-user-select: none;
             user-select: none;
+
             &::after {
               content: "\f106" !important;
             }
@@ -302,8 +342,10 @@ margin-bottom: ;
           font-weight: bold;
           background-color: #263133;
           font-family: @suisse;
+
           span {
             color: @white;
+
             &::after {
               color: @white;
             }
@@ -426,6 +468,7 @@ margin-bottom: ;
     .filter-destination .filter-value span {
       font-size: 12px !important;
     }
+
     .filter-destination.fyc2018-filter-value-clicked {
       min-width: 560px !important;
       min-height: 385px !important;
@@ -433,10 +476,12 @@ margin-bottom: ;
       .filter-combo-cruises-row {
         padding: 0;
       }
+
       .filter-combo-cruises {
         margin-top: 15px;
         text-align: center !important;
         cursor: pointer;
+
         span {
           white-space: normal;
           display: inline-block;
@@ -463,6 +508,7 @@ margin-bottom: ;
       right: 4px;
       min-width: 0px;
       width: 300px;
+
       .fyc2018-filter-value-container {
         @media (min-width: 768px) {
           width: 300px !important;
@@ -471,6 +517,7 @@ margin-bottom: ;
           overflow-x: hidden !important;
         }
       }
+
       .filter-value:first-child {
         margin-top: 0px;
       }
@@ -500,6 +547,7 @@ margin-bottom: ;
         border: 1px solid rgba(85, 85, 85, 0.38);
         border-top: none !important;
         display: none;
+
         .eac-item {
           padding: 10px;
         }
@@ -513,6 +561,7 @@ margin-bottom: ;
 
     .filter-cruise-type {
       position: relative;
+
       &.fyc2018-filter-value-clicked {
         @media (max-width: 900px) {
           -webkit-transform: translateX(0%);
@@ -525,6 +574,7 @@ margin-bottom: ;
 
     .filter-port {
       position: relative;
+
       &.fyc2018-filter-value-clicked {
         position: absolute !important;
         width: 294px !important;
@@ -548,6 +598,7 @@ margin-bottom: ;
       min-width: 480px !important;
       padding-left: 12px;
       padding-right: 12px;
+
       .filter-value span {
         width: 210px;
       }
@@ -559,6 +610,7 @@ margin-bottom: ;
       .col-sm-6:nth-child(odd) {
         padding-left: 0px;
       }
+
       @media (max-width: 900px) {
         -webkit-transform: translateX(-50%);
         position: absolute !important;
@@ -569,6 +621,7 @@ margin-bottom: ;
 
     .filter-duration.fyc2018-filter-value-clicked {
       min-width: 412px !important;
+
       .filter-value span {
         width: 180px;
       }
@@ -583,6 +636,7 @@ margin-bottom: ;
       margin-right: 17px;
       display: none;
     }
+
     .fyc2018-spinner {
       position: absolute;
       top: 40%;
@@ -590,11 +644,13 @@ margin-bottom: ;
       display: none;
       z-index: 15151;
     }
+
     .filter-departure.fyc2018-filter-value-clicked {
       @media (max-width: 991px) and (min-width: 768px) {
         min-width: 537px !important;
       }
       min-width: 725px !important;
+
       .filter-value span {
         width: 150px;
       }
@@ -630,6 +686,7 @@ margin-bottom: ;
       text-transform: uppercase;
       text-align: center !important;
       display: none;
+
       span:after {
 
         top: 50%;
@@ -652,12 +709,14 @@ margin-bottom: ;
         font-family: FontAwesome;
       }
     }
+
     .filter-view-all-filtered {
       display: none;
     }
 
     .filter-no-ports {
       display: none;
+
       span {
         white-space: normal;
         display: inline-block;
@@ -738,6 +797,7 @@ margin-bottom: ;
         opacity: 0.5;
         cursor: auto;
         pointer-events: none;
+
         &:hover {
           background-color: white;
           color: #171D47;
@@ -812,6 +872,7 @@ margin-bottom: ;
   @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
     .fyc2018-header-reset-all {
       margin-right: 15px;
+
       span {
         font-size: 12px;
       }
