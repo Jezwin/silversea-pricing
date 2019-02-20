@@ -10,6 +10,7 @@ import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.override.ExternalizerSSC;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.services.RunModesService;
 import org.apache.commons.lang3.StringUtils;
@@ -58,7 +59,6 @@ public class DataLayerUse extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-        final Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
         final RunModesService runModesService = getSlingScriptHelper().getService(RunModesService.class);
 
         // TODO create geo sensitive use pojo
@@ -118,13 +118,10 @@ public class DataLayerUse extends WCMUsePojo {
             userCountry = "US";
         }
 
-        if (externalizer != null) {
-            currentPageUrl = externalizer.publishLink(getResourceResolver(), "https",
+
+        currentPageUrl = ExternalizerSSC.publishLink(getResourceResolver(),
                     getCurrentPage().getPath()) + ".html";
-           /* if(RT_PORT.equals(type)){
-                currentPageUrl = ;
-            }*/
-        }
+
 
         // tree structure data
         if (getPageProperties().get("pageCategory1") != null) {

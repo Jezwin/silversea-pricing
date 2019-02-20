@@ -3,6 +3,7 @@ package com.silversea.aem.components.page;
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.override.ExternalizerSSC;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
@@ -86,10 +87,10 @@ public class SitemapEntryModel {
 
         final String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
         if (page.getPath().equals("/content/silversea-com/en")) { // TODO constant
-            return externalizer.externalLink(resourceResolver, domain, page.getPath() + ".html");
+            return ExternalizerSSC.externalLink(resourceResolver, domain, page.getPath() + ".html");
         }
 
-        return externalizer.externalLink(resourceResolver, domain, page.getPath()) + ".html";
+        return ExternalizerSSC.externalLink(resourceResolver, domain, page.getPath()) + ".html";
     }
 
     /**

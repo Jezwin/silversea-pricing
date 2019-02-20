@@ -9,6 +9,7 @@ import com.day.cq.wcm.api.PageFilter;
 import com.day.cq.wcm.foundation.Navigation;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.NavPageModel;
+import com.silversea.aem.override.ExternalizerSSC;
 import com.silversea.aem.services.GlobalCacheService;
 import com.silversea.aem.services.TypeReference;
 import org.apache.jackrabbit.oak.commons.PathUtils;
@@ -193,23 +194,22 @@ public class HeaderUse extends WCMUsePojo {
 
     private HashMap<String, String> retrieveLanguagePages() {
         HashMap<String, String> languagePages = new HashMap<>();
-        Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
         String[] langList = {"/en/", "/es/", "/pt-br/", "/de/", "/fr/"};
         String currentPath = getCurrentPage().getPath();
-        String currentLng = currentLang(externalizer, langList, currentPath, "", languagePages);
+        String currentLng = currentLang(langList, currentPath, "", languagePages);
 
-        otherLang(externalizer, langList, currentPath, currentLng, languagePages);
+        otherLang(langList, currentPath, currentLng, languagePages);
 
         if ("".equals(currentLng)) {
             String[] langListHome = {"/en", "/es", "/pt-br", "/de", "/fr"};
-            currentLng = currentLang(externalizer, langListHome, currentPath, currentLng, languagePages);
-            otherLang(externalizer, langListHome, currentPath, currentLng, languagePages);
+            currentLng = currentLang(langListHome, currentPath, currentLng, languagePages);
+            otherLang(langListHome, currentPath, currentLng, languagePages);
         }
         return languagePages;
 
     }
 
-    private void otherLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng, HashMap<String, String> languagePages) {
+    private void otherLang(String[] langList, String currentPath, String currentLng, HashMap<String, String> languagePages) {
         Locale locale;
         for (String lng : langList) {
             if (!currentPath.contains(lng)) {
@@ -218,13 +218,13 @@ public class HeaderUse extends WCMUsePojo {
                 if (page != null) {
                     locale = page.getLanguage(false);
                     languagePages
-                            .put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
+                            .put("-com/" + locale.toLanguageTag(), ExternalizerSSC.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
                 }
             }
         }
     }
 
-    private String currentLang(Externalizer externalizer, String[] langList, String currentPath, String currentLng, HashMap<String, String> languagePages) {
+    private String currentLang(String[] langList, String currentPath, String currentLng, HashMap<String, String> languagePages) {
         Locale locale;
         for (String lng : langList) {
             if (currentPath.contains(lng)) {
@@ -232,7 +232,7 @@ public class HeaderUse extends WCMUsePojo {
                 if (page != null) {
                     locale = page.getLanguage(false);
                     languagePages
-                            .put("-com/" + locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
+                            .put("-com/" + locale.toLanguageTag(), ExternalizerSSC.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
                     currentLng = lng;
                 }
             }
