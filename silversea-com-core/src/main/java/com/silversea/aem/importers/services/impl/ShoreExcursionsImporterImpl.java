@@ -482,7 +482,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                     } else {
                                         if(excursionPage.getParent().getParent().getProperties().get("cityId", Integer.class).equals(cityId)) {
                                             final Node excursionContentNode = updateExcursionContentNode(excursion,
-                                                    excursionPage, featuresMapping, resourceResolver, session);
+                                                    excursionPage, featuresMapping, resourceResolver, session, cityId);
                                             excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
                                         }else{ //may need to create an excursions if not exisitng -- if already exist no need to update as it will be update ion a future loop
                                             CreateExcursionUnderPort(resourceResolver, pageManager, session, portsMapping, featuresMapping, excursion, excursionName, cityId);
@@ -600,7 +600,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             }
 
             final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage,
-                    featuresMapping, resourceResolver, session);
+                    featuresMapping, resourceResolver, session, cityId);
             excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
             LOGGER.trace("Excursion {} successfully created", excursionPage.getPath());
@@ -625,7 +625,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
      * @throws ImporterException if the excursion page cannot be updated
      */
     private Node updateExcursionContentNode(final Shorex77 excursion, final Page excursionPage,
-                                            Map<Integer, String> featuresMapping, ResourceResolver resourceResolver, Session session)
+                                            Map<Integer, String> featuresMapping, ResourceResolver resourceResolver, Session session, Integer cityId)
             throws ImporterException, PersistenceException {
         final Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
 
@@ -640,6 +640,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             excursionContentNode.setProperty("apiLongDescription", excursion.getDescription());
             excursionContentNode.setProperty("pois", excursion.getPointsOfInterests());
             excursionContentNode.setProperty("shorexId", excursion.getShorexId());
+            excursionContentNode.setProperty("cityId", cityId);
             excursionContentNode.setProperty("note", excursion.getNote());
 
             excursionContentNode.setProperty("okForDebarks", excursion.isOkForDebarks());
