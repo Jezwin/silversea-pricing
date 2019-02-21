@@ -130,9 +130,9 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
             // landPrograms
-            final Map<Integer, Map<String, String>> landProgramsMapping = ImportersUtils.getItemsMapping(resourceResolver,
+            final Map<String, Map<String, String>> landProgramsMapping = ImportersUtils.getItemsMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]",
-                    "landId");
+                    "landId", "cityId");
 
             // Importing landPrograms
             List<LandItinerary> landPrograms;
@@ -154,19 +154,20 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                         final Integer landProgramId = landProgram.getLandId();
                         boolean imported = false;
 
-                        if (!landProgramsMapping.containsKey(landProgramId)) {
-                            throw new ImporterException("Land program " + landProgramId + " is not present in land programs cache");
-                        }
+
 
                         // Iterating over itineraries in cache to write land program
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to land programs informations
                             if (itineraryModel.isItinerary(landProgram.getVoyageId(), landProgram.getDate().toGregorianCalendar(),
-                                    landProgram.getCityId())) {
+                                    landProgram.getCityId()) && landProgram.getCityId().equals(itineraryModel.getPortId()) ) {
 
                                 // Trying to write land program data on itinerary
                                 try {
+                                    if (!landProgramsMapping.containsKey(landProgramId+"-"+itineraryModel.getPortId())) {
+                                        throw new ImporterException("Land program " + landProgramId + " is not present in land programs cache");
+                                    }
                                     final Resource itineraryResource = itineraryModel.getResource();
 
                                     LOGGER.trace("importing land program {} in itinerary {}", landProgramId, itineraryResource.getPath());
@@ -181,8 +182,8 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                         final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
                                         // associating landProgram page
-                                        if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
-                                            landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
+                                        if (landProgramsMapping.get(landProgramId+"-"+itineraryModel.getPortId()).containsKey(lang)) {
+                                            landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId+"-"+itineraryModel.getPortId()).get(lang));
                                         }
 
                                         landProgramNode.setProperty("landProgramId", landProgramId);
@@ -205,7 +206,11 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                             }
                                         }
                                     }
-                                } catch (RepositoryException e) {
+                                } catch (ImporterException e) {
+                                    LOGGER.error("Cannot find land program {}", landProgram.getLandId()+"-"+itineraryModel.getPortId(), e);
+
+                                    importResult.incrementErrorNumber();
+                                }catch (RepositoryException e) {
                                     LOGGER.error("Cannot write land program {}", landProgram.getLandId(), e);
 
                                     importResult.incrementErrorNumber();
@@ -244,19 +249,21 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                         final Integer landProgramId = landProgramDiff.getLandId();
                         boolean imported = false;
 
-                        if (!landProgramsMapping.containsKey(landProgramId)) {
-                            throw new ImporterException("Land program " + landProgramId + " is not present in land programs cache");
-                        }
 
                         // Iterating over itineraries in cache to write land program
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to land programs informations
                             if (itineraryModel.isItinerary(landProgramDiff.getVoyageId(), landProgramDiff.getDate().toGregorianCalendar(),
-                            		landProgramDiff.getCityId())) {
+                            		landProgramDiff.getCityId()) && landProgramDiff.getCityId().equals(itineraryModel.getPortId())) {
 
                                 // Trying to write land program data on itinerary
                                 try {
+                                    if (!landProgramsMapping.containsKey(landProgramId+"-"+itineraryModel.getPortId())) {
+                                        throw new ImporterException("Land program " + landProgramId + " is not present in land programs cache");
+                                    }
+
+
                                     final Resource itineraryResource = itineraryModel.getResource();
 
                                     LOGGER.trace("importing land program {} in itinerary {}", landProgramId, itineraryResource.getPath());
@@ -273,8 +280,8 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
 	                                        final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 	
 	                                        // associating landProgram page
-	                                        if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
-	                                            landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
+	                                        if (landProgramsMapping.get(landProgramId+"-"+itineraryModel.getPortId()).containsKey(lang)) {
+	                                            landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId+"-"+itineraryModel.getPortId()).get(lang));
 	                                        }
 	
 	                                        landProgramNode.setProperty("landProgramId", landProgramId);
@@ -322,6 +329,10 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                             session.refresh(true);
                                         }
                                     }
+                                } catch (ImporterException e) {
+                                    LOGGER.error("Cannot find land program {}", landProgramDiff.getLandId() +"-"+itineraryModel.getPortId(), e);
+
+                                    importResult.incrementErrorNumber();
                                 } catch (RepositoryException e) {
                                     LOGGER.error("Cannot write land program {}", landProgramDiff.getLandId(), e);
 
@@ -331,7 +342,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                         }
 
                         LOGGER.trace("Land program {} voyage id: {} city id: {} imported : {}", landProgramDiff.getLandId(), landProgramDiff.getVoyageId(), landProgramDiff.getCityId(), imported);
-                    } catch (ImporterException e) {
+                    } catch (Exception e) {
                         LOGGER.warn("Cannot deal with land program {} - {}", landProgramDiff.getLandId(), e.getMessage());
 
                         importResult.incrementErrorNumber();
