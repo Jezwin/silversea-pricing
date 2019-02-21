@@ -313,7 +313,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     } else {
                                         if(landProgramPage.getParent().getParent().getProperties().get("cityId", Integer.class).equals(cityId)){
                                             final Node landProgramContentNode =
-                                                    updateLandProgramContentNode(land, landProgramPage, resolver, session);
+                                                    updateLandProgramContentNode(land, landProgramPage, resolver, session, cityId);
                                             landProgramContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
                                         }else{
                                             CreateLandProgramUnderPort(resolver, pageManager, session, portsMapping, land, landProgramName, cityId);
@@ -432,7 +432,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             }
 
             final Node landProgramContentNode =
-                    updateLandProgramContentNode(land, landProgramPage, resolver, session);
+                    updateLandProgramContentNode(land, landProgramPage, resolver, session, cityId);
             landProgramContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
             LOGGER.trace("Land program {} successfully created", landProgramPage.getPath());
@@ -571,7 +571,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
      * @return the content node of the landProgram page, updated
      * @throws ImporterException if the landProgram page cannot be updated
      */
-    private Node updateLandProgramContentNode(Land77 land, Page landProgramPage, ResourceResolver resolver, Session session)
+    private Node updateLandProgramContentNode(Land77 land, Page landProgramPage, ResourceResolver resolver, Session session, Integer cityId)
             throws ImporterException {
         final Node landNode = landProgramPage.getContentResource().adaptTo(Node.class);
 
@@ -585,6 +585,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     land.getDescription());
             landNode.setProperty("landId", land.getLandId());
             landNode.setProperty("landCode", land.getLandCod());
+            landNode.setProperty("cityId", cityId);
             String assetPath = getAssetPath(land);
             String imageDam = upsertAsset(session, resolver, mimeService, land.getImageUrl(), assetPath);
             String image2Dam = upsertAsset(session, resolver, mimeService, land.getImageUrl2(), assetPath);

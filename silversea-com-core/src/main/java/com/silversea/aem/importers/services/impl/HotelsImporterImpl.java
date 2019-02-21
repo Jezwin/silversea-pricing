@@ -443,7 +443,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                     } else {
                                         if(hotelPage.getParent().getParent().getProperties().get("cityId", Integer.class).equals(cityId)) {
                                             final Node hotelContentNode =
-                                                    updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
+                                                    updateHotelContentNode(hotel, hotelPage, resourceResolver, session, cityId);
                                             hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
                                         }else{ //may need to create an excursions if not exisitng -- if already exist no need to update as it will be update ion a future loop
                                             CreateHotelUnderPort(resourceResolver, pageManager, session, portsMapping, hotel, cityId);
@@ -560,7 +560,7 @@ public class HotelsImporterImpl implements HotelsImporter {
             }
 
             final Node hotelContentNode =
-                    updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
+                    updateHotelContentNode(hotel, hotelPage, resourceResolver, session, cityId);
             hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
             LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
@@ -596,7 +596,7 @@ public class HotelsImporterImpl implements HotelsImporter {
      * @throws ImporterException if the hotel page cannot be updated
      */
     private Node updateHotelContentNode(Hotel77 hotel, Page hotelPage, ResourceResolver resourceResolver,
-                                        Session session)
+                                        Session session, Integer cityId)
             throws ImporterException {
         final Node hotelContentNode = hotelPage.getContentResource().adaptTo(Node.class);
 
@@ -615,6 +615,8 @@ public class HotelsImporterImpl implements HotelsImporter {
             }
             hotelContentNode.setProperty("code", hotel.getHotelCod());
             hotelContentNode.setProperty("hotelId", hotel.getHotelId());
+            hotelContentNode.setProperty("cityId", cityId);
+
 
 
             // Set livecopy mixin

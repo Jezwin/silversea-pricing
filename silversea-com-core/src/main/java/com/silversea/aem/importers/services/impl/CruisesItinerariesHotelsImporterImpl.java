@@ -130,9 +130,9 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
             final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
             // hotels
-            final Map<Integer, Map<String, String>> hotelsMapping = ImportersUtils.getItemsMapping(resourceResolver,
+            final Map<String, Map<String, String>> hotelsMapping = ImportersUtils.getItemsMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]",
-                    "hotelId");
+                    "hotelId", "cityId");
 
             // Importing hotels
             List<HotelItinerary> hotels;
@@ -154,18 +154,19 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                         final Integer hotelId = hotel.getHotelId();
                         boolean imported = false;
 
-                        if (!hotelsMapping.containsKey(hotelId)) {
-                            throw new ImporterException("Hotel " + hotelId + " is not present in hotels cache");
-                        }
+
 
                         // Iterating over itineraries in cache to write hotel
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to hotel informations
-                            if (itineraryModel.isItinerary(hotel.getVoyageId(), hotel.getDate().toGregorianCalendar(), hotel.getCityId())) {
+                            if (itineraryModel.isItinerary(hotel.getVoyageId(), hotel.getDate().toGregorianCalendar(), hotel.getCityId()) && hotel.getCityId().equals(itineraryModel.getPortId())) {
 
                                 // Trying to write hotel data on itinerary
                                 try {
+                                    if (!hotelsMapping.containsKey(hotelId+"-"+itineraryModel.getPortId())) {
+                                        throw new ImporterException("Hotel " + hotelId + " is not present in hotels cache");
+                                    }
                                     final Resource itineraryResource = itineraryModel.getResource();
 
                                     LOGGER.trace("importing hotel {} in itinerary {}", hotelId, itineraryResource.getPath());
@@ -180,8 +181,8 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                         final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
                                         // associating port page
-                                        if (hotelsMapping.get(hotelId).containsKey(lang)) {
-                                            hotelNode.setProperty("hotelReference", hotelsMapping.get(hotelId).get(lang));
+                                        if (hotelsMapping.get(hotelId+"-"+itineraryModel.getPortId()).containsKey(lang)) {
+                                            hotelNode.setProperty("hotelReference", hotelsMapping.get(hotelId+"-"+itineraryModel.getPortId()).get(lang));
                                         }
 
                                         hotelNode.setProperty("hotelId", hotelId);
@@ -203,7 +204,11 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                             }
                                         }
                                     }
-                                } catch (RepositoryException e) {
+                                }  catch (RepositoryException e) {
+                                    LOGGER.error("Cannot find excursion in cache {}", hotel.getHotelId() + "-" + itineraryModel.getPortId());
+
+                                    importResult.incrementErrorNumber();
+                                }catch (Exception e) {
                                     LOGGER.error("Cannot write hotel {}", hotel.getHotelId(), e);
 
                                     importResult.incrementErrorNumber();
@@ -242,18 +247,19 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                         final Integer hotelId = hotelDiff.getHotelId();
                         boolean imported = false;
 
-                        if (!hotelsMapping.containsKey(hotelId)) {
-                            throw new ImporterException("Hotel " + hotelId + " is not present in hotels cache");
-                        }
+
 
                         // Iterating over itineraries in cache to write hotel
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to hotel informations
-                            if (itineraryModel.isItinerary(hotelDiff.getVoyageId(), hotelDiff.getDate().toGregorianCalendar(), hotelDiff.getCityId())) {
+                            if (itineraryModel.isItinerary(hotelDiff.getVoyageId(), hotelDiff.getDate().toGregorianCalendar(), hotelDiff.getCityId()) && hotelDiff.getCityId().equals(itineraryModel.getPortId())) {
 
                                 // Trying to write hotel data on itinerary
                                 try {
+                                    if (!hotelsMapping.containsKey(hotelId+"-"+itineraryModel.getPortId())) {
+                                        throw new ImporterException("Hotel " + hotelId + " is not present in hotels cache");
+                                    }
                                     final Resource itineraryResource = itineraryModel.getResource();
 
                                     LOGGER.trace("importing hotel {} in itinerary {}", hotelId, itineraryResource.getPath());
@@ -269,8 +275,8 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                         final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
                                         // associating port page
-                                        if (hotelsMapping.get(hotelId).containsKey(lang)) {
-                                            hotelNode.setProperty("hotelReference", hotelsMapping.get(hotelId).get(lang));
+                                        if (hotelsMapping.get(hotelId+"-"+itineraryModel.getPortId()).containsKey(lang)) {
+                                            hotelNode.setProperty("hotelReference", hotelsMapping.get(hotelId+"-"+itineraryModel.getPortId()).get(lang));
                                         }
 
                                         hotelNode.setProperty("hotelId", hotelId);
@@ -316,7 +322,11 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                         }
                                     }
                                     
-                                } catch (RepositoryException e) {
+                                }  catch (RepositoryException e) {
+                                    LOGGER.error("Cannot find excursion in cache {}", hotelDiff.getHotelId() + "-" + itineraryModel.getPortId());
+
+                                    importResult.incrementErrorNumber();
+                                }catch (RepositoryException e) {
                                     LOGGER.error("Cannot write hotel {}", hotelDiff.getHotelId(), e);
 
                                     importResult.incrementErrorNumber();
