@@ -18,6 +18,7 @@ import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.HotelsApi;
+import io.swagger.client.model.CitySimple;
 import io.swagger.client.model.Hotel;
 import io.swagger.client.model.Hotel77;
 import org.apache.commons.lang3.BooleanUtils;
@@ -413,105 +414,63 @@ public class HotelsImporterImpl implements HotelsImporter {
                     LOGGER.debug("Updating hotel: {}", hotel.getHotelName());
 
                     try {
-                        if (hotelsMapping.containsKey(hotel.getHotelId())) {
-                            // if hotels are found, update it
-                            for (Map.Entry<String, Page> hotelsPages : hotelsMapping.get(hotel.getHotelId())
-                                    .entrySet()) {
-                                final Page hotelPage = hotelsPages.getValue();
+                        for (CitySimple city : hotel.getCities()) {
+                            Integer cityId = city.getCityId();
+                            if (hotelsMapping.containsKey(hotel.getHotelId())) {
+                                // if hotels are found, update it
+                                for (Map.Entry<String, Page> hotelsPages : hotelsMapping.get(hotel.getHotelId())
+                                        .entrySet()) {
+                                    final Page hotelPage = hotelsPages.getValue();
 
-                                LOGGER.trace("Updating hotel {}", hotel.getHotelName());
+                                    LOGGER.trace("Updating hotel {}", hotel.getHotelName());
 
-                                if (hotelPage == null) {
-                                    throw new ImporterException("Cannot set hotel page " + hotel.getHotelName());
-                                }
-
-                                // depending of the city status, mark the page to be activated or deactivated
-                                if (BooleanUtils.isTrue(hotel.getIsDeleted())) {
-                                    final Node hotelContentNode = hotelPage.getContentResource().adaptTo(Node.class);
-
-                                    if (hotelContentNode == null) {
-                                        throw new ImporterException(
-                                                "Cannot set properties for hotel " + hotel.getHotelName());
+                                    if (hotelPage == null) {
+                                        throw new ImporterException("Cannot set hotel page " + hotel.getHotelName());
                                     }
 
-                                    hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                                    // depending of the city status, mark the page to be activated or deactivated
+                                    if (BooleanUtils.isTrue(hotel.getIsDeleted())) {
+                                        final Node hotelContentNode = hotelPage.getContentResource().adaptTo(Node.class);
 
-                                    LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
-                                } else {
-                                    final Node hotelContentNode =
-                                            updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
-                                    hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                        if (hotelContentNode == null) {
+                                            throw new ImporterException(
+                                                    "Cannot set properties for hotel " + hotel.getHotelName());
+                                        }
 
-                                    LOGGER.trace("Hotel {} is marked to be activated", hotel.getHotelName());
+                                        hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+
+                                        LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
+                                    } else {
+                                        if(hotelPage.getParent().getParent().getProperties().get("cityId", Integer.class).equals(cityId)) {
+                                            final Node hotelContentNode =
+                                                    updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
+                                            hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                        }else{ //may need to create an excursions if not exisitng -- if already exist no need to update as it will be update ion a future loop
+                                            CreateHotelUnderPort(resourceResolver, pageManager, session, portsMapping, hotel, cityId);
+                                        }
+
+
+
+
+                                        LOGGER.trace("Hotel {} is marked to be activated", hotel.getHotelName());
+                                    }
                                 }
-                            }
-                        } else {
-                            // else create port page for each language
-                            final Integer cityId =
-                                    hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
+                            } else {
 
-                            if (cityId == null) {
-                                throw new ImporterException("Hotel have no city");
+                                CreateHotelUnderPort(resourceResolver, pageManager, session, portsMapping, hotel, cityId);
                             }
 
-                            if (!portsMapping.containsKey(cityId)) {
-                                throw new ImporterException("Cannot find city with id " + cityId);
-                            }
+                            successNumber++;
+                            itemsWritten++;
 
-                            for (Map.Entry<String, Page> portsPage : portsMapping.get(cityId).entrySet()) {
-                                // Getting port page
-                                final Page portPage = portsPage.getValue();
+                            if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                try {
+                                    session.save();
 
-                                if (portPage == null) {
-                                    throw new ImporterException("Error getting port page " + cityId);
+                                    LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
                                 }
-
-                                LOGGER.trace("Found port {} with id {}", portPage.getTitle(), cityId);
-
-                                // Creating subpage "hotel" if not present
-                                Page hotelsPage;
-                                if (portPage.hasChild(WcmConstants.NN_HOTELS)) {
-                                    hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
-                                } else {
-                                    hotelsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_HOTELS,
-                                            "/apps/silversea/silversea-com/templates/page", "Hotels", false);
-
-                                    LOGGER.trace("{} page is not existing, creating it", hotelsPage.getPath());
-                                }
-
-                                // Creating hotel page
-                                final Page hotelPage = pageManager.create(hotelsPage.getPath(),
-                                        JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName())),
-                                        WcmConstants.PAGE_TEMPLATE_HOTEL,
-                                        StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName()), false);
-
-                                LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
-
-                                // If hotel is created, set the properties
-                                if (hotelPage == null) {
-                                    throw new ImporterException(
-                                            "Cannot create hotel page for hotel " + hotel.getHotelName());
-                                }
-
-                                final Node hotelContentNode =
-                                        updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
-                                hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
-
-                                LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
-                            }
-                        }
-
-                        successNumber++;
-                        itemsWritten++;
-
-                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                            try {
-                                session.save();
-
-                                LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
                             }
                         }
                     } catch (RepositoryException | ImporterException | WCMException e) {
@@ -549,6 +508,63 @@ public class HotelsImporterImpl implements HotelsImporter {
                 apiPage);
 
         return new ImportResult(successNumber, errorNumber);
+    }
+
+    private void CreateHotelUnderPort(ResourceResolver resourceResolver, PageManager pageManager, Session session, Map<Integer, Map<String, Page>> portsMapping, Hotel77 hotel, Integer cityId)
+            throws ImporterException, WCMException, RepositoryException {
+        if (cityId == null) {
+            throw new ImporterException("Hotel have no city");
+        }
+
+        if (!portsMapping.containsKey(cityId)) {
+            throw new ImporterException("Cannot find city with id " + cityId);
+        }
+
+        for (Map.Entry<String, Page> portsPage : portsMapping.get(cityId).entrySet()) {
+            // Getting port page
+            final Page portPage = portsPage.getValue();
+
+            if (portPage == null) {
+                throw new ImporterException("Error getting port page " + cityId);
+            }
+
+            LOGGER.trace("Found port {} with id {}", portPage.getTitle(), cityId);
+
+            // Creating subpage "hotel" if not present
+            Page hotelsPage;
+            if (portPage.hasChild(WcmConstants.NN_HOTELS)) {
+                hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
+            } else {
+                hotelsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_HOTELS,
+                        "/apps/silversea/silversea-com/templates/page", "Hotels", false);
+
+                LOGGER.trace("{} page is not existing, creating it", hotelsPage.getPath());
+            }
+
+            // Creating hotel page
+            Page hotelPage = pageManager.getPage(hotelsPage.getPath() + "/" + StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName()));
+            if(hotelPage == null) {
+                hotelPage = pageManager.create(hotelsPage.getPath(),
+                        JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
+                                StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName())),
+                        WcmConstants.PAGE_TEMPLATE_HOTEL,
+                        StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName()), true);
+            }
+
+            LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
+
+            // If hotel is created, set the properties
+            if (hotelPage == null) {
+                throw new ImporterException(
+                        "Cannot create hotel page for hotel " + hotel.getHotelName());
+            }
+
+            final Node hotelContentNode =
+                    updateHotelContentNode(hotel, hotelPage, resourceResolver, session);
+            hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+            LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
+        }
     }
 
     private MediaSet updateMediaSet(ResourceResolver resourceResolver, Session session, Hotel77 hotel,
