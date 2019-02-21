@@ -204,7 +204,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                             }
                                         }
                                     }
-                                }  catch (RepositoryException e) {
+                                }  catch (ImporterException e) {
                                     LOGGER.error("Cannot find excursion in cache {}", hotel.getHotelId() + "-" + itineraryModel.getPortId());
 
                                     importResult.incrementErrorNumber();
@@ -217,7 +217,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                         }
 
                         LOGGER.trace("Hotel {} voyage id: {} city id: {} imported: {}", hotel.getHotelId(), hotel.getVoyageId(), hotel.getCityId(), imported);
-                    } catch (ImporterException e) {
+                    } catch (Exception e) {
                         LOGGER.warn("Cannot deal with hotel {} - {}", hotel.getHotelId(), e.getMessage());
 
                         importResult.incrementErrorNumber();
@@ -322,11 +322,11 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                         }
                                     }
                                     
-                                }  catch (RepositoryException e) {
+                                }  catch (ImporterException e) {
                                     LOGGER.error("Cannot find excursion in cache {}", hotelDiff.getHotelId() + "-" + itineraryModel.getPortId());
 
                                     importResult.incrementErrorNumber();
-                                }catch (RepositoryException e) {
+                                }catch (Exception e) {
                                     LOGGER.error("Cannot write hotel {}", hotelDiff.getHotelId(), e);
 
                                     importResult.incrementErrorNumber();
@@ -335,7 +335,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                         }
 
                         LOGGER.trace("Hotel {} voyage id: {} city id: {} imported: {}", hotelDiff.getHotelId(), hotelDiff.getVoyageId(), hotelDiff.getCityId(), imported);
-                    } catch (ImporterException e) {
+                    } catch (Exception e) {
                         LOGGER.warn("Cannot deal with hotel {} - {}", hotelDiff.getHotelId(), e.getMessage());
 
                         importResult.incrementErrorNumber();
