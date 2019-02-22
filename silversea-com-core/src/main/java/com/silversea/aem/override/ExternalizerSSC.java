@@ -2,6 +2,7 @@ package com.silversea.aem.override;
 
 import com.silversea.aem.constants.WcmConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import com.day.cq.commons.Externalizer;
 
@@ -56,4 +57,12 @@ public class ExternalizerSSC  {
         return null;
     }
 
+    public static String relativeLink(SlingHttpServletRequest request, String path, ResourceResolver resourceResolver) {
+        String portNameRequested = getPortNameRequested(path);
+        if (portNameRequested != null) return portNameRequested;
+
+        Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
+
+        return externalizer.relativeLink(request,path);
+    }
 }

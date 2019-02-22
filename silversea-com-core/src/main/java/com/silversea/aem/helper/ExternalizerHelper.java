@@ -2,6 +2,7 @@ package com.silversea.aem.helper;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
+import com.silversea.aem.override.ExternalizerSSC;
 
 public class ExternalizerHelper extends WCMUsePojo {
 
@@ -27,16 +28,16 @@ public class ExternalizerHelper extends WCMUsePojo {
      * @return Externalized URL
      */
     private String externalizePath(final String path, final Boolean abs) {
-        Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+
         String externalizedUrl = "";
 
         absolute = (abs != null) ? absolute : false;
 
-        if (path != null && externalizer != null) {
+        if (path != null ) {
             if (absolute) {
-                externalizedUrl = externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, path);
+                externalizedUrl = ExternalizerSSC.externalLink(getResourceResolver(), Externalizer.LOCAL, path);
             } else {
-                externalizedUrl = externalizer.relativeLink(getRequest(), path);
+                externalizedUrl = ExternalizerSSC.relativeLink(getRequest(), path, getResourceResolver());
             }
         }
 
