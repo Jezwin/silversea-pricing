@@ -207,7 +207,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                         }
                                     }
                                 } catch (ImporterException e) {
-                                    LOGGER.error("Cannot find land program {}", landProgram.getLandId()+"-"+itineraryModel.getPortId(), e);
+                                    LOGGER.error("Cannot find land program {}", landProgram.getLandId()+"-"+itineraryModel.getPortId());
 
                                     importResult.incrementErrorNumber();
                                 }catch (RepositoryException e) {
@@ -330,7 +330,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                         }
                                     }
                                 } catch (ImporterException e) {
-                                    LOGGER.error("Cannot find land program {}", landProgramDiff.getLandId() +"-"+itineraryModel.getPortId(), e);
+                                    LOGGER.error("Cannot find land program {}", landProgramDiff.getLandId() +"-"+itineraryModel.getPortId());
 
                                     importResult.incrementErrorNumber();
                                 } catch (RepositoryException e) {
