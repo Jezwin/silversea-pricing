@@ -775,6 +775,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="last"
         sling:message="last"/>
+    <last-minute-savings
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="last-minute-savings"
+            sling:message="Last-minute savings"/>
     <last-name
         jcr:primaryType="sling:MessageEntry"
         sling:key="last-name"
