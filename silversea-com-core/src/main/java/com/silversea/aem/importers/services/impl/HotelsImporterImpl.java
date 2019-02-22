@@ -543,6 +543,14 @@ public class HotelsImporterImpl implements HotelsImporter {
 
             // Creating hotel page
             Page hotelPage = pageManager.getPage(hotelsPage.getPath() + "/" + StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName()));
+            if(hotelPage != null && hotelPage.getProperties().get("hotelId", Integer.class) != null && !hotelPage.getProperties().get("hotelId", Integer.class).equals(hotel.getHotelId())){
+                hotelPage = null;
+                Iterator<Page> itPage = hotelsPage.listChildren(page -> page.getProperties().get("hotelId", Integer.class).equals(hotel.getHotelId()),false);
+                while(itPage.hasNext()) {
+                    Page p = itPage.next();
+                   hotelPage = p;
+                }
+            }
             if(hotelPage == null) {
                 hotelPage = pageManager.create(hotelsPage.getPath(),
                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
