@@ -415,6 +415,14 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             // Creating landProgram page
 
             Page landProgramPage = pageManager.getPage(landProgramsPage.getPath() + "/" + StringsUtils.getFormatWithoutSpecialCharacters(landProgramName));
+            if(landProgramPage != null && landProgramPage.getProperties().get("landId", Integer.class) != null && !landProgramPage.getProperties().get("landId", Integer.class).equals(land.getLandId())){
+                landProgramPage = null;
+                Iterator<Page> itPage = landProgramsPage.listChildren(page -> page.getProperties().get("landId", Integer.class).equals(land.getLandId()),false);
+                while(itPage.hasNext()) {
+                    Page p = itPage.next();
+                    landProgramPage = p;
+                }
+            }
             if(landProgramPage == null) {
                 landProgramPage = pageManager.create(landProgramsPage.getPath(),
                         JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),

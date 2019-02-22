@@ -38,10 +38,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.silversea.aem.constants.WcmConstants.PATH_DAM_SILVERSEA;
 
@@ -583,6 +580,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
             // Creating excursion page if not existing
             Page excursionPage = pageManager.getPage(excursionsPage.getPath() + "/" + StringsUtils.getFormatWithoutSpecialCharacters(excursionName));
+            if(excursionPage != null && excursionPage.getProperties().get("shorexId", Integer.class) != null && !excursionPage.getProperties().get("shorexId", Integer.class).equals(excursion.getShorexId())){
+                excursionPage = null;
+                Iterator<Page> itPage = excursionsPage.listChildren(page -> page.getProperties().get("shorexId", Integer.class).equals(excursion.getShorexId()),false);
+                while(itPage.hasNext()) {
+                    Page p = itPage.next();
+                    excursionPage = p;
+                }
+            }
             if(excursionPage == null) {
                 excursionPage = pageManager.create(excursionsPage.getPath(),
                         JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
