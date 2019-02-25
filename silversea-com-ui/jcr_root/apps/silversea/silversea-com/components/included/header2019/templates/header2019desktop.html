@@ -76,7 +76,7 @@
         <div id="header-2019-submenu-positioner">
             <div id="header-2019-submenu-container">
                 <sly data-sly-repeat.secondRowElement="${use.secondRow}">
-                    <div class="header-2019-submenu" id="header-2019-secondrow-${secondRowElementList.index}-submenu">
+                    <div class="header-2019-submenu" id="header-2019-secondrow-${secondRowElementList.index}-submenu" data-sly-test="${secondRowElement.subMenu.size > 0}">
                         <div class="header-2019-submenu-snd ${secondLevelMenuList.last ? 'header-2019-submenu-snd-last' : ''} ${secondLevelMenuList.first ? 'header-2019-submenu-snd-first' : ''}"
                              data-sly-repeat.secondLevelMenu="${secondRowElement.subMenu}">
                             <div class="header-2019-submenu-snd-title-wrapper">
