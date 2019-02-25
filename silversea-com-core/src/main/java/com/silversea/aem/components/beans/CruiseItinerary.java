@@ -134,7 +134,7 @@ public class CruiseItinerary {
                 .map(Collection::stream).orElseGet(Stream::empty)
                 .map(ItineraryExcursionModel::getExcursion);
 
-        ;
+        
         if (itinerary.getHasDedicatedShorex()) {
             return dedicated.collect(Collectors.toList());
         } else {
