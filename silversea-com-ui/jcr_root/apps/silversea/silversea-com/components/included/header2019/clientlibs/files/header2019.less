@@ -97,9 +97,13 @@
         display: inline-block;
         font-family: @suisse;
       }
-
+      &.lang-menu-open {
+        .header-2019-lang.header-2019-top-link {
+          cursor: pointer !important;
+          pointer-events: visible;
+        }
+      }
       &.lang-menu-open .header-2019-top-section:not(.search-visible) {
-
 
         .header-2019-beforebar {
           overflow: visible;
@@ -207,6 +211,11 @@
 
       }
 
+      .header-2019-top-link:not(:first-child) {
+        cursor: auto;
+        pointer-events: none;
+      }
+
 
       .header-2019-middle {
         width: ~"calc(100% - 200px)";
@@ -241,7 +250,7 @@
           transition: height @lang-delay, background-color @lang-delay;
           height: 30px;
           position: absolute;
-          min-width: 35px;
+          min-width: 38px;
           left: -8px;
 
 
@@ -266,12 +275,12 @@
 
 
         .header-2019-lang-menu-arrow {
-          font-size: 20px;
+          font-size: 14px;
           position: absolute;
 
           &.fa-angle-down {
             transition: all @lang-delay;
-            top: 0;
+            top: 3px;
           }
         }
 
@@ -405,6 +414,10 @@
         line-height: 16px;
         font-size: 12px;
         display: inline-block;
+        a {
+          display: inline-block;
+          vertical-align: sub;
+        }
       }
 
       .header-2019-beforebar {
