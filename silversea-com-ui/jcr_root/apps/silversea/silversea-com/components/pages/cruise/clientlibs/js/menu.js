@@ -16,11 +16,11 @@ Menu.prototype = {
         return $("#header").height() + $(".c-main-nav__bottom").height();
     },
 
-    removeShadowHeader: function removeShadowHeader() {
-        var isHeader2019 = $(".header2019").length > 0 && $(".header2019").is(":visible") &&  $(".header2019 .header-2019-wrapper").length > 0;
-        var isHeader2019isSticky =  $(".header2019 .header-2019-wrapper.header-2019-wrapper-sticked").length > 0;
-        if (isHeader2019 && isHeader2019isSticky) {
-            $(".header2019 .header-2019-wrapper").addClass("header-2019-wrapper-nosticked");
+    manageShadowHeader: function removeShadowHeader() {
+        var isHeader2019 = $(".header2019").length > 0 && $(".header2019").is(":visible") && $(".header2019 .header-2019-wrapper").length > 0;
+        var isHeader2019isSticky = $(".header2019 .header-2019-wrapper.header-2019-wrapper-sticked").length > 0;
+        if (isHeader2019) {
+            $(".header2019 .header-2019-wrapper").toggleClass("header-2019-wrapper-nosticked");
         }
     },
 
@@ -34,7 +34,7 @@ Menu.prototype = {
                 $wrapper.css("padding-bottom", "60px");//this is for smoothness
                 $wrapper.css("margin-top", "0px");
                 $stickyTop.removeClass("ssc-sticky-top").fadeIn(0);
-                menu.removeShadowHeader();
+                menu.manageShadowHeader();
                 $(".cruise-2018-menu").removeClass("ssc-table-full-width-with-overview");
                 $("#header").animate({
                     top: '0px',
@@ -60,7 +60,7 @@ Menu.prototype = {
 
                 $overviewMenu.show(200);
                 $(".cruise-2018-menu").addClass("ssc-table-full-width-with-overview");
-                menu.removeShadowHeader();
+                menu.manageShadowHeader();
                 $("#header:not(.c-main-nav--nav-expanded)").animate({
                     top: '-110px',
                     duration: 200,
