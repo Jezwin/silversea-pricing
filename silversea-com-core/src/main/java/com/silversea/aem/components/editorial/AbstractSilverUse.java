@@ -5,9 +5,7 @@ import com.day.cq.commons.inherit.InheritanceValueMap;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -63,9 +61,20 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
         return getProp(key).map("true"::equals).orElse(defaultValue);
     }
 
-    protected Optional<String> getSelectorValue(String[] selectors, String fixedSelectors) {
-        for (String selector : selectors) {
-            if (!fixedSelectors.contains(selector)) return of(selector);
+    protected boolean hasSelector(String selector) {
+        for (String actualSelector : getRequest().getRequestPathInfo().getSelectors()) {
+            if (actualSelector.equals(selector)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected Optional<String> firstSelectorDifferentFrom(String excludedSelectors) {
+        for (String selector : getRequest().getRequestPathInfo().getSelectors()) {
+            if (!excludedSelectors.contains(selector)) {
+                return of(selector);
+            }
         }
         return Optional.empty();
     }
