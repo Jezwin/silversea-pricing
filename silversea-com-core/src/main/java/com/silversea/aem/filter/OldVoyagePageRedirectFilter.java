@@ -44,38 +44,40 @@ public class OldVoyagePageRedirectFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		try {
-			if (!(request instanceof SlingHttpServletRequest)) {
-				chain.doFilter(request, response);
-				return;
-			}
-			HttpServletRequest httpRequest = (HttpServletRequest) request;
-			String pathInfo = httpRequest.getRequestURI().toString();
-			if (pathInfo.lastIndexOf(WcmConstants.HTML_SUFFIX) != -1 && pathInfo.lastIndexOf("/") != -1) {
-				final SlingHttpServletResponse slingResponse = (SlingHttpServletResponse) response;
-				final SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) request;
-				final Resource resource = slingRequest.getResource();
-				if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
-					Resource parentResourceTry  = resource.getResourceResolver().resolve(resource.getParent().getPath());
-					Node parentNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content").adaptTo(Node.class);
-					try {
-						if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
-								parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
-							slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
-							Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
-							slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
-									+ WcmConstants.HTML_SUFFIX);
-							return;
-						}
-					} catch (IllegalStateException | RepositoryException e) {
-						Logger.debug("Exception while fetching node property value" + e.getMessage());
-					}
-				}
-			}
-		}catch (Exception e){
-			Logger.error("Issue with OldVoyagePageRedirectFilter",e);
-		}
-         chain.doFilter(request, response);
+        try {
+            if (!(request instanceof SlingHttpServletRequest)) {
+                chain.doFilter(request, response);
+                return;
+            }
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            String pathInfo = httpRequest.getRequestURI().toString();
+            if (pathInfo.lastIndexOf(WcmConstants.HTML_SUFFIX) != -1 && pathInfo.lastIndexOf("/") != -1) {
+                final SlingHttpServletResponse slingResponse = (SlingHttpServletResponse) response;
+                final SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) request;
+                final Resource resource = slingRequest.getResource();
+                if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
+                    Resource parentResourceTry = resource.getResourceResolver().resolve(resource.getParent().getPath());
+                    if (parentResourceTry != null) {
+                        Node parentNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content").adaptTo(Node.class);
+                        try {
+                            if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
+                                    parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
+                                slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
+                                Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
+                                slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
+                                        + WcmConstants.HTML_SUFFIX);
+                                return;
+                            }
+                        } catch (IllegalStateException | RepositoryException e) {
+                            Logger.debug("Exception while fetching node property value" + e.getMessage());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Logger.error("Issue with OldVoyagePageRedirectFilter", e);
+        }
+        chain.doFilter(request, response);
     }
 
     @Override
