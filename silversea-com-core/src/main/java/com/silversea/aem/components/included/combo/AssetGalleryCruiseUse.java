@@ -36,7 +36,8 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             //handle the map lightbox of the segment
             boolean isLigthboxSegmentMap = selectorString.contains("lg-segmentmap");
             if (isLigthboxSegmentMap) {
-                String segmentName = getSelectorValue(getRequest().getRequestPathInfo().getSelectors(), "lightboxes.lg-map.lg-segmentmap.silversea-combocruise").orElse("");
+                String segmentName =
+                        firstSelectorDifferentFrom("lightboxes.lg-map.lg-segmentmap.silversea-combocruise").orElse("");
                 retrireveSegmentMap(getCurrentPage(), segmentName).ifPresent(this::setBigItineraryMap);
             } else {
                 retrieveBigItineraryMap(getCurrentPage()).ifPresent(this::setBigItineraryMap);
