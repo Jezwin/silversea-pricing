@@ -160,9 +160,11 @@ $(function () {
             var scrollPosition = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
             if (scrollPosition > 0) {
                 $(".header2019, .header-2019-wrapper").addClass("sticked");
+                $(".header2019, .header-2019-wrapper").addClass("header-2019-wrapper-sticked");
                 $(".header-2019-top-section").removeClass("search-visible");
             } else {
                 $(".header2019, .header-2019-wrapper").removeClass("sticked");
+                $(".header2019, .header-2019-wrapper").removeClass("header-2019-wrapper-sticked");
                 $(".header-2019 input").blur();
             }
         }));

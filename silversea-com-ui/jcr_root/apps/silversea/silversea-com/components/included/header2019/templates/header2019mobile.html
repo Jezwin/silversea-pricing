@@ -1,11 +1,10 @@
-<template data-sly-template.default="${ @ use}">
-    <sly data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
+<template data-sly-template.default="${ @ use, pageHelper}">
     <div class="header-2019-mobile visible-xs visible-sm">
         <div class="container header2019-container">
             <div class="row">
                 <div class="col-sm-3 col-xs-5 header2019-logo">
-                    <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link">
-                        <img class="header2019-logo-img" src="${currentDesign.path}/clientlib-base/images/logo.png"
+                    <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link" data-sly-test.defaultImage="${currentDesign.path}/clientlib-base/images/logo.png">
+                        <img class="header2019-logo-img" src="${use.logo.path || defaultImage}"
                              alt="${pageHelper.homePage.title || currentPage.title}"/>
                     </a>
                 </div>
