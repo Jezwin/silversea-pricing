@@ -1,14 +1,11 @@
 package com.silversea.aem.components.editorial;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
+import com.day.cq.commons.inherit.InheritanceValueMap;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,6 +19,31 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
     public static final String TABLET = "Tablet";
     public static final String MOBILE = "Mobile";
     public static final String DESKTOP = "Desktop";
+
+    public static <T> Optional<T> getProp(ValueMap map, String key, Class<T> type) {
+        return ofNullable(map).map(props -> props.get(key, type));
+    }
+
+    public static Optional<String> getProp(ValueMap map, String key) {
+        return getProp(map, key, String.class);
+    }
+
+    public static <T> Optional<T> getInheritedProp(InheritanceValueMap map, String key, Class<T> type) {
+        return ofNullable(map).map(props -> props.getInherited(key, type));
+    }
+
+    public static Optional<String> getInheritedProp(InheritanceValueMap map, String key) {
+        return getInheritedProp(map, key, String.class);
+    }
+
+    public static <T> Stream<T> retrieveMultiField(Resource resource, String child, Function<Resource, T> map) {
+        return ofNullable(resource)
+                .map(value -> value.getChild(child))
+                .map(Resource::getChildren)
+                .map(iterator -> stream(iterator.spliterator(), false))
+                .map(stream -> stream.map(map).filter(Objects::nonNull))
+                .orElse(Stream.empty());
+    }
 
     protected Optional<String> getProp(String key) {
         return getProp(key, String.class);
@@ -39,15 +61,26 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
         return getProp(key).map("true"::equals).orElse(defaultValue);
     }
 
-    protected Optional<String> getSelectorValue(String[] selectors, String fixedSelectors) {
-        for (String selector : selectors) {
-            if (!fixedSelectors.contains(selector)) return of(selector);
+    protected boolean hasSelector(String selector) {
+        for (String actualSelector : getRequest().getRequestPathInfo().getSelectors()) {
+            if (actualSelector.equals(selector)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected Optional<String> firstSelectorDifferentFrom(String excludedSelectors) {
+        for (String selector : getRequest().getRequestPathInfo().getSelectors()) {
+            if (!excludedSelectors.contains(selector)) {
+                return of(selector);
+            }
         }
         return Optional.empty();
     }
 
     protected <T> Optional<T> getProp(String key, Class<T> type) {
-        return ofNullable(getProperties()).map(props -> props.get(key, type));
+        return getProp(getProperties(), key, type);
     }
 
     protected <T> Optional<T> getProp(String key, Resource resource, Class<T> type) {
@@ -93,18 +126,14 @@ public abstract class AbstractSilverUse extends WCMUsePojo {
     }
 
     protected <T> List<T> retrieveMultiField(String child, Class<T> adaptable) {
-        return retrieveMultiField(child, element -> element.adaptTo(adaptable)).collect(Collectors.toList());
+        return retrieveMultiField(getResource(), child, element -> element.adaptTo(adaptable)).collect(Collectors.toList());
     }
 
 
     protected <T> Stream<T> retrieveMultiField(String child, Function<Resource, T> map) {
-        return ofNullable(getResource())
-                .map(value -> value.getChild(child))
-                .map(Resource::getChildren)
-                .map(iterator -> stream(iterator.spliterator(), false))
-                .map(stream -> stream.map(map).filter(Objects::nonNull))
-                .orElse(Stream.empty());
+        return retrieveMultiField(getResource(), child, map);
     }
+
 
 
 }

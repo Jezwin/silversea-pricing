@@ -652,8 +652,8 @@ public class Cruise2018Use extends EoHelper {
         this.exclusiveOfferPostPrice = exclusiveOfferPostPrice;
     }
     
-    public int getNumExcursions() {
-        return numExcursions;
+    public boolean getNumExcursions() {
+        return numExcursions > 0;
     }
 
     public enum Lightbox {

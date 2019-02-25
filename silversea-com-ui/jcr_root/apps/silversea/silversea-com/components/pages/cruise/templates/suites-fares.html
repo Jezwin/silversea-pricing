@@ -59,7 +59,10 @@
             <div class="cruise-2018-suites-fares-footnote col-xs-12" data-sly-test="${isCombo}">
                 ${'fares-shown-are-per-guest' @i18n}
             </div>
-            <div class="col-xs-12 cruise-2018-suites-fares-included ${isCombo ? '' : 'hidden-xs'}"
+            <div class="cruise-2018-suites-fares-footnote col-xs-12 visible-xs" data-sly-test="${!isCombo}">
+                ${'fares-shown-are-per-guest' @i18n}
+            </div>
+            <div class="col-xs-12 cruise-2018-suites-fares-included"
                  data-sly-test="${exclusiveOffersCruiseFareAdditions.size>0 || model.cruiseFareAdditions.size>0}">
                 <div class="${isCombo ? 'cruise-2018-suites-fares-included-title-combo' : 'cruise-2018-suites-fares-included-title'}">
                     <sly data-sly-test="${!isCombo}">${ 'included-cruise-fare' @ i18n}</sly>
@@ -71,8 +74,14 @@
                 <ul class="cruise-2018-suites-fares-included-ul">
                     <sly data-sly-test="${!isCombo}">
                         <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}"
-                            class="cruise-2018-suites-fares-included-eo">${item @ context='html'}</li>
-                        <li data-sly-repeat="${model.cruiseFareAdditions}">${item @ context='html'}</li>
+                            class="cruise-2018-suites-fares-included-eo cruise-2018-suites-fares-included-li">${item @ context='html'}</li>
+                        <li data-sly-repeat="${model.cruiseFareAdditions}" class="cruise-2018-suites-fares-included-li ${itemList.count > 4 ? 'hidden-xs' : ''}">${item @ context='html'}</li>
+                        <li class="onclick-show-more-less-benefits benefits-show-more" data-sly-test="${model.cruiseFareAdditions.size > 4}">
+                            ${'view-more' @ i18n}
+                        </li>
+                        <li class="onclick-show-more-less-benefits benefits-show-less" data-sly-test="${model.cruiseFareAdditions.size > 4}">
+                            ${'view-less' @ i18n }
+                        </li>
                     </sly>
                     <sly data-sly-test="${isCombo}">
                         <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}" class="cruise-2018-suites-fares-included-eo ${itemList.count > 6 ? 'hidden-xs' : ''}">
@@ -90,7 +99,7 @@
                     </sly>
                 </ul>
             </div>
-            <div class="cruise-2018-suites-fares-footnote col-xs-12">
+            <div class="cruise-2018-suites-fares-footnote col-xs-12 hidden-xs">
                 <sly data-sly-test="${!isCombo}">${'fares-shown-are-per-guest' @i18n}</sly>
                 <span class="hidden-xs" data-sly-test="${fareAdditionsFootnotes && isCombo}">${fareAdditionsFootnotes @ context='html'}</span>
             </div>

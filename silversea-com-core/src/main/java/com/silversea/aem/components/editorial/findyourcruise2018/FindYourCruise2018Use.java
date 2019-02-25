@@ -144,8 +144,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
         Map<String, String[]> map = new HashMap<>();
         String[] value = new String[]{getCurrentPage().getName()};
-        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() ||
-                getProperties().get("noPageContent", Boolean.class).equals("false")) {
+        if (getProperties().get("noPageContent") == null || getProperties().get("noPageContent", String.class).isEmpty() || getProperties().get("noPageContent", String.class).equals("false")) {
             switch (currentPageResourceType) {
                 case WcmConstants.RT_DESTINATION:
                     map.put(DestinationFilter.KIND + "Id", new String[]{getCurrentPage().getProperties().get("destinationId", String.class)});

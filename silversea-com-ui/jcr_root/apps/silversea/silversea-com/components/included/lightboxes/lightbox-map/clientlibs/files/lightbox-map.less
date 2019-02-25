@@ -14,6 +14,7 @@
   .ratio-big-itinerary {
     height: 445px;
   }
+
   .ratio-small-itinerary img {
     height: 80px !important;
     width: 130px !important;
@@ -25,20 +26,25 @@
 
 @media (max-width: @screen-sm) {
 
-  .modal.lightbox div.lightbox-close.close-full-width{
+  .modal.lightbox div.lightbox-close.close-full-width {
     width: 100vw !important;
+
     .text-close {
       right: 60px !important;
     }
+
     .icon-close {
       right: 20px !important;
     }
   }
+
   .lightbox-map {
     position: relative;
+
     .ratio-big-itinerary {
       height: 244px;
     }
+
     i {
       position: absolute;
       top: 50%;
@@ -46,6 +52,7 @@
       left: 50%;
       display: none;
     }
+
     .fa-portrait {
       transform: translate(-50%, -50%);
       --webkit-transform: translate(-50%, -50%);
@@ -58,6 +65,7 @@
     i {
       display: block;
     }
+
     .ratio-big-itinerary {
       opacity: 0.8;
     }
@@ -65,12 +73,20 @@
 }
 
 
-@media(min-width: @screen-lg-min) {
+@media (min-width: @screen-lg-min) {
   .modal-larger {
     max-width: 930px !important;
 
     .lightbox-close {
       width: 930px !important;
+    }
+  }
+}
+
+@media (max-width: 736px) {
+  .lightbox-map {
+    .ratio-big-itinerary {
+      height: 350px !important;
     }
   }
 }
