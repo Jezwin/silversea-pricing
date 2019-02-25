@@ -191,6 +191,11 @@ public class ExclusiveOfferModel {
     private String positionDescriptionMobileLB;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/exclusiveOfferId")
+    @Optional
+    private String id;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/activeGreysBoxes")
     @Optional
     private String activeGreysBoxes;
@@ -432,5 +437,9 @@ public class ExclusiveOfferModel {
     }
     public boolean isGhostOffer() {
         return StringUtils.isNotEmpty(ghostOffer) ? Boolean.valueOf(ghostOffer) : false;
+    }
+
+    public String getId() {
+        return id;
     }
 }
