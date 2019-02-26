@@ -36,6 +36,7 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             //handle the map lightbox of the segment
             boolean isLigthboxSegmentMap = selectorString.contains("lg-segmentmap");
             if (isLigthboxSegmentMap) {
+
                 String segmentName = firstSelectorDifferentFrom("lightboxes.lg-map.lg-segmentmap.silversea-combocruise").orElse("");
                 retrireveSegmentMap(getCurrentPage(), segmentName).ifPresent(this::setBigItineraryMap);
             } else {
@@ -56,19 +57,15 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             while (pageIterator.hasNext()) {
                 Page p = pageIterator.next();
                 if (p.getName().equalsIgnoreCase(segmentName)) {
-                    return getProp("focusedMapReference", p.getContentResource(), String.class);
+                    return getProp(p.getContentResource().getValueMap(), "focusedMapReference");
                 }
             }
         }
         return Optional.empty();
     }
 
-    private Optional<String> retrieveBigItineraryMap(Page page) {
-        return Optional.ofNullable(page).map(Page::getProperties).map(prop -> prop.get("bigItineraryMap", String.class));
-    }
+    public static List<SilverseaAsset> retrieveAssetsGallery(Resource itinerariesResource, ResourceResolver resourceResolver, Page currentPage, boolean onlyAssetSelectionReference) {
 
-    public static List<SilverseaAsset> retrieveAssetsGallery(Resource itinerariesResource, ResourceResolver resourceResolver, Page currentPage,
-                                                             boolean onlyAssetSelectionReference) {
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
         String assetSelectionReference;
@@ -140,6 +137,10 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             }
         }
         return portsAssetsList;
+    }
+
+    private Optional<String> retrieveBigItineraryMap(Page page) {
+        return Optional.ofNullable(page).map(Page::getProperties).map(prop -> prop.get("bigItineraryMap", String.class));
     }
 
     public static String retrieveArrivalPortName(Resource itinerariesResource) {

@@ -1,15 +1,19 @@
-<template data-sly-template.default="${ @ use}">
+<template data-sly-template.default="${ @ use, pageHelper}">
     <div class="header-2019-wrapper visible-lg visible-md">
         <div class="header-2019">
             <div class="header-2019-logo">
-                <div class="ratio" style="position: relative;">
-                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                         data-sly-call="${imageTemplate.image @ imagePath=use.logo.path || '/etc/designs/silversea-com/clientlib-base/images/logo.png'}"/>
+                <div class="header2019-logo-image">
+                    <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link"
+                       data-sly-test.defaultImage="${currentDesign.path}/clientlib-base/images/logo.png">
+                        <img class="header2019-logo-img" src="${use.logo.path || defaultImage}"
+                             alt="${pageHelper.homePage.title || currentPage.title}"/>
+                    </a>
                 </div>
             </div>
+
             <div class="header-2019-middle">
                 <div class="header-2019-top-section">
-                    <div class="header-2019-beforebar">
+                    <div class="header-2019-beforebar header-2019-beforebar-first">
                         <sly data-sly-repeat.topLink="${use.topLinks}">
                             <div class="header-2019-top pipe-separated">
                                 <a class="header-2019-top-link"
@@ -19,7 +23,7 @@
                         <div class="header-2019-lang-menu-wrapper">
                             <div class="header-2019-lang-menu">
                                 <div class="header-2019-lang header-2019-top-link">
-                                    <span class="header-2019-lang-link">EN</span>
+                                    <span class="header-2019-lang-link">${use.homePage.navigationTitle || use.homePage.title}</span>
                                 </div>
                                 <sly data-sly-repeat.language="${use.languages}">
                                     <div class="header-2019-lang header-2019-top-link">
@@ -55,12 +59,12 @@
                     </div>
                 </div>
                 <div class="header-2019-first-level-section">
-                    <div class="header-2019-beforebar">
+                    <div class="header-2019-beforebar header-2019-beforebar-snd">
                         <sly data-sly-repeat.secondRowElement="${use.secondRow}">
                             <div class="header-2019-first-level pipe-separated">
                                 <a class="header-2019-first-level-link "
                                    data-menu-index="${secondRowElementList.index}"
-                                   data-sly-element="${secondRowElement.hasMenu ? 'div' : 'a'}"
+                                   data-sly-element="${secondRowElement.link=='' ? 'div' : 'a'}"
                                    href="${secondRowElement.link @ extension='html'}">${secondRowElement.label}</a>
                             </div>
                         </sly>
@@ -75,30 +79,29 @@
     <div id="header-2019-submenu-positioner">
         <div id="header-2019-submenu-container">
             <sly data-sly-repeat.secondRowElement="${use.secondRow}">
-                <sly data-sly-use.template="./templates/header2019desktop.html" data-sly-test="${secondRowElement.hasMenu}"
-                     data-sly-call="${template.subMenu @ secondRowElement=secondRowElement, index=secondRowElementList.index}"/>
+                <div class="header-2019-submenu" id="header-2019-secondrow-${secondRowElementList.index}-submenu"
+                     data-sly-test="${secondRowElement.subMenu.size > 0}">
+                    <div class="header-2019-submenu-snd ${secondLevelMenuList.last ? 'header-2019-submenu-snd-last' : ''} ${secondLevelMenuList.first ? 'header-2019-submenu-snd-first' : ''}"
+                         data-sly-repeat.secondLevelMenu="${secondRowElement.subMenu}">
+                        <div class="header-2019-submenu-snd-title-wrapper">
+                            <div class="header-2019-submenu-snd-title">${secondLevelMenu.title}</div>
+                        </div>
+                        <div data-sly-test="${secondLevelMenu.picture}"
+                             class="header-2019-submenu-snd-picture-wrapper">
+                            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                                 data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='600'}"/>
+                        </div>
+                        <div class="header-2019-submenu-snd-category">
+                            <div data-sly-repeat.entry="${secondLevelMenu.entries}"
+                                 class="header-2019-submenu-entry">
+                                <a href="${entry.link @ extension='html'}">${entry.label}</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </sly>
         </div>
 
-    </div>
-</template>
-<template data-sly-template.subMenu="${ @ secondRowElement, index }">
-    <div class="header-2019-submenu" id="header-2019-secondrow-${index}-submenu">
-        <div class="header-2019-submenu-snd ${secondLevelMenuList.last ? 'header-2019-submenu-snd-last' : ''} ${secondLevelMenuList.first ? 'header-2019-submenu-snd-first' : ''}"
-             data-sly-repeat.secondLevelMenu="${secondRowElement.subMenu}">
-            <div class="header-2019-submenu-snd-title-wrapper">
-                <div class="header-2019-submenu-snd-title">${secondLevelMenu.title}</div>
-            </div>
-            <div data-sly-test="${secondLevelMenu.picture}" class="header-2019-submenu-snd-picture-wrapper">
-                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                     data-sly-call="${imageTemplate.respLazyWidthChoose @ imagePath=secondLevelMenu.picture.path, Width='900'}"/>
-            </div>
-            <div class="header-2019-submenu-snd-category">
-                <div data-sly-repeat.entry="${secondLevelMenu.entries}" class="header-2019-submenu-entry">
-                    <a href="${entry.link @ extension='html'}">${entry.label}</a>
-                </div>
-
-            </div>
-        </div>
     </div>
 </template>
