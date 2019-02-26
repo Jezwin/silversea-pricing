@@ -36,8 +36,8 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             //handle the map lightbox of the segment
             boolean isLigthboxSegmentMap = selectorString.contains("lg-segmentmap");
             if (isLigthboxSegmentMap) {
-                String segmentName =
-                        firstSelectorDifferentFrom("lightboxes.lg-map.lg-segmentmap.silversea-combocruise").orElse("");
+
+                String segmentName = firstSelectorDifferentFrom("lightboxes.lg-map.lg-segmentmap.silversea-combocruise").orElse("");
                 retrireveSegmentMap(getCurrentPage(), segmentName).ifPresent(this::setBigItineraryMap);
             } else {
                 retrieveBigItineraryMap(getCurrentPage()).ifPresent(this::setBigItineraryMap);
@@ -54,7 +54,7 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
     private Optional<String> retrireveSegmentMap(Page currentPage, String segmentName) {
         if (currentPage.hasChild(segmentName)) {
             Iterator<Page> pageIterator = currentPage.listChildren();
-            while(pageIterator.hasNext()) {
+            while (pageIterator.hasNext()) {
                 Page p = pageIterator.next();
                 if (p.getName().equalsIgnoreCase(segmentName)) {
                     return getProp(p.getContentResource().getValueMap(), "focusedMapReference");
@@ -65,6 +65,7 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
     }
 
     public static List<SilverseaAsset> retrieveAssetsGallery(Resource itinerariesResource, ResourceResolver resourceResolver, Page currentPage, boolean onlyAssetSelectionReference) {
+
         PageManager pageManager = currentPage.getPageManager();
         ShipModel ship = null;
         String assetSelectionReference;

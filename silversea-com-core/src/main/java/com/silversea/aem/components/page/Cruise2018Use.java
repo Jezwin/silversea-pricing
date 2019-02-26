@@ -41,6 +41,7 @@ import static java.util.stream.Collectors.toList;
 public class Cruise2018Use extends EoHelper {
 
     private static final EoConfigurationBean EO_CONFIG = new EoConfigurationBean();
+    private final static String LAST_MINUTE_SAVINGS_ID = "70";
 
     static {
         EO_CONFIG.setTitleVoyage(true);
@@ -59,6 +60,7 @@ public class Cruise2018Use extends EoHelper {
     private String exclusiveOfferPostPrice;
     private boolean venetianSociety;
     private String VSLBPath;
+    private boolean lastMinuteSavings;
 
     private boolean isFeetSquare;
     private int totalNumberOfOffers;
@@ -163,7 +165,7 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
 
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
-        exclusiveOfferPostPrice = retrieveExclusiveOfferPostPrice(exclusiveOffers);
+        exclusiveOfferPostPrice = retrieveExclusiveOfferPostPriceAndFindLMS(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         VSLBPath = retrieveVenetianSocietyLBPath();
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
@@ -211,7 +213,7 @@ public class Cruise2018Use extends EoHelper {
     }
 
 
-    private static String retrieveExclusiveOfferPostPrice(List<ExclusiveOfferItem> exclusiveOffers) {
+    private String retrieveExclusiveOfferPostPriceAndFindLMS(List<ExclusiveOfferItem> exclusiveOffers) {
         Integer priorityWeight = Integer.MIN_VALUE;
         String postPrice = null;
         for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
@@ -219,6 +221,9 @@ public class Cruise2018Use extends EoHelper {
             if (isTheRightPostPrice) {
                 priorityWeight = exclusiveOffer.getPriorityWeight();
                 postPrice = exclusiveOffer.getPostPrice();
+            }
+            if (exclusiveOffer.getId().equals(LAST_MINUTE_SAVINGS_ID)) {
+                setLastMinuteSavings(true);
             }
         }
         return postPrice;
@@ -654,6 +659,14 @@ public class Cruise2018Use extends EoHelper {
     
     public boolean getNumExcursions() {
         return numExcursions > 0;
+    }
+
+    public boolean isLastMinuteSavings() {
+        return lastMinuteSavings;
+    }
+
+    public void setLastMinuteSavings(boolean lastMinuteSavings) {
+        this.lastMinuteSavings = lastMinuteSavings;
     }
 
     public enum Lightbox {

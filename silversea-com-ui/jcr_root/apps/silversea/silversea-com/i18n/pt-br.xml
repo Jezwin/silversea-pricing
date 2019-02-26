@@ -730,6 +730,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="último"/>
+    <last-minute-savings
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="ofertas last minute"/>
     <last-name
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

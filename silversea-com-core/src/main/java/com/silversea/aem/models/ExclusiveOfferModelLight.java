@@ -17,14 +17,14 @@ public class ExclusiveOfferModelLight {
     static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOfferModelLight.class);
     private final Integer priorityWeight;
     private String title;
-
+    private String id;
     private List<String> geomarkets = new ArrayList<>();
     private String pricePrefix;
     private String path;
     private Map<String, String> postPriceCache;
 
     public ExclusiveOfferModelLight(ExclusiveOfferModel exclusiveOfferModel) {
-
+        id = exclusiveOfferModel.getId();
         title = exclusiveOfferModel.getTitle();
         pricePrefix = exclusiveOfferModel.getPricePrefix();
         path = exclusiveOfferModel.getPath();
@@ -88,6 +88,10 @@ public class ExclusiveOfferModelLight {
 
     public Integer getPriorityWeight() {
         return priorityWeight;
+    }
+
+    public String getId() {
+        return id;
     }
 }
 

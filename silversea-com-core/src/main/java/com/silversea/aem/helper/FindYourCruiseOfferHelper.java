@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class FindYourCruiseOfferHelper extends AbstractGeolocationAwareUse {
 
     private List<CruiseItemFYC> cruisesFYC;
+    private final static String LAST_MINUTE_SAVINGS_ID = "70";
 
     @Override
     public void activate() throws Exception {
@@ -33,6 +34,7 @@ public class FindYourCruiseOfferHelper extends AbstractGeolocationAwareUse {
             List<ExclusiveOfferModelLight> exclusiveOffers = cruise.getExclusiveOffers();
             Integer priorityWeight = Integer.MIN_VALUE;
             String postPrice = null;
+            boolean hasLastMinuteSavings = false;
             for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
                 boolean isCustomPriority = !priorityOfferMap.isEmpty() && priorityOfferMap.get(exclusiveOffer.getPath()) != null;
                 Integer priority = Integer.MIN_VALUE;
@@ -55,8 +57,11 @@ public class FindYourCruiseOfferHelper extends AbstractGeolocationAwareUse {
                     }
                     postPrice = StringUtils.isNotEmpty(postPriceOfThisOffer) ? postPriceOfThisOffer : postPrceDefaultOfThisOffer;
                 }
+                if (exclusiveOffer.getId().equals(LAST_MINUTE_SAVINGS_ID)) {
+                    hasLastMinuteSavings = true;
+                }
             }
-            CruiseItemFYC cruiseItemFYC = new CruiseItemFYC(cruise, postPrice);
+            CruiseItemFYC cruiseItemFYC = new CruiseItemFYC(cruise, postPrice, hasLastMinuteSavings);
             cruisesFYC.add(cruiseItemFYC);
         }
         return cruisesFYC;
