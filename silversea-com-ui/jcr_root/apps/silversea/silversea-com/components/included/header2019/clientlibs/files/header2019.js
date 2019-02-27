@@ -162,6 +162,7 @@ $(function () {
                 $(".header2019, .header-2019-wrapper").addClass("sticked");
                 $(".header2019, .header-2019-wrapper").addClass("header-2019-wrapper-sticked");
                 $(".header-2019-top-section").removeClass("search-visible");
+                $(".header2019 #header-2019-submenu-positioner").hide();
             } else {
                 $(".header2019, .header-2019-wrapper").removeClass("sticked");
                 $(".header2019, .header-2019-wrapper").removeClass("header-2019-wrapper-sticked");
