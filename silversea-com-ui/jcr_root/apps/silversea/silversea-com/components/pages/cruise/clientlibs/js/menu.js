@@ -18,7 +18,6 @@ Menu.prototype = {
 
     manageShadowHeader: function removeShadowHeader() {
         var isHeader2019 = $(".header2019").length > 0 && $(".header2019").is(":visible") && $(".header2019 .header-2019-wrapper").length > 0;
-        var isHeader2019isSticky = $(".header2019 .header-2019-wrapper.header-2019-wrapper-sticked").length > 0;
         if (isHeader2019) {
             $(".header2019 .header-2019-wrapper").toggleClass("header-2019-wrapper-nosticked");
         }
