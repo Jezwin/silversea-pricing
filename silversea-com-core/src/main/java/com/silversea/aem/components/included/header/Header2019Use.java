@@ -9,6 +9,7 @@ import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.GlobalCacheService;
 import com.silversea.aem.services.TypeReference;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
@@ -65,9 +66,9 @@ public class Header2019Use extends AbstractSilverUse {
         getInheritedProp(inheritedProps, "logoPath")
                 .ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
         requestAQuotePath = getInheritedProp(inheritedProps, "requestaquote").map(getPageManager()::getPage).map(MenuEntry::new)
-                .map(entry -> entry.toExternalLink(externalizer, getResourceResolver())).orElse(null);
+                .map(entry -> entry.toExternalLink(externalizer, getRequest())).orElse(null);
         mySilverseaPath = getInheritedProp(inheritedProps, "mySilverseaPath").map(getPageManager()::getPage).map(MenuEntry::new)
-                .map(entry -> entry.toExternalLink(externalizer, getResourceResolver())).orElse(null);
+                .map(entry -> entry.toExternalLink(externalizer, getRequest())).orElse(null);
         search = getInheritedProp(inheritedProps, "searchpath").map(getPageManager()::getPage).orElse(null);
 
     }
@@ -87,7 +88,7 @@ public class Header2019Use extends AbstractSilverUse {
 
     private List<ExternalLink> retrieveLinks(Resource parent, Externalizer externalizer, String links) {
         return retrieveMultiField(parent, links, resource -> resource.adaptTo(MenuEntry.class))
-                .map(entry -> entry.toExternalLink(externalizer, getResourceResolver()))
+                .map(entry -> entry.toExternalLink(externalizer, getRequest()))
                 .collect(toList());
     }
 
@@ -106,7 +107,7 @@ public class Header2019Use extends AbstractSilverUse {
         ExternalLink externalLink = getInheritedProp(props, "directLink" + index)
                 .map(link -> getPageManager().getPage(link))
                 .map(page -> new MenuEntry(page, label))
-                .map(menuEntry -> menuEntry.toExternalLink(externalizer, getResourceResolver()))
+                .map(menuEntry -> menuEntry.toExternalLink(externalizer, getRequest()))
                 .orElse(new ExternalLink(null, label));
         return new HeaderSecondRowMenu(externalLink, subEntries(externalizer, subMenuParent, index));
     }
@@ -118,13 +119,13 @@ public class Header2019Use extends AbstractSilverUse {
                 .map(Resource::getChildren)
                 .map(children -> StreamSupport.stream(children.spliterator(), false))
                 .map(children -> children
-                        .map(child -> retrieveSubMenuEntry(externalizer, getResourceResolver(), child))
+                        .map(child -> retrieveSubMenuEntry(externalizer, getRequest(), child))
                         .filter(Objects::nonNull)
                         .collect(toList()))
                 .orElse(Collections.emptyList());
     }
 
-    private SubMenuEntry retrieveSubMenuEntry(Externalizer externalizer, ResourceResolver resourceResolver, Resource entry) {
+    private SubMenuEntry retrieveSubMenuEntry(Externalizer externalizer, SlingHttpServletRequest request, Resource entry) {
         ValueMap valueMap = entry.getValueMap();
         String title = valueMap.get("title", String.class);
         if (title == null) {
@@ -145,7 +146,7 @@ public class Header2019Use extends AbstractSilverUse {
                         .filter(subPageEntry -> !subPageEntry.getPage().isHideInNav());
         Stream<MenuEntry> manualEntries = retrieveMultiField(entry, "manualEntries", resource -> resource.adaptTo(MenuEntry.class));
         List<ExternalLink> allLinks = concat(linksFromPage, manualEntries).map(
-                menuEntry -> menuEntry.toExternalLink(externalizer, resourceResolver)).collect(toList());
+                menuEntry -> menuEntry.toExternalLink(externalizer, request)).collect(toList());
         return new SubMenuEntry(title, picture, allLinks);
     }
 
@@ -179,7 +180,7 @@ public class Header2019Use extends AbstractSilverUse {
                 .stream(pages.spliterator(), false)
                 .filter(page -> !page.getPath().equals(homePage.getPath()))
                 .map(page -> new MenuEntry(page, page.getNavigationTitle()))
-                .map(entry -> entry.toExternalLink(externalizer, getResourceResolver()))
+                .map(entry -> entry.toExternalLink(externalizer, getRequest()))
                 .collect(toList());
     }
 
