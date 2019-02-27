@@ -7,7 +7,6 @@ import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.override.ExternalizerSSC;
 import com.silversea.aem.services.GlobalCacheService;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
@@ -19,9 +18,9 @@ import java.util.Locale;
 import java.util.Map;
 
 public class PageHelper extends WCMUsePojo {
-    
+
     final static private Logger LOGGER = LoggerFactory.getLogger(PageHelper.class);
-    
+
     private Page page;
     private String thumbnail;
     private String thumbnailInherited;
@@ -62,37 +61,38 @@ public class PageHelper extends WCMUsePojo {
 
     private void fillLanguagePages() {
         languagePages = new LinkedHashMap<>();
+        Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
         String[] langList = {"/en/", "/es/", "/pt-br/", "/de/", "/fr/"};
         String currentPath = getCurrentPage().getPath();
-        String currentLng = currentLang(langList, currentPath);
-        otherLang(langList, currentPath, currentLng);
+        String currentLng = currentLang(externalizer, langList, currentPath);
+        otherLang(externalizer, langList, currentPath, currentLng);
         if (currentLng.equals("")) {
             String[] langListHome = {"/en", "/es", "/pt-br", "/de", "/fr"};
-            currentLng = currentLang(langListHome, currentPath);
-            otherLang(langListHome, currentPath, currentLng);
+            currentLng = currentLang(externalizer, langListHome, currentPath);
+            otherLang(externalizer, langListHome, currentPath, currentLng);
         }
     }
 
-    private void otherLang(String[] langList, String currentPath, String currentLang) {
+    private void otherLang(Externalizer externalizer, String[] langList, String currentPath, String currentLang) {
         for (String lang : langList) {
             if (!currentPath.contains(lang)) {
                 String newPath = currentPath.replace(currentLang, lang);
                 Page page = getPageManager().getPage(newPath);
                 if (page != null) {
-                    Locale locale = page.getLanguage(false);
-                    languagePages.put(locale.toLanguageTag(), ExternalizerSSC.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
+                    Locale locale = page.getLanguage(false); 
+                    languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
                 }
             }
         }
     }
 
-    private String currentLang( String[] langList, String currentPath) {
+    private String currentLang(Externalizer externalizer, String[] langList, String currentPath) {
         for (String lang : langList) {
             if (currentPath.contains(lang)) {
                 Page page = getPageManager().getPage(currentPath);
                 if (page != null) {
                     Locale locale = page.getLanguage(false);
-                    languagePages.put(locale.toLanguageTag(), ExternalizerSSC.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
+                    languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
                     return lang;
                 }
             }
