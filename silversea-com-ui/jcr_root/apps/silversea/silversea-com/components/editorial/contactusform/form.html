@@ -7,7 +7,7 @@
     <input name="sitecountry" type="hidden" value="${countryHelper.countryCodeIso3}" />
     <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
     <script>
-    var myJson = '${use.subjects  @ context="scriptString"}';
+        window.jsonContact = '${use.subjects  @ context="scriptString"}';
     </script>
 	<div class="form-group form-group-lg has-feedback input--subject">
         <select name="subject" class="form-control chosen chosen-with-search" id="subject" data-placeholder="${'select-subject' @ i18n}*" required data-error="${'required-fields' @ i18n}">
