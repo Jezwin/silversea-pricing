@@ -14,6 +14,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.day.cq.commons.Externalizer;
+import org.apache.felix.scr.annotations.Properties;
+import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
 import org.apache.felix.scr.annotations.sling.SlingFilterScope;
@@ -34,6 +36,9 @@ import sun.rmi.runtime.Log;
         generateService = true,
         order = 101,
         scope = SlingFilterScope.REQUEST)
+@Properties({
+		@Property(name = "sling.filter.pattern", value = ".*(destinations|destinos|reiseziele).*html")
+})
 public class OldVoyagePageRedirectFilter implements Filter {
     private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(OldVoyagePageRedirectFilter.class.getName());
 

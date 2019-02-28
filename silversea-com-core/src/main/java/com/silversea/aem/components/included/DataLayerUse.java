@@ -114,7 +114,7 @@ public class DataLayerUse extends WCMUsePojo {
         userLanguage = locale.getLanguage();
 
         userCountry = GeolocationHelper.getCountryCode(getRequest());
-        if (userCountry == null) {
+        if (userCountry == null) { 
             userCountry = "US";
         }
 
