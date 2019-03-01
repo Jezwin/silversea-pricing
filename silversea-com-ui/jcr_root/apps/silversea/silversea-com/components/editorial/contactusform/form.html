@@ -1,5 +1,5 @@
 <sly data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"/>
-<form class="request-quote-form c-form c-formcookie--redirect c-contactus" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.ContactUsFormUse" novalidate>
+<form class="request-quote-form c-form c-formcookie--redirect c-contactus" action="${properties.thankyoupage @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.ContactUsFormUse" novalidate>
     ${use.prepareDestinationParameters}
     <input name="requestsource" type="hidden" value="CONTACT" />
     <input name="requesttype" type="hidden" value="" />
