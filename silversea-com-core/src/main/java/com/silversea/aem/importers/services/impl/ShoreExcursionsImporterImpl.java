@@ -2,7 +2,6 @@ package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.dam.api.s7dam.set.MediaSet;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -18,6 +17,7 @@ import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.ShorexesApi;
+import io.swagger.client.model.CitySimple;
 import io.swagger.client.model.Shorex;
 import io.swagger.client.model.Shorex77;
 import org.apache.commons.lang3.BooleanUtils;
@@ -38,10 +38,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.silversea.aem.constants.WcmConstants.PATH_DAM_SILVERSEA;
 
@@ -453,93 +450,49 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                     LOGGER.debug("Updating excursion: {}", excursionName);
 
                     try {
-                        if (excursionsMapping.containsKey(excursion.getShorexId())) {
-                            // if landPrograms are found, update it
-                            for (Map.Entry<String, Page> excursionsPages : excursionsMapping
-                                    .get(excursion.getShorexId()).entrySet()) {
-                                final Page excursionPage = excursionsPages.getValue();
+                        for (CitySimple city : excursion.getCities()) {
+                            Integer cityId = city.getCityId();
+                            if (excursionsMapping.containsKey(excursion.getShorexId())) {
+                                // if landPrograms are found, update it
+                                for (Map.Entry<String, Page> excursionsPages : excursionsMapping
+                                        .get(excursion.getShorexId()).entrySet()) {
+                                    final Page excursionPage = excursionsPages.getValue();
 
-                                LOGGER.trace("Updating excursion {}", excursionName);
+                                    LOGGER.trace("Updating excursion {}", excursionName);
 
-                                if (excursionPage == null) {
-                                    throw new ImporterException("Cannot set excursion page " + excursionName);
-                                }
-
-                                // depending of the city status, mark the page to be activated or deactivated
-                                    if (BooleanUtils.isTrue(excursion.getIsDeleted())) {
-                                    final Node excursionContentNode = excursionPage.getContentResource()
-                                            .adaptTo(Node.class);
-
-                                    if (excursionContentNode == null) {
-                                        throw new ImporterException(
-                                                "Cannot set properties for excursion " + excursionName);
+                                    if (excursionPage == null) {
+                                        throw new ImporterException("Cannot set excursion page " + excursionName);
                                     }
-                                    excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
 
-                                    LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
-                                } else {
-                                    final Node excursionContentNode = updateExcursionContentNode(excursion,
-                                            excursionPage, featuresMapping, resourceResolver, session);
-                                    excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                    // depending of the city status, mark the page to be activated or deactivated
+                                    if (BooleanUtils.isTrue(excursion.getIsDeleted())) {
+                                        final Node excursionContentNode = excursionPage.getContentResource()
+                                                .adaptTo(Node.class);
 
-                                    LOGGER.trace("Excursion {} is marked to be activated", excursionName);
+                                        if (excursionContentNode == null) {
+                                            throw new ImporterException(
+                                                    "Cannot set properties for excursion " + excursionName);
+                                        }
+                                        excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+
+                                        LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
+                                    } else {
+                                        if(excursionPage.getParent().getParent().getProperties().get("cityId", Integer.class).equals(cityId)) {
+                                            final Node excursionContentNode = updateExcursionContentNode(excursion,
+                                                    excursionPage, featuresMapping, resourceResolver, session, cityId);
+                                            excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                        }else{ //may need to create an excursions if not exisitng -- if already exist no need to update as it will be update ion a future loop
+                                            CreateExcursionUnderPort(resourceResolver, pageManager, session, portsMapping, featuresMapping, excursion, excursionName, cityId);
+                                        }
+
+
+                                        LOGGER.trace("Excursion {} is marked to be activated", excursionName);
+                                    }
                                 }
-                            }
-                        } else {
-                            // Getting cities with the city id read from the excursion
-                            Integer cityId = excursion.getCities().size() > 0 ? excursion.getCities().get(0).getCityId()
-                                    : null;
+                            } else {
+                                // Getting cities with the city id read from the excursion
 
-                            if (cityId == null) {
-                                throw new ImporterException("Land program have no city");
-                            }
-
-                            if (!portsMapping.containsKey(cityId)) {
-                                throw new ImporterException("Cannot find city with id " + cityId);
-                            }
-
-                            for (Map.Entry<String, Page> portsPage : portsMapping.get(cityId).entrySet()) {
-                                // Getting port page
-                                Page portPage = portsPage.getValue().adaptTo(Page.class);
-
-                                if (portPage == null) {
-                                    throw new ImporterException("Error getting port page " + cityId);
-                                }
-
-                                LOGGER.trace("Found port {} with id {}", portPage.getTitle(), cityId);
-
-                                // Creating subpage "excursion" if not present
-                                Page excursionsPage;
-                                if (portPage.hasChild(WcmConstants.NN_EXCURSIONS)) {
-                                    excursionsPage = pageManager
-                                            .getPage(portPage.getPath() + "/" + WcmConstants.NN_EXCURSIONS);
-                                } else {
-                                    excursionsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_EXCURSIONS,
-                                            WcmConstants.PAGE_TEMPLATE_PAGE, "Excursions", false);
-
-                                    LOGGER.trace("{} page is not existing, creating it", excursionsPage.getPath());
-                                }
-
-                                // Creating excursion page
-                                final Page excursionPage = pageManager.create(excursionsPage.getPath(),
-                                        JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                                StringsUtils.getFormatWithoutSpecialCharacters(excursionName)),
-                                        WcmConstants.PAGE_TEMPLATE_EXCURSION,
-                                        StringsUtils.getFormatWithoutSpecialCharacters(excursionName), false);
-
-                                LOGGER.trace("Creating excursion {} in city {}", excursionName, portPage.getPath());
-
-                                // If excursion is created, set the properties
-                                if (excursionPage == null) {
-                                    throw new ImporterException(
-                                            "Cannot create excursion page for excursion " + excursionName);
-                                }
-
-                                final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage,
-                                        featuresMapping, resourceResolver, session);
-                                excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
-
-                                LOGGER.trace("Excursion {} successfully created", excursionPage.getPath());
+                                CreateExcursionUnderPort(resourceResolver, pageManager, session, portsMapping, featuresMapping, excursion, excursionName, cityId);
                             }
                         }
 
@@ -592,8 +545,75 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
         return new ImportResult(successNumber, errorNumber);
     }
 
+    private void CreateExcursionUnderPort(ResourceResolver resourceResolver, PageManager pageManager, Session session, Map<Integer, Map<String, Page>> portsMapping,
+                                          Map<Integer, String> featuresMapping, Shorex77 excursion, String excursionName, Integer cityId)
+            throws ImporterException, WCMException, RepositoryException, PersistenceException {
+        if (cityId == null) {
+            throw new ImporterException("Land program have no city");
+        }
+
+        if (!portsMapping.containsKey(cityId)) {
+            throw new ImporterException("Cannot find city with id " + cityId);
+        }
+
+        for (Map.Entry<String, Page> portsPage : portsMapping.get(cityId).entrySet()) {
+            // Getting port page
+            Page portPage = portsPage.getValue().adaptTo(Page.class);
+
+            if (portPage == null) {
+                throw new ImporterException("Error getting port page " + cityId);
+            }
+
+            LOGGER.trace("Found port {} with id {}", portPage.getTitle(), cityId);
+
+            // Creating subpage "excursion" if not present
+            Page excursionsPage;
+            if (portPage.hasChild(WcmConstants.NN_EXCURSIONS)) {
+                excursionsPage = pageManager
+                        .getPage(portPage.getPath() + "/" + WcmConstants.NN_EXCURSIONS);
+            } else {
+                excursionsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_EXCURSIONS,
+                        WcmConstants.PAGE_TEMPLATE_PAGE, "Excursions", false);
+
+                LOGGER.trace("{} page is not existing, creating it", excursionsPage.getPath());
+            }
+
+            // Creating excursion page if not existing
+            Page excursionPage = pageManager.getPage(excursionsPage.getPath() + "/" + StringsUtils.getFormatWithoutSpecialCharacters(excursionName));
+            if(excursionPage != null && excursionPage.getProperties().get("shorexId", Integer.class) != null && !excursionPage.getProperties().get("shorexId", Integer.class).equals(excursion.getShorexId())){
+                excursionPage = null;
+                Iterator<Page> itPage = excursionsPage.listChildren(page -> page.getProperties().get("shorexId", Integer.class).equals(excursion.getShorexId()),false);
+                while(itPage.hasNext()) {
+                    Page p = itPage.next();
+                    excursionPage = p;
+                }
+            }
+            if(excursionPage == null) {
+                excursionPage = pageManager.create(excursionsPage.getPath(),
+                        JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
+                                StringsUtils.getFormatWithoutSpecialCharacters(excursionName)),
+                        WcmConstants.PAGE_TEMPLATE_EXCURSION,
+                        StringsUtils.getFormatWithoutSpecialCharacters(excursionName), true);
+            }
+
+            LOGGER.trace("Creating excursion {} in city {}", excursionName, portPage.getPath());
+
+            // If excursion is created, set the properties
+            if (excursionPage == null) {
+                throw new ImporterException(
+                        "Cannot create excursion page for excursion " + excursionName);
+            }
+
+            final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage,
+                    featuresMapping, resourceResolver, session, cityId);
+            excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+            LOGGER.trace("Excursion {} successfully created", excursionPage.getPath());
+        }
+    }
+
     private String assetPath(Shorex77 shorex77) {
-        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + shorex77.getShorexCod().trim().charAt(0) + "/" + shorex77.getShorexCod().trim()+ "/" ;
+        return PATH_DAM_SILVERSEA + "/api-provided/other-resources/shorex/" + shorex77.getShorexCod().trim().charAt(0) + "/" + shorex77.getShorexCod().trim() + "/";
     }
 
     @Override
@@ -610,7 +630,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
      * @throws ImporterException if the excursion page cannot be updated
      */
     private Node updateExcursionContentNode(final Shorex77 excursion, final Page excursionPage,
-                                            Map<Integer, String> featuresMapping, ResourceResolver resourceResolver, Session session)
+                                            Map<Integer, String> featuresMapping, ResourceResolver resourceResolver, Session session, Integer cityId)
             throws ImporterException, PersistenceException {
         final Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
 
@@ -625,6 +645,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             excursionContentNode.setProperty("apiLongDescription", excursion.getDescription());
             excursionContentNode.setProperty("pois", excursion.getPointsOfInterests());
             excursionContentNode.setProperty("shorexId", excursion.getShorexId());
+            excursionContentNode.setProperty("cityId", cityId);
             excursionContentNode.setProperty("note", excursion.getNote());
 
             excursionContentNode.setProperty("okForDebarks", excursion.isOkForDebarks());
@@ -641,7 +662,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             String image4Dam = ImportersUtils
                     .upsertAsset(session, resourceResolver, mimeService, excursion.getImageUrl4(), destinationPath);
 
-            if(!imageDam.equals("") || !image2Dam.equals("")  || !image3Dam.equals("") || !image4Dam.equals("")) {
+            if (!imageDam.equals("") || !image2Dam.equals("") || !image3Dam.equals("") || !image4Dam.equals("")) {
                 excursionContentNode.setProperty("assetSelectionReference_api",
                         BaseImporter.createMediaSet(resourceResolver,
                                 resourceResolver

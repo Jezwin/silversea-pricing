@@ -292,6 +292,36 @@ public class ImportersUtils {
         return itemsMapping;
     }
 
+    public static Map<String, Map<String, String>> getItemsMapping(final ResourceResolver resourceResolver,
+                                                                    final String query, final String propertyId, final String propertyId2) {
+        final Iterator<Resource> itemsForMapping = resourceResolver.findResources(query, "xpath");
+
+        final Map<String, Map<String, String>> itemsMapping = new HashMap<>();
+
+        while (itemsForMapping.hasNext()) {
+            final Resource item = itemsForMapping.next();
+
+            final Page itemPage = item.getParent().adaptTo(Page.class);
+            final String language = LanguageHelper.getLanguage(itemPage);
+
+            final Integer itemId = item.getValueMap().get(propertyId , Integer.class);
+            final Integer itemId2 = item.getValueMap().get(propertyId2, Integer.class);
+
+            if (itemId != null && itemId2 != null) {
+                if (itemsMapping.containsKey(itemId + "-" + itemId2)) {
+                    itemsMapping.get(itemId + "-" + itemId2).put(language, itemPage.getPath());
+                } else {
+                    final HashMap<String, String> itemsPaths = new HashMap<>();
+                    itemsPaths.put(language, itemPage.getPath());
+                    itemsMapping.put(itemId + "-" + itemId2, itemsPaths);
+                }
+
+                LOGGER.trace("Adding item {} ({}) with lang {} to cache", item.getPath(), itemId, language);
+            }
+        }
+
+        return itemsMapping;
+    }
     /**
      * Build a Map with : <ul> <li>id of the element</li> <li>lang</li> <li>page</li> </ul>
      *
