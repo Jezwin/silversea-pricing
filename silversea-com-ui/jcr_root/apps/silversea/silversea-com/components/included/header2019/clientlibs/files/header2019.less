@@ -17,12 +17,12 @@
   @media (min-width: @screen-lg-min) {
     .header-2019-wrapper {
 
-      &.header-2019-wrapper-sticked  {
+      &.header-2019-wrapper-sticked {
         //box-shadow: 0 4px 2px -2px grey;
         box-shadow: rgba(0, 0, 0, 0.8) 0 15px 17px -13px;
       }
 
-      &.header-2019-wrapper-nosticked  {
+      &.header-2019-wrapper-nosticked {
         box-shadow: none !important;;
       }
 
@@ -177,7 +177,7 @@
         .header-2019-first-level {
           text-transform: uppercase;
           line-height: 16px;
-          letter-spacing: 1.5px;
+          letter-spacing: 1px;
           font-size: 12px;
           color: @grey--3;
           cursor: pointer;
@@ -367,7 +367,7 @@
           }
 
           .header-2019-search {
-            z-index: 1000000;
+            z-index: 0;
             background-color: transparent;
             position: absolute;
             top: -5px;
@@ -461,7 +461,7 @@
         .header-2019-beforebar {
           min-width: 80%;
           width: 80%;
-          right: 20%;
+          right: 21.5%;
           margin: 0;
           position: absolute;
           display: inline-block;
@@ -469,13 +469,14 @@
 
           &.header-2019-beforebar-first {
             text-align: right;
-            margin-right: 35px;
+            margin-right: 27px;
           }
 
           &.header-2019-beforebar-snd {
             padding-right: 0;
             width: 80%;
             height: 100%;
+            text-align: center;
           }
         }
 
@@ -512,4 +513,57 @@
     }
   }
 
+}
+
+@media (min-width: @screen-lg-min) {
+
+  .es, .pt-BR, .fr {
+    .header2019 {
+      .header-2019-first-level {
+        letter-spacing: 0px !important;
+      }
+
+      .header-2019-phone .header-2019-phone-sub {
+        letter-spacing: 0px !important;
+      }
+
+      .header-2019-afterbar:first-of-type:before {
+        left: -6px !important;
+      }
+
+      .header-2019-afterbar {
+        letter-spacing: 0 !important;;
+        padding-left: 6px !important;
+      }
+    }
+  }
+
+  .es {
+    .header2019 {
+      .header-2019-afterbar {
+        padding-left: 2px !important;
+      }
+    }
+  }
+
+  .fr {
+    .header2019 {
+      .header-2019-first-level {
+        font-size: 11px !important;
+      }
+
+      .header-2019-afterbar:first-of-type:before {
+        left: 2px !important;
+      }
+
+      .header-2019-afterbar {
+        font-size: 11px !important;
+        text-align: left;
+
+        a {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
 }
