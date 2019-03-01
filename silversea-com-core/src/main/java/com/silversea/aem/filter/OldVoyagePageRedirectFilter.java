@@ -62,19 +62,22 @@ public class OldVoyagePageRedirectFilter implements Filter {
                 final Resource resource = slingRequest.getResource();
                 if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
                     Resource parentResourceTry = resource.getResourceResolver().resolve(resource.getParent().getPath());
-                    if (parentResourceTry != null && parentResourceTry.getPath() != null) {
-                        Node parentNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content").adaptTo(Node.class);
-                        try {
-                            if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
-                                    parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
-                                slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
-                                Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
-                                slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
-                                        + WcmConstants.HTML_SUFFIX);
-                                return;
+                    if (parentResourceTry != null) {
+                        Resource resourceNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content");
+                        if (resourceNode != null) {
+                            Node parentNode = resourceNode.adaptTo(Node.class);
+                            try {
+                                if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
+                                        parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
+                                    slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
+                                    Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
+                                    slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
+                                            + WcmConstants.HTML_SUFFIX);
+                                    return;
+                                }
+                            } catch (IllegalStateException | RepositoryException e) {
+                                Logger.debug("Exception while fetching node property value" + e.getMessage());
                             }
-                        } catch (IllegalStateException | RepositoryException e) {
-                            Logger.debug("Exception while fetching node property value" + e.getMessage());
                         }
                     }
                 }
