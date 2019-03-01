@@ -37,7 +37,7 @@ import sun.rmi.runtime.Log;
         order = 101,
         scope = SlingFilterScope.REQUEST)
 @Properties({
-		@Property(name = "sling.filter.pattern", value = ".*(destinations|destinos|reiseziele).*html")
+        @Property(name = "sling.filter.pattern", value = ".*(destinations|destinos|reiseziele).*html")
 })
 public class OldVoyagePageRedirectFilter implements Filter {
     private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(OldVoyagePageRedirectFilter.class.getName());
@@ -62,7 +62,7 @@ public class OldVoyagePageRedirectFilter implements Filter {
                 final Resource resource = slingRequest.getResource();
                 if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
                     Resource parentResourceTry = resource.getResourceResolver().resolve(resource.getParent().getPath());
-                    if (parentResourceTry != null) {
+                    if (parentResourceTry != null && parentResourceTry.getPath() != null) {
                         Node parentNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content").adaptTo(Node.class);
                         try {
                             if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
