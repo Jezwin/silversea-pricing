@@ -18,9 +18,9 @@ import java.util.Locale;
 import java.util.Map;
 
 public class PageHelper extends WCMUsePojo {
-    
+
     final static private Logger LOGGER = LoggerFactory.getLogger(PageHelper.class);
-    
+
     private Page page;
     private String thumbnail;
     private String thumbnailInherited;
@@ -79,7 +79,7 @@ public class PageHelper extends WCMUsePojo {
                 String newPath = currentPath.replace(currentLang, lang);
                 Page page = getPageManager().getPage(newPath);
                 if (page != null) {
-                    Locale locale = page.getLanguage(false);
+                    Locale locale = page.getLanguage(false); 
                     languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
                 }
             }

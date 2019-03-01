@@ -40,9 +40,7 @@ import com.day.cq.wcm.api.PageManager;
         order = 100,
         scope = SlingFilterScope.REQUEST)
 @Properties({
-		@Property(name = "sling.filter.pattern", value = ".*html")//,
-	//	@Property(name = "sling.filter.extensions", value = {"pdf"}), version too old - not supported by slign engine
-		//@Property(name = "sling.filter.resourceTypes", value = "silversea/silversea-com/components/pages/page") version too old - not supported by slign engine
+		@Property(name = "sling.filter.pattern", value = ".*html")
 })
 public class AliasNameCheckFilter implements Filter {
 

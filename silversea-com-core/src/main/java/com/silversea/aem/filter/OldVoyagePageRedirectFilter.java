@@ -14,6 +14,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.day.cq.commons.Externalizer;
+import org.apache.felix.scr.annotations.Properties;
+import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
 import org.apache.felix.scr.annotations.sling.SlingFilterScope;
@@ -34,6 +36,9 @@ import sun.rmi.runtime.Log;
         generateService = true,
         order = 101,
         scope = SlingFilterScope.REQUEST)
+@Properties({
+        @Property(name = "sling.filter.pattern", value = ".*(destinations|destinos|reiseziele).*html")
+})
 public class OldVoyagePageRedirectFilter implements Filter {
     private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(OldVoyagePageRedirectFilter.class.getName());
 
@@ -58,18 +63,21 @@ public class OldVoyagePageRedirectFilter implements Filter {
                 if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
                     Resource parentResourceTry = resource.getResourceResolver().resolve(resource.getParent().getPath());
                     if (parentResourceTry != null) {
-                        Node parentNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content").adaptTo(Node.class);
-                        try {
-                            if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
-                                    parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
-                                slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
-                                Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
-                                slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
-                                        + WcmConstants.HTML_SUFFIX);
-                                return;
+                        Resource resourceNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content");
+                        if (resourceNode != null) {
+                            Node parentNode = resourceNode.adaptTo(Node.class);
+                            try {
+                                if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
+                                        parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
+                                    slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
+                                    Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
+                                    slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
+                                            + WcmConstants.HTML_SUFFIX);
+                                    return;
+                                }
+                            } catch (IllegalStateException | RepositoryException e) {
+                                Logger.debug("Exception while fetching node property value" + e.getMessage());
                             }
-                        } catch (IllegalStateException | RepositoryException e) {
-                            Logger.debug("Exception while fetching node property value" + e.getMessage());
                         }
                     }
                 }
