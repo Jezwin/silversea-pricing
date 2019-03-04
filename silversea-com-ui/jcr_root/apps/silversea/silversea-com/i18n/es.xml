@@ -569,7 +569,7 @@
     <find-your-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="encuentro su crucero"/>
+            sling:message="encuentre su crucero"/>
     <first
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
