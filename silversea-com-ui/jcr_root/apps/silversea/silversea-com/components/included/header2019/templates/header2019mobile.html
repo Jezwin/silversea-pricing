@@ -40,13 +40,13 @@
                     <a class="col-xs-6" href="${use.mySilverseaPath.link @ extension='html'}">
                         <span class="header-2019-mysilversea">MySilversea</span></a>
                     <a class="col-xs-6 header-2019-lang">
-                        <div>${'en' @ i18n}</div>
+                        <div>${use.homePage.navigationTitle || use.homePage.title}</div>
                         <div class="header-2019-arrow"><i class="material-icons">keyboard_arrow_down</i></div>
                     </a>
                     <div class="header-2019-lang-list">
                         <div class="header-2019-single-lang header-2019-single-lang-en">
                             <div class="header-2019-lang-en">
-                                <span>${'en' @ i18n}</span>
+                                <span>${use.homePage.navigationTitle || use.homePage.title}</span>
                                 <span class="header-2019-arrow"><i
                                         class="material-icons">keyboard_arrow_up</i></span>
                             </div>
