@@ -177,7 +177,11 @@ public class Header2019Use extends AbstractSilverUse {
     }
 
     private Page appendCurrentPath(Page currentPage, Page page) {
-        return getPageManager().getPage(page.getPath() + currentPage.getPath().split(homePage.getPath())[1]);
+        String[] splitPage = currentPage.getPath().split(homePage.getPath());
+        if (splitPage.length > 0) {
+            return getPageManager().getPage(page.getPath() + splitPage[1]);
+        }
+        return currentPage;
     }
 
     private List<ExternalLink> retrieveHomeLanguages(Externalizer externalizer, SlingHttpServletRequest request, Page currentPage, Page homePage) {
