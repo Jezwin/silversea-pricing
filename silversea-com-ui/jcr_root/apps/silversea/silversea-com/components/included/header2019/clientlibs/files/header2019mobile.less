@@ -22,7 +22,7 @@
 
 @media (max-width: 991px) and (min-width: 768px) {
   .container {
-    max-width: 980px;
+    max-width: 100vw !important;
   }
 
   div.header-2019-mobile {
@@ -36,9 +36,7 @@
     }
 
     .header2019-nav-burger {
-      position: absolute;
-      right: 0;
-      transform: translateX(-165%);
+      max-width: 100%;
     }
 
     .header2019-raq-bar {
@@ -154,7 +152,7 @@
       bottom: -300px;
       transition: bottom 0.4s;
       position: absolute;
-      width: 50%;
+      width: 51%;
       right: 0px;
     }
 
@@ -196,7 +194,7 @@
       .header-2019-arrow {
         left: 50% !important;
         transform: translate(-50%, -50%);
-        margin-left: 18px;
+        margin-left: 20px;
       }
 
     }
@@ -209,7 +207,7 @@
 
       span {
         position: absolute;
-        top: 50%;
+        top: 51%;
         left: 50%;
         transform: translate(-50%, -50%);
       }
@@ -219,8 +217,7 @@
       display: block !important;
       width: 100%;
       padding-right: 15px;
-      border: 1px solid black;
-      height: 55px;
+      height: 56px;
       display: table-cell;
       vertical-align: middle;
       color: #333;
@@ -230,7 +227,9 @@
       line-height: 15px;
       text-transform: uppercase;
       text-align: center;
-      border: @header2019-border-entry;
+      border-top: @header2019-border-entry;
+      border-left: @header2019-border-entry;
+
     }
 
     .header2019-phone-number {

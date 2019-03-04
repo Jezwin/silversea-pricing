@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -55,8 +57,8 @@ public class Header2019Use extends AbstractSilverUse {
         globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
         secondRow = retrieveSecondRow(externalizer, inheritedProps);
         homePage = getCurrentPage().getAbsoluteParent(2);
-        languages = globalCacheService.getCache(homePage.getPath(), new TypeReference<List<ExternalLink>>() {
-        }, () -> retrieveHomeLanguages(externalizer, homePage));
+        languages = globalCacheService.getCache(getCurrentPage().getPath(), new TypeReference<List<ExternalLink>>() {
+        }, () -> retrieveHomeLanguages(externalizer, getRequest(), getCurrentPage(), homePage));
         topLinks = findParentWithResourceChild(TOP_LINKS)
                 .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, TOP_LINKS))
                 .orElseGet(Collections::emptyList);
@@ -174,14 +176,18 @@ public class Header2019Use extends AbstractSilverUse {
         return homePage;
     }
 
-    private List<ExternalLink> retrieveHomeLanguages(Externalizer externalizer, Page homePage) {
-        Iterable<Page> pages = () -> homePage.getParent().listChildren(new PageFilter());
-        return StreamSupport
-                .stream(pages.spliterator(), false)
-                .filter(page -> !page.getPath().equals(homePage.getPath()))
-                .map(page -> new MenuEntry(page, page.getNavigationTitle()))
-                .map(entry -> entry.toExternalLink(externalizer, getRequest()))
-                .collect(toList());
+    private Page appendCurrentPath(Page currentPage, Page page) {
+        return getPageManager().getPage(page.getPath() + currentPage.getPath().split(homePage.getPath())[1]);
+    }
+
+    private List<ExternalLink> retrieveHomeLanguages(Externalizer externalizer, SlingHttpServletRequest request, Page currentPage, Page homePage) {
+        Iterable<Page> list = () -> homePage.getParent().listChildren();
+        return StreamSupport.stream(list.spliterator(), false)
+                .filter(page -> !page.getPath().contains(homePage.getPath()))
+                .map(page -> new MenuEntry(appendCurrentPath(currentPage, page), page.getNavigationTitle()))
+                .map(menuEntry -> menuEntry.toExternalLink(externalizer, request))
+                .collect(Collectors.toList());
+
     }
 
     public Page getSearch() {
