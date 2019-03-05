@@ -16,7 +16,7 @@
 
   @media (min-width: @screen-lg-min) {
     .header-2019-wrapper {
-
+      box-shadow: 0 0 5px 0 rgba(0,0,0,0.15);
       &.header-2019-wrapper-sticked {
         //box-shadow: 0 4px 2px -2px grey;
         box-shadow: rgba(0, 0, 0, 0.8) 0 15px 17px -13px;
@@ -251,6 +251,13 @@
           letter-spacing: 0.92px;
           height: 14px;
 
+          a {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
+
         }
 
         .header-2019-top-link:not(:first-child) {
@@ -322,7 +329,7 @@
 
             &.fa-angle-down {
               transition: all @lang-delay;
-              top: 3px;
+              top: 4px;
             }
           }
 
@@ -568,6 +575,9 @@
         a {
           margin-left: 8px;
         }
+      }
+      .header-2019-search-button-text {
+      font-size: 7px;
       }
     }
   }

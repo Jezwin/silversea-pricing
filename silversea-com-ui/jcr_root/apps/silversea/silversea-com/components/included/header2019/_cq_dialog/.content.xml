@@ -229,7 +229,6 @@
                                                                                                     rootPath="/content/silversea-com/"
                                                                                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                                                                     fieldDescription="Page"
-                                                                                                    required="{Boolean}true"
                                                                                                     fieldLabel="Page"
                                                                                                     name="./page"/>
                                                                                             <label
