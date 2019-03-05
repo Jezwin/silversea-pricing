@@ -298,6 +298,10 @@ public class DataLayerUse extends WCMUsePojo {
             }
         }
 
+        if (getPageProperties().get("trackDestinationName") != null) {
+            destinationName = getPageProperties().get("trackDestinationName", String.class);
+        }
+
         String adwordsConversionLabel = "";
         String adwordsValue = "1.00";
         String adwordsFormat = "";
