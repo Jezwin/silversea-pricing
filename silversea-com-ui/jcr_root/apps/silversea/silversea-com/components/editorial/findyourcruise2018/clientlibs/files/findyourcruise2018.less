@@ -1,10 +1,5 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
-.find-your-cruise-component {
-  .findyourcruise2018 {
-    display: none;
-  }
-}
 
 #voyages .findyourcruise2018 .findyourcruise2018-header {
   background-color: @white;
@@ -14,8 +9,17 @@
     color: @grey--2b;
   }
 
-  .findyourcruise2018 .fyc2018-header-sorting span {
-    color: @grey--2b;
+  .fyc2018-header-sorting span {
+    color: @grey--2b !important;
+  }
+  .fyc2018-sorting-dropdown span {
+    color: #fff !important;
+  }
+
+  .fyc2018-sorting-filed-span:hover {
+    span {
+      color: #263133 !important;
+    }
   }
 }
 
