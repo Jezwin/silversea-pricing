@@ -167,7 +167,7 @@ public class CruiseItinerary {
     }
 
     private static boolean isSpecial(ExcursionModel excursion) {
-        return "Special Excursion".equals(excursion.getShorexCategory());
+        return "Special Excursion".equals(excursion.getShorexCategory()) || "Tour".equalsIgnoreCase(excursion.getShorexCategory());
     }
 
 
