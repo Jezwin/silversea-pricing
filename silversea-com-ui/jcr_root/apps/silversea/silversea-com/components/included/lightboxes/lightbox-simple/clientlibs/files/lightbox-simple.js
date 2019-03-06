@@ -44,7 +44,6 @@ $(function () {
             }
             var $customParent = $parent.closest("[data-slb-parent]");
             if ($customParent.length > 0) {
-                console.log("found custom and using it");
                 $parent = $customParent;
             }
 
