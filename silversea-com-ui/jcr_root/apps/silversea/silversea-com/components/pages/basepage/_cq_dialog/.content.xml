@@ -522,6 +522,13 @@
                                         fieldLabel="DTM Event Value"
                                         name="./pageEvent"
                                         renderReadOnly="{Boolean}true"/>
+                                    <trackDestinationName
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            cq-msm-lockable="trackDestinationName"
+                                            fieldLabel="Track Destination Name"
+                                            name="./trackDestinationName"
+                                            renderReadOnly="{Boolean}true"/>
                                     <appId
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/textfield"
