@@ -4,21 +4,20 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageFilter;
 import com.silversea.aem.components.editorial.AbstractSilverUse;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.GlobalCacheService;
 import com.silversea.aem.services.TypeReference;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -30,6 +29,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.concat;
 
 public class Header2019Use extends AbstractSilverUse {
+    final static private Logger LOGGER = LoggerFactory.getLogger(Header2019Use.class);
 
     private static final int MAX_NUM_OF_SND_ROW = 7;
     private GlobalCacheService globalCacheService;
@@ -52,26 +52,30 @@ public class Header2019Use extends AbstractSilverUse {
 
     @Override
     public void activate() throws Exception {
-        Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
-        HierarchyNodeInheritanceValueMap inheritedProps = new HierarchyNodeInheritanceValueMap(getResource());
-        globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
-        secondRow = retrieveSecondRow(externalizer, inheritedProps);
-        homePage = getCurrentPage().getAbsoluteParent(2);
-        languages = globalCacheService.getCache(getCurrentPage().getPath(), new TypeReference<List<ExternalLink>>() {
-        }, () -> retrieveHomeLanguages(externalizer, getRequest(), getCurrentPage(), homePage));
-        topLinks = findParentWithResourceChild(TOP_LINKS)
-                .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, TOP_LINKS))
-                .orElseGet(Collections::emptyList);
-        mobileLinks = findParentWithResourceChild(MOBILE_LINKS)
-                .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, MOBILE_LINKS))
-                .orElseGet(Collections::emptyList);
-        getInheritedProp(inheritedProps, "logoPath")
-                .ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
-        requestAQuotePath = getInheritedProp(inheritedProps, "requestaquote").map(getPageManager()::getPage).map(MenuEntry::new)
-                .map(entry -> entry.toExternalLink(externalizer, getRequest())).orElse(null);
-        mySilverseaPath = getInheritedProp(inheritedProps, "mySilverseaPath").map(getPageManager()::getPage).map(MenuEntry::new)
-                .map(entry -> entry.toExternalLink(externalizer, getRequest())).orElse(null);
-        search = getInheritedProp(inheritedProps, "searchpath").map(getPageManager()::getPage).orElse(null);
+        try {
+            Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+            HierarchyNodeInheritanceValueMap inheritedProps = new HierarchyNodeInheritanceValueMap(getResource());
+            globalCacheService = getSlingScriptHelper().getService(GlobalCacheService.class);
+            secondRow = retrieveSecondRow(externalizer, inheritedProps);
+            homePage = getCurrentPage().getAbsoluteParent(2);
+            languages = globalCacheService.getCache(getCurrentPage().getPath(), new TypeReference<List<ExternalLink>>() {
+            }, () -> retrieveHomeLanguages(externalizer, getRequest(), getCurrentPage(), homePage));
+            topLinks = findParentWithResourceChild(TOP_LINKS)
+                    .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, TOP_LINKS))
+                    .orElseGet(Collections::emptyList);
+            mobileLinks = findParentWithResourceChild(MOBILE_LINKS)
+                    .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, MOBILE_LINKS))
+                    .orElseGet(Collections::emptyList);
+            getInheritedProp(inheritedProps, "logoPath")
+                    .ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
+            requestAQuotePath = getInheritedProp(inheritedProps, "requestaquote").map(getPageManager()::getPage).map(MenuEntry::new)
+                    .map(entry -> entry.toExternalLink(externalizer, getRequest())).orElse(null);
+            mySilverseaPath = getInheritedProp(inheritedProps, "mySilverseaPath").map(getPageManager()::getPage).map(MenuEntry::new)
+                    .map(entry -> entry.toExternalLink(externalizer, getRequest())).orElse(null);
+            search = getInheritedProp(inheritedProps, "searchpath").map(getPageManager()::getPage).orElse(null);
+        }catch (Exception e) {
+            LOGGER.error("Header2019 error", e);
+        }
 
     }
 
