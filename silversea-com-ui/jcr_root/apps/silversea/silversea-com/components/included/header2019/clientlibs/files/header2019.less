@@ -150,10 +150,11 @@
           .header-2019-lang {
             background: @grey--f4;
             animation: an-clicked @lang-delay forwards;
+            opacity: 1;
+
             @keyframes an-clicked {
               to {
                 visibility: visible;
-                opacity: 1;
               }
             }
           }
@@ -413,7 +414,7 @@
               border: none;
               box-shadow: none;
               text-transform: uppercase;
-              font-size: 11px;
+              font-size: 10px;
               line-height: 20px;
               background-color: @color-dark-bg;
               letter-spacing: 1px;

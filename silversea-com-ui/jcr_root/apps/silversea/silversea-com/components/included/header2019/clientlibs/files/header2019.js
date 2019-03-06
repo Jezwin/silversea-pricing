@@ -5,6 +5,7 @@ $(function () {
     function openMenuMobile(e) {
         e.preventDefault();
         e.stopPropagation();
+        $(".header-2019-backdrop").show();
         $(".header2019-open-menu, .header2019-close-menu").toggle();
         $(".header2019-container-list").addClass("header2019-container-list-opened");
         setTimeout(function () {
@@ -18,6 +19,7 @@ $(function () {
     function closeMenuMobile(e) {
         e.preventDefault();
         e.stopPropagation();
+        $(".header-2019-backdrop").hide();
         $(".header2019-open-menu, .header2019-close-menu").toggle();
         $(".header2019-container-list").removeClass("header2019-container-list-opened");
         $("body").removeClass("body-mobile-no-scroll");

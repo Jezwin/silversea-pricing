@@ -38,6 +38,7 @@ public class Header2019Use extends AbstractSilverUse {
     private List<ExternalLink> topLinks;
     private List<HeaderSecondRowMenu> secondRow;
     private List<ExternalLink> mobileLinks;
+    private List<ExternalLink> tabletLinks;
 
     private List<ExternalLink> languages;
     private Page homePage;
@@ -49,6 +50,7 @@ public class Header2019Use extends AbstractSilverUse {
     private final static String TOP_LINKS = "jcr:content/header2019/topLinks";
     private final static String SUB_MENU = "jcr:content/header2019/subMenu";
     private final static String MOBILE_LINKS = "jcr:content/header2019/mobileLinks";
+    private final static String TABLET_LINKS = "jcr:content/header2019/tabletLinks";
 
     @Override
     public void activate() throws Exception {
@@ -65,6 +67,9 @@ public class Header2019Use extends AbstractSilverUse {
                     .orElseGet(Collections::emptyList);
             mobileLinks = findParentWithResourceChild(MOBILE_LINKS)
                     .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, MOBILE_LINKS))
+                    .orElseGet(Collections::emptyList);
+            tabletLinks = findParentWithResourceChild(TABLET_LINKS)
+                    .map(topLinksParent -> retrieveLinks(topLinksParent, externalizer, TABLET_LINKS))
                     .orElseGet(Collections::emptyList);
             getInheritedProp(inheritedProps, "logoPath")
                     .ifPresent(logoPath -> logo = buildSilverseaAsset(logoPath, getResourceResolver(), "header-logo", ""));
@@ -219,4 +224,7 @@ public class Header2019Use extends AbstractSilverUse {
     }
 
 
+    public List<ExternalLink> getTabletLinks() {
+        return tabletLinks;
+    }
 }
