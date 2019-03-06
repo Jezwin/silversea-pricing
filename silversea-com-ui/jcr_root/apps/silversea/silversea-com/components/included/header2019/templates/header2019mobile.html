@@ -3,7 +3,8 @@
         <div class="container header2019-container">
             <div class="row">
                 <div class="col-sm-3 col-xs-5 header2019-logo">
-                    <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link" data-sly-test.defaultImage="${currentDesign.path}/clientlib-base/images/logo.png">
+                    <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link"
+                       data-sly-test.defaultImage="${currentDesign.path}/clientlib-base/images/logo.png">
                         <img class="header2019-logo-img" src="${use.logo.path || defaultImage}"
                              alt="${pageHelper.homePage.title || currentPage.title}"/>
                     </a>
@@ -36,6 +37,18 @@
                         <span>${mobileLink.label}</span>
                     </a>
                 </sly>
+                <div class="header-2019-top-link col-xs-12 header-2019-top-link-search">
+                    <form action="${use.search.path @ extension ='html'}" class="header-2019-search-form">
+                        <div class="header-2019-search-wrapper">
+                            <input class="header-2019-search-input" type="search"
+                                   placeholder="${'type-here-to-search' @ i18n}"
+                                   name="q">
+                            <button class="header-2019-search-button" type="submit">
+                                <i class="fa fa-lg fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
                 <div class="header2019-container-fixed">
                     <a class="col-xs-6" href="${use.mySilverseaPath.link @ extension='html'}">
                         <span class="header-2019-mysilversea">My Silversea</span></a>
