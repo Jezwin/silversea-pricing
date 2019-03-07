@@ -9,7 +9,9 @@ $(function () {
         $(".header2019-open-menu, .header2019-close-menu").toggle();
         $(".header2019-container-list").addClass("header2019-container-list-opened");
         setTimeout(function () {
-            $("body").addClass("body-mobile-no-scroll");
+            if ($(window).width() < 768) {
+                $("body").addClass("body-mobile-no-scroll");
+            }
             $("html").addClass("body-mobile-no-scroll");
         }, 250);
 
@@ -19,12 +21,15 @@ $(function () {
     function closeMenuMobile(e) {
         e.preventDefault();
         e.stopPropagation();
-        $(".header-2019-backdrop").hide();
+
         $(".header2019-open-menu, .header2019-close-menu").toggle();
         $(".header2019-container-list").removeClass("header2019-container-list-opened");
-        $("body").removeClass("body-mobile-no-scroll");
+        if ($(window).width() < 768) {
+            $("body").removeClass("body-mobile-no-scroll");
+        }
         $("html").removeClass("body-mobile-no-scroll");
         closeLanguages(e);
+        $(".header-2019-backdrop").hide();
     };//closeMenuMobile
 
     function openLanguages(e) {
