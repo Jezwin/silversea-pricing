@@ -16,7 +16,7 @@
   border-bottom: @header2019-border-entry;
   display: table-cell;
   vertical-align: middle;
-  height: 52px;
+  height: 50px;
 }
 
 @media (max-width: 991px) and (min-width: 768px) {
@@ -42,6 +42,7 @@
     .header-2019-search-input {
       padding: 5px !important;
     }
+
     .header-2019-backdrop {
       animation: fadeInFromNone .5s forwards;
       background: #000;
@@ -135,13 +136,15 @@
       }
     }
 
-    .header2019-row-list .col-xs-12:hover {
+    .header-2019-top-link-search:hover {
       background-color: @grey--04 !important;
     }
 
     .header-2019-top-link-search {
-      padding-top: 12px !important;
-      background-color: @grey--04 !important;
+      padding-top: 5px !important;
+      height: 48px !important;
+      padding-left: 5px;
+      padding-right: 5px;
 
       .header-2019-search-form:focus {
         outline: none;
@@ -151,8 +154,9 @@
 
       .header-2019-search-input {
         border: 0px;
+        border-radius: 0;
         width: 90%;
-        height: 31px;
+        height: 38px;
         padding: 0px;
         font-size: 12px;
         letter-spacing: 1.0px;
@@ -167,9 +171,10 @@
 
       .header-2019-search-button {
         float: right;
-        height: 31px;
+        height: 38px;
         background-color: white;
         border: 0px;
+        width: 10%;
       }
     }
 
