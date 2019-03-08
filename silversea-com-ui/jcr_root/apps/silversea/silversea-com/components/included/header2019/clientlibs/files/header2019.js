@@ -183,9 +183,12 @@ $(function () {
 
     if (location.href.indexOf("oldMenu") > 0) {
         localStorage.newMenu = false;
-    } else if (location.href.indexOf("newMenu") > 0 || localStorage.newMenu==="true") {
+    } else if (location.href.indexOf("newMenu") > 0 || localStorage.newMenu === "true") {
         localStorage.newMenu = true;
-        $("header>div").toggle();
+        var menus = "header>div";
+        if (menus.length > 1) {
+            $(menus).toggle();
+        }
     }
     var isDesktop = $(window).width() > 991;
     if (isDesktop) {
