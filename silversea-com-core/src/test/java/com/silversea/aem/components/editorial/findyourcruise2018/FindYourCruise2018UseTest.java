@@ -2,7 +2,6 @@ package com.silversea.aem.components.editorial.findyourcruise2018;
 
 
 import com.google.common.base.Strings;
-import com.google.common.util.concurrent.Futures;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -15,22 +14,23 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.DISABLED;
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
-import static java.util.concurrent.CompletableFuture.allOf;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 import static org.junit.Assert.*;
 
 public class FindYourCruise2018UseTest {
@@ -75,7 +75,8 @@ public class FindYourCruise2018UseTest {
         assertConcurrent("Testing multithreads", runners, 30, 4);
     }
 
-    public static void assertConcurrent(final String message, final List<? extends Runnable> runnables, final int maxTimeoutSeconds, int numThreads) throws InterruptedException {
+    public static void assertConcurrent(final String message, final List<? extends Runnable> runnables, final int maxTimeoutSeconds, int numThreads)
+            throws InterruptedException {
         final List<Throwable> exceptions = Collections.synchronizedList(new ArrayList<>());
         final ExecutorService threadPool = Executors.newFixedThreadPool(numThreads);
         try {
@@ -267,10 +268,32 @@ public class FindYourCruise2018UseTest {
     @Test
     public void testCountry() {
         FindYourCruise2018Use use = new UseBuilder().withCountry("CUB", "ESP").build();
-        Predicate<CruiseModelLight> test = cruise -> cruise.getCountries().stream().anyMatch(country -> "CUB".equals(country) || "ESP".equals(country));
+        Predicate<CruiseModelLight> test =
+                cruise -> cruise.getCountries().stream().anyMatch(country -> "CUB".equals(country) || "ESP".equals(country));
         use.init(cruises, "1000");
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
         assertEquals(89, use.getCruises().size());
+    }
+
+
+    @Test
+    public void testPrefilterPeriods() {
+        FindYourCruise2018Use use =
+                new UseBuilder().withPrefilterPeriods("01/01/2019-01/02/2019,01/03/2019-01/04/2019").build();
+        Date firstOfJan = new Date(1546344000000L);//-1s +1s to simplify the test
+        Date firstOfFeb = new Date(1549022400000L);
+        Date firstOfMarch = new Date(1551441600000L);
+        Date firstOfApril = new Date(1554120000000L);
+        Predicate<CruiseModelLight> test =
+                cruise -> {
+                    Calendar startDate = cruise.getStartDate();
+                    return (startDate.getTime().getTime() >= firstOfJan.getTime() && startDate.getTime().getTime() <= firstOfFeb.getTime() ||
+                            (startDate.getTime().getTime() >= (firstOfMarch.getTime()) && startDate.getTime().getTime() < (firstOfApril.getTime())));
+                };
+        use.init(cruises, "1000");
+        assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
+        //assertEquals(45, use.getCruises().size());
+
     }
 
     @Test
@@ -298,7 +321,8 @@ public class FindYourCruise2018UseTest {
         AbstractFilter<PortItem> portFilter = filterBar.getPort();
         assertTrue(portFilter.isSelected());
         assertEquals("Wrong number of ports", 965, portFilter.getRows().size());
-        assertEquals("Wrong number of visible ports in asia and africa", 193, portFilter.getRows().stream().filter(port -> !port.isNotVisible()).count());
+        assertEquals("Wrong number of visible ports in asia and africa", 193,
+                portFilter.getRows().stream().filter(port -> !port.isNotVisible()).count());
         assertTrue(portFilter.getRows().stream().noneMatch(row -> row.getState().equals(DISABLED)));
         //only africa and asia is chosen others are enabled
         assertTrue(destination.getRows().stream()
@@ -336,7 +360,8 @@ public class FindYourCruise2018UseTest {
         cruiseModel.setDeparturePortName(stringOrEmpty.apply("departurePortName"));
         cruiseModel.setItineraries(Collections.emptyList());
         cruiseModel.setDuration(json.getAsJsonPrimitive("duration").getAsString());
-        cruiseModel.setStartDate(Calendar.getInstance());
+        LocalDate date = LocalDate.parse(json.getAsJsonPrimitive("startDate").getAsString().split("T")[0]);
+        cruiseModel.setStartDate(GregorianCalendar.from(date.atStartOfDay().atZone(ZoneId.of("UTC"))));
         Long price = null;
         try {
             JsonElement priceElement = json.getAsJsonObject("lowestPrices").getAsJsonObject("ftUSD").get("price");
@@ -384,11 +409,13 @@ public class FindYourCruise2018UseTest {
     class TestFindYourCruise2018Use extends FindYourCruise2018Use {
         final Map<String, String[]> filtersRequest;
         private final Map<String, String[]> properties;
+        private String prefilterPeriods;
 
 
-        TestFindYourCruise2018Use(Map<String, String[]> filtersRequest, Map<String, String[]> properties) {
+        TestFindYourCruise2018Use(Map<String, String[]> filtersRequest, Map<String, String[]> properties, String prefilterPeriods) {
             this.filtersRequest = filtersRequest;
             this.properties = properties;
+            this.prefilterPeriods = prefilterPeriods;
         }
 
         @Override
@@ -403,19 +430,26 @@ public class FindYourCruise2018UseTest {
 
         @Override
         List<CruiseModelLight> preFiltering(List<CruiseModelLight> allCruises) {
-            return allCruises;//do not prefilter anything
+            if (prefilterPeriods != null) {
+                return allCruises.stream().filter(DepartureFilter.prefilterPeriods(prefilterPeriods)).collect(toList());
+            } else {
+                return allCruises;
+            }
         }
 
         @Override
         public String getMarketCurrency() {
             return "ftUSD";
         }
+
+
     }
 
     class UseBuilder {
 
         final Map<String, String[]> filtersRequest;
         final Map<String, String[]> properties;
+        String prefilterPeriods = null;
 
         UseBuilder() {
             filtersRequest = new HashMap<>();
@@ -478,6 +512,11 @@ public class FindYourCruise2018UseTest {
             return with(CountryFilter.KIND, countries);
         }
 
+        UseBuilder withPrefilterPeriods(String periods) {
+            prefilterPeriods = periods;
+            return this;
+        }
+
 
         UseBuilder sortedBy(String name, String type) {
             filtersRequest.put("sortby", new String[]{name + "-" + type});
@@ -485,7 +524,7 @@ public class FindYourCruise2018UseTest {
         }
 
         FindYourCruise2018Use build() {
-            return new TestFindYourCruise2018Use(filtersRequest, properties);
+            return new TestFindYourCruise2018Use(filtersRequest, properties, prefilterPeriods);
         }
 
 

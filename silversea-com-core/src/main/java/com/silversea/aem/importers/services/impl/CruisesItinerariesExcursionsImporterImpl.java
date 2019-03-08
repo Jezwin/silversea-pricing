@@ -7,6 +7,7 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesExcursionsImporter;
+import com.silversea.aem.importers.services.Importer;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -131,9 +132,9 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
             // excursions
-            final Map<Integer, Map<String, String>> excursionsMapping = ImportersUtils.getItemsMapping(resourceResolver,
+            final Map<String, Map<String, String>> excursionsMapping = ImportersUtils.getItemsMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
-                            "[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]", "shorexId");
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]", "shorexId", "cityId");
 
             // Importing excursions
             //Default update excursion for modified cruise
@@ -157,17 +158,14 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                         final Integer excursionId = excursion.getShorexId();
                         boolean imported = false;
 
-                        if (!excursionsMapping.containsKey(excursionId)) {
-                            throw new ImporterException(
-                                    "Excursion " + excursionId + " is not present in excursions cache");
-                        }
+
 
                         // Iterating over itineraries in cache to write excursion
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to excursion informations
                             if (itineraryModel.isItineraryBasedOnDayOnly(excursion.getVoyageId(),
-                                    excursion.getDate().toGregorianCalendar())) {
+                                    excursion.getDate().toGregorianCalendar()) && excursion.getCityId().equals(itineraryModel.getPortId())) {
                                 //YES THIS IS THE FUCKINJG PART OF SHIT
                                // if(!excursion.getCityId().equals(itineraryModel.getPortId())){
                                    // throw new ImporterException(
@@ -177,6 +175,11 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                                 // Trying to write excursion data on itinerary
                                 try {
+                                    if (!excursionsMapping.containsKey(excursionId + "-" + itineraryModel.getPortId())) {
+                                        throw new ImporterException(
+                                                "Excursion " + excursionId + " is not present in excursions cache");
+                                    }
+
                                     final Resource itineraryResource = itineraryModel.getResource();
 
                                     LOGGER.trace("Importing excursion {} in itinerary {}",
@@ -194,9 +197,10 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                         final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
                                         // associating excursion page
-                                        if (excursionsMapping.get(excursionId).containsKey(lang)) {
+                                        if (excursionsMapping.get(excursionId + "-" + itineraryModel.getPortId()).containsKey(lang)) {
                                             excursionNode.setProperty("excursionReference",
-                                                    excursionsMapping.get(excursionId).get(lang));
+                                                    excursionsMapping.get(excursionId + "-" + itineraryModel.getPortId()).get(lang));
+                                          //  here to check the good link to Excursion under the good port
                                         }
 
                                         excursionNode.setProperty("excursionId", excursionId);
@@ -222,7 +226,11 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                             }
                                         }
                                     }
-                                } catch (RepositoryException e) {
+                                }catch (ImporterException e) {
+                                    LOGGER.error("Cannot find excursion in cache {}", excursion.getShorexId() + "-" + itineraryModel.getPortId());
+
+                                    importResult.incrementErrorNumber();
+                                } catch (Exception e) {
                                     LOGGER.error("Cannot write excursion {}", excursion.getShorexId(), e);
 
                                     importResult.incrementErrorNumber();
@@ -261,20 +269,22 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                         final Integer excursionId = excursionDiff.getShorexId();
                         boolean imported = false;
 
-                        if (!excursionsMapping.containsKey(excursionId)) {
-                            throw new ImporterException(
-                                    "Excursion " + excursionId + " is not present in excursions cache");
-                        }
 
                         // Iterating over itineraries in cache to write excursion
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to excursion informations
                             if (itineraryModel.isItineraryBasedOnDayOnly(excursionDiff.getVoyageId(),
-                            		excursionDiff.getDate().toGregorianCalendar())) {
+                            		excursionDiff.getDate().toGregorianCalendar()) && excursionDiff.getCityId().equals(itineraryModel.getPortId())) {
 
                                 // Trying to write or update excursion data on itinerary
                                 try {
+                                    if (!excursionsMapping.containsKey(excursionId+ "-" + itineraryModel.getPortId())) {
+                                        throw new ImporterException(
+                                                "Excursion " + excursionId + " is not present in excursions cache");
+                                    }
+
+
                                     final Resource itineraryResource = itineraryModel.getResource();
 
                                     LOGGER.trace("Importing excursion {} in itinerary {}",
@@ -294,9 +304,9 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 	                                        final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 	
 	                                        // associating excursion page
-	                                        if (excursionsMapping.get(excursionId).containsKey(lang)) {
+	                                        if (excursionsMapping.get(excursionId+ "-" + itineraryModel.getPortId()).containsKey(lang)) {
 	                                            excursionNode.setProperty("excursionReference",
-	                                                    excursionsMapping.get(excursionId).get(lang));
+	                                                    excursionsMapping.get(excursionId+ "-" + itineraryModel.getPortId()).get(lang));
 	                                        }
 	
 	                                        excursionNode.setProperty("excursionId", excursionId);
@@ -352,7 +362,11 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                         }
                                     }
                                     
-                                } catch (RepositoryException e) {
+                                }catch (ImporterException e) {
+                                    LOGGER.error("Cannot find excursion in cache {}", excursionDiff.getShorexId() + "-" + itineraryModel.getPortId());
+
+                                    importResult.incrementErrorNumber();
+                                } catch (Exception e) {
                                     LOGGER.error("Cannot write excursion {}", excursionDiff.getShorexId(), e);
 
                                     importResult.incrementErrorNumber();
@@ -362,7 +376,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                         LOGGER.trace("Excursion {} voyage id: {} city id: {} imported status: {}",
                         		excursionDiff.getShorexId(), excursionDiff.getVoyageId(), excursionDiff.getCityId(), imported);
-                    } catch (ImporterException e) {
+                    } catch (Exception e) {
                         LOGGER.warn("Cannot deal with excursion {} - {}", excursionDiff.getShorexId(), e.getMessage());
 
                         importResult.incrementErrorNumber();

@@ -52,6 +52,8 @@ public class ExclusiveOfferItem {
 
     private String postPrice;
 
+    private String id;
+
     private Integer priorityWeight;
 
     public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2,
@@ -96,6 +98,7 @@ public class ExclusiveOfferItem {
             priorityWeight = result.getPriorityWeight();
             postPrice = result.getPostPrice();
             footnote =  result.getFootnote();
+            id = exclusiveOffer.getId();
             if (StringUtils.isNotEmpty(result.getFootnote())) {
                 footnotes.add(result.getFootnote());
             }
@@ -255,5 +258,9 @@ public class ExclusiveOfferItem {
 
     public String getPostPrice() {
         return postPrice;
+    }
+
+    public String getId() {
+        return id;
     }
 }

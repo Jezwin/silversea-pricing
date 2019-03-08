@@ -114,7 +114,7 @@ public class DataLayerUse extends WCMUsePojo {
         userLanguage = locale.getLanguage();
 
         userCountry = GeolocationHelper.getCountryCode(getRequest());
-        if (userCountry == null) {
+        if (userCountry == null) { 
             userCountry = "US";
         }
 
@@ -296,6 +296,10 @@ public class DataLayerUse extends WCMUsePojo {
                     revenue = currency + price;
                 }
             }
+        }
+
+        if (getPageProperties().get("trackDestinationName") != null) {
+            destinationName = getPageProperties().get("trackDestinationName", String.class);
         }
 
         String adwordsConversionLabel = "";

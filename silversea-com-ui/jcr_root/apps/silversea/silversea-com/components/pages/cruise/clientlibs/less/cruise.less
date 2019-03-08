@@ -159,7 +159,7 @@
 
 .pt-BR {
   .cruise-2018 .cruise-2018-overview .cruise-2018-overview-quote-btn.btn-white {
-    min-width: 240px !important;
+    min-width: 253px !important;
   }
 }
 
@@ -186,18 +186,27 @@ _:-ms-fullscreen, :root .cruise-2018 .cruise-2018-itineraries-port-excursions > 
   flex: 0 45% !important;
 }
 
-_:-ms-fullscreen, :root  .lightbox .lightbox-prev-wrapper-label {
-  left: -100% ;
+_:-ms-fullscreen, :root .lightbox .lightbox-prev-wrapper-label {
+  left: -100%;
 }
 
-_:-ms-fullscreen, :root  .lightbox .lightbox-next-wrapper-label {
+_:-ms-fullscreen, :root .lightbox .lightbox-next-wrapper-label {
   right: -100%;
 }
-
 
 
 body.cruise {
   .modal-backdrop.in {
     opacity: 0.9 !important;
+  }
+}
+
+.lightbox-offer {
+  #lightbox-simple-content {
+    top: 15px !important;
+    min-height: 0vh !important;
+    .modal-header{
+      display: none;
+    }
   }
 }

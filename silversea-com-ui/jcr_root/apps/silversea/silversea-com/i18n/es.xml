@@ -569,7 +569,7 @@
     <find-your-cruise
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="encuentro su crucero"/>
+            sling:message="encuentre su crucero"/>
     <first
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -735,6 +735,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Última"/>
+    <last-minute-savings
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="ofertas de última hora"/>
     <last-name
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
@@ -838,7 +842,7 @@
     <offer-accumulated
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Las ofertas son acumulativas y están sujetas a disponibilidad."/>
+            sling:message="Todas las ofertas se pueden combinar y están sujetas a disponibilidad. "/>
     <offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

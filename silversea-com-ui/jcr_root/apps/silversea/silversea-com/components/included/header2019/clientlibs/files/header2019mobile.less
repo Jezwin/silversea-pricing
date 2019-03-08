@@ -1,0 +1,428 @@
+
+.header2019 {
+  margin-top: 0px;
+}
+
+@header2019-border-entry: 1px solid fade(#9B9B9B, 50%);
+
+.header2019-single-entry() {
+  color: #333333;
+  font-family: @suisse;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  line-height: 15px;
+  text-transform: uppercase;
+  padding-top: 20px;
+  border-bottom: @header2019-border-entry;
+  display: table-cell;
+  vertical-align: middle;
+  height: 50px;
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .container {
+    max-width: 100vw !important;
+  }
+
+  div.header-2019-mobile {
+    .header2019-logo {
+
+      .header2019-logo-link {
+        img.header2019-logo-img {
+          width: 100% !important;
+        }
+      }
+    }
+
+
+    .header-2019-search-button {
+      background-color: white !important;;
+    }
+
+    .header-2019-search-input {
+      padding: 5px !important;
+    }
+
+    .header-2019-backdrop {
+      animation: fadeInFromNone .5s forwards;
+      background: #000;
+      display: none;
+      height: 200vh;
+      left: 0;
+      position: absolute;
+      top: 60px;
+      width: 100vw;
+      z-index: 1;
+    }
+
+    .header2019-container-list {
+      z-index: 15 !important;;
+      width: 50vw !important;;
+    }
+
+    .row.header2019-row-list {
+      width: 50vw !important;;
+    }
+
+    div.header2019-container-fixed {
+      width: 50vw !important;;
+    }
+
+    .header2019-nav-burger {
+      max-width: 100%;
+    }
+
+    .header2019-raq-bar {
+      display: inline-block;
+      font-size: 13px;
+      margin-left: 10px;
+      margin-right: 10px;
+
+      span {
+        display: table;
+        vertical-align: middle;
+        margin-bottom: 1px;
+      }
+    }
+
+    .gfn-div {
+      position: relative;
+      font-size: 12px;
+      left: -12px;
+
+      .gfn-div-number {
+        i {
+          font-size: 10px;
+        }
+
+        span {
+          display: block;
+          font-size: 9px;
+          text-transform: lowercase;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 991px) {
+
+  .header-2019-mobile {
+
+    .header2019-container {
+      background: #000;
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      position: relative;
+      right: 50%;
+      width: 100vw;
+    }
+
+    .header2019-logo {
+      padding: 0px 15px 0px 10px;
+
+      .header2019-logo-link {
+        height: 60px;
+        display: table-cell;
+        vertical-align: middle;
+        padding-left: 0px;
+
+
+        img.header2019-logo-img {
+          width: 165%;
+        }
+      }
+    }
+
+    .header-2019-top-link-search:hover {
+      background-color: @grey--04 !important;
+    }
+
+    .header-2019-top-link-search {
+      padding-top: 5px !important;
+      height: 48px !important;
+      padding-left: 5px;
+      padding-right: 5px;
+
+      .header-2019-search-form:focus {
+        outline: none;
+        border: 0;
+      }
+
+
+      .header-2019-search-input {
+        border: 0px;
+        border-radius: 0;
+        width: 90%;
+        height: 38px;
+        padding: 0px;
+        font-size: 12px;
+        letter-spacing: 1.0px;
+        line-height: 15px;
+        padding: 5px !important;
+
+        &:focus {
+          outline: none;
+          border: 0;
+        }
+      }
+
+      .header-2019-search-button {
+        float: right;
+        height: 38px;
+        background-color: white;
+        border: 0px;
+        width: 10%;
+      }
+    }
+
+    .header2019-nav-wrapper {
+      position: static;
+      padding: 0;
+      padding-right: 7px;
+    }
+
+    .header2019-nav-burger {
+      display: inline-block;
+      float: right;
+      height: 60px;
+      max-width: 120px;
+      background: #000;
+      color: #fff;
+    }
+
+    button.header2019-nav-burgerbtn {
+      display: inline-block;
+      text-transform: uppercase;
+      line-height: 1.42857;
+      text-align: center;
+      font-weight: 600;
+      white-space: nowrap;
+      vertical-align: middle;
+      height: 100%;
+      width: 100%;
+      border-width: 0px;
+      border-style: initial;
+      border-color: initial;
+      border-image: initial;
+      padding: 6px 12px;
+      border-radius: 0px;
+      font-size: 18px;
+      background-color: #000;
+      color: #fff;
+      padding-top: 14px;
+
+
+      .header2019-icon-phone {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .header-2019-mobile {
+
+    .header-2019-lang-list {
+      bottom: -300px;
+      transition: bottom 0.4s;
+      position: absolute;
+      width: 50%;
+      right: 0px;
+    }
+
+    .header-2019-lang-list-opened {
+      bottom: 53px;
+      background-color: white;
+
+    }
+
+    .header-2019-lang-opened {
+      display: none !important;
+    }
+
+    .header-2019-lang-en-opened {
+      bottom: 219px;
+      border: 1px solid rgba(155, 155, 155, 0.5);
+      background-color: rgba(155, 155, 155, 0.5);
+    }
+
+    .header-2019-single-lang-en {
+      text-align: center !important;
+      background-color: rgba(155, 155, 155, 0.5);
+      color: white !important;
+
+      .header-2019-lang-en {
+        position: relative;
+        text-align: center;
+        display: block;
+        height: 100%;
+      }
+
+      span {
+        position: absolute;
+        top: 50%;
+        left: 49%;
+        transform: translate(-54%, -50%);
+      }
+
+      .header-2019-arrow {
+        left: 50% !important;
+        transform: translate(-50%, -50%);
+        margin-left: 20px;
+      }
+
+    }
+
+    .header-2019-lang-link {
+      text-align: center;
+      display: block;
+      height: 100%;
+      position: relative;
+
+      span {
+        position: absolute;
+        top: 51%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+
+    }
+
+    .header-2019-single-lang {
+      display: block !important;
+      width: 100%;
+      padding-right: 15px;
+      height: 56px;
+      display: table-cell;
+      vertical-align: middle;
+      color: #333;
+      font-family: 'Suisse Regular', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      line-height: 15px;
+      text-transform: uppercase;
+      text-align: center;
+      border-top: @header2019-border-entry;
+      border-left: @header2019-border-entry;
+
+    }
+
+    .header2019-phone-number {
+      display: inline-block;
+    }
+
+    .header2019-open-menu {
+      display: inline-block;
+
+      i {
+        padding-left: 7px;
+      }
+    }
+
+    .header2019-close-menu {
+      i {
+        padding-left: 7px;
+      }
+    }
+
+    .header-2019-mysilversea {
+      text-transform: capitalize;
+    }
+
+    #header2019-mobile-overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 200;
+      display: none;
+      cursor: pointer;
+    }
+
+    .header2019-close-menu {
+      display: none;
+    }
+
+    .header2019-container-list-opened {
+      right: 0px !important;
+    }
+
+    .container.header2019-container-list {
+      background-color: white;
+      width: 100vw;
+      float: right;
+      white-space: nowrap;
+      right: -100vw;
+      position: absolute;
+      transition: right 0.4s;
+      height: 100vh;
+
+      .row.header2019-row-list {
+        background-color: white;
+        height: ~"calc(80% - 120px)";
+        overflow: scroll;
+        width: 100vw;
+        float: right;
+
+        .col-xs-12 {
+          .header2019-single-entry();
+          height: 56px;
+
+
+          &:hover {
+            background-color: #F4F4F4;
+          }
+        }
+      }
+
+      div.header2019-container-fixed {
+        bottom: 0px;
+        background-color: white;
+        position: fixed;
+        border-top: @header2019-border-entry;
+        width: 100vw;
+
+        .col-xs-6, .col-xs-12 {
+          .header2019-single-entry();
+          text-align: center;
+        }
+
+        .col-xs-6 {
+          border-left: @header2019-border-entry;
+        }
+
+        .header-2019-lang {
+          padding-left: 0px;
+
+
+          div {
+            display: inline-block;
+          }
+
+          .header-2019-arrow {
+            position: absolute;
+            top: 56%;
+            transform: translateY(-50%);
+          }
+        }
+
+        a.header-2019-raq {
+          background-color: #D60524;
+          color: white !important;
+          z-index: 3000;
+
+          &:hover {
+            background-color: #D60524 !important;
+            color: white !important;
+          }
+        }
+      }
+    }
+  }
+}

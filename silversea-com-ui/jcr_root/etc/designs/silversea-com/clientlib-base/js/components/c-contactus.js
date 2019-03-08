@@ -8,8 +8,8 @@ $( document ).ready(function() {
 	  $.CookieManager.setCookie("userInfo", JSON.stringify(""));
   }
   
-  var sub_id, myJson;
-$.each(JSON.parse(myJson).subjects, function (index, value) {
+  var sub_id;
+$.each(JSON.parse(window.jsonContact).subjects, function (index, value) {
 
         $("#subject").append('<option rel="' + index + '" value="'+JSON.parse(value).subject+'">'+JSON.parse(value).subject+'</option>');
     	if (userInfo) {
@@ -22,7 +22,7 @@ $.each(JSON.parse(myJson).subjects, function (index, value) {
      		$("#inquiry").find("option:gt(0)").remove();
             sub_id = $(this).find('option:selected').attr('rel');
 
-            $.each(JSON.parse(JSON.parse(myJson).subjects[sub_id]).inquiries, function (index1, value1) {
+            $.each(JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries, function (index1, value1) {
                 $("#inquiry").append('<option rel="' + index1 + '" value="'+value1.inquiry+'">'+value1.inquiry+'</option>');
                 if (userInfo) {
                 	$("#inquiry").val(userInfo.inquiry);
@@ -32,7 +32,7 @@ $.each(JSON.parse(myJson).subjects, function (index, value) {
 
              $("#inquiry").change(function () {
 			 	var inq_id = $(this).find('option:selected').attr('rel');
-                 $("#from_email").val((JSON.parse(JSON.parse(myJson).subjects[sub_id]).inquiries[inq_id]).email);
+                 $("#from_email").val((JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries[inq_id]).email);
 			});
         });
 
@@ -41,14 +41,14 @@ $.each(JSON.parse(myJson).subjects, function (index, value) {
 });
     $("#inquiry").change(function () {
 			 	var inq_id = $(this).find('option:selected').attr('rel');
-                 $("#from_email").val((JSON.parse(JSON.parse(myJson).subjects[sub_id]).inquiries[inq_id]).email);
+                 $("#from_email").val((JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries[inq_id]).email);
 			});
 
  if (userInfo) {
     		$("#inquiry").find("option:gt(0)").remove();
             sub_id = $(this).find('option:selected').attr('rel');
 
-            $.each(JSON.parse(JSON.parse(myJson).subjects[sub_id]).inquiries, function (index1, value1) {
+            $.each(JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries, function (index1, value1) {
                 $("#inquiry").append('<option rel="' + index1 + '" value="'+value1.inquiry+'">'+value1.inquiry+'</option>');
                 if (userInfo) {
                 	$("#inquiry").val(userInfo.inquiry);

@@ -8,17 +8,24 @@
         <div class="offers-description" data-sly-test="${offersNumber > 1}">
             ${'offer-accumulated' @ i18n }
         </div>
-        <div class="row offer-slider ${offersNumber > 1  ? 'offer-slider-padding' : ''}">
+        <div id="offers-slb-parent" data-slb-parent
+             class="row offer-slider ${offersNumber > 1  ? 'offer-slider-padding' : ''}">
             <sly data-sly-list.offer="${offers}">
+                <sly data-sly-use.offerPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=offer.exclusiveOfferPath}" />
                 <div class="col-sm-6 offer-item ">
                     <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
-                         href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
+                         href="#${offerPath.externalizedUrl @ extension='html', selectors=['modalcontent' , '2018']}"
                          rel="nofollow"
                          id="lb-offer-${offerList.index}"
-                         data-toggle="modal" class="offer-slider-container open-lightbox-offer"
-                         data-target=".lightbox">
+                         data-slb-arrows="true"
+                         data-slb-label="${offer.title}"
+                         data-sly-attribute.data-simple-lightbox="${offer.exclusiveOfferPath ? true : false}"
+                         data-slb-scope="lightbox-offer"
+                         data-sly-attribute.data-toggle="${offer.exclusiveOfferPath ? 'modal' : false }"
+                         class="offer-slider-container open-lightbox-offer"
+                         data-target="#lightbox-simple">
                         <div class="offer-slider-icon-container">
-                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = offer.voyageIcon}" />
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = offer.voyageIcon}"/>
                             <div class="offer-slider-icon"><img
                                     src="${assetHelper.imageUrl @ context='uri'}?fmt=png-alpha&wid=60"/>
                             </div>
@@ -34,11 +41,16 @@
             <div class="col-sm-6 offer-item"
                  data-sly-test="${isVenetian}">
                 <div data-sly-element="${VSLBPath ? 'a' : 'div'}"
-                     href="${VSLBPath  @ extension='html', selectors=['modalcontent']}"
+                     href="#${VSLBPath  @ extension='html', selectors=['modalcontent']}"
                      rel="nofollow"
+                     data-simple-lightbox
+                     data-slb-scope="lightbox-offer"
+                     data-slb-arrows="true"
+                     data-slb-label="${'VS-EO-Title' @ i18n}"
                      id="lb-offer-${offers.size}"
-                     data-toggle="${VSLBPath ? 'modal' : ''}" class="offer-slider-container  ${VSLBPath ? 'open-lightbox-offer' : ''}"
-                     data-target="${VSLBPath ? '.lightbox' : ''}">
+                     data-toggle="${VSLBPath ? 'modal' : ''}"
+                     class="offer-slider-container  ${VSLBPath ? 'open-lightbox-offer' : ''}"
+                     data-target="#lightbox-simple">
                     <div class="offer-slider-icon-container">
                         <div class="offer-slider-icon"><i class="icon-shield-v"></i></div>
                     </div>
@@ -49,7 +61,7 @@
                 </div>
             </div>
         </div>
-       <!--/* <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
+        <!--/* <div class="offers-btns hidden-xs" data-sly-test="${(offersNumber > 2)}">
             <a data-ssc-accordion="show" class="btn btn-thin btn-white offers-show-btn" href="#">
                 <span class="offers-accordion-button">${'view-all-offers' @ i18n}</span>
                 <span class="offers-accordion-button" style="display:none">${'view-less' @ i18n}</span>

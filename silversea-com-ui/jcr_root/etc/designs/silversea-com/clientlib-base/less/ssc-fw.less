@@ -1,19 +1,6 @@
 @needed-properties: height, width, font-size, padding-top, padding-right, padding-bottom, padding-left, margin-top, margin-right, margin-bottom, margin-left, background-color, display, text-align, color, border-color, background-position;
 @double-needed-properties: height, width, display, text-align, font-size;
 
-
-.for ( @array ) when (default()) {
-  .for-impl_(length(@array))
-}
-
-.for-impl_(@i) when (@i > 1) {
-  .for-impl_((@i - 1))
-}
-
-.for-impl_(@i) when (@i > 0) {
-  .-each(extract(@array, @i))
-}
-
 @ffw-media-tablet: ~"(min-width:768px) and (max-width:991px)";
 @ffw-media-mobile: ~"(max-width:767px)";
 
@@ -31,15 +18,19 @@
 
 ;
 
-.for(@needed-properties);
-.-each( @property ) {
-  .generate-class(@property, ~'');
+.foreach-generate-class(@arr, @suffix) {
+  .loop(@arr, length(@arr), @suffix);
 }
 
-.for(@double-needed-properties);
-.-each( @property ) {
-  .generate-class(@property, ~'-snd');
+.loop(@arr, @counter, @suffix) when (@counter > 0) {
+  .loop(@arr, (@counter - 1), @suffix);
+  .generate-class(extract(@arr, @counter), @suffix)
+
 }
+
+.foreach-generate-class(@needed-properties, ~'');
+
+.foreach-generate-class(@double-needed-properties, ~'-snd');
 
 
 .ssc-fw-content::before {

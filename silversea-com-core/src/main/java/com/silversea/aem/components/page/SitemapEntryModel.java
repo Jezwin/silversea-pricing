@@ -84,6 +84,9 @@ public class SitemapEntryModel {
             runModes = slingSettingsService.getRunModes();
         }
 
+        if(page.getVanityUrl() != null && !page.getVanityUrl().isEmpty()){
+            return "https://www.silversea.com/"+page.getVanityUrl();
+        }
         final String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
         if (page.getPath().equals("/content/silversea-com/en")) { // TODO constant
             return externalizer.externalLink(resourceResolver, domain, page.getPath() + ".html");

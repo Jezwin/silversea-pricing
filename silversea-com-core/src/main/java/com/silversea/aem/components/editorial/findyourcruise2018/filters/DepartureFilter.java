@@ -2,19 +2,23 @@ package com.silversea.aem.components.editorial.findyourcruise2018.filters;
 
 import com.silversea.aem.models.CruiseModelLight;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.components.editorial.findyourcruise2018.filters.FilterRowState.ENABLED;
+import static java.util.stream.Collectors.toList;
 
 public class DepartureFilter extends AbstractFilter<YearMonth> {
     private final Calendar GREGORIAN_CALENDAR = new GregorianCalendar();
     private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
+    private static final DateFormat PREFILTER_FORMAT = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
     public DepartureFilter() {
         super("departure");
@@ -77,4 +81,31 @@ public class DepartureFilter extends AbstractFilter<YearMonth> {
         }
     }
 
+    public static Predicate<CruiseModelLight> prefilterPeriods(String periodsList) {
+        //eg 01/01/2019-31/12/2019,01/02/2020-28/02/2020:all 2019 and februrary 2020
+        Function<String, Optional<Date>> toDate = source -> {
+            try {
+                return Optional.of(PREFILTER_FORMAT.parse(source));
+            } catch (ParseException e) {
+                return Optional.empty();
+            }
+        };
+        List<Date[]> dates = new ArrayList<>();
+        for (String period : periodsList.trim().split(",")) {
+            String[] split = period.trim().split("-");
+            if (split.length == 2) {
+                Optional<Date> date1 = toDate.apply(split[0].trim());
+                Optional<Date> date2 = toDate.apply(split[1].trim());
+                if (date1.isPresent() && date2.isPresent()) {
+                    dates.add(new Date[]{date1.get(), date2.get()});
+                }
+            }
+        }
+        return (cruise -> inPeriods(cruise, dates));
+    }
+
+    private static boolean inPeriods(CruiseModelLight cruise, List<Date[]> dates) {
+        Calendar startDate = cruise.getStartDate();
+        return dates.stream().anyMatch(date -> date[0].getTime() <= startDate.getTimeInMillis() && startDate.getTimeInMillis() <= date[1].getTime());
+    }
 }

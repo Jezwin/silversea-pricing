@@ -1,0 +1,7 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="SSC - Header 2019"></div>
+
+<sly data-sly-use.useHeader="com.silversea.aem.components.included.header.Header2019Use"/>
+<sly data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
+<sly data-sly-use.template="./templates/header2019desktop.html" data-sly-call="${template.default @ use=useHeader, pageHelper = pageHelper}"/>
+<sly data-sly-use.template="./templates/header2019mobile.html" data-sly-call="${template.default @ use=useHeader, pageHelper = pageHelper}"/>
+

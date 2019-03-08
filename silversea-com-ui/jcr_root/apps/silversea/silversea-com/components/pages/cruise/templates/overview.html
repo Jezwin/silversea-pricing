@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @  exclusiveOfferPostPrice,bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
+<template data-sly-template.default="${ @  smallItineraryMap, lastMinuteSavings, exclusiveOfferPostPrice,bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
     <div class="cruise-2018-overview row container ${isCombo ? 'cruise-2018-overview-single-column' : ''}"
          data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets',cruiseType]}"
          data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map',cruiseType]}"
@@ -11,6 +11,11 @@
         <sly data-sly-test.cruiseDesktopImg="${bigThumbnailItineraryMap || bigThumbnail || itinerary}"/>
         <sly data-sly-test.cruiseMobileImg="${isCombo ? cruiseDesktopImg : bigItineraryMap || bigThumbnail || itinerary}"/>
         <div class="cruise-2018-overview-big-pic ${isCombo ? 'col-sm-12 cruise-2018-overview-full-width' : 'col-sm-6'} col-xs-12">
+            <a href="#" data-sly-test="${bigItineraryMap && !isCombo && smallItineraryMap}"
+               class="cruise-2018-overview-map-btn-cruise open-lightbox-map hidden-xs" data-target=".lightbox"
+               style="background-image:url('${smallItineraryMap  @ context='unsafe'}')">
+                <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
+            </a>
             <sly data-sly-list.asset="${assetsGallery}">
                 <sly data-sly-test="${asset.path && assetList.index < 1}"
                      data-sly-test.firstAssetGalleryImg="${asset.path}"/>
@@ -146,6 +151,8 @@
                         <div class="cruise-2018-overview-quote-price-from per-guest" data-sly-test="${isCombo}">(${'per-guest' @ i18n})</div>
                         <div class="cruise-2018-overview-quote-price-bonus">
                             <sly data-sly-test="${earlyBookingBonus}"><i class="material-icons">access_alarm</i> ${'with' @ i18n} <b>10%</b> ${'early-booking-bonus' @ i18n}</sly>
+                            <sly data-sly-test="${lastMinuteSavings}"><i class="material-icons">timer</i> ${'with' @ i18n} ${'last-minute-savings' @ i18n}</sly>
+
                             <sly data-sly-test="${exclusiveOfferPostPrice}">
                                 <br><sly data-sly-test="${earlyBookingBonus}">${'and' @ i18n}</sly>
                                 ${exclusiveOfferPostPrice @ context='html'}
