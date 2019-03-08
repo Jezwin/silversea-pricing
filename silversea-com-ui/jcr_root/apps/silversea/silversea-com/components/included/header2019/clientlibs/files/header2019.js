@@ -66,6 +66,7 @@ $(function () {
 
         function toggleLangMenu(e) {
             if ($langMenu.toggleClass(openLangMenuClass).attr('class').indexOf(openLangMenuClass) > 0) {
+                $("#header-2019-submenu-positioner").hide();
                 $(document).one("click", function () {
                     $langMenu.removeClass(openLangMenuClass);
                 });
@@ -104,6 +105,7 @@ $(function () {
 
         function showSubMenu(e) {
             cancelHide();
+            $(".header-2019").removeClass("lang-menu-open");
             var menuIndex = $(this).data("menu-index");
             var $menu = $("#header-2019-secondrow-" + menuIndex + "-submenu");
             if ($menu.length === 0) {

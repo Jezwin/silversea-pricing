@@ -19,12 +19,12 @@ public class MenuEntry {
     private final String label;
 
     @Inject
-    public MenuEntry(@Named("page") Page page, @Named("label") @Optional String label) {
+    public MenuEntry(@Named("page") @Optional Page page, @Named("label") @Optional String label) {
         this.page = page;
         this.label = label;
     }
 
-    public MenuEntry(Page page){
+    public MenuEntry(Page page) {
         this.page = page;
         this.label = CruiseUtils.firstNonNull(page.getNavigationTitle(), page.getTitle());
     }
@@ -38,7 +38,7 @@ public class MenuEntry {
     }
 
     public ExternalLink toExternalLink(Externalizer externalizer, SlingHttpServletRequest request) {
-        return new ExternalLink(page.getPath(), CruiseUtils.firstNonNull(label, page.getNavigationTitle(), page.getTitle()), externalizer,
-                request);
+        return (page != null) ? new ExternalLink(page.getPath(), CruiseUtils.firstNonNull(label, page.getNavigationTitle(), page.getTitle()), externalizer,
+                request) : null;
     }
 }
