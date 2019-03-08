@@ -1,6 +1,7 @@
 <template data-sly-template.default="${ @ use, pageHelper}">
     <div class="header-2019-mobile visible-xs visible-sm">
         <div class="container header2019-container">
+            <div class="header-2019-backdrop"></div>
             <div class="row">
                 <div class="col-sm-3 col-xs-5 header2019-logo">
                     <a href="${pageHelper.homePage.path @ extension='html'}" class="header2019-logo-link"
@@ -33,8 +34,13 @@
         <div class="container header2019-container-list">
             <div class="row header2019-row-list">
                 <sly data-sly-repeat.mobileLink="${use.mobileLinks}">
-                    <a class="header-2019-top-link col-xs-12" href="${mobileLink.link @ extension='html'}">
+                    <a class="header-2019-top-link col-xs-12 visible-xs" href="${mobileLink.link @ extension='html'}">
                         <span>${mobileLink.label}</span>
+                    </a>
+                </sly>
+                <sly data-sly-repeat.tabletLink="${use.tabletLinks}">
+                    <a class="header-2019-top-link col-xs-12 hidden-xs" href="${tabletLink.link @ extension='html'}">
+                        <span>${tabletLink.label}</span>
                     </a>
                 </sly>
                 <div class="header-2019-top-link col-xs-12 header-2019-top-link-search">

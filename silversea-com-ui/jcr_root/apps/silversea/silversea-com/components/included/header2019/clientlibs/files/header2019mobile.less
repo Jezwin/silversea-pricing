@@ -29,9 +29,42 @@
 
       .header2019-logo-link {
         img.header2019-logo-img {
-          width: 100%;
+          width: 100% !important;
         }
       }
+    }
+
+
+    .header-2019-search-button {
+      background-color: white !important;;
+    }
+
+    .header-2019-search-input {
+      padding: 5px !important;
+    }
+    .header-2019-backdrop {
+      animation: fadeInFromNone .5s forwards;
+      background: #000;
+      display: none;
+      height: 200vh;
+      left: 0;
+      position: absolute;
+      top: 60px;
+      width: 100vw;
+      z-index: 1;
+    }
+
+    .header2019-container-list {
+      z-index: 15 !important;;
+      width: 50vw !important;;
+    }
+
+    .row.header2019-row-list {
+      width: 50vw !important;;
+    }
+
+    div.header2019-container-fixed {
+      width: 50vw !important;;
     }
 
     .header2019-nav-burger {
@@ -103,29 +136,28 @@
     }
 
     .header2019-row-list .col-xs-12:hover {
-      background-color: transparent !important;
+      background-color: @grey--04 !important;
     }
 
     .header-2019-top-link-search {
       padding-top: 12px !important;
+      background-color: @grey--04 !important;
 
       .header-2019-search-form:focus {
         outline: none;
         border: 0;
       }
 
-      .header-2019-search-wrapper {
-        border-bottom: 1px solid;
-      }
 
       .header-2019-search-input {
         border: 0px;
-        width: 92%;
+        width: 90%;
         height: 31px;
         padding: 0px;
         font-size: 12px;
         letter-spacing: 1.0px;
         line-height: 15px;
+        padding: 5px !important;
 
         &:focus {
           outline: none;
@@ -136,7 +168,7 @@
       .header-2019-search-button {
         float: right;
         height: 31px;
-        background-color: transparent;
+        background-color: white;
         border: 0px;
       }
     }
