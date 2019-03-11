@@ -186,7 +186,7 @@ $(function () {
     } else if (location.href.indexOf("newMenu") > 0 || localStorage.newMenu === "true") {
         localStorage.newMenu = true;
         var menus = "header>div";
-        if (menus.length > 1) {
+        if ($(menus).length > 1) {
             $(menus).toggle();
         }
     }
