@@ -155,7 +155,7 @@
                             <sly data-sly-test="${lastMinuteSavings}"><i class="material-icons">timer</i> ${'with' @ i18n} ${'last-minute-savings' @ i18n}</sly>
 
                             <sly data-sly-test="${exclusiveOfferPostPrice}">
-                                <br><sly data-sly-test="${earlyBookingBonus}">${'and' @ i18n}</sly>
+                                <br><sly data-sly-test="${earlyBookingBonus || lastMinuteSavings}">${'and' @ i18n}</sly>
                                 ${exclusiveOfferPostPrice @ context='html'}
                             </sly>
                         </div>
