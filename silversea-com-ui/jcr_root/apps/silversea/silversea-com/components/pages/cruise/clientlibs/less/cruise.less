@@ -205,8 +205,19 @@ body.cruise {
   #lightbox-simple-content {
     top: 15px !important;
     min-height: 0vh !important;
-    .modal-header{
+
+    .modal-header {
       display: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .lightbox-offer {
+    #lightbox-simple-content {
+      .modal-body {
+        padding-top: 5px;
+      }
     }
   }
 }
