@@ -190,15 +190,12 @@ $(function () {
             $(menus).toggle();
         }
     }
-    var isDesktop = $(window).width() > 991;
-    if (isDesktop) {
-        sticking();
-        langMenu();
-        subMenu();
-        searchForm();
-    } else {
-        $(".header-2019-mobile").on("click", ".header2019-open-menu", openMenuMobile);
-        $(".header-2019-mobile").on("click", ".header2019-close-menu", closeMenuMobile);
-        $(".header-2019-mobile").on("click", ".header-2019-lang", openLanguages);
-    }
+    sticking();
+    langMenu();
+    subMenu();
+    searchForm();
+    const $header = $(".header-2019-mobile");
+    $header.on("click", ".header2019-open-menu", openMenuMobile);
+    $header.on("click", ".header2019-close-menu", closeMenuMobile);
+    $header.on("click", ".header-2019-lang", openLanguages);
 });
