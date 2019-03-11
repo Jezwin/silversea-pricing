@@ -44,7 +44,7 @@
                 <sly data-sly-use.EVSLBPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=VSLBPath}" />
 
                 <a
-                     href="#${EVSLBPath  @ extension='html', selectors=['modalcontent']}"
+                     href="#${EVSLBPath.externalizedUrl  @ extension='html', selectors=['modalcontent']}"
                      rel="nofollow"
                      data-simple-lightbox
                      data-slb-scope="lightbox-offer"
