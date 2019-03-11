@@ -12,8 +12,9 @@
         <sly data-sly-test.cruiseMobileImg="${isCombo ? cruiseDesktopImg : bigItineraryMap || bigThumbnail || itinerary}"/>
         <div class="cruise-2018-overview-big-pic ${isCombo ? 'col-sm-12 cruise-2018-overview-full-width' : 'col-sm-6'} col-xs-12">
             <a href="#" data-sly-test="${bigItineraryMap && !isCombo && smallItineraryMap}"
+               data-sly-use.assetHelperSmallMap="${'com.silversea.aem.helper.AssetHelper' @ assetPath = smallItineraryMap}"
                class="cruise-2018-overview-map-btn-cruise open-lightbox-map hidden-xs" data-target=".lightbox"
-               style="background-image:url('${smallItineraryMap  @ context='unsafe'}')">
+               style="background-image:url('${assetHelperSmallMap.imageUrl  @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
             </a>
             <sly data-sly-list.asset="${assetsGallery}">
