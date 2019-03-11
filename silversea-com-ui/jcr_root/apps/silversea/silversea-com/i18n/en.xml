@@ -258,7 +258,7 @@
     <cruise-itinerary-120-day
             jcr:primaryType="sling:MessageEntry"
             sling:key="cruise-itinerary-120-day"
-            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information."/>
+            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit https://my.silversea.com 120 days prior to sailing for the most updated information."/>
     <cruise-excursion-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-excursion-description"
