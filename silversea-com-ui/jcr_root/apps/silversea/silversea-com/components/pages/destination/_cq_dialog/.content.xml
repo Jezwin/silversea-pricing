@@ -59,6 +59,20 @@
                                         cq-msm-lockable="longDescription"
                                         fieldLabel="Long Description"
                                         name="./longDescription"/>
+                                    <destinationFareAdditionsClassic
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="destinationFareAdditionsClassic"
+                                        fieldLabel="Destination fare additions classic"
+                                        name="./destinationFareAdditionsClassic" />
+                                    <destinationFareAdditionsExpedition
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="destinationFareAdditionsExpedition"
+                                        fieldLabel="Destination fare additions expedition"
+                                        name="./destinationFareAdditionsExpedition" />
                                     <footnote
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/textfield"

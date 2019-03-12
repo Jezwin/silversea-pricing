@@ -8,56 +8,21 @@ class CruiseDestinationModel extends DestinationModel {
     CruiseDestinationModel(DestinationModel destinationModel, String customDestination) {
         this.destinationModel = destinationModel;
         this.customDestination = customDestination;
+        this.title = destinationModel.getTitle();
+        this.mapLabel = destinationModel.getMapLabel();
+        this.excerpt = destinationModel.getExcerpt();
+        this.destinationId = destinationModel.getDestinationId();
+        this.longDescription = destinationModel.getLongDescription();
+        this.description = destinationModel.getDescription();
+        this.footnote = destinationModel.getFootnote();
+        this.assetselectionreference = destinationModel.getAssetselectionreference();
+        this.category = destinationModel.getCategory();
+        this.customHtml = destinationModel.getCustomHtml();
+        this.path = destinationModel.getPath();
+        this.name = destinationModel.getName();
+        this.splitDestinationFareAdditionsClassic = destinationModel.getDestinationFareAdditionsClassic();
+        this.splitDestinationFareAdditionsExpedition = destinationModel.getDestinationFareAdditionsExpedition();
     }
-
-    public String getTitle() {
-        return destinationModel.getTitle();
-    }
-
-    public String getMapLabel() {
-        return destinationModel.getMapLabel();
-    }
-
-    public String getExcerpt() {
-        return destinationModel.getExcerpt();
-    }
-
-    public String getDestinationId() {
-        return destinationModel.getDestinationId();
-    }
-
-    public String getDescription() {
-        return destinationModel.getDescription();
-    }
-
-    public String getLongDescription() {
-        return destinationModel.getLongDescription();
-    }
-
-    public String getFootnote() {
-        return destinationModel.getFootnote();
-    }
-
-    public String getAssetselectionreference() {
-        return destinationModel.getAssetselectionreference();
-    }
-
-    public String getCategory() {
-        return destinationModel.getCategory();
-    }
-
-    public String getCustomHtml() {
-        return destinationModel.getCustomHtml();
-    }
-
-    public String getPath() {
-        return destinationModel.getPath();
-    }
-
-    public String getName() {
-        return destinationModel.getName();
-    }
-
 
     public String getNavigationTitle() {
         return customDestination == null ? destinationModel.getNavigationTitle() : customDestination;

@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -9,54 +10,78 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Model(adaptables = Page.class)
 public class DestinationModel {
 
     @Inject @Self
-    private Page page;
+    Page page;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-    private String title;
+    String title;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/navTitle") @Optional
-    private String navigationTitle;
+    String navigationTitle;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/mapLabel") @Optional
-    private String mapLabel;
+    String mapLabel;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/excerpt") @Optional
-    private String excerpt;
+    String excerpt;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/destinationId") @Optional
-    private String destinationId;
+    String destinationId;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/destinationFareAdditionsClassic") @Optional
+    String destinationFareAdditionsClassic;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/destinationFareAdditionsExpedition") @Optional
+    String destinationFareAdditionsExpedition;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
-    private String description;
+    String description;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
-    private String longDescription;
+    String longDescription;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/footnote") @Optional
-    private String footnote;
+    String footnote;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/assetselectionreference") @Optional
-    private String assetselectionreference;
+    String assetselectionreference;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/category") @Optional
-    private String category;
+    String category;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/customHtml") @Optional
-    private String customHtml;
+    String customHtml;
 
-    private String path;
+    String path;
 
-    private String name;
+    String name;
+
+    List<String> splitDestinationFareAdditionsClassic = new ArrayList<>();
+    List<String> splitDestinationFareAdditionsExpedition = new ArrayList<>();
 
     @PostConstruct
     private void init() {
         path = page.getPath();
         name = page.getName();
+        splitDestinationFareAdditionsClassic = splitCruiseFareAdditions(destinationFareAdditionsClassic);
+        splitDestinationFareAdditionsExpedition = splitCruiseFareAdditions(destinationFareAdditionsExpedition);
+    }
+
+    private List<String> splitCruiseFareAdditions(String cruiseFareAdditions) {
+        if (StringUtils.isNotEmpty(cruiseFareAdditions)) {
+            final String[] split = cruiseFareAdditions.split("\\r?\\n");
+            if (split.length > 0) {
+                return Arrays.asList(split);
+            }
+        }
+        return null;
     }
 
     public String getTitle() {
@@ -128,5 +153,13 @@ public class DestinationModel {
         final DestinationModel objDestinationModel = (DestinationModel)obj;
 
         return objDestinationModel.getPath().equals(getPath());
+    }
+
+    public List<String> getDestinationFareAdditionsClassic() {
+        return splitDestinationFareAdditionsClassic;
+    }
+
+    public List<String> getDestinationFareAdditionsExpedition() {
+        return splitDestinationFareAdditionsExpedition;
     }
 }

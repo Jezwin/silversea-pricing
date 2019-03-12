@@ -121,7 +121,7 @@ public class CruiseModel {
     private String[] keyPeople;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions")
+    @Named(JcrConstants.JCR_CONTENT + "/voyageCruiseFareAdditions")
     @Optional
     private String cruiseFareAdditions;
 

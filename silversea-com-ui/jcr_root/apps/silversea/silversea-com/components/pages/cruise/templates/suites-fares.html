@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ cruiseFareAdditionsDescription, isCombo,prices, model, isFeetSquare,requestQuotePagePath, exclusiveOffersCruiseFareAdditions, showTitle, showDescription, fareAdditionsFootnotes }">
+<template data-sly-template.default="${ @ cruiseFareAdditions, totalFareAddition, cruiseFareAdditionsDescription, isCombo,prices, model, isFeetSquare,requestQuotePagePath, exclusiveOffersCruiseFareAdditions, showTitle, showDescription, fareAdditionsFootnotes }">
 <div id="menu-cruise2018suites" class="cruise-2018-suites-fares row container">
         <div class="cruise-2018-title cruise-2018-suites-fares-title" data-sly-test="${showTitle}">
             ${ 'suites-and-fares' @ i18n}
@@ -63,7 +63,7 @@
                 ${'fares-shown-are-per-guest' @i18n}
             </div>
             <div class="col-xs-12 cruise-2018-suites-fares-included"
-                 data-sly-test="${exclusiveOffersCruiseFareAdditions.size>0 || model.cruiseFareAdditions.size>0}">
+                 data-sly-test="${totalFareAddition > 0}">
                 <div class="${isCombo ? 'cruise-2018-suites-fares-included-title-combo' : 'cruise-2018-suites-fares-included-title'}">
                     <sly data-sly-test="${!isCombo}">${ 'included-cruise-fare' @ i18n}</sly>
                     <sly data-sly-test="${isCombo}">${ 'benefits' @ i18n}</sly>
@@ -73,13 +73,20 @@
                 </div>
                 <ul class="cruise-2018-suites-fares-included-ul">
                     <sly data-sly-test="${!isCombo}">
-                        <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}"
-                            class="cruise-2018-suites-fares-included-eo cruise-2018-suites-fares-included-li">${item @ context='html'}</li>
-                        <li data-sly-repeat="${model.cruiseFareAdditions}" class="cruise-2018-suites-fares-included-li ${itemList.count > 4 ? 'hidden-xs' : ''}">${item @ context='html'}</li>
-                        <li class="onclick-show-more-less-benefits benefits-show-more" data-sly-test="${model.cruiseFareAdditions.size > 4}">
+                        <sly data-sly-list="${exclusiveOffersCruiseFareAdditions}">
+                            <li class="cruise-2018-suites-fares-included-eo cruise-2018-suites-fares-included-li ${itemList.count > 3 ? 'hidden-xs' : ''}">
+                                ${item @ context='html'}
+                            </li>
+                        </sly>
+                        <sly data-sly-list="${cruiseFareAdditions}">
+                            <li class="cruise-2018-suites-fares-included-li ${exclusiveOffersCruiseFareAdditions.size > 4 || itemList.count > 3 ? 'hidden-xs' : ''}">
+                                ${item @ context='html'}
+                            </li>
+                        </sly>
+                        <li class="onclick-show-more-less-benefits benefits-show-more" data-sly-test="${totalFareAddition > 4}">
                             ${'view-more' @ i18n}
                         </li>
-                        <li class="onclick-show-more-less-benefits benefits-show-less" data-sly-test="${model.cruiseFareAdditions.size > 4}">
+                        <li class="onclick-show-more-less-benefits benefits-show-less" data-sly-test="${totalFareAddition > 4}">
                             ${'view-less' @ i18n }
                         </li>
                     </sly>
