@@ -190,12 +190,16 @@ $(function () {
             $(menus).toggle();
         }
     }
-    sticking();
-    langMenu();
-    subMenu();
-    searchForm();
-    const $header = $(".header-2019-mobile");
-    $header.on("click", ".header2019-open-menu", openMenuMobile);
-    $header.on("click", ".header2019-close-menu", closeMenuMobile);
-    $header.on("click", ".header-2019-lang", openLanguages);
+    const isDesktop = $(window).width() > 991;
+    if (isDesktop) {
+        sticking();
+        langMenu();
+        subMenu();
+        searchForm();
+    } else {
+        const $header = $(".header-2019-mobile");
+        $header.on("click", ".header2019-open-menu", openMenuMobile);
+        $header.on("click", ".header2019-close-menu", closeMenuMobile);
+        $header.on("click", ".header-2019-lang", openLanguages);
+    }
 });
