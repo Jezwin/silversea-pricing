@@ -1,12 +1,13 @@
 $(function () {
     "use strict";
 
+
     if ($(".findyourcruise2018").length > 0) {
 
         var showRightSpanWaitlist = function () {
             var $hideWaitlistSpan = $(".fyc2018-show-hide-waitlist .waitlist.hide-waitlist"),
                 $showWaitlistSpan = $(".fyc2018-show-hide-waitlist .waitlist.show-waitlist");
-            var isHideWaitlist =$hideWaitlistSpan.length > 0;
+            var isHideWaitlist = $hideWaitlistSpan.length > 0;
             if (isHideWaitlist) {
                 $showWaitlistSpan.remove();
             }
@@ -120,8 +121,7 @@ $(function () {
                     currentPort = currentPort.toLowerCase();
                     $(this).text(currentPort);
                 });
-            }
-            catch (error) {
+            } catch (error) {
                 console.error(error);
             }
         };//loweCasePort
@@ -880,3 +880,18 @@ $(function () {
 
     }
 });
+
+function _2019_portFix() {
+    if ($(".port_v2").length > 0) {
+        $(".findyourcruise2018 [data-url]").each(
+            function (i, el) {
+                var url = $(el).data("url");
+                var replace = $(el).data("node").replace(/\/content\/silversea-com\/../, "")
+                replace = replace.replace("jcr:content", "_jcr_content");
+                url = url.replace("/cruise-to/findyourcruise", replace);
+                $(el).data("url", url);
+            });
+    }
+}
+
+window._2019_portFix = _2019_portFix;

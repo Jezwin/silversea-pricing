@@ -5,11 +5,15 @@
 </template>
 <template data-sly-template.default="${@ fyc}">
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
-    <div class="fyc2018-no-results" data-sly-test="${fyc.pagination.totalResults == 0}" data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.results'}" id="results-url-request">
+    <div class="fyc2018-no-results" data-sly-test="${fyc.pagination.totalResults == 0}"
+         data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.results'}" id="results-url-request"
+         data-node="${currentNode.path}">
         <span>${'no-matching-cruises' @ i18n }<br>
-        ${'change-filters' @ i18n}</span>
+            ${'change-filters' @ i18n}</span>
     </div>
-    <div class="clearfix fyc2018-result c-fyc-v2__results__wrapper" data-totals="${fyc.pagination.totalResults}" data-sly-test="${fyc.pagination.totalResults != 0}"
+    <div class="clearfix fyc2018-result c-fyc-v2__results__wrapper" data-totals="${fyc.pagination.totalResults}"
+         data-sly-test="${fyc.pagination.totalResults != 0}"
+         data-node="${currentNode.path}"
          data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.results'}" id="results-url-request">
         <sly data-sly-use.fwHelper="${'com.silversea.aem.helper.FindYourCruiseOfferHelper' @ priorityOffer=fyc.priorityOffer, cruises=fyc.cruises}"/>
         <div class="c-fyc-v2__result" data-sly-repeat.cruise="${fwHelper.cruisesFYC}">
@@ -38,7 +42,8 @@
                                         data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd', date=cruise.cruiseItem.cruiseModel.startDate}"
                                         data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseItem.cruiseModel.startDate}"
                                         data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruise.cruiseItem.cruiseModel.startDate}"
-                                        data-date="${dateFull.value}"> ${dateMonthDay.value} <span class="year">${dateYear.value}</span>
+                                        data-date="${dateFull.value}"> ${dateMonthDay.value} <span
+                                            class="year">${dateYear.value}</span>
                                     </dd>
                                 </dl>
                             </li>
@@ -47,7 +52,8 @@
                                 <dl>
                                     <dt class="visible-xs">${'duration' @ i18n}</dt>
                                     <dd>
-                                        <i class="fa fa-clock-o hidden-xs"></i>${cruise.cruiseItem.cruiseModel.duration} <span class="days">${'days' @ i18n}</span>
+                                        <i class="fa fa-clock-o hidden-xs"></i>${cruise.cruiseItem.cruiseModel.duration}
+                                        <span class="days">${'days' @ i18n}</span>
                                     </dd>
                                 </dl>
                             </li>
@@ -111,10 +117,16 @@
                                     <span class="price-prefixe">${'from' @ i18n}</span>
                                     <span class="price-prefixe text-uppercase price-mobile">${cruise.cruiseItem.lowestPrice.currency @ i18n}</span>
                                     <span class="price-mobile">${cruise.cruiseItem.lowestPriceFormated}</span>
-                                    <div data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">access_alarm</i> ${'with' @ i18n} <b>10%</b> ${'early-booking-bonus' @ i18n}</div>
-                                    <div data-sly-test="${cruise.lastMinuteSavings && !cruise.cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe"><i class="material-icons">timer</i> ${'with' @ i18n} ${'last-minute-savings' @ i18n}</div>
+                                    <div data-sly-test="${cruise.cruiseItem.lowestPrice.earlyBookingBonus}"
+                                         class="price-suffixe"><i
+                                            class="material-icons">access_alarm</i> ${'with' @ i18n}
+                                        <b>10%</b> ${'early-booking-bonus' @ i18n}</div>
+                                    <div data-sly-test="${cruise.lastMinuteSavings && !cruise.cruiseItem.lowestPrice.earlyBookingBonus}"
+                                         class="price-suffixe"><i
+                                            class="material-icons">timer</i> ${'with' @ i18n} ${'last-minute-savings' @ i18n}
+                                    </div>
 
-                                    <div data-sly-test="${cruise.postPrice}"  class="price-suffixe">
+                                    <div data-sly-test="${cruise.postPrice}" class="price-suffixe">
                                         ${cruise.postPrice @ context='html'}
                                     </div>
                                 </sly>
@@ -170,6 +182,11 @@
     </div>
     <sly data-sly-use.paginationTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/pagination.html"
          data-sly-call="${paginationTemplate.pagination @ fyc=fyc}"/>
+    <script>
+        $(document).ready(function () {
+            window._2019_portFix();
+        })
+    </script>
 </template>
 <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/results.html"
      data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='9'}"

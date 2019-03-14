@@ -41,6 +41,7 @@
                 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
                 <div class="fyc2018-filters-wrapper"
                      data-url="${ externalizerHelper.externalizedUrl @ selectors='templates.filter'}"
+                     data-node="${currentNode.path}"
                      id="filter-url-request">
                     <sly data-sly-use.sortingTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/sorting.html"
                          data-sly-call="${sortingTemplate.mobile @ fyc=fyc}"/>
@@ -66,16 +67,23 @@
                          data-sly-use.filterDetailTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filterdetail.html"
                          data-sly-call="${filterDetailTemplate.default @ filter=fyc.filterBar.features.rows, type='filter-features', class='col-sm-12', singular='feature', plural='features', name='feature'}"/>
                 </div>
-                <div class="fyc2018-show-hide-waitlist" data-show-waitlist="${'show-waitlist' @ i18n}" data-hide-waitlist="${'hide-waitlist' @ i18n}" data-sly-test="${!properties.preFilterWaitlist}">
+                <div class="fyc2018-show-hide-waitlist" data-show-waitlist="${'show-waitlist' @ i18n}"
+                     data-hide-waitlist="${'hide-waitlist' @ i18n}" data-sly-test="${!properties.preFilterWaitlist}">
                     <span class="waitlist show-waitlist">${'hide-waitlist' @ i18n }</span>
                     <sly data-sly-list="${fyc.filterBar.waitlist.rows}">
-                        <span class="waitlist hide-waitlist" data-sly-test="${item.key == 'no_waitlist' && item.state == 'CHOSEN'}">${'show-waitlist' @ i18n}</span>
+                        <span class="waitlist hide-waitlist"
+                              data-sly-test="${item.key == 'no_waitlist' && item.state == 'CHOSEN'}">${'show-waitlist' @ i18n}</span>
                     </sly>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            window._2019_portFix();
+        })
+    </script>
 </template>
 <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
      data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='9'}"
