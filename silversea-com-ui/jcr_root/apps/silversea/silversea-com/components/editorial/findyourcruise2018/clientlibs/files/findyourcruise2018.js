@@ -888,7 +888,7 @@ function _2019_portFix() {
                 var url = $(el).data("url");
                 var replace = $(el).data("node").replace(/\/content\/silversea-com\/../, "")
                 replace = replace.replace("jcr:content", "_jcr_content");
-                url = url.replace("/cruise-to/findyourcruise", replace);
+                url = url.replace(/\/(..-?.?.?\/)?(croisieres|cruise-to|cruceros|cruzeiros)\/findyourcruise/, replace);
                 $(el).data("url", url);
             });
     }
