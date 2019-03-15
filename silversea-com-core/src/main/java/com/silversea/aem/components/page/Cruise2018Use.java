@@ -17,6 +17,7 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -220,13 +221,20 @@ public class Cruise2018Use extends EoHelper {
 
     private List<String> retrieveCruiseFareAdditions(CruiseModel cruiseModel) {
         List<String> cruiseFare = cruiseModel.getCruiseFareAdditions();
+        List<String> voyageFare = cruiseModel.getVoyageCruiseFareAdditions();
         List<String> destinationFare = retrieveDestinationFareAdditions(cruiseModel);
         List<String> result = new ArrayList<String>();
-        if (cruiseFare != null) {
-            result.addAll(cruiseFare);
-        }
-        if (destinationFare != null) {
-            result.addAll(destinationFare);
+        if ((voyageFare != null && voyageFare.size() > 0) || (destinationFare != null && destinationFare.size() > 0)) {
+            if (voyageFare.size() > 0) {
+                result.addAll(voyageFare);
+            }
+            if (destinationFare.size() > 0) {
+                result.addAll(destinationFare);
+            }
+        } else {
+            if (cruiseFare != null && cruiseFare.size() > 0) {
+                result.addAll(cruiseFare);
+            }
         }
         return result;
     }
@@ -239,7 +247,6 @@ public class Cruise2018Use extends EoHelper {
             return cruiseModel.getDestination().getDestinationFareAdditionsClassic();
         }
     }
-
 
     private String retrieveExclusiveOfferPostPriceAndFindLMS(List<ExclusiveOfferItem> exclusiveOffers) {
         Integer priorityWeight = Integer.MIN_VALUE;
@@ -276,7 +283,7 @@ public class Cruise2018Use extends EoHelper {
     }
 
     public Integer getTotalFareAddition() {
-       return  exclusiveOffersCruiseFareAdditions.size() + cruiseFareAdditions.size();
+        return exclusiveOffersCruiseFareAdditions.size() + cruiseFareAdditions.size();
     }
 
     public static Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
