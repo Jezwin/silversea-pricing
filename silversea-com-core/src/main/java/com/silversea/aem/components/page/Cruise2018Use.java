@@ -224,15 +224,19 @@ public class Cruise2018Use extends EoHelper {
         List<String> voyageFare = cruiseModel.getVoyageCruiseFareAdditions();
         List<String> destinationFare = retrieveDestinationFareAdditions(cruiseModel);
         List<String> result = new ArrayList<String>();
-        if ((voyageFare != null && voyageFare.size() > 0) || (destinationFare != null && destinationFare.size() > 0)) {
-            if (voyageFare.size() > 0) {
+        boolean isDestinationFareEmpty = destinationFare == null || destinationFare.size() == 0;
+        boolean isVoyageFareEmpty = voyageFare == null || voyageFare.size() == 0;
+        boolean isOldCruiseFareEmpty = cruiseFare == null || cruiseFare.size() == 0;
+        boolean isNewFareToShow = !isDestinationFareEmpty || !isVoyageFareEmpty;
+        if (isNewFareToShow) {
+            if (!isVoyageFareEmpty) {
                 result.addAll(voyageFare);
             }
-            if (destinationFare.size() > 0) {
+            if (!isDestinationFareEmpty) {
                 result.addAll(destinationFare);
             }
         } else {
-            if (cruiseFare != null && cruiseFare.size() > 0) {
+            if (!isOldCruiseFareEmpty) {
                 result.addAll(cruiseFare);
             }
         }
@@ -282,8 +286,15 @@ public class Cruise2018Use extends EoHelper {
         return PortGalleryAndVideo;
     }
 
-    public Integer getTotalFareAddition() {
-        return exclusiveOffersCruiseFareAdditions.size() + cruiseFareAdditions.size();
+    public int getTotalFareAddition() {
+        int total = 0;
+        if (exclusiveOffersCruiseFareAdditions != null) {
+            total += exclusiveOffersCruiseFareAdditions.size();
+        }
+        if (cruiseFareAdditions != null) {
+            total += cruiseFareAdditions.size();
+        }
+        return total;
     }
 
     public static Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {

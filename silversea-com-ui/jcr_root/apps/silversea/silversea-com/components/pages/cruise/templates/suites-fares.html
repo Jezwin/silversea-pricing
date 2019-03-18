@@ -79,7 +79,7 @@
                             </li>
                         </sly>
                         <sly data-sly-list="${cruiseFareAdditions}">
-                            <li class="cruise-2018-suites-fares-included-li ${exclusiveOffersCruiseFareAdditions.size > 4 || itemList.count > 3 ? 'hidden-xs' : ''}">
+                            <li class="cruise-2018-suites-fares-included-li ${(exclusiveOffersCruiseFareAdditions && exclusiveOffersCruiseFareAdditions.size > 4) || itemList.count > 3 ? 'hidden-xs' : ''}">
                                 ${item @ context='html'}
                             </li>
                         </sly>
