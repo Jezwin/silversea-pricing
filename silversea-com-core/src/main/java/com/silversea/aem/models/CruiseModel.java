@@ -121,11 +121,18 @@ public class CruiseModel {
     private String[] keyPeople;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/voyageCruiseFareAdditions")
+    @Optional
+    private String voyageCruiseFareAdditions;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions")
     @Optional
     private String cruiseFareAdditions;
 
     private List<String> splitCruiseFareAdditions = new ArrayList<>();
+
+    private List<String> splitVoyageCruiseFareAdditions = new ArrayList<>();
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/itineraries")
@@ -206,6 +213,14 @@ public class CruiseModel {
 
             if (split.length > 0) {
                 splitCruiseFareAdditions.addAll(Arrays.asList(split));
+            }
+        }
+
+        if (voyageCruiseFareAdditions != null) {
+            final String[] split = voyageCruiseFareAdditions.split("\\r?\\n");
+
+            if (split.length > 0) {
+                splitVoyageCruiseFareAdditions.addAll(Arrays.asList(split));
             }
         }
 
@@ -532,5 +547,9 @@ public class CruiseModel {
 
     public String getSmallItineraryMap() {
         return smallItineraryMap;
+    }
+
+    public List<String> getVoyageCruiseFareAdditions() {
+        return splitVoyageCruiseFareAdditions;
     }
 }

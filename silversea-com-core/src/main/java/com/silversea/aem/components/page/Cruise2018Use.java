@@ -17,6 +17,7 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -57,6 +58,8 @@ public class Cruise2018Use extends EoHelper {
 
     private List<ExclusiveOfferItem> exclusiveOffers;
     private List<String> exclusiveOffersCruiseFareAdditions;
+
+
     private String exclusiveOfferPostPrice;
     private boolean venetianSociety;
     private String VSLBPath;
@@ -108,6 +111,8 @@ public class Cruise2018Use extends EoHelper {
     private ItineraryHotelModel hotelLightbox;
     private ItineraryLandProgramModel landProgramLightbox;
     private String selector;
+
+    private List<String> cruiseFareAdditions;
 
     //caching
     private ItineraryLandProgramModel midlandShorexLightbox;
@@ -171,6 +176,8 @@ public class Cruise2018Use extends EoHelper {
         totalNumberOfOffers = exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
         shipAssetGallery = retrieveShipAssetsGallery(cruiseModel, getResourceResolver());
 
+        cruiseFareAdditions = retrieveCruiseFareAdditions(cruiseModel);
+
         itinerary = retrieveItinerary(cruiseModel, getResourceResolver());
         portsGallery = retrievePortsGalleryAndVideo(cruiseModel);
 
@@ -212,6 +219,38 @@ public class Cruise2018Use extends EoHelper {
         this.hasexcursionsCounter = firstExcursionsCounter();
     }
 
+    private List<String> retrieveCruiseFareAdditions(CruiseModel cruiseModel) {
+        List<String> cruiseFare = cruiseModel.getCruiseFareAdditions();
+        List<String> voyageFare = cruiseModel.getVoyageCruiseFareAdditions();
+        List<String> destinationFare = retrieveDestinationFareAdditions(cruiseModel);
+        List<String> result = new ArrayList<String>();
+        boolean isDestinationFareEmpty = destinationFare == null || destinationFare.size() == 0;
+        boolean isVoyageFareEmpty = voyageFare == null || voyageFare.size() == 0;
+        boolean isOldCruiseFareEmpty = cruiseFare == null || cruiseFare.size() == 0;
+        boolean isNewFareToShow = !isDestinationFareEmpty || !isVoyageFareEmpty;
+        if (isNewFareToShow) {
+            if (!isVoyageFareEmpty) {
+                result.addAll(voyageFare);
+            }
+            if (!isDestinationFareEmpty) {
+                result.addAll(destinationFare);
+            }
+        } else {
+            if (!isOldCruiseFareEmpty) {
+                result.addAll(cruiseFare);
+            }
+        }
+        return result;
+    }
+
+    private List<String> retrieveDestinationFareAdditions(CruiseModel cruiseModel) {
+        boolean isExpedition = cruiseModel.getCruiseType().equalsIgnoreCase("silversea-expedition");
+        if (isExpedition) {
+            return cruiseModel.getDestination().getDestinationFareAdditionsExpedition();
+        } else {
+            return cruiseModel.getDestination().getDestinationFareAdditionsClassic();
+        }
+    }
 
     private String retrieveExclusiveOfferPostPriceAndFindLMS(List<ExclusiveOfferItem> exclusiveOffers) {
         Integer priorityWeight = Integer.MIN_VALUE;
@@ -245,6 +284,17 @@ public class Cruise2018Use extends EoHelper {
             PortGalleryAndVideo.addAll(0, assetsListResult);
         }
         return PortGalleryAndVideo;
+    }
+
+    public int getTotalFareAddition() {
+        int total = 0;
+        if (exclusiveOffersCruiseFareAdditions != null) {
+            total += exclusiveOffersCruiseFareAdditions.size();
+        }
+        if (cruiseFareAdditions != null) {
+            total += cruiseFareAdditions.size();
+        }
+        return total;
     }
 
     public static Collection<CruisePrePost> retrievePrePosts(List<CruiseItinerary> itinerary) {
@@ -656,7 +706,7 @@ public class Cruise2018Use extends EoHelper {
     public void setExclusiveOfferPostPrice(String exclusiveOfferPostPrice) {
         this.exclusiveOfferPostPrice = exclusiveOfferPostPrice;
     }
-    
+
     public boolean getNumExcursions() {
         return numExcursions > 0;
     }
@@ -667,6 +717,10 @@ public class Cruise2018Use extends EoHelper {
 
     public void setLastMinuteSavings(boolean lastMinuteSavings) {
         this.lastMinuteSavings = lastMinuteSavings;
+    }
+
+    public List<String> getCruiseFareAdditions() {
+        return cruiseFareAdditions;
     }
 
     public enum Lightbox {
@@ -799,6 +853,7 @@ public class Cruise2018Use extends EoHelper {
     public String getCcptCode() {
         return ccptCode;
     }
+
     public String getTaCode() {
         return taCode;
     }
@@ -823,8 +878,11 @@ public class Cruise2018Use extends EoHelper {
     public long getDayUntilDeparture() {
         return dayUntilDeparture;
     }
+
     public Integer getHasexcursionsCounter() {
         return hasexcursionsCounter;
     }
+
+
 }
 
