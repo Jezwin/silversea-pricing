@@ -85,7 +85,7 @@ public class SitemapEntryModel {
         }
 
         if(page.getVanityUrl() != null && !page.getVanityUrl().isEmpty()){
-            return "https://www.silversea.com/"+page.getVanityUrl();
+            return "https://www.silversea.com/"+page.getVanityUrl()+".html";
         }
         final String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
         if (page.getPath().equals("/content/silversea-com/en")) { // TODO constant
