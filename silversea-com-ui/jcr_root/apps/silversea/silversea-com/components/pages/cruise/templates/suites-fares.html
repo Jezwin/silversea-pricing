@@ -75,7 +75,7 @@
                     <sly data-sly-test="${!isCombo}">
                         <sly data-sly-list="${exclusiveOffersCruiseFareAdditions}">
                             <li class="cruise-2018-suites-fares-included-eo cruise-2018-suites-fares-included-li ${itemList.count > 3 ? 'hidden-xs' : ''}">
-                                ${item @ context='html'}
+                                <b>${item @ context='html'}</b>
                             </li>
                         </sly>
                         <sly data-sly-list="${cruiseFareAdditions}">
@@ -92,7 +92,7 @@
                     </sly>
                     <sly data-sly-test="${isCombo}">
                         <li data-sly-repeat="${exclusiveOffersCruiseFareAdditions}" class="cruise-2018-suites-fares-included-eo ${itemList.count > 6 ? 'hidden-xs' : ''}">
-                            ${item @ context='html'}
+                            <b>${item @ context='html'}</b>
                         </li>
                         <li class="cruise-2018-suites-fares-included-footnotes hidden-xs hidden-lg hidden-sm hidden-md" data-sly-test="${fareAdditionsFootnotes}">
                             ${fareAdditionsFootnotes @ context='html'}
