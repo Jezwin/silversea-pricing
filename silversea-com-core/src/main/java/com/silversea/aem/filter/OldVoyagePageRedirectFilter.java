@@ -71,7 +71,7 @@ public class OldVoyagePageRedirectFilter implements Filter {
                                         parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
                                     slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
                                     Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
-                                    slingResponse.sendRedirect(externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
+                                    slingResponse.setHeader("Location",externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
                                             + WcmConstants.HTML_SUFFIX);
                                     return;
                                 }

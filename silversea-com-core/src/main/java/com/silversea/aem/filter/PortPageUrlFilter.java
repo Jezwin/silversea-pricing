@@ -92,7 +92,7 @@ public class PortPageUrlFilter implements Filter {
 
 					if(!redirectToApply.equals("")) {
 						slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
-						slingResponse.sendRedirect(redirectToApply);
+						slingResponse.setHeader("Location",redirectToApply);
 						return;
 					}
 
