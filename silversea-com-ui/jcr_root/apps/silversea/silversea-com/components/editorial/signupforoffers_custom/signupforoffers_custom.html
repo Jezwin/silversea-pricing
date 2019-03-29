@@ -1,0 +1,104 @@
+<div data-sly-use.signUpUse="com.silversea.aem.components.editorial.SignUpUse"
+     data-sly-test.refPath="${signUpUse.pageReference ||  properties.pageReference}"
+     data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"
+     data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
+     data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
+     class="cq-placeholder"
+     data-emptytext="Sign up for offers"></div>
+
+<form class="c-formcookie c-formcookie--redirect c-signupforoffer c-form ${signUpUse.isGPDR ? 'gpdr' : ''}" data-disable="false" action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
+    <input name="requestsource" type="hidden" value="SFO" />
+    <input name="requesttype" type="hidden" value="" />
+    <input name="shipname" type="hidden" value="${properties.ship}" />
+    <input name="sitecountry" type="hidden" value="${signUpUse.countryCodeIso3}" />
+    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
+    <input name="sitecurrency" type="hidden" value="${signUpUse.siteCurrency}" />
+    <input name="subscribeemail" type="hidden" value="true" />
+
+    <div class="form-group form-group-lg has-feedback">
+        <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
+            <option value="">${'title' @ i18n}*</option>
+            <option value="mr">${'mr' @i18n}.</option>
+            <option value="mrs">${'mrs' @ i18n}.</option>
+            <option value="miss">${'miss' @ i18n}.</option>
+            <option value="ms">${'ms' @ i18n}.</option>
+            <option value="dr">${'dr' @ i18n}.</option>
+            <option value="dir">${'dir' @ i18n}.</option>
+            <option value="lady">${'lady' @ i18n}.</option>
+            <option value="prof">${'prof' @ i18n}.</option>
+            <option value="lord">${'lord' @ i18n}.</option>
+        </select>
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors incorrect"></div>
+    </div>
+
+    <div class="form-group form-group-lg has-feedback">
+        <input type="text" name="firstname" class="form-control" value="" placeholder="${'first-name' @ i18n}*" required data-error="${'required-firstname' @ i18n}" />
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+    </div>
+
+    <div class="form-group form-group-lg has-feedback">
+        <input type="text" name="lastname" class="form-control" value="" placeholder="${'last-name' @ i18n}*" required  data-error="${'required-lastname' @ i18n}" />
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+    </div>
+
+    <div class="form-group form-group-lg has-feedback">
+        <input type="email" name="email" class="form-control" value="" placeholder="${'email-address' @ i18n}*" required
+        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
+        data-required-error="${'required-email-address' @ i18n}"
+        data-error="${'incorrect-email-address' @ i18n}" 
+        data-email-error="${'incorrect-email-address' @ i18n}"
+        data-email="" />
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors incorrect"></div>
+    </div>
+
+    <p class="small text-muted">${'required-fields' @ i18n}*</p>
+
+    <div class="form-group form-group-lg">
+        <div class="checkbox">
+            <label for="minimal-checkbox-1">
+                <input class="custom-checkbox" type="checkbox" id="minimal-checkbox-1" name="workingwithagent" value="true"/>
+                ${'i-m-currently-booked' @ i18n}
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-6">
+            <button class="btn btn-red btn-default btn-block pull-right c-btn--lg" type="submit" data-sscclicktype="clic-SFO" data-sly-test="${!signUpUse.isGPDR}">
+                ${'sign-up-for-offers' @ i18n} <i class="fa fa-angle-right"></i>
+            </button>
+            <button class="btn btn-red btn-default btn-block pull-right c-btn--lg" type="submit" data-sscclicktype="clic-SFO" data-sly-test="${signUpUse.isGPDR}">
+                ${'submit' @ i18n} <i class="fa fa-angle-right"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+//Refresh Global Mbox function - A/B Test 
+function TargetOffer(){
+	try {
+		  adobe.target.getOffer({  
+			  "mbox": "target-global-mbox",  
+			  "success": function(offers) {          
+			        adobe.target.applyOffer( { 
+			           "mbox": "target-global-mbox",
+			           "offer": offers 
+			        } );
+			  },  
+			  "error": function(status, error) {          
+			    
+			  },
+			"timeout": 5000
+			});
+		}
+		catch(error) {
+		  console.error(error);
+		}
+} TargetOffer()
+
+</script>

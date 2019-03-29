@@ -112,7 +112,9 @@ public class LeadServiceImpl implements LeadService {
             XMLGregorianCalendar sailDate = DateUtils.getXmlGregorianCalendar(departureDate, "dd MMM yyyy");
             request.setSailDate(sailDate);
         }
-        request.setShip(lead.getShipname());
+        if(!StringUtils.isEmpty(lead.getShipname())) {
+            request.setShip(lead.getShipname());
+        }
         request.setSuiteCategory(lead.getSuitecategory());
         request.setSuiteVariation(lead.getSuitevariation());
         if (!StringUtils.isEmpty(lead.getPriceString())) {
@@ -142,7 +144,9 @@ public class LeadServiceImpl implements LeadService {
         request.setAtt02(lead.getAtt02());
         //EO Preference
         request.setAtt01(lead.getAtt01());
-        request.setShip(lead.getShip());
+        if(!StringUtils.isEmpty(lead.getShip())) {
+            request.setShip(lead.getShip());
+        }
         request.setPreferredDestinations(lead.getPreferredDestinations());
     }
 
