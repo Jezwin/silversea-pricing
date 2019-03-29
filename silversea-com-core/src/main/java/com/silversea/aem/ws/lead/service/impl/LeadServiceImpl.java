@@ -83,7 +83,11 @@ public class LeadServiceImpl implements LeadService {
 
     public void adaptLeadRequest(NewX0020MethodX0020WithX002052X0020Arguments request, Lead lead) {
         request.setRequestType(lead.getRequesttype());
+        request.setRequestSubType(lead.getRequestsubtype());
         request.setRequestSource(lead.getRequestsource());
+
+        request.setVSNumber(lead.getVsnumber());
+        request.setBookingNumber(lead.getBookingnumber());
 
         request.setSiteCountry(lead.getSitecountry());
         request.setSiteLanguage(lead.getSitelanguage());

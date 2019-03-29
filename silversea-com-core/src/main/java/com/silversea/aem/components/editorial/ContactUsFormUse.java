@@ -9,6 +9,7 @@ import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.Value;
 
+import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONObject;
@@ -29,7 +30,7 @@ import com.silversea.aem.services.GeolocationTagService;
  * @author sachin
  *
  */
-public class ContactUsFormUse extends WCMUsePojo {
+public class ContactUsFormUse extends AbstractGeolocationAwareUse {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ContactUsFormUse.class);
 
@@ -50,6 +51,7 @@ public class ContactUsFormUse extends WCMUsePojo {
 	@Override
 	public void activate() throws Exception {
 		// init geolocations informations
+		super.activate();
 		final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
 				GeolocationTagService.class);
 
@@ -114,21 +116,9 @@ public class ContactUsFormUse extends WCMUsePojo {
 	 */
 	public Boolean getIsChecked() {
 		final String[] tags = getProperties().get(NameConstants.PN_TAGS, String[].class);
+		return false;
+		//return !countryCode.toLowerCase().equals("ca") && !countryCode.toLowerCase().equals("can");
 
-		if (tags != null) {
-			final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-
-			// TODO replace by TagManager#getTags
-			if (tagManager != null) {
-				for (String tagId : tags) {
-					if (tagManager.resolve(tagId).getName().equals(GeolocationHelper.getCountryCode(getRequest()))) {
-						return false;
-					}
-				}
-			}
-		}
-
-		return true;
 	}
 
 	/**

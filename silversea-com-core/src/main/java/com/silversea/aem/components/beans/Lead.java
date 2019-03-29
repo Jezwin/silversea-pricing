@@ -14,6 +14,7 @@ public class Lead {
     private String comments;
     private String requestsource;
     private String requesttype;
+    private String requestsubtype;
     private String sitecountry;
     private String sitelanguage;
     private String sitecurrency;
@@ -47,9 +48,6 @@ public class Lead {
     private String ship;
     private String preferredDestinations;
     // Contact Us Form
-    private String subject;
-    private String inquiry;
-    private String from_email;
     private String bookingnumber;
     private String vsnumber;
     // Lead Arrival Date
@@ -301,6 +299,14 @@ public class Lead {
         this.requesttype = requesttype;
     }
 
+    public String getRequestsubtype() {
+        return requestsubtype;
+    }
+
+    public void setRequestsubtype(String requestsubtype) {
+        this.requestsubtype = requestsubtype;
+    }
+
     public String getBrochurecode() {
         return brochurecode;
     }
@@ -349,22 +355,6 @@ public class Lead {
         this.isnotagent = isnotagent;
     }
 
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getInquiry() {
-        return inquiry;
-    }
-
-    public void setInquiry(String inquiry) {
-        this.inquiry = inquiry;
-    }
-
     public String getBookingnumber() {
         return bookingnumber;
     }
@@ -379,14 +369,6 @@ public class Lead {
 
     public void setVsnumber(String vsnumber) {
         this.vsnumber = vsnumber;
-    }
-
-    public String getFrom_email() {
-        return from_email;
-    }
-
-    public void setFrom_email(String from_email) {
-        this.from_email = from_email;
     }
 
     public String getSubmitDate() {

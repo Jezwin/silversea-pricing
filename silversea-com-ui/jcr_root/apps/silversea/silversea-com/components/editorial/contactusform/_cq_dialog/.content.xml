@@ -60,6 +60,12 @@
                                                             fieldDescription="Subject"
                                                             fieldLabel="Subject"
                                                             name="./subject"/>
+                                                        <subjectapikey
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldDescription="Subject apikey"
+                                                                fieldLabel="Subject apikey"
+                                                                name="./subjectapikey"/>
                                                         <inquiries
                                                             jcr:primaryType="nt:unstructured"
                                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
@@ -85,12 +91,12 @@
                                                                                 fieldDescription="Inquiry"
                                                                                 fieldLabel="Inquiry"
                                                                                 name="./inquiry"/>
-                                                                            <email
+                                                                            <inquiryapikey
                                                                                 jcr:primaryType="nt:unstructured"
                                                                                 sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                                                                fieldDescription="Email"
-                                                                                fieldLabel="Email"
-                                                                                name="./email"/>
+                                                                                fieldDescription="API KEY"
+                                                                                fieldLabel="API KEY"
+                                                                                name="./inquiryapikey"/>
                                                                         </items>
                                                                     </column>
                                                                 </items>

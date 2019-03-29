@@ -2,7 +2,8 @@
 <form class="request-quote-form c-form c-formcookie--redirect c-contactus" action="${properties.thankyoupage @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.ContactUsFormUse" novalidate>
     ${use.prepareDestinationParameters}
     <input name="requestsource" type="hidden" value="CONTACT" />
-    <input name="requesttype" type="hidden" value="" />
+    <input name="requesttype"  id="requesttype" type="hidden" value="" />
+    <input name="requestsubtype" id="requestsubtype" type="hidden" value="" />
     <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
     <input name="sitecountry" type="hidden" value="${countryHelper.countryCodeIso3}" />
     <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
@@ -24,9 +25,6 @@
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
-
-	<input name="from_email" id="from_email" type="hidden" value="" />
-
 
     <div class="form-group form-group-lg has-feedback input--title">
         <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
@@ -107,10 +105,10 @@
     </div>
 
     <p class="small text-muted">${'required-fields' @ i18n}*</p>
-    <div class="form-group form-group-lg">
+    <div class="form-group form-group-lg" style="display: none">
         <div class="checkbox">
             <label>
-                <input class="custom-checkbox" type="checkbox" name="subscribeemail-custom" checked="${use.isChecked}" />
+                <input class="custom-checkbox" type="checkbox" name="subscribeemail-custom" checked="false"/>
                 <input type="hidden" name="subscribeemail" value="false" />
                 ${'receive-emails-with-news' @ i18n}
             </label>
