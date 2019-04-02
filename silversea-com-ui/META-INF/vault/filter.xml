@@ -15,6 +15,7 @@
     <filter root="/etc/tags/rep:policy" />
 <!--     <filter root="/etc/clientlibs/dtm" /> -->
     <filter root="/etc/designs/silversea-com">
+    <filter root="/etc/clientlibs/silverseaTests">
         <exclude pattern="/etc/designs/silversea-com/jcr:content(.*)" />
     </filter>
     <filter root="/apps/foundation/components/redirect" />
