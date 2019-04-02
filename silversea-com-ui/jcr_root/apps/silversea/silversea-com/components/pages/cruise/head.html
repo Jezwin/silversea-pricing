@@ -18,6 +18,7 @@
 <meta property="og:description" data-sly-test="${description}" content="${description}" />
 <sly data-sly-list="${pageHelper.languagePages}">
     <link rel="alternate" hreflang="${item}" href="${pageHelper.languagePages[item] @ extension='html'}" /></sly>
+<link rel="canonical" href="${pageHelper.currentLanguage @ extension='html'}" />
 <!--/* /open graph tag */-->
 <sly data-sly-include="datalayer.html" />
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
