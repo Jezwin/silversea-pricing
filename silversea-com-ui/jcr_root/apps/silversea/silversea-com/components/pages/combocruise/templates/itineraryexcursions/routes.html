@@ -8,7 +8,7 @@
          ssc-arrow-mobile="false"
          class="silversea-slider route-slider activate-progressbar">
         <sly data-sly-list.route="${routes}">
-            <a class="silversea-slide change-route-onclick"
+            <a class="silversea-slide change-route-onclick" rel="nofollow"
                href="${request.requestURI @ selectors=['templates.itineraryexcursions.itinerarydetail',route.page.name]}">
                 <div class="route-content ${routeList.first ? 'route-active' : ''}">
                     <div class="route-content-square">
