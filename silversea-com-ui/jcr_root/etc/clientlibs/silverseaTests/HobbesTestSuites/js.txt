@@ -1,0 +1,10 @@
+#base=.
+FYCPageTestSuite.js
+ShipPageTestSuite.js
+NavigationMenuTestSuite.js
+HomePageTestSuite.js
+PortSearchTestSuite.js
+PortPageTestSuite.js
+DestinationsPageTestSuite.js
+CruisePageTestSuite.js
+WorldCruisePageTestSuite.js
