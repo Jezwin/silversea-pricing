@@ -48,6 +48,7 @@
          currency=cruise.lowestPrice.currency,
          computedPriceFormatted=cruise.computedPriceFormatted,
          requestQuotePagePath=cruise.requestQuotePagePath}"/>
+    <div data-sly-resource="${'parOverOffer' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise/templates/offers.html"
          data-sly-call="${offers.default @
          offers = cruise.exclusiveOffers,
@@ -56,6 +57,7 @@
          odd = cruise.areOffersOdd,
          VSLBPath = cruise.VSLBPath}"/>
     <hr data-sly-test="${cruise.totalNumberOfOffers != 0}" style="border-color: white;"/>
+    <div data-sly-resource="${'parOverItinerary' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.itineraryexcursions="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itineraryexcursions.html"
          data-sly-call="${itineraryexcursions.default @
          cruise=cruise, model=cruise.cruiseModel,
@@ -64,6 +66,7 @@
     <sly data-sly-use.expeditions="/apps/silversea/silversea-com/components/pages/cruise/templates/expeditions.html"
          data-sly-call="${expeditions.default @
          cruise=cruise}"/>
+    <div data-sly-resource="${'parOverSuite' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.suitesfares="/apps/silversea/silversea-com/components/pages/cruise/templates/suites-fares.html"
          data-sly-call="${suitesfares.default @
          prices=cruise.prices,
@@ -76,14 +79,17 @@
           showTitle=true,
           showDescription=true}"/>
     <hr/>
+    <div data-sly-resource="${'parOverShip' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.ship="/apps/silversea/silversea-com/components/pages/cruise/templates/ship/ship.html"
          data-sly-call="${ship.default @
          ship=cruise.cruiseModel.ship,
          shipAssetGallery=cruise.shipAssetGallery,
          externalizerHelper=externalizerHelper}"/>
+    <div data-sly-resource="${'parOverPrepost' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise/templates/pre-post.html"
          data-sly-call="${prepost.default @
          prePosts=cruise.prePost, activateProgressbar=false}"/>
+    <div data-sly-resource="${'parOverNextPrev' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.nextprev="/apps/silversea/silversea-com/components/pages/cruise/templates/next-prev.html"
          data-sly-call="${nextprev.default @
          previous=cruise.previous,
