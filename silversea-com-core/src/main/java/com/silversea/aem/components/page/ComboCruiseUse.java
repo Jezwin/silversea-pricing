@@ -40,6 +40,8 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
     private List<SilverseaAsset> assetsGallery;
 
+    private String bannerVideo;
+
     @Override
     public void activate() throws Exception {
         super.activate();
@@ -66,6 +68,9 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
         prices = Cruise2018Use.retrievePrices(getCurrentPage(), geomarket, currency, comboCruiseModel.getPrices());
         lowestPrice = Cruise2018Use.retrieveLowestPrice(prices);
         isWaitList = lowestPrice == null;
+        getProp("bannerVideo", String.class).ifPresent(value -> {
+            bannerVideo = value;
+        });
     }
 
     private Optional<ComboCruiseModel> retrieveComboCruise() {
@@ -86,7 +91,6 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
     private SegmentModel retrieveSelectedSegment(ComboCruiseModel comboCruiseModel, String selector) {
         return comboCruiseModel != null && !comboCruiseModel.getSegments().isEmpty() ? comboCruiseModel.getSegments().get(0) : null;
     }
-
 
     /**
      * @return the total number of cruise fares additions
@@ -192,5 +196,9 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
     public SegmentModel getSegmentModel() {
         return segmentModel;
+    }
+
+    public String getBannerVideo() {
+        return bannerVideo;
     }
 }

@@ -1,7 +1,8 @@
-<template data-sly-template.default="${ @  smallItineraryMap, lastMinuteSavings, exclusiveOfferPostPrice,bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
+<template data-sly-template.default="${ @  bannerVideo, smallItineraryMap, lastMinuteSavings, exclusiveOfferPostPrice,bigTitle, smallTitle, assetsGallery, bigThumbnailItineraryMap,bigThumbnail, bigItineraryMap, showCruiseBeforeName,cruiseType,endDate, countryCode,previous, next, navigationTitle,departurePortName,isWaitlist,requestQuotePagePath,earlyBookingBonus, currency,currentPath,taCode, ccptCode,cruiseCode, computedPriceFormatted,startDate,duration, ship,arrivalPortName, title,  itinerary, isCombo, externalizerHelper}">
     <div class="cruise-2018-overview row container ${isCombo ? 'cruise-2018-overview-single-column' : ''}"
          data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets',cruiseType]}"
          data-lightbox-map-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-map',cruiseType]}"
+         data-lightbox-video-path="${externalizerHelper.externalizedUrl @ extension='html', selectors=['lightboxes.lg-gallery-assets-video',cruiseType]}"
          id="cruise2018overview">
         <a href="#" data-sly-test="${bigItineraryMap && isCombo}"
            class="cruise-2018-overview-map-btn-combo open-lightbox-map hidden-xs" data-target=".lightbox"
@@ -17,11 +18,18 @@
                style="background-image:url('${assetHelperSmallMap.imageUrl  @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
             </a>
+
+            <sly data-sly-test="${isCombo && bannerVideo}">
+                <a class="video-link-combo open-lightbox-gallery-assets" href="#" tabindex="0" data-target=".lightbox" rel="nofollow" id="lb-mainVideo" data-label="data-lightbox-video-path">
+                    <i class="fa fa-play"></i>
+                </a>
+            </sly>
+
             <sly data-sly-list.asset="${assetsGallery}">
                 <sly data-sly-test="${asset.path && assetList.index < 1}"
                      data-sly-test.firstAssetGalleryImg="${asset.path}"/>
             </sly>
-            <div class="open-lightbox-gallery-assets" data-target=".lightbox" id="lb-mainGallery">
+            <div class="open-lightbox-gallery-assets" data-target=".lightbox" id="lb-mainGallery" data-label="data-lightbox-gallery-path">
                 <picture data-sly-test="${cruiseDesktopImg || cruiseMobileImg}">
                     <sly data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseDesktopImg}"/>
                     <sly data-sly-use.assetHelperMobile="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseMobileImg}"/>
@@ -38,7 +46,7 @@
                 </picture>
             </div>
             <a href="#" data-sly-test="${assetsGallery && !isCombo}"
-               class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
+               class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox" id="lb-mainGallery" data-label="data-lightbox-gallery-path">
                 <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>
             </a>
         </div>
@@ -72,7 +80,7 @@
         </div>
         <div class="cruise-2018-overview-description ${isCombo ? 'col-sm-12' : 'col-sm-6'} col-xs-12">
             <a href="#" data-sly-test="${assetsGallery && isCombo}"
-               class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
+               class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox"  id="lb-mainGallery" data-label="data-lightbox-gallery-path">
                 <div class="cruise-2018-overview-photos-videos-btn-combo">${'photos-and-videos' @ i18n}</div>
             </a>
             <div class="cruise-2018-overview-description-cruise">
