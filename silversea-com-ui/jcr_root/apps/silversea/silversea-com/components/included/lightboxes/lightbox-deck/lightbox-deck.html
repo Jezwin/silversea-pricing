@@ -13,16 +13,16 @@
                             - ${'deck-plans' @ i18n }
                         </span>
                     </div>
-                    <div class="lg-deck-tab" data-sly-test="${model.ship.deckInfoList}">
+                    <div class="lg-deck-tab" data-sly-test="${model.deckInfoList}">
                         <div class="lg-deck-number ${itemList.first ? 'lg-active-deck lg-active-first' : ''}"
-                             data-sly-repeat.item="${model.ship.deckInfoList}">
-                            <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imagePath}"/>
-                            <span data-deck-number="${item.level}" data-image-src-top="${assetHelperTop.imageUrl}?wid=800&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain">
-                                ${'deck' @ i18n} ${item.level}
+                             data-sly-repeat.item="${model.deckInfoList}">
+                            <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.deckImageTop}"/>
+                            <span data-deck-number="${item.deckLevel}" data-image-src-top="${assetHelperTop.imageUrl}?wid=800&fit=constrain&fmt=png-alpha&pscan=5&qlt=80&fit=constrain">
+                                ${'deck' @ i18n} ${item.deckLevel}
                             </span>
                         </div>
                     </div>
-                    <div class="lg-deck-image" data-sly-test="${model.ship.deckInfoList}">
+                    <div class="lg-deck-image" data-sly-test="${model.deckInfoList}">
                         <img id="image-deck-plan-top" src="" alt="location top" title="Location top" class="o-img"/>
                     </div>
                     <hr/>
@@ -43,12 +43,12 @@
                                             ${spec.value}
                                         </sly>
                                         <sly data-sly-test="${spec.label == 'length'}">
-                                            <sly data-sly-test="${model.isFeet}">${model.ship.lengthFt} ${'feet' @ i18n }</sly>
-                                            <sly data-sly-test="${!model.isFeet}">${model.ship.lengthM} ${'meters' @ i18n }</sly>
+                                            <sly data-sly-test="${model.isFeet}">${spec.value} ${'feet' @ i18n }</sly>
+                                            <sly data-sly-test="${!model.isFeet}">${spec.value} ${'meters' @ i18n }</sly>
                                         </sly>
                                         <sly data-sly-test="${spec.label == 'width'}">
-                                            <sly data-sly-test="${model.isFeet}">${model.ship.widthFt} ${'feet' @ i18n }</sly>
-                                            <sly data-sly-test="${!model.isFeet}">${model.ship.widthM} ${'meters' @ i18n }</sly>
+                                            <sly data-sly-test="${model.isFeet}">${spec.value} ${'feet' @ i18n }</sly>
+                                            <sly data-sly-test="${!model.isFeet}">${spec.value} ${'meters' @ i18n }</sly>
                                         </sly>
                                         <sly data-sly-test="${spec.label == 'speed'}">${'knots' @ i18n }</sly>
                                     </div>
@@ -64,7 +64,7 @@
                         </sly>
                     </div>
                     <div class="row lg-deck-download">
-                        <a data-sly-test.deckPlan="${model.ship.deckPlan}" href="${model.ship.deckPlan}"
+                        <a data-sly-test.deckPlan="${model.deckPlan}" href="${model.deckPlan}"
                            target="_blank">
                             <i class="fa fa-file-o" aria-hidden="true"></i>
                             <strong>${'download-pdf' @ i18n}</strong>

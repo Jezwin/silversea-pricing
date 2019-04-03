@@ -20,11 +20,12 @@ import javax.inject.Named;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 @Model(adaptables = Page.class)
-public class ShipModel {
+public class ShipModel implements ShipInterface{
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ShipModel.class);
 
@@ -185,47 +186,16 @@ public class ShipModel {
 
     private String name;
 
-    private List<DeckBean> deckInfoList;
+    private List<DeckInfoModel> deckInfoList;
+
+    private List<ShipFactsAndPlanByDateModel> propsfactsAndPlanByDate;
 
     @PostConstruct
     private void init() {
         path = page.getPath();
         name = page.getName();
+        propsfactsAndPlanByDate = readNodeFactsAndPlanDate();
     }
-
-    private List<DeckBean> transformDeckInformationFromNodeToList(String nodeToTransformName) {
-        LOGGER.debug("ShipModelTransformDeckInfo start transform deck info from node to list for {}", this.name);
-        try {
-            if (this.page.getContentResource("deckInfoNode") != null) {
-                Node nodeToTransform = this.page.getContentResource("deckInfoNode").adaptTo(Node.class);
-                if (nodeToTransform != null && nodeToTransform.hasNodes()) {
-                    List<DeckBean> listResult = new ArrayList<>();
-                    Iterator<Node> nodeIterator = nodeToTransform.getNodes();
-                    while (nodeIterator.hasNext()) {
-                        DeckBean deckBean = new DeckBean();
-                        Node node = nodeIterator.next();
-                        if (node.hasProperty("deckLevel") && node.getProperty("deckLevel") != null) {
-                            String propertyDeckLevel = node.getProperty("deckLevel").getString();
-                            deckBean.setLevel(propertyDeckLevel);
-                        }
-                        if (node.hasProperty("deckImageTop") && node.getProperty("deckImageTop") != null) {
-                            String propertyImageTopPath = node.getProperty("deckImageTop").getString();
-                            deckBean.setImagePath(propertyImageTopPath);
-                        }
-                        listResult.add(deckBean);
-                        LOGGER.debug("ShipModelTransformDeckInfo name: {} add new deck bean {}", this.name, deckBean.toString());
-                    }
-                    LOGGER.debug("ShipModelTransformDeckInfo name: {}  list of  {} elements", listResult.size());
-                    return listResult;
-                }
-            }
-        } catch (RepositoryException e) {
-            LOGGER.error("RepositoryException in Ship Model during get deckInfoNode {}", e.getMessage());
-        }
-        LOGGER.debug("ShipModelTransformDeckInfo completed function name :{}", this.name);
-        return null;
-    }
-
 
     public Page getPage() {
         return page;
@@ -293,6 +263,11 @@ public class ShipModel {
 
     public String getTonnage() {
         return tonnage;
+    }
+
+    @Override
+    public Date getValidityDate() {
+        return null;
     }
 
     public String getLengthFt() {
@@ -378,14 +353,33 @@ public class ShipModel {
         return objShipModel.getPath().equals(getPath());
     }
 
-    public List<DeckBean> getDeckInfoList() {
-        if (deckInfoList == null) {
-            deckInfoList = transformDeckInformationFromNodeToList("deckInfoNode");
+    public List<DeckInfoModel> getDeckInfoList() {
+        if (deckInfoList == null || deckInfoList.isEmpty()) {
+            deckInfoList = readNodeDeckInfo("deckInfoNode");
         }
         return deckInfoList;
     }
 
-    public void setDeckInfoList(List<DeckBean> deckInfoList) {
+    private List<DeckInfoModel> readNodeDeckInfo(String nodeToTransformName) {
+        LOGGER.debug("ShipModelTransformDeckInfo start transform deck info from node to list for {}", this.name);
+        List<DeckInfoModel> deckInfoList = new ArrayList<>();
+        boolean nodeIsPresent = this.page.getContentResource(nodeToTransformName) != null;
+        if (nodeIsPresent) {
+            Resource deckInfoNodeResource = this.page.getContentResource(nodeToTransformName);
+            boolean canReadChildren = deckInfoNodeResource.hasChildren();
+            if (canReadChildren) {
+                Iterator<Resource> iteratorChildren = deckInfoNodeResource.getChildren().iterator();
+                while (iteratorChildren.hasNext()) {
+                    DeckInfoModel entryToAdd = iteratorChildren.next().adaptTo(DeckInfoModel.class);
+                    deckInfoList.add(entryToAdd);
+                }
+            }
+        }
+        LOGGER.debug("ShipModelTransformDeckInfo completed function name :{}", this.name);
+        return deckInfoList;
+    }
+
+    public void setDeckInfoList(List<DeckInfoModel> deckInfoList) {
         this.deckInfoList = deckInfoList;
     }
 
@@ -403,5 +397,29 @@ public class ShipModel {
 
     public String getPassengersDeck() {
         return passengersDeck;
+    }
+
+
+    public List<ShipFactsAndPlanByDateModel> getPropsfactsAndPlanByDate() {
+        return propsfactsAndPlanByDate;
+    }
+
+    private List<ShipFactsAndPlanByDateModel> readNodeFactsAndPlanDate() {
+        LOGGER.debug("Start read node FactsAndPlan for {}", this.name);
+        boolean nodeIsPresent = page.getContentResource("factsAndPlanNode") != null;
+        List<ShipFactsAndPlanByDateModel> shipFactsAndPlanByDateModelList = new ArrayList<>();
+        if (nodeIsPresent) {
+            Resource factsAndPlanDateResource = page.getContentResource("factsAndPlanNode");
+            boolean canReadChildren = factsAndPlanDateResource != null && factsAndPlanDateResource.hasChildren();
+            if (canReadChildren) {
+                Iterator<Resource> iteratorChildren = factsAndPlanDateResource.getChildren().iterator();
+                while (iteratorChildren.hasNext()) {
+                    ShipFactsAndPlanByDateModel entryToAdd = iteratorChildren.next().adaptTo(ShipFactsAndPlanByDateModel.class);
+                    shipFactsAndPlanByDateModelList.add(entryToAdd);
+                }
+            }
+        }
+        LOGGER.debug("End read node FactsAndPlan for {}", this.name);
+        return shipFactsAndPlanByDateModelList;
     }
 }
