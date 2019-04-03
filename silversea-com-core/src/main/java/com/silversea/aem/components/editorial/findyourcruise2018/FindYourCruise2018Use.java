@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
+import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
@@ -71,7 +72,13 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
         requestQuotePagePath = retrieveRequestQuotePath(resource);
-        String paginationLimit = ofNullable(getCurrentStyle()).map(style -> style.get("paginationLimit", String.class)).orElse(DEFAULT_PAGE_SIZE);
+        String paginationLimit = null;
+
+        if (getProp("paginationLimit", String.class).isPresent()) {
+            paginationLimit = getProp("paginationLimit", String.class).get();
+        } else {
+            paginationLimit = ofNullable(getCurrentStyle()).map(style -> style.get("paginationLimit", String.class)).orElse(DEFAULT_PAGE_SIZE);
+        }
 
         Optional<List<CruiseModelLight>> allCruises =
                 ofNullable(getSlingScriptHelper().getService(CruisesCacheService.class)).map(service -> {
