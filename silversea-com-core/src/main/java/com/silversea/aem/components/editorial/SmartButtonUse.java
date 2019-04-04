@@ -37,6 +37,7 @@ public class SmartButtonUse extends AbstractGeolocationAwareUse {
     @Override
     public void activate() throws Exception {
         super.activate();
+         externalizer = getResourceResolver().adaptTo(Externalizer.class);
         ValueMap dataProperties = get("properties", ValueMap.class);
         sbProperties = new ValueMapDecorator(new LinkedHashMap<>());
 
