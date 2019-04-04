@@ -1,6 +1,7 @@
 package com.silversea.aem.helper;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.silversea.aem.services.GlobalCacheService;
 import com.silversea.aem.services.RunModesService;
 
 /**
@@ -8,25 +9,29 @@ import com.silversea.aem.services.RunModesService;
  */
 public class RunModesHelper extends WCMUsePojo {
 
-    private RunModesService runModesService;
+    private GlobalCacheService cache;
 
     @Override
     public void activate() throws Exception {
-        runModesService = getSlingScriptHelper().getService(RunModesService.class);
+        cache = getSlingScriptHelper().getService(GlobalCacheService.class);
+    }
+
+    private RunModesService getService() {
+        return getSlingScriptHelper().getService(RunModesService.class);
     }
 
     /**
      * @return true if run modes contains "author"
      */
     public boolean isAuthor() {
-        return runModesService.isAuthor();
+        return cache.getCache("IS_AUTHOR", Boolean.class, () -> getService().isAuthor());
     }
 
     /**
      * @return true if run modes contains "publish"
      */
     public boolean isPublish() {
-        return runModesService.isPublish();
+        return cache.getCache("IS_PUBLISH", Boolean.class, () -> getService().isPublish());
     }
 
     /**
