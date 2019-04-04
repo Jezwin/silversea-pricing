@@ -172,9 +172,9 @@ $(function() {
 
 
 
-            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
+            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'requestsource', 'requesttype', 'requestsubtype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
                     'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
-                    'sitelanguage', 'sitecurrency', 'isnotagent' , 'subject' , 'inquiry' , 'from_email' , 'bookingnumber' , 'vsnumber', 'state' ];
+                    'sitelanguage', 'sitecurrency', 'isnotagent' , 'from_email' , 'bookingnumber' , 'vsnumber', 'state', 'comments' ];
             var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue'),  MCId = $.CookieManager.getCookie('mcid'),  att02 = $.CookieManager.getCookie('lastUrlBeforeLead');
 
             // Set cookie if not created
