@@ -293,6 +293,177 @@
                             </column>
                         </items>
                     </facts>
+                    <factsAndPlanDate
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Facts And Plan Date"
+                            cq:showOnCreate="{Boolean}false"
+                            sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <factsAndPlanNode
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                            composite="{Boolean}true"
+                                            fieldLabel="Facts And Plan Date">
+                                        <field
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                name="./factsAndPlanNode">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <column
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <validityDate
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                                                                displayedFormat="MMMM DD, YYYY hh:mm a"
+                                                                displayTimezoneMessage="{Boolean}true"
+                                                                type="datetime"
+                                                                fieldLabel="Validity date"
+                                                                name="./validityDate" />
+                                                        <deckplan
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                                fieldLabel="Global Deck Plan"
+                                                                name="./deckPlan"
+                                                                rootPath="/content/dam/silversea-com" />
+                                                        <guestsCapacity
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                fieldLabel="Guests Capacity"
+                                                                name="./guestsCapacity"/>
+                                                        <crewCapacity
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                fieldLabel="Crew Capacity"
+                                                                name="./crewCapacity" />
+                                                        <officersCapacity
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Officers Capacity"
+                                                                name="./officersCapacity" />
+                                                        <builtDate
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/datepicker"
+                                                                displayedFormat="MMMM DD, YYYY hh:mm a"
+                                                                displayTimezoneMessage="{Boolean}true"
+                                                                type="datetime"
+                                                                fieldLabel="Built Date"
+                                                                name="./builtDate" />
+                                                        <refurbDate
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/datepicker"
+                                                                displayedFormat="MMMM DD, YYYY hh:mm a"
+                                                                displayTimezoneMessage="{Boolean}true"
+                                                                type="datetime"
+                                                                fieldLabel="Refurb date"
+                                                                name="./refurbDate" />
+                                                        <tonnage
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Tonnage"
+                                                                name="./tonnage" />
+                                                        <lengthFt
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Length ft"
+                                                                name="./lengthFt" />
+                                                        <lengthM
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Length m"
+                                                                name="./lengthM" />
+                                                        <widthFt
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="WidthFt"
+                                                                name="./widthFt" />
+                                                        <widthM
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                allowBulkEdit="{Boolean}true"
+                                                                cq-msm-lockable="widthM"
+                                                                fieldLabel="WidthM"
+                                                                name="./widthM"
+                                                                renderReadOnly="{Boolean}true"/>
+                                                        <speed
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Speed"
+                                                                name="./speed" />
+                                                        <registry
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Registry"
+                                                                name="./registry" />
+                                                        <connectingSuites
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Connectings suties"
+                                                                name="./connectingSuites" />
+                                                        <handicapSuites
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Handicap suties"
+                                                                name="./handicapSuites" />
+                                                        <thirdGuestCapacity
+                                                                jcr:primaryType="nt:unstructured"
+                                                                text="3rd Guest Capacity"
+                                                                name="./thirdGuestCapacity"
+                                                                value="true"
+                                                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                                        <passengersDeck
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Passenger decks"
+                                                                name="./passengersDeck" />
+                                                        <deckInfoNode
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                                                composite="{Boolean}true"
+                                                                fieldLabel="Deck Info Node">
+                                                            <field
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                                                                    name="./deckInfoNode">
+                                                                <items jcr:primaryType="nt:unstructured">
+                                                                    <column
+                                                                            jcr:primaryType="nt:unstructured"
+                                                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                                                        <items jcr:primaryType="nt:unstructured">
+                                                                            <deckLevel
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    fieldLabel="Deck level"
+                                                                                    name="./deckLevel"
+                                                                                    sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                                                                            <deckImageTop
+                                                                                    jcr:primaryType="nt:unstructured"
+                                                                                    fieldLabel="Deck image"
+                                                                                    name="./deckImageTop"
+                                                                                    rootPath="/content/dam/silversea-com"
+                                                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                                                                        </items>
+                                                                    </column>
+                                                                </items>
+                                                            </field>
+                                                        </deckInfoNode>
+                                                    </items>
+                                                </column>
+                                            </items>
+                                        </field>
+                                    </factsAndPlanNode>
+                                </items>
+                            </column>
+                        </items>
+                    </factsAndPlanDate>
                 </items>
             </tabs>
         </items>
