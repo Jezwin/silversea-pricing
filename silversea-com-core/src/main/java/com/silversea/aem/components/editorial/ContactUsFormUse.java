@@ -1,9 +1,6 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
@@ -24,6 +21,8 @@ import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.services.GeolocationTagService;
+
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 
 /**
@@ -147,23 +146,19 @@ public class ContactUsFormUse extends AbstractGeolocationAwareUse {
 	 *            root tag of the countries
 	 */
 	private void collectCountries(final Tag tag) {
-		Iterator<Tag> children = tag.listChildren();
-
-		if (!children.hasNext()) {
-			final Resource tagResource = tag.adaptTo(Resource.class);
-
-			if (tagResource != null) {
-				final GeolocationTagModel geolocationTagModel = tagResource.adaptTo(GeolocationTagModel.class);
-
-				if (geolocationTagModel != null) {
-					countries.add(geolocationTagModel);
-				}
-			}
-		} else {
-			while (children.hasNext()) {
-				Tag child = children.next();
-				collectCountries(child);
-			}
+		Stack<Tag> stack = new Stack<>();
+		tag.listChildren().forEachRemaining(stack::add);
+		while (!stack.isEmpty()) {
+			Tag childTag = stack.pop();
+			Resource resource = childTag.adaptTo(Resource.class);
+			Optional.ofNullable(resource)
+					.map(Resource::getValueMap)
+					.filter(map -> isNotEmpty((String) map.getOrDefault("prefix", "")))
+					.filter(map -> "cq:Tag".equals(map.getOrDefault("jcr:primaryType", "")))
+					.filter(map -> isNotEmpty((String) map.getOrDefault("jcr:title", "")))
+					.map(map -> resource.adaptTo(GeolocationTagModel.class))
+					.ifPresent(countries::add);
+			childTag.listChildren().forEachRemaining(stack::add);
 		}
 	}
 
