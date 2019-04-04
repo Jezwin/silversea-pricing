@@ -141,6 +141,15 @@
                                             renderReadOnly="{Boolean}true"
                                             name="./bigItineraryMap"
                                             rootPath="/content/dam/silversea-com"/>
+                                    <bannerVideo
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="bigItineraryMap"
+                                            fieldLabel="Banner video"
+                                            renderReadOnly="{Boolean}true"
+                                            name="./bannerVideo"
+                                            rootPath="/content/dam/silversea-com"/>
                                     <keypeopleTitle
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textfield"

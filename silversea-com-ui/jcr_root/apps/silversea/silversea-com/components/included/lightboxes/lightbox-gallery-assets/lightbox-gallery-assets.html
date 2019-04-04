@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ list, cruise}">
+<template data-sly-template.default="${ @ list, cruise, video}">
     <head>
         <meta name="robots" content="noindex">
     </head>
@@ -20,7 +20,7 @@
                     </div>
                 </sly>
             </div>
-            <div class="ga-slider ga-slider--nav hidden-xs navigation-slider">
+            <div data-sly-test="${!video}" class="ga-slider ga-slider--nav hidden-xs navigation-slider">
                 <sly data-sly-repeat.asset="${list}">
                     <div data-sly-test="${asset.path}">
                         <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour-thumbnail' : ''}">
@@ -31,7 +31,7 @@
                     </div>
                 </sly>
             </div>
-            <div class="ga-info hidden-xs">
+            <div class="ga-info hidden-xs" data-sly-test="${!video}">
                 <div class="col-xs-12 ga-itinerary">
                     <span>${cruise.departurePortName} ${'to' @ i18n} ${cruise.arrivalPortName}</span>
                 </div>
