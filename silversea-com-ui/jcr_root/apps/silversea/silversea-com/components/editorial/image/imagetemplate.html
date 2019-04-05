@@ -38,7 +38,21 @@
 </template>
 
 <!--/* Default Responsive No Retina with Lazy  */-->
-<template data-sly-template.defaultNoRetinaLazy="${ @ imagePath, seo, imageWidth }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+<template data-sly-template.defaultNoRetinaLazy="${ @ imagePath, seo }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <picture data-sly-test.imageUrl="${imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <sly data-sly-test="${!seo}">
+            <img data-srcset="${assetHelper.imageUrl}?wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80, ${assetHelper.imageUrl}?wid=${image.mobileWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80 767w" data-src="${assetHelper.imageUrl}?wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" />
+        </sly>
+        <sly data-sly-test="${seo}">
+            <img data-srcset="${assetHelper.imageUrl}?wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80, ${assetHelper.imageUrl}?wid=${image.mobileWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80 767w" itemprop="image" data-src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" />
+        </sly>
+    </picture>
+</template>
+
+
+<!--/* Default Responsive No Retina with Lazy  */-->
+<template data-sly-template.defaultNoRetinaLazy2="${ @ imagePath, seo, imageWidth }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
     <picture data-sly-test.imageUrl="${imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
         <sly data-sly-test="${!seo}">
