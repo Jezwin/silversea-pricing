@@ -13,7 +13,7 @@ Menu.prototype = {
         return ((elemBottom >= docViewTop) && (docViewTop >= elemTop));
     },
     headerHeight: function headerHeight() {
-        return $("#header").height() + $(".c-main-nav__bottom").height();
+        return $("#header").height() +$(".header-2019").height() + $(".c-main-nav__bottom").height();
     },
 
     manageShadowHeader: function removeShadowHeader() {
