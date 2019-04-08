@@ -167,7 +167,7 @@ $(function () {
     function sticking() {
         $(window).scroll(sscThrottled(function () {
             var scrollPosition = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-            if (scrollPosition > 0) {
+            if (scrollPosition > 0 && $("#cruise2018menufixed:visible") === 0) {
                 $(".header2019, .header-2019-wrapper").addClass("sticked");
                 $(".header2019, .header-2019-wrapper").addClass("header-2019-wrapper-sticked");
                 $(".header-2019-top-section").removeClass("search-visible");

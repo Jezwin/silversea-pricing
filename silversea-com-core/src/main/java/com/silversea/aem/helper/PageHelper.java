@@ -26,6 +26,7 @@ public class PageHelper extends WCMUsePojo {
     private String thumbnailInherited;
     private Map<String, String> languagePages;
     private String templateName;
+    private String currentLanguage;
 
     @Override
     public void activate() throws Exception {
@@ -93,6 +94,7 @@ public class PageHelper extends WCMUsePojo {
                 if (page != null) {
                     Locale locale = page.getLanguage(false);
                     languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
+                    currentLanguage = externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath);
                     return lang;
                 }
             }
@@ -127,6 +129,10 @@ public class PageHelper extends WCMUsePojo {
      */
     public Page getHomePage() {
         return getCurrentPage().getAbsoluteParent(2);
+    }
+
+    public String getCurrentLanguage(){
+        return currentLanguage;
     }
 
     /**

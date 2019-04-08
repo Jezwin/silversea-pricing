@@ -99,6 +99,13 @@
                                     </items>
                                 </field>
                             </priorityOffer>
+                            <paginationLimit
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                    fieldLabel="Results per page"
+                                    defaultValue="12"
+                                    min="1"
+                                    name="./paginationLimit" />
                         </items>
                     </column>
                 </items>

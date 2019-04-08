@@ -1,14 +1,12 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.Value;
 
+import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONObject;
@@ -24,12 +22,14 @@ import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.services.GeolocationTagService;
 
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 
 /**
  * @author sachin
  *
  */
-public class ContactUsFormUse extends WCMUsePojo {
+public class ContactUsFormUse extends AbstractGeolocationAwareUse {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ContactUsFormUse.class);
 
@@ -50,6 +50,7 @@ public class ContactUsFormUse extends WCMUsePojo {
 	@Override
 	public void activate() throws Exception {
 		// init geolocations informations
+		super.activate();
 		final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
 				GeolocationTagService.class);
 
@@ -114,21 +115,9 @@ public class ContactUsFormUse extends WCMUsePojo {
 	 */
 	public Boolean getIsChecked() {
 		final String[] tags = getProperties().get(NameConstants.PN_TAGS, String[].class);
+		return false;
+		//return !countryCode.toLowerCase().equals("ca") && !countryCode.toLowerCase().equals("can");
 
-		if (tags != null) {
-			final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-
-			// TODO replace by TagManager#getTags
-			if (tagManager != null) {
-				for (String tagId : tags) {
-					if (tagManager.resolve(tagId).getName().equals(GeolocationHelper.getCountryCode(getRequest()))) {
-						return false;
-					}
-				}
-			}
-		}
-
-		return true;
 	}
 
 	/**
@@ -157,23 +146,19 @@ public class ContactUsFormUse extends WCMUsePojo {
 	 *            root tag of the countries
 	 */
 	private void collectCountries(final Tag tag) {
-		Iterator<Tag> children = tag.listChildren();
-
-		if (!children.hasNext()) {
-			final Resource tagResource = tag.adaptTo(Resource.class);
-
-			if (tagResource != null) {
-				final GeolocationTagModel geolocationTagModel = tagResource.adaptTo(GeolocationTagModel.class);
-
-				if (geolocationTagModel != null) {
-					countries.add(geolocationTagModel);
-				}
-			}
-		} else {
-			while (children.hasNext()) {
-				Tag child = children.next();
-				collectCountries(child);
-			}
+		Stack<Tag> stack = new Stack<>();
+		tag.listChildren().forEachRemaining(stack::add);
+		while (!stack.isEmpty()) {
+			Tag childTag = stack.pop();
+			Resource resource = childTag.adaptTo(Resource.class);
+			Optional.ofNullable(resource)
+					.map(Resource::getValueMap)
+					.filter(map -> isNotEmpty((String) map.getOrDefault("prefix", "")))
+					.filter(map -> "cq:Tag".equals(map.getOrDefault("jcr:primaryType", "")))
+					.filter(map -> isNotEmpty((String) map.getOrDefault("jcr:title", "")))
+					.map(map -> resource.adaptTo(GeolocationTagModel.class))
+					.ifPresent(countries::add);
+			childTag.listChildren().forEachRemaining(stack::add);
 		}
 	}
 

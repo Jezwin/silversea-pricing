@@ -32,6 +32,7 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
 
         //handle the map lightbox
         boolean isLigthboxMap = selectorString.contains("lg-map");
+        boolean isLightboxVideo = selectorString.contains("lg-gallery-assets-video");
         if (isLigthboxMap) {
             //handle the map lightbox of the segment
             boolean isLigthboxSegmentMap = selectorString.contains("lg-segmentmap");
@@ -42,6 +43,8 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             } else {
                 retrieveBigItineraryMap(getCurrentPage()).ifPresent(this::setBigItineraryMap);
             }
+        } else if (isLightboxVideo) {
+            assetsGallery = retrieveAssetsGalleryVideo(getCurrentPage(), getResourceResolver());
         } else {
             ComboCruiseModel comboCruiseModel = getCurrentPage().adaptTo(ComboCruiseModel.class);
             List<SilverseaAsset> cruisesAssetsGallery = retrieveAssetsGallery(getResource(), getResourceResolver(), getCurrentPage(), true);
@@ -49,6 +52,15 @@ public class AssetGalleryCruiseUse extends AbstractSilverUse {
             setArrivalPortName(comboCruiseModel.getArrivalPortName());
             setDeparturePortName(comboCruiseModel.getDeparturePortName());
         }
+    }
+
+    private List<SilverseaAsset> retrieveAssetsGalleryVideo(Page currentPage, ResourceResolver resourceResolver) {
+        List<SilverseaAsset> assetsGallery = new ArrayList<>();
+        String videoPath = currentPage.getProperties().get("bannerVideo", String.class);
+        if (StringUtils.isNotEmpty(videoPath)){
+            assetsGallery.add(0, AssetUtils.buildSilverseaAsset(videoPath, resourceResolver, null, null));
+        }
+        return assetsGallery;
     }
 
     private Optional<String> retrireveSegmentMap(Page currentPage, String segmentName) {

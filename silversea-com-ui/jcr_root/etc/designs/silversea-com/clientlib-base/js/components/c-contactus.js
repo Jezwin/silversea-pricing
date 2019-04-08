@@ -21,18 +21,25 @@ $.each(JSON.parse(window.jsonContact).subjects, function (index, value) {
          $("#subject").change(function () {
      		$("#inquiry").find("option:gt(0)").remove();
             sub_id = $(this).find('option:selected').attr('rel');
+             $("#inquiry").trigger("chosen:updated");
+try {
+    $("#requesttype").val((JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id])).subjectapikey);
+    $.each(JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries, function (index1, value1) {
+        $("#inquiry").append('<option rel="' + index1 + '" value="' + value1.inquiry + '">' + value1.inquiry + '</option>');
+        if (userInfo) {
+            $("#inquiry").val(userInfo.inquiry);
+        }
+        $("#inquiry").trigger("chosen:updated");
+    });
+}catch(e){
 
-            $.each(JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries, function (index1, value1) {
-                $("#inquiry").append('<option rel="' + index1 + '" value="'+value1.inquiry+'">'+value1.inquiry+'</option>');
-                if (userInfo) {
-                	$("#inquiry").val(userInfo.inquiry);
-            	}
-                $("#inquiry").trigger("chosen:updated");
-            });
+}
 
              $("#inquiry").change(function () {
-			 	var inq_id = $(this).find('option:selected').attr('rel');
-                 $("#from_email").val((JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries[inq_id]).email);
+                 try {
+                     var inq_id = $(this).find('option:selected').attr('rel');
+                     $("#requestsubtype").val((JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries[inq_id]).inquiryapikey);
+                 }catch(e){}
 			});
         });
 
@@ -40,23 +47,14 @@ $.each(JSON.parse(window.jsonContact).subjects, function (index, value) {
 
 });
     $("#inquiry").change(function () {
-			 	var inq_id = $(this).find('option:selected').attr('rel');
-                 $("#from_email").val((JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries[inq_id]).email);
+        try {
+            var inq_id = $(this).find('option:selected').attr('rel');
+            $("#requestsubtype").val((JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries[inq_id]).inquiryapikey);
+        }catch(e){
+
+        }
 			});
 
- if (userInfo) {
-    		$("#inquiry").find("option:gt(0)").remove();
-            sub_id = $(this).find('option:selected').attr('rel');
-
-            $.each(JSON.parse(JSON.parse(window.jsonContact).subjects[sub_id]).inquiries, function (index1, value1) {
-                $("#inquiry").append('<option rel="' + index1 + '" value="'+value1.inquiry+'">'+value1.inquiry+'</option>');
-                if (userInfo) {
-                	$("#inquiry").val(userInfo.inquiry);
-            	}
-                $("#inquiry").trigger("chosen:updated");
-            });
-     		$("#from_email").val(userInfo.from_email);
- }
 
 	}
 });

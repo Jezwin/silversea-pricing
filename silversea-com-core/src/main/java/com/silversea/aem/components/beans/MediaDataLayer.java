@@ -27,10 +27,6 @@ public class MediaDataLayer {
 
     private String Google_tr_num_label = "";
 
-    private String Yahoo_project_id = "";
-
-    private String Yahoo_pixel_id = "";
-
     public MediaDataLayer(String user_geo_adwords, String track_adwords_account, String track_77TrackingTransaction,
             String adwords_conversion_id, String adwords_conversion_label, String adwords_format, String adwords_value,
             String google_fw_num_Id, String google_fw_num_label, String google_tr_num_id, String google_tr_num_label,
@@ -47,8 +43,6 @@ public class MediaDataLayer {
         Google_fw_num_label = google_fw_num_label;
         Google_tr_num_id = google_tr_num_id;
         Google_tr_num_label = google_tr_num_label;
-        Yahoo_project_id = yahoo_project_id;
-        Yahoo_pixel_id = yahoo_pixel_id;
     }
 
     public String getUser_geo_adwords() {
@@ -137,22 +131,6 @@ public class MediaDataLayer {
 
     public void setGoogle_tr_num_label(String google_tr_num_label) {
         Google_tr_num_label = google_tr_num_label;
-    }
-
-    public String getYahoo_project_id() {
-        return Yahoo_project_id;
-    }
-
-    public void setYahoo_project_id(String yahoo_project_id) {
-        Yahoo_project_id = yahoo_project_id;
-    }
-
-    public String getYahoo_pixel_id() {
-        return Yahoo_pixel_id;
-    }
-
-    public void setYahoo_pixel_id(String yahoo_pixel_id) {
-        Yahoo_pixel_id = yahoo_pixel_id;
     }
 
 }

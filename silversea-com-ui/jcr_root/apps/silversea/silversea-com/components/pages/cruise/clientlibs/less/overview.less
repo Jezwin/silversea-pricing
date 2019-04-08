@@ -143,6 +143,44 @@
     overflow: hidden;
     padding-right: 0px;
     padding-left: 0px;
+
+    a.video-link-combo {
+      color: white;
+      height: 100%;
+      left: 50%;
+      position: absolute;
+      top: 0;
+      z-index: 1000;
+    }
+    a.video-link-combo .fa-play {
+      font-size: 50px;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translate(-45%, -50%);
+      -ms-transform: translate(-45%, -50%);
+      transform: translate(-45%, -50%);
+    }
+    a.video-link-combo .fa-play:after {
+      border: 3px solid white;
+      border-radius: 50%;
+      content: "";
+      display: block;
+      left: 50%;
+      height: 84px;
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translate(-55%, -50%);
+      -ms-transform: translate(-55%, -50%);
+      transform: translate(-55%, -50%);
+      width: 84px;
+    }
+    a.video-link-combo:hover,
+    a.video-link-combo:focus,
+    a.video-link-combo:active {
+      color: white;
+      opacity: 1;
+    }
   }
   .cruise-2018-overview-description-origin {
     display: inline-block;
@@ -407,6 +445,12 @@
     }
     .cruise-2018-overview-photos-videos-btn-combo {
       margin-left: 10px;
+    }
+
+    .cruise-2018-overview-full-width {
+      a.video-link-combo {
+        top: -15%;
+      }
     }
   }
 }

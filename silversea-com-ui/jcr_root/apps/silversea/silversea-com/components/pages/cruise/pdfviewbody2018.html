@@ -260,34 +260,8 @@
                         <span class="lg-deck-spec-label">${'specifications' @ i18n }</span>
                     </div>
                     <div class="cruise-2018-ship-overview-row">
-                        <sly data-sly-list.spec="${model.specifications}">
-                            <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'} style-${spec.label}"
-                                 data-sly-test="${spec.label!='connecting-suites'}">
-                                <div class="lg-deck-spec">
-                                    <div class="label-spec">${spec.label @ i18n }</div>
-                                    <div class="dots-spec ${spec.label == 'third-guest-capacity' ||  spec.label == 'passenger-decks' ? 'cruise-invisible' : ''}">
-                                        .................................................................................
-                                    </div>
-                                    <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">
-                                        <sly data-sly-test="${spec.label != 'third-guest-capacity' && spec.label != 'width' && spec.label != 'length'}">
-                                            ${spec.value}
-                                        </sly>
-                                        <sly data-sly-test="${spec.label == 'width' || spec.label == 'length'}">
-                                            <sly data-sly-test="${model.isFeet}">${model.ship.lengthFt} ${'feet' @ i18n }</sly>
-                                            <sly data-sly-test="${!model.isFeet}">${model.ship.lengthM} ${'meters' @ i18n }</sly>
-                                        </sly>
-                                        <sly data-sly-test="${spec.label == 'speed'}">${'knots' @ i18n }</sly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12  full-row style-${spec.label}"
-                                 data-sly-test="${spec.label=='connecting-suites'}">
-                                <div class="lg-deck-spec">
-                                    <div class="label-spec">${spec.label @ i18n }:</div>
-                                    <div class="value-spec-connecting"> ${spec.value} </div>
-                                </div>
-                            </div>
-                        </sly>
+                        <sly data-sly-use.spec="silversea/silversea-com/components/included/lightboxes/lightbox-deck/templates/specifications.html"
+                             data-sly-call="${spec.default @ model=model, isPdf=true}"/>
                     </div>
 
 		<div class="pagebreak cruise-2018-ship-dining-area" id="cruise2018shipdining">

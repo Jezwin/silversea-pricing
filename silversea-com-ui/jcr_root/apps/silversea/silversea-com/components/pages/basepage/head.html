@@ -17,6 +17,7 @@
 <meta property="og:description" data-sly-test="${description}" content="${description}" />
 <sly data-sly-list="${pageHelper.languagePages}">
 <link rel="alternate" hreflang="${item}" href="${pageHelper.languagePages[item] @ extension='html'}" /></sly>
+<link rel="canonical" href="${pageHelper.currentLanguage @ extension='html'}" />
 <!--/* /open graph tag */-->
 <sly data-sly-include="datalayer.html" />
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
@@ -35,7 +36,6 @@
 <link rel="icon" type="image/png" href="${head.designPath}/android-chrome-192x192.png" sizes="192x192">
 <link rel="manifest" href="${head.designPath}/manifest.json">
 <link rel="mask-icon" href="${head.designPath}/safari-pinned-tab.svg" color="#5bbad5">
-<link data-sly-test.canonicalURL="${pageProperties.canonicalURL}" rel="canonical" href="${canonicalURL}" />
 <meta name="msapplication-TileColor" content="#2d89ef">
 <meta name="msapplication-TileImage" content="/mstile-144x144.png">
 <meta name="theme-color" content="#ffffff">
