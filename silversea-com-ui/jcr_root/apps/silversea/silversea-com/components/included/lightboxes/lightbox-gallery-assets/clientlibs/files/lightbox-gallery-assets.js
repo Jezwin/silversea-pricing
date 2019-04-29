@@ -8,10 +8,22 @@ $(function () {
         var gotoSlide = $(this).data("go-to");
         var id = $(this).attr("id");
         var labelData = $(this).data("label");
-        var $link = $("#"+id),
-            ajaxContentPath = $link.closest('['+labelData+']').data(labelData.replace("data-", "")),
-            modalTarget = $link.data('target'),
-            $modalContent = $(modalTarget);
+        var $link = "",
+            ajaxContentPath = "",
+            modalTarget = "",
+            $modalContent = "";
+
+        try {
+             $link = $("#" + id);
+                ajaxContentPath = $link.closest('[' + labelData + ']').data(labelData.replace("data-", ""));
+                modalTarget = $link.data('target');
+                $modalContent = $(modalTarget);
+        }catch(e){
+             $link = $("#lb-mainGallery");
+                ajaxContentPath = $link.closest('[data-lightbox-gallery-path]').data('lightbox-gallery-path');
+                modalTarget = $link.data('target');
+                $modalContent = $(modalTarget);
+        }
         console.log(ajaxContentPath);
         $modalContent.find(".modal-content").addClass("modal-content--transparent");
         $modalContent.addClass("lightbox-no-scroll");
