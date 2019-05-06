@@ -88,7 +88,7 @@ $(function() {
 
         $form.on('submit', function(e) {
             var mapShip= [];
-            mapShip["silver-cloud"] = 9;
+            mapShip["silver-cloud-expedition"] = 9;
             mapShip["silver-discoverer"] = 8;
             mapShip["silver-explorer"] = 2;
             mapShip["silver-galapagos"] = 3;
