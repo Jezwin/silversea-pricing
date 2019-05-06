@@ -259,15 +259,25 @@ public class ApiUpdater implements Runnable {
             replicateModifications(resourceResolverFactory, replicator,
                     "/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
             replicateModifications(resourceResolverFactory, replicator,
-                    "/jcr:root/content/silversea-com/en//element(*,cq:PageContent)[toDeactivate or toActivate]");
+                    "/jcr:root/content/silversea-com/en//element(*,cq:PageContent)[toDeactivate]");
             replicateModifications(resourceResolverFactory, replicator,
-                    "/jcr:root/content/silversea-com/de//element(*,cq:PageContent)[toDeactivate or toActivate]");
+                    "/jcr:root/content/silversea-com/de//element(*,cq:PageContent)[toDeactivate]");
             replicateModifications(resourceResolverFactory, replicator,
-                    "/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toDeactivate or toActivate]");
+                    "/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toDeactivate]");
             replicateModifications(resourceResolverFactory, replicator,
-                    "/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate or toActivate]");
+                    "/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate]");
             replicateModifications(resourceResolverFactory, replicator,
-                    "/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate or toActivate]");
+                    "/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/en//element(*,cq:PageContent)[toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/de//element(*,cq:PageContent)[toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toActivate]");
+            replicateModifications(resourceResolverFactory, replicator,
+                    "/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toActivate]");
             replicateModifications(resourceResolverFactory, replicator, "/jcr:root/etc/tags//element(*,cq:Tag)[toDeactivate or toActivate]");
 
             cruisesCacheService.buildCruiseCache();
@@ -309,6 +319,10 @@ public class ApiUpdater implements Runnable {
                                 && node.getProperty(ImportersConstants.PN_TO_ACTIVATE).getBoolean()) {
                             replicator.replicate(session, ReplicationActionType.ACTIVATE, node.getPath());
 
+                            if (node.getProperty("jcr:primaryType").getString().equals("dam:AssetContent")) {
+                                replicator.replicate(session, ReplicationActionType.ACTIVATE, node.getParent().getPath());
+                            }
+
                             node.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
 
                             LOGGER.info("{} page activated", node.getPath());
@@ -334,6 +348,10 @@ public class ApiUpdater implements Runnable {
                             }
 
                             node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
+
+                            if (node.hasProperty(ImportersConstants.PN_TO_ACTIVATE)){
+                                node.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
+                            }
 
                             LOGGER.info("{} page deactivated", node.getPath());
                         }
