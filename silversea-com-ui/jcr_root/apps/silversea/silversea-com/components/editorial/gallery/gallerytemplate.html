@@ -41,8 +41,8 @@
     </div>
 </template>
 <!--/* Simple gallery in full screen inserted in modal */-->
-<template data-sly-template.fullscreen="${ @ list}">
-    <div class="modal-content modal-content-fullscreen modal-content--transparent modal-content--gallery">
+<template data-sly-template.fullscreen="${ @ list, classToApply}">
+    <div class="modal-content modal-content-fullscreen modal-content--transparent modal-content--gallery ${classToApply}">
         <div class="modal-header">
             <button id="steveandsilversea-modal-dialog-close" class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
         </div>
