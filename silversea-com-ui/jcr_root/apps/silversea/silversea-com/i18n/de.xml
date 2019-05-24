@@ -239,7 +239,7 @@
     <cruise
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="kreuzfarten"/>
+        sling:message="Kreuzfahrten"/>
     <cruise-enrichments-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
