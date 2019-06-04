@@ -57,6 +57,7 @@
             <sly data-sly-test.departTime="${itinerary.departTime}"/>
             <sly data-sly-test.hasExcursions="${itinerary.hasExcursions}"/>
             <sly data-sly-test.hasMid="${!itinerary.mid.empty}"/>
+            <sly data-sly-test.hasExcursionsOrMid="${itinerary.hasExcursions || hasMid}"/>
             <sly data-sly-test.shorexSize="${itinerary.shorexSize}"/>
             <sly data-sly-test.excursionDescription="${itinerary.excursionDescription}"/>
             <sly data-sly-test.overnight="${itinerary.overnight}"/>
@@ -94,7 +95,7 @@
                             <div class="cruise-2018-itineraries-itinerary-row-text-country">
                                 ${country @ i18n}
                             </div>
-                            <div data-sly-test="${hasExcursions}"
+                            <div data-sly-test="${hasExcursionsOrMid}"
                                  class="cruise-2018-itineraries-itinerary-row-text-excursions">
                                 <sly data-sly-test="${hasExcursions}">
                                     ${excursions.size} ${(shorexSize>1 ? 'excursions' : 'excursion') @i18n}
@@ -151,7 +152,7 @@
                                     class="cruise-2018-itineraries-port-excursions-description-read-more-content"
                                     data-sly-test="${helperText.textRest}">${helperText.textRest @ context='html'}</span>
                         </div>
-                        <div data-sly-test="${hasExcursions}"
+                        <div data-sly-test="${hasExcursionsOrMid}"
                              class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">
                             <sly data-sly-test="${hasExcursions}">
                                 ${excursions.size} ${(shorexSize>1 ? 'excursions' : 'excursion') @i18n}
@@ -163,7 +164,7 @@
                             </sly>
                         </div>
                     </div>
-                    <sly data-sly-test="${hasExcursions}"
+                    <sly data-sly-test="${hasExcursionsOrMid}"
                          data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"
                          data-sly-call="${excursion.default @ model=model, itinerary=itinerary, excursions=excursions, mid=mid, size=shorexSize, path=externalizerHelperCruise.externalizedUrl}"/>
                 </div>
