@@ -279,9 +279,9 @@ public class FindYourCruise2018UseTest {
     @Test
     public void testPrefilterPeriods() {
         FindYourCruise2018Use use =
-                new UseBuilder().withPrefilterPeriods("01/01/2019-01/02/2019,01/03/2019-01/04/2019").build();
+                new UseBuilder().withPrefilterPeriods("01/01/2019-02/02/2019,01/03/2019-01/04/2019").build();
         Date firstOfJan = new Date(1546344000000L);//-1s +1s to simplify the test
-        Date firstOfFeb = new Date(1549022400000L);
+        Date firstOfFeb = new Date(1549069201000L);
         Date firstOfMarch = new Date(1551441600000L);
         Date firstOfApril = new Date(1554120000000L);
         Predicate<CruiseModelLight> test =
@@ -292,9 +292,7 @@ public class FindYourCruise2018UseTest {
                 };
         use.init(cruises, "1000");
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
-        use.getCruises().forEach(cruise -> System.out.println(cruise.getCruiseModel().getStartDate().getTimeInMillis()));
-        assertEquals(45, use.getCruises().size());
-
+        assertEquals(46, use.getCruises().size());
     }
 
     @Test
