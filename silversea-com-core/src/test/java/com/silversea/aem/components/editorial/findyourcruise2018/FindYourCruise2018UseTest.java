@@ -292,6 +292,7 @@ public class FindYourCruise2018UseTest {
                 };
         use.init(cruises, "1000");
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
+        use.getCruises().forEach(cruise -> System.out.println(cruise.getCruiseModel().getStartDate().getTimeInMillis()));
         assertEquals(45, use.getCruises().size());
 
     }
