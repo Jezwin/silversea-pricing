@@ -292,7 +292,7 @@ public class FindYourCruise2018UseTest {
                 };
         use.init(cruises, "1000");
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
-        //assertEquals(45, use.getCruises().size());
+        assertEquals(45, use.getCruises().size());
 
     }
 
