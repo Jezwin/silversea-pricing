@@ -14,6 +14,9 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -277,22 +280,32 @@ public class FindYourCruise2018UseTest {
 
 
     @Test
-    public void testPrefilterPeriods() {
+    public void testPrefilterPeriods() throws ParseException {
+        String date1 = "01/01/2019";
+        String date2 = "01/02/2019";
+        String date3 = "01/03/2019";
+        String date4 = "01/04/2019";
         FindYourCruise2018Use use =
-                new UseBuilder().withPrefilterPeriods("01/01/2019-02/02/2019,01/03/2019-01/04/2019").build();
-        Date firstOfJan = new Date(1546344000000L);//-1s +1s to simplify the test
-        Date firstOfFeb = new Date(1549069201000L);
-        Date firstOfMarch = new Date(1551441600000L);
-        Date firstOfApril = new Date(1554120000000L);
+                new UseBuilder().withPrefilterPeriods(date1 + "-" + date2 + "," + date3 + "-" + date4).build();
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date firstOfJan = format.parse(date1);
+        Date firstOfFeb = format.parse(date2);
+        Date firstOfMarch = format.parse(date3);
+        Date firstOfApril = format.parse(date4);
         Predicate<CruiseModelLight> test =
                 cruise -> {
                     Calendar startDate = cruise.getStartDate();
-                    return (startDate.getTime().getTime() >= firstOfJan.getTime() && startDate.getTime().getTime() <= firstOfFeb.getTime() ||
-                            (startDate.getTime().getTime() >= (firstOfMarch.getTime()) && startDate.getTime().getTime() < (firstOfApril.getTime())));
+                    if (startDate.getTime().getTime() >= firstOfJan.getTime() && startDate.getTime().getTime() <= firstOfFeb.getTime() ||
+                            (startDate.getTime().getTime() >= (firstOfMarch.getTime()) && startDate.getTime().getTime() <= (firstOfApril.getTime()))) {
+                        return true;
+                    } else {
+                        System.out.println(startDate);
+                        return false;
+                    }
                 };
         use.init(cruises, "1000");
         assertTrue(use.getCruises().stream().map(CruiseItem::getCruiseModel).allMatch(test));
-        assertEquals(46, use.getCruises().size());
+        assertEquals(45, use.getCruises().size());
     }
 
     @Test

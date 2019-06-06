@@ -26,7 +26,8 @@ mvn_build_author:
         - maven
     script:
         - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502
-
+    only:
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
 mvn_build_publish1:
     stage: build-publishes-stage
