@@ -7,11 +7,11 @@ import org.apache.sling.xss.XSSAPI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringHelper extends WCMUsePojo {
+
 
     private String textTruncate;
     private String textValidName;
@@ -69,13 +69,15 @@ public class StringHelper extends WCMUsePojo {
         if (text.charAt(limit) != '.') {
             cutPosition = textTruncated.lastIndexOf(".") + 1;
         }
-        /*List<String> tagNotValid = retrieveListTagsNotValid(tags, text, cutPosition);
-        for (String tag : tagNotValid) {
-            cutPosition += text.lastIndexOf(tag);
+        if (StringUtils.isNotEmpty(tags)) {
+            List<String> tagNotValid = retrieveListTagsNotValid(tags, text, cutPosition);
+            for (String tag : tagNotValid) {
+                cutPosition += tag.length();
+            }
         }
         if (cutPosition > text.length()) {
             cutPosition = text.length();
-        }*/
+        }
         return cutPosition;
     }
 
