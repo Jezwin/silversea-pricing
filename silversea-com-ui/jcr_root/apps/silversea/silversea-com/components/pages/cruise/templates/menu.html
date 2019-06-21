@@ -1,5 +1,5 @@
 <template
-        data-sly-template.navigation="${ @ totalNumberOfOffers, cruiseType, startDate, endDate, departurePortName, arrivalPortName, duration, isWaitlist, earlyBookingBonus, currency, computedPriceFormatted, requestQuotePagePath }">
+        data-sly-template.navigation="${ @ totalNumberOfOffers, cruiseType, startDate, endDate, departurePortName, arrivalPortName, duration, isWaitlist, earlyBookingBonus, currency, computedPriceFormatted, requestQuotePagePath, prePosts}">
     <div class="cruise-2018-menu-container-wrapper" id="cruise2018menu">
         <div class="cruise-2018-menu-container">
             <div class="cruise-2018-menu ssc-table-full-width">
@@ -35,6 +35,10 @@
                         <a href="#menu-cruise2018ship"
                            class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-fourth">
                             <span class="cruise-2018-menu-tab-text-big">${'ship' @i18n}</span>
+                        </a>
+                        <a href="#cruise2018prepost" data-sly-test="${prePosts}"
+                           class="cruise-2018-menu-tab ssc-cell-full-width cruise-2018-menu-tab-fourth">
+                            <span class="cruise-2018-menu-tab-text-big">${'pre-post-hotels' @i18n}</span>
                         </a>
                     </div>
                 </div>

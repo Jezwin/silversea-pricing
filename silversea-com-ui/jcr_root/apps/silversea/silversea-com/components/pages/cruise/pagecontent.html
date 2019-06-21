@@ -47,7 +47,8 @@
          earlyBookingBonus=cruise.lowestPrice.earlyBookingBonus,
          currency=cruise.lowestPrice.currency,
          computedPriceFormatted=cruise.computedPriceFormatted,
-         requestQuotePagePath=cruise.requestQuotePagePath}"/>
+         requestQuotePagePath=cruise.requestQuotePagePath,
+         prePosts=cruise.prePost}"/>
     <div data-sly-resource="${'parOverOffer' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.offers="/apps/silversea/silversea-com/components/pages/cruise/templates/offers.html"
          data-sly-call="${offers.default @
