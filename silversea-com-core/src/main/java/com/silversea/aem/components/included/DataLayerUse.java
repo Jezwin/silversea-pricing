@@ -119,8 +119,12 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         if (externalizer != null) {
+            String path = getCurrentPage().getPath();
+            if (getPageProperties().get("sling:vanityPath") != null) {
+                path = "/" + getPageProperties().get("sling:vanityPath", String.class);
+            }
             currentPageUrl = externalizer.publishLink(getResourceResolver(), "https",
-                    getCurrentPage().getPath()) + ".html";
+                    path) + ".html";
         }
 
         // tree structure data
