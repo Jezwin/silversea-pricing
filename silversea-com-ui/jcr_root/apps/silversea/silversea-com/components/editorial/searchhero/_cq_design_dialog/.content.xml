@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Search Hero Custom"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+<content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+    <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
+    <items jcr:primaryType="nt:unstructured">
+        <searchhero
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Search hero"
+                sling:resourceType="granite/ui/components/foundation/section">
+            <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+            <items jcr:primaryType="nt:unstructured">
+                <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <combocruiseen
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Combo Cruise URL english"
+                                name="./combocruiseen"
+                                rootPath="/content/silversea-com"
+                                required="{Boolean}true"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        <combocruisefr
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Combo Cruise URL french"
+                                name="./combocruisefr"
+                                rootPath="/content/silversea-com"
+                                required="{Boolean}true"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        <combocruisede
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Combo Cruise URL german"
+                                name="./combocruisede"
+                                rootPath="/content/silversea-com"
+                                required="{Boolean}true"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        <combocruisees
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Combo Cruise URL spanish"
+                                name="./combocruisees"
+                                rootPath="/content/silversea-com"
+                                required="{Boolean}true"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        <combocruiseptbr
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Combo Cruise URL portuguese"
+                                name="./combocruiseptbr"
+                                rootPath="/content/silversea-com"
+                                required="{Boolean}true"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                    </items>
+                </column>
+            </items>
+        </searchhero>
+    </items>
+</content>
+</jcr:root>

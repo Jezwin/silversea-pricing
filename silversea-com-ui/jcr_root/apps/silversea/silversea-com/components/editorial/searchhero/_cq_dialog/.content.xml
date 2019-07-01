@@ -30,6 +30,7 @@
                                 name="./pageReference"
                                 rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+
                         </items>
                     </column>
                 </items>

@@ -180,7 +180,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         availableFeaturesJson = new StringBuilder();
         worldAndGrandVoyageCruiseJson = new StringBuilder();
 
-        availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,");
+        availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,\"cc\":true,");
         availableShipsJson.append("{\"all\":true,");
         availablePortsJson.append("{\"all\":true,");
         availableDepartureDatesJson.append("{\"all\":true,");
@@ -628,7 +628,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         }
 
         worldAndGrandVoyageCruiseJson.append("\"worldCruisePath\":\"" + getWorldCruisesPagePath() + "\",");
-        worldAndGrandVoyageCruiseJson.append("\"grandVoyageCruisePath\":\"" + getGrandVoyagesPagePath() + "\"");
+        worldAndGrandVoyageCruiseJson.append("\"grandVoyageCruisePath\":\"" + getGrandVoyagesPagePath() + "\",");
+        worldAndGrandVoyageCruiseJson.append("\"comboCruisePath\":\"" + getComboCruisePath() + "\"");
 
         availableDestinationsJson.deleteCharAt(availableDestinationsJson.length() - 1);
         availableShipsJson.deleteCharAt(availableShipsJson.length() - 1);
@@ -988,6 +989,13 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         }
         return externalizer.relativeLink(getRequest(), path);
     }
+
+public String getComboCruisePath() {
+    Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+    String language = LanguageHelper.getLanguage(getCurrentPage());
+    String internalLink = getCurrentStyle().get("combocruise" + language.replaceAll("-",""), String.class);
+    return StringUtils.isNotEmpty(internalLink) ? externalizer.relativeLink(getRequest(), internalLink) : "";
+}
 
     public String getAvailableDestinationsJson() {
         return availableDestinationsJson.toString();
