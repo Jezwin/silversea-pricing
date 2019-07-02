@@ -5,6 +5,7 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.designer.Style;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
@@ -17,6 +18,7 @@ import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.OfferPriorityModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -44,6 +46,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     private String worldCruisePath;
     private String grandVoyagePath;
+    private String comboCruisePath;
 
     private List<CruiseItem> cruises;
 
@@ -71,6 +74,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
+        comboCruisePath = getComboCruisePath(externalizer, getCurrentPage(), getCurrentStyle(), getRequest());
         requestQuotePagePath = retrieveRequestQuotePath(resource);
         String paginationLimit = null;
 
@@ -95,6 +99,12 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
             dullInit();
         }
 
+    }
+
+    public static String getComboCruisePath(Externalizer externalizer, Page currentPage, Style style, SlingHttpServletRequest request ) {
+        String language = LanguageHelper.getLanguage(currentPage);
+        String internalLink = style.get("combocruise" + language.replaceAll("-",""), String.class);
+        return StringUtils.isNotEmpty(internalLink) ? externalizer.relativeLink(request, internalLink) : "";
     }
 
     public List<OfferPriorityModel> retrievePriorityOffer() {
@@ -273,6 +283,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     public String getGrandVoyagePath() {
         return grandVoyagePath;
     }
+
+    public String getComboCruisePath() { return comboCruisePath; }
+
 
     public Pagination getPagination() {
         return pagination;

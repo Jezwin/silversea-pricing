@@ -7,6 +7,7 @@ import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
+import com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.*;
@@ -180,7 +181,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         availableFeaturesJson = new StringBuilder();
         worldAndGrandVoyageCruiseJson = new StringBuilder();
 
-        availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,");
+        availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,\"cc\":true,");
         availableShipsJson.append("{\"all\":true,");
         availablePortsJson.append("{\"all\":true,");
         availableDepartureDatesJson.append("{\"all\":true,");
@@ -628,7 +629,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         }
 
         worldAndGrandVoyageCruiseJson.append("\"worldCruisePath\":\"" + getWorldCruisesPagePath() + "\",");
-        worldAndGrandVoyageCruiseJson.append("\"grandVoyageCruisePath\":\"" + getGrandVoyagesPagePath() + "\"");
+        worldAndGrandVoyageCruiseJson.append("\"grandVoyageCruisePath\":\"" + getGrandVoyagesPagePath() + "\",");
+        worldAndGrandVoyageCruiseJson.append("\"comboCruisePath\":\"" + FindYourCruise2018Use.getComboCruisePath(getResourceResolver().adaptTo(Externalizer.class), getCurrentPage(), getCurrentStyle(),getRequest()) + "\"");
 
         availableDestinationsJson.deleteCharAt(availableDestinationsJson.length() - 1);
         availableShipsJson.deleteCharAt(availableShipsJson.length() - 1);

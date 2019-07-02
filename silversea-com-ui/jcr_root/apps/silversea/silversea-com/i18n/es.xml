@@ -1621,6 +1621,10 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="world-cruises"
             sling:message="World Cruises"/>
+    <combo-cruises
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="combo-cruises"
+            sling:message="Cruceros combinados"/>
     <grand-voyages
             jcr:primaryType="sling:MessageEntry"
             sling:key="grand-voyages"

@@ -135,9 +135,17 @@ $(function() {
             }
 
             var destFilter = $resultWrapper.find("#current-destination-filter").val();
-            if (typeof destFilter != "undefined" && destFilter != null && (destFilter == "wc" || destFilter == "gv")) {
-            		var jsonStr = JSON.parse(JSON.stringify($resultWrapper.find('#world-grand-voyage-path').data('ssc-path')))
-            		var path = (destFilter == "wc" ) ? jsonStr["worldCruisePath"] : jsonStr["grandVoyageCruisePath"];
+            if (typeof destFilter != "undefined" && destFilter != null && (destFilter == "wc" || destFilter == "gv" || destFilter == "cc")) {
+            		var jsonStr = JSON.parse(JSON.stringify($resultWrapper.find('#world-grand-voyage-path').data('ssc-path')));
+
+            		var path;
+
+            		if( destFilter == "cc") {
+            		    path = jsonStr["comboCruisePath"];
+                    } else {
+                        path = (destFilter == "wc" ) ? jsonStr["worldCruisePath"] : jsonStr["grandVoyageCruisePath"];
+                    }
+
             		window.location.href = path + '.html';
             } else {
             	document.location.href = requestUrl + '.html' + paramterFYC2018;
