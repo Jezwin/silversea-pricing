@@ -56,12 +56,15 @@
                     </div>
                 </sly>
             </div>
-            <div class="col-xs-12 filter-combo-cruises-row" data-sly-test="${fyc.grandVoyagePath && fyc.worldCruisePath}">
-                <a class="col-xs-6 filter-combo-cruises" data-sly-test="${name == 'destination' && fyc.worldCruisePath}" href="${fyc.worldCruisePath @ extension='html'}">
-                    <span>${'world-cruises' @ i18n}</span>
+            <div class="col-xs-12 filter-combo-cruises-row" data-sly-test="${fyc.grandVoyagePath && fyc.worldCruisePath && fyc.comboCruisePath}">
+                <a class="col-xs-6 filter-combo-cruises" data-sly-test="${name == 'destination' && fyc.comboCruisePath}" href="${fyc.comboCruisePath @ extension='html'}">
+                    <span>${'combo-cruises' @ i18n}</span>
                 </a>
                 <a class="col-xs-6 filter-combo-cruises" data-sly-test="${name == 'destination' && fyc.grandVoyagePath}" href="${fyc.grandVoyagePath @ extension='html'}">
                     <span>${'grand-voyages' @ i18n}</span>
+                </a>
+                <a class="col-xs-6 filter-combo-cruises col-xs-offset-3" data-sly-test="${name == 'destination' && fyc.worldCruisePath}" href="${fyc.worldCruisePath @ extension='html'}">
+                    <span>${'world-cruises' @ i18n}</span>
                 </a>
             </div>
             <div class="col-xs-12 visible-xs fyc2018-view-results" data-show="${'show' @ i18n}" data-singular="${'cruise' @ i18n}" data-plural="${'cruises' @ i18n}">
