@@ -630,7 +630,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         worldAndGrandVoyageCruiseJson.append("\"worldCruisePath\":\"" + getWorldCruisesPagePath() + "\",");
         worldAndGrandVoyageCruiseJson.append("\"grandVoyageCruisePath\":\"" + getGrandVoyagesPagePath() + "\",");
-        worldAndGrandVoyageCruiseJson.append("\"comboCruisePath\":\"" + FindYourCruise2018Use.getComboCruisePath(getResourceResolver().adaptTo(Externalizer.class), getCurrentPage(), getCurrentStyle(),getRequest()) + "\"");
+        worldAndGrandVoyageCruiseJson.append("\"comboCruisePath\":\"" + FindYourCruise2018Use.getComboCruisePath(getResourceResolver(), getCurrentPage(),getRequest()) + "\"");
 
         availableDestinationsJson.deleteCharAt(availableDestinationsJson.length() - 1);
         availableShipsJson.deleteCharAt(availableShipsJson.length() - 1);
