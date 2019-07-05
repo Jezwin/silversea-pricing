@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
-import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toCollection;
 
@@ -39,6 +38,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
 
     private static final String DEFAULT_PAGE_SIZE = "12";
+    private static String PATH_TAGS_COMBO_CRUISE_PATHS = "/etc/tags/combo-cruise-paths";
 
     private Locale locale;
     private String lang;
@@ -74,7 +74,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         worldCruisePath = externalizer.relativeLink(request, PathUtils.getWorldCruisesPagePath(resource, currentPage));
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
-        comboCruisePath = getComboCruisePath(externalizer, getCurrentPage(), getCurrentStyle(), getRequest());
+        comboCruisePath = getComboCruisePath(resourceResolver, getCurrentPage(), getRequest());
         requestQuotePagePath = retrieveRequestQuotePath(resource);
         String paginationLimit = null;
 
@@ -101,9 +101,36 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     }
 
-    public static String getComboCruisePath(Externalizer externalizer, Page currentPage, Style style, SlingHttpServletRequest request ) {
+    /***
+     * Get comboCruise path by language
+     *
+     * @param resourceResolver
+     * @param currentPage
+     * @param request
+     * @return path of the combocruise
+     */
+    public static String getComboCruisePath(ResourceResolver resourceResolver, Page currentPage , SlingHttpServletRequest request ) {
+
+        //current language
         String language = LanguageHelper.getLanguage(currentPage);
-        String internalLink = style.get("combocruise" + language.replaceAll("-",""), String.class);
+
+        //externalizer
+        Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
+
+        //resourceComboCruise
+        Resource resourceComboCruise = resourceResolver.getResource(PATH_TAGS_COMBO_CRUISE_PATHS);
+
+        //get properties from etc/tag instead of properties
+        String internalLink = null;
+        if (resourceComboCruise != null) {
+
+            ValueMap properties = resourceComboCruise.getValueMap();
+
+            internalLink = properties.get(language.replaceAll("-",""),String.class);
+
+        }
+
+        //Externalize link
         return StringUtils.isNotEmpty(internalLink) ? externalizer.relativeLink(request, internalLink) : "";
     }
 
