@@ -38,7 +38,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
 
     private static final String DEFAULT_PAGE_SIZE = "12";
-    private static String PATH_TAGS_COMBO_CRUISE_PATHS = "/etc/tags/combo-cruise/path";
+    private static String PATH_TAGS_COMBO_CRUISE_PATHS = "/etc/tags/combo-cruise-paths";
 
     private Locale locale;
     private String lang;
