@@ -1659,7 +1659,7 @@
     <combo-cruises
             jcr:primaryType="sling:MessageEntry"
             sling:key="combo-cruises"
-            sling:message="Combinations cruises"/>
+            sling:message="Combination cruises"/>
 	<grand-voyages
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="grand-voyages"
