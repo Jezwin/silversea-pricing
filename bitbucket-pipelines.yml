@@ -8,8 +8,8 @@ pipelines:
         script: 
           - echo "Sonar not currently configured in cloud environment"
   branches:
-    # we only deploy from master
-    master: 
+    # we only deploy from bitbucketmaster
+    bitbucketmaster: 
       # First step cannot be manual. This is a placeholder for now
       - step:
           name: Build Check
