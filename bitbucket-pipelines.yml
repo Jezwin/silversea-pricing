@@ -1,0 +1,56 @@
+image: maven:3.6.1
+
+pipelines:
+  # runs on all builds on any branch. Unit tests to run here?
+  default: 
+    - step:
+        name: Sonar Analysis
+        script: 
+          - echo "Sonar not currently configured in cloud environment"
+  branches:
+    # we only deploy from master
+    master: 
+      # First step cannot be manual. This is a placeholder for now
+      - step:
+          name: Build Check
+          script: 
+            - echo "Beginning pipeline for push to master"
+      # Staging
+      - step:
+          name: Stage Build Author
+          trigger: manual
+          deployment: stage-author
+          script:
+            - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502
+      - step:
+          name: Stage Build Publish 1
+          trigger: manual
+          deployment: stage-publish-1
+          script:
+            - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503
+      - step:
+          name: Stage Build Publish 2
+          trigger: manual
+          deployment: stage-publish-2
+          script:
+            - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503
+
+      # Production
+      - step:
+          name: Prod Build Author
+          trigger: manual
+          deployment: prod-author
+          script:
+            - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502
+      - step:
+          name: Prod Build Publish 1
+          trigger: manual
+          deployment: prod-publish-1
+          script:
+            - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.187:4503
+      - step:
+          name: Prod Build Publish 2
+          trigger: manual
+          deployment: prod-publish-2
+          script:
+            - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503
