@@ -20,6 +20,13 @@
       </configuration>
     </server>
     <server>
+      <id>s3.snapshot</id>
+      <username>${aws.key}</username>
+      <password>${aws.secret}</password>
+      <configuration>
+        <region>us-east-1</region>
+        <publicRepository>true</publicRepository>
+      </configuration>
     </server>
   </servers>
 
