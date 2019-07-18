@@ -20,6 +20,8 @@ pipelines:
           name: Stage Build Author
           trigger: manual
           deployment: stage-author
+          #caches:
+          # - maven
           script:
             - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
             - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502 -Dartifacts.user=$ARTIFACTS_USER -Dartifacts.password=$ARTIFACTS_PASSWORD 
@@ -27,12 +29,16 @@ pipelines:
           name: Stage Build Publish 1
           trigger: manual
           deployment: stage-publish-1
+          #caches:
+          # - maven
           script:
             - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503
       - step:
           name: Stage Build Publish 2
           trigger: manual
           deployment: stage-publish-2
+          #caches:
+          # - maven
           script:
             - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503
 
@@ -41,17 +47,23 @@ pipelines:
           name: Prod Build Author
           trigger: manual
           deployment: prod-author
+          #caches:
+          # - maven
           script:
             - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502
       - step:
           name: Prod Build Publish 1
           trigger: manual
           deployment: prod-publish-1
+          #caches:
+          # - maven
           script:
             - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.187:4503
       - step:
           name: Prod Build Publish 2
           trigger: manual
           deployment: prod-publish-2
+          #caches:
+          # - maven
           script:
             - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503
