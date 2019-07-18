@@ -17,7 +17,6 @@
     <version>2.1.S13-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Silversea.com</name>
-    <url />
 
     <!-- ====================================================================== -->
     <!-- P R O P E R T I E S -->
@@ -25,6 +24,33 @@
     <properties>
         <cq.project.name>silversea-com</cq.project.name>
     </properties>
+
+    <!-- ====================================================================== -->
+    <!-- R E P O S I T O RI -->
+    <!-- ====================================================================== -->
+    <repositories>
+        <repository>
+            <id>s3.release</id>
+            <url>s3://silversea-digital-artifact-repository/release</url>
+         </repository>
+         <repository>
+            <id>s3.snapshot</id>
+            <url>s3://silversea-digital-artifact-repository/snapshot</url>
+        </repository>
+    </repositories>
+
+    <!-- ====================================================================== -->
+    <!-- B U I L D -->
+    <!-- ====================================================================== -->    
+    <build>
+        <extensions>
+            <extension>
+                <groupId>com.gkatzioura.maven.cloud</groupId>
+                <artifactId>s3-storage-wagon</artifactId>
+                <version>2.1</version>
+            </extension>
+        </extensions>
+    </build>
 
     <!-- ====================================================================== -->
     <!-- M O D U L E S -->
@@ -35,6 +61,8 @@
         <module>silversea-com-ui</module>
         <module>silversea-com-configs</module>
     </modules>
+
+
 
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S   M A N A G E M E N T -->
