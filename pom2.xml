@@ -8,14 +8,10 @@
     <artifactId>test12</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <repositories>
+     <repositories>
         <repository>
             <id>s3.release</id>
             <url>s3://silversea-digital-artifact-repository/release</url>
-        </repository>
-        <repository>
-            <id>s3.snapshot</id>
-            <url>s3://silversea-digital-artifact-repository/snapshot</url>
         </repository>
     </repositories>
 
@@ -24,7 +20,7 @@
             <extension>
                 <groupId>com.gkatzioura.maven.cloud</groupId>
                 <artifactId>s3-storage-wagon</artifactId>
-                <version>2.1</version>
+                <version>1.8</version>
             </extension>
         </extensions>
     </build>

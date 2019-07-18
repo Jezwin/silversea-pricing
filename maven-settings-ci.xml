@@ -11,19 +11,15 @@
 
   <servers>
     <server>
-      <id>s3.site</id>
-      <username>${artifacts.user}</username>
-      <password>${artifacts.password}</password>
-    </server>
-    <server>
       <id>s3.release</id>
-      <username>${artifacts.user}</username>
-      <password>${artifacts.password}</password>
+      <username>${aws.key}</username>
+      <password>${aws.secret}</password>
+      <configuration>
+        <region>us-east-1</region>
+        <publicRepository>true</publicRepository>
+      </configuration>
     </server>
     <server>
-      <id>s3.snapshot</id>
-      <username>${artifacts.user}</username>
-      <password>${artifacts.password}</password>
     </server>
   </servers>
 
