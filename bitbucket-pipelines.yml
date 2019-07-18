@@ -21,7 +21,7 @@ pipelines:
           trigger: manual
           deployment: stage-author
           script:
-            - mvn clean install -f pom2.xml
+            - mvn --settings maven-settings-ci.xml clean install -f pom2.xml
             - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502 -Dartifacts.user=$ARTIFACTS_USER -Dartifacts.password=$ARTIFACTS_PASSWORD 
       - step:
           name: Stage Build Publish 1
