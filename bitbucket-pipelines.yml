@@ -14,7 +14,14 @@ pipelines:
       - step:
           name: Capture IP For Diagnostics
           script: 
-            - curl -4 https://ifconfig.co/
+            - curl -4 https://ifconfig.co/           
+      - step:
+          name: Publish Artifact # ssc depends on silversea-com-core
+          trigger: manual
+          script:
+            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
+            - mvn --settings maven-settings-ci.xml install -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
+            - mvn --settings maven-settings-ci.xml deploy -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
       # Staging
       - step:
           name: Stage Build Author
