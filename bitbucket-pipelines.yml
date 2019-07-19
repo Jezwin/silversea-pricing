@@ -10,11 +10,11 @@ pipelines:
   branches:
     # we only deploy from bitbucketmaster
     bitbucketmaster: 
-      # First step cannot be manual. This is a placeholder for now
+      # First step cannot be manual
       - step:
-          name: Build Check
+          name: Capture IP For Diagnostics
           script: 
-            - echo "Beginning pipeline for push to master"
+            - curl -4 https://ifconfig.co/
       # Staging
       - step:
           name: Stage Build Author
