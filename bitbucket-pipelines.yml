@@ -18,7 +18,9 @@ pipelines:
       - step:
           name: Capture IP For Diagnostics
           script: 
-            - curl -4 https://ifconfig.co/           
+            - curl -4 https://ifconfig.co/  
+            - cd ~/.m2/repository
+            - ls         
       - step:
           name: Publish Artifact # ssc depends on silversea-com-core
           trigger: manual

@@ -5,6 +5,10 @@
 <sly data-sly-include="pagecontent.html"/>
 <footer class="c-footer" id="footer"
         data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/footer'}"></footer>
+        <!--
+            FOOTER
+        -->   
+
 <sly data-sly-use.cookieDisclaimerUse="com.silversea.aem.components.included.CookieDisclaimerUse"/>
 <div class="c-floating-bar ${wcmmode.edit ? 'editor' : ''}">
     <div data-sly-test="${wcmmode.edit || cookieDisclaimerUse.showCookieMsg}"
