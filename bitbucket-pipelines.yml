@@ -17,6 +17,8 @@ pipelines:
       # First step cannot be manual
       - step:
           name: Capture IP For Diagnostics
+          caches:
+            - mvn1
           script: 
             - curl -4 https://ifconfig.co/  
             - ls ~/.m2/repository &     
