@@ -1,9 +1,5 @@
 image: maven:3.6.1-jdk-8
 
-definitions:
-  caches:
-    mvn1: maven
-
 pipelines:
   # runs on all builds on any branch. Unit tests to run here?
   default: 
@@ -18,14 +14,14 @@ pipelines:
       - step:
           name: Capture IP For Diagnostics
           caches:
-            - mvn1
+            - maven
           script: 
             - curl -4 https://ifconfig.co/      
       - step:
           name: Publish Artifact # ssc depends on silversea-com-core
           trigger: manual
           caches:
-            - mvn1
+            - maven
           script:
             - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
             - mvn --settings maven-settings-ci.xml install -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
@@ -38,7 +34,7 @@ pipelines:
           trigger: manual
           deployment: stage-author
           caches:
-           - mvn1
+           - maven
           script:
             - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
             - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD 
@@ -47,7 +43,7 @@ pipelines:
           trigger: manual
           deployment: stage-publish-1
           caches:
-           - mvn1
+           - maven
           script:
             - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
             - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
@@ -56,7 +52,7 @@ pipelines:
           trigger: manual
           deployment: stage-publish-2
           caches:
-           - mvn1
+           - maven
           script:
             - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
             - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
@@ -75,7 +71,7 @@ pipelines:
           trigger: manual
           deployment: prod-publish-1
           caches:
-           - mvn1
+           - maven
           script:
             - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
             - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.187:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
@@ -84,7 +80,7 @@ pipelines:
           trigger: manual
           deployment: prod-publish-2
           caches:
-           - mvn1
+           - maven
           script:
            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD            
