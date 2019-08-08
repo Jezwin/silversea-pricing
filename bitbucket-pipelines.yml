@@ -21,35 +21,38 @@ pipelines:
             - ls  
 
       #########################   
-      # Staging COM
+      # Staging
       #########################
       - step:
-          name: COM Stage Build Author
+          name: Stage Build Author
           trigger: manual
-          deployment: com-stage-author
+          deployment: stage-author
           caches:
            - maven
           script:
             - ./build_and_deploy.sh http://18.204.183.84:4502 $AUTHOR_STAGE_PASSWORD
       - step:
-          name: COM Stage Build Publish 1
+          name: Stage Build Publish 1
           trigger: manual
-          deployment: com-stage-publish-1
+          deployment: stage-publish-1
           caches:
            - maven
           script:
             - ./build_and_deploy.sh http://18.234.4.77:4503 $AUTHOR_STAGE_PASSWORD
       - step:
-          name: COM Stage Build Publish 2
+          name: Stage Build Publish 2
           trigger: manual
-          deployment: com-stage-publish-2
+          deployment: stage-publish-2
           caches:
            - maven
           script:
             - ./build_and_deploy.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD
-      # Production
+      
+      #########################   
+      # Prod
+      #########################
       - step:
-          name: COM Prod Build Author
+          name: Prod Build Author
           trigger: manual
           deployment: prod-author
           caches:
@@ -59,7 +62,7 @@ pipelines:
             - mvn --settings ../maven-settings-ci.xml -f ../parent-fetcher-pom.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
             - mvn --settings ../maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502 -DapiClientVersion="[3.0, 4.0]"
       - step:
-          name: COM Prod Build Publish 1
+          name: Prod Build Publish 1
           trigger: manual
           deployment: prod-publish-1
           caches:
@@ -69,7 +72,7 @@ pipelines:
             - mvn --settings ../maven-settings-ci.xml -f ../parent-fetcher-pom.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
             - mvn --settings ../maven-settings-ci.xml clean install -Pauto--Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD -DapiClientVersion="[3.0, 4.0]"
       - step:
-          name: COM Prod Build Publish 2
+          name: Prod Build Publish 2
           trigger: manual
           deployment: prod-publish-2
           caches:
