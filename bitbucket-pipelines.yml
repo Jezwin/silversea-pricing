@@ -17,17 +17,6 @@ pipelines:
             - maven
           script: 
             - curl -4 https://ifconfig.co/      
-      - step:
-          name: Publish Artifact # ssc depends on silversea-com-core
-          trigger: manual
-          caches:
-            - maven
-          script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - mvn --settings maven-settings-ci.xml install -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - mvn --settings maven-settings-ci.xml deploy -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - cd ~/.m2/repository
-            - ls 
       # Staging
       - step:
           name: Stage Build Author
@@ -36,8 +25,8 @@ pipelines:
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD 
+            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502 -DapiClientVersion="[3.0, 4.0]"
       - step:
           name: Stage Build Publish 1
           trigger: manual
@@ -45,8 +34,8 @@ pipelines:
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
+            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]" 
+            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503 -DapiClientVersion="[3.0, 4.0]"
       - step:
           name: Stage Build Publish 2
           trigger: manual
@@ -54,18 +43,18 @@ pipelines:
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
+            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503 -DapiClientVersion="[3.0, 4.0]"
       # Production
       - step:
           name: Prod Build Author
           trigger: manual
           deployment: prod-author
-          #caches:
-          # - maven
+          caches:
+           - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
+            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502 -DapiClientVersion="[3.0, 4.0]"
       - step:
           name: Prod Build Publish 1
           trigger: manual
@@ -73,8 +62,8 @@ pipelines:
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.168.37.187:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
+            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - mvn --settings maven-settings-ci.xml clean install -Pauto--Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD -DapiClientVersion="[3.0, 4.0]"
       - step:
           name: Prod Build Publish 2
           trigger: manual
@@ -82,5 +71,5 @@ pipelines:
           caches:
            - maven
           script:
-           - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD
-           - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503 -Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD            
+           - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]" 
+           - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503 -DapiClientVersion="[3.0, 4.0]"            
