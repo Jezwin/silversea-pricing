@@ -60,7 +60,6 @@ pipelines:
       - step:
           name: SSC Stage Build Author
           trigger: manual
-          deployment: ssc-stage-author
           caches:
            - maven
           script:
@@ -70,7 +69,6 @@ pipelines:
       - step:
           name: SSC Stage Build Publish 1
           trigger: manual
-          deployment: ssc-stage-publish-1
           caches:
            - maven
           script:
@@ -80,7 +78,6 @@ pipelines:
       - step:
           name: SSC Stage Build Publish 2
           trigger: manual
-          deployment: ssc-stage-publish-2
           caches:
            - maven
           script:
