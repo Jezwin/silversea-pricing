@@ -26,7 +26,7 @@ pipelines:
       - step:
           name: COM Stage Build Author
           trigger: manual
-          deployment: stage-author
+          deployment: com-stage-author
           caches:
            - maven
           script:
@@ -36,7 +36,7 @@ pipelines:
       - step:
           name: COM Stage Build Publish 1
           trigger: manual
-          deployment: stage-publish-1
+          deployment: com-stage-publish-1
           caches:
            - maven
           script:
@@ -46,7 +46,7 @@ pipelines:
       - step:
           name: COM Stage Build Publish 2
           trigger: manual
-          deployment: stage-publish-2
+          deployment: com-stage-publish-2
           caches:
            - maven
           script:
@@ -60,7 +60,7 @@ pipelines:
       - step:
           name: SSC Stage Build Author
           trigger: manual
-          deployment: stage-author
+          deployment: ssc-stage-author
           caches:
            - maven
           script:
@@ -70,7 +70,7 @@ pipelines:
       - step:
           name: SSC Stage Build Publish 1
           trigger: manual
-          deployment: stage-publish-1
+          deployment: ssc-stage-publish-1
           caches:
            - maven
           script:
@@ -80,7 +80,7 @@ pipelines:
       - step:
           name: SSC Stage Build Publish 2
           trigger: manual
-          deployment: stage-publish-2
+          deployment: ssc-stage-publish-2
           caches:
            - maven
           script:
