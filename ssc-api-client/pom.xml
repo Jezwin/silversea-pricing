@@ -13,26 +13,24 @@
     <!-- ====================================================================== -->
     <!-- P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
-    <artifactId>silversea-com</artifactId>
+    <artifactId>ssc-api-client</artifactId>
     <version>2.1.S13-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Silversea.com</name>
+    <name>SSC Api Client</name>
 
     <!-- ====================================================================== -->
     <!-- P R O P E R T I E S -->
     <!-- ====================================================================== -->
     <properties>
-        <cq.project.name>silversea-com</cq.project.name>
+        <cq.project.name>ssc-api-client</cq.project.name>
     </properties>
 
     <!-- ====================================================================== -->
     <!-- M O D U L E S -->
     <!-- ====================================================================== -->
     <modules>
-        <module>silversea-com-cache-tools</module>
-        <module>silversea-com-core</module>
-        <module>silversea-com-ui</module>
-        <module>silversea-com-configs</module>
+        <module>ssc-api-client-auth</module>
+        <module>ssc-api-client-swagger</module>
     </modules>
 
     <!-- ====================================================================== -->
@@ -40,55 +38,36 @@
     <!-- ====================================================================== -->
     <dependencyManagement>
         <dependencies>
-            <!-- Api client -->
+            <!-- Swagger dependencies // will be embedded -->
             <dependency>
-                <groupId>com.silversea.aem</groupId>
-                <artifactId>ssc-api-client-auth</artifactId>
-                <version>2.1.S13-SNAPSHOT</version>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>1.5.9</version>
+                <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>com.silversea.aem</groupId>
-                <artifactId>ssc-api-client-swagger</artifactId>
-                <version>2.1.S13-SNAPSHOT</version>
+                <groupId>com.squareup.okhttp</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>2.7.5</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>2.7.5</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okio</groupId>
+                <artifactId>okio</artifactId>
+                <version>1.11.0</version>
+                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>2.9.1</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <!-- Commons dependencies -->
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>1.3.1</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency> 
-				<artifactId>oak-commons</artifactId> 
-				<version>1.8.2</version> 
-				<groupId>org.apache.jackrabbit</groupId> 
-				<scope>provided</scope> 
-			</dependency>
-            <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>3.2.2</version>
-            </dependency>
-
-            <!-- Test dependencies -->
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>3.0.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.11</version>
-                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

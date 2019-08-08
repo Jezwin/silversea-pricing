@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ====================================================================== -->
+    <!-- P A R E N T   P R O J E C T   D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <parent>
+        <groupId>com.silversea.aem</groupId>
+        <artifactId>ssc-api-client</artifactId>
+        <version>2.1.S13-SNAPSHOT</version>
+    </parent>
+
+    <!-- ====================================================================== -->
+    <!-- P R O J E C T   D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <artifactId>ssc-api-client-auth</artifactId>
+    <packaging>jar</packaging>
+    <name>SSC Api Client Auth</name>
+    <description>SSC Api Authentication</description>
+
+    <!-- ====================================================================== -->
+    <!-- D E P E N D E N C I E S -->
+    <!-- ====================================================================== -->
+    <dependencies>
+        <!-- Swagger dependencies // will be embedded -->
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+    </dependencies>
+</project>
