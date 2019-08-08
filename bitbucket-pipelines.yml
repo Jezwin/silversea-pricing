@@ -16,7 +16,9 @@ pipelines:
           caches:
             - maven
           script: 
-            - curl -4 https://ifconfig.co/      
+            - curl -4 https://ifconfig.co/ 
+            - pwd
+            - ls     
       # Staging
       - step:
           name: COM Stage Build Author
