@@ -1,0 +1,9 @@
+<sly data-sly-use.slider5Lesson="${'com.silversea.ssc.aem.components.editorial.Slider5LessonsUse'}"/>
+<sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=slider5Lesson.assetSelectionReferenceGalleryDesktop}"/>
+<sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
+     data-sly-call="${galleryTemplate.default @ list=setImage.renditionList, classToApply='silder-5-lesson-gallery-desktop'}"/>
+
+
+<sly data-sly-use.setImageMobile="${'com.silversea.aem.helper.ImageSetHelper' @ path=slider5Lesson.assetSelectionReferenceGalleryMobile}"/>
+<sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
+     data-sly-call="${galleryTemplate.default @ list=setImageMobile.renditionList, classToApply='silder-5-lesson-gallery-mobile'}"/>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - LB Button"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <calltoaction
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="silversea/silversea-com/ui/components/foundation/form/multifields"
+        fieldLabel="Call to Actions">
+        <field
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/form/fieldset"
+            class="multifields-wrapper"
+            name="./callToActions">
+            <items jcr:primaryType="nt:unstructured">
+                <title
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                    fieldLabel="Desktop Title"
+                    name="title"
+                    required="{Boolean}true" />
+                <titletablet
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                    fieldLabel="Tablet Title"
+                    name="titleTablet" />
+                <url
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                    fieldLabel="Url"
+                    name="reference"
+                    required="{Boolean}true"
+                    rootPath="/content/silversea-com" />
+                <color
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/select"
+                    fieldLabel="Color"
+                    name="color">
+                    <items jcr:primaryType="nt:unstructured">
+                        <gray
+                            jcr:primaryType="nt:unstructured"
+                            text="gray"
+                            value="gray" />
+                        <red
+                            jcr:primaryType="nt:unstructured"
+                            text="red"
+                            value="red" />
+                        <black
+                            jcr:primaryType="nt:unstructured"
+                            text="black"
+                            value="default" />
+                        <white
+                            jcr:primaryType="nt:unstructured"
+                            text="white"
+                            value="white" />
+                    </items>
+                </color>
+                <size
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/select"
+                    fieldLabel="Size"
+                    name="size">
+                    <items jcr:primaryType="nt:unstructured">
+                        <normal
+                            jcr:primaryType="nt:unstructured"
+                            text="normal"
+                            value="" />
+                        <small
+                            jcr:primaryType="nt:unstructured"
+                            text="small"
+                            value="btn-sm" />
+                        <large
+                            jcr:primaryType="nt:unstructured"
+                            text="large"
+                            value="btn-lg" />
+                    </items>
+                </size>
+                <analyticType
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/select"
+                    fieldLabel="Analytic type"
+                    name="analyticType">
+                    <items jcr:primaryType="nt:unstructured">
+                        <empty
+                            jcr:primaryType="nt:unstructured"
+                            text="Simple button"
+                            value="" />
+                        <raq
+                            jcr:primaryType="nt:unstructured"
+                            text="Quote request"
+                            value="clic-RAQ" />
+                        <bro
+                            jcr:primaryType="nt:unstructured"
+                            text="Brochure request"
+                            value="clic-BRO" />
+                        <rac
+                            jcr:primaryType="nt:unstructured"
+                            text="Call request"
+                            value="clic-RAC" />
+                        <sfo
+                            jcr:primaryType="nt:unstructured"
+                            text="Signup for offer"
+                            value="clic-SFO" />
+                    </items>
+                </analyticType>
+            </items>
+        </field>
+    </calltoaction>
+</jcr:root>

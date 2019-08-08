@@ -1,0 +1,60 @@
+<div data-sly-test="${wcmmode.edit && (!properties.pageReference || !properties.jcr:title)}" class="cq-placeholder cq-dd-image" data-emptytext="Mozaic slider"></div>
+
+
+<div class="c-mozaic c-mozaic-nine ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.hiddenMobile ? 'c-mozaic-hiddenMobile' : ''} ${properties.forceBackgroundWhite ? 'c-mozaic-forceBackgroundWhite' : ''}" data-sly-test="${properties.type == 'ninegrid'}">
+    <sly data-sly-use.fyc="com.silversea.ssc.aem.components.editorial.FindYourCruiseByOrderUse" />
+    <div class="c-mozaic__slider">
+        <sly data-sly-list.destination="${fyc.destinations}">
+            <div class="c-mozaic__slider__slide msname" data-ssc-mozaic="${destination.destinationId}" data-id="${destination.destinationId}">
+	            <div class="boxShadow">
+	                <div class="c-tabbedmozaic">
+	                    <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=destination.path}">
+	                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}" />
+	                    </div>
+	                    <span class="c-tabbedmozaic__title">
+	                        <span>${destination.navigationTitle || destination.title @ context='html'}</span>
+	                    </span>
+	                    <a class="c-tabbedmozaic__link--block" data-sly-test=${destination.path} href="${destination.path @ extension='html'}"></a>
+	                </div>
+	                <p class="c-tabbedmozaic__description visible-xs-block visible-sm-block">
+	                    ${destination.description @ context='html'}
+	                    <a href="${destination.path @ extension='html'}" class="discover-more">
+	                    ${'discover-more' @ i18n}
+	                    <i class="fa fa-lg fa-angle-right"></i></a>
+	                </p>
+                </div>
+            </div>
+        </sly>
+    </div>
+    <p class="visible-xs-block visible-sm-block btn-wrapper">
+        <a class="c-mozaicslider__link c-btn c-btn--dark" href="${properties.destinationsReference @ extension='html'}">
+            ${'view-all' @ i18n}
+            <i class="fa fa-lg fa-angle-right"></i>
+        </a>
+    </p>
+</div>
+
+<div class="destinationSlider" data-sly-test="${!properties.type}">
+    <sly data-sly-use.destSlider="com.silversea.ssc.aem.components.editorial.DestinationSliderUse" />
+    <div class="c-destinationSliderParent marginTopDesktop0 marginTopTablet0 marginTopMobile0 ${properties.BVersionGreyBackground ? 'c-destinationSliderParent-lightgrey' : ''} ${properties.BVersionNoMargin ? 'marginBottomDesktop-20 marginBottomTablet-20 marginBottomMobile0' : 'marginBottomDesktop50 marginBottomTablet50 marginBottomMobile50'}">
+        <sly data-sly-use.destinationSliderTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/destinationSliderTemplate.html" data-sly-call="${ destinationSliderTemplate.by3Auto @ destSlider=destSlider}" />
+    </div>
+</div>
+
+<script data-sly-test="${fyc.destinationsOrder}">
+ window.destinationsOrder = '${fyc.destinationsOrder @ context="unsafe"}';
+ </script>
+<style data-sly-test="${properties.imageHeightTablet && properties.type == 'ninegrid'}">
+	@media (max-width: 991px) {
+		.c-mozaic-nine .c-tabbedmozaic__image-wrapper {
+			height: ${properties.imageHeightTablet @ context="unsafe" || 300 }px !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.imageHeightMobile && properties.type == 'ninegrid'}">
+	@media (max-width: 768px) {
+		.c-mozaic-nine .c-tabbedmozaic__image-wrapper {
+			height: ${properties.imageHeightMobile @ context="unsafe" || 250 }px !important;
+		}
+	}
+</style>

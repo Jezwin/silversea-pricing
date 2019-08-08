@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="CSS Temp"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <field
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                        name="./items">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            method="absolute"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <ftText
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        fieldDescription="FT Text"
+                                        fieldLabel="FT Text"
+                                        cols="60"
+                                        rows="20"
+                                        name="./ftText" />
+                                    <asText
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        fieldDescription="AS Text"
+                                        fieldLabel="AS Text"
+                                        cols="60"
+                                        rows="20"
+                                        name="./asText" />
+                                    <euText
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        fieldDescription="EU Text"
+                                        fieldLabel="EU Text"
+                                        cols="60"
+                                        rows="20"
+                                        name="./euText" />
+                                    <ukText
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        fieldDescription="UK Text"
+                                        fieldLabel="UK Text"
+                                        cols="60"
+                                        rows="20"
+                                        name="./ukText" />
+                                </items>
+                            </column>
+                        </items>
+                    </field>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

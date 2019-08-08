@@ -1,0 +1,37 @@
+.c-smarttext {
+	.urlLink a {
+		text-decoration: none !important;
+		font-weight: initial !important;
+	}
+	p {
+		text-align: justify;
+	}
+
+	.readMoreDesktop {
+		&Trigger {
+			cursor: pointer;
+			@media(max-width:@screen-sm){
+				display:none;
+			}
+		}
+		&Content {
+			@media(min-width:@screen-md-min){
+				display:none;
+			}
+		}
+	}
+
+	.readMoreMobile {
+		&Trigger {
+			cursor: pointer;
+			@media(min-width:@screen-md-min){
+				display:none;
+			}
+		}
+		&Content {
+			@media(max-width:@screen-md-min){
+				display:none;
+			}
+		}
+	}
+}

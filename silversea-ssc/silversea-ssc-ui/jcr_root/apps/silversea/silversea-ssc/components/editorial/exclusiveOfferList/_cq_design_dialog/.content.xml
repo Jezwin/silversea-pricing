@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Exclusive Offer Teaser List"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                margin="{Boolean}false" />
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <exclusiveoffersFT
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+                            fieldLabel="Exclusive Offers Order - FT">
+                        <field
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                name="./offerOrderFT"
+                                fieldLabel="Offer"
+                                rootPath="/content/silversea-com" />
+                    </exclusiveoffersFT>
+                    <exclusiveoffersAS
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+                            fieldLabel="Exclusive Offers Order - AS">
+                        <field
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                name="./offerOrderAS"
+                                fieldLabel="Offer"
+                                rootPath="/content/silversea-com" />
+                    </exclusiveoffersAS>
+                    <exclusiveoffersEU
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+                            fieldLabel="Exclusive Offers Order - EU">
+                        <field
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                name="./offerOrderEU"
+                                fieldLabel="Offer"
+                                rootPath="/content/silversea-com" />
+                    </exclusiveoffersEU>
+                    <exclusiveoffersUK
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+                            fieldLabel="Exclusive Offers Order - UK">
+                        <field
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                name="./offerOrderUK"
+                                fieldLabel="Offer"
+                                rootPath="/content/silversea-com" />
+                    </exclusiveoffersUK>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

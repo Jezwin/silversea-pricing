@@ -1,0 +1,19 @@
+<template data-sly-template.default="${ @ reference }">
+<section data-sly-test="${reference}" class="c-vertical-teaser c-vertical-teaser--style1 thumbnail" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=reference}" 
+    data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <div class="c-vertical-teaser__image-wrapper">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
+        <h3 data-sly-test.style2="${properties.style == 'style2'}" class="c-vertical-teaser__title"><span>${target.page.navigationTitle || target.page.title}</span></h3>
+    </div>
+    <div class="caption c-vertical-teaser__caption" style="max-height: 180px;">
+        <h3 data-sly-test="${!style2}" class="c-vertical-teaser__title">${target.page.navigationTitle || target.page.title}</h3>
+        <p class="c-vertical-teaser__description" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=target.page.description, limit=80}">
+            ${description.textTruncate}
+        </p>
+        <a class="c-vertical-teaser__link" href="${target.page.path @ extension='html'}">
+            <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+    <a class="c-vertical-teaser__link--block" href="${target.page.path @ extension='html'}"></a>
+</section>
+</template>

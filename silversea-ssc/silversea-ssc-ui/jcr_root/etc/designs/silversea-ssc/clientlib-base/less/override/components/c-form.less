@@ -1,0 +1,128 @@
+ /*
+  * Forms Fixes
+  */
+ 
+.c-form .chosen-single {
+    color: @grey--5;
+}
+
+.intl-tel-input.separate-dial-code .selected-flag {
+    background-color: @transparent;
+    display: table;
+    border-right: 1px solid;
+}
+
+.selected-dial-code {
+        font-size: 13px
+}
+
+
+
+/*
+ * Very temporary fix for Widget (TEMP TEMP TO REMOVE)
+ */
+ 
+ .c-subscribe__form{ 
+  .o-input.o-input--dark{
+     width: 87%;
+     
+ @media screen and (max-width: 991px){
+        
+     width: 92%;
+    
+ }
+  @media screen and (max-width: 930px){
+     
+     width: 87%;
+    
+ }
+    @media screen and (max-width: 830px){
+       
+     width: 84%;
+    
+    }
+    @media screen and (max-width: @screen-md-min){
+        
+     width: 81%;
+    
+    }
+     @media screen and (max-width: @screen-sm){
+ 
+     width: 100%;
+    
+    }
+         @media screen and (max-width: 426px){
+ 
+     width: 85%;
+    
+    }
+             @media screen and (max-width: @screen-xxxs){
+     width: 78%;
+    }
+                 @media screen and (max-width: 321px){
+     
+     width: 65%;
+    
+    }
+    }
+    
+    .pull-right .btn i{
+    	margin-right:4px;
+    }
+}
+
+ /*
+  * FIX FORMS
+  */
+  .signupforoffers {
+  	.col-xs-3{
+  		width:100%;	
+  	}
+  }
+
+/*
+ * Fix Checkbox on two lines
+ */
+.checkbox{
+	font-size:11px;
+}
+ 
+ /*
+ * Fix ES Widget
+ */
+@media (min-width:@screen-md-min) and (max-width:@screen-md-max){
+    html.es label.c-subscribe__form--label {
+       height:67px
+    }
+}
+
+
+.brochurerequest .chosen-container .chosen-drop .chosen-results {
+	max-height: 230px;
+}
+
+/*
+ * FIX QA Forms
+ */
+ 
+ .c-quote-request-form .btn-lg, .signupforoffers .btn-lg, .request-quote-form .btn-lg  {
+    font-weight: bold;
+}
+c-quote-request-form, .signupforoffers, .request-quote-form{
+	.chosen-container-single .chosen-single {
+	    border: 1px solid @grey--8;
+	}
+}
+
+.col-sm-8.col-sm-offset-2.c-call-request-form__form {
+    width:75% !important;
+    margin-left: 12.5% !important;
+}
+
+@media (max-width:@screen-sm) {
+.col-sm-8.col-sm-offset-2.c-call-request-form__form {
+        width:100% !important;
+        margin-left: 0% !important;
+    }
+
+}

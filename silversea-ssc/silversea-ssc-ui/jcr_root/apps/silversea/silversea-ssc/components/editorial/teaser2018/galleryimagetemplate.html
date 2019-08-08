@@ -1,0 +1,16 @@
+<template data-sly-template.default="${ @ imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=imagePath}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+        <a href="${imagePath}" class="lazy c-teaser-2018-image c-teaser-2018__gallery__item ${isVideo ? 'video-link' : ''}
+             ${properties.lightbox ? 'automatic-gallery-modal' : 'inactiveLink'}" data-target=".bs-modal-lg" 
+            data-src="${assetHelper.imageUrl @ context='uri'}?wid=630&fit=constrain">
+            <i data-sly-test="${isVideo}" class="fa fa-play"></i>
+        </a>
+</template>
+<template data-sly-template.fullwidth="${ @ imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=imagePath}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+        <a href="${imagePath}" class="lazy c-teaser-2018-image c-teaser-2018__gallery__item ${isVideo ? 'video-link' : ''}
+             ${properties.lightbox ? 'automatic-gallery-modal' : 'inactiveLink'}" data-target=".bs-modal-lg" 
+            data-src="${assetHelper.imageUrl @ context='uri'}?hei=376&wid=940&fit=crop">
+            <i data-sly-test="${isVideo}" class="fa fa-play"></i>
+        </a>
+</template>

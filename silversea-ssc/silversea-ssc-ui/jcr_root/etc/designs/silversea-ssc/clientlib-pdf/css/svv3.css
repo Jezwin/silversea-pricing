@@ -1,0 +1,1416 @@
+/* Base */
+body {
+    font-size: 12px;
+    font-family: "opensans", sans-serif;
+    color: #313131;
+    zoom: 0.75;
+}
+table {
+    font-size: 12px;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+p {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+.hidden {
+    display: none !important;
+}
+.col_left {
+    padding-right: 5px;
+}
+.col_right {
+    padding-left: 5px;
+}
+.note {
+    font-size: 10px;
+    font-style: italic;
+    color: #646464;
+    padding: 0;
+    padding-top: 5px;
+}
+
+/* Typography */
+.fa {
+    font-family: 'fontawesome', sans-serif;
+    display: inline-block;
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    text-rendering: auto;
+}
+h1, h2 {
+    font-family: "theanodidot", sans-serif;
+    font-weight: normal;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+.lowercase {
+    text-transform: lowercase;
+}
+
+/* Header */
+
+span.black {
+    color: #000;
+}
+
+.header {
+    background: black;
+    color: white;
+    height: 18mm;
+}
+.header__logo {
+    width: 180px;
+    float: left;
+    padding: 15px;
+}
+.header__logo img {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    padding-left: 8px;
+}
+.header__call {
+    float: right;
+    width: auto;
+    text-align: right;
+    line-height: 1.5;
+    padding-right: 15px;
+    padding-top: 4px;
+    padding-bottom:5px;
+}
+.header__call__beforetitle {
+    font-size: 13px;
+}
+.header__call__title {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+.header__call__aftertitle {
+    font-size: 11px;
+}
+
+.cruise_logo {
+    padding-top: 24px;
+}
+
+/* Footer */
+.footer {
+    color: black;
+    text-align: left;
+    line-height: 1.2;
+    font-size: 11px;
+
+    padding-top: 5px;
+}
+.footer a {
+    color: black;
+    text-decoration: underline;
+}
+
+.page {
+    color: #313131;
+    padding-top: 10px;
+}
+
+/* Page Header */
+.page__header {
+    padding: 0px 0 5px 0;
+}
+.page__header__title {
+    text-align: center;
+    color: #313131;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: "theanodidot", sans-serif;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+.page__header__title__separator {
+    content: '';
+    width: 60%;
+    height: 2px;
+    display: block;
+    margin: 15px auto;
+    background: #6abdbc;
+}
+
+.page__header__title__separator__highlights {
+    content: '';
+    width: 47%;
+    height: 2px;
+    display: block;
+    margin: auto;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 18px;
+    background: #6abdbc;
+}
+
+.page__header__metainfo {
+    width: 100%;
+    float: left;
+    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding-right: 11px;
+    font-size: 10px;
+    padding-bottom: 5px;
+}
+
+.style1.page__header__metainfo {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 11px;
+    font-size: 10px;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.style1.page__header__desc {
+    text-align: center;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.page__header__metainfo__item {
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* Section */
+.section {
+    padding: 0 0 20px 0;
+}
+
+/* Section Header */
+.section__header {
+    margin-bottom: 10px;
+    padding-top: 10px;
+    margin-top: -10px;
+    text-align: center;
+}
+.section__header__title {
+    text-align: center;
+    font-size: 25px;
+    text-transform: uppercase;
+    font-family: "theanodidot", sans-serif;
+    padding: 0;
+    margin: 0 0 5px 0;
+    color: #000;
+}
+.voyage__highlights__text .section__header__title {
+
+    margin-bottom: 0px;
+
+}
+.section__header__desc {
+    font-size: 13px;
+}
+
+/* Section Images */
+.section__gallery {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}
+.section__gallery__col {
+    width: 20%;
+    float: left;
+}
+.section__gallery__item {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.section__gallery__item img {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    display: block;
+}
+
+/* Section Table */
+.section__table {
+    width: 100%;
+    float: left;
+    margin-bottom: 5px;
+}
+.section__table table {
+    width: 100%;
+    text-align: left;
+    border: 1px solid #cdcdcd;
+    border-bottom: none;
+}
+.section__table table thead {
+
+}
+.section__table table thead tr {
+}
+.section__table table thead tr th {
+    background: #aaa;
+    color: white;
+    padding: 7px 15px;
+    margin: 0;
+    text-align: left;
+    text-transform: uppercase;
+}
+.section__table table tbody {
+
+}
+.section__table table tbody tr {
+
+}
+.section__table table tbody tr td {
+    padding: 7px 15px;
+    margin: 0;
+    text-align: left;
+    border-bottom: 1px solid #cdcdcd;
+    vertical-align: top;
+}
+.section__table strong {
+    text-transform: uppercase;
+}
+.section__table__pricenum {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.section__table__pricenote {
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+/* Next / Prev page */
+.next_page {
+    font-size: 12px;
+    font-style: normal;
+    color: #646464;
+    padding: 0;
+    padding-top: 5px;
+    text-align: right;
+    width: 100%;
+    float: left;
+}
+.next_page__text {
+    float: right;
+    width: 70%;
+    margin-top: 2px;
+    font-style: italic;
+}
+.next_page__icon {
+    font-family: 'fontawesome', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    text-rendering: auto;
+    margin-left: 5px;
+    font-size: 20px;
+    float: right;
+    width: 23px;
+    color: #ABABAB;
+    margin-right:10px;
+
+}
+.prev_page {
+    font-size: 12px;
+    font-style: normal;
+    color: #646464;
+    padding: 5px 0;
+    text-align: left;
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    margin-left:-3px;
+
+}
+.prev_page__text {
+    float: left;
+    width: 70%;
+    margin-top: 2px;
+    margin-left: 5px;
+    font-style: italic;
+}
+.prev_page__icon {
+    font-family: 'fontawesome', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    text-rendering: auto;
+    margin-left: 5px;
+    font-size: 20px;
+    float: left;
+    width: 15px;
+    color: #ABABAB;
+}
+
+/* Cruise Highlights */
+.cruisehighlights {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+}
+.cruisehighlights__col {
+    width: 50%;
+    float: left;
+}
+
+/* Cruise Highlights Excursion Style */
+.style1.cruisehighlights {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.style1.cruisehighlights__col {
+    width: 50%;
+    text-align: center;
+    display: inline-block;
+    float: none;
+    padding-top: 10px;
+}
+
+.style1.cruisehighlights__col .note {
+    padding-top: 0px;
+}
+
+/* Cruise Highlights Map */
+.cruisehighlights__map {
+    border: 1px solid #6abdbc;
+}
+.cruisehighlights__map__title {
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: #6abdbc;
+    text-align: center;
+    display: block;
+    padding: 3px;
+}
+.cruisehighlights__map__img {
+    line-height: 0;
+    width: 100%;
+    height: auto;
+}
+.cruisehighlights__map__img img {
+    width: 100%;
+    height: auto;
+}
+
+/* Cruise Highlights Table */
+.cruisehighlights__table {
+    width: 100%;
+    border: 1px solid #cdcdcd;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0px;
+    border-collapse: collapse;
+    background: white;
+
+}
+
+.cruisehighlights__table tr {
+
+}
+
+.cruisehighlights__table td{
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: -10px;
+    border-right: 1px solid #cdcdcd;
+    color: #313131;
+}
+
+.item__duration {
+    width: 30%;
+}
+
+.item__fares {
+    width: 40%;
+}
+
+.cruisehighlights__table td.noborder {
+    border: none;
+}
+
+
+.cruisehighlights__table__col {
+
+    float: left;
+    text-align: center;
+
+    position: relative;
+    padding: 10px;
+
+}
+.cruisehighlights__table__item {
+
+    padding: 10px 2px;
+
+
+
+}
+
+.cruisehighlights__table__beforetitle,
+.cruisehighlights__table__aftertitle {
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+
+
+}
+
+div.cruisehighlights__clear {
+    font-size: 2px;
+
+}
+
+.cruisehighlights__table__beforetitle {
+    margin-bottom: 5px;
+
+
+}
+.cruisehighlights__table__aftertitle {
+    margin-top: 5px;
+}
+
+.cruisehighlights__table__title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #6abdbc;
+    text-transform: uppercase;
+
+
+}
+.price .cruisehighlights__table__aftertitle {
+    font-size: 11px;
+}
+.beforetitlesmall {
+    font-size: 8px;
+    margin-bottom: 0px;
+}
+.aftertitlesmall {
+    font-size: 8px;
+    margin-top: 0px;
+}
+
+.aftertitlesmall__expedition {
+    font-size: 8px;
+    margin-top: 0px;
+    color: #d40728!important;
+}
+
+/* Cruise Highlights Exclusive Offers */
+.cruisehighlights__eo {
+    background: #eee;
+    padding: 10px 15px;
+    font-size: 12px;
+}
+.cruisehighlights__eo__title {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    line-height: 1;
+    display: block;
+}
+.cruisehighlights__eo p {
+    line-height: 1.3;
+    margin-bottom: 7px;
+}
+
+/* Cruise Itinerary */
+.cruiseitinerary {}
+.cruiseitinerary__table {
+
+}
+
+.cruiseitinerary__table .date {
+    width:26%;
+}
+
+.cruiseitinerary__table .port {
+    width:44%;
+}
+
+
+/* Suites */
+.suites {
+    margin-top: 21px;
+}
+.suites__table {}
+.suites__table th {
+    white-space: nowrap;
+}
+
+/* Included */
+.included {}
+.included__list {
+    width: 100%;
+    float: left;
+}
+.included__list ul {
+    margin: 0;
+    padding: 0 8px;
+    line-height: 1.5;
+}
+.included__list ul li {
+    padding: 0 7px;
+}
+.included__list__item {
+    width: 50%;
+    float: left;
+    font-size: 12px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+/* Ship */
+.ship {
+
+}
+
+.ship__block {
+    margin-bottom: 18px;
+    clear: both;
+}
+
+.ship__img {
+    width: 33%;
+    float: left;
+    padding-top: 3px;
+}
+.ship__img img {
+    width: 100%;
+    height: auto;
+    line-height: 1;
+}
+.ship__content {
+    width: 66%;
+    float: left;
+    font-size: 12px;
+    line-height: 1.3;
+}
+.ship__table {
+    width: 100%;
+    margin: 10px 0 0 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+/*
+Expedition Color Modificator
+for use: <div class="page expedition"></div>
+*/
+.cruisehighlights__table__title__expedition {
+    font-size: 20px;
+    font-weight: bold;
+
+    text-transform: uppercase;
+    color: #d40728!important;
+}
+.expedition .page__header__title__separator,
+.expedition .page__header__title__separator__highlights,
+.expedition .cruisehighlights__map__title {
+    background-color: #d40728!important;
+}
+.expedition .cruisehighlights__map {
+    border-color: #d40728!important;
+}
+
+.voyage__highlights__text {
+    color: #5C5C5C;
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.voyage__highlights__text ul {
+    padding-left: 14px;
+}
+
+div.expedition__clear {
+    padding: 7px;
+}
+
+a.underline {
+    text-decoration: underline;
+}
+
+.voyage__highlights__subtitle {
+    text-align: center;
+}
+.unbreakable { page-break-inside: avoid !important; }
+.pagebreak{
+    clear: both;
+    page-break-before:always;
+    page-break-inside:avoid;
+    margin-top: 300mm; /*phantomjs renders it on the top of the next page*/
+}
+
+.excursion .pagebreak{
+    clear: both;
+    page-break-before:always;
+    page-break-inside:avoid;
+    margin-top: 300mm; /*phantomjs renders it on the top of the next page*/
+    padding-top: 20px;
+}
+
+.pagebreakbefore{
+    clear: both;
+    page-break-before:always;
+    page-break-inside:avoid;
+}
+.page{
+    page-break-inside: avoid !important;
+    float: none;
+}
+.section__table__pricenum small {
+    font-size: 9px;
+    font-weight: normal;
+}
+.ship__table strong {
+    text-transform: capitalize;
+}
+
+/* header style1 */
+.header__style1 {
+    color: white;
+    height: 35mm;
+}
+
+.header__style1 .header__logo {
+    padding-top: 5px;
+}
+
+.header__logo__style1 {
+    width: 180px;
+    float: left;
+    padding: 10px;
+    padding-right: 30px;
+}
+.header__logo__style1 img {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    padding-left: 8px;
+}
+
+.header__style1 .cruise_logo {
+    padding-top: 24px;
+    height: 7mm;
+    background: black;
+}
+
+.header__style1 .header__call {
+    color: #D60524;
+    padding-top: 5px;
+}
+
+.header__style1 .header__call__title {
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.header__style1 .header__call__aftertitle {
+    font-size: 13px;
+    color: #333333;
+}
+
+.header__rule {
+    display: block;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    float: left;
+}
+/* 2018 Cruise Section */
+.style1.cruisehighlights__price {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.style2018 .section__header__title {
+    text-transform: capitalize;
+    padding-top: 30px;
+}
+
+.exclusiveOfferWrapper {
+    width: auto;
+    max-width: 960px;
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.exclusiveOfferWrapper .col-sm-6.offer-item {
+    width: 285px;
+    height: 320px;
+    float: left;
+    min-height: 1px;
+    color: #fff;
+    background-color: #171d47;
+    text-align: center;
+    min-height: 215px;
+    margin-left: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 15px;
+    margin-top: 30px;
+}
+
+.exclusiveOfferWrapper .col-sm-6.offer-item.offercenteraligned {
+
+    margin-left: 180px;
+
+}
+
+.exclusiveOfferWrapper .offer-icon {
+    width: 60px;
+    border-radius: 30px;
+    margin: 20px auto;
+    margin-top: 15px;
+}
+
+.exclusiveOfferWrapper .offer-text {
+    letter-spacing: .5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.exclusiveOfferWrapper .offer-title {
+    text-transform: capitalize;
+    font-family: 'Freight Display Medium',serif;
+    letter-spacing: .5px;
+    line-height: 26px;
+    font-size: 22px;
+}
+
+.exclusiveOfferWrapper .offer-description {
+    font-family: 'Freight Display Medium',serif;
+    letter-spacing: .5px;
+    font-size: 18px;
+    line-height: 24px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 7px;
+}
+
+.cruise-2018-itineraries-title {
+    font-family: 'Freight Display Medium',serif;
+    font-size: 30px;
+    letter-spacing: .5px;
+    line-height: 32px;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: capitalize;
+    padding-top: 30px;
+}
+
+.cruise-2018-itineraries-info {
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 19px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.cruise-2018-itineraries-info img{
+    width: 16px;;
+}
+
+.cruise-2018-itineraries-description {
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 0 36px;
+}
+
+.cruise-2018-itineraries-voyage-code.hidden-xs {
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 12px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.cruise-2018-itineraries-itinerary-row-container.cruise-2018-itineraries-itinerary-row-container-with-excursion {
+    border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+    display: table;
+    width: 100%;
+    padding-bottom: 12px;
+    height: 75px;
+    padding-top: 20px;
+}
+
+.cruise-2018-itineraries-itinerary-row {
+    width: 100%;
+    vertical-align: top;
+    display: table;
+}
+
+.cruise-2018-itineraries-itinerary-row-thumbnail {
+    height: 100%;
+    display: table-cell;
+    width: 160px;
+}
+
+.cruise-2018-itineraries-itinerary-row-text {
+    display: table-cell;
+    width: 60%;
+    padding-left: 15px;
+    vertical-align: middle;
+}
+
+.cruise-2018-itineraries-itinerary-row-text-name {
+    color: #333;
+    font-family: 'Freight Display Medium',serif;
+    letter-spacing: .5px;
+    display: inline-block;
+    text-transform: capitalize;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.cruise-2018-itineraries-itinerary-row-text-country {
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+}
+
+.cruise-2018-itineraries-itinerary-row-date {
+    vertical-align: middle;
+    text-align: left;
+    display: table-cell;
+}
+
+.cruise-2018-itineraries-itinerary-row-date-day {
+    text-transform: uppercase;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.cruise-2018-itineraries-itinerary-row-date-time {
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 11px;
+    letter-spacing: .42px;
+    line-height: 18px;
+    text-align: left;
+}
+
+.cruise-2018-title.cruise-2018-suites-fares-title {
+    font-size: 30px;
+    line-height: 32px;
+    font-family: 'Freight Display Medium',serif;
+    letter-spacing: .5px;
+    text-transform: capitalize;
+    text-align: center;
+    margin-bottom: 25px;
+    padding-top: 40px;
+}
+
+.cruise-2018-suites-fares-description.hidden-xs {
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    margin: auto;
+    margin-bottom: 25px;
+    text-align: center;
+    width: 80%;
+}
+
+.cruise-2018-suites-fares-container {
+    border-bottom: 1px solid rgba(152, 152, 155, 0.5);
+    display: table;
+    width: 100%;
+    padding: 10px 0px;
+    height: 75px;
+}
+
+.cruise-2018-suites-fares-image {
+    height: 100%;
+    display: table-cell;
+    width: 160px;
+}
+
+.cruise-2018-suites-fares-description {
+    display: table-cell;
+    width: 55%;
+    padding-left: 15px;
+    vertical-align: middle;
+}
+
+span.cruise-2018-suites-fares-description-title {
+    color: #333;
+    font-family: 'Freight Display Medium',serif;
+    letter-spacing: .5px;
+    display: inline-block;
+    text-transform: capitalize;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+p.cruise-2018-suites-fares-description-upto {
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+}
+
+.col-xs-12.cruise-2018-suites-fares-included {
+    display: block;
+    width: 100%;
+    clear: both;
+    padding-top: 50px;
+}
+
+.cruise-2018-suites-fares-included-title {
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.cruise-2018-suites-fares-price {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+ul.cruise-2018-suites-fares-included-ul {
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.cruise-2018-suites-fares-included-ul li {
+    padding-left: 1em;
+    text-indent: -1em;
+    font-family: 'Suisse Regular',sans-serif;
+    color: #333;
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.cruise-2018-suites-fares-included-ul li:before {
+    content: "✓";
+    padding-right: 5px;
+}
+
+.cruise-2018 .cruise-2018-suites-fares .cruise-2018-suites-fares-included-eo {
+    font-weight: bold;
+}
+
+span.cruise-2018-suites-fares-price-from {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+span.cruise-2018-suites-fares-price-text {
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.cruise-2018-suites-fares-price-bonus {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 14px;
+    display: block;
+}
+
+.cruise-2018-ship-overview-title {
+    font-size: 30px;
+    line-height: 32px;
+    text-align: center;
+    color: #333;
+    font-family: 'Freight Display Medium',serif;
+    letter-spacing: .5px;
+    margin-bottom: 25px;
+    padding-top: 30px;
+}
+
+span.cruise-2018-ship-overview-title-title {
+    font-style: italic;
+}
+
+.cruise-2018-ship-overview-description {
+    font-size: 13px;
+    line-height: 20px;
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    letter-spacing: .5px;
+    text-align: center;
+}
+
+span.lg-deck-spec-label {
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 28px;
+    font-family: 'Suisse Regular',sans-serif;
+    text-transform: uppercase;
+}
+
+.cruise-2018-ship-overview-row .col-sm-6 {
+    position: relative;
+    padding-left: 0;
+    padding-right: 35px;
+}
+
+.lg-deck-spec {
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 28px;
+    font-family: 'Suisse Regular',sans-serif;
+}
+
+.lg-deck-spec .label-spec {
+    float: left;
+    text-transform: capitalize;
+    background-color: white;
+    position: absolute;
+    padding-right: 30px;
+}
+
+.lg-deck-spec .dots-spec {
+    z-index: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.lg-deck-spec .dots-spec.cruise-invisible {
+    visibility: hidden;
+}
+
+.lg-deck-spec .value-spec {
+    float: right;
+    text-transform: capitalize;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: white;
+    padding: 10px;
+    padding-top: 0;
+    margin-right: 200px;
+}
+
+.lg-deck-spec .value-spec-connecting {
+    text-transform: capitalize;
+    background-color: white;
+    display:none;
+    margin-right: 200px;
+    padding-left: 150px;
+}
+
+.cruise-2018-ship-overview .row {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.cruise-2018-ship-overview-row {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.cruise-2018-ship-dining-area-title {
+    color: rgb(51, 51, 51);
+    font-family: "Freight Display Medium", serif;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    line-height: 26px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.row.cruise-2018-ship-dining-area-row {
+    padding-top: 20px;
+    display: table;
+    width: 100%;
+    height: 10%;
+}
+
+.cruise-2018-ship-dining-area-row .col-xs-6.img {
+    width: 30%;
+    display: table-cell;
+}
+
+.cruise-2018-ship-dining-area-row .col-xs-6.text {
+    width: 70%;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.cruise-2018-ship-dining-area-row img {
+    object-fit: cover;
+}
+
+.cruise-2018-ship-dining-area-text-title {
+    color: #333;
+    font-family: 'Freight Display Medium',serif;
+    letter-spacing: .5px;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 14px;
+}
+
+.cruise-2018-ship-dining-area-text-description {
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    letter-spacing: .5px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.cruise-2018-ship-public-title {
+    color: #333;
+    font-family: 'Freight Display Medium',serif;
+    font-size: 20px;
+    margin-top: 40px;
+    letter-spacing: .5px;
+    line-height: 26px;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+	padding-top: 30px;
+}
+
+.cruise-2018-ship-public-slide.col-xs-4 {
+    width: 30%;
+    height: 400px;
+    float: left;
+    text-align: center;
+    margin-right: 7px;
+    margin-left: 7px;
+}
+
+.cruise-2018-ship-public-slide-title {
+    text-align: center;
+    text-transform: capitalize;
+    color: #333;
+    font-family: 'Freight Display Medium',serif;
+    font-size: 20px;
+    letter-spacing: .5px;
+    margin-top: 12px;
+    margin-bottom: 14px;
+    line-height: 24px;
+}
+
+.cruise-2018-ship-public-slide-text {
+    color: #333;
+    font-family: 'Suisse Regular',sans-serif;
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    text-align: center;
+    max-height: 130px;
+}
+
+.excursion {
+    font-family: Open Sans,arial,helvetica,sans-serif;
+}
+
+.excursion .panel-heading {
+    display: table;
+    padding: 3px 13px 3px 3px;
+}
+
+.excursion .panel__heading__item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.excursion .panel__heading__description {
+    vertical-align: top;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.excursion .panel__heading__description h3 {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    -webkit-margin-after: 0em;
+    font-family: 'Freight Display Medium', serif;
+}
+
+.excursion .panel__heading__description p {
+    font-size: 14px;
+    line-height: 20px;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.excursion .panel__heading__description span {
+    font-size: 14px;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.excursion .panel__heading__date {
+    vertical-align: top;
+    width: 30%;
+    padding: 15px;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.excursion .panel__heading__info {
+    line-height: 1.3;
+    text-align: right;
+    width: 30%;
+    padding: 15px;
+    font-size: 14px;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.excursion .panel--nested__heading {
+    display: block;
+    position: relative;
+    text-align: left;
+    padding: 0px 5px 0px 5px;
+    padding-top: 1px;
+    background-color: #f9f9f9;
+    font-size: 15px;
+    background-clip: content-box;
+    font-family: 'Freight Display Medium', serif;
+}
+
+.excursion .panel--nested__heading__description h4 {
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
+}
+
+.excursion .panel--nested__heading__info ul {
+    list-style-type: none;
+    -webkit-padding-start: 0px;
+}
+
+.excursion .c-cruise-itinerary-2__list--nested__item {
+    border: 1px solid #000000;
+}
+
+.excursion .panel--nested__body__inner {
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 0px;
+    padding-top: 10px;
+}
+
+.excursion .panel--nested__body__inner ul {
+    list-style-type: none;
+    -webkit-padding-start: 0px;
+}
+
+.excursion .panel--nested__body__content {
+    margin-bottom: 20px;
+}
+
+.excursion .panel--nested__body__content span {
+    font-size: 9pt !important;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.excursion .meta_feature_inner {
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 3px 0 0;
+    vertical-align: middle;
+    font-family: 'Suisse Regular', sans-serif;
+}
+
+.topPadding30 {
+    padding-top: 30px;
+}
+/* header style1 */
+.header__style1 {
+    color: white;
+    height: 35mm;
+}
+
+.header__logo__style1 {
+    width: 180px;
+    float: left;
+    padding: 15px;
+    padding-right: 30px;
+}
+.header__logo__style1 img {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    padding-left: 8px;
+}
+
+.header__style1 .cruise_logo {
+    padding-top: 24px;
+    height: 7mm;
+    background: black;
+}
+
+.header__style1 .header__call {
+    color: #D60524;
+    padding-top: 12px;
+}
+
+.header__style1 .header__call__title {
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.header__style1 .header__call__aftertitle {
+    font-size: 13px;
+    color: #333333;
+}
+
+.header__rule {
+    display: block;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    float: left;
+}

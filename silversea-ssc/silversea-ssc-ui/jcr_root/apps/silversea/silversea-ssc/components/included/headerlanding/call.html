@@ -1,0 +1,18 @@
+<div class="c-call" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+    <span class="c-call__inner">
+        <span class="c-call__title">
+            ${'click-to-call' @ i18n}
+        </span>
+        <span class="c-call__number">
+            <span class="fa-stack c-call__number_icon hidden-xs">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-phone fa-stack-1x"></i>
+            </span>
+            <span>
+            	<sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html" />
+            	<sly data-sly-call="${googleForwardingNumberTemplate.headerLandingPage}" />
+            </span>
+        </span>
+        <span class="c-call__msg hidden-xs">${'call-reservations-team-2' @ i18n}</span>
+    </span>
+</div>

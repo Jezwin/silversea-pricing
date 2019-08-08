@@ -1,0 +1,14 @@
+<div data-sly-test="${(wcmmode.edit || wcmmode.design)}"
+     class="cq-placeholder" data-emptytext="SSC - Awards Component  (#c-awards-${properties.sscUUID})"></div>
+
+ <div id="c-awards-${properties.sscUUID}" class="c-awards" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html">
+	<div class="c-awards__title">
+         ${properties.title @ context="html"}
+    </div>
+	<div class="row row-centered">
+         <sly data-sly-list.award="${properties.awards}">
+              <div class="col col-lg-2 col-md-2 col-centered hidden-xs" data-sly-call="${imageTemplate.defaultsmall @ imagePath=award}"></div>
+              <div class="col col-xs-4 col-sm-3 col-centered hidden-sm hidden-lg hidden-md" data-sly-call="${imageTemplate.defaultsmall @ imagePath=award}"></div>
+         </sly>
+    </div>
+ </div>

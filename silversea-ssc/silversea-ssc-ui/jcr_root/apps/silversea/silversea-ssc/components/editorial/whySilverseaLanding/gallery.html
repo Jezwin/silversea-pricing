@@ -1,0 +1,2 @@
+<sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.mediaSetReference || pageProperties.mediaSetReference}" />
+<sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html" data-sly-call="${galleryTemplate.default @ list=setImage.renditionList}" />

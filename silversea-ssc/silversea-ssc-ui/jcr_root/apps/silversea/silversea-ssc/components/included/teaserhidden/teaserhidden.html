@@ -1,0 +1,22 @@
+<template data-sly-template.default="${ @ reference }">
+<sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=reference}" />
+<div class="teaser parbase aem-GridColumn--phone--none aem-GridColumn--phone--12 aem-GridColumn aem-GridColumn--default--6">
+	<div class="c-teaser ${target.thumbnail ? '':'no-image'}"
+	     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+	    <a href="${reference @ extension='html'}" class="c-teaser__wrapperhover"></a>
+	    <div class="c-teaser__wrapper">
+	        <h2 class="c-teaser__wrapper__title">${target.page.navigationTitle || target.page.title}</h2>
+	        <div class="c-teaser__wrapper__descr hidden-xs">
+	            ${target.page.description}
+	        </div>
+	    </div>
+	    <div class="c-teaser__shader hidden-xs"></div>
+	    <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
+	    <div class="c-teaser__descr-mobile visible-xs-block">
+	        ${target.page.description}
+	    </div>
+	    <a rel="nofollow" class="c-teaser__link" href="${properties.reference @ extension='html'}">${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></a>
+	</div>
+</div>
+</template>
+<!-- test -->

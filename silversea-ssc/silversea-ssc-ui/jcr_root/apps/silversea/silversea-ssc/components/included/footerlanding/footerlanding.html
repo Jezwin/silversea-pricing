@@ -1,0 +1,125 @@
+<div data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
+	<sly data-sly-test="${properties.style == 'style1' || !properties.style}"> <footer
+		class="footer-v3">
+		<div>
+			<div class="gradient-line"></div>
+			<section class="o-section o-section--legal">
+				<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+			</section>
+		</div>
+	</footer> </sly>
+
+	<sly data-sly-test="${properties.style == 'style2'}">
+	<div class="lp17__footer">
+		<footer class="footer-v2 footer-small ">
+			<div class="container">
+				<div class="footer-v2-contact-raq">
+					<div class="footer-v2-contact">
+						<section class="o-section o-section--callbox">
+							<p data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+								<span class=""> ${'call-reservations-team-1' @ i18n}: 
+									<sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html" />
+            						<sly data-sly-call="${googleForwardingNumberTemplate.footerLandingPage}" />
+									<span class="callbox-little">${'call-reservations-team-2' @ i18n}</span>
+								</span> 
+							</p>
+						</section>
+					</div>
+					<div class="footer-v2-raq">
+						<a href="${properties.raqlink @ extension='html'}" title="" class="btnlp17 btnlp17-red" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n}<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+					</div>
+				</div>
+
+					<section class="o-section o-section--legal">
+						<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+					</section>
+			</div>
+		</footer>
+	</div>
+	</sly>
+	
+	<sly data-sly-test="${properties.style == 'style3'}">
+	<div class="lp17__footer">
+		<footer class="footer-v2 footer-small style3">
+			<div class="container">
+				<div class="footer-v2-contact-raq">
+							<p>
+								<span class="title"> ${'Planning-on-cruising-soon' @ i18n} <br/>
+									<span class="subtitle">${'We-help-you-plan-your-next-luxury-cruise' @ i18n}</span>
+								</span> 
+							</p>
+						<br/>
+						<a href="${properties.raqlink @ extension='html'}" title="" class="btnlp17 btnlp17-red" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n}<span><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+				</div>
+					<section class="o-section o-section--legal">
+						<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+					</section>
+			</div>
+		</footer>
+	</div>
+	</sly>
+	
+	<sly data-sly-test="${properties.style == 'style4'}">
+	<div class="lp17__footer">
+		<footer class="footer-v2 footer-small style4">
+			<div class="container">
+					<section class="o-section o-section--legal">
+						<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+					</section>
+			</div>
+		</footer>
+	</div>
+	</sly>
+	<sly data-sly-test="${properties.style == 'style5'}">
+	
+		<footer class="footer-32 footer-small style5">
+			<div class="container">
+					<section class="o-section o-section--legal">
+						<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+					</section>
+			</div>
+		</footer>
+	
+	</sly>
+
+    <sly data-sly-test="${properties.style == 'style6'}">
+	<div class="lp17__footer">
+		<footer class="footer-v2 footer-small style6">
+			<div class="container">
+				<div class="footer-v2-contact-raq">
+					<p>
+								<span class="title"> ${'allow-us-to-take-care' @ i18n} <br/>
+								</span> 
+							</p>
+						<br/>
+						<a href="${properties.raqlink @ extension='html'}" title="" class="btn btn-red btn-lg effect" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n}</a>
+				</div>		
+			</div>
+		</footer>
+	</div>
+    <section class="o-section o-section--legal--style6">
+						<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+					</section>
+	</sly>
+
+	<sly data-sly-test="${properties.style == 'style7'}">
+		<div class="container">
+			<div class="footer-dco ">
+				<span style="padding:0;" class="footer-dco-year">&#169; ${footer.year} ${'copyright' @ i18n}</span>
+
+				<div style="padding:0;" class="footer-dco-actions">
+					<div class="" data-sly-repeat.child="${footer.PagesLegalLinkIterator}">
+						<a href="${child.path @ extension='html'}"> ${child.navigationTitle? child.navigationTitle : child.title}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</sly>
+</div>
+
+
+
+
+
+

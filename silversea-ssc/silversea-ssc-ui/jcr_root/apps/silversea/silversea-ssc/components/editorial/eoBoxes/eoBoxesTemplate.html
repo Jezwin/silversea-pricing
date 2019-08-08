@@ -1,0 +1,63 @@
+<template data-sly-template.box="${ @ eoData }">
+
+	<div class="c-eo_boxes-box col-xs-12 ${eoData.size == 'block3' ? 'c-eo_boxes-box-block3' : ''} ${eoData.size == 'block2' ? 'c-eo_boxes-box-block2' : ''} ${eoData.size == 'block1' ? 'c-eo_boxes-box-block1' : ''} ${eoData.widthClass} c-eo_boxes-num-${eoData.number}">
+		<div class="c-eo_boxes-info col-xs-12">
+			<sly data-sly-test="${eoData.icon}">
+	    		<img class="c-eo_boxes-image center-block" src="${eoData.icon}" alt="Box Image" width="60" height="60">
+	    	</sly>
+	    	<div class="c-eo_boxes-text-section ${eoData.text3 ? 'c-eo_boxes-text-section-v1' : ''}">
+		        <span data-sly-test="${eoData.text1}" class="c-eo_boxes-text ${eoData.separator1 ? 'c-eo_boxes-text_1' : ''} c-eo_boxes-text___1">
+		        	${eoData.text1 @ context="html"} 
+		       	</span>
+		        <span data-sly-test="${eoData.separator1}" class="c-eo_boxes-separator c-eo_boxes-separator_1 ${!eoData.text3 ? 'c-eo_boxes-separator_1-v1' : ''}">
+		        	${eoData.separator1 @ context="html"}
+		       	</span>
+		        <span data-sly-test="${eoData.text2}" class="c-eo_boxes-text c-eo_boxes-text_2  ${!eoData.text3 ? 'c-eo_boxes-text_2-v1' : ''}">
+		        	${eoData.text2 @ context="html"}
+		       	</span>
+		        <span data-sly-test="${eoData.separator2}" class="c-eo_boxes-separator c-eo_boxes-separator_2 ${eoData.text3 ? 'c-eo_boxes-separator_2-v1' : ''}">
+		        	${eoData.separator2 @ context="html"}
+		       	</span>
+		        <span data-sly-test="${eoData.text3}"  class="c-eo_boxes-text c-eo_boxes-text_3">
+		        	${eoData.text3 @ context="html"}
+		        </span>
+		        <div class="clearfix"></div>
+	    	</div>
+		</div>
+	</div>
+	
+</template>
+
+
+<template data-sly-template.separator="${ @ eoData }">
+
+	<div class="c-eo_boxes-separatorBox col-xs-12 ${eoData.size == 'block3' ? 'c-eo_boxes-box-block3' : ''} ${eoData.size == 'block2' ? 'c-eo_boxes-box-block2' : ''} ${eoData.size == 'block1' ? 'c-eo_boxes-box-block1' : ''} ${eoData.widthClass} c-eo_boxes-num-${eoData.number}">
+		<div class="c-eo_boxes-info col-xs-12">
+	        <span data-sly-test="${eoData.text1}" class="c-eo_boxes-text-separator">
+	        	${eoData.text1 @ context="html"}
+	       	</span>
+		</div>
+	</div>
+	
+</template>
+
+<template data-sly-template.box1="${ @ eoData }">
+	<sly data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxesTemplate.html" data-sly-call="${eoBoxesTemplate.box @ eoData=eoData.boxes['b1'] }"  />
+</template>
+
+<template data-sly-template.box2="${ @ eoData }">
+	<sly data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxesTemplate.html" data-sly-call="${eoBoxesTemplate.box @ eoData=eoData.boxes['b2']}"  />
+</template>
+
+<template data-sly-template.box3="${ @ eoData }">
+	<sly data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxesTemplate.html" data-sly-call="${eoBoxesTemplate.box @ eoData=eoData.boxes['b3']}"  />
+</template>
+
+
+<template data-sly-template.separator1="${ @ eoData }">
+	<sly data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxesTemplate.html" data-sly-call="${eoBoxesTemplate.separator @ eoData=eoData.boxes['sep1']}"  />
+</template>
+
+<template data-sly-template.separator2="${ @ eoData }">
+	<sly data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxesTemplate.html" data-sly-call="${eoBoxesTemplate.separator @ eoData=eoData.boxes['sep2']}"  />
+</template>

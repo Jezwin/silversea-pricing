@@ -1,0 +1,24 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SSC - Icon List - (#iconList-${properties.sscUUID})"></div>
+
+
+    
+        <section data-sly-use.iconList="com.silversea.ssc.aem.components.editorial.IconListUse" id="icon-list-${properties.sscUUID}" class="icon-list hidden-xs" style="--marging-top-desktop:${properties.margingTopDesktop @ context='html'}px;
+                --marging-bottom-desktop:${properties.margingBottomDesktop @ context='html'}px;
+                --marging-top-tablet:${properties.margingTopTablet @ context='html'}px;
+                --marging-bottom-tablet:${properties.margingBottomTablet @ context='html'}px;" data-ie-style="--marging-top-desktop:${properties.margingTopDesktop @ context='html'}px;
+                --marging-bottom-desktop:${properties.margingBottomDesktop @ context='html'}px;
+                --marging-top-tablet:${properties.margingTopTablet @ context='html'}px;
+                --marging-bottom-tablet:${properties.margingBottomTablet @ context='html'}px;">
+
+            <ul class="flex-container">
+                <sly data-sly-repeat="${iconList.IconList}">
+                    <li class="flex-item" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imagePath}">
+                        <div class="flex-image"><img class="iconImage" src="${assetHelper.imageUrl @ context='uri'}?wid=630&fit=constrain" /></div>
+                        <div class="flex-text">${item.title @ context='html'}</div>
+                    </li>
+                </sly>
+            </ul>
+
+        </section>
+    
+

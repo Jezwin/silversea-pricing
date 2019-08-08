@@ -1,0 +1,107 @@
+@import (reference) "/etc/designs/silversea-ssc/clientlib-base/less/variables.less";
+
+.top-page-title {
+  text-align: center;
+  .wrapper {
+    text-align: center;
+  }
+
+  .title {
+    font-family: @freight;
+    font-size: var(--td-font-size, 30px);
+    letter-spacing: 0.5px;
+    line-height: 32px;
+    padding-top: var(--td-padding-top);
+    padding-bottom: var(--td-padding-bottom);
+    margin-top: var(--td-margin-top);
+    margin-bottom: var(--td-margin-bottom);
+  }
+
+  .subtitle {
+    color: #333333;
+    font-family: @freight;
+    font-size: var(--sd-font-size, 22px);
+    letter-spacing: 0.5px;
+    line-height: 26px;
+    padding-top: var(--sd-padding-top);
+    padding-bottom: var(--sd-padding-bottom);
+    margin-top: var(--sd-margin-top);
+    margin-bottom: var(--sd-margin-bottom);
+  }
+
+  .description {
+    color: #333333;
+    font-family: @suisse;
+    font-size: var(--dd-font-size, 15px);
+    letter-spacing: 0.47px;
+    line-height: 22px;
+    padding-top: var(--dd-padding-top);
+    padding-bottom: var(--dd-padding-bottom);
+    margin-top: var(--dd-margin-top);
+    margin-bottom: var(--dd-margin-bottom);
+    p {
+      margin: 0;
+    }
+  }
+
+  /* phone breakpoint */
+  @media (max-width: @screen-sm) {
+    .title {
+      font-size: var(--tm-font-size, 28px);
+      letter-spacing: 0.5px;
+      line-height: 30px;
+      padding-top: var(--tm-padding-top);
+      padding-bottom: var(--tm-padding-bottom);
+      margin-top: var(--tm-margin-top);
+      margin-bottom: var(--tm-margin-bottom);
+    }
+
+    .subtitle {
+      font-size: var(--sm-font-size, 12px);
+      font-family: @suisse;
+      letter-spacing: 1px;
+      padding-top: var(--sm-padding-top);
+      padding-bottom: var(--sm-padding-bottom);
+      margin-top: var(--sm-margin-top);
+      margin-bottom: var(--sm-margin-bottom);
+    }
+
+    .description {
+      font-size: var(--dm-font-size, 12px);
+      letter-spacing: 1px;
+      padding-top: var(--dm-padding-top);
+      padding-bottom: var(--dm-padding-bottom);
+      margin-top: var(--dm-margin-top);
+      margin-bottom: var(--dm-margin-bottom);
+    }
+
+  }
+
+  /* tablet breakpoint */
+  @media (min-width: @screen-md-min) and (max-width: @screen-md-max-limit) {
+    .title {
+      font-size: var(--tt-font-size, 30px);
+      letter-spacing: 1px;
+      padding-top: var(--tt-padding-top);
+      padding-bottom: var(--tt-padding-bottom);
+      margin-top: var(--tt-margin-top);
+      margin-bottom: var(--tt-margin-bottom);
+    }
+
+    .subtitle {
+      font-size: var(--st-font-size, 22px);
+      padding-top: var(--st-padding-top);
+      padding-bottom: var(--st-padding-bottom);
+      margin-top: var(--st-margin-top);
+      margin-bottom: var(--st-margin-bottom);
+    }
+
+    .description {
+      font-size: var(--dt-font-size, 15px);
+      padding-top: var(--dt-padding-top);
+      padding-bottom: var(--dt-padding-bottom);
+      margin-top: var(--dt-margin-top);
+      margin-bottom: var(--dt-margin-bottom);
+    }
+  }
+}

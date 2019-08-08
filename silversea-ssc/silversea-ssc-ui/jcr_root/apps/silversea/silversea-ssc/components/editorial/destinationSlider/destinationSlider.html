@@ -1,0 +1,12 @@
+<div data-sly-test="${wcmmode.edit && (!properties.pageReference || !properties.jcr:title)}" class="cq-placeholder cq-dd-image" data-emptytext="Destination slider"></div>
+<sly data-sly-use.destSlider="com.silversea.ssc.aem.components.editorial.DestinationSliderUse" />
+<sly data-sly-use.pixelClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}" />
+<div class="c-destinationSliderParent ${pixelClass.allDevicesPixel} ${properties.color} ${properties.forceRedHeadLine ? 'forceRedHeadLine' : ''}">
+	<sly data-sly-use.destinationSliderTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/destinationSliderTemplate.html">
+	        <sly data-sly-test="${properties.type == '3'}" data-sly-call="${ destinationSliderTemplate.by3 @ destSlider=destSlider}" />
+	        <sly data-sly-test="${properties.type == '6'}" data-sly-call="${ destinationSliderTemplate.by6 @ destSlider=destSlider}" />
+	        <sly data-sly-test="${properties.type == '1'}" data-sly-call="${ destinationSliderTemplate.by1 @ destSlider=destSlider}" />
+	        <sly data-sly-test="${properties.type == '2'}" data-sly-call="${ destinationSliderTemplate.by2 @ destSlider=destSlider}" />
+	        <sly data-sly-test="${properties.type == '1Landing'}" data-sly-call="${ destinationSliderTemplate.by1Landing @ destSlider=destSlider}" />
+	</sly>
+</div>

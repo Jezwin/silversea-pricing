@@ -1,0 +1,80 @@
+<template data-sly-template.header>
+    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        $(function () {
+            //callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", "gfn_text_header", "gfn_href_header");
+        });
+    </script>
+    <a id="gfn_href_header" class="phoneLinkSource" href="tel:${countryHelper.clickableLocalizedPhone}">
+        <span id="gfn_text_header" class="phoneSpanSource">${countryHelper.localizedPhone}</span>
+    </a>
+</template>
+
+<template data-sly-template.footer>
+    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        //$(function() { callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", "gfn_text_footer", "gfn_href_footer"); });
+    </script>
+    <a id="gfn_href_footer" class="phoneLinkSource" href="tel:${countryHelper.clickableLocalizedPhone}">
+        <span id="gfn_text_footer" class="phoneSpanSource">${countryHelper.localizedPhone}</span>
+    </a>
+</template>
+
+<template data-sly-template.clickToCall>
+    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        //$(function() { callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", "gfn_text_clickToCall", "gfn_href_clickToCall"); });
+    </script>
+    <a id="gfn_href_clickToCall" class="phoneLinkSource" href="tel:${countryHelper.clickableLocalizedPhone}">
+        ${'click-to-call' @ i18n}:
+        <strong>
+            <span id="gfn_text_clickToCall" class="phoneSpanSource">${countryHelper.localizedPhone}</span>
+        </strong>
+    </a>
+</template>
+
+<template data-sly-template.headerLandingPage>
+    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        //$(function() { callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", "gfn_text_headerLandingPage", "gfn_href_headerLandingPage"); });
+    </script>
+    <a id="gfn_href_headerLandingPage" class="phoneLinkSource" href="tel:${countryHelper.clickableLocalizedPhone}">
+        <span id="gfn_text_headerLandingPage" class="phoneSpanSource">${countryHelper.localizedPhone}</span>
+    </a>
+</template>
+
+<template data-sly-template.footerLandingPage>
+    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        //$(function() { callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", "gfn_text_footerLandingPage", "gfn_href_footerLandingPage"); });
+    </script>
+    <a id="gfn_href_footerLandingPage" class="phoneLinkSource" href="tel:${countryHelper.clickableLocalizedPhone}">
+        <strong>
+            <span id="gfn_text_footerLandingPage" class="phoneSpanSource">${countryHelper.localizedPhone}</span>
+        </strong>
+    </a>
+</template>
+
+<template data-sly-template.localizedPhone>
+    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        //$(function() { callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", null,null, "gfn_text_localizedPhone"); });
+    </script>
+    <span class="gfn_text_localizedPhone" class="phoneSpanSource">${countryHelper.localizedPhone}</span>
+</template>
+
+
+<template data-sly-template.header2019>
+    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        $(function () {
+            //callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", "gfn_text_header", "gfn_href_header");
+        });
+    </script>
+    <a id="gfn_href_header" class="phoneLinkSource" href="tel:${countryHelper.clickableLocalizedPhone}">
+		<div id="gfn_text_header" class="phoneSpanSource">
+			<div class="gfn-div hidden-xs">
+				<div class="gfn-div-number">
+                    <i class="material-icons">phone</i>
+                    ${countryHelper.localizedPhone}
+				    <span class="reservation-numbers">${'call-reservations-team-2' @ i18n}</span>
+                </div>
+			</div>
+
+			<i class="visible-xs material-icons header2019-icon-phone">phone</i>
+		</div>
+    </a>
+</template>

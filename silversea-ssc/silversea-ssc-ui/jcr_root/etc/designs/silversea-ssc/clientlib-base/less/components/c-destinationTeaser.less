@@ -1,0 +1,103 @@
+.c-destination-teaser {
+    position: relative;
+    display: block;
+    line-height: 1.42857143;
+    background-color: @white;
+    padding: 0px 3px;
+   
+    &__image-wrapper {
+        position: relative;
+		background-color: @black;
+		overflow:hidden;
+    }
+
+
+    picture {	 
+	  @media (min-width: 768px) {
+        img {
+        	 transform: scale(1.05);
+	   		-webkit-transition: all 0.5s linear;
+	    	-moz-transition: all 0.5s linear;
+	    	-o-transition: all 0.5s linear;
+	    	transition: all 0.5s linear;
+        }
+	  }       
+    }
+
+	&:hover{
+    	cursor:pointer;
+		& .c-destination-teaser__title{
+			@media (min-width: 769px) {
+				border-bottom: 1px solid @color-second;
+			}
+		}	
+    }
+	@media(min-width:769px) {
+		&:hover picture {
+			opacity: .5;
+				img {
+					transform: scale(1.0);
+					-ms-transform: scale(1.0);
+					-moz-transform: scale(1.0);
+					-webkit-transform: scale(1.0);
+					-o-transform: scale(1.0);
+				}
+		}
+	}
+     &__caption {       
+        padding: 7px 10px 0px;       
+        text-align:center;        
+    }
+
+    &__title {
+        font-family: @freight;
+        font-size: 24px;
+        margin: 0;
+        margin-top:5px;
+        text-align:center;
+        line-height: 1.1;
+   		display: inline-block;
+   		border-bottom: 1px solid transparent;
+   		padding-bottom:5px;
+		text-transform: capitalize;
+   		 @media screen and (max-width: @screen-sm) {
+                line-height: 1;
+                padding: 17px 0 10px;
+   		 }
+    }
+	&__discovermore {
+		 font-size: 12px;
+		 font-family: @suisse;
+		 text-transform: uppercase;
+		 letter-spacing: 1px;
+		 color: @color-second;
+		 .fa {
+			 color: #171d47;
+			 font-size: 14pt;
+			 font-weight: bold;
+			 vertical-align: middle;
+			 padding-bottom: 2px;
+			 padding-left: 8px;
+		 }
+	 }
+}
+
+//A/B Test related
+.tabbedmozaic{
+	.c-destination-teaser {
+		margin-bottom:30px;
+		 &__image-wrapper {
+		 	height:300px;
+		 	@media (min-width: 768px) and (max_width:991px) {        
+		 		height:280px;
+		 	}
+		 	@media(max-width:767px){
+		 		height:250px;
+		 	}
+		 }
+	}
+}
+
+.ab-test-global-v2 {
+	display:none;
+}

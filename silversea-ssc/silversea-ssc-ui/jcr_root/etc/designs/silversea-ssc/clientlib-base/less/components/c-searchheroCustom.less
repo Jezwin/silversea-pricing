@@ -1,0 +1,45 @@
+/*
+ * searchHeroCustom
+ */
+
+.searchheroCustom {
+    .separator-line-light {
+        background-color: @grey--c;
+        clear: both;
+        height: 1px;
+        margin: 20px 0 20px 0;
+        z-index: 10;
+        position: relative;
+    }
+    .center-CTA {
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+    }
+}
+
+/*
+ * SearchHero fix mobile
+ */
+
+.searchheroCustom {
+
+    .c-search-hero form.row.c-fyc-light__form.c-search-hero__form{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    @media (max-width:@screen-sm) {
+        form.row.c-fyc-light__form.c-search-hero__form > .row > .col-sm-4:not(.center-CTA) {
+            margin-bottom: 15px;
+        }
+        .center-CTA button {
+            max-width: 100%!important;
+            margin: auto;
+        }
+        .separator-line-light {
+            display: none;
+        }
+    }
+
+}

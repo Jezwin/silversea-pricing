@@ -1,0 +1,50 @@
+<div class="navbar-dco container" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
+    <div class="row">
+        <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 navbar-left">
+            <a href="${pageHelper.homePage.path @ extension='html'}">
+                <img class="img-responsive" width="220px" height="60px"
+                     src="/etc/designs/silversea-com/clientlib-base/images/logo.png"
+                     alt="${pageHelper.homePage.title || currentPage.title}"/>
+            </a>
+        </div>
+        <div class="header-phone hidden-sm hidden-md hidden-lg col-xs-4">
+            <a href="tel:${countryHelper.clickableLocalizedPhone}"><i class="material-icons">call</i></a>
+        </div>
+        <div class="hidden-xs col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-md-7 col-lg-7 col-sm-7"
+             data-sly-use.navbarDCO="com.silversea.ssc.aem.components.included.NavBarDCOUse">
+            <ul class="navbar-right">
+                <sly data-sly-repeat="${navbarDCO.CtaList}">
+                    <sly data-sly-test="${!item.lightboxActivated}">
+                        <li class="navbar-cta"><a href="${item.path @ extension='html'}">${item.label}</a></li>
+                    </sly>
+                    <sly data-sly-test="${item.lightboxActivated}">
+                        <sly data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" />
+                        <li class="navbar-cta"><a  href="${item.path @ selectors='modalcontent', extension='html'}" data-toggle="modal"
+                                                   data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">${item.label}</a></li>
+                    </sly>
+                </sly>
+                <li class="navbar-cta">
+                    <script data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+                        //$(function() { callGoogleForwardingNumber("${countryHelper.localizedPhone @ context='unsafe'}", "phone-label", "phone-number"); });
+                    </script>
+                    <div>
+                        <a id="phone-number"
+                           href="tel:${countryHelper.clickableLocalizedPhone}">${countryHelper.localizedPhone}</a>
+                    </div>
+                    <div>
+                        <small id="phone-label">${'call-reservations-team-2' @ i18n}</small>
+                    </div>
+                </li>
+            </ul>
+            <sly data-sly-test="${navbarDCO.CtaList.size > 2}">
+                                <style>
+                                @media (min-width:768px) and (max-width:991px){
+                    .navbar-dco .navbar-right li:first-child {
+                            display:none;
+                        }
+                                }
+                </style>
+            </sly>
+        </div>
+    </div>
+</div>

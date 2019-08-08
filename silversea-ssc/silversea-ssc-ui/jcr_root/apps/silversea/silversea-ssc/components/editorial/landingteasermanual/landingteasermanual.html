@@ -1,0 +1,13 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Landing teaser manuel"></div>
+<section data-sly-test="${properties.reference}" class="c-landing-teaser thumbnail benefitsandevents" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <div class="c-landing-teaser__image-wrapper" data-sly-test.reference="${properties.assetReference}">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+    </div>
+    <div class="caption c-landing-teaser__caption">
+        <h4 class="c-landing-teaser__title">${properties.jcr:title @ context="html"}</h4>
+        <p class="c-landing-teaser__description">
+            ${properties.jcr:description @ context="html"}
+        </p>
+    </div>
+    <a class="c-landing-teaser__link--block" href="${target.page.path @ extension='html'}"></a>
+</section>

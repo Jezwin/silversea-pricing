@@ -1,0 +1,35 @@
+<template data-sly-template.v1>
+<div
+	data-sly-use.fyc="${'com.silversea.ssc.aem.components.editorial.FindYourCruiseLandingUse' @ psize='15'}"
+	id="destination-fyc-switchable-block"
+	class="c-fyc-old c-fyc destination-switchable-block">
+	<sly data-sly-use.filterTemplate="silversea/silversea-ssc/components/editorial/findyourcruise_landing/filter.html" data-sly-call="${filterTemplate.filterv1 @ fyc=fyc}" />
+
+	<sly data-sly-test.type="${fyc.type || 'v2'}" />
+	<div data-sly-test="${type == 'v2'}"
+		class="c-fyc__header hidden-xs clearfix">
+		<span class="c-fyc__header__inner"> <span
+			class="c-fyc__header__inner__departure">${'departure' @ i18n}</span>
+			<span class="c-fyc__header__inner__ship">${'ship' @ i18n} / ${'voyage' @ i18n}</span> <span class="c-fyc__header__inner__feature">${'features' @ i18n}</span> <span class="c-fyc__header__inner__port">${'ports' @ i18n}</span>
+		</span> <span class="c-fyc__header__inner">${'fares-from' @ i18n} <span>(${'per-guest' @ i18n})</span></span>
+	</div>
+	<div class="c-fyc__result-wrapper clearfix ${fyc.type || 'v2'}">
+		<sly data-sly-use.resultsTemplate="silversea/silversea-ssc/components/editorial/findyourcruise_landing/results.html" data-sly-call="${resultsTemplate.resultsv1 @ fyc=fyc}" />
+	</div>
+</div>
+</template>
+
+<template data-sly-template.v2>
+<div
+	data-sly-use.fyc="${'com.silversea.ssc.aem.components.editorial.FindYourCruiseLandingUse' @ psize='9'}"
+	id="destination-fyc-switchable-block-nd"
+	class="c-fyc-v2 destination-switchable-block">
+
+	<sly data-sly-use.filterTemplate="silversea/silversea-ssc/components/editorial/findyourcruise_landing/filter.html" data-sly-call="${filterTemplate.filterv2 @ fyc=fyc}" />
+
+	<sly data-sly-test.type="${fyc.type || 'v2'}" />
+	<div class="c-fyc-v2__result-wrapper clearfix ${fyc.type || 'v2'}">
+		<sly data-sly-use.resultsTemplate="silversea/silversea-ssc/components/editorial/findyourcruise_landing/resultsv2.html" data-sly-call="${resultsTemplate.resultsv2 @ fyc=fyc}" />
+	</div>
+</div>
+</template>

@@ -1,0 +1,97 @@
+.c-customer-quote {
+
+  &__image-container {
+    position: relative;
+
+    .c-customer-quote__image {
+      left: 50%;
+      transform: translateX(-50%);
+      position: relative;
+      width: 100vw;
+      max-width: 1920px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      overflow: hidden;
+      height: 600px;
+      min-height: 200px;
+      @media (max-width: @screen-xs) {
+        height: 375px;
+      }
+    }
+  }
+
+  &__text-mobile {
+    position: relative;
+    margin-right: 0px;
+    margin-left: 0px;
+
+    .c-customer-quote {
+      &__quote {
+        color: @color-typography;
+        font-family: @freight;
+        font-size: 19px;
+        letter-spacing: 0.25px;
+        line-height: 21px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+
+      &__name {
+        color: @color-typography;
+        font-family: @suisse;
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        &:before {
+          content: '';
+          width: 27.5px;
+          height: 1px;
+          background: @color-typography;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  &__text {
+    top: 50%;
+    right: 47%;
+    left: 00%;
+    transform: translate(85%, -50%);
+    -webkit-transform: translate(85%, -50%);
+    position: absolute;
+
+    .c-customer-quote {
+      &__quote {
+        color: @white;
+        font-family: @freight;
+        font-size: 30px;
+        letter-spacing: 0.5px;
+        line-height: 36px;
+        margin-bottom: 15px;
+      }
+
+      &__name {
+        color: @white;
+        font-family: @suisse;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        &:before {
+          content: '';
+          width: 55px;
+          height: 2px;
+          background: @white;
+          margin-right: 15px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Ship teaser ND 2018"></div>
+<sly data-sly-test="${properties.componentType == null || properties.componentType == 'target'}"
+     data-sly-use.shipTeaserTemplate="shipTeaserTemplate.html" data-sly-call="${shipTeaserTemplate.target}"/>
+<sly data-sly-test="${properties.componentType == 'custom'}" data-sly-use.shipTeaserTemplate="shipTeaserTemplate.html"
+     data-sly-call="${shipTeaserTemplate.custom}"/>

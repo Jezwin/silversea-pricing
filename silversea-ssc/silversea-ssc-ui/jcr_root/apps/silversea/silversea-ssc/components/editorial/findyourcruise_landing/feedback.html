@@ -1,0 +1,82 @@
+<template data-sly-template.feedbackv1="${@ fyc}">
+<div class="hidden">
+    <!--/* current destination */-->
+    <input type="text" id="current-destination-filter" value="${fyc.destinationFilter}" data-value="${fyc.destinationIdFilter}" />
+
+    <!--/* current date */-->
+    <input type="text" id="current-date-filter" value="${fyc.dateFilter.toString || 'all'}" />
+
+    <!--/* current ship */-->
+    <input type="text" id="current-ship-filter" value="${fyc.shipFilter}" />
+    
+    <input type="text" id="current-duration-filter" value="${fyc.durationFilter}" />
+    
+    <input type="text" id="current-cruisetype-filter" value="${fyc.cruiseTypeFilter}" />
+    
+    <input type="text" id="current-port-filter" value="${fyc.portFilter}" />
+
+ 	<input type="text" id="current-page-filter" value="${fyc.activePage}" />
+    <input type="text" id="current-psize" value="${fyc.resultPerPage}" />
+
+    <!--/* data relative to option available in current result */-->
+    <div id="destination-filter" data-sly-test="${fyc.availableDestinations && fyc.availableDestinations.size > 0}" data-ssc-filter='${fyc.availableDestinationsJson}'>
+    </div>
+    <div id="ship-filter" data-sly-test="${fyc.availableShips && fyc.availableShips.size > 0}" data-ssc-filter='${fyc.availableShipsJson}'>
+    </div>
+    <div id="port-filter" data-sly-test="${fyc.availablePorts && fyc.availablePorts.size > 0}" data-ssc-filter='${fyc.availablePortsJson}'>
+    </div>
+    <div id="date-filter" data-sly-test="${fyc.availableDepartureDates && fyc.availableDepartureDates.size > 0}" data-ssc-filter='${fyc.availableDepartureDatesJson}'>
+    </div>
+    <div id="duration-filter" data-sly-test="${fyc.availableDurations && fyc.availableDurations.size > 0}" data-ssc-filter='${fyc.availableDurationsJson}'>
+    </div>
+    <div id="cruisetype-filter" data-sly-test="${fyc.availableCruiseTypes && fyc.availableCruiseTypes.size > 0}" data-ssc-filter='${fyc.availableCruiseTypesJson}'>
+    </div>
+    <div id="feature-filter" data-sly-test="${fyc.availableFeatures && fyc.availableFeatures.size > 0}" data-ssc-filter='${fyc.availableFeaturesJson}'>
+    </div>
+
+    <!--/* Total matching */-->
+    <input id="count-filter" type="hidden" value="${fyc.totalMatches}" />
+</div>
+</template>
+<template data-sly-template.feedbackv2="${@ fyc}">
+<div class="hidden">
+    <!--/* current destination */-->
+    <input type="text" id="v2-current-destination-filter" value="${fyc.destinationFilter}" data-value="${fyc.destinationIdFilter}" />
+
+    <!--/* current date */-->
+    <input type="text" id="v2-current-date-filter" value="${fyc.dateFilter.toString || 'all'}" />
+
+    <!--/* current ship */-->
+    <input type="text" id="v2-current-ship-filter" value="${fyc.shipFilter}" />
+
+    <input type="text" id="v2-current-duration-filter" value="${fyc.durationFilter}" />
+
+    <input type="text" id="v2-current-cruisetype-filter" value="${fyc.cruiseTypeFilter}" />
+
+    <input type="text" id="v2-current-port-filter" value="${fyc.portFilter}" />
+
+    <input type="text" id="v2-current-page-filter" value="${fyc.activePage}" />
+
+    <input type="text" id="v2-current-psize" value="${fyc.resultPerPage}" />
+
+    <!--/* data relative to option available in current result */-->
+    <div id="v2-destination-filter" data-sly-test="${fyc.availableDestinations && fyc.availableDestinations.size > 0}" data-ssc-filter='${fyc.availableDestinationsJson}'>
+    </div>
+    <div id="v2-ship-filter" data-sly-test="${fyc.availableShips && fyc.availableShips.size > 0}" data-ssc-filter='${fyc.availableShipsJson}'>
+    </div>
+    <div id="v2-port-filter" data-sly-test="${fyc.availablePorts && fyc.availablePorts.size > 0}" data-ssc-filter='${fyc.availablePortsJson}'>
+    </div>
+    <div id="v2-date-filter" data-sly-test="${fyc.availableDepartureDates && fyc.availableDepartureDates.size > 0}" data-ssc-filter='${fyc.availableDepartureDatesJson}'>
+    </div>
+    <div id="v2-duration-filter" data-sly-test="${fyc.availableDurations && fyc.availableDurations.size > 0}" data-ssc-filter='${fyc.availableDurationsJson}'>
+    </div>
+    <div id="v2-cruisetype-filter" data-sly-test="${fyc.availableCruiseTypes && fyc.availableCruiseTypes.size > 0}" data-ssc-filter='${fyc.availableCruiseTypesJson}'>
+    </div>
+    <div id="v2-feature-filter" data-sly-test="${fyc.availableFeatures && fyc.availableFeatures.size > 0}" data-ssc-filter='${fyc.availableFeaturesJson}'>
+    </div>
+
+
+    <!--/* Total matching */-->
+    <input id="v2-count-filter" type="hidden" value="${fyc.totalMatches}" />
+</div>
+</template>

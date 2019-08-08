@@ -1,0 +1,8 @@
+<div data-sly-test.empty="${wcmmode.edit}"
+	class="cq-placeholder cq-dd-image"
+	data-emptytext="Virtual tour - Drop Image Here"></div>
+
+<div id="c-virtualtour-${properties.sscUUID}" class="c-virtualtour">
+	<sly data-sly-use.virtualTourTemplate="virtualTourTemplate.html"
+		data-sly-call="${virtualTourTemplate.default @ path=properties.assetReference, title=properties.title }" />
+</div>

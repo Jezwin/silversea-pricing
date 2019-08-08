@@ -1,0 +1,7 @@
+<div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder cq-dd-image"	data-emptytext="SSC - Text - (#c-text-${properties.sscUUID})"></div>
+
+<div id="c-smarttext-${properties.sscUUID}" class="c-smarttext ${properties.marginTopDesktop} ${properties.marginBottomDesktop} ${properties.paddingTopDesktop} ${properties.paddingBottomDesktop} ${properties.marginTopTablet} ${properties.marginBottomTablet} ${properties.paddingTopTablet} ${properties.paddingBottomTablet} ${properties.marginTopMobile} ${properties.marginBottomMobile} ${properties.paddingTopMobile} ${properties.paddingBottomMobile}">
+	<sly data-sly-use.text="smarttext.js" data-sly-unwrap="${text.context == text.CONST.CONTEXT_HTML}">
+		${text.text @ context=text.context}
+	</sly>
+</div>

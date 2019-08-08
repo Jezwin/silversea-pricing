@@ -1,0 +1,17 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="SSC - Smart container (#smartcontainer-${properties.sscUUID})"></div>
+<sly data-sly-use.pixelClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginTop,marginBottom,marginLeft,marginRight,paddingTop,paddingBottom,paddingLeft,paddingRight'}" />
+<div id="smartcontainer-${properties.sscUUID}" class="smartcontainer ${pixelClass.allDevicesPixel} ${properties.hideDesktop ? 'displayNoneDesktop' : ''} ${properties.hideTablet ? 'displayNoneTablet' : ''} ${properties.hideMobile ? 'displayNoneMobile' : ''} ${properties.containerWidthDesktop}">
+    <div class="par-container ${properties.backgroundColorDesktop} ${properties.backgroundColorTablet} ${properties.backgroundColorMobile} backgroundWidthDesktopViewport${properties.backgroundWidthDesktopViewport} backgroundWidthTabletViewport${properties.backgroundWidthTabletViewport} backgroundWidthMobileViewport${properties.backgroundWidthMobileViewport}">
+        <sly data-sly-resource="${'parContainer' @ resourceType='wcm/foundation/components/responsivegrid'}" />
+    </div>
+</div>
+
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) { ${properties.cssDesktop @ context='html'} }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {  ${properties.cssTablet @ context='html'} }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) { ${properties.cssMobile @ context='html'} }
+</style>

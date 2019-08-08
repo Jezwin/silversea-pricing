@@ -1,0 +1,346 @@
+/*
+ * Font
+ */
+
+@freight: 'Freight Display Medium',serif;
+@freight-text: 'Freight Text Book',serif;
+@freight-bold: 'Freight Text Bold',serif;
+@suisse: 'Suisse Regular',sans-serif;
+
+@OpenSansPath: "../fonts/Open-Sans";
+
+/* BEGIN Light */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/Light/OpenSans-Light.eot');
+  src: url('@{OpenSansPath}/Light/OpenSans-Light.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/Light/OpenSans-Light.woff') format('woff'),
+       url('@{OpenSansPath}/Light/OpenSans-Light.ttf') format('truetype'),
+       url('@{OpenSansPath}/Light/OpenSans-Light.svg#OpenSansLight') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+/* END Light */
+
+/* BEGIN Light Italic */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/LightItalic/OpenSans-LightItalic.eot');
+  src: url('@{OpenSansPath}/LightItalic/OpenSans-LightItalic.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/LightItalic/OpenSans-LightItalic.woff') format('woff'),
+       url('@{OpenSansPath}/LightItalic/OpenSans-LightItalic.ttf') format('truetype'),
+       url('@{OpenSansPath}/LightItalic/OpenSans-LightItalic.svg#OpenSansLightItalic') format('svg');
+  font-weight: 300;
+  font-style: italic;
+}
+/* END Light Italic */
+
+/* BEGIN Regular */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/Regular/OpenSans-Regular.eot');
+  src: url('@{OpenSansPath}/Regular/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/Regular/OpenSans-Regular.woff') format('woff'),
+       url('@{OpenSansPath}/Regular/OpenSans-Regular.ttf') format('truetype'),
+       url('@{OpenSansPath}/Regular/OpenSans-Regular.svg#OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* END Regular */
+
+/* BEGIN Italic */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/Italic/OpenSans-Italic.eot');
+  src: url('@{OpenSansPath}/Italic/OpenSans-Italic.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/Italic/OpenSans-Italic.woff') format('woff'),
+       url('@{OpenSansPath}/Italic/OpenSans-Italic.ttf') format('truetype'),
+       url('@{OpenSansPath}/Italic/OpenSans-Italic.svg#OpenSansItalic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+/* END Italic */
+
+/* BEGIN Semibold */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/Semibold/OpenSans-Semibold.eot');
+  src: url('@{OpenSansPath}/Semibold/OpenSans-Semibold.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/Semibold/OpenSans-Semibold.woff') format('woff'),
+       url('@{OpenSansPath}/Semibold/OpenSans-Semibold.ttf') format('truetype'),
+       url('@{OpenSansPath}/Semibold/OpenSans-Semibold.svg#OpenSansSemibold') format('svg');
+  font-weight: 600;
+  font-style: normal;
+}
+/* END Semibold */
+
+/* BEGIN Semibold Italic */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/SemiboldItalic/OpenSans-SemiboldItalic.eot');
+  src: url('@{OpenSansPath}/SemiboldItalic/OpenSans-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/SemiboldItalic/OpenSans-SemiboldItalic.woff') format('woff'),
+       url('@{OpenSansPath}/SemiboldItalic/OpenSans-SemiboldItalic.ttf') format('truetype'),
+       url('@{OpenSansPath}/SemiboldItalic/OpenSans-SemiboldItalic.svg#OpenSansSemiboldItalic') format('svg');
+  font-weight: 600;
+  font-style: italic;
+}
+/* END Semibold Italic */
+
+/* BEGIN Bold */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/Bold/OpenSans-Bold.eot');
+  src: url('@{OpenSansPath}/Bold/OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/Bold/OpenSans-Bold.woff') format('woff'),
+       url('@{OpenSansPath}/Bold/OpenSans-Bold.ttf') format('truetype'),
+       url('@{OpenSansPath}/Bold/OpenSans-Bold.svg#OpenSansBold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+/* END Bold */
+
+/* BEGIN Bold Italic */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/BoldItalic/OpenSans-BoldItalic.eot');
+  src: url('@{OpenSansPath}/BoldItalic/OpenSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/BoldItalic/OpenSans-BoldItalic.woff') format('woff'),
+       url('@{OpenSansPath}/BoldItalic/OpenSans-BoldItalic.ttf') format('truetype'),
+       url('@{OpenSansPath}/BoldItalic/OpenSans-BoldItalic.svg#OpenSansBoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+/* END Bold Italic */
+
+/* BEGIN Extrabold */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/ExtraBold/OpenSans-ExtraBold.eot');
+  src: url('@{OpenSansPath}/ExtraBold/OpenSans-ExtraBold.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/ExtraBold/OpenSans-ExtraBold.woff') format('woff'),
+       url('@{OpenSansPath}/ExtraBold/OpenSans-ExtraBold.ttf') format('truetype'),
+       url('@{OpenSansPath}/ExtraBold/OpenSans-ExtraBold.svg#OpenSansExtrabold') format('svg');
+  font-weight: 800;
+  font-style: normal;
+}
+/* END Extrabold */
+
+/* BEGIN Extrabold Italic */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('@{OpenSansPath}/ExtraBoldItalic/OpenSans-ExtraBoldItalic.eot');
+  src: url('@{OpenSansPath}/ExtraBoldItalic/OpenSans-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('@{OpenSansPath}/ExtraBoldItalic/OpenSans-ExtraBoldItalic.woff') format('woff'),
+       url('@{OpenSansPath}/ExtraBoldItalic/OpenSans-ExtraBoldItalic.ttf') format('truetype'),
+       url('@{OpenSansPath}/ExtraBoldItalic/OpenSans-ExtraBoldItalic.svg#OpenSansExtraboldItalic') format('svg');
+  font-weight: 800;
+  font-style: italic;
+}
+/* END Extrabold Italic */
+
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: lighter;
+    src: local('Lato'), url('../fonts/Lato/Lato-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 200;
+    src: local('Lato'), url('../fonts/Lato/Lato-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Lato'), url('../fonts/Lato/Lato-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato'), url('../fonts/Lato/Lato-Regular.woff') format('woff');
+}
+
+@freight-text:       'Freight Text Book', serif;
+@freight-bold:       'Freight Text Bold', serif;
+
+@color-typography: #333333;
+
+@color-light-bg: #F4F4F4;
+
+/*
+* Colors
+*/
+
+@black:              #000;
+@transparent:        transparent;
+@white:              #fff;
+@grey:               #666;
+@grey-l:             #e6e7e8;
+@grey--ba:           #bababa;
+@grey--c:            #ccc;
+@grey--e:            #eee;
+@grey--eb:           #ebebeb;
+@grey--e6:           #e6e6e6;
+@grey--e8:           #e8e8e8;
+@grey--d:            #ddd;
+@grey--c5:           #c5c5c5;
+@grey--d3:           #d3d3d3;
+@grey--f9:           #f9f9f9;
+@grey--2b:           #2b2b2b;
+@grey--f5:           #f5f5f5;
+@grey--3:            #333;
+@grey--5:            #555;
+@grey--8:            #888;
+@black-8:            #141414;
+@grey--9:            #999;
+@grey--18:           #2f2f2f;
+@grey--40:           rgb(102, 102, 102);
+@grey--53:           rgba(0,0,0,0.53);
+@grey--74:           #bcbcbc;
+@grey--25:           #414042;
+@green:              green;
+@green--55:          #5bb5bb;
+@grey--98:           rgb(249,249,249);
+@red:                #d60524;
+@red-expedition:     #D40728;
+@red-d:              darken(@red, 5%);
+@red--39:            #c20522;
+@blue:               #6ABDBC;
+@black--07:          rgba(0,0,0,0.7);
+@blue--66:           #66afe9;
+@grey--010:          rgba(0, 0, 0, 0.1);
+@grey--075:          rgba(0,0,0,0.75);
+@gold--50:           #B49A4A;
+@grey--7:            #111;
+@black--18:          #273333;
+@white--03:          rgba(255,255,255,0.3);
+@darkgray:			 darkgray;
+@gold:               gold;
+@green--35:			 #3c763d;
+@green--48:          #589c9d;
+@grey--03:           rgba(0, 0, 0, 0.3);
+@grey--4:            #444;
+@grey--04:           rgba(0, 0, 0, 0.4);
+@grey--05:           rgba(0, 0, 0, 0.5);
+@grey--6:            rgba(0, 0, 0, 0.6);
+@grey--08:			 rgba(255, 255, 255, 0.8);
+@grey--80:           #cdcdcd;
+@grey--015:          rgba(0,0,0,0.15);
+@grey--a3:           #a3a3a3;
+@grey--b2:           #b2b2b2;
+@grey--ca :          #cacaca;
+@grey--c3:           #c3c3c3;
+@grey--d5:           #d5d5d5;
+@grey--e0:           #e0e0e0;
+@grey--e9:           #e9e9e9;
+@grey--d9:           #d9d9d9;
+@grey--f2:           #f2f2f2;
+@grey--fa:           #fafafa;
+@grey--39:			 #646464;
+@grey--50:           #808080; 
+@grey--95:			 #f3f3f3;
+@grey--14:			 #242424;
+@grey--42:           rgba(51,51,51,.42);
+@grey--67:           #aaa;	
+@grey--60:			 #999999;
+@grey--90:           #e5e5e5;
+@grey--91:           #e8e8e8;
+@grey--93:           #EEEEEE;
+@grey--94:           #F0F0F0;
+@red--43:            #d00;
+
+/*
+COLORS
+*/
+
+@nd-red: #D60524;
+@nd-red-darker: #BA001C;
+@nd-dark: #263133;
+@nd-light: #FFFFFF;
+@nd-light-bg: #F4F4F4;
+
+/**
+ * Colors new design 
+ */
+ @color-typography-disabled: 	rgba(51, 51, 51, 0.6);
+ @color-typography-light: #ffffff;
+ @color-typography-light-disabled: 	rgba(255, 255, 255, 0.6); 
+  
+ @color-primary: #D60524;
+ @color-second: #171D47;
+ 
+ @color-expedition-cruise: #D60524;
+ @color-classic-cruise: #273233;
+ 
+ @color-template-background: #ffffff;
+ @color-medium-bg: #98989B;
+ @color-dark-bg: #263133;
+ 
+ 
+/*
+* Design
+*/
+@button-radius:      5px;
+@bold-l:             600;
+@bold:               700;
+@nav-top-height:     60px;
+
+
+/*
+BUTTONS
+*/
+
+@nd-button-padding: 14px 20px 11px 20px; //11px 17px 9px 17px;
+@nd-button-border-radius: 0px;
+@nd-button-border-width: 0px;
+@nd-button-line-height: 16px;
+@nd-button-font-size: 13px;
+@nd-button-letter-spacing: 1.5px;
+@nd-button-min-width: 220px;
+@nd-button-small-min-width: 180px;
+
+
+/*
+* Fonts
+*/
+@f-theano_didot:     'Theano Didot Regular', serif;
+@f-sans_serif:       arial, helvetica, sans-serif;
+@f-open_sans:       'Open Sans', arial, helvetica, sans-serif;
+@f-lato:            'Lato', sans-serif;
+@f-times-new-roman:  'Times New Roman', Times, serif;
+@f-playfair-display: 'Playfair Display', serif;
+
+/*
+* Responsive breakpoint
+*/
+@screen-xxxs:        375px;
+@screen-xxs:         480px;
+@screen-xs:          600px;
+@screen-sm:          767px;
+@screen-md-min:      768px;
+@screen-md-max-limit: 990px;
+@screen-md-max:      991px;
+@screen-lg-min:      992px;
+@screen-lg-max:      1200px;
+
+@color-dark-bg: #263133;
+@color-second: #171D47;
+
+
+/*
+ * Container width and related varialbe
+ */
+@why-ssc-default-width-option:930px;
+@hero-banner-max-width:930px;
+@landing-background-container-normal-width:960px;
+
+
+@color-arrow-bar-inline-gallery: @color-second;

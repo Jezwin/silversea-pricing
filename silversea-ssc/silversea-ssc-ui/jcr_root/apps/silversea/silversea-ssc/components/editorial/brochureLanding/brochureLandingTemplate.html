@@ -1,0 +1,166 @@
+<template data-sly-template.mobile>
+	<div id="c-brochureLanding-mobileTablet-${properties.sscUUID}" class="c-brochureLanding-mobileTablet hidden-md hidden-lg">
+        <sly data-sly-test="${properties.style != 'landing2018'}">
+				<p class="c-brochureLanding-mobileTablet-title">${properties.title}</p>
+                <div class="c-brochureLanding-mobileTablet-img" data-sly-test.reference="${properties.assetReference}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html">
+	                <a href="${properties.brochurelink @ extension='html'}">
+	                    <sly data-sly-call="${imageTemplate.default @ imagePath=properties.assetReference}" />
+	                 </a>
+                </div>
+                <div class="c-brochureLanding-mobileTablet-details">
+                    ${properties.text @ context="html"}
+                </div>
+                <div class="c-brochureLanding2018-mobileTablet-btn">
+                    <a href="${properties.brochurelink @ extension='html'}" class="btn_base" data-sscclicktype="clic-BRO">
+                        <span>${'VIEW-OUR-BROCHURES' @ i18n}</span>
+                    </a>
+                </div>
+        </sly>
+		<sly data-sly-use.image="com.silversea.aem.components.editorial.ImageUse" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html"
+				data-sly-test="${properties.style == 'landing2018'}">
+            <sly data-sly-test="${properties.backgroundImage}">
+                <div class="c-mobile-bloc-brochures-landing2018" style="top: 0;background-size: cover;background-position: center;background-repeat: no-repeat;background-image: url(${properties.backgroundImage @ prependPath=imagePrefix, context='unsafe'}?wid=${image.mobileRetinaWidth @ context='unsafe'}&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1)"> 
+                                <p class="c-brochureLanding-mobileTablet-title">${properties.title}</p>
+                    <div class="c-brochureLanding-mobileTablet-details">
+                        ${properties.text @ context="html"}
+                    </div>
+                    <div class="c-brochureLanding-mobileTablet-img" data-sly-test.reference="${properties.assetReference}">
+	                    <a href="${properties.brochurelink @ extension='html'}">
+	                        <sly data-sly-call="${imageTemplate.default @ imagePath=properties.assetReference}" />
+	                    </a>
+                    </div>
+                    <div class="c-brochureLanding2018-mobileTablet-btn">
+                        <a href="${properties.brochurelink @ extension='html'}" class="btn btn-bro btn-${properties.buttonColor ? properties.buttonColor : 'default'}" data-sscclicktype="clic-BRO">
+                            <span>${properties.buttonText ? properties.buttonText : 'VIEW-OUR-BROCHURES' @i18n }</span>
+                        </a>
+                    </div>
+				</div>
+            </sly>
+            <sly data-sly-test="${!properties.backgroundImage}">
+                <div class="c-mobile-bloc-brochures-landing2018">
+                                    <p class="c-brochureLanding-mobileTablet-title">${properties.title}</p>
+                    <div class="c-brochureLanding-mobileTablet-details">
+                        ${properties.text @ context="html"}
+                    </div>
+                    <div class="c-brochureLanding-mobileTablet-img" data-sly-test.reference="${properties.assetReference}">
+	                     <a href="${properties.brochurelink @ extension='html'}">
+	                        <sly data-sly-call="${imageTemplate.default @ imagePath=properties.assetReference}" />
+	                     </a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="c-brochureLanding2018-mobileTablet-btn">
+                        <a href="${properties.brochurelink @ extension='html'}" class="btn btn-bro btn-${properties.buttonColor ? properties.buttonColor : 'default'}" data-sscclicktype="clic-BRO">
+                            <span>${properties.buttonText ? properties.buttonText : 'VIEW-OUR-BROCHURES' @i18n }</span>
+                        </a>
+                    </div>
+				</div>
+            </sly>
+
+        </sly>
+	</div>
+	<style data-sly-test="${properties.style == 'landing2018'}">
+		@media (max-width: 767px) {
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-mobile-bloc-brochures-landing2018 .c-brochureLanding-mobileTablet-img {
+//				margin: ${properties.marginImageMobile || "10px" @ context="unsafe"} !important;
+			}
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-mobile-bloc-brochures-landing2018 .c-brochureLanding-mobileTablet-title {
+                padding: ${properties.paddingTitleMobile || "10px" @ context="unsafe"} !important;
+            }
+		}
+
+		@media (max-width: 768px) {
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-mobile-bloc-brochures-landing2018 .c-brochureLanding-mobileTablet-img {
+//				margin: ${properties.marginImageTablet || "10px" @ context="unsafe"} !important;
+			}
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-mobile-bloc-brochures-landing2018 .c-brochureLanding-mobileTablet-title {
+                padding: ${properties.paddingTitleTablet || "10px" @ context="unsafe"} !important;
+            }
+		}
+	</style>
+	<style data-sly-test="${properties.mobileHideDetail}">
+		@media (max-width: 767px) {
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-details {
+				display: none;
+			}
+		}
+	</style>
+	<style data-sly-test="${properties.hideImageMobile}">
+		@media (max-width: 767px) {
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-img {
+				display: none;
+			}
+		}
+	</style>
+	<style data-sly-test="${properties.tabletHideDetail}">
+		@media (max-width: 768px) {
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-details {
+				display: none;
+			}
+		}
+	</style>
+	<style data-sly-test="${properties.hideImageTablet}">
+		@media (max-width: 768px) {
+			#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-img {
+				display: none;
+			}
+		}
+	</style>
+	<style>
+	 @media (max-width: 768px) {
+	 	#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} {
+			padding: ${properties.paddingTablet || "28px 0px" @ context="unsafe"} !important;
+			margin: ${properties.paddingTablet || "2px 0px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-title {
+			font-size: ${properties.fontSizeTitleTablet || "34px" @ context="unsafe"} !important;
+			padding: ${properties.paddingTitleTablet || "0px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-details {
+			font-size: ${properties.fontSizeDetailsTablet || "17px" @ context="unsafe"} !important;
+			padding: ${properties.paddingDetailsTablet || "5px 0px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-img {
+			//margin: ${properties.marginImageTablet || "0px" @ context="unsafe"} !important;
+			//height: ${properties.heightImageTablet || "400px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-btn a {
+			font-size: ${properties.fontSizeCtaTablet || "14px" @ context="unsafe"} !important;
+			padding: ${properties.paddingCtaTablet || "10px 0px" @ context="unsafe"} !important;
+			margin: ${properties.marginCtaTablet || "0px" @ context="unsafe"} !important;
+			width: ${properties.widthCtaTablet || "250px" @ context="unsafe"} !important;
+		}
+	 }
+	 @media (max-width: 767px) {
+	 	#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} {
+			padding: ${properties.paddingMobile || "28px 0px" @ context="unsafe"} !important;
+			margin: ${properties.paddingMobile || "2px 0px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-title {
+			font-size: ${properties.fontSizeTitleMobile || "25px" @ context="unsafe"} !important;
+			padding: ${properties.paddingTitleMobile || "0px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-details {
+			font-size: ${properties.fontSizeDetailsMobile || "15px" @ context="unsafe"} !important;
+			padding: ${properties.paddingDetailsMobile || "5px 24px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-img {
+			//margin: ${properties.marginImageMobile || "0px" @ context="unsafe"} !important;
+			//height: ${properties.heightImageMobile || "200px" @ context="unsafe"} !important;
+		}
+		
+		#c-brochureLanding-mobileTablet-${properties.sscUUID @ context="unsafe"} .c-brochureLanding-mobileTablet-btn a {
+			font-size: ${properties.fontSizeCtaMobile || "12px" @ context="unsafe"} !important;
+			padding: ${properties.paddingCtaMobile || "10px 0px" @ context="unsafe"} !important;
+			margin: ${properties.marginCtaMobile || "0px" @ context="unsafe"} !important;
+			width: ${properties.widthCtaMobile || "200px" @ context="unsafe"} !important;
+		}
+	 }
+	</style>
+</template>

@@ -1,0 +1,2570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Exclusive Offer Boxes"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            margin="{Boolean}false"/>
+         <items jcr:primaryType="nt:unstructured">
+            <main
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Main options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                           	<rootPath
+								jcr:primaryType="nt:unstructured"
+								fieldLabel="EO Root Path"
+                                fieldDescription="Exclusive Offer Root Path to fecth EO"
+								name="./rootPath"
+								sling:resourceType="granite/ui/components/foundation/form/pathbrowser" 
+                                rootPath="/content/silversea-com" />
+                             <tags
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/common/tagspicker"
+                                allowCreate="{Boolean}true"
+                                fieldLabel="Tags"
+                                name="./tags"/>
+                        </items>
+                    </column>
+                </items>
+            </main>
+            <box1
+			    jcr:primaryType="nt:unstructured"
+			    jcr:title="Box 1"
+			    sling:resourceType="granite/ui/components/foundation/section">
+		    	<layout
+		        	jcr:primaryType="nt:unstructured"
+                    active="{Boolean}true"
+		        	sling:resourceType="granite/ui/components/foundation/layouts/tabs" />
+		        <items jcr:primaryType="nt:unstructured">
+		           <main
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Global options"
+		               active="{Boolean}true"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Global Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                      <items jcr:primaryType="nt:unstructured">
+										    	   <activeBox1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+													    text="Active box"
+													    value="true"
+													    name="./activeBox1"/>
+													<boxSizeBox1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Size box"
+													    fieldDescription="Choose the size of the box (1 block, 2 block2, 3 block3)"
+													    name="./boxSizeBox1">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<block1
+													    	jcr:primaryType="nt:unstructured"
+													      	text="1 Block"
+													      	value="block1"/>
+													    <block2
+													    	jcr:primaryType="nt:unstructured"
+													      	text="2 Blocks"
+													      	value="block2"/>
+													    <block3
+													    	jcr:primaryType="nt:unstructured"
+													      	text="3 Blocks"
+													      	value="block3"/>
+													  </items>
+													</boxSizeBox1>
+													<boxColorBox1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Color box"
+													    fieldDescription="Set custom color of the box"
+													    name="./boxColorBox1">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<grey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Grey"
+													      	value="rgb(249,249,249)" />
+													    <darkGrey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Dark Grey"
+													      	value="rgb(232,232,232)"/>
+													  </items>
+													</boxColorBox1>
+													<boxBorderColorBox1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Border color box"
+													    fieldDescription="Set custom color of the border box"
+													    name="./boxBorderColorBox1">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<grey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Grey"
+													      	value="rgb(229,229,229)" />
+													  	<darkGrey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Dark Grey"
+													      	value="rgb(191,191,191)" /> 
+													  </items>
+													</boxBorderColorBox1>
+													<boxIconBox1
+														jcr:primaryType="nt:unstructured"
+						                          		sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+						                          		fieldLabel="Icon box"
+						                          		fieldDescription="Set icon of the box"
+						                          		name="./boxIconBox1"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<text1Box1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 1"
+													    rows="6"
+													    fieldDescription="Text 1 token and style compatible"
+													    name="./text1Box1" />
+												   <text1SeparatorBox1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Separator text 1"
+													    fieldDescription="Separator text 1"
+													    name="./text1SeparatorBox1"/>
+												   <text2Box1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 2"
+													    rows="6"
+													    fieldDescription="Text 2 token and style compatible"
+													    name="./text2Box1" />
+												   <text2SeparatorBox1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Separator text 2"
+													    fieldDescription="Separator text 2"
+													    name="./text2SeparatorBox1"/>
+													<text3Box1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 3"
+													    rows="6"
+													    fieldDescription="Text 3 token and style compatible"
+													    name="./text3Box1" />
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </main>
+		            <desktop
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+						  							    value="150px"
+													    name="./boxHeightBox1Desktop"/>
+													<boxWidthBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox1Desktop"/>
+													<boxMarginBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+						  							    value="3px"
+													    name="./boxMarginBox1Desktop"/>
+						                          	<boxIconScaleBox1Desktop
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox1Desktop"
+						                          		value="1.0"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox1Desktop
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox1Desktop"
+						                          		value="0px auto 18px" />
+													<text1FontSizeBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="17px"
+													    name="./text1FontSizeBox1Desktop"/>
+													<text1MarginBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+						  							    value="0px"
+													    name="./text1MarginBox1Desktop"/>
+													<text1FontSizeSeparatorBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="17px"
+													    name="./text1FontSizeSeparatorBox1Desktop"/>
+													<text1MarginSeparatorBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="0px"
+													    name="./text1MarginSeparatorBox1Desktop"/>
+													<text2FontSizeBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="17px"
+													    name="./text2FontSizeBox1Desktop"/>
+													<text2MarginBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+						  							    value="0px"
+													    name="./text2MarginBox1Desktop"/>
+													<text2FontSizeSeparatorBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="17px"
+													    name="./text2FontSizeSeparatorBox1Desktop"/>
+													<text2MarginSeparatorBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="0px"
+													    name="./text2MarginSeparatorBox1Desktop"/>
+													<text3FontSizeBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="17px"
+													    name="./text3FontSizeBox1Desktop"/>
+													<text3MarginBox1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+						  							    value="0px"
+													    name="./text3MarginBox1Desktop"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktop>
+		            <mobile
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+						  							    value="150px"
+													    name="./boxHeightBox1Mobile"/>
+													<boxWidthBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox1Mobile"/>
+													<boxMarginBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+						  							    value="3px"
+													    name="./boxMarginBox1Mobile"/>
+						                          	<boxIconScaleBox1Mobile
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox1Mobile"
+						                          		value="1.0"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox1Mobile
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox1Mobile"
+						                          		value="0px auto 18px" />
+													<text1FontSizeBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="17px"
+													    name="./text1FontSizeBox1Mobile"/>
+													<text1MarginBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+						  							    value="0px"
+													    name="./text1MarginBox1Mobile"/>
+													<text1FontSizeSeparatorBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="15px"
+													    name="./text1FontSizeSeparatorBox1Mobile"/>
+													<text1MarginSeparatorBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="13px 0px"
+													    name="./text1MarginSeparatorBox1Mobile"/>
+													<text2FontSizeBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="17px"
+													    name="./text2FontSizeBox1Mobile"/>
+													<text2MarginBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+						  							    value="0px"
+													    name="./text2MarginBox1Mobile"/>
+													<text2FontSizeSeparatorBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="15px"
+													    name="./text2FontSizeSeparatorBox1Mobile"/>
+													<text2MarginSeparatorBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="13px 0px"
+													    name="./text2MarginSeparatorBox1Mobile"/>
+													<text3FontSizeBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="17px"
+													    name="./text3FontSizeBox1Mobile"/>
+													<text3MarginBox1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+						  							    value="0px"
+													    name="./text3MarginBox1Mobile"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobile>
+		            <desktopLB
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop Lightbox options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Lightbox Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+													    name="./boxHeightBox1DesktopLB"/>
+													<boxWidthBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox1DesktopLB"/>
+													<boxMarginBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+													    name="./boxMarginBox1DesktopLB"/>
+						                          	<boxIconScaleBox1DesktopLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox1DesktopLB"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox1DesktopLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox1DesktopLB"/>
+													<text1FontSizeBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+ 						  							    value="15px"
+													    name="./text1FontSizeBox1DesktopLB"/>
+													<text1MarginBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+													    name="./text1MarginBox1DesktopLB"/>
+													<text1FontSizeSeparatorBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="16px"
+													    name="./text1FontSizeSeparatorBox1DesktopLB"/>
+													<text1MarginSeparatorBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text1MarginSeparatorBox1DesktopLB"/>
+													<text2FontSizeBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="15px"
+													    name="./text2FontSizeBox1DesktopLB"/>
+													<text2MarginBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+													    name="./text2MarginBox1DesktopLB"/>
+													<text2FontSizeSeparatorBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="16px"
+													    name="./text2FontSizeSeparatorBox1DesktopLB"/>
+													<text2MarginSeparatorBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text2MarginSeparatorBox1DesktopLB"/>
+													<text3FontSizeBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="15px"
+													    name="./text3FontSizeBox1DesktopLB"/>
+													<text3MarginBox1DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+													    name="./text3MarginBox1DesktopLB"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktopLB>
+		            <mobileLB
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile Lightbox options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+													    name="./boxHeightBox1MobileLB"/>
+													<boxWidthBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox1MobileLB"/>
+													<boxMarginBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+													    name="./boxMarginBox1MobileLB"/>
+						                          	<boxIconScaleBox1MobileLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox1MobileLB"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox1MobileLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox1MobileLB"/>
+													<text1FontSizeBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+													    name="./text1FontSizeBox1MobileLB"/>
+													<text1MarginBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+													    name="./text1MarginBox1MobileLB"/>
+													<text1FontSizeSeparatorBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+													    name="./text1FontSizeSeparatorBox1MobileLB"/>
+													<text1MarginSeparatorBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text1MarginSeparatorBox1MobileLB"/>
+													<text2FontSizeBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+													    name="./text2FontSizeBox1MobileLB"/>
+													<text2MarginBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+													    name="./text2MarginBox1MobileLB"/>
+													<text2FontSizeSeparatorBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+													    name="./text2FontSizeSeparatorBox1MobileLB"/>
+													<text2MarginSeparatorBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text2MarginSeparatorBox1MobileLB"/>
+													<text3FontSizeBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+													    name="./text3FontSizeBox1MobileLB"/>
+													<text3MarginBox1MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+													    name="./text3MarginBox1MobileLB"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobileLB>
+		        </items>
+			</box1>
+			<boxSeparator1
+			    jcr:primaryType="nt:unstructured"
+			    jcr:title="Separator box 1"
+			    sling:resourceType="granite/ui/components/foundation/section">
+		    	<layout
+		        	jcr:primaryType="nt:unstructured"
+                    active="{Boolean}true"
+		        	sling:resourceType="granite/ui/components/foundation/layouts/tabs" />
+		        <items jcr:primaryType="nt:unstructured">
+		           <main
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Global options"
+		               active="{Boolean}true"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Global Settings Separator Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                      <items jcr:primaryType="nt:unstructured">
+		                                       <activeBoxSeparator1
+												    jcr:primaryType="nt:unstructured"
+												    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+												    text="Active separator"
+												    value="true"
+												    name="./activeBoxSeparator1"/>
+					                          	<text1BoxSeparator1
+												    jcr:primaryType="nt:unstructured"
+												    sling:resourceType="granite/ui/components/foundation/form/textarea"
+												    fieldLabel="Text"
+												    rows="6"
+												    fieldDescription="Text 1 token and style compatible"
+												    name="./text1BoxSeparator1" />
+												<boxSizeBoxSeparator1
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/hidden"
+													    hidden="true"
+													    value="block1"
+													    name="./boxSizeBoxSeparator1" />
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </main>
+		            <desktop
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Settings Separator Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+		                                        	<boxHeightBoxSeparator1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height separator"
+						  							    fieldDescription="Set the height of the separator"
+						  							    value="150px"
+													    name="./boxHeightBoxSeparator1Desktop"/>
+													<boxWidthBoxSeparator1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width separator"
+						  							    fieldDescription="Set the width of the separator"
+													    name="./boxWidthBoxSeparator1Desktop"/>
+													<boxMarginBoxSeparator1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator"
+						  							    fieldDescription="Set the margin of the separator"
+						  							    value="0px"
+													    name="./boxMarginBoxSeparator1Desktop"/>
+													<text1FontSizeBoxSeparator1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text"
+						  							    fieldDescription="Set font size text"
+						  							    value="32px"
+													    name="./text1FontSizeBoxSeparator1Desktop"/>
+													 <text1MarginBoxSeparator1Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text"
+						  							    fieldDescription="Set margin text"
+						  							    value="0px"
+													    name="./text1MarginBoxSeparator1Desktop"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktop>
+		            <mobile
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Settings Separator Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+		                                             <boxHeightBoxSeparator1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height separator"
+						  							    fieldDescription="Set the height of the separator"
+						  							    value="65px"
+													    name="./boxHeightBoxSeparator1Mobile" />
+													<boxWidthBoxSeparator1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width separator"
+						  							    fieldDescription="Set the width of the separator"
+													    name="./boxWidthBoxSeparator1Mobile"/>
+													<boxMarginBoxSeparator1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator"
+						  							    fieldDescription="Set the margin of the separator"
+						  							    value="0px"
+													    name="./boxMarginBoxSeparator1Mobile"/>
+													<text1FontSizeBoxSeparator1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text"
+						  							    fieldDescription="Set font size text"
+						  							    value="32px"
+													    name="./text1FontSizeBoxSeparator1Mobile"/>
+													<text1MarginBoxSeparator1Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text"
+						  							    fieldDescription="Set margin text"
+						  							    value="0px"
+													    name="./text1MarginBoxSeparator1Mobile"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobile>
+		            <desktopLB
+					   jcr:primaryType="nt:unstructured"
+					   jcr:title="Desktop Lightbox options"
+					   sling:resourceType="granite/ui/components/foundation/container">
+					     <layout jcr:primaryType="nt:unstructured"
+					            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					     <items jcr:primaryType="nt:unstructured">
+					        <column jcr:primaryType="nt:unstructured"
+					                sling:resourceType="granite/ui/components/foundation/container">
+					            <items jcr:primaryType="nt:unstructured">
+					                <fieldset jcr:primaryType="nt:unstructured"
+					                        jcr:title="Desktop Lightbox Settings Separator Box 1"
+					                        sling:resourceType="granite/ui/components/foundation/form/fieldset">
+					                    <layout jcr:primaryType="nt:unstructured"
+					                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					                    <items jcr:primaryType="nt:unstructured">
+					                        <column jcr:primaryType="nt:unstructured"
+					                                sling:resourceType="granite/ui/components/foundation/container">
+					                            <items jcr:primaryType="nt:unstructured">
+					                                <boxHeightBoxSeparator1DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Height separator"
+					                                    fieldDescription="Set the height of the separator"
+					                                    name="./boxHeightBoxSeparator1DesktopLB"/>
+					                                <boxWidthBoxSeparator1DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Width separator"
+					                                    fieldDescription="Set the width of the separator"
+					                                    name="./boxWidthBoxSeparator1DesktopLB"/>
+					                                <boxMarginBoxSeparator1DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin separator"
+					                                    fieldDescription="Set the margin of the separator"
+					                                    name="./boxMarginBoxSeparator1DesktopLB"/>
+					                                <text1FontSizeBoxSeparator1DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Font size text"
+					                                    fieldDescription="Set font size text"
+					                                    name="./text1FontSizeBoxSeparator1DesktopLB"/>
+					                                 <text1MarginBoxSeparator1DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin text"
+					                                    fieldDescription="Set margin text"
+					                                    name="./text1MarginBoxSeparator1DesktopLB"/>
+					                          </items>
+					                       </column>
+					                    </items>
+					                </fieldset>
+					            </items>
+					        </column>
+					    </items>
+					</desktopLB>
+					 <mobileLB
+					   jcr:primaryType="nt:unstructured"
+					   jcr:title="Mobile Lightbox options"
+					   sling:resourceType="granite/ui/components/foundation/container">
+					     <layout jcr:primaryType="nt:unstructured"
+					            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					     <items jcr:primaryType="nt:unstructured">
+					        <column jcr:primaryType="nt:unstructured"
+					                sling:resourceType="granite/ui/components/foundation/container">
+					            <items jcr:primaryType="nt:unstructured">
+					                <fieldset jcr:primaryType="nt:unstructured"
+					                        jcr:title="Mobile Lightbox Settings Separator Box 1"
+					                        sling:resourceType="granite/ui/components/foundation/form/fieldset">
+					                    <layout jcr:primaryType="nt:unstructured"
+					                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					                    <items jcr:primaryType="nt:unstructured">
+					                        <column jcr:primaryType="nt:unstructured"
+					                                sling:resourceType="granite/ui/components/foundation/container">
+					                            <items jcr:primaryType="nt:unstructured">
+					                                <boxHeightBoxSeparator1MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Height separator"
+					                                    fieldDescription="Set the height of the separator"
+					                                    name="./boxHeightBoxSeparator1MobileLB"/>
+					                                <boxWidthBoxSeparator1MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Width separator"
+					                                    fieldDescription="Set the width of the separator"
+					                                    name="./boxWidthBoxSeparator1MobileLB"/>
+					                                <boxMarginBoxSeparator1MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin separator"
+					                                    fieldDescription="Set the margin of the separator"
+					                                    name="./boxMarginBoxSeparator1MobileLB"/>
+					                                <text1FontSizeBoxSeparator1MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Font size text"
+					                                    fieldDescription="Set font size text"
+					                                    name="./text1FontSizeBoxSeparator1MobileLB"/>
+					                                 <text1MarginBoxSeparator1MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin text"
+					                                    fieldDescription="Set margin text"
+					                                    name="./text1MarginBoxSeparator1MobileLB"/>
+					                          </items>
+					                       </column>
+					                    </items>
+					                </fieldset>
+					            </items>
+					        </column>
+					    </items>
+					</mobileLB>
+		        </items>
+			</boxSeparator1>
+            <box2 
+			    jcr:primaryType="nt:unstructured"
+			    jcr:title="Box 2"
+			    sling:resourceType="granite/ui/components/foundation/section">
+		    	<layout
+		        	jcr:primaryType="nt:unstructured"
+                    active="{Boolean}true"
+		        	sling:resourceType="granite/ui/components/foundation/layouts/tabs" />
+		        <items jcr:primaryType="nt:unstructured">
+		           <main
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Global options"
+		               active="{Boolean}true"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Global Settings Box 2"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                      <items jcr:primaryType="nt:unstructured">
+										    		<activeBox2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+													    text="Active box"
+													    value="true"
+													    name="./activeBox2"/>
+													<boxSizeBox2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Size box"
+													    fieldDescription="Choose the size of the box (1 block, 2 block2, 3 block3)"
+													    name="./boxSizeBox2">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<block1
+													    	jcr:primaryType="nt:unstructured"
+													      	text="1 Block"
+													      	value="block1"/>
+													    <block2
+													    	jcr:primaryType="nt:unstructured"
+													      	text="2 Blocks"
+													      	value="block2"/>
+													    <block3
+													    	jcr:primaryType="nt:unstructured"
+													      	text="3 Blocks"
+													      	value="block3"/>
+													  </items>
+													</boxSizeBox2>
+													<boxColorBox2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Color box"
+													    fieldDescription="Set custom color of the box"
+													    name="./boxColorBox2">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<grey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Grey"
+													      	value="rgb(249,249,249)" />
+													    <darkGrey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Dark Grey"
+													      	value="rgb(232,232,232)"/>
+													  </items>
+													</boxColorBox2>
+													<boxBorderColorBox2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Border color box"
+													    fieldDescription="Set custom color of the border box"
+													    name="./boxBorderColorBox2">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<grey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Grey"
+													      	value="rgb(229,229,229)" />
+													  	<darkGrey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Dark Grey"
+													      	value="rgb(191,191,191)" /> 
+													  </items>
+													</boxBorderColorBox2>
+													<boxIconBox2 
+														jcr:primaryType="nt:unstructured"
+						                          		sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+						                          		fieldLabel="Icon box"
+						                          		fieldDescription="Set icon of the box"
+						                          		name="./boxIconBox2"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<text1Box2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 1"
+													    rows="6"
+													    fieldDescription="Text 1 token and style compatible"
+													    name="./text1Box2" />
+												   <text1SeparatorBox2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Separator text 1"
+													    fieldDescription="Separator text 1"
+													    name="./text1SeparatorBox2"/>
+												   <text2Box2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 2"
+													    rows="6"
+													    fieldDescription="Text 2 token and style compatible"
+													    name="./text2Box2" />
+												   <text2SeparatorBox2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Separator text 2"
+													    fieldDescription="Separator text 2"
+													    name="./text2SeparatorBox2"/>
+													<text3Box2
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 3"
+													    rows="6"
+													    fieldDescription="Text 3 token and style compatible"
+													    name="./text3Box2" />
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </main>
+		            <desktop
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Settings Box 2"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+						  							    value="150px"
+													    name="./boxHeightBox2Desktop"/>
+													<boxWidthBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox2Desktop"/>
+													<boxMarginBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+						  							    value="3px"
+													    name="./boxMarginBox2Desktop"/>
+						                          	<boxIconScaleBox2Desktop
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox2Desktop"
+						                          		value="1.0"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox2Desktop
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox2Desktop"
+						                          		value="0px auto 18px" />
+													<text1FontSizeBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="17px"
+													    name="./text1FontSizeBox2Desktop"/>
+													<text1MarginBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+						  							    value="0px"
+													    name="./text1MarginBox2Desktop"/>
+													<text1FontSizeSeparatorBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="17px"
+													    name="./text1FontSizeSeparatorBox2Desktop"/>
+													<text1MarginSeparatorBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="0px"
+													    name="./text1MarginSeparatorBox2Desktop"/>
+													<text2FontSizeBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="17px"
+													    name="./text2FontSizeBox2Desktop"/>
+													<text2MarginBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+						  							    value="0px"
+													    name="./text2MarginBox2Desktop"/>
+													<text2FontSizeSeparatorBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="17px"
+													    name="./text2FontSizeSeparatorBox2Desktop"/>
+													<text2MarginSeparatorBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="0px"
+													    name="./text2MarginSeparatorBox2Desktop"/>
+													<text3FontSizeBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="17px"
+													    name="./text3FontSizeBox2Desktop"/>
+													<text3MarginBox2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+						  							    value="0px"
+													    name="./text3MarginBox2Desktop"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktop>
+		            <mobile
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Settings Box 2"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+						  							    value="150px"
+													    name="./boxHeightBox2Mobile"/>
+													<boxWidthBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox2Mobile"/>
+													<boxMarginBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+						  							    value="3px"
+													    name="./boxMarginBox2Mobile"/>
+						                          	<boxIconScaleBox2Mobile
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox2Mobile"
+						                          		value="1.0"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox2Mobile
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox2Mobile"
+						                          		value="0px auto 18px" />
+													<text1FontSizeBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="17px"
+													    name="./text1FontSizeBox2Mobile"/>
+													<text1MarginBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+						  							    value="0px"
+													    name="./text1MarginBox2Mobile"/>
+													<text1FontSizeSeparatorBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="15px"
+													    name="./text1FontSizeSeparatorBox2Mobile"/>
+													<text1MarginSeparatorBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="13px 0px"
+													    name="./text1MarginSeparatorBox2Mobile"/>
+													<text2FontSizeBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="17px"
+													    name="./text2FontSizeBox2Mobile"/>
+													<text2MarginBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+						  							    value="0px"
+													    name="./text2MarginBox2Mobile"/>
+													<text2FontSizeSeparatorBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="15px"
+													    name="./text2FontSizeSeparatorBox2Mobile"/>
+													<text2MarginSeparatorBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="13px 0px"
+													    name="./text2MarginSeparatorBox2Mobile"/>
+													<text3FontSizeBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="17px"
+													    name="./text3FontSizeBox2Mobile"/>
+													<text3MarginBox2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+						  							    value="0px"
+													    name="./text3MarginBox2Mobile"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobile>
+		           <desktopLB
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop Lightbox options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Lightbox Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+													    name="./boxHeightBox2DesktopLB"/>
+													<boxWidthBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox2DesktopLB"/>
+													<boxMarginBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+													    name="./boxMarginBox2DesktopLB"/>
+						                          	<boxIconScaleBox2DesktopLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox2DesktopLB"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox2DesktopLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox2DesktopLB"/>
+													<text1FontSizeBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="15px"
+													    name="./text1FontSizeBox2DesktopLB"/>
+													<text1MarginBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+													    name="./text1MarginBox2DesktopLB"/>
+													<text1FontSizeSeparatorBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="16px"
+													    name="./text1FontSizeSeparatorBox2DesktopLB"/>
+													<text1MarginSeparatorBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text1MarginSeparatorBox2DesktopLB"/>
+													<text2FontSizeBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="15px"
+													    name="./text2FontSizeBox2DesktopLB"/>
+													<text2MarginBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+													    name="./text2MarginBox2DesktopLB"/>
+													<text2FontSizeSeparatorBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="16px"
+													    name="./text2FontSizeSeparatorBox2DesktopLB"/>
+													<text2MarginSeparatorBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text2MarginSeparatorBox2DesktopLB"/>
+													<text3FontSizeBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="15px"
+													    name="./text3FontSizeBox2DesktopLB"/>
+													<text3MarginBox2DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+													    name="./text3MarginBox2DesktopLB"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktopLB>
+		            <mobileLB
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile Lightbox options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Lightbox Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+													    name="./boxHeightBox2MobileLB"/>
+													<boxWidthBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox2MobileLB"/>
+													<boxMarginBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+													    name="./boxMarginBox2MobileLB"/>
+						                          	<boxIconScaleBox2MobileLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox2MobileLB"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox2MobileLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox2MobileLB"/>
+													<text1FontSizeBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+													    name="./text1FontSizeBox2MobileLB"/>
+													<text1MarginBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+													    name="./text1MarginBox2MobileLB"/>
+													<text1FontSizeSeparatorBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+													    name="./text1FontSizeSeparatorBox2MobileLB"/>
+													<text1MarginSeparatorBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text1MarginSeparatorBox2MobileLB"/>
+													<text2FontSizeBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+													    name="./text2FontSizeBox2MobileLB"/>
+													<text2MarginBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+													    name="./text2MarginBox2MobileLB"/>
+													<text2FontSizeSeparatorBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+													    name="./text2FontSizeSeparatorBox2MobileLB"/>
+													<text2MarginSeparatorBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text2MarginSeparatorBox2MobileLB"/>
+													<text3FontSizeBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+													    name="./text3FontSizeBox2MobileLB"/>
+													<text3MarginBox2MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+													    name="./text3MarginBox2MobileLB"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobileLB>
+		        </items>
+			</box2>
+            <boxSeparator2
+			    jcr:primaryType="nt:unstructured"
+			    jcr:title="Separator box 2"
+			    sling:resourceType="granite/ui/components/foundation/section">
+		    	<layout
+		        	jcr:primaryType="nt:unstructured"
+                    active="{Boolean}true"
+		        	sling:resourceType="granite/ui/components/foundation/layouts/tabs" />
+		        <items jcr:primaryType="nt:unstructured">
+		           <main
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Global options"
+		               active="{Boolean}true"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Global Settings Separator Box 2"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                      <items jcr:primaryType="nt:unstructured">
+		                                       <activeBoxSeparator2
+												    jcr:primaryType="nt:unstructured"
+												    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+												    text="Active separator"
+												    value="true"
+												    name="./activeBoxSeparator2"/>
+					                          	<text1BoxSeparator2
+												    jcr:primaryType="nt:unstructured"
+												    sling:resourceType="granite/ui/components/foundation/form/textarea"
+												    fieldLabel="Text"
+												    rows="6"
+												    fieldDescription="Text 1 token and style compatible"
+												    name="./text1BoxSeparator2" />
+												 <boxSizeBoxSeparator2
+													   	jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/hidden"
+													    hidden="true"
+													    value="block1"
+													    name="./boxSizeBoxSeparator2" />
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </main>
+		            <desktop
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Settings Separator Box 2"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+		                                        	<boxHeightBoxSeparator2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height separator"
+						  							    fieldDescription="Set the height of the separator"
+						  							    value="150px"
+													    name="./boxHeightBoxSeparator2Desktop"/>
+													<boxWidthBoxSeparator2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width separator"
+						  							    fieldDescription="Set the width of the separator"
+													    name="./boxWidthBoxSeparator2Desktop"/>
+													<boxMarginBoxSeparator2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator"
+						  							    fieldDescription="Set the margin of the separator"
+						  							    value="0px"
+													    name="./boxMarginBoxSeparator2Desktop"/>
+													<text1FontSizeBoxSeparator2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text"
+						  							    fieldDescription="Set font size text"
+						  							    value="32px"
+													    name="./text1FontSizeBoxSeparator2Desktop"/>
+													 <text1MarginBoxSeparator2Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text"
+						  							    fieldDescription="Set margin text"
+						  							    value="0px"
+													    name="./text1MarginBoxSeparator2Desktop"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktop>
+		            <mobile
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Settings Separator Box 2"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+		                                             <boxHeightBoxSeparator2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height separator"
+						  							    fieldDescription="Set the height of the separator"
+						  							    value="65px"
+													    name="./boxHeightBoxSeparator2Mobile" />
+													<boxWidthBoxSeparator2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width separator"
+						  							    fieldDescription="Set the width of the separator"
+													    name="./boxWidthBoxSeparator2Mobile"/>
+													<boxMarginBoxSeparator2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator"
+						  							    fieldDescription="Set the margin of the separator"
+						  							    value="0px"
+													    name="./boxMarginBoxSeparator2Mobile"/>
+													<text1FontSizeBoxSeparator2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text"
+						  							    fieldDescription="Set font size text"
+						  							    value="32px"
+													    name="./text1FontSizeBoxSeparator2Mobile"/>
+													 <text1MarginBoxSeparator2Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text"
+						  							    fieldDescription="Set margin text"
+						  							    value="0px"
+													    name="./text1MarginBoxSeparator2Mobile"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobile>
+		            <desktopLB
+					   jcr:primaryType="nt:unstructured"
+					   jcr:title="Desktop Lightbox options"
+					   sling:resourceType="granite/ui/components/foundation/container">
+					     <layout jcr:primaryType="nt:unstructured"
+					            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					     <items jcr:primaryType="nt:unstructured">
+					        <column jcr:primaryType="nt:unstructured"
+					                sling:resourceType="granite/ui/components/foundation/container">
+					            <items jcr:primaryType="nt:unstructured">
+					                <fieldset jcr:primaryType="nt:unstructured"
+					                        jcr:title="Desktop Lightbox Settings Separator Box 1"
+					                        sling:resourceType="granite/ui/components/foundation/form/fieldset">
+					                    <layout jcr:primaryType="nt:unstructured"
+					                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					                    <items jcr:primaryType="nt:unstructured">
+					                        <column jcr:primaryType="nt:unstructured"
+					                                sling:resourceType="granite/ui/components/foundation/container">
+					                            <items jcr:primaryType="nt:unstructured">
+					                                <boxHeightBoxSeparator2DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Height separator"
+					                                    fieldDescription="Set the height of the separator"
+					                                    name="./boxHeightBoxSeparator2DesktopLB"/>
+					                                <boxWidthBoxSeparator2DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Width separator"
+					                                    fieldDescription="Set the width of the separator"
+					                                    name="./boxWidthBoxSeparator2DesktopLB"/>
+					                                <boxMarginBoxSeparator2DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin separator"
+					                                    fieldDescription="Set the margin of the separator"
+					                                    name="./boxMarginBoxSeparator2DesktopLB"/>
+					                                <text1FontSizeBoxSeparator2DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Font size text"
+					                                    fieldDescription="Set font size text"
+					                                    name="./text1FontSizeBoxSeparator2DesktopLB"/>
+					                                 <text1MarginBoxSeparator2DesktopLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin text"
+					                                    fieldDescription="Set margin text"
+					                                    name="./text1MarginBoxSeparator2DesktopLB"/>
+					                          </items>
+					                       </column>
+					                    </items>
+					                </fieldset>
+					            </items>
+					        </column>
+					    </items>
+					</desktopLB>
+					 <mobileLB
+					   jcr:primaryType="nt:unstructured"
+					   jcr:title="Mobile Lightbox options"
+					   sling:resourceType="granite/ui/components/foundation/container">
+					     <layout jcr:primaryType="nt:unstructured"
+					            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					     <items jcr:primaryType="nt:unstructured">
+					        <column jcr:primaryType="nt:unstructured"
+					                sling:resourceType="granite/ui/components/foundation/container">
+					            <items jcr:primaryType="nt:unstructured">
+					                <fieldset jcr:primaryType="nt:unstructured"
+					                        jcr:title="Mobile Lightbox Settings Separator Box 1"
+					                        sling:resourceType="granite/ui/components/foundation/form/fieldset">
+					                    <layout jcr:primaryType="nt:unstructured"
+					                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+					                    <items jcr:primaryType="nt:unstructured">
+					                        <column jcr:primaryType="nt:unstructured"
+					                                sling:resourceType="granite/ui/components/foundation/container">
+					                            <items jcr:primaryType="nt:unstructured">
+					                                <boxHeightBoxSeparator2MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Height separator"
+					                                    fieldDescription="Set the height of the separator"
+					                                    name="./boxHeightBoxSeparator2MobileLB"/>
+					                                <boxWidthBoxSeparator2MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Width separator"
+					                                    fieldDescription="Set the width of the separator"
+					                                    name="./boxWidthBoxSeparator2MobileLB"/>
+					                                <boxMarginBoxSeparator2MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin separator"
+					                                    fieldDescription="Set the margin of the separator"
+					                                    name="./boxMarginBoxSeparator2MobileLB"/>
+					                                <text1FontSizeBoxSeparator2MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Font size text"
+					                                    fieldDescription="Set font size text"
+					                                    name="./text1FontSizeBoxSeparator2MobileLB"/>
+					                                 <text1MarginBoxSeparator2MobileLB
+					                                    jcr:primaryType="nt:unstructured"
+					                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+					                                    fieldLabel="Margin text"
+					                                    fieldDescription="Set margin text"
+					                                    name="./text1MarginBoxSeparator2MobileLB"/>
+					                          </items>
+					                       </column>
+					                    </items>
+					                </fieldset>
+					            </items>
+					        </column>
+					    </items>
+					</mobileLB>
+		        </items>
+			</boxSeparator2>
+            <box3 
+			    jcr:primaryType="nt:unstructured"
+			    jcr:title="Box 3"
+			    sling:resourceType="granite/ui/components/foundation/section">
+		    	<layout
+		        	jcr:primaryType="nt:unstructured"
+                    active="{Boolean}true"
+		        	sling:resourceType="granite/ui/components/foundation/layouts/tabs" />
+		        <items jcr:primaryType="nt:unstructured">
+		           <main
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Global options"
+		               active="{Boolean}true"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Global Settings Box 3"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                      <items jcr:primaryType="nt:unstructured">
+										    		<activeBox3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+													    text="Active box"
+													    value="true"
+													    name="./activeBox3"/>
+													<boxSizeBox3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Size box"
+													    fieldDescription="Choose the size of the box (1 block, 2 block2, 3 block3)"
+													    name="./boxSizeBox3">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<block1
+													    	jcr:primaryType="nt:unstructured"
+													      	text="1 Block"
+													      	value="block1"/>
+													    <block2
+													    	jcr:primaryType="nt:unstructured"
+													      	text="2 Blocks"
+													      	value="block2"/>
+													    <block3
+													    	jcr:primaryType="nt:unstructured"
+													      	text="3 Blocks"
+													      	value="block3"/>
+													  </items>
+													</boxSizeBox3>
+													<boxColorBox3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Color box"
+													    fieldDescription="Set custom color of the box"
+													    name="./boxColorBox3">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<grey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Grey"
+													      	value="rgb(249,249,249)" />
+													    <darkGrey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Dark Grey"
+													      	value="rgb(232,232,232)"/>
+													  </items>
+													</boxColorBox3>
+													<boxBorderColorBox3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/select"
+													    fieldLabel="Border color box"
+													    fieldDescription="Set custom color of the border box"
+													    name="./boxBorderColorBox3">
+													  <items jcr:primaryType="nt:unstructured">
+													  	<grey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Grey"
+													      	value="rgb(229,229,229)" />
+													  	<darkGrey
+													    	jcr:primaryType="nt:unstructured"
+													      	text="Dark Grey"
+													      	value="rgb(191,191,191)" /> 
+													  </items>
+													</boxBorderColorBox3>
+													<boxIconBox3 
+														jcr:primaryType="nt:unstructured"
+						                          		sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+						                          		fieldLabel="Icon box"
+						                          		fieldDescription="Set icon of the box"
+						                          		name="./boxIconBox3"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<text1Box3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 1"
+													    rows="6"
+													    fieldDescription="Text 1 token and style compatible"
+													    name="./text1Box3" />
+												   <text1SeparatorBox3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Separator text 1"
+													    fieldDescription="Separator text 1"
+													    name="./text1SeparatorBox3"/>
+												   <text2Box3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 2"
+													    rows="6"
+													    fieldDescription="Text 2 token and style compatible"
+													    name="./text2Box3" />
+												   <text2SeparatorBox3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Separator text 2"
+													    fieldDescription="Separator text 2"
+													    name="./text2SeparatorBox3"/>
+													<text3Box3
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textarea"
+													    fieldLabel="Text 3"
+													    rows="6"
+													    fieldDescription="Text 3 token and style compatible"
+													    name="./text3Box3" />
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </main>
+		            <desktop
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Settings Box 3"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+						  							    value="150px"
+													    name="./boxHeightBox3Desktop"/>
+													<boxWidthBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox3Desktop"/>
+													<boxMarginBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+						  							    value="3px"
+													    name="./boxMarginBox3Desktop"/>
+						                          	<boxIconScaleBox3Desktop
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox3Desktop"
+						                          		value="1.0"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox3Desktop
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox3Desktop"
+						                          		value="0px auto 18px" />
+													<text1FontSizeBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="17px"
+													    name="./text1FontSizeBox3Desktop"/>
+													<text1MarginBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+						  							    value="0px"
+													    name="./text1MarginBox3Desktop"/>
+													<text1FontSizeSeparatorBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="17px"
+													    name="./text1FontSizeSeparatorBox3Desktop"/>
+													<text1MarginSeparatorBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="0px"
+													    name="./text1MarginSeparatorBox3Desktop"/>
+													<text2FontSizeBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="17px"
+													    name="./text2FontSizeBox3Desktop"/>
+													<text2MarginBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+						  							    value="0px"
+													    name="./text2MarginBox3Desktop"/>
+													<text2FontSizeSeparatorBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="17px"
+													    name="./text2FontSizeSeparatorBox3Desktop"/>
+													<text2MarginSeparatorBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="0px"
+													    name="./text2MarginSeparatorBox3Desktop"/>
+													<text3FontSizeBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="17px"
+													    name="./text3FontSizeBox3Desktop"/>
+													<text3MarginBox3Desktop
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+						  							    value="0px"
+													    name="./text3MarginBox3Desktop"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktop>
+		            <mobile
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Settings Box 3"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+						  							    value="150px"
+													    name="./boxHeightBox3Mobile"/>
+													<boxWidthBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox3Mobile"/>
+													<boxMargin1Box3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+						  							    value="3px"
+													    name="./boxMarginBox3Mobile"/>
+						                          	<boxIconScaleBox3Mobile
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox3Mobile"
+						                          		value="1.0"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox3Mobile
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox3Mobile"
+						                          		value="0px auto 18px" />
+													<text1FontSizeBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="17px"
+													    name="./text1FontSizeBox3Mobile"/>
+													<text1MarginBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+						  							    value="0px"
+													    name="./text1MarginBox3Mobile"/>
+													<text1FontSizeSeparatorBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="15px"
+													    name="./text1FontSizeSeparatorBox3Mobile"/>
+													<text1MarginSeparatorBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="13px 0px"
+													    name="./text1MarginSeparatorBox3Mobile"/>
+													<text2FontSizeBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="17px"
+													    name="./text2FontSizeBox3Mobile"/>
+													<text2MarginBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+						  							    value="0px"
+													    name="./text2MarginBox3Mobile"/>
+													<text2FontSizeSeparatorBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="15px"
+													    name="./text2FontSizeSeparatorBox3Mobile"/>
+													<text2MarginSeparatorBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+						  							    value="13px 0px"
+													    name="./text2MarginSeparatorBox3Mobile"/>
+													<text3FontSizeBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="17px"
+													    name="./text3FontSizeBox3Mobile"/>
+													<text3MarginBox3Mobile
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+						  							    value="0px"
+													    name="./text3MarginBox3Mobile"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobile>
+		             <desktopLB
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Desktop Lightbox options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Desktop Lightbox Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+													    name="./boxHeightBox3DesktopLB"/>
+													<boxWidthBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox3DesktopLB"/>
+													<boxMarginBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+													    name="./boxMarginBox3DesktopLB"/>
+						                          	<boxIconScaleBox3DesktopLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox3DesktopLB"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox3DesktopLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox3DesktopLB" />
+													<text1FontSizeBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+						  							    value="15px"
+													    name="./text1FontSizeBox3DesktopLB"/>
+													<text1MarginBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+													    name="./text1MarginBox3DesktopLB"/>
+													<text1FontSizeSeparatorBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+						  							    value="16px"
+													    name="./text1FontSizeSeparatorBox3DesktopLB"/>
+													<text1MarginSeparatorBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text1MarginSeparatorBox3DesktopLB"/>
+													<text2FontSizeBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+						  							    value="15px"
+													    name="./text2FontSizeBox3DesktopLB"/>
+													<text2MarginBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+													    name="./text2MarginBox3DesktopLB"/>
+													<text2FontSizeSeparatorBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+						  							    value="16px"
+													    name="./text2FontSizeSeparatorBox3DesktopLB"/>
+													<text2MarginSeparatorBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text2MarginSeparatorBox3DesktopLB"/>
+													<text3FontSizeBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+						  							    value="15px"
+													    name="./text3FontSizeBox3DesktopLB"/>
+													<text3MarginBox3DesktopLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+													    name="./text3MarginBox3DesktopLB"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </desktopLB>
+		            <mobileLB
+		               jcr:primaryType="nt:unstructured"
+		               jcr:title="Mobile Lightbox options"
+		               sling:resourceType="granite/ui/components/foundation/container">
+		                 <layout jcr:primaryType="nt:unstructured"
+		                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                 <items jcr:primaryType="nt:unstructured">
+		                    <column jcr:primaryType="nt:unstructured"
+		                            sling:resourceType="granite/ui/components/foundation/container">
+		                        <items jcr:primaryType="nt:unstructured">
+		                            <fieldset jcr:primaryType="nt:unstructured"
+		                                    jcr:title="Mobile Lightbox Settings Box 1"
+		                                    sling:resourceType="granite/ui/components/foundation/form/fieldset">
+		                                <layout jcr:primaryType="nt:unstructured"
+		                                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+		                                <items jcr:primaryType="nt:unstructured">
+		                                    <column jcr:primaryType="nt:unstructured"
+		                                            sling:resourceType="granite/ui/components/foundation/container">
+		                                        <items jcr:primaryType="nt:unstructured">
+													<boxHeightBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Height box"
+						  							    fieldDescription="Set the height of the box"
+													    name="./boxHeightBox3MobileLB"/>
+													<boxWidthBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Width box"
+						  							    fieldDescription="Set the width of the box"
+													    name="./boxWidthBox3MobileLB"/>
+													<boxMarginBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin box"
+						  							    fieldDescription="Set the margin of the box"
+													    name="./boxMarginBox3MobileLB"/>
+						                          	<boxIconScaleBox3MobileLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Scale Icon box"
+						                          		fieldDescription="Set scale to resize icon of the box"
+						                          		name="./boxIconScaleBox3MobileLB"
+						                          		rootPath="/content/dam/silversea-com/"/>
+						                          	<boxIconMarginBox3MobileLB
+														jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                          		fieldLabel="Margin Icon box"
+						                          		fieldDescription="Set margin icon of the box"
+						                          		name="./boxIconMarginBox3MobileLB" />
+													<text1FontSizeBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 1"
+						  							    fieldDescription="Set font size text 1"
+													    name="./text1FontSizeBox3MobileLB"/>
+													<text1MarginBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 1"
+						  							    fieldDescription="Set maargin text 1"
+													    name="./text1MarginBox3MobileLB"/>
+													<text1FontSizeSeparatorBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 1"
+						  							    fieldDescription="Set font size separator text 1"
+													    name="./text1FontSizeSeparatorBox3MobileLB"/>
+													<text1MarginSeparatorBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text1MarginSeparatorBox3MobileLB"/>
+													<text2FontSizeBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 2"
+						  							    fieldDescription="Set font size text 2"
+													    name="./text2FontSizeBox3MobileLB"/>
+													<text2MarginBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text 2"
+						  							    fieldDescription="Set maargin text 2"
+													    name="./text2MarginBox3MobileLB"/>
+													<text2FontSizeSeparatorBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size separator text 2"
+						  							    fieldDescription="Set font size separator text 2"
+													    name="./text2FontSizeSeparatorBox3MobileLB"/>
+													<text2MarginSeparatorBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin separator text 1"
+						  							    fieldDescription="Set margin separator text 1"
+													    name="./text2MarginSeparatorBox3MobileLB"/>
+													<text3FontSizeBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Font size text 3"
+						  							    fieldDescription="Set font size text 3"
+													    name="./text3FontSizeBox3MobileLB"/>
+													<text3MarginBox3MobileLB
+													    jcr:primaryType="nt:unstructured"
+													    sling:resourceType="granite/ui/components/foundation/form/textfield"
+													    fieldLabel="Margin text3"
+						  							    fieldDescription="Set maargin text 3"
+													    name="./text3MarginBox3MobileLB"/>
+		                                      </items>
+		                                   </column>
+		                                </items>
+		                            </fieldset>
+		                        </items>
+		                    </column>
+		                </items>
+		            </mobileLB>
+		        </items>
+			</box3>
+        </items>
+    </content>
+</jcr:root>

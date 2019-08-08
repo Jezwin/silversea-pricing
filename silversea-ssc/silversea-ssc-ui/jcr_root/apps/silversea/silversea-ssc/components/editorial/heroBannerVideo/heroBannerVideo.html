@@ -1,0 +1,94 @@
+<script type="text/javascript" src="/etc/dam/viewers/s7viewers/html5/js/VideoViewer.js"></script>
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SSC - Hero Banner Video"></div>
+<div id="c-hero-banner-video-${properties.sscUUID}" class="c-hero-banner-video"> 	
+		<div id="c-hero-banner-video-s7viewer-${properties.sscUUID}" style="display: inline-block;position:relative;"></div>
+        <div class="wrap cf">
+			<div class="vertical-centre-align centre">
+				<h1 class="os-animation animated fadeIn"> 
+					${properties.title}					
+				</h1>
+                <p class="subtitle"><em>${properties.subtitle  @ context='html'}</em></p>
+                <sly data-sly-test="${!properties.ctaLabel}">
+                    <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                </sly>
+                <sly data-sly-test="${properties.ctaLabel}">
+                <p class="caption os-animation animated fadeIn">
+					<a href="${properties.ctaLink @ extension = 'html'}">${properties.ctaLabel}</a>
+				</p>
+                </sly>
+			</div>
+		</div>
+</div>
+
+ <style>
+
+    #c-hero-banner-video-s7viewer-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"} {
+ 		pointer-events: none !important;
+	}
+
+	#c-hero-banner-video-s7viewer-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}_container .s7controlbar {
+        display: none !important;
+    }
+
+    #c-hero-banner-video-s7viewer-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}_container .s7playpausebutton {
+        display: none;
+    }
+
+	#c-hero-banner-video-s7viewer-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}_container .s7mutablevolume {
+        display: none;
+    }
+
+    #c-hero-banner-video-s7viewer-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}_container .s7socialshare {
+        display: none;
+    }
+
+    #c-hero-banner-video-s7viewer-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}_container .s7iconeffect {
+        visibility: hidden;
+    }
+ </style>
+
+ <style data-sly-test="${properties.heightDesktopPixel}">
+  @media(min-width: 991px) {
+	#c-hero-banner-video-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-hero-banner-video {
+		height: ${properties.heightDesktopPixel @ context="unsafe" || 450 }px !important;
+		min-height: ${properties.heightDesktopPixel @ context="unsafe" || 450 }px !important;
+	}
+  }
+</style>
+<style data-sly-test="${properties.heightMobilePixel}">
+  @media (max-width: 767px) {
+	#c-hero-banner-video-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-hero-banner-video {
+		height: ${properties.heightMobilePixel @ context="unsafe" || 280 }px !important;
+		min-height: ${properties.heightMobilePixel @ context="unsafe" || 280 }px !important;
+	}
+  }
+</style>
+<style data-sly-test="${properties.heightTabletPixel}">
+  @media(max-width: 990px) and (min-width: 768px) {
+	#c-hero-banner-video-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-hero-banner-video  {
+		height: ${properties.heightTabletPixel @ context="unsafe" || 330 }px !important;
+		min-height: ${properties.heightTabletPixel @ context="unsafe" || 330 }px !important;
+	}
+  }
+</style>
+
+<script>
+var videoViewer = new s7viewers.VideoViewer();
+var autoplay = 1;
+videoViewer.setContainerId("c-hero-banner-video-s7viewer-${properties.sscUUID @ context="unsafe"}");
+videoViewer.setParam("serverurl", "https://silversea-h.assetsadobe2.com/is/image");
+videoViewer.setParam("autoplay", autoplay.toString());
+videoViewer.setParam("loop", autoplay.toString());
+videoViewer.setParam("videoserverurl", "https://gateway-eu.assetsadobe.com/DMGateway/public-ssl/silversea");
+videoViewer.setAsset("${properties.assetReference @ context="unsafe"}");
+videoViewer.setParam("posterimage","${properties.videoThumbnail @ context="unsafe"}");
+videoViewer.setHandlers({
+                'initComplete' : function() {
+                    var $videoElement = $("video");
+					 $videoElement.prop('muted', true);
+   					 $videoElement.attr('playsinline', '');
+
+                }
+            });
+videoViewer.init();
+</script>

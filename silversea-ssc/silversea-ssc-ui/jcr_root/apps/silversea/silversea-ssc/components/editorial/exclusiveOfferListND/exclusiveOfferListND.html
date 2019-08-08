@@ -1,0 +1,150 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Exclusive offer list ND"></div>
+<template data-sly-template.newDesignSlider="${@ EOTeaserList, externalizerHelper}">
+    <div data-sly-use.margins="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}"
+         class="nd c-exclusiveOfferListND ${margins.allDevicesPixel}" id="EoListND">
+        <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside c-exclusiveOfferListND__slider abb"
+             data-sly-list.EO="${EOTeaserList.items}"
+             data-number-items-desktop="${properties.numberItemsDesktop || '4' @ context='unsafe'}"
+             data-number-items-tablet="${properties.numberItemsTablet || '3' @ context='unsafe'}"
+             data-number-items-mobile="${properties.numberItemsMobile || '1' @ context='unsafe'}"
+             data-sly-test="${EOTeaserList.items}">
+            <div class="slider-item">
+                <section data-sly-test="${EO.path}"
+                         class="c-eolist c-teaser-eo c-vertical-teaser--style1 eoname"
+                         data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=EO.path}"
+                         data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                         data-sly-use.EOName="${'com.silversea.ssc.aem.helper.StringSplitHelper' @ text=EO.path, split='/'}"
+                         data-ssc-offer="${EOName.lastSplit}">
+                    <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = target.thumbnail}"
+                         class="c-eolist__image-wrapper heightDesktop${properties.heightImageDesktop} heightTablet${properties.heightImageTablet} heightMobile${properties.heightImageMobile} maxHeightDesktop${properties.heightImageDesktop} maxHeightTablet${properties.heightImageTablet} maxHeightMobile${properties.heightImageMobile}"
+                         id="${id}">
+                        <sly data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}"></sly>
+                    </div>
+                    <div class="caption c-eolist__caption c-vertical-teaser-EO__caption-dektop heightDesktop${properties.heightTextDesktop} heightTablet${properties.heightTextTablet} heightMobile${properties.heightTextMobile} maxHeightDesktop${properties.heightTextDesktop} maxHeightTablet${properties.heightTextTablet} maxHeightMobile${properties.heightTextMobile}">
+                    <span
+                            class="c-eolist__title alternative-h">${EO.title}</span>
+                        <div class="c-eolist__description">
+                            ${properties.useExcerpt ? EO.excerpt : EO.description @context='html'}
+                        </div>
+                    </div>
+                    <a class="c-eolist__link" href="${target.page.path @ extension='html'}"
+                       onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';">
+                        <span class="c-eolist__label">${'discover-more' @ i18n}</span><i
+                            class="fa fa-angle-right"></i>
+                    </a>
+                    <a class="c-eolist__link--block" href="${target.page.path @ extension='html'}"
+                       onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';"></a>
+                </section>
+            </div>
+        </div>
+    </div>
+</template>
+<template data-sly-template.newDesign="${@ EOTeaserList, externalizerHelper}">
+    <div data-sly-use.margins="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}" class="nd c-exclusiveOfferListND abb ${margins.allDevicesPixel} ${properties.centerContentMobile ? 'centerContentMobile' : ''} ${properties.addBorderMobile ? 'addBorderMobile' : ''}">
+        <div class="${properties.eoStyle}"
+             data-sly-list.EO="${EOTeaserList.items}"
+             data-sly-test="${EOTeaserList.items}">
+            <div class="border-line" data-sly-test="${EOList.index==(properties.eoStyle=='onebig'  ? 1 : 2)}"></div>
+            <div class="teaser-item teaser-item-${EOList.index}">
+                <sly data-sly-test.id="${'img'}${EOList.index}">
+                    <section data-sly-test="${EO.path}"
+                             class="c-eolist c-teaser-eo eoname"
+                             data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=EO.path}"
+                             data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                             data-sly-use.EOName="${'com.silversea.ssc.aem.helper.StringSplitHelper' @ text=EO.path, split='/'}"
+                             data-ssc-offer="${EOName.lastSplit}">
+                        <sly data-sly-test="${properties.eoStyle!='twoperline' && (EOList.index == 0  && properties.eoStyle=='onebig') || (EOList.index < 2  && properties.eoStyle=='twobig')}">
+                            <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = target.thumbnail}"
+                                 class="c-eolist__image-wrapper heightDesktop${properties.heightImageDesktopBigStyle} heightTablet${properties.heightImageTabletBigStyle} heightMobile${properties.heightImageMobile} maxHeightDesktop${properties.heightImageDesktopBigStyle} maxHeightTablet${properties.heightImageTabletBigStyle} maxHeightMobile${properties.heightImageMobile}"
+                                 id="${id}">
+                                <sly data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}"></sly>
+                            </div>
+                        </sly>
+                        <sly data-sly-test="${properties.eoStyle=='twoperline' || (EOList.index > 0  && properties.eoStyle=='onebig') || (EOList.index > 1  && properties.eoStyle=='twobig')}">
+                            <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = target.thumbnail}"
+                                 class="c-eolist__image-wrapper heightDesktop${properties.heightImageDesktop} heightTablet${properties.heightImageTablet} heightMobile${properties.heightImageMobile} maxHeightDesktop${properties.heightImageDesktop} maxHeightTablet${properties.heightImageTablet} maxHeightMobile${properties.heightImageMobile}"
+                                 id="${id}">
+                                <sly data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}"></sly>
+                            </div>
+                        </sly>
+                        <sly data-sly-test="${properties.eoStyle!='twoperline' && (EOList.index == 0  && properties.eoStyle=='onebig') || (EOList.index < 2  && properties.eoStyle=='twobig')}">
+                            <div class="caption c-eolist__caption c-vertical-teaser-EO__caption-desktop heightDesktop${properties.heightTextDesktopBigStyle} heightTablet${properties.heightTextTabletBigStyle}  maxHeightDesktop${properties.heightTextDesktopBigStyle} maxHeightTablet${properties.heightTextTabletBigStyle}">
+                                <span class="c-eolist__title alternative-h">${EO.title}</span>
+                                <div class="c-eolist__description">
+                                    ${properties.useExcerpt ? EO.excerpt : EO.description @context='html'}
+                                </div>
+                                <a class="c-eolist__link" href="${target.page.path @ extension='html'}"
+                                   onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';">
+                                    <span class="c-eolist__label">${'discover-more' @ i18n}</span><i
+                                        class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </sly>
+                        <sly data-sly-test="${properties.eoStyle=='twoperline' || (EOList.index > 0  && properties.eoStyle=='onebig') || (EOList.index > 1  && properties.eoStyle=='twobig')}">
+                            <div class="caption c-eolist__caption c-vertical-teaser-EO__caption-desktop heightDesktop${properties.heightTextDesktop} heightTablet${properties.heightTextTablet}  maxHeightDesktop${properties.heightTextDesktop} maxHeightTablet${properties.heightTextTablet}">
+                                <span class="c-eolist__title alternative-h">${EO.title}</span>
+                                <div class="c-eolist__description">
+                                    ${properties.useExcerpt ? EO.excerpt : EO.description @context='html'}
+                                </div>
+                                <a class="c-eolist__link" href="${target.page.path @ extension='html'}"
+                                   onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';">
+                                    <span class="c-eolist__label">${'discover-more' @ i18n}</span><i
+                                        class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </sly>
+                        <a class="c-eolist__link--block" href="${target.page.path @ extension='html'}"
+                           onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';"></a>
+                    </section>
+                </sly>
+            </div>
+        </div>
+    </div>
+</template>
+<sly data-sly-use.EOTeaserList="com.silversea.ssc.aem.components.editorial.GenericTeaserUse"
+     data-sly-use.helper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}">
+    <div data-sly-test="${(wcmmode.edit || wcmmode.design) && !EOTeaserList.items}"
+         class="cq-placeholder" data-emptytext="Exclusive Offer teaser list"></div>
+    <div data-sly-test="${properties.eoStyle=='slider'}"
+         data-sly-call="${newDesignSlider @ EOTeaserList=EOTeaserList, externalizerHelper=helper}"
+         class="c-exclusiveOfferListND"></div>
+    <div data-sly-test="${properties.eoStyle!='slider'}"
+         data-sly-call="${newDesign @ EOTeaserList=EOTeaserList, externalizerHelper=helper}"
+         class="c-exclusiveOfferListND"></div>
+    <script>
+        window.createLineProgressBarEOND = function createLineProgressBar() {
+            $(".abb.c-exclusiveOfferListND__slider").each(function () {
+                var widthSlider = $(this).width();
+                var $dots = $(this).find(".slick-dots li");
+                var liWidth = ((widthSlider / $dots.length));
+                $dots.width(liWidth + "px");
+            });
+
+        };
+        $(function () {
+            weo = $(window).width();
+            var $EoListND = $(".abb.c-exclusiveOfferListND__slider");
+            $EoListND.on("init", function () {
+                setTimeout(window.createLineProgressBarEOND, 500);
+            });
+            $(window).on("resize", sscThrottled(window.createLineProgressBarEOND));
+        });
+
+    </script>
+
+</sly>
+<style data-sly-test="${properties.cssDesktop}">
+    @media (min-width: 991px) {
+    ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media (max-width: 990px) and (min-width: 768px) {
+    ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+    ${properties.cssMobile @ context='html'}
+    }
+</style>

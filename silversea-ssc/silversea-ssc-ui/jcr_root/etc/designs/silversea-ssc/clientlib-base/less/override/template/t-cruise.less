@@ -1,0 +1,258 @@
+/*
+ * Fix Cruise page
+ */
+ .cruise {
+ 	.c-cruise.expedition .c-tab__content--overview .voyageimg__info p, .c-cruise .c-tab__content--overview .voyageimg__info p {
+    	padding: 5px;
+    }
+
+   .c-cruise.expedition .c-tab__content--overview .voyageimg__info p:empty, .c-cruise .c-tab__content--overview .voyageimg__info p:empty {
+    	padding: 0;
+    }
+
+  .c-cruise .c-tab__content--overview .voyagefeature__offer p, .c-cruise .c-tab__content--overview .voyagefeature__offer a {
+  	margin-bottom: 5px;
+  }
+
+  .c-cruise__cta .btn-thin {
+    	padding: 9px 12px 9px;
+	}
+
+	.c-cruise__cta .btn-thin span, .c-cruise__cta .btn-thin i {
+	    vertical-align: middle;
+	}
+
+	.c-cruise__descr {
+    	 max-width: auto;
+	}
+
+	.c-cruise__subtitle {
+		 padding: 0px 0 5px;
+	}
+
+	.c-cruise__footnotes {
+		border-bottom:none;
+	}
+
+	.c-cruise .c-cruise__gallery {
+	    margin-top: 10px;
+	}
+
+	p.c-cruise__introduction {
+	    margin-bottom: 30px;
+	}
+
+	@media screen and (min-width: @screen-md-min){
+		.c-cruise-itinerary-2__list--nested__item .panel--nested__heading__description {
+		    width: 85%;
+		}
+	}
+
+	.c-cruise__fare h3.c-cruise__subtitle {
+    	margin-top: 20px;
+	}
+
+	.c-cruise__fare .c-list {margin-bottom:20px}
+
+	.c-cruise__fare {
+	    border-bottom: 1px solid @grey--e9;
+	}
+
+	.cruise__header .cruise__header__desc {
+	    margin-bottom: 20px;
+	}
+
+	.cruise__header .cruise__header__desc .cruise__header__txt:empty, .cruise__header .cruise__header__desc .cruise__header__txt p:empty {
+		display:block;
+	}
+
+ 	.row.c-cruise__overview .btn  {
+        padding: 8px 20px;
+	}
+	.c-cruise .c-tab__content--overview .voyagetable__elem span {
+    	line-height: 1.15;
+	}
+	@media only screen and (min-width: @screen-md-min) {
+		.row.c-cruise__overview .col-sm-6:nth-child(2) {
+		    padding-left: 0px;
+		}
+		.row.c-cruise__overview  .voyageimg {
+		    padding-right: 10px
+		}
+	}
+
+	.c-suitelist__price__text--important {
+	    font-size: 21px;
+	}
+
+	.slick-dots li button:before {
+	    background-color: @white;
+	}
+	.c-tab__link[data-state='active'] a {
+	    font-weight: 600;
+	}
+	.c-tab.c-tab__accordion.c-tab--cruise {
+	    margin-top: 5px;
+	}
+
+	.cruise__header__txt {
+	 line-height: 1.5;
+	}
+
+	 .c-cruise__shorex-pdf {
+		 text-align: right;
+		 margin-bottom: 5px;
+		 span {
+			 font-weight: bold;
+			 text-decoration: underline;
+		 }
+	 }
+	.c-cruise-itinerary-list__description__text {
+        margin-top: 0px;
+	}
+
+	@media only screen and (max-width: @screen-sm) {
+        .c-cruise-itinerary-2__list__item .panel__heading__image {
+                min-width: 135px;
+                width: 135px;
+        }
+        .c-tab__content {
+            margin-top: 15px;
+        }
+	}
+
+	.c-cruise__ship-overview {
+	    margin-top:12px;
+	}
+	.c-cruise-ship-info {
+	    margin-top:20px;
+	}
+
+	ul.row.c-cruise__ship-overview__content__info li{
+	    margin-left:12px;
+	    margin-top:3px;
+	}
+
+	@media only screen and (max-width: @screen-md-min) {
+	    .c-suitelist .c-cruise__footnotes {
+	    padding: 0px 0;
+		}
+	}
+
+	@media screen and (max-width: @screen-sm) {
+		.c-suitelist__collapse .c-tab__accordion .c-tab__body {
+		    padding-top: 110px;
+		}
+	}
+
+	.c-cruise__descr {
+	    max-width: 100%
+	}
+
+ }
+
+ /*
+ * Remove extra border expedition cruise
+ */
+.c-cruise.expedition .c-tab__content--overview .voyageimg picture img {
+    border: none;
+}
+
+.c-cruise.expedition .c-tab__content--overview .voyageimg__info {
+     border-top:none;
+}
+
+/*
+ * Fix IE11 Discrepancy
+ */
+ .c-cruise-itinerary-2__list__item .panel__heading__image {
+    max-width: 120px;
+    width: 120px;
+    min-width:none;
+}
+
+/*
+ * Fix Ship page image size
+ */
+ @media screen and (max-width: @screen-sm) {
+	.cruise  .c-cruise__ship-overview  img.o-img {
+	        width: 100%;
+	}
+}
+
+/*
+ * Fix Map 
+ */
+ .c-cruise .c-tab__content--overview .voyageimg picture img.o-img {
+ 	width:100%;
+ }
+ /*
+  * Fix mobile cruise overall information
+  */
+ .cruise__header_metainfo>span:first-child:after, .cruise__header_metainfo>span:nth-child(2):after {
+          content: '|';
+    position: relative;
+    top: -1px;
+    display: inline-block;
+    margin: 0 2px 0 6px;
+    font-size: 11px;
+}
+
+
+/*
+  * Fix space between two list of fares cruise
+  */
+  @media screen and (max-width: @screen-sm) {
+     .cruise .c-cruise__fare .c-list.c-list--cruise-fare-additions:first-child {
+	    margin-bottom: 0px;
+	}
+}
+
+/*
+ * Fix Ship tab mobile title font-size
+ */
+@media screen and (max-width: @screen-sm) {
+    .c-cruise__ship-overview h3.c-cruise__subtitle {
+        font-size: 30px;
+    }
+
+
+    .c-cruise-ship-info h3.c-cruise__subtitle {
+        font-size: 25px;
+    }
+
+    .c-cruise-ship-info__item .ship-mobilewrapper h4.variationcontent__title {
+        font-size: 22px;
+    }
+
+}
+
+
+/*
+ * Fix Missing Border on Map expedition
+ */
+.c-cruise.expedition .c-tab__content--overview .voyageimg picture img {
+    border: 1px solid @white;
+}
+.c-cruise.expedition .c-tab__content--overview .voyageimg picture {
+    border: solid 1px @red-expedition;
+}
+@media screen and (max-width: @screen-sm) {
+        .c-cruise.expedition .c-tab__content--overview .voyageimg__info {
+                position: relative;
+                margin-bottom: -1px;
+        }
+}
+
+.c-cruise .c-cruise__overview .voyageimg  .automatic-gallery-modal:before {
+	bottom: 8px ! important;
+	right: 8px;
+}
+
+.c-cruise .c-cruise__overview .voyageimg  .automatic-gallery-modal.cruise-itinerary-map-link:before {
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAAAZCAYAAABAb2JNAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH4QsIDA8FXUBqXQAAA49JREFUaN7lmbtrVFEQxn+zLi6aiAuCioUGbCz3P0hEFNHCgAEfKUwjCrFQKxt1fWBhZdSIheAGElAQ8UFSCGL+hC3ETl0rwUJXjBITzVhkro7Hu7t3440G7sBhD+cx5+x3vvvNnHtFVcmSiQhAB3AP2Jmi63GgT1WnJYOgdgJ3gN1ADZAU3CqwCXgE9GcR1Alj6H7goTXnWkybNuAaugUOAqPAeBZBVeCVqm42KUhie4HtwFfH7DlgBsgDt4HnxvyNebJpKiLLVXUmgf7mgG3AYeCzgTprgK4zBgtwImJzLqOgShtaOgcMAquB9cBaYA0w5sbMOL+ZBTVRlqCqUVFgCvhi+noBOAncBN4CBT83LyI9gb8aUAdKQNXqAEVrmwzqjazHfNWCNr9OLZhTMt91W9uv+9seVbW2qPpgscaDK/N6cAk4BQzZI78vjpwalLL9eQUqASAaU4+zXut/EDO/amCqjcMdoLrfWjDvtz06FrVVbP5LoJBgrK9HgCowbG0FY/CQ7fVNhIs2YFn0B3oWAGrFAVdsMKdsYzwzu1x/V7O1/gWoLjNaDlwPAAVYBXwKQW2lqSMGULGNJ6doDCw71sZZzRLmgUAufP+SyRaALcCIqg4GAa/Tbmi/NNV+vTYeD9hUtbbJhBvodWzttVIJfEbrDFm/1+6SO8SqmxfusZp2UGpis5anhvYFuAE8dVj+rJQDhpRc/QpwNtDHVqDWzWcR6A6YXjRW1hsc1oCt3w1sjTmMVFkcARpdBDy4Adga0/YNOGZ9HSG1G2kqjjGVBJpadAGubEUNqDifV2xMPUZiIj1fLE0F6AOGQ39hBtAsgLnxHUkDVVzgagbqQBCcMIY/aBKouhoEqkUF1eoVS+5XBlF+FHgCSBvBrCMMVGFKFdqki3CN0rGyPfoPnT5GoO6JYeKkBarokIrAa+fvY+Cn1R4XYp8tekePtlhC3w+8SOkN1n+3LgO4lCQ5T4Gpw3ZwywzAm9Z/vp11Qqbml9hbqto/TqUEmFHV7yJyDTgCXFTVM21kBn9Y1u/+c8CsiNywKH5OVU//rdN8xkH9CmwAjgKXVbUsIiuMwTlgaiFPclaZqu76GdkhEXkPvLPyAbjapk/NMlOjqH7LbkvfDGCfDRWAZ0nfaInIdOQ3y9+oDqjq3Va3LWBFAl2G+U8uY8BEVr+m3gV2kf7X1MfAAcnwd//7wI4UXU8YW6d/APNA2X46TUTsAAAAAElFTkSuQmCC) no-repeat
+}
+
+
+
+

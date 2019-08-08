@@ -1,0 +1,145 @@
+@import (reference) "/etc/designs/silversea-ssc/clientlib-base/less/variables.less";
+
+.header-style4 {
+  background-color: white;
+  border-bottom: 1px solid rgba(155, 155, 155, 0.8) !important;
+}
+
+.navbar-dco {
+  @navbar-height: 60px;
+  height: @navbar-height;
+  font-size: 14px;
+  color: @white;
+
+  div {
+    height: 100%;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    background-color: @black;
+  }
+
+  .navbar-right {
+    display: flex;
+    height: @navbar-height;
+    float: right;
+    li {
+      height: 100%;
+      font-family: @suisse;
+      color: @red;
+      cursor: pointer;
+      letter-spacing: 1.5px;
+      text-align: center;
+      white-space: pre;
+      //padding: 24px 17px;
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding-left: 7px;
+        padding-right: 7px;
+      }
+    }
+
+    li:not(:last-child) {
+      border-right: 1px solid rgba(155, 155, 155, 0.8);
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    li:last-child {
+      font-size: 10px;
+      white-space: normal;
+      text-align: right;
+
+      padding: 24px 17px;
+      padding-top: 20px;
+      a {
+        color: @red;
+        display: inline-block;
+      }
+      small {
+        display: inline-block;
+        font-size: 10px;
+        color: @color-typography;
+        white-space: pre;
+      }
+    }
+
+    #phone-number {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      line-height: 16px;
+    }
+  }
+
+  .navbar-cta {
+    padding: 0 10px;
+  }
+
+  .phone {
+    .fa {
+      font-size: 11px;
+    }
+
+    .number {
+      margin-left: 28px;
+    }
+  }
+}
+
+/* phone breakpoint */
+@media (max-width: @screen-sm) {
+  .header-style4 {
+
+    border-bottom: 1px solid black !important;
+  }
+
+  .navbar-dco {
+    background-color: @black;
+  }
+
+  .navbar-left {
+    padding-left: 25px;
+  }
+
+  .header-phone {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: @white;
+    a {
+      cursor: pointer;
+      margin-bottom: auto;
+      margin-top: auto;
+      padding-top: 4px;
+      margin-right: 11.5px;
+      i.material-icons {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm) and (max-width: @screen-lg-min) {
+  .header-phone {
+    display: none;
+  }
+}
+
+@media (min-width: @screen-sm) and (max-width: @screen-lg-min) {
+  html.de {
+    .navbar-dco {
+      .navbar-right li:last-child {
+        padding: 24px 5px;
+        small {
+          font-size: 9px;
+        }
+      }
+    }
+  }
+}

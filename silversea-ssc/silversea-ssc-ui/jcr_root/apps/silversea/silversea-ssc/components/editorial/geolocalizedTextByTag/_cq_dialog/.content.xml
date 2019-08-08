@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Geolocalized Text By Tag"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="en/cq/current/wcm/default_components.html#Text">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <fieldset
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                  <defaultText
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        fieldDescription="Default Text"
+                                        fieldLabel="Default text"
+                                        cols="60"
+                                        rows="20"
+                                        name="./defaultText"/>                                
+                                    <listText
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                        class="full-width"
+                                        fieldLabel="List Text">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                            acs-commons-nested="NODE_STORE"
+                                            name="./listText">
+                                            <layout
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                method="absolute"/>
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <column
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/container">
+                                                    <items jcr:primaryType="nt:unstructured">
+                                                        <text
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                                            fieldDescription="Text to display"
+                                                            cols="60"
+                                        					rows="20"
+                                                            fieldLabel="Text"
+                                                            name="./text"/>
+                                                        <tagslist
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+                                                            allowCreate="{Boolean}true"
+                                                            fieldLabel="News Tags"
+                                                            name="./tagsList"/>
+                                                        <listTag
+                                                            jcr:primaryType="nt:unstructured"
+                                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                                            class="full-width"
+                                                            fieldLabel="List of tag">
+                                                            <field
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                                                name="./listTag">
+                                                                <layout
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                                                    method="absolute"/>
+                                                                <items jcr:primaryType="nt:unstructured">
+                                                                    <column
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="granite/ui/components/foundation/container">
+                                                                        <items jcr:primaryType="nt:unstructured">     
+                                                                         <tags
+				                                                            jcr:primaryType="nt:unstructured"
+				                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+				                                                            allowCreate="{Boolean}true"
+				                                                            fieldLabel="Tags"
+				                                                            name="./tags"/>                                                                     
+                                                                        </items>
+                                                                    </column>
+                                                                </items>
+                                                            </field>
+                                                        </listTag>
+                                                    </items>
+                                                </column>
+                                            </items>
+                                        </field>
+                                    </listText>
+                                </items>
+                            </column>
+                        </items>
+                    </fieldset>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

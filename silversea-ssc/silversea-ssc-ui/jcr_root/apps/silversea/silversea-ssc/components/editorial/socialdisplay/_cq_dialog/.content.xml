@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Social Display"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <field
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                        name="./items">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            method="absolute"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <twitterURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Twitter URL"
+                                        fieldLabel="Twitter URL"
+                                        name="./twitterURL" />
+                                    <facebookURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Facebook URL"
+                                        fieldLabel="Facebook URL"
+                                        name="./facebookURL"/>
+                                    <googlePlusURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Google plus URL"
+                                        fieldLabel="Google plus URL"
+                                        name="./googlePlusURL"/>
+                                    <instagramURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Instagram URL"
+                                        fieldLabel="Instagram URL"
+                                        name="./instagramURL"/>
+                                    <youtubeURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Youtube URL"
+                                        fieldLabel="Youtube URL"
+                                        name="./youtubeURL"/>
+                                    <pinterestURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Pinterest URL"
+                                        fieldLabel="Pinterest URL"
+                                        name="./pinterestURL"/>
+                                </items>
+                            </column>
+                        </items>
+                    </field>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

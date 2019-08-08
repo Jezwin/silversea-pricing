@@ -1,0 +1,18 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Landing Planning Cruise - (#c-landingPlanningCruiseContainer-${properties.sscUUID})"></div>
+<div class="c-landingPlanningCruiseContainer" id="c-landingPlanningCruiseContainer-${properties.sscUUID}" >
+	<div class="planningCruise__section planningCruise__bgset planningCruise__section-cruises bg_cruseblock ${properties.style} ${properties.marginTopDesktop} ${properties.marginBottomDesktop} ${properties.paddingTopDesktop} ${properties.paddingBottomDesktop} ${properties.marginTopTablet} ${properties.marginBottomTablet} ${properties.paddingTopTablet} ${properties.paddingBottomTablet} ${properties.marginTopMobile} ${properties.marginBottomMobile} ${properties.paddingTopMobile} ${properties.paddingBottomMobile}">
+		<div class="planningCruise__section_header" data-sly-test="${properties.jcr:title || properties.jcr:description}">
+			<div class="container">
+				<h3 class="planningCruise__section_header_title ${properties.color} ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile}" data-sly-test="${properties.jcr:title}">${properties.jcr:title}</h3>
+				<span class="planningCruise__section_header_subtitle ${properties.color} ${properties.fontSizeTextDesktop} ${properties.fontSizeTextTablet} ${properties.fontSizeTextMobile}" data-sly-test="${properties.jcr:description}">${properties.jcr:description}</span>
+			</div>
+		</div>
+		<div class="planningCruise__section__content" data-sly-test="${properties.raqlink}">
+			<div class="planningCruise__cruiseblurbs">
+				<div class="container">
+					  <div data-sly-resource="${'lightboxButton' @ resourceType='silversea/silversea-ssc/components/editorial/lightboxButton'}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

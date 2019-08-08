@@ -1,0 +1,158 @@
+<div data-sly-test.empty="${wcmmode.edit}"
+	class="cq-placeholder cq-dd-image"
+	data-emptytext="Brochure Landing - Drop Image Here - desktop: (#c-brochureLanding-desktop-${properties.sscUUID}) - mobile tablet: (#c-brochureLanding-mobileTablet-${properties.sscUUID}) - DEPRECATED"></div>
+<section id="c-brochureLanding-desktop-${properties.sscUUID}" class="c-brochureLanding hidden-xs hidden-sm"
+	data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html">
+
+	<div class="lp17__brochure"
+		data-sly-test="${properties.style == 'list' || !properties.style}">
+		<div class="container">
+			<div class="lp17__brochure_inner">
+				<div class="lp17__brochure_col">
+					<div class="lp17__brochure_image"
+						data-sly-test.reference="${properties.assetReference}">
+						<a href="${properties.brochurelink @ extension='html'}">
+							<sly
+								data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+						</a>
+					</div>
+				</div>
+				<div class="lp17__brochure_col">
+					<div
+						class="lp17__brochure_text">
+						<div class="lp17__brochure_text_desc">${properties.text @
+							context="html"}</div>
+
+						<div class="lp17__brochure_text_cta">
+							<a data-sly-test="${properties.brochurelink}"
+								href="${properties.brochurelink @ extension='html'}"
+								class="btn btn-black normal btnlp17"
+								data-sscclicktype="clic-BRO"> <span
+								class="visible-xs-inline visible-sm-inline">${'VIEW-OUR-BROCHURES'
+									@i18n}</span> <span class="hidden-xs hidden-sm">${'VIEW-OUR-BROCHURES'
+									@i18n}</span> <i class="fa fa-lg fa-angle-right"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bloc-brochures"
+		data-sly-test="${properties.style == 'static'}">
+		<div class="leftbloc">
+			<p class="title" data-sly-test="${!properties.title}">
+				${'Discover-more-about' @i18n} <span>Silversea Cruises</span>
+				${'by-requesting-our-brochures' @i18n}
+			</p>
+			<p class="title" data-sly-test="${properties.title}">${properties.title}</p>
+			<div class="subtitle">${properties.text @ context="html"}</div>
+			<p class="action" data-sly-test="${properties.brochurelink}">
+				<a href="${properties.brochurelink @ extension='html'}"
+					class="btn_base btn_base-arrow cta_landing_rab_bottom_v3 landing_nws3_body_bro_cta bound"
+					data-sscclicktype="clic-BRO"><strong>${'VIEW-OUR-BROCHURES'
+						@i18n}</strong></a>
+			</p>
+		</div>
+		<div class="rightbloc">
+			<p class="img" data-sly-test.reference="${properties.assetReference}">
+				<a href="${properties.brochurelink @ extension='html'}">
+					<sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+				</a>
+			</p>
+		</div>
+	</div>
+
+	<div class="bloc-brochures"
+		data-sly-test="${properties.style == 'style2017'}">
+		<div class="leftbloc">
+			<p class="title title-2017" data-sly-test="${properties.title}">${properties.title}</p>
+			<div class="subtitle subtitle-2017">${properties.text @
+				context="html"}</div>
+			<p class="action action-2017"
+				data-sly-test="${properties.brochurelink}">
+				<a href="${properties.brochurelink @ extension='html'}"
+					class="btn_base btn_base-arrow cta_landing_rab_bottom_v3 landing_nws3_body_bro_cta bound"
+					data-sscclicktype="clic-BRO"><strong>${'VIEW-OUR-BROCHURES'
+						@i18n}</strong></a>
+			</p>
+		</div>
+		<div class="rightbloc">
+			<p class="img img-2017"
+				data-sly-test.reference="${properties.assetReference}">
+				<sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+			</p>
+		</div>
+	</div>
+
+	<div
+		class="bloc-brochures bloc-brochures-landing2017 bloc-brochures-landingNSW4"
+		data-sly-test="${properties.style == 'landing2017' || properties.style == 'landingNSW4'}">
+		<div class="leftbloc">
+			<p class="title title-2017" data-sly-test="${properties.title}">${properties.title}</p>
+			<div class="subtitle subtitle-2017">${properties.text @
+				context="html"}</div>
+			<p class="action action-2017"
+				data-sly-test="${properties.brochurelink}">
+				<a href="${properties.brochurelink @ extension='html'}"
+					class="btn_base btn_base-arrow cta_landing_rab_bottom_v3 landing_nws3_body_bro_cta bound"
+					data-sscclicktype="clic-BRO"><span>${'VIEW-OUR-BROCHURES'
+						@i18n}</span></a>
+			</p>
+		</div>
+		<div class="rightbloc">
+			<p class="img img-2017"
+				data-sly-test.reference="${properties.assetReference}">
+				<a href="${properties.brochurelink @ extension='html'}">
+					<sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+				</a>
+			</p>
+		</div>
+	</div>
+
+<sly data-sly-test="${properties.style == 'landing2018'}">
+<div class="c-brochureLanding-2018" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">	
+	<sly data-sly-test="${properties.backgroundImage}">
+		<div class="bloc-brochures bloc-brochures-landing2018" style="top: 0;left: 0;width:100%;background-size: cover;background-position: center;background-repeat: no-repeat;background-image: url(${properties.backgroundImage @ prependPath=imagePrefix, context='unsafe'}?wid=${image.desktopRetinaWidth @ context='unsafe'}&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1)"> 
+	</sly>
+	<sly data-sly-test="${!properties.backgroundImage}">
+		<div class="bloc-brochures bloc-brochures-landing2018">
+	</sly>
+		<div class="centerbloc">
+			<p class="title title-2018" data-sly-test="${properties.title}">${properties.title}</p>
+			<div class="subtitle subtitle-2018">${properties.text @
+				context="html"}</div>
+			<p class="img img-2018"
+				data-sly-test.reference="${properties.assetReference}">
+				<a href="${properties.brochurelink @ extension='html'}">
+					<sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+				</a>
+			</p>	
+			<p class="action action-2018"
+				data-sly-test="${properties.brochurelink}">
+				<a href="${properties.brochurelink @ extension='html'}"
+					class="btn btn-bro btn-${properties.buttonColor ? properties.buttonColor : 'default'}"
+					data-sscclicktype="clic-BRO"><span>${properties.buttonText ? properties.buttonText : 'VIEW-OUR-BROCHURES'
+						@i18n }</span></a>
+			</p>
+		</div>
+	</div>
+</div>
+</sly>
+</section>
+<sly data-sly-use.brochureLandingTemplate="silversea/silversea-ssc/components/editorial/brochureLanding/brochureLandingTemplate.html" data-sly-call="${brochureLandingTemplate.mobile}"></sly>
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) {
+        ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {
+        ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+        ${properties.cssMobile @ context='html'}
+    }
+</style>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" jcr:primaryType="nt:unstructured" jcr:title="SSC - Brochure Banner" sling:resourceType="cq/gui/components/authoring/dialog" helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+        <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+            <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/tabs" margin="{Boolean}false" />
+            <items jcr:primaryType="nt:unstructured">
+                 <main jcr:primaryType="nt:unstructured" jcr:title="Main options" sling:resourceType="granite/ui/components/foundation/section">
+                     <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" margin="{Boolean}false" />
+                     <items jcr:primaryType="nt:unstructured">
+                         <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                             <items jcr:primaryType="nt:unstructured">
+                                 <title jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldDescription="Title" fieldLabel="Title" name="./title" />
+                                 <titletag jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/select" fieldLabel="Title Html Tag" name="./titletag">
+                                 	<items jcr:primaryType="nt:unstructured">
+                         				<span jcr:primaryType="nt:unstructured" text="span" value="span" />
+                                  	    <h1 jcr:primaryType="nt:unstructured" text="h1" value="h1" />
+                         				<h2 jcr:primaryType="nt:unstructured" text="h2" value="h2" />
+                         				<h3 jcr:primaryType="nt:unstructured" text="h3" value="h3" />
+                     				</items>
+                				 </titletag>
+                                 <description jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldDescription="Description" fieldLabel="Description" name="./description" />
+                                 <image jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser" fieldDescription="Image" fieldLabel="Image" rootPath="/content/dam/silversea-com" name="./assetReference" />
+                                 <imageLinkCliccable jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser" fieldDescription="Link to brochure page" fieldLabel="Image link url" rootPath="/content/silversea-com" name="./imageLinkCliccable" /> </items>
+                         </column>
+                     </items>
+                 </main>
+                 <desktop jcr:primaryType="nt:unstructured" jcr:title="Desktop options" sling:resourceType="granite/ui/components/foundation/container">
+                     <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                     <items jcr:primaryType="nt:unstructured">
+                         <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                             <items jcr:primaryType="nt:unstructured">
+                                 <marginTopDesktop jcr:primaryType="nt:unstructured" fieldLabel="Margin Top" name="./marginTopDesktop" step="5" defaultValue="5" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <marginBottomDesktop jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom" name="./marginBottomDesktop" step="5"  defaultValue="5" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingTopDesktop jcr:primaryType="nt:unstructured" fieldLabel="Padding Top" name="./paddingTopDesktop" min="0" step="5" max="100" defaultValue="40" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingBottomDesktop jcr:primaryType="nt:unstructured" fieldLabel="Padding Bottom" name="./paddingBottomDesktop" min="0" step="5" max="100" defaultValue="40" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingTopTextDesktop jcr:primaryType="nt:unstructured" fieldLabel="Padding Top Text" name="./paddingTopTextDesktop" min="0" step="5" max="100" defaultValue="50" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingRightTextDesktop jcr:primaryType="nt:unstructured" fieldLabel="Padding Right Text" name="./paddingRightTextDesktop" min="0" step="5" max="100" defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingLeftTextDesktop jcr:primaryType="nt:unstructured" fieldLabel="Padding Left Text" name="./paddingLeftTextDesktop" min="0" step="5" max="100" defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingRightImageDesktop jcr:primaryType="nt:unstructured" fieldLabel="Padding Right Image" name="./paddingRightImageDesktop" min="0" step="5" max="100" defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingLeftImageDesktop jcr:primaryType="nt:unstructured" fieldLabel="Padding Left Image" name="./paddingLeftImageDesktop" min="0" step="5" max="100" defaultValue="40" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <cssDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css desktop" rows="5" fieldDescription="Custom css only desktop" name="./cssDesktop" /> </items>
+                         </column>
+                     </items>
+                 </desktop>
+                 <tablet jcr:primaryType="nt:unstructured" jcr:title="Tablet options" sling:resourceType="granite/ui/components/foundation/container">
+                     <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                     <items jcr:primaryType="nt:unstructured">
+                         <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                             <items jcr:primaryType="nt:unstructured">
+                                 <marginTopTablet jcr:primaryType="nt:unstructured" fieldLabel="Margin Top" name="./marginTopTablet" step="5" defaultValue="5" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <marginBottomTablet jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom" name="./marginBottomTablet" step="5" defaultValue="5" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingTopTablet jcr:primaryType="nt:unstructured" fieldLabel="Padding Top" name="./paddingTopTablet" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingBottomTablet jcr:primaryType="nt:unstructured" fieldLabel="Padding Bottom" name="./paddingBottomTablet" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingTopTextTablet jcr:primaryType="nt:unstructured" fieldLabel="Padding Top Text" name="./paddingTopTextTablet" min="0" step="5" max="100" defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingRightTextTablet jcr:primaryType="nt:unstructured" fieldLabel="Padding Right Text" name="./paddingRightTextTablet" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingLeftTextTablet jcr:primaryType="nt:unstructured" fieldLabel="Padding Left Text" name="./paddingLeftTextTablet" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingRightImageTablet jcr:primaryType="nt:unstructured" fieldLabel="Padding Right Image" name="./paddingRightImageTablet" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingLeftImageTablet jcr:primaryType="nt:unstructured" fieldLabel="Padding Left Image" name="./paddingLeftImageTablet" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <cssTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css tablet" rows="5" fieldDescription="Custom css only tablet" name="./cssTablet" /> </items>
+                         </column>
+                     </items>
+                 </tablet>
+                 <mobile jcr:primaryType="nt:unstructured" jcr:title="Mobile options" sling:resourceType="granite/ui/components/foundation/container">
+                     <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                     <items jcr:primaryType="nt:unstructured">
+                         <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                             <items jcr:primaryType="nt:unstructured">
+                                 <marginTopMobile jcr:primaryType="nt:unstructured" fieldLabel="Margin Top" name="./marginTopMobile" step="5" defaultValue="5" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <marginBottomMobile jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom" name="./marginBottomMobile" step="5"  defaultValue="5" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingTopMobile jcr:primaryType="nt:unstructured" fieldLabel="Padding Top" name="./paddingTopMobile" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingBottomMobile jcr:primaryType="nt:unstructured" fieldLabel="Padding Bottom" name="./paddingBottomMobile" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingTopTextMobile jcr:primaryType="nt:unstructured" fieldLabel="Padding Top Text" name="./paddingTopTextMobile" min="0" step="5" max="100" defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingRightTextMobile jcr:primaryType="nt:unstructured" fieldLabel="Padding Right Text" name="./paddingRightTextMobile" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingLeftTextMobile jcr:primaryType="nt:unstructured" fieldLabel="Padding Left Text" name="./paddingLeftTextMobile" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingRightImageMobile jcr:primaryType="nt:unstructured" fieldLabel="Padding Right Image" name="./paddingRightImageMobile" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <paddingLeftImageMobile jcr:primaryType="nt:unstructured" fieldLabel="Padding Left Image" name="./paddingLeftImageMobile" min="0" step="5" max="100" defaultValue="35" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                 <cssMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css mobile" rows="5" fieldDescription="Custom css only mobile" name="./cssMobile" /> </items>
+                         </column>
+                     </items>
+                 </mobile>
+            </items>
+        </content>
+    </jcr:root>

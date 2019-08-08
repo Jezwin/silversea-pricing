@@ -1,0 +1,36 @@
+<header id="header" data-sly-resource="${'header' @ resourceType='silversea/silversea-ssc/components/included/headerlanding'}"></header>
+<div class="${properties.pageclass}">
+	<sly data-sly-include="pagecontent.html"></sly>
+    <sly data-sly-test="${properties.activateBVersionLanding}">
+        <script>
+            //add to the body the class
+            //launch the function
+            (function () {
+                $("html").addClass("ab-global-v2-activated");
+                window.applyNewStyle();
+            });
+        </script>
+    </sly>
+</div>
+<footer class="c-footerlanding c-footer" data-sly-resource="${'footer' @ resourceType='silversea/silversea-ssc/components/included/footerlanding'}"></footer>
+<sly data-sly-use.cookieDisclaimerUse="com.silversea.aem.components.included.CookieDisclaimerUse" />
+<div class="c-floating-bar ${wcmmode.edit ? 'editor' : ''}">
+    <div data-sly-test="${wcmmode.edit || cookieDisclaimerUse.showCookieMsg}" data-sly-resource="${'cookie-disclaimer' @ resourceType='silversea/silversea-com/components/included/cookiedisclaimer'}"></div>
+</div>
+<div data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}" data-sly-unwrap></div>
+<sly data-sly-include="modal.html"></sly>
+<sly data-sly-include="footerlibs.html"></sly>
+<script data-keepinline="true" type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "url": "https://www.silversea.com/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": " https://www.silversea.com/search.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "logo": "https://www.silversea.com/etc/designs/silversea-com/clientlib-base/images/logo.png",
+        "sameAs": ["https://www.facebook.com/SilverseaCruises/", "https://twitter.com/silversea", "https://plus.google.com/+silverseacruises", "https://www.instagram.com/silverseacruises/", "https://www.linkedin.com/company/silversea-cruises"]
+    }
+</script>

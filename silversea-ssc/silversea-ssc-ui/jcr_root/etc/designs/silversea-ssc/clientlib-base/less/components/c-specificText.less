@@ -1,0 +1,97 @@
+.specificText {
+  .c-specifc-text {
+    text-align: center;
+    &__header {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 19px;
+      text-transform: uppercase;
+      text-align: center;
+
+      @media (max-width: @screen-sm) {
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 14px;
+      }
+    }
+
+    .c-specifc-text-header-red {
+      color: #D60524;
+    }
+
+    .c-specifc-text-header-blue {
+      color: @blue;
+    }
+
+    .c-specifc-text-header-black {
+      color: @black;
+    }
+
+    &__title {
+      color: @color-typography;
+      font-family: @freight;
+      max-width: 781px;
+      font-size: 40px;
+      letter-spacing: 1px;
+      line-height: 44px;
+      text-align: center;
+      text-transform: uppercase;
+      margin: auto;
+      display: table;
+      margin-top: 5px;
+      margin-bottom: 5px;
+
+      @media (max-width: @screen-sm) {
+        font-size: 28px ;
+        letter-spacing: 0.5px;
+        line-height: 30px;
+        margin-bottom: 8px;
+      }
+    }
+
+    &__description {
+      color: @color-typography;
+      font-family: @suisse;
+      font-size: 13px !important;
+      letter-spacing: 0.5px;
+      line-height: 19px;
+      text-align: center;
+      margin: auto;
+      display: table;
+      max-width: 781px;
+      a {
+        text-decoration: underline;
+      }
+      @media (max-width: @screen-sm) {
+        display: none;
+      }
+    }
+
+    &__description__mobile {
+      display: none;
+      @media (max-width: @screen-sm) {
+        color: @color-typography;
+        font-family: @suisse;
+        font-size: 12px !important;
+        letter-spacing: 1px;
+        line-height: 18px;
+        text-align: center;
+        margin: auto;
+        display: table;
+      }
+    }
+
+    .c-specifc-text__button{
+      text-align:center;
+      margin-top:18px;
+      font-size:12px;
+      font-family: @suisse;
+      letter-spacing: 0.5px;
+      .c-specifc-text__button-cta{
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+@import (reference) "/etc/designs/silversea-ssc/clientlib-base/less/variables.less";
+
+.slider-5-lessons {
+  .slick-dots {
+    bottom: 0px;
+  }
+  .slider-5-lessons-desktop {
+    display: block;
+  }
+
+  .slider-5-lessons-mobile {
+    display: none;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .slider-5-lessons {
+
+    .slider-5-lessons-desktop {
+      display: none;
+    }
+
+    .slider-5-lessons-mobile {
+      display: block;
+    }
+
+    .c-slider {
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+
+    .c-slider--full-width {
+      left: 0;
+      right: 0;
+    }
+
+    .slick-slide {
+      transition: 0.5s;
+      -webkit-transition: 0.5s;
+    }
+
+    .slick-slide:not(.slick-current) {
+      opacity: 0.5;
+      transform: scale(0.85);
+    }
+
+    .slick-list {
+      overflow: visible !important;
+    }
+
+    button.slick-arrow.slick-next {
+      right: -61px;
+    }
+
+    button.slick-arrow.slick-prev {
+      left: -66px;
+    }
+
+    .slick-prev::after, .slick-next::after {
+      border-width: 0px 2px 2px 0px;
+      border-style: solid;
+      border-color: rgb(23, 29, 71) !important;
+      border-left: 0px solid transparent;
+      border-top: 0px solid transparent;
+      border-right: 2px solid rgb(23, 29, 71) !important;
+      border-bottom: 2px solid rgb(23, 29, 71) !important;
+      width: 25px !important;
+      height: 25px !important;
+      opacity: 0.6;
+      content: " ";
+    }
+
+    .slick-prev::after {
+      right: 0px;
+      transform: rotateZ(135deg);
+    }
+
+    .slick-next::after {
+      left: 12px;
+      transform: rotateZ(-45deg);
+    }
+
+    .slick-next::before, .slick-prev::before {
+      content: " " !important;
+      border-width: 0px !important;
+      border-style: solid !important;
+      border-color: transparent !important;
+      border-image: initial !important;
+    }
+  }
+}

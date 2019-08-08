@@ -1,0 +1,211 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+@sm-menu-height: 60px;
+
+.sm-menu-container-wrapper {
+  height: @sm-menu-height;
+  min-height: @sm-menu-height;
+  display: block;
+  padding-bottom: 60px;
+  z-index: 1999;
+  position: relative;
+
+  .ssc-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    z-index: 1001;
+  }
+
+  .sm-menu-container {
+    height: @sm-menu-height;
+    min-height: @sm-menu-height;
+    display: block;
+    z-index: 2005 !important;
+    top: 0;
+  }
+
+  .sm-menu-tab-wrapper {
+    width: 96%;
+    min-width: 100%;
+    position: relative;
+    display: table;
+  }
+
+  .ssc-table-full-width {
+    width: 100%;
+    display: table;
+    position: relative;
+    border-collapse: collapse;
+  }
+
+  .ssc-cell-full-width {
+    display: table-cell;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .row-menu-navigation:before, .row-menu-navigation:after {
+    content: " ";
+    background-color: @grey--f4;
+    height: 60px;
+    width: 100vw;
+    display: inline-block;
+
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .row-menu-overview:before, .row-menu-overview:after {
+    content: " ";
+    background-color: @white;
+    height: 60px;
+    width: 100vw;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+
+  .row-menu-overview:before, .row-menu-navigation:before {
+    left: -40vw;
+    width: 200vw;
+  }
+
+  .row-menu-overview:after, .row-menu-navigation:after {
+    right: -100vw;
+  }
+
+  .ssc-sticky-top {
+    position: fixed;
+    z-index: 1999;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 932px;
+    width: 100%;
+
+    .row-menu-overview:before, .row-menu-navigation:before {
+      box-shadow: rgba(0, 0, 0, 0.8) 0 15px 17px -13px;
+    }
+
+    .row-menu-overview:after, .row-menu-navigation:after {
+
+    }
+
+    .sm-menu {
+
+    }
+
+    .sm-menu-tab.active {
+      background-color: white;
+
+      & span:after {
+        position: absolute;
+        bottom: 0;
+        height: 3px;
+        width: 100%;
+        background-color: @red;
+        content: " ";
+        display: inline-block;
+        left: 0;
+
+      }
+    }
+  }
+
+  .sm-menu {
+    background-color: @grey--f4;
+    height: @sm-menu-height;
+    vertical-align: middle;
+  }
+
+  .sm-menu-tab {
+    color: @color-second;
+    vertical-align: middle;
+    line-height: @sm-menu-height;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @suisse;
+    letter-spacing: 1.5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    white-space: nowrap;
+    position: relative;
+    width: 25%;
+
+  }
+
+  @media screen and (max-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 93vw;
+    }
+
+    .sm-menu {
+      .sm-menu-tab-fourth {
+        display: none;
+      }
+
+      .sm-menu-tab {
+        border-left: 0;
+        border-right: 0;
+        font-size: 12px;
+      }
+
+      .sm-menu-tab-text-big {
+        display: none;
+      }
+
+      .ssc-sticky-top {
+        width: 34vw !important;
+      }
+    }
+
+  }
+
+  @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max ) {
+    .ssc-sticky-top .ssc-table-full-width {
+      width: 96% !important;
+      min-width: 96% !important;
+    }
+  }
+  @media screen and (min-width: @screen-sm) {
+    .ssc-table-full-width {
+      width: 100%;
+    }
+
+    .sm-menu {
+      .sm-menu-tab {
+        border-left: 1px solid @white;
+        border-right: 1px solid @white;
+        font-size: 13px;
+      }
+
+      .sm-menu-tab-text-small {
+        display: none;
+      }
+    }
+  }
+}
+
+.show-block {
+  display: block !important;
+}
+
+
+@media (min-width: @screen-sm) {
+  .row-menu-navigation:before, .row-menu-navigation:after {
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+  }
+
+}
+
+@media (max-width: @screen-sm) {
+  .row-menu-navigation {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}

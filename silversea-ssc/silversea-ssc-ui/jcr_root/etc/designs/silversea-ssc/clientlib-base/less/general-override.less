@@ -1,0 +1,77 @@
+ /*
+  * Common FIxes
+  */
+hr {
+    border-color: @grey--c;
+}
+ 
+/*
+ * Fix Dining / Suite generic availability
+ */
+ 
+p.c-availability__title:first-letter {
+    text-transform: uppercase;
+}
+
+ /*
+  * Fix Availability suite / dining generic
+  */
+@media (min-width:@screen-sm) and (max-width:@screen-md-max) {
+.c-availability .c-list__item {
+        width: 49%;
+        float: left;
+    }
+.c-availability .c-list__item:nth-child(even) {
+   margin-left:10px;
+}
+
+.c-availability .c-list__item:nth-child(odd) {
+   margin-left:0px;
+   margin-right:0px;
+}
+}
+
+/*
+ * Hover no effect mobile
+ */
+ @media screen and (max-width: @screen-sm) {
+        .c-vertical-teaser:hover img {
+                opacity: 1;
+        }
+        
+        .c-signature-teaser:hover picture {
+                opacity: 1;
+        }
+        
+        .c-tabbedmozaic:hover picture .o-img {
+                opacity: 1;
+        }
+        
+        .c-teaser:hover img {
+                opacity: 1;
+        }
+}
+
+
+/*
+ * FIX IE 8 Safari 8 suite
+ */
+ .c-tabbedmozaic__title {
+ 	 -webkit-transform: translate(-50%,-50%);	
+ }
+ 
+ @media screen and (max-width: @screen-sm){
+	.c-fyc__result__content__summary {
+		display: -webkit-flex;	
+	}
+}
+
+/* A/B Test 100% FYC */
+@media (min-width:768px){
+   .c-fyc-v2{
+   		display:block !important;
+   }
+   .c-fyc-old{
+    	display:none !important; 
+   }
+ }

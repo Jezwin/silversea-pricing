@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Ship Teaser ND 2018"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <verticalteaser
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Global"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <componentType
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                    fieldDescription="Choose which type of component you want to use: Target path or custom title and image"
+                                    fieldLabel="Type"
+                                    name="./componentType">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <target
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Target"
+                                            value="target"/>
+                                    <custom
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Custom"
+                                            value="custom"/>
+                                </items>
+                            </componentType>
+                            <targetpath
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Target path"
+                                    name="./reference"
+                                    rootPath="/content/silversea-com"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <linkKind
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                    fieldDescription="Choose how to open the link"
+                                    fieldLabel="Link kind"
+                                    name="./linkKind">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <target
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Same Page"
+                                            value="_self"/>
+                                    <custom
+                                            jcr:primaryType="nt:unstructured"
+                                            text="New page"
+                                            value="_blank"/>
+                                </items>
+                            </linkKind>
+                            <description
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Description"
+                                    name="./description"
+                                    rootPath="/content/dam/silversea-com"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                            />
+                            <customTitle
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Custom title"
+                                    name="./customTitle"
+                                    rootPath="/content/dam/silversea-com"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield"/>
+                            <customImage
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Custom image"
+                                    name="./customImage"
+                                    rootPath="/content/dam/silversea-com"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <customLink
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Custom link"
+                                    name="./customLink"
+                                    rootPath="/"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                        </items>
+                    </column>
+                </items>
+            </verticalteaser>
+            <desktop jcr:primaryType="nt:unstructured" jcr:title="Desktop"
+                     sling:resourceType="granite/ui/components/foundation/section" name="./desktop">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <hideDescriptionDesktop jcr:primaryType="nt:unstructured" text="Hide description" name="./hideDescriptionDesktop" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <height jcr:primaryType="nt:unstructured" fieldLabel="Height of picture in pixel"
+                                    name="./heightDesktopPixel" min="10" step="5" max="1800" defaultValue="300"
+                                    sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <heightcontent jcr:primaryType="nt:unstructured" fieldLabel="Height of content in pixel"
+                                    name="./minHeightDesktopPixel" min="10" step="5" max="1800" defaultValue="120"
+                                    sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel"
+                                       name="./marginTopDesktopPixel" min="0" step="5" max="1800" defaultValue="0"
+                                       sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel"
+                                          name="./marginBottomDesktopPixel" min="0" step="5" max="1800"
+                                          defaultValue="30"
+                                          sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <whiteBackgroundDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./whiteBackgroundDesktop"
+                                    text="White Background"
+                                    value="true"/>
+                            <centerContentDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./centerContentDesktop"
+                                    text="Center content"
+                                    value="true"/>
+                            <uppercaseTitleDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./uppercaseTitleDesktop"
+                                    text="Uppercase title"
+                                    value="true"/>
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+
+
+            <tablet jcr:primaryType="nt:unstructured" jcr:title="Tablet"
+                    sling:resourceType="granite/ui/components/foundation/section" name="./tablet">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <hideDescriptionTablet jcr:primaryType="nt:unstructured" text="Hide description" name="./hideDescriptionTablet" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <height jcr:primaryType="nt:unstructured" fieldLabel="Height in of picture  pixel"
+                                    name="./heightTabletPixel" min="10" step="5" max="1800" defaultValue="280"
+                                    sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <heightcontent jcr:primaryType="nt:unstructured" fieldLabel="Height of content in pixel"
+                                           name="./minHeightTabletPixel" min="10" step="5" max="1800" defaultValue="120"
+                                           sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel"
+                                       name="./marginTopTabletPixel" min="0" step="5" max="1800" defaultValue="0"
+                                       sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel"
+                                          name="./marginBottomTabletPixel" min="0" step="5" max="1800" defaultValue="30"
+                                          sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <centerContentTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./centerContentTablet"
+                                    text="Center content"
+                                    value="true"/>
+                            <uppercaseTitleTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./uppercaseTitleTablet"
+                                    text="Uppercase title"
+                                    value="true"/>
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+
+            <mobile jcr:primaryType="nt:unstructured" jcr:title="Mobile"
+                    sling:resourceType="granite/ui/components/foundation/section" name="./mobile">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <hideDescriptionMobile jcr:primaryType="nt:unstructured" text="Hide description" name="./hideDescriptionMobile" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <height jcr:primaryType="nt:unstructured" fieldLabel="Height of picture  in pixel"
+                                    name="./heightMobilePixel" min="10" step="5" max="1800" defaultValue="250"
+                                    sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <heightcontent jcr:primaryType="nt:unstructured" fieldLabel="Height of content in pixel"
+                                           name="./minHeightMobilePixel" min="10" step="5" max="1800" defaultValue="120"
+                                           sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel"
+                                       name="./marginTopMobilePixel" min="0" step="5" max="1800" defaultValue="0"
+                                       sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel"
+                                          name="./marginBottomMobilePixel" min="0" step="5" max="1800" defaultValue="30"
+                                          sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <centerContentMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./centerContentMobile"
+                                    text="Center content"
+                                    value="true"/>
+                            <addBorderMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./addBorderMobile"
+                                text="Add Border"
+                                value="true"/>
+                            <whiteBackgroundMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./whiteBackgroundMobile"
+                                    text="White Background"
+                                    value="true"/>
+                            <uppercaseTitleMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./uppercaseTitleMobile"
+                                    text="Uppercase title"
+                                    value="true"/>
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

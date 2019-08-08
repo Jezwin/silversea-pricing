@@ -1,0 +1,69 @@
+<template data-sly-template.singleItemDefault="${ @ singleItem, heightClass}">
+	<a href="${singleItem.path @ extension='html'}">
+		<div class="c-destinationSlider-slide-small">
+			<div class="c-destinationSlider-slide-small-inner">
+				<div class="c-destinationSlider-slide-small-inner__image-wrapper ${heightClass.allDevicesPixel}"
+					data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=singleItem.path}">
+					<sly
+						data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+						data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}" />
+				</div>
+			</div>
+			<p class="c-destinationSlider-slide-small-inner__description">
+				<span class="c-destinationSlider-slide-small-inner__description-title"><span>${singleItem.navigationTitle || singleItem.title @
+					context='html'}</span></span>
+				<span class="c-destinationSlider-slide-small-inner__description-description visible-xs" data-sly-test="${properties.forceCardDescriptionMobile}">${singleItem.excerpt || singleItem.description @
+					context='html'}</span>
+				<span
+					class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i>
+				</span>
+			</p>
+		</div>
+	</a>
+</template>
+
+<template data-sly-template.singleItemBig="${ @ singleItem, heightClass}">
+	<a href="${singleItem.path @ extension='html'}">
+		<div class="c-destinationSlider-slide-small">
+			<div class="c-destinationSlider-slide-small-inner">
+				<div class="c-destinationSlider-slide-small-inner__image-wrapper ${heightClass.allDevicesPixel}"
+					data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=singleItem.path}">
+					<sly
+						data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+						data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}" />
+				</div>
+			</div>
+			<p class="c-destinationSlider-slide-small-inner__description">
+				<span class="c-destinationSlider-slide-small-inner__description-title">${singleItem.navigationTitle || singleItem.title @
+					context='html'}</span>
+					<span class="c-destinationSlider-slide-small-inner__description-description">${singleItem.excerpt || singleItem.description @
+					context='html'}</span>
+				<span class="c-destinationSlider-slide-small-inner__description-description visible-xs" data-sly-test="${properties.forceCardDescriptionMobile}">${singleItem.excerpt || singleItem.description @
+					context='html'}</span>
+					<span class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i>
+				</span>
+			</p>
+		</div>
+	</a>
+</template>
+
+<template data-sly-template.singleItemBigLanding="${ @ singleItem, heightClass}">
+	<a href="${singleItem.path @ extension='html'}">
+		<div class="c-destinationSlider-slide-small">
+			<div class="c-destinationSlider-slide-small-inner">
+				<div class="c-destinationSlider-slide-small-inner__image-wrapper ${heightClass.allDevicesPixel}"
+					data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=singleItem.path}">
+					<sly
+						data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+						data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}" />
+				</div>
+			</div>
+			<p class="c-destinationSlider-slide-small-inner__description">
+				<span class="c-destinationSlider-slide-small-inner__description-title">${singleItem.navigationTitle || singleItem.title @
+					context='html'}</span>
+				<span class="c-destinationSlider-slide-small-inner__description-description visible-xs" data-sly-test="${properties.forceCardDescriptionMobile}">${singleItem.excerpt || singleItem.description @
+					context='html'}</span>
+			</p>
+		</div>
+	</a>
+</template>

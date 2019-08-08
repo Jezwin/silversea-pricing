@@ -1,0 +1,30 @@
+<template data-sly-template.default="${ @ path, title }" data-sly-test=${path}>
+	<div id="container-id" style="height: 500px"></div>
+	<script>
+		$(function() { 
+			var panoramaImage = "${path @ context='unsafe'}";
+			var title = "${title @ context='unsafe'}";
+			if (panoramaImage != null) {
+				var viewer = PhotoSphereViewer({
+				    container: 'container-id',
+				    panorama: panoramaImage,
+				    anim_speed: '0.5rpm',
+			        move_speed: 1.0,
+			        time_anim: '1000',
+			        min_fov: 10,
+	                default_fov: 179,
+	                usexmpdata:  false,
+			        caption: title,
+			        navbar: [
+			            'autorotate', 
+			            'zoom',
+			            'spacer-1',
+			            'caption',
+			            'gyroscope',
+			            'fullscreen'
+			        ]
+				  });
+			}
+		});
+	</script> 
+</template>

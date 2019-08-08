@@ -1,0 +1,18 @@
+<template data-sly-template.default="${ @ brochure, currentStyle }">
+<sly data-sly-use.externalizedOnlinePath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentStyle.onlineRequestFormReference, absolute=false}" />
+<sly data-sly-use.externalizedPrintedPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentStyle.printedRequestFormReference, absolute=false}" />
+
+            <div data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper" data-sly-test.countrySelector="country_${countryHelper.country}" data-sly-unwrap></div>
+            <h2 class="c-brochure__title visible-lg visible-md">${brochure.assetTitle}</h2>
+            <p class="c-brochure__description">${brochure.assetDescription}</p>
+            <p class="c-brochure__btnwrapper"
+               data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
+                <a data-sly-test="${currentStyle.onlineRequestFormReference}"
+                   href="${externalizedOnlinePath.externalizedUrl @ selectors=['modalcontent', countrySelector] , extension='html'}${brochure.brochurePath}.html"
+                   class="btn btn-red btn-lg c-brochure__btn effect" data-toggle="modal"
+                   data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                    <strong>${properties.btnTitle}</strong>
+                </a>
+            </p>
+
+</template>

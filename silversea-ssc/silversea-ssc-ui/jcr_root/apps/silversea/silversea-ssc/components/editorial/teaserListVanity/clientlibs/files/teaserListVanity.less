@@ -1,0 +1,59 @@
+@import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
+
+.c-teaser-list-vanity {
+    .row-centered {
+      text-align:center;
+    }
+    .col-centered {
+      display:inline-block;
+      float:none;
+
+      /* inline-block space fix */
+      margin-left:-2px;
+      margin-right:-2px;
+
+    }
+    .c-teaser-item {
+      margin-bottom: 5px;
+      @media (max-width: 991px) and (min-width:768px){
+        width:33.33333% !important;
+      }
+      .c-teaser-item-image {
+          height:120px;
+        position:relative;
+        background-color:black;
+        overflow: hidden;
+        img{
+          @media (min-width: 768px) {
+            transform: scale(1.05);
+            -webkit-transition: all 0.5s linear;
+            -moz-transition: all 1s linear;
+            -o-transition: all 1s linear;
+            transition: all 0.5s linear;
+          }
+        }
+      }
+      .c-teaser-item-title {
+        font-family:@suisse;
+        text-align: center;
+        font-size: 14px;
+        text-transform: uppercase;
+        padding-top:7px;
+        padding-bottom: 15px;
+      }
+    }
+
+  .c-teaser-item:hover{
+    .c-teaser-item-image {
+      img {
+        transform: scale(1) !important;
+        -ms-transform: scale(1) !important;
+        -moz-transform: scale(1) !important;
+        -webkit-transform: scale(1) !important;
+        -o-transform: scale(1) !important;
+        opacity: .5 !important;
+      }
+    }
+  }
+
+}

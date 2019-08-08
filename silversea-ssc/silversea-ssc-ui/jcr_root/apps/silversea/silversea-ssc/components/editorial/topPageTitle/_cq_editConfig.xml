@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:EditConfig">
+    <cq:listeners
+        jcr:primaryType="cq:EditListenersConfig"
+        afterdelete="REFRESH_PAGE"
+        afteredit="REFRESH_PAGE"
+        afterinsert="REFRESH_PAGE"
+        afterMove="REFRESH_PAGE" />
+    <cq:inplaceEditing
+            jcr:primaryType="cq:InplaceEditingConfig"
+            active="{Boolean}true"
+            configPath="/apps/silversea/silversea-com/components/editorial/text/cq:editConfig/cq:inplaceEditing/config"
+            editorType="text"/>
+</jcr:root>

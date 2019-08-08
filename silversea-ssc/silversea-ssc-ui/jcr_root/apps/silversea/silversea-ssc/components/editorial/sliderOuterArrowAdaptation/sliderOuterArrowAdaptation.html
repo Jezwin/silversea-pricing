@@ -1,0 +1,8 @@
+<div data-sly-test="${wcmmode.edit}">
+Slider outer arrow adaptation : Number ${properties['sliderNb'] @ context='html'}
+</div>
+<script>
+setTimeout(function(){
+	adaptSliderNb(${properties['sliderNb'] @ context='unsafe'});
+}, 2000);
+</script>

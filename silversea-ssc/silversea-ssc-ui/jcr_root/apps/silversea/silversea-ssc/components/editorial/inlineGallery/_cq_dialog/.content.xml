@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" jcr:primaryType="nt:unstructured" jcr:title="SSC - Inline Gallery" sling:resourceType="cq/gui/components/authoring/dialog">
+        <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+            <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/tabs" type="nav" />
+            <items jcr:primaryType="nt:unstructured">
+                <main jcr:primaryType="nt:unstructured" jcr:title="Main options" sling:resourceType="granite/ui/components/foundation/section">
+                    <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" margin="{Boolean}false" />
+                    <items jcr:primaryType="nt:unstructured">
+                        <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                            <items jcr:primaryType="nt:unstructured">
+                                <assetSelectionReference jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/pathbrowser" fieldLabel="Asset selection" name="./assetSelectionReference" rootPath="/content/dam/silversea-com" />
+                            </items>
+                        </column>
+                    </items>
+                </main>
+                <desktop jcr:primaryType="nt:unstructured" jcr:title="Desktop options" sling:resourceType="granite/ui/components/foundation/container">
+                    <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                    <items jcr:primaryType="nt:unstructured">
+                        <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                            <items jcr:primaryType="nt:unstructured">
+                                <disableLightboxGalleryDesktop jcr:primaryType="nt:unstructured" text="Disable lightbox" name="./disableLightboxGalleryDesktop" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                <numberItemsDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="1" step="1" max="20" defaultValue="3" fieldLabel="Number items" fieldDescription="Choose the number of items" name="./numberItemsDesktop"/>
+                                <marginTopDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="-20" step="5" max="40" defaultValue="0" fieldLabel="Margin Top" fieldDescription="Choose the component Top margin on desktop" name="./marginTopDesktop" />
+                                <marginBottomDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="-20" step="5" max="40" defaultValue="0" fieldLabel="Margin Bottom" fieldDescription="Choose the component Bottom margin on desktop" name="./marginBottomDesktop" />
+                                <paddingTopDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" max="40" defaultValue="0" fieldLabel="Padding Top" fieldDescription="Choose the component Top padding on desktop" name="./paddingTopDesktop" />
+                                <paddingBottomDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" max="40" defaultValue="0" fieldLabel="Padding Bottom" fieldDescription="Choose the component Bottom padding on desktop" name="./paddingBottomDesktop"/>
+                                <forceBiggerWidth jcr:primaryType="nt:unstructured" text="Force 1920px width" name="./forceBiggerWidth" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                <cssDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css desktop" rows="5" fieldDescription="Custom css only desktop" name="./cssDesktop" />
+                            </items>
+                        </column>
+                    </items>
+                </desktop>
+                <tablet jcr:primaryType="nt:unstructured" jcr:title="Tablet options" sling:resourceType="granite/ui/components/foundation/container">
+                    <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                    <items jcr:primaryType="nt:unstructured">
+                        <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                            <items jcr:primaryType="nt:unstructured">
+                                <disableLightboxGalleryTablet jcr:primaryType="nt:unstructured" text="Disable lightbox" name="./disableLightboxGalleryTablet" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                <numberItemsTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="1" step="1" max="20" defaultValue="3" fieldLabel="Number items" fieldDescription="Choose the number of items" name="./numberItemsTablet" />
+                                <marginTopTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="-20" step="5" max="40" defaultValue="5" fieldLabel="Margin Top" fieldDescription="Choose the component Top margin on tablet" name="./marginTopTablet" />
+                                <marginBottomTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="-20" step="5" max="40" defaultValue="5" fieldLabel="Margin Bottom" fieldDescription="Choose the component Bottom margin on tablet" name="./marginBottomTablet"/>
+                                <paddingTopTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" max="40" defaultValue="0" fieldLabel="Padding Top" fieldDescription="Choose the component Top padding on tablet" name="./paddingTopTablet" />
+                                <paddingBottomTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" max="40" defaultValue="0" fieldLabel="Padding Bottom" fieldDescription="Choose the component Bottom padding on tablet" name="./paddingBottomTablet" />
+                                <cssTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css tablet" rows="5" fieldDescription="Custom css only tablet" name="./cssTablet" />
+                            </items>
+                        </column>
+                    </items>
+                </tablet>
+                <mobile jcr:primaryType="nt:unstructured" jcr:title="Mobile options" sling:resourceType="granite/ui/components/foundation/container">
+                    <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                    <items jcr:primaryType="nt:unstructured">
+                        <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                            <items jcr:primaryType="nt:unstructured">
+                                    <disableLightboxGallery jcr:primaryType="nt:unstructured" text="Disable lightbox" name="./disableLightboxGallery" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                    <enableInlineGalleryHB jcr:primaryType="nt:unstructured" text="Enable Inline Gallery Image inside HeroBanner" name="./enableInlineGalleryHB" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                    <marginTopMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="-20" step="5" max="40" defaultValue="5" fieldLabel="Margin Top" fieldDescription="Choose the component Top margin on mobile" name="./marginTopMobile" />
+                                    <marginBottomMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="-20" step="5" max="40" defaultValue="5" fieldLabel="Margin Bottom" fieldDescription="Choose the component Bottom margin on mobile" name="./marginBottomMobile" />
+                                    <paddingTopMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" max="40" defaultValue="0" fieldLabel="Padding Top" fieldDescription="Choose the component Top padding on mobile" name="./paddingTopMobile" />
+                                    <paddingBottomMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" max="40" defaultValue="5" fieldLabel="Padding Bottom" fieldDescription="Choose the component Bottom padding on mobile" name="./paddingBottomMobile" />
+                                    <cssMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css mobile" rows="5" fieldDescription="Custom css only mobile" name="./cssMobile" />
+                            </items>
+                        </column>
+                    </items>
+                </mobile>
+            </items>
+        </content>
+    </jcr:root>

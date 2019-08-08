@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Quote Request Custom"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <quoterequest
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Quote request"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <rootPage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldDescription="Path"
+                                fieldLabel="Thank you page"
+                                name="./pageReference"
+                                rootPath="/content/silversea-com" />
+                            <tags
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/common/tagspicker"
+                                fieldLabel="Countries excluded"
+                                name="./cq:tags" />
+                            <modalDetailSize
+                                      jcr:primaryType="nt:unstructured"
+                                      sling:resourceType="granite/ui/components/foundation/form/select"
+                                      fieldLabel="Detail size"
+                                      name="./modalDetailSize"
+                                      value="5"
+                                      defaultValue="5"
+                                      required="{Boolean}true">
+                                  <items jcr:primaryType="nt:unstructured">
+                                      <size12
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 12"
+                                              value="12" />
+                                      <size11
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 11"
+                                              value="11" />
+                                      <size10
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 10"
+                                              value="10" />
+                                      <size9
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 9"
+                                              value="9" />
+                                      <size8
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 8"
+                                              value="8" />
+                                      <size7
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 7"
+                                              value="7" />
+                                      <size6
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 6"
+                                              value="6" />
+                                      <size5
+                                              jcr:primaryType="nt:unstructured"
+                                              selected="true"
+                                              text="Size 5"
+                                              value="5" />
+                                      <size4
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 4"
+                                              value="4" />
+                                  </items>
+                            </modalDetailSize>
+                            <modalFormSize
+                                      jcr:primaryType="nt:unstructured"
+                                      sling:resourceType="granite/ui/components/foundation/form/select"
+                                      fieldLabel="Form size"
+                                      name="./modalFormSize"
+                                      value="7"
+                                      defaultValue="7"
+                                      required="{Boolean}true">
+                                  <items jcr:primaryType="nt:unstructured">
+                                      <size12
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 12"
+                                              value="12" />
+                                      <size11
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 11"
+                                              value="11" />
+                                      <size10
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 10"
+                                              value="10" />
+                                      <size9
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 9"
+                                              value="9" />
+                                      <size8
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 8"
+                                              value="8" />
+                                      <size7
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 7"
+                                              selected="true"
+                                              value="7" />
+                                      <size6
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 6"
+                                              value="6" />
+                                      <size5
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 5"
+                                              value="5" />
+                                      <size4
+                                              jcr:primaryType="nt:unstructured"
+                                              text="Size 4"
+                                              value="4" />
+                                  </items>
+                             </modalFormSize>
+                        </items>
+                    </column>
+                </items>
+            </quoterequest>
+        </items>
+    </content>
+</jcr:root>

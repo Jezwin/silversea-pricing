@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Exclusive Offer Main Informations"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            margin="{Boolean}false"/>
+         <items jcr:primaryType="nt:unstructured">
+            <main
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Global options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                           	<rootPath
+								jcr:primaryType="nt:unstructured"
+								fieldLabel="EO Root Path"
+                                fieldDescription="Exclusive Offer Root Path to fecth EO"
+								name="./rootPath"
+								sling:resourceType="granite/ui/components/foundation/form/pathbrowser" 
+                                rootPath="/content/silversea-com" />
+                        </items>
+                    </column>
+                </items>
+            </main>
+            <desktop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                           <titleFontSizeDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="30"
+                                fieldDescription="Font size title"
+                                fieldLabel="Font size title"
+                                min="0"
+                                name="./titleFontSizeDesktop"/>
+                           <marginTitleDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                value="0px 0px 10px 0px"
+                                fieldDescription="Margin title (0px 0px 10px 0px)"
+                                fieldLabel="Margin title"
+                                name="./marginTitleDesktop"/>
+                           <descriptionFontSizeDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="14"
+                                fieldDescription="Font size description"
+                                fieldLabel="Font size description"
+                                min="0"
+                                name="./descriptionFontSizeDesktop"/>
+                           <marginDescriptionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                value="0px"
+                                fieldDescription="Margin description (0px)"
+                                fieldLabel="Margin description"
+                                name="./marginDescriptionDesktop"/>
+                           <shortDescriptionFontSizeDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="14"
+                                fieldDescription="Font size short description"
+                                fieldLabel="Font size short description"
+                                min="0"
+                                name="./shortDescriptionFontSizeDesktop"/>
+                             <marginShortDescriptionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                value="0px"
+                                fieldDescription="Margin short description (0px)"
+                                fieldLabel="Margin short description"
+                                name="./marginShortDescriptionDesktop"/>
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <mobile
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Mobile options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<positionDescriptionMobile
+							    jcr:primaryType="nt:unstructured"
+							    sling:resourceType="granite/ui/components/foundation/form/select"
+							    fieldLabel="Position description"
+							    fieldDescription="Position description"
+							    name="./positionDescriptionMobile">
+							  <items jcr:primaryType="nt:unstructured">
+							 	 <bottom
+							    	jcr:primaryType="nt:unstructured"
+							      	text="bottom"
+							      	value="bottom"/>
+							  	<top
+							    	jcr:primaryType="nt:unstructured"
+							      	text="top"
+							      	value="top"/>
+							  </items>
+							</positionDescriptionMobile>
+                           <titleFontSizeMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="26"
+                                fieldDescription="Font size title"
+                                fieldLabel="Font size title"
+                                min="0"
+                                name="./titleFontSizeMobile"/>
+                            <marginTitleMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                value="0px 0px 10px 0px"
+                                fieldDescription="Margin title (0px 0px 0px 10px)"
+                                fieldLabel="Margin title"
+                                name="./marginTitleMobile"/>
+                           <descriptionFontSizeMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="14"
+                                fieldDescription="Font size description"
+                                fieldLabel="Font size description"
+                                min="0"
+                                name="./descriptionFontSizeMobile"/>
+                            <marginDescriptionMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                value="0px"
+                                fieldDescription="Margin description (0px)"
+                                fieldLabel="Margin description"
+                                name="./marginDescriptionMobile"/>
+                           <shortDescriptionFontSizeMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="14"
+                                fieldDescription="Font size short description"
+                                fieldLabel="Font size short description"
+                                min="0"
+                                name="./shortDescriptionFontSizeMobile"/>
+                            <marginShortDescriptionMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                value="0px"
+                                fieldDescription="Margin short description (0px)"
+                                fieldLabel="Margin short description"
+                                name="./marginShortDescriptionMobile"/>
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

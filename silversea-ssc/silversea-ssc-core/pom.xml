@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ====================================================================== -->
+    <!-- P A R E N T   P R O J E C T   D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <parent>
+        <groupId>com.silversea.aem</groupId>
+        <artifactId>silversea-ssc</artifactId>
+        <version>2.1.S13-SNAPSHOT</version>
+    </parent>
+
+    <!-- ====================================================================== -->
+    <!-- P R O J E C T   D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <artifactId>silversea-ssc-core</artifactId>
+    <packaging>bundle</packaging>
+    <name>Silversea.com Internal Core</name>
+    <description>Silversea.com Core bundle</description>
+
+    <!-- ====================================================================== -->
+    <!-- P R O P E R T I E S -->
+    <!-- ====================================================================== -->
+    <properties>
+        <sonar.sources>src</sonar.sources>
+    </properties>
+
+    <!-- ====================================================================== -->
+    <!-- B U I L D -->
+    <!-- ====================================================================== -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Export-Package>
+                            com.silversea.ssc.aem.*
+                        </Export-Package>
+                        <Sling-Model-Packages>
+                            com.silversea.ssc.aem.models
+                        </Sling-Model-Packages>
+                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                        <Import-Package>
+                            android.util;resolution:=optional,
+                            *
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- ====================================================================== -->
+    <!-- D E P E N D E N C I E S -->
+    <!-- ====================================================================== -->
+    <dependencies>
+        <dependency>
+            <groupId>com.silversea.aem</groupId>
+            <artifactId>silversea-com-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr.annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.day.commons.osgi.wrapper</groupId>
+            <artifactId>com.day.commons.osgi.wrapper.commons-httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
+        </dependency>
+
+        <!-- AEM APIs JAR -->
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>uber-jar</artifactId>
+            <classifier>apis</classifier>
+        </dependency>
+		 <!-- Custom Cache Flusher API -->
+        <dependency>
+		        <groupId>biz.aQute</groupId>
+		        <artifactId>bndlib</artifactId>
+            </dependency>
+    </dependencies>
+</project>

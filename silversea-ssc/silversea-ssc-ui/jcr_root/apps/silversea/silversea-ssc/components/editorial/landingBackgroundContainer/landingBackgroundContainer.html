@@ -1,0 +1,159 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Background Container - (#c-landingBackgroundContainer-${properties.sscUUID  || properties.jcr:uuid })"></div>
+<div id="c-landingBackgroundContainer-${properties.sscUUID  || properties.jcr:uuid }" class="c-landingBackgroundContainer ${properties.hiddenMobile ? 'hiddenMobile' : ''}  ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.goldText ? 'goldText' : ''} ${properties.styleComponent ? 'c-landingBackgroundContainer-2017Landing' : ''} ${properties.styleComponent ? 'c-landingBackgroundContainer-NSW4Landing' : ''}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+	<sly data-sly-test="${properties.assetReference}">
+	<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = properties.assetReference}"></sly>
+	<div class="lp17__section lp17__bgset lp17__section-cruises bg_cruseblock" style="background-image: url(${assetHelper.imageUrl @context='unsafe'}?wid=${image.desktopRetinaWidth @ context='unsafe'}&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1)"> 
+	</sly>
+	<sly data-sly-test="${!properties.assetReference && !properties.greyBackground}">
+	<div class="lp17__section lp17__bgset lp17__section-cruises bg_cruseblock">
+	</sly>
+	<sly data-sly-test="${!properties.assetReference && properties.greyBackground}">
+	<div class="lp17__section lp17__bgset lp17__section-cruises bg_cruseblock bg_grey" style="padding:10px 0;">
+	</sly>
+	<sly data-sly-test="${!properties.assetReference && properties.blackBackground}">
+	<div class="lp17__section lp17__bgset lp17__section-cruises bg_cruseblock bg_black" style="padding:10px 0;">
+	</sly>
+	<sly data-sly-test="${!properties.assetReference && properties.newDarkGrey}">
+	<div class="lp17__section lp17__bgset lp17__section-cruises bg_cruseblock newDarkGrey" style="padding:10px 0;">
+	</sly>
+		<div class="lp17__section_header ${properties.reduceMarginUnderTitle ? 'reduceMarginUnderTitle' : ''}" data-sly-test="${properties.jcr:title || properties.jcr:description}">
+			<div class="container ${properties.dmpTitleStyle ? 'dmpTitleStyle' : ''} ${properties.normalWidth ? 'normalWidth' : ''} ${properties.largerWidth ? 'largerWidth' : ''}">
+			    <h1 class="lp17__section_header_h1 lp17__section_header_subtitle ${properties.whiteTitle ? 'white' : ''}" data-sly-test="${properties.jcr:title && properties.titletag == 'h1'}">
+			    	<a data-sly-test="${properties.urllink}" href="${properties.urllink @ extension='html'}">
+				    	${properties.jcr:title}
+			    	</a>
+			    	<span data-sly-test="${!properties.urllink @ extesion='html'}">${properties.jcr:title}</span>
+			    </h1>
+				<h2 class="lp17__section_header_subtitle ${properties.whiteTitle ? 'white' : ''}" data-sly-test="${properties.jcr:title && properties.titletag == 'h2' || !properties.titletag}">
+					<a data-sly-test="${properties.urllink}" href="${properties.urllink @ extension='html'}">
+				    	${properties.jcr:title}
+			    	</a>
+			    	<span data-sly-test="${!properties.urllink @ extesion='html'}">${properties.jcr:title}</span>
+				</h2>
+				<h3 class="lp17__section_header_subtitle ${properties.whiteTitle ? 'white' : ''}" data-sly-test="${properties.jcr:title && properties.titletag == 'h3'}">
+					<a data-sly-test="${properties.urllink}" href="${properties.urllink @ extension='html'}">
+				    	${properties.jcr:title}
+			    	</a>
+			    	<span data-sly-test="${!properties.urllink @ extesion='html'}">${properties.jcr:title}</span>
+				</h3>
+				<span class="lp17__section_header_subtitle ${properties.whiteTitle ? 'white' : ''}" data-sly-test="${properties.jcr:title && properties.titletag == 'span'}">
+					<a data-sly-test="${properties.urllink}" href="${properties.urllink @ extension='html'}">
+				    	${properties.jcr:title}
+			    	</a>
+			    	<span data-sly-test="${!properties.urllink @ extesion='html'}">${properties.jcr:title}</span>
+				</span>
+				<span class="lp17__section_header_title ${properties.whiteTitle ? 'white' : ''} ${properties.showSubtitleMobile && properties.dmpTitleStyle ? 'showSubtitleMobileDMP': ''} ${properties.doNotForceDescriptionUppercase ? 'doNotForceDescriptionUppercase' : ''}" data-sly-test="${properties.jcr:description}">${properties.jcr:description}</span>
+				<sly data-sly-test="${!properties.goldText}">
+					<div class="lp17__section_header_separator lp17__section_header_separator-${properties.separatorColor} ${properties.lightSeparator ? 'lp17__section_header_separator-light' : ''} ${properties.hideSeparatorDesktop ? 'hideSeparatorDesktop' : ''} ${properties.hideSeparatorMobile ? 'hideSeparatorMobile' : ''}" data-sly-test="${properties.jcr:title || properties.jcr:description}"></div>
+				</sly>
+			</div>
+		</div>
+		<div class="lp17__section__content">
+			<div class="lp17__cruiseblurbs">
+				<div class="container ${properties.normalWidth ? 'normalWidth' : ''} ${properties.largerWidth ? 'largerWidth' : ''} ${properties.greyBackgroundContentOnly ? 'bg_grey' : ''}">
+					  <div data-sly-resource="${'parBackgroundContainer' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<style data-sly-test="${properties.marginTopMobile && properties.marginTopMobile != '10'}">
+	@media (max-width: 767px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .bg_cruseblock {
+			padding-top: ${properties.marginTopMobile @ context="unsafe" || 10 }px;
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.marginBottomMobile && properties.marginBottomMobile != '10'}">
+	@media (max-width: 767px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .bg_cruseblock {
+			padding-bottom: ${properties.marginBottomMobile @ context="unsafe" || 10 }px;
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.marginTopDesktop && properties.marginTopDesktop != '36'}">
+	@media (min-width: 768px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .bg_cruseblock {
+			padding-top: ${properties.marginTopDesktop @ context="unsafe" || 36 }px;
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.marginBottomDesktop && properties.marginBottomDesktop != '36'}">
+	@media (min-width: 768px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .bg_cruseblock {
+			padding-bottom: ${properties.marginBottomDesktop @ context="unsafe" || 36 }px;	
+		}
+	}
+</style>
+
+
+
+<style data-sly-test="${properties.marginLightSeparatorDesktop}">
+	@media (min-width: 768px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .lp17__section_header_separator-light {
+			margin: ${properties.marginLightSeparatorDesktop @ context="unsafe" || '10px auto 15px auto'} !important;	
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.marginLightSeparatorMobile}">
+	@media (max-width: 767px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .lp17__section_header_separator-light {
+			margin: ${properties.marginLightSeparatorMobile @ context="unsafe" || '10px auto 15px auto'} !important;	
+		}
+	}
+</style>
+
+
+<style data-sly-test="${properties.marginH1Desktop}">
+	@media (min-width: 768px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .lp17__section_header_h1 {
+			margin: ${properties.marginH1Desktop @ context="unsafe" || '0 0 25px'} !important;	
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.marginH1Mobile}">
+	@media (max-width: 767px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .lp17__section_header_h1 {
+			margin: ${properties.marginH1Mobile @ context="unsafe" || '0 0 25px'} !important;	
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.widthLightSeparatorDesktop}">
+	@media (min-width: 768px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .lp17__section_header_separator-light {
+			max-width: ${properties.widthLightSeparatorDesktop @ context="unsafe" || '101px'} !important;	
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.widthLightSeparatorMobile}">
+	@media (max-width: 767px) {
+		#c-landingBackgroundContainer-${properties.sscUUID @ context="unsafe"} .lp17__section_header_separator-light {
+			max-width: ${properties.widthLightSeparatorMobile @ context="unsafe" || '101px'} !important;	
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) {
+        ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {
+        ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+        ${properties.cssMobile @ context='html'}
+    }
+</style>
+
+

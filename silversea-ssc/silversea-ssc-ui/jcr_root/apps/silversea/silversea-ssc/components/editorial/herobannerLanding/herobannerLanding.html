@@ -1,0 +1,137 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Hero banner landing - (#c-hero-banner-landing-${properties.sscUUID})"></div>
+<sly data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
+	<sly data-sly-use.heroBannerTemplate="silversea/silversea-ssc/components/editorial/herobannerLanding/herobannertemplate.html">
+		<sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default @ banner=banner}" />
+		<sly data-sly-test="${properties.type == 'home'}" data-sly-call="${heroBannerTemplate.home @ banner=banner}" />
+		<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer @ banner=banner}" />
+		<sly data-sly-test="${properties.type == 'style1'}" data-sly-call="${heroBannerTemplate.style1 @ banner=banner}" />
+		<sly data-sly-test="${properties.type == 'style2'}" data-sly-call="${heroBannerTemplate.style2 @ banner=banner}" />
+	</sly>
+	<sly data-sly-use.heroBannerTemplateLanding="silversea/silversea-ssc/components/editorial/herobannerLanding/herobannertemplateLanding.html">
+		<sly data-sly-test="${properties.type == 'landingNSW4'}" data-sly-call="${heroBannerTemplateLanding.landingNSW4 @ banner=banner}" />
+		<sly data-sly-test="${properties.type == 'landing2017'}" data-sly-call="${heroBannerTemplateLanding.landing2017 @ banner=banner}" />
+	    <sly data-sly-test="${properties.type == 'landing2018'}" data-sly-call="${heroBannerTemplateLanding.landing2018 @ banner=banner}" />
+	</sly>
+
+	<sly data-sly-test="${properties.enableInlineGallery && banner.inlineGalleryID}">
+		<script>
+			if($(window).width() < 768){
+			    $(document).ready(function() {   
+
+			    	$('#c-hero-banner-landing-${properties.sscUUID @context="unsafe"}.c-hero-banner-mobile-version .c-hero-banner-landing__image').replaceWith($('${banner.inlineGalleryID @ context="unsafe"}'));
+			    	$('${banner.inlineGalleryID @ context="unsafe"}').addClass("inside-hero-banner");
+			    	$('#c-hero-banner-landing-${properties.sscUUID @context="unsafe"}.c-hero-banner-mobile-version .c-hero-banner-landing__image').css("display", "inline-block");
+			    	$('#c-hero-banner-landing-${properties.sscUUID @context="unsafe"}.c-hero-banner-mobile-version a.automatic-gallery-modal:not(.video-link)').removeClass("automatic-gallery-modal");
+			    	$('#c-hero-banner-landing-${properties.sscUUID @context="unsafe"}.c-hero-banner-mobile-version a.automatic-gallery-modal.video-link').css("left", "50%");
+			    	inlineGalleryID = '${ banner.inlineGalleryID @ context="unsafe" }';
+			        if(inlineGalleryID.indexOf('c-inlinegallery-') > -1){
+			        	setTimeout(function () {
+			        		$('${banner.inlineGalleryID @ context="unsafe"}').slick('unslick');
+			        		$('${banner.inlineGalleryID @ context="unsafe"}').slick();
+			        	}, 10);
+			        }
+
+			    	$('#c-hero-banner-landing-${properties.sscUUID @context="unsafe"}.c-hero-banner-mobile-version').delegate("a.automatic-gallery-modal.video-link","click", function(){
+						var intervalGallery = setInterval(function(){
+                            var gallery = $(".modal .modal-content--gallery .c-gallery");
+                            var slickElement = $(".modal .modal-content--gallery .c-gallery .c-slider");
+                            if(gallery != null && gallery.length > 0 && slickElement != null && slickElement.slick != null && slickElement.hasClass('slick-initialized')) {
+                                $(".modal .modal-content--gallery .c-gallery .c-slider").slick("slickSetOption", "swipe",false , false); 
+                                setTimeout(function(){ $(".modal .modal-content--gallery .c-gallery .c-slider").slick("slickSetOption", "swipe",false , false); }, 500);
+                                clearInterval(intervalGallery);
+                            }
+			    		},1000);
+                    });
+
+			    	
+				});
+			}
+		</script>
+		<style>
+			@media screen and (max-width: 767px) {
+				.inline-gallery-included .c-inline-gallery .slick-slide a {
+				    margin: 0!important;
+				}
+				${banner.inlineGalleryID @ context="unsafe"}.c-inline-gallery.c-slider .slick-slide > div {
+				    height:${properties.mobileheight || 220 @ context="unsafe"}px !important;
+				}
+				${banner.inlineGalleryID @ context="unsafe"}.inside-hero-banner .c-inline-gallery-slider__image-wrapper  .o-img {
+					height: ${properties.mobileheight @ context="unsafe" || 250 }px !important;
+				}
+			}
+			@media(max-width: 767px) {
+				${banner.inlineGalleryID @ context="unsafe"}.inside-hero-banner, .inline-gallery-included ${banner.inlineGalleryID @ context="unsafe"} {
+			    	margin-top: 0px !important;
+			    	margin-bottom: 0px !important;
+				}
+				
+				#c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"}  .c-hero-banner-landing__image .video-link {
+					display: none;  
+				}
+				.modal-content--gallery .c-gallery__counter{
+					display: none;
+				}
+				.modal-content--gallery .slick-arrow {
+					display: none !important;
+				}
+				
+			}
+		</style>
+	</sly>
+	<style data-sly-test="${properties.cssDesktop}">
+		@media(min-width: 991px) {
+			${properties.cssDesktop @ context='html'}
+		}
+	</style>
+	<style data-sly-test="${properties.cssTablet}">
+		@media(max-width: 990px) and (min-width: 768px) {
+			${properties.cssTablet @ context='html'}
+		}
+	</style>
+	<style data-sly-test="${properties.cssMobile}">
+		@media (max-width: 767px) {
+			${properties.cssMobile @ context='html'}
+		}
+	</style>
+	</sly>
+<style>
+
+ #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image,  #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image .o-img  {
+	height:${properties.mobileheight || 330 @ context="unsafe"}px;
+}
+ #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing, .herobannerLanding {
+	margin-bottom: ${properties.margin || 20 @ context="unsafe"}px !important;
+}
+
+@media (max-width: 767px){
+    #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image picture div {
+    	background-position: ${banner.mobileBackgoundPosition || "center" @ context="unsafe"} !important;
+    }
+    
+	 #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing, .herobannerLanding {
+		margin-bottom: ${properties.marginMobile || 20 @ context="unsafe"}px !important;
+	}
+}
+
+@media (min-width: 768px){
+#c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image picture div, #c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image {
+    	background-position: ${banner.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
+    }
+    
+ #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image,  #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image .o-img  {
+		height:${properties.height || 330 @ context="unsafe"}px;
+}
+
+	}
+	
+	</style>
+	
+	
+	<style data-sly-test="${properties.hideMobileButton1 && properties.hideMobileButton2}">
+		@media (max-width: 767px){
+			#c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"} .c-hero-banner-landing__buttons, .c-hero-banner-landing__description {
+				margin-bottom: 0px !important;
+			}
+		}
+	</style>
+</sly>

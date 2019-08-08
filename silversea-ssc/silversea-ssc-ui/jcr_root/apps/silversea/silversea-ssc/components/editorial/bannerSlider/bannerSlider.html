@@ -1,0 +1,18 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Banner Slider"></div>
+
+<sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse">
+	<div>
+ 		excursions size ::	${portUse.portModel.excursions.size}<br/>
+        landPrograms size ::	${portUse.portModel.landPrograms.size}<br/>
+    	hotels size ::	${portUse.portModel.hotels.size}<br/>
+	</div>
+</sly>
+
+<sly data-sly-use.banner="com.silversea.ssc.aem.models.BannerSliderUse">
+	<div>
+		${banner.bannerBean.showFirstItemOnly}
+    </div>
+	<div data-sly-list="${banner.bannerBean.sliderItems}">
+		<br/>${item.path}::${item.image}<br/>
+    </div>
+</sly>

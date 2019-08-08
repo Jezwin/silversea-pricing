@@ -1,0 +1,88 @@
+.c-brochure-banner {
+	left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    position: relative;
+    right: 50%;
+    width: 100vw;
+    background-color: @color-light-bg;
+
+    .container {
+		@media(min-width: @screen-md-min) {
+			padding-left: 8px;
+			padding-right: 8px;
+		}
+
+		@media(max-width: @screen-sm) {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+
+		@media (max-width: @screen-md-max) {
+	    	display: flex;
+	    	flex-direction: column-reverse;
+	    }
+    }
+    
+    &-info {
+    	@media(max-width: @screen-md-max) {
+	    	text-align:center;
+	    	
+	    	.parbase {
+	    		margin-bottom: 0px !important;
+	    	}
+    	}
+
+    }
+    
+    &-image {
+		text-align:center;
+		img{
+			max-height:350px;
+		}
+    	@media(max-width: @screen-md-max) {
+	    	margin-bottom: 20px;
+    	}
+    }
+    
+	&-title {
+		color: @color-typography;
+		font-size: 30px;
+		letter-spacing: 0.5px;
+		line-height: 32px;
+		display:block;
+		margin-top: 0px;
+		margin-bottom: 18px;
+		font-family: @freight;
+
+		@media(max-width: @screen-md-max) and (min-width: @screen-md-min) {
+			font-size: 33px;
+    	}
+    	
+    	@media(max-width: @screen-sm) {
+			font-size: 22px;
+			line-height: 24px;
+			margin-bottom: 10px;
+    	}
+	}
+
+	&-description {
+		font-size: 22px;
+		color: @color-typography;
+		letter-spacing: 0.5px;
+		line-height: 26px;
+		display:block;
+		margin-bottom: 12px;
+		font-family: @freight;
+
+		 @media(max-width: @screen-md-max) and (min-width: @screen-md-min) {
+			font-size: 20px;
+    	}
+    	@media(max-width: @screen-sm) {
+			font-size: 18px;
+			letter-spacing: 0.25px;	
+			line-height: 20px;
+			margin-bottom: 25px;
+    	}
+	}
+}

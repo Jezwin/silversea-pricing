@@ -1,0 +1,10 @@
+#base=js
+
+three.min.js
+CanvasRenderer.js
+DeviceOrientationControls.js
+Projector.js
+D.min.js
+uevent.min.js
+doT.min.js
+photo-sphere-viewer.min.js

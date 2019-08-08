@@ -1,0 +1,32 @@
+<div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder cq-dd-image"	data-emptytext="Exclusive Offer Tnc - (#c-eo_tnc-${properties.sscUUID})"></div>
+
+<section id="c-eo_tnc-${properties.sscUUID}" class="c-eo_tnc" data-sly-test="${properties.rootPath}">
+
+	<sly data-sly-use.eoTnC="com.silversea.ssc.aem.components.editorial.EoTnCUse" />
+	
+	<div class="c-eo_tnc-list" data-sly-list="${eoTnC.exclusiveOfferList}" data-sly-test="${eoTnC.exclusiveOfferList}">
+		<sly data-sly-test="${item.shortTitle && item.description}">
+			<span class="c-eo_tnc-list-title">${item.shortTitle @ context="html"}</span>
+			<span class="c-eo_tnc-list-description">${item.description @ context="html"}</span>
+		</sly>
+	</div>
+	
+</section>
+<style>
+	@media (min-width: 768px) {
+		#c-eo_tnc-${properties.sscUUID @ context="unsafe"} .c-eo_tnc-list-title {
+			font-size: ${properties.titleFontSizeDesktop @ context="unsafe" || 14 }px !important;
+		}
+		#c-eo_tnc-${properties.sscUUID @ context="unsafe"} .c-eo_tnc-list-description {
+			font-size: ${properties.descriptionFontSizeDesktop @ context="unsafe" || 14 }px !important;
+		}
+	}
+	@media (max-width: 767px) {
+		#c-eo_tnc-${properties.sscUUID @ context="unsafe"} .c-eo_tnc-list-title {
+			font-size: ${properties.titleFontSizeMobile @ context="unsafe" || 14 }px !important;
+		}
+		#c-eo_tnc-${properties.sscUUID @ context="unsafe"} .c-eo_tnc-list-description {
+			font-size: ${properties.descriptionFontSizeMobile @ context="unsafe" || 14 }px !important;
+		}
+	}
+</style>

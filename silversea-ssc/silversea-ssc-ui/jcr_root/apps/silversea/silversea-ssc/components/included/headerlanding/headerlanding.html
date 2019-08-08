@@ -1,0 +1,186 @@
+<sly data-sly-test="${properties.style == 'style1' || properties.style == 'style2' || !properties.style}">
+<div class="c-header__container" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-xs-5">
+                <a href="${pageHelper.homePage.path @ extension='html'}" class="c-header__inner">
+                    <img class="c-header__logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="${pageHelper.homePage.title || currentPage.title}" />
+                </a>
+            </div>
+            <div class="col-sm-9 col-xs-7 c-main-nav-wrapper">
+            <sly data-sly-test="${properties.style == 'style1' || !properties.style}">
+                <div class="c-quote-request hidden-md hidden-lg c-header-landing-cutom-cta" data-sly-test="${properties.raqheaderlink}">
+                    <a data-sly-test="${!properties.raqlightbox}" href="${properties.raqheaderlink} @ extension='html'}" class="c-quote-request-link" data-sscclicktype="clic-RAQ">
+                    	${'request-quote' @ i18n}
+                    </a>
+                    <a data-sly-test="${properties.raqlightbox}" href="${properties.raqheaderlink @ extension='html', selectors='modalcontent'}" class="c-quote-request-link" data-sscclicktype="clic-RAQ" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.raqheaderlink}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                    	${'request-quote' @ i18n}
+                    </a>
+                </div>
+                <div class="c-quote-request hidden-md hidden-lg c-header-landing-cutom-cta" data-sly-test="${properties.broheaderlink}">
+                    <a href="${properties.broheaderlink @ extension='html'}" class="c-quote-request-link c-header-landing-raq" data-sscclicktype="clic-BRO">
+                    	${'brochures' @ i18n}
+                    </a>
+                </div>
+                <div class="c-quote-request hidden-md hidden-lg c-header-landing-cutom-cta" data-sly-test="${properties.fycheaderlinkssc}">
+                	<a href="${properties.fycheaderlinkssc @ extension='html'}" class="c-quote-request-link c-header-landing-raq" data-ssclincktype="clic-FYC">
+                		${'find-your-cruise' @ i18n}
+               		</a>
+                </div>
+            	<nav class="c-main-nav">
+		             <div class="c-main-nav__top" data-sly-test="${properties.raqheaderlink || properties.broheaderlink || properties.fycheaderlinkssc}" >
+					    <ul class="c-main-nav__top__list clearfix c-header-landing-cutom-cta">
+					        <li class="c-main-nav__top__item" data-sly-test="${properties.raqheaderlink}">
+					            <a data-sly-test="${!properties.raqlightbox}" href="${properties.raqheaderlink @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-RAQ">
+					                <span>${'request-quote' @ i18n}</span>
+					            </a>
+								<a data-sly-test="${properties.raqlightbox}"  data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.raqheaderlink}"  href="${properties.raqheaderlink @ extension='html', selectors='modalcontent'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-RAQ" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+					                <span>${'request-quote' @ i18n}</span>
+			                    </a>
+					        </li>
+					        <li class="c-main-nav__top__item c-main-nav__top__item--right" data-sly-test="${properties.broheaderlink}" >
+					            <a href="${properties.broheaderlink @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-BRO">
+					                <span>${'brochures' @ i18n}</span>
+					            </a>
+					        </li>
+					         <li class="c-main-nav__top__item c-main-nav__top__item--right" data-sly-test="${properties.fycheaderlinkssc}" >
+					            <a href="${properties.fycheaderlinkssc @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-FYC">
+					                <span>${'find-your-cruise' @ i18n}</span>
+					            </a>
+					        </li>
+					    </ul>
+					</div>
+                </nav>
+                <sly data-sly-include="call.html"></sly>
+              </sly>
+                
+              <sly data-sly-test="${properties.style == 'style2'}">
+                <sly data-sly-include="call.html"></sly>
+                <div class="c-quote-request hidden-md hidden-lg c-quote-request-style2 c-header-landing-cutom-cta" data-sly-test="${properties.raqheaderlink}">
+                     <a data-sly-test="${!properties.raqlightbox}" href="${properties.raqheaderlink @ extension='html'}" class="c-quote-request-link" data-sscclicktype="clic-RAQ">
+		                <span>${'request-quote' @ i18n}</span>
+		            </a>
+					<a data-sly-test="${properties.raqlightbox}"  data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.raqheaderlink}"  href="${properties.raqheaderlink @ extension='html', selectors='modalcontent'}" class="c-quote-request-link" data-sscclicktype="clic-RAQ" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                <span>${'request-quote' @ i18n}</span>
+                    </a>
+                </div>
+                <div class="c-quote-request hidden-md hidden-lg c-header-landing-cutom-cta" data-sly-test="${properties.broheaderlink}">
+                    <a href="${properties.broheaderlink @ extension='html'}" class="c-quote-request-link"  data-sscclicktype="clic-BRO">
+		                <span>${'brochures' @ i18n}</span>
+		            </a>
+                </div>
+                <div class="c-quote-request hidden-md hidden-lg c-header-landing-cutom-cta" data-sly-test="${properties.fycheaderlinkssc}">
+	                 <a href="${properties.fycheaderlinkssc @ extension='html'}" class="c-quote-request-link" data-sscclicktype="clic-FYC">
+		                <span>${'find-your-cruise' @ i18n}</span>
+		            </a>
+                </div>
+	            <nav class="c-main-nav">
+			             <div class="c-main-nav__top style2" data-sly-test="${properties.raqheaderlink || properties.broheaderlink || properties.fycheaderlinkssc}" >
+						    <ul class="c-main-nav__top__list clearfix c-header-landing-cutom-cta">
+						        <li data-sly-test="${properties.raqheaderlink}" class="c-main-nav__top__item c-main-nav__top__item_first">
+						            <a data-sly-test="${!properties.raqlightbox}" href="${properties.raqheaderlink @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-RAQ">
+						                <span>${'request-quote' @ i18n}</span>
+						            </a>
+									<a data-sly-test="${properties.raqlightbox}"  data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.raqheaderlink}"  href="${properties.raqheaderlink @ extension='html', selectors='modalcontent'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-RAQ" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+						                <span>${'request-quote' @ i18n}</span>
+						            </a>
+						        </li>
+						        <li data-sly-test="${!properties.broheaderlink}" class="c-main-nav__top__item" data-sly-test="${properties.broheaderlink}" >
+						            <a href="${properties.broheaderlink @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-BRO">
+						                <span>${'brochures' @ i18n}</span>
+						            </a>
+						        </li>
+						        <li class="c-main-nav__top__item" data-sly-test="${properties.fycheaderlinkssc}" >
+						            <a href="${properties.fycheaderlinkssc @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-FYC">
+						                <span>${'find-your-cruise' @ i18n}</span>
+						            </a>
+						        </li>
+						    </ul>
+						</div>
+	                </nav>
+	                
+                </sly>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</sly>
+<sly data-sly-test="${properties.style == 'style3'}">
+    <header class="header-style3">
+        <div class="c-header__container" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
+            <div class="container">        
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="row--style3">
+                    <div class="col-sm-3 col-xs-5">
+                        <a href="${pageHelper.homePage.path @ extension='html'}" class="c-header__inner">
+                            <img class="c-header__logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="${pageHelper.homePage.title || currentPage.title}" />
+                        </a>
+                    </div>
+                    <div class="col-sm-9 col-xs-7 c-main-nav-wrapper">        
+                        <sly data-sly-include="call.html"></sly>
+                        <div class="c-quote-request hidden-md hidden-lg c-quote-request-style2 c-header-landing-cutom-cta" data-sly-test="${properties.raqheaderlink}">
+                             <a data-sly-test="${!properties.raqlightbox}" href="${properties.raqheaderlink @ extension='html'}" class="c-quote-request-link" data-sscclicktype="clic-RAQ">
+                                <span>${'request-quote' @ i18n}</span>
+                            </a>
+                            <a data-sly-test="${properties.raqlightbox}"  data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.raqheaderlink}"  href="${properties.raqheaderlink @ extension='html', selectors='modalcontent'}" class="c-quote-request-link" data-sscclicktype="clic-RAQ" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                                <span>${'request-quote' @ i18n}</span>
+                            </a>
+                        </div>
+                        <div class="c-quote-request hidden-md hidden-lg c-header-landing-cutom-cta" data-sly-test="${properties.broheaderlink}">
+                            <a href="${properties.broheaderlink @ extension='html'}" class="c-quote-request-link"  data-sscclicktype="clic-BRO">
+                                <span>${'brochures' @ i18n}</span>
+                            </a>
+                        </div>
+                        <div class="c-quote-request hidden-md hidden-lg c-header-landing-cutom-cta" data-sly-test="${properties.fycheaderlinkssc}">
+                             <a href="${properties.fycheaderlinkssc @ extension='html'}" class="c-quote-request-link" data-sscclicktype="clic-FYC">
+                                <span>${'find-your-cruise' @ i18n}</span>
+                            </a>
+                        </div>
+                        <nav class="c-main-nav">
+                                 <div class="c-main-nav__top style2" data-sly-test="${properties.raqheaderlink || properties.broheaderlink || properties.fycheaderlinkssc}" >
+                                    <ul class="c-main-nav__top__list clearfix c-header-landing-cutom-cta">
+                                        <li data-sly-test="${properties.raqheaderlink}" class="c-main-nav__top__item c-main-nav__top__item_first">
+                                            <a data-sly-test="${!properties.raqlightbox}" href="${properties.raqheaderlink @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-RAQ">
+                                                <span>${'request-quote' @ i18n}</span>
+                                            </a>
+                                            <a data-sly-test="${properties.raqlightbox}"  data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.raqheaderlink}"  href="${properties.raqheaderlink @ extension='html', selectors='modalcontent'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-RAQ" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                                                <span>${'request-quote' @ i18n}</span>
+                                            </a>
+                                        </li>
+                                        <li data-sly-test="${!properties.broheaderlink}" class="c-main-nav__top__item" data-sly-test="${properties.broheaderlink}" >
+                                            <a href="${properties.broheaderlink @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-BRO">
+                                                <span>${'brochures' @ i18n}</span>
+                                            </a>
+                                        </li>
+                                        <li class="c-main-nav__top__item" data-sly-test="${properties.fycheaderlinkssc}" >
+                                            <a href="${properties.fycheaderlinkssc @ extension='html'}" class="c-main-nav__top__link c-header-landing-raq" data-sscclicktype="clic-FYC">
+                                                <span>${'find-your-cruise' @ i18n}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                    </div>
+        </div>
+    </header>	                
+</sly>
+<sly data-sly-test="${properties.style == 'style4'}">
+    <div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder"	data-emptytext="Change Header Style Here - Click here and on parent - after you can edit" ></div>
+    <header class="header-style4">
+         <sly data-sly-resource="${'headerDCO' @ resourceType='silversea/silversea-ssc/components/included/navbarDCO'}"></sly>
+    </header>	                
+</sly>
+<sly data-sly-test="${properties.style == 'FullMenu'}">
+    <div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder" style="z-index:9999 !important; height:100px !important;"	data-emptytext="Change Header Style Here - Click here and on parent - after you can edit" ></div>
+        <header class="c-header" id="header" data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/header'}"></header>
+</sly>
+<style>
+	.c-header-landing-cutom-cta  span {
+		font-family:${properties.fontfamily || "Open Sans,arial,helvetica,sans-serif" @ context="unsafe"} !important;
+		font-size:${properties.fontsize || 13 @ context="unsafe"}px !important;
+		font-weight:${properties.fontweight || 600 @ context="unsafe"} !important;
+	}
+</style>

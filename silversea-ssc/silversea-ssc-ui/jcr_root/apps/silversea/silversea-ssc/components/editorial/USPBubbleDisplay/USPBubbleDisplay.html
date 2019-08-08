@@ -1,0 +1,22 @@
+<div data-sly-test.empty="${wcmmode.edit}"
+	class="cq-placeholder cq-dd-image"
+	data-emptytext="USP Bubble Display - Drop Image Here"></div>
+<section class="c-USPBubbleDisplay"
+	data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html">
+	<div class="lp17__cruiseblurbs_item bg_set bg_cruiseblurbs1 bg_cruiseblurbs1_${currentNode.Name}">
+		<div class="lp17__cruiseblurbs_item_image" data-sly-test.reference="${properties.assetReference}">
+			<sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+		</div>
+		<div class="lp17__cruiseblurbs_item_content">
+			<div class="lp17__cruiseblurbs_item_title">${properties.title}</div>
+			<div class="lp17__cruiseblurbs_item_text">${properties.text @context="html"}</div>
+		</div>
+	</div>
+	<style data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+	@media (max-width: 700px){
+		.bg_cruiseblurbs1_${currentNode.Name @context='unsafe'} {
+		    background-image: url(${properties.background @ prependPath=imagePrefix, context='unsafe'}?wid=${image.desktopRetinaWidth @ context='unsafe'}&fit=hfit,1);
+		}
+	}
+	</style>
+</section>

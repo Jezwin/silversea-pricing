@@ -1,0 +1,2009 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Smart Button - DEPRECATED"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <main
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Main options"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <lightboxActivated
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Enable Lightbox"
+                                    name="./lightboxActivated"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <kind
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Type of link"
+                                    name="./linkType">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <page
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Page"
+                                            value="page"/>
+                                    <file
+                                            jcr:primaryType="nt:unstructured"
+                                            text="File"
+                                            value="file"/>
+                                    <video
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Video"
+                                            value="video"/>
+                                </items>
+                            </kind>
+                            <videoReference
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldLabel="Video"
+                                    name="./videoReference"
+                                    rootPath="/content/dam/silversea-com"/>
+                            <showArrow
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Show Arrow?"
+                                    name="./showArrow"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <color
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Color"
+                                    name="./color">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <gray
+                                            jcr:primaryType="nt:unstructured"
+                                            text="gray"
+                                            value="gray"/>
+                                    <red
+                                            jcr:primaryType="nt:unstructured"
+                                            text="red"
+                                            value="red"/>
+                                    <black
+                                            jcr:primaryType="nt:unstructured"
+                                            text="black"
+                                            value="default"/>
+                                    <white
+                                            jcr:primaryType="nt:unstructured"
+                                            text="white"
+                                            value="white"/>
+                                    <white-link
+                                            jcr:primaryType="nt:unstructured"
+                                            text="2018 white link no border"
+                                            value="white-link"/>
+                                    <white-border-purple
+                                            jcr:primaryType="nt:unstructured"
+                                            text="2018 white with purple border"
+                                            value="white-border-purple"/>
+                                    <red2018
+                                            jcr:primaryType="nt:unstructured"
+                                            text="2018 red"
+                                            value="red-2018"/>
+                                    <black-border-white
+                                            jcr:primaryType="nt:unstructured"
+                                            text="2018 black with white border"
+                                            value="black-border-white"/>
+                                    <transparent-border-white
+                                            jcr:primaryType="nt:unstructured"
+                                            text="2018 transparent with white border"
+                                            value="transparent-border-white"/>
+                                    <purple
+                                            jcr:primaryType="nt:unstructured"
+                                            text="2018 purple"
+                                            value="purple"/>
+                                    <purple-link
+                                            jcr:primaryType="nt:unstructured"
+                                            text="2018 purple link no border"
+                                            value="purple-link"/>
+                                </items>
+                            </color>
+                            <analyticType
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Analytic type"
+                                    name="./analyticType">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <empty
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Simple button"
+                                            value=""/>
+                                    <raq
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Quote request"
+                                            value="clic-RAQ"/>
+                                    <bro
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Brochure request"
+                                            value="clic-BRO"/>
+                                    <rac
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Call request"
+                                            value="clic-RAC"/>
+                                    <sfo
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Signup for offer"
+                                            value="clic-SFO"/>
+                                </items>
+                            </analyticType>
+                        </items>
+                    </column>
+                </items>
+            </main>
+            <desktop
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Desktop options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <url
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldLabel="Link url"
+                                    name="./url"
+                                    rootPath="/content/"/>
+                            <enableToScrollElement
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Put id o class of element to scroll"
+                                    fieldLabel="Element to scroll"
+                                    name="./elementToScroll"/>
+                            <externalLinkDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    text="External link"
+                                    name="./externalLinkDesktop"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <textDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                    fieldLabel="Text"
+                                    name="./textDesktop"
+                                    />
+                            <textalignDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Align"
+                                    fieldDescription="Choose the align of the button"
+                                    name="./textalignDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <left
+                                            jcr:primaryType="nt:unstructured"
+                                            text="left"
+                                            value="textDesktopLeft"/>
+                                    <center
+                                            jcr:primaryType="nt:unstructured"
+                                            text="center"
+                                            value="textDesktopCenter"/>
+                                    <right
+                                            jcr:primaryType="nt:unstructured"
+                                            text="right"
+                                            value="textDesktopRight"/>
+                                </items>
+                            </textalignDesktop>
+                            <fontSizeTitleDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Font size"
+                                    fieldDescription="Choose the font size on the title"
+                                    name="./fontSizeTitleDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <fontSizeDesktop10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 10px"
+                                            value="fontSizeDesktop10"/>
+                                    <fontSizeDesktop12
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 12px"
+                                            value="fontSizeDesktop12"/>
+                                    <fontSizeDesktop14
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 14px"
+                                            value="fontSizeDesktop14"/>
+                                    <fontSizeDesktop16
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 16px"
+                                            value="fontSizeDesktop16"/>
+                                    <fontSizeDesktop18
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 18px"
+                                            value="fontSizeDesktop18"/>
+                                    <fontSizeDesktop20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 20px"
+                                            value="fontSizeDesktop20"/>
+                                    <fontSizeDesktop22
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 22px"
+                                            value="fontSizeDesktop22"/>
+                                    <fontSizeDesktop24
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 24px"
+                                            value="fontSizeDesktop24"/>
+                                    <fontSizeDesktop26
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 26px"
+                                            value="fontSizeDesktop26"/>
+                                    <fontSizeDesktop28
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 28px"
+                                            value="fontSizeDesktop28"/>
+                                    <fontSizeDesktop30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 30px"
+                                            value="fontSizeDesktop30"/>
+                                    <fontSizeDesktop32
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 32px"
+                                            value="fontSizeDesktop32"/>
+                                    <fontSizeDesktop34
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 34px"
+                                            value="fontSizeDesktop34"/>
+                                    <fontSizeDesktop36
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 36px"
+                                            value="fontSizeDesktop36"/>
+                                    <fontSizeDesktop38
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 38px"
+                                            value="fontSizeDesktop38"/>
+                                    <fontSizeDesktop40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 40px"
+                                            value="fontSizeDesktop40"/>
+                                    <fontSizeDesktop42
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 42px"
+                                            value="fontSizeDesktop42"/>
+                                    <fontSizeDesktop44
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 44px"
+                                            value="fontSizeDesktop44"/>
+                                    <fontSizeDesktop46
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 46px"
+                                            value="fontSizeDesktop46"/>
+                                    <fontSizeDesktop48
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 48px"
+                                            value="fontSizeDesktop48"/>
+                                </items>
+                            </fontSizeTitleDesktop>
+                            <textalignTextDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Align Text"
+                                    fieldDescription="Choose the align of the text"
+                                    name="./textalignTextDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <left
+                                            jcr:primaryType="nt:unstructured"
+                                            text="left"
+                                            value="textDesktopLeft"/>
+                                    <center
+                                            jcr:primaryType="nt:unstructured"
+                                            text="center"
+                                            value="textDesktopCenter"/>
+                                    <right
+                                            jcr:primaryType="nt:unstructured"
+                                            text="right"
+                                            value="textDesktopRight"/>
+                                </items>
+                            </textalignTextDesktop>
+                            <widthDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Width"
+                                    fieldDescription="Choose the width"
+                                    name="./widthDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <width50 jcr:primaryType="nt:unstructured" text="Width 50px"
+                                             value="widthDesktop50"/>
+                                    <width55 jcr:primaryType="nt:unstructured" text="Width 55px"
+                                             value="widthDesktop55"/>
+                                    <width60 jcr:primaryType="nt:unstructured" text="Width 60px"
+                                             value="widthDesktop60"/>
+                                    <width65 jcr:primaryType="nt:unstructured" text="Width 65px"
+                                             value="widthDesktop65"/>
+                                    <width70 jcr:primaryType="nt:unstructured" text="Width 70px"
+                                             value="widthDesktop70"/>
+                                    <width75 jcr:primaryType="nt:unstructured" text="Width 75px"
+                                             value="widthDesktop75"/>
+                                    <width80 jcr:primaryType="nt:unstructured" text="Width 80px"
+                                             value="widthDesktop80"/>
+                                    <width85 jcr:primaryType="nt:unstructured" text="Width 85px"
+                                             value="widthDesktop85"/>
+                                    <width90 jcr:primaryType="nt:unstructured" text="Width 90px"
+                                             value="widthDesktop90"/>
+                                    <width95 jcr:primaryType="nt:unstructured" text="Width 95px"
+                                             value="widthDesktop95"/>
+                                    <width100 jcr:primaryType="nt:unstructured" text="Width 100px"
+                                              value="widthDesktop100"/>
+                                    <width105 jcr:primaryType="nt:unstructured" text="Width 105px"
+                                              value="widthDesktop105"/>
+                                    <width110 jcr:primaryType="nt:unstructured" text="Width 110px"
+                                              value="widthDesktop110"/>
+                                    <width115 jcr:primaryType="nt:unstructured" text="Width 115px"
+                                              value="widthDesktop115"/>
+                                    <width120 jcr:primaryType="nt:unstructured" text="Width 120px"
+                                              value="widthDesktop120"/>
+                                    <width125 jcr:primaryType="nt:unstructured" text="Width 125px"
+                                              value="widthDesktop125"/>
+                                    <width130 jcr:primaryType="nt:unstructured" text="Width 130px"
+                                              value="widthDesktop130"/>
+                                    <width135 jcr:primaryType="nt:unstructured" text="Width 135px"
+                                              value="widthDesktop135"/>
+                                    <width140 jcr:primaryType="nt:unstructured" text="Width 140px"
+                                              value="widthDesktop140"/>
+                                    <width145 jcr:primaryType="nt:unstructured" text="Width 145px"
+                                              value="widthDesktop145"/>
+                                    <width150 jcr:primaryType="nt:unstructured" text="Width 150px"
+                                              value="widthDesktop150"/>
+                                    <width155 jcr:primaryType="nt:unstructured" text="Width 155px"
+                                              value="widthDesktop155"/>
+                                    <width160 jcr:primaryType="nt:unstructured" text="Width 160px"
+                                              value="widthDesktop160"/>
+                                    <width165 jcr:primaryType="nt:unstructured" text="Width 165px"
+                                              value="widthDesktop165"/>
+                                    <width170 jcr:primaryType="nt:unstructured" text="Width 170px"
+                                              value="widthDesktop170"/>
+                                    <width175 jcr:primaryType="nt:unstructured" text="Width 175px"
+                                              value="widthDesktop175"/>
+                                    <width180 jcr:primaryType="nt:unstructured" text="Width 180px"
+                                              value="widthDesktop180"/>
+                                    <width185 jcr:primaryType="nt:unstructured" text="Width 185px"
+                                              value="widthDesktop185"/>
+                                    <width190 jcr:primaryType="nt:unstructured" text="Width 190px"
+                                              value="width1Desktop90"/>
+                                    <width195 jcr:primaryType="nt:unstructured" text="Width 195px"
+                                              value="widthDesktop195"/>
+                                    <width200 jcr:primaryType="nt:unstructured" text="Width 200px"
+                                              value="widthDesktop200"/>
+                                    <width205 jcr:primaryType="nt:unstructured" text="Width 205px"
+                                              value="width2Desktop05"/>
+                                    <width210 jcr:primaryType="nt:unstructured" text="Width 210px"
+                                              value="widthDesktop210"/>
+                                    <width215 jcr:primaryType="nt:unstructured" text="Width 215px"
+                                              value="widthDesktop215"/>
+                                    <width220 jcr:primaryType="nt:unstructured" text="Width 220px"
+                                              value="widthDesktop220"/>
+                                    <width225 jcr:primaryType="nt:unstructured" text="Width 225px"
+                                              value="widthDesktop225"/>
+                                    <width230 jcr:primaryType="nt:unstructured" text="Width 230px"
+                                              value="widthDesktop230"/>
+                                    <width235 jcr:primaryType="nt:unstructured" text="Width 235px"
+                                              value="widthDesktop235"/>
+                                    <width240 jcr:primaryType="nt:unstructured" text="Width 240px"
+                                              value="widthDesktop240"/>
+                                    <width245 jcr:primaryType="nt:unstructured" text="Width 245px"
+                                              value="widthDesktop245"/>
+                                    <width250 jcr:primaryType="nt:unstructured" text="Width 250px"
+                                              value="widthDesktop250"/>
+                                    <width255 jcr:primaryType="nt:unstructured" text="Width 255px"
+                                              value="widthDesktop255"/>
+                                    <width260 jcr:primaryType="nt:unstructured" text="Width 260px"
+                                              value="widthDesktop260"/>
+                                    <width265 jcr:primaryType="nt:unstructured" text="Width 265px"
+                                              value="widthDesktop265"/>
+                                    <width270 jcr:primaryType="nt:unstructured" text="Width 270px"
+                                              value="widthDesktop270"/>
+                                    <width275 jcr:primaryType="nt:unstructured" text="Width 275px"
+                                              value="widthDesktop275"/>
+                                    <width280 jcr:primaryType="nt:unstructured" text="Width 280px"
+                                              value="widthDesktop280"/>
+                                    <width285 jcr:primaryType="nt:unstructured" text="Width 285px"
+                                              value="widthDesktop285"/>
+                                    <width290 jcr:primaryType="nt:unstructured" text="Width 290px"
+                                              value="widthDesktop290"/>
+                                    <width295 jcr:primaryType="nt:unstructured" text="Width 295px"
+                                              value="widthDesktop295"/>
+                                    <width300 jcr:primaryType="nt:unstructured" text="Width 300px"
+                                              value="widthDesktop300"/>
+                                    <width305 jcr:primaryType="nt:unstructured" text="Width 305px"
+                                              value="widthDesktop305"/>
+                                    <width310 jcr:primaryType="nt:unstructured" text="Width 310px"
+                                              value="widthDesktop310"/>
+                                    <width315 jcr:primaryType="nt:unstructured" text="Width 315px"
+                                              value="widthDesktop315"/>
+                                    <width320 jcr:primaryType="nt:unstructured" text="Width 320px"
+                                              value="widthDesktop320"/>
+                                    <width325 jcr:primaryType="nt:unstructured" text="Width 325px"
+                                              value="widthDesktop325"/>
+                                    <width330 jcr:primaryType="nt:unstructured" text="Width 330px"
+                                              value="widthDesktop330"/>
+                                    <width335 jcr:primaryType="nt:unstructured" text="Width 335px"
+                                              value="widthDesktop335"/>
+                                    <width340 jcr:primaryType="nt:unstructured" text="Width 340px"
+                                              value="widthDesktop340"/>
+                                    <width345 jcr:primaryType="nt:unstructured" text="Width 345px"
+                                              value="widthDesktop345"/>
+                                    <width350 jcr:primaryType="nt:unstructured" text="Width 350px"
+                                              value="widthDesktop350"/>
+                                    <width355 jcr:primaryType="nt:unstructured" text="Width 355px"
+                                              value="widthDesktop355"/>
+                                    <width360 jcr:primaryType="nt:unstructured" text="Width 360px"
+                                              value="widthDesktop360"/>
+                                    <width365 jcr:primaryType="nt:unstructured" text="Width 365px"
+                                              value="widthDesktop365"/>
+                                    <width370 jcr:primaryType="nt:unstructured" text="Width 370px"
+                                              value="widthDesktop370"/>
+                                    <width375 jcr:primaryType="nt:unstructured" text="Width 375px"
+                                              value="widthDesktop375"/>
+                                    <width380 jcr:primaryType="nt:unstructured" text="Width 380px"
+                                              value="widthDesktop380"/>
+                                    <width385 jcr:primaryType="nt:unstructured" text="Width 385px"
+                                              value="widthDesktop385"/>
+                                    <width390 jcr:primaryType="nt:unstructured" text="Width 390px"
+                                              value="widthDesktop390"/>
+                                    <width395 jcr:primaryType="nt:unstructured" text="Width 395px"
+                                              value="widthDesktop395"/>
+                                    <width400 jcr:primaryType="nt:unstructured" text="Width 400px"
+                                              value="widthDesktop400"/>
+                                    <width405 jcr:primaryType="nt:unstructured" text="Width 405px"
+                                              value="widthDesktop405"/>
+                                    <width410 jcr:primaryType="nt:unstructured" text="Width 410px"
+                                              value="widthDesktop410"/>
+                                    <width415 jcr:primaryType="nt:unstructured" text="Width 415px"
+                                              value="widthDesktop415"/>
+                                    <width420 jcr:primaryType="nt:unstructured" text="Width 420px"
+                                              value="widthDesktop420"/>
+                                    <width425 jcr:primaryType="nt:unstructured" text="Width 425px"
+                                              value="widthDesktop425"/>
+                                    <width430 jcr:primaryType="nt:unstructured" text="Width 430px"
+                                              value="widthDesktop430"/>
+                                    <width435 jcr:primaryType="nt:unstructured" text="Width 435px"
+                                              value="widthDesktop435"/>
+                                    <width440 jcr:primaryType="nt:unstructured" text="Width 440px"
+                                              value="widthDesktop440"/>
+                                    <width445 jcr:primaryType="nt:unstructured" text="Width 445px"
+                                              value="widthDesktop445"/>
+                                    <width450 jcr:primaryType="nt:unstructured" text="Width 450px"
+                                              value="widthDesktop450"/>
+                                    <width455 jcr:primaryType="nt:unstructured" text="Width 455px"
+                                              value="widthDesktop455"/>
+                                    <width460 jcr:primaryType="nt:unstructured" text="Width 460px"
+                                              value="widthDesktop460"/>
+                                    <width465 jcr:primaryType="nt:unstructured" text="Width 465px"
+                                              value="widthDesktop465"/>
+                                    <width470 jcr:primaryType="nt:unstructured" text="Width 470px"
+                                              value="widthDesktop470"/>
+                                    <width475 jcr:primaryType="nt:unstructured" text="Width 475px"
+                                              value="widthDesktop475"/>
+                                    <width480 jcr:primaryType="nt:unstructured" text="Width 480px"
+                                              value="widthDesktop480"/>
+                                    <width485 jcr:primaryType="nt:unstructured" text="Width 485px"
+                                              value="widthDesktop485"/>
+                                    <width490 jcr:primaryType="nt:unstructured" text="Width 490px"
+                                              value="widthDesktop490"/>
+                                    <width495 jcr:primaryType="nt:unstructured" text="Width 495px"
+                                              value="widthDesktop495"/>
+                                    <width500 jcr:primaryType="nt:unstructured" text="Width 500px"
+                                              value="widthDesktop500"/>
+                                    <width505 jcr:primaryType="nt:unstructured" text="Width 505px"
+                                              value="widthDesktop505"/>
+                                    <width510 jcr:primaryType="nt:unstructured" text="Width 510px"
+                                              value="widthDesktop510"/>
+                                    <width515 jcr:primaryType="nt:unstructured" text="Width 515px"
+                                              value="widthDesktop515"/>
+                                    <width520 jcr:primaryType="nt:unstructured" text="Width 520px"
+                                              value="widthDesktop520"/>
+                                </items>
+                            </widthDesktop>
+                            <marginTopDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Margin Top"
+                                    fieldDescription="Choose the component Top margin on desktop"
+                                    name="./marginTopDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <marginTopDesktop0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 0px"
+                                            value="marginTopDesktop0"/>
+                                    <marginTopDesktop5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 5px"
+                                            value="marginTopDesktop5"/>
+                                    <marginTopDesktop10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 10px"
+                                            value="marginTopDesktop10"/>
+                                    <marginTopDesktop15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 15px"
+                                            value="marginTopDesktop15"/>
+                                    <marginTopDesktop20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 20px"
+                                            value="marginTopDesktop20"/>
+                                    <marginTopDesktop25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 25px"
+                                            value="marginTopDesktop25"/>
+                                    <marginTopDesktop30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 30px"
+                                            value="marginTopDesktop30"/>
+                                    <marginTopDesktop35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 35px"
+                                            value="marginTopDesktop35"/>
+                                    <marginTopDesktop40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 40px"
+                                            value="marginTopDesktop40"/>
+                                    <marginTopDesktopMinus5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -5px"
+                                            value="marginTopDesktopMinus5"/>
+                                    <marginTopDesktopMinus10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -10px"
+                                            value="marginTopDesktopMinus10"/>
+                                    <marginTopDesktopMinus15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -15px"
+                                            value="marginTopDesktopMinus15"/>
+                                    <marginTopDesktopMinus20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -20px"
+                                            value="marginTopDesktopMinus20"/>
+                                </items>
+                            </marginTopDesktop>
+                            <marginBottomDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Margin Bottom"
+                                    fieldDescription="Choose the component Bottom margin on desktop"
+                                    name="./marginBottomDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <marginBottomDesktop0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 0px"
+                                            value="marginBottomDesktop0"/>
+                                    <marginBottomDesktop5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 5px"
+                                            value="marginBottomDesktop5"/>
+                                    <marginBottomDesktop10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 10px"
+                                            value="marginBottomDesktop10"/>
+                                    <marginBottomDesktop15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 15px"
+                                            value="marginBottomDesktop15"/>
+                                    <marginBottomDesktop20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 20px"
+                                            value="marginBottomDesktop20"/>
+                                    <marginBottomDesktop25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 25px"
+                                            value="marginBottomDesktop25"/>
+                                    <marginBottomDesktop30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 30px"
+                                            value="marginBottomDesktop30"/>
+                                    <marginBottomDesktop35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 35px"
+                                            value="marginBottomDesktop35"/>
+                                    <marginBottomDesktop40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 40px"
+                                            value="marginBottomDesktop40"/>
+                                    <marginBottomDesktopMinus5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -5px"
+                                            value="marginBottomDesktopMinus5"/>
+                                    <marginBottomDesktopMinus10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -10px"
+                                            value="marginBottomDesktopMinus10"/>
+                                    <marginBottomDesktopMinus15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -15px"
+                                            value="marginBottomDesktopMinus15"/>
+                                    <marginBottomDesktopMinus20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -20px"
+                                            value="marginBottomDesktopMinus20"/>
+                                </items>
+                            </marginBottomDesktop>
+                            <paddingTopDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Padding Top"
+                                    fieldDescription="Choose the component Top padding on desktop"
+                                    name="./paddingTopDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <paddingTopDesktop0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 0px"
+                                            value="paddingTopDesktop0"/>
+                                    <paddingTopDesktop5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 5px"
+                                            value="paddingTopDesktop5"/>
+                                    <paddingTopDesktop10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 10px"
+                                            value="paddingTopDesktop10"/>
+                                    <paddingTopDesktop15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 15px"
+                                            value="paddingTopDesktop15"/>
+                                    <paddingTopDesktop20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 20px"
+                                            value="paddingTopDesktop20"/>
+                                    <paddingTopDesktop25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 25px"
+                                            value="paddingTopDesktop25"/>
+                                    <paddingTopDesktop30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 30px"
+                                            value="paddingTopDesktop30"/>
+                                    <paddingTopDesktop35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 35px"
+                                            value="paddingTopDesktop35"/>
+                                    <paddingTopDesktop40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 40px"
+                                            value="paddingTopDesktop40"/>
+                                </items>
+                            </paddingTopDesktop>
+                            <paddingBottomDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Padding Bottom"
+                                    fieldDescription="Choose the component Bottom padding on desktop"
+                                    name="./paddingBottomDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <paddingBottomDesktop0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 0px"
+                                            value="paddingBottomDesktop0"/>
+                                    <paddingBottomDesktop5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 5px"
+                                            value="paddingBottomDesktop5"/>
+                                    <paddingBottomDesktop10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 10px"
+                                            value="paddingBottomDesktop10"/>
+                                    <paddingBottomDesktop15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 15px"
+                                            value="paddingBottomDesktop15"/>
+                                    <paddingBottomDesktop20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 20px"
+                                            value="paddingBottomDesktop20"/>
+                                    <paddingBottomDesktop25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 25px"
+                                            value="paddingBottomDesktop25"/>
+                                    <paddingBottomDesktop30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 30px"
+                                            value="paddingBottomDesktop30"/>
+                                    <paddingBottomDesktop35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 35px"
+                                            value="paddingBottomDesktop35"/>
+                                    <paddingBottomDesktop40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 40px"
+                                            value="paddingBottomDesktop40"/>
+                                </items>
+                            </paddingBottomDesktop>
+                            <paddingLeftDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="15" fieldLabel="Padding Left" fieldDescription="Choose the component Left padding on desktop" name="./paddingLeftDesktopPixel" />
+                            <paddingRightDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="15" fieldLabel="Padding Right" fieldDescription="Choose the component Right padding on desktop" name="./paddingRightDesktopPixel" />
+                            <cssDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                    fieldLabel="Custom css desktop"
+                                    rows="2"
+                                    fieldDescription="Custom css only desktop"
+                                    name="./cssDesktop"/>
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Tablet options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <textTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                    fieldLabel="Text"
+                                    name="./textTablet"
+                                    />
+                            <textalignTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Align"
+                                    fieldDescription="Choose the align of the button"
+                                    name="./textalignTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <left
+                                            jcr:primaryType="nt:unstructured"
+                                            text="left"
+                                            value="textTabletLeft"/>
+                                    <center
+                                            jcr:primaryType="nt:unstructured"
+                                            text="center"
+                                            value="textTabletCenter"/>
+                                    <right
+                                            jcr:primaryType="nt:unstructured"
+                                            text="right"
+                                            value="textTabletRight"/>
+                                </items>
+                            </textalignTablet>
+                            <fontSizeTitleTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Font size"
+                                    fieldDescription="Choose the font size on the title"
+                                    name="./fontSizeTitleTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <fontSizeTablet10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 10px"
+                                            value="fontSizeTablet10"/>
+                                    <fontSizeTablet12
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 12px"
+                                            value="fontSizeTablet12"/>
+                                    <fontSizeTablet14
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 14px"
+                                            value="fontSizeTablet14"/>
+                                    <fontSizeTablet16
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 16px"
+                                            value="fontSizeTablet16"/>
+                                    <fontSizeTablet18
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 18px"
+                                            value="fontSizeTablet18"/>
+                                    <fontSizeTablet20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 20px"
+                                            value="fontSizeTablet20"/>
+                                    <fontSizeTablet22
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 22px"
+                                            value="fontSizeTablet22"/>
+                                    <fontSizeTablet24
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 24px"
+                                            value="fontSizeTablet24"/>
+                                    <fontSizeTablet26
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 26px"
+                                            value="fontSizeTablet26"/>
+                                    <fontSizeTablet28
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 28px"
+                                            value="fontSizeTablet28"/>
+                                    <fontSizeTablet30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 30px"
+                                            value="fontSizeTablet30"/>
+                                    <fontSizeTablet32
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 32px"
+                                            value="fontSizeTablet32"/>
+                                    <fontSizeTablet34
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 34px"
+                                            value="fontSizeTablet34"/>
+                                    <fontSizeTablet36
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 36px"
+                                            value="fontSizeTablet36"/>
+                                    <fontSizeTablet38
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 38px"
+                                            value="fontSizeTablet38"/>
+                                    <fontSizeTablet40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 40px"
+                                            value="fontSizeTablet40"/>
+                                    <fontSizeTablet42
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 42px"
+                                            value="fontSizeTablet42"/>
+                                    <fontSizeTablet44
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 44px"
+                                            value="fontSizeTablet44"/>
+                                    <fontSizeTablet46
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 46px"
+                                            value="fontSizeTablet46"/>
+                                    <fontSizeTablet48
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 48px"
+                                            value="fontSizeTablet48"/>
+                                </items>
+                            </fontSizeTitleTablet>
+                            <textalignTextTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Align Text"
+                                    fieldDescription="Choose the align of the text"
+                                    name="./textalignTextTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <left
+                                            jcr:primaryType="nt:unstructured"
+                                            text="left"
+                                            value="textTabletLeft"/>
+                                    <center
+                                            jcr:primaryType="nt:unstructured"
+                                            text="center"
+                                            value="textTabletCenter"/>
+                                    <right
+                                            jcr:primaryType="nt:unstructured"
+                                            text="right"
+                                            value="textTabletRight"/>
+                                </items>
+                            </textalignTextTablet>
+                            <widthTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Width"
+                                    fieldDescription="Choose the width"
+                                    name="./widthTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <width50 jcr:primaryType="nt:unstructured" text="Width 50px" value="widthTablet50"/>
+                                    <width55 jcr:primaryType="nt:unstructured" text="Width 55px" value="widthTablet55"/>
+                                    <width60 jcr:primaryType="nt:unstructured" text="Width 60px" value="widthTablet60"/>
+                                    <width65 jcr:primaryType="nt:unstructured" text="Width 65px" value="widthTablet65"/>
+                                    <width70 jcr:primaryType="nt:unstructured" text="Width 70px" value="widthTablet70"/>
+                                    <width75 jcr:primaryType="nt:unstructured" text="Width 75px" value="widthTablet75"/>
+                                    <width80 jcr:primaryType="nt:unstructured" text="Width 80px" value="widthTablet80"/>
+                                    <width85 jcr:primaryType="nt:unstructured" text="Width 85px" value="widthTablet85"/>
+                                    <width90 jcr:primaryType="nt:unstructured" text="Width 90px" value="widthTablet90"/>
+                                    <width95 jcr:primaryType="nt:unstructured" text="Width 95px" value="widthTablet95"/>
+                                    <width100 jcr:primaryType="nt:unstructured" text="Width 100px"
+                                              value="widthTablet100"/>
+                                    <width105 jcr:primaryType="nt:unstructured" text="Width 105px"
+                                              value="widthTablet105"/>
+                                    <width110 jcr:primaryType="nt:unstructured" text="Width 110px"
+                                              value="widthTablet110"/>
+                                    <width115 jcr:primaryType="nt:unstructured" text="Width 115px"
+                                              value="widthTablet115"/>
+                                    <width120 jcr:primaryType="nt:unstructured" text="Width 120px"
+                                              value="widthTablet120"/>
+                                    <width125 jcr:primaryType="nt:unstructured" text="Width 125px"
+                                              value="widthTablet125"/>
+                                    <width130 jcr:primaryType="nt:unstructured" text="Width 130px"
+                                              value="widthTablet130"/>
+                                    <width135 jcr:primaryType="nt:unstructured" text="Width 135px"
+                                              value="widthTablet135"/>
+                                    <width140 jcr:primaryType="nt:unstructured" text="Width 140px"
+                                              value="widthTablet140"/>
+                                    <width145 jcr:primaryType="nt:unstructured" text="Width 145px"
+                                              value="widthTablet145"/>
+                                    <width150 jcr:primaryType="nt:unstructured" text="Width 150px"
+                                              value="widthTablet150"/>
+                                    <width155 jcr:primaryType="nt:unstructured" text="Width 155px"
+                                              value="widthTablet155"/>
+                                    <width160 jcr:primaryType="nt:unstructured" text="Width 160px"
+                                              value="widthTablet160"/>
+                                    <width165 jcr:primaryType="nt:unstructured" text="Width 165px"
+                                              value="widthTablet165"/>
+                                    <width170 jcr:primaryType="nt:unstructured" text="Width 170px"
+                                              value="widthTablet170"/>
+                                    <width175 jcr:primaryType="nt:unstructured" text="Width 175px"
+                                              value="widthTablet175"/>
+                                    <width180 jcr:primaryType="nt:unstructured" text="Width 180px"
+                                              value="widthTablet180"/>
+                                    <width185 jcr:primaryType="nt:unstructured" text="Width 185px"
+                                              value="widthTablet185"/>
+                                    <width190 jcr:primaryType="nt:unstructured" text="Width 190px"
+                                              value="width1Tablet90"/>
+                                    <width195 jcr:primaryType="nt:unstructured" text="Width 195px"
+                                              value="widthTablet195"/>
+                                    <width200 jcr:primaryType="nt:unstructured" text="Width 200px"
+                                              value="widthTablet200"/>
+                                    <width205 jcr:primaryType="nt:unstructured" text="Width 205px"
+                                              value="width2Tablet05"/>
+                                    <width210 jcr:primaryType="nt:unstructured" text="Width 210px"
+                                              value="widthTablet210"/>
+                                    <width215 jcr:primaryType="nt:unstructured" text="Width 215px"
+                                              value="widthTablet215"/>
+                                    <width220 jcr:primaryType="nt:unstructured" text="Width 220px"
+                                              value="widthTablet220"/>
+                                    <width225 jcr:primaryType="nt:unstructured" text="Width 225px"
+                                              value="widthTablet225"/>
+                                    <width230 jcr:primaryType="nt:unstructured" text="Width 230px"
+                                              value="widthTablet230"/>
+                                    <width235 jcr:primaryType="nt:unstructured" text="Width 235px"
+                                              value="widthTablet235"/>
+                                    <width240 jcr:primaryType="nt:unstructured" text="Width 240px"
+                                              value="widthTablet240"/>
+                                    <width245 jcr:primaryType="nt:unstructured" text="Width 245px"
+                                              value="widthTablet245"/>
+                                    <width250 jcr:primaryType="nt:unstructured" text="Width 250px"
+                                              value="widthTablet250"/>
+                                    <width255 jcr:primaryType="nt:unstructured" text="Width 255px"
+                                              value="widthTablet255"/>
+                                    <width260 jcr:primaryType="nt:unstructured" text="Width 260px"
+                                              value="widthTablet260"/>
+                                    <width265 jcr:primaryType="nt:unstructured" text="Width 265px"
+                                              value="widthTablet265"/>
+                                    <width270 jcr:primaryType="nt:unstructured" text="Width 270px"
+                                              value="widthTablet270"/>
+                                    <width275 jcr:primaryType="nt:unstructured" text="Width 275px"
+                                              value="widthTablet275"/>
+                                    <width280 jcr:primaryType="nt:unstructured" text="Width 280px"
+                                              value="widthTablet280"/>
+                                    <width285 jcr:primaryType="nt:unstructured" text="Width 285px"
+                                              value="widthTablet285"/>
+                                    <width290 jcr:primaryType="nt:unstructured" text="Width 290px"
+                                              value="widthTablet290"/>
+                                    <width295 jcr:primaryType="nt:unstructured" text="Width 295px"
+                                              value="widthTablet295"/>
+                                    <width300 jcr:primaryType="nt:unstructured" text="Width 300px"
+                                              value="widthTablet300"/>
+                                    <width305 jcr:primaryType="nt:unstructured" text="Width 305px"
+                                              value="widthTablet305"/>
+                                    <width310 jcr:primaryType="nt:unstructured" text="Width 310px"
+                                              value="widthTablet310"/>
+                                    <width315 jcr:primaryType="nt:unstructured" text="Width 315px"
+                                              value="widthTablet315"/>
+                                    <width320 jcr:primaryType="nt:unstructured" text="Width 320px"
+                                              value="widthTablet320"/>
+                                    <width325 jcr:primaryType="nt:unstructured" text="Width 325px"
+                                              value="widthTablet325"/>
+                                    <width330 jcr:primaryType="nt:unstructured" text="Width 330px"
+                                              value="widthTablet330"/>
+                                    <width335 jcr:primaryType="nt:unstructured" text="Width 335px"
+                                              value="widthTablet335"/>
+                                    <width340 jcr:primaryType="nt:unstructured" text="Width 340px"
+                                              value="widthTablet340"/>
+                                    <width345 jcr:primaryType="nt:unstructured" text="Width 345px"
+                                              value="widthTablet345"/>
+                                    <width350 jcr:primaryType="nt:unstructured" text="Width 350px"
+                                              value="widthTablet350"/>
+                                    <width355 jcr:primaryType="nt:unstructured" text="Width 355px"
+                                              value="widthTablet355"/>
+                                    <width360 jcr:primaryType="nt:unstructured" text="Width 360px"
+                                              value="widthTablet360"/>
+                                    <width365 jcr:primaryType="nt:unstructured" text="Width 365px"
+                                              value="widthTablet365"/>
+                                    <width370 jcr:primaryType="nt:unstructured" text="Width 370px"
+                                              value="widthTablet370"/>
+                                    <width375 jcr:primaryType="nt:unstructured" text="Width 375px"
+                                              value="widthTablet375"/>
+                                    <width380 jcr:primaryType="nt:unstructured" text="Width 380px"
+                                              value="widthTablet380"/>
+                                    <width385 jcr:primaryType="nt:unstructured" text="Width 385px"
+                                              value="widthTablet385"/>
+                                    <width390 jcr:primaryType="nt:unstructured" text="Width 390px"
+                                              value="widthTablet390"/>
+                                    <width395 jcr:primaryType="nt:unstructured" text="Width 395px"
+                                              value="widthTablet395"/>
+                                    <width400 jcr:primaryType="nt:unstructured" text="Width 400px"
+                                              value="widthTablet400"/>
+                                    <width405 jcr:primaryType="nt:unstructured" text="Width 405px"
+                                              value="widthTablet405"/>
+                                    <width410 jcr:primaryType="nt:unstructured" text="Width 410px"
+                                              value="widthTablet410"/>
+                                    <width415 jcr:primaryType="nt:unstructured" text="Width 415px"
+                                              value="widthTablet415"/>
+                                    <width420 jcr:primaryType="nt:unstructured" text="Width 420px"
+                                              value="widthTablet420"/>
+                                    <width425 jcr:primaryType="nt:unstructured" text="Width 425px"
+                                              value="widthTablet425"/>
+                                    <width430 jcr:primaryType="nt:unstructured" text="Width 430px"
+                                              value="widthTablet430"/>
+                                    <width435 jcr:primaryType="nt:unstructured" text="Width 435px"
+                                              value="widthTablet435"/>
+                                    <width440 jcr:primaryType="nt:unstructured" text="Width 440px"
+                                              value="widthTablet440"/>
+                                    <width445 jcr:primaryType="nt:unstructured" text="Width 445px"
+                                              value="widthTablet445"/>
+                                    <width450 jcr:primaryType="nt:unstructured" text="Width 450px"
+                                              value="widthTablet450"/>
+                                    <width455 jcr:primaryType="nt:unstructured" text="Width 455px"
+                                              value="widthTablet455"/>
+                                    <width460 jcr:primaryType="nt:unstructured" text="Width 460px"
+                                              value="widthTablet460"/>
+                                    <width465 jcr:primaryType="nt:unstructured" text="Width 465px"
+                                              value="widthTablet465"/>
+                                    <width470 jcr:primaryType="nt:unstructured" text="Width 470px"
+                                              value="widthTablet470"/>
+                                    <width475 jcr:primaryType="nt:unstructured" text="Width 475px"
+                                              value="widthTablet475"/>
+                                    <width480 jcr:primaryType="nt:unstructured" text="Width 480px"
+                                              value="widthTablet480"/>
+                                    <width485 jcr:primaryType="nt:unstructured" text="Width 485px"
+                                              value="widthTablet485"/>
+                                    <width490 jcr:primaryType="nt:unstructured" text="Width 490px"
+                                              value="widthTablet490"/>
+                                    <width495 jcr:primaryType="nt:unstructured" text="Width 495px"
+                                              value="widthTablet495"/>
+                                    <width500 jcr:primaryType="nt:unstructured" text="Width 500px"
+                                              value="widthTablet500"/>
+                                    <width505 jcr:primaryType="nt:unstructured" text="Width 505px"
+                                              value="widthTablet505"/>
+                                    <width510 jcr:primaryType="nt:unstructured" text="Width 510px"
+                                              value="widthTablet510"/>
+                                    <width515 jcr:primaryType="nt:unstructured" text="Width 515px"
+                                              value="widthTablet515"/>
+                                    <width520 jcr:primaryType="nt:unstructured" text="Width 520px"
+                                              value="widthTablet520"/>
+                                </items>
+                            </widthTablet>
+                            <marginTopTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Margin Top"
+                                    fieldDescription="Choose the component Top margin on Tablet"
+                                    name="./marginTopTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <marginTopTablet0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 0px"
+                                            value="marginTopTablet0"/>
+                                    <marginTopTablet5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 5px"
+                                            value="marginTopTablet5"/>
+                                    <marginTopTablet10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 10px"
+                                            value="marginTopTablet10"/>
+                                    <marginTopTablet15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 15px"
+                                            value="marginTopTablet15"/>
+                                    <marginTopTablet20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 20px"
+                                            value="marginTopTablet20"/>
+                                    <marginTopTablet25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 25px"
+                                            value="marginTopTablet25"/>
+                                    <marginTopTablet30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 30px"
+                                            value="marginTopTablet30"/>
+                                    <marginTopTablet35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 35px"
+                                            value="marginTopTablet35"/>
+                                    <marginTopTablet40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 40px"
+                                            value="marginTopTablet40"/>
+                                    <marginTopTabletMinus5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -5px"
+                                            value="marginTopTabletMinus5"/>
+                                    <marginTopTabletMinus10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -10px"
+                                            value="marginTopTabletMinus10"/>
+                                    <marginTopTabletMinus15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -15px"
+                                            value="marginTopTabletMinus15"/>
+                                    <marginTopTabletMinus20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -20px"
+                                            value="marginTopTabletMinus20"/>
+                                </items>
+                            </marginTopTablet>
+                            <marginBottomTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Margin Bottom"
+                                    fieldDescription="Choose the component Bottom margin on Tablet"
+                                    name="./marginBottomTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <marginBottomTablet0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 0px"
+                                            value="marginBottomTablet0"/>
+                                    <marginBottomTablet5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 5px"
+                                            value="marginBottomTablet5"/>
+                                    <marginBottomTablet10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 10px"
+                                            value="marginBottomTablet10"/>
+                                    <marginBottomTablet15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 15px"
+                                            value="marginBottomTablet15"/>
+                                    <marginBottomTablet20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 20px"
+                                            value="marginBottomTablet20"/>
+                                    <marginBottomTablet25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 25px"
+                                            value="marginBottomTablet25"/>
+                                    <marginBottomTablet30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 30px"
+                                            value="marginBottomTablet30"/>
+                                    <marginBottomTablet35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 35px"
+                                            value="marginBottomTablet35"/>
+                                    <marginBottomTablet40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 40px"
+                                            value="marginBottomTablet40"/>
+                                    <marginBottomTabletMinus5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -5px"
+                                            value="marginBottomTabletMinus5"/>
+                                    <marginBottomTabletMinus10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -10px"
+                                            value="marginBottomTabletMinus10"/>
+                                    <marginBottomTabletMinus15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -15px"
+                                            value="marginBottomTabletMinus15"/>
+                                    <marginBottomTabletMinus20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -20px"
+                                            value="marginBottomTabletMinus20"/>
+                                </items>
+                            </marginBottomTablet>
+                            <paddingTopTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Padding Top"
+                                    fieldDescription="Choose the component Top padding on Tablet"
+                                    name="./paddingTopTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <paddingTopTablet0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 0px"
+                                            value="paddingTopTablet0"/>
+                                    <paddingTopTablet5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 5px"
+                                            value="paddingTopTablet5"/>
+                                    <paddingTopTablet10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 10px"
+                                            value="paddingTopTablet10"/>
+                                    <paddingTopTablet15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 15px"
+                                            value="paddingTopTablet15"/>
+                                    <paddingTopTablet20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 20px"
+                                            value="paddingTopTablet20"/>
+                                    <paddingTopTablet25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 25px"
+                                            value="paddingTopTablet25"/>
+                                    <paddingTopTablet30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 30px"
+                                            value="paddingTopTablet30"/>
+                                    <paddingTopTablet35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 35px"
+                                            value="paddingTopTablet35"/>
+                                    <paddingTopTablet40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 40px"
+                                            value="paddingTopTablet40"/>
+                                </items>
+                            </paddingTopTablet>
+                            <paddingBottomTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Padding Bottom"
+                                    fieldDescription="Choose the component Bottom padding on Tablet"
+                                    name="./paddingBottomTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <paddingBottomTablet0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 0px"
+                                            value="paddingBottomTablet0"/>
+                                    <paddingBottomTablet5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 5px"
+                                            value="paddingBottomTablet5"/>
+                                    <paddingBottomTablet10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 10px"
+                                            value="paddingBottomTablet10"/>
+                                    <paddingBottomTablet15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 15px"
+                                            value="paddingBottomTablet15"/>
+                                    <paddingBottomTablet20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 20px"
+                                            value="paddingBottomTablet20"/>
+                                    <paddingBottomTablet25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 25px"
+                                            value="paddingBottomTablet25"/>
+                                    <paddingBottomTablet30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 30px"
+                                            value="paddingBottomTablet30"/>
+                                    <paddingBottomTablet35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 35px"
+                                            value="paddingBottomTablet35"/>
+                                    <paddingBottomTablet40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 40px"
+                                            value="paddingBottomTablet40"/>
+                                </items>
+                            </paddingBottomTablet>
+                            <paddingLeftTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" defaultValue="15" fieldLabel="Padding Left" fieldDescription="Choose the component Left padding on Tablet" name="./paddingLeftTabletPixel" />
+                            <paddingRightTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" defaultValue="15" fieldLabel="Padding Right" fieldDescription="Choose the component Right padding on Tablet" name="./paddingRightTabletPixel" />
+                            <cssTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                    fieldLabel="Custom css Tablet"
+                                    rows="2"
+                                    fieldDescription="Custom css only Tablet"
+                                    name="./cssTablet"/>
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+            <mobile
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Mobile options"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <urlMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldLabel="Link url"
+                                    name="./urlMobile"
+                                    rootPath="/content/"/>
+                            <externalLinkMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    text="External link"
+                                    name="./externalLinkMobile"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <elementToScrollMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Put id o class of element to scroll"
+                                    fieldLabel="Element to scroll"
+                                    name="./elementToScrollMobile"/>
+                            <textMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                    fieldLabel="Text"
+                                    name="./textMobile"
+                                    />
+                            <textalignMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Align"
+                                    fieldDescription="Choose the align of the button"
+                                    name="./textalignMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <left
+                                            jcr:primaryType="nt:unstructured"
+                                            text="left"
+                                            value="textMobileLeft"/>
+                                    <center
+                                            jcr:primaryType="nt:unstructured"
+                                            text="center"
+                                            value="textMobileCenter"/>
+                                    <right
+                                            jcr:primaryType="nt:unstructured"
+                                            text="right"
+                                            value="textMobileRight"/>
+                                </items>
+                            </textalignMobile>
+                            <fontSizeTitleMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Font size"
+                                    fieldDescription="Choose the font size on the title"
+                                    name="./fontSizeTitleMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <fontSizeMobile10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 10px"
+                                            value="fontSizeMobile10"/>
+                                    <fontSizeMobile12
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 12px"
+                                            value="fontSizeMobile12"/>
+                                    <fontSizeMobile14
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 14px"
+                                            value="fontSizeMobile14"/>
+                                    <fontSizeMobile16
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 16px"
+                                            value="fontSizeMobile16"/>
+                                    <fontSizeMobile18
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 18px"
+                                            value="fontSizeMobile18"/>
+                                    <fontSizeMobile20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 20px"
+                                            value="fontSizeMobile20"/>
+                                    <fontSizeMobile22
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 22px"
+                                            value="fontSizeMobile22"/>
+                                    <fontSizeMobile24
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 24px"
+                                            value="fontSizeMobile24"/>
+                                    <fontSizeMobile26
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 26px"
+                                            value="fontSizeMobile26"/>
+                                    <fontSizeMobile28
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 28px"
+                                            value="fontSizeMobile28"/>
+                                    <fontSizeMobile30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 30px"
+                                            value="fontSizeMobile30"/>
+                                    <fontSizeMobile32
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 32px"
+                                            value="fontSizeMobile32"/>
+                                    <fontSizeMobile34
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 34px"
+                                            value="fontSizeMobile34"/>
+                                    <fontSizeMobile36
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 36px"
+                                            value="fontSizeMobile36"/>
+                                    <fontSizeMobile38
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 38px"
+                                            value="fontSizeMobile38"/>
+                                    <fontSizeMobile40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 40px"
+                                            value="fontSizeMobile40"/>
+                                    <fontSizeMobile42
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 42px"
+                                            value="fontSizeMobile42"/>
+                                    <fontSizeMobile44
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 44px"
+                                            value="fontSizeMobile44"/>
+                                    <fontSizeMobile46
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 46px"
+                                            value="fontSizeMobile46"/>
+                                    <fontSizeMobile48
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Font Size 48px"
+                                            value="fontSizeMobile48"/>
+                                </items>
+                            </fontSizeTitleMobile>
+                            <textalignTextMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Align Text"
+                                    fieldDescription="Choose the align of the text"
+                                    name="./textalignTextMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <left
+                                            jcr:primaryType="nt:unstructured"
+                                            text="left"
+                                            value="textMobileLeft"/>
+                                    <center
+                                            jcr:primaryType="nt:unstructured"
+                                            text="center"
+                                            value="textMobileCenter"/>
+                                    <right
+                                            jcr:primaryType="nt:unstructured"
+                                            text="right"
+                                            value="textMobileRight"/>
+                                </items>
+                            </textalignTextMobile>
+                            <widthMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Width"
+                                    fieldDescription="Choose the width"
+                                    name="./widthMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <width50 jcr:primaryType="nt:unstructured" text="Width 50px" value="widthMobile50"/>
+                                    <width55 jcr:primaryType="nt:unstructured" text="Width 55px" value="widthMobile55"/>
+                                    <width60 jcr:primaryType="nt:unstructured" text="Width 60px" value="widthMobile60"/>
+                                    <width65 jcr:primaryType="nt:unstructured" text="Width 65px" value="widthMobile65"/>
+                                    <width70 jcr:primaryType="nt:unstructured" text="Width 70px" value="widthMobile70"/>
+                                    <width75 jcr:primaryType="nt:unstructured" text="Width 75px" value="widthMobile75"/>
+                                    <width80 jcr:primaryType="nt:unstructured" text="Width 80px" value="widthMobile80"/>
+                                    <width85 jcr:primaryType="nt:unstructured" text="Width 85px" value="widthMobile85"/>
+                                    <width90 jcr:primaryType="nt:unstructured" text="Width 90px" value="widthMobile90"/>
+                                    <width95 jcr:primaryType="nt:unstructured" text="Width 95px" value="widthMobile95"/>
+                                    <width100 jcr:primaryType="nt:unstructured" text="Width 100px"
+                                              value="widthMobile100"/>
+                                    <width105 jcr:primaryType="nt:unstructured" text="Width 105px"
+                                              value="widthMobile105"/>
+                                    <width110 jcr:primaryType="nt:unstructured" text="Width 110px"
+                                              value="widthMobile110"/>
+                                    <width115 jcr:primaryType="nt:unstructured" text="Width 115px"
+                                              value="widthMobile115"/>
+                                    <width120 jcr:primaryType="nt:unstructured" text="Width 120px"
+                                              value="widthMobile120"/>
+                                    <width125 jcr:primaryType="nt:unstructured" text="Width 125px"
+                                              value="widthMobile125"/>
+                                    <width130 jcr:primaryType="nt:unstructured" text="Width 130px"
+                                              value="widthMobile130"/>
+                                    <width135 jcr:primaryType="nt:unstructured" text="Width 135px"
+                                              value="widthMobile135"/>
+                                    <width140 jcr:primaryType="nt:unstructured" text="Width 140px"
+                                              value="widthMobile140"/>
+                                    <width145 jcr:primaryType="nt:unstructured" text="Width 145px"
+                                              value="widthMobile145"/>
+                                    <width150 jcr:primaryType="nt:unstructured" text="Width 150px"
+                                              value="widthMobile150"/>
+                                    <width155 jcr:primaryType="nt:unstructured" text="Width 155px"
+                                              value="widthMobile155"/>
+                                    <width160 jcr:primaryType="nt:unstructured" text="Width 160px"
+                                              value="widthMobile160"/>
+                                    <width165 jcr:primaryType="nt:unstructured" text="Width 165px"
+                                              value="widthMobile165"/>
+                                    <width170 jcr:primaryType="nt:unstructured" text="Width 170px"
+                                              value="widthMobile170"/>
+                                    <width175 jcr:primaryType="nt:unstructured" text="Width 175px"
+                                              value="widthMobile175"/>
+                                    <width180 jcr:primaryType="nt:unstructured" text="Width 180px"
+                                              value="widthMobile180"/>
+                                    <width185 jcr:primaryType="nt:unstructured" text="Width 185px"
+                                              value="widthMobile185"/>
+                                    <width190 jcr:primaryType="nt:unstructured" text="Width 190px"
+                                              value="width1Mobile90"/>
+                                    <width195 jcr:primaryType="nt:unstructured" text="Width 195px"
+                                              value="widthMobile195"/>
+                                    <width200 jcr:primaryType="nt:unstructured" text="Width 200px"
+                                              value="widthMobile200"/>
+                                    <width205 jcr:primaryType="nt:unstructured" text="Width 205px"
+                                              value="width2Mobile05"/>
+                                    <width210 jcr:primaryType="nt:unstructured" text="Width 210px"
+                                              value="widthMobile210"/>
+                                    <width215 jcr:primaryType="nt:unstructured" text="Width 215px"
+                                              value="widthMobile215"/>
+                                    <width220 jcr:primaryType="nt:unstructured" text="Width 220px"
+                                              value="widthMobile220"/>
+                                    <width225 jcr:primaryType="nt:unstructured" text="Width 225px"
+                                              value="widthMobile225"/>
+                                    <width230 jcr:primaryType="nt:unstructured" text="Width 230px"
+                                              value="widthMobile230"/>
+                                    <width235 jcr:primaryType="nt:unstructured" text="Width 235px"
+                                              value="widthMobile235"/>
+                                    <width240 jcr:primaryType="nt:unstructured" text="Width 240px"
+                                              value="widthMobile240"/>
+                                    <width245 jcr:primaryType="nt:unstructured" text="Width 245px"
+                                              value="widthMobile245"/>
+                                    <width250 jcr:primaryType="nt:unstructured" text="Width 250px"
+                                              value="widthMobile250"/>
+                                    <width255 jcr:primaryType="nt:unstructured" text="Width 255px"
+                                              value="widthMobile255"/>
+                                    <width260 jcr:primaryType="nt:unstructured" text="Width 260px"
+                                              value="widthMobile260"/>
+                                    <width265 jcr:primaryType="nt:unstructured" text="Width 265px"
+                                              value="widthMobile265"/>
+                                    <width270 jcr:primaryType="nt:unstructured" text="Width 270px"
+                                              value="widthMobile270"/>
+                                    <width275 jcr:primaryType="nt:unstructured" text="Width 275px"
+                                              value="widthMobile275"/>
+                                    <width280 jcr:primaryType="nt:unstructured" text="Width 280px"
+                                              value="widthMobile280"/>
+                                    <width285 jcr:primaryType="nt:unstructured" text="Width 285px"
+                                              value="widthMobile285"/>
+                                    <width290 jcr:primaryType="nt:unstructured" text="Width 290px"
+                                              value="widthMobile290"/>
+                                    <width295 jcr:primaryType="nt:unstructured" text="Width 295px"
+                                              value="widthMobile295"/>
+                                    <width300 jcr:primaryType="nt:unstructured" text="Width 300px"
+                                              value="widthMobile300"/>
+                                    <width305 jcr:primaryType="nt:unstructured" text="Width 305px"
+                                              value="widthMobile305"/>
+                                    <width310 jcr:primaryType="nt:unstructured" text="Width 310px"
+                                              value="widthMobile310"/>
+                                    <width315 jcr:primaryType="nt:unstructured" text="Width 315px"
+                                              value="widthMobile315"/>
+                                    <width320 jcr:primaryType="nt:unstructured" text="Width 320px"
+                                              value="widthMobile320"/>
+                                    <width325 jcr:primaryType="nt:unstructured" text="Width 325px"
+                                              value="widthMobile325"/>
+                                    <width330 jcr:primaryType="nt:unstructured" text="Width 330px"
+                                              value="widthMobile330"/>
+                                    <width335 jcr:primaryType="nt:unstructured" text="Width 335px"
+                                              value="widthMobile335"/>
+                                    <width340 jcr:primaryType="nt:unstructured" text="Width 340px"
+                                              value="widthMobile340"/>
+                                    <width345 jcr:primaryType="nt:unstructured" text="Width 345px"
+                                              value="widthMobile345"/>
+                                    <width350 jcr:primaryType="nt:unstructured" text="Width 350px"
+                                              value="widthMobile350"/>
+                                    <width355 jcr:primaryType="nt:unstructured" text="Width 355px"
+                                              value="widthMobile355"/>
+                                    <width360 jcr:primaryType="nt:unstructured" text="Width 360px"
+                                              value="widthMobile360"/>
+                                    <width365 jcr:primaryType="nt:unstructured" text="Width 365px"
+                                              value="widthMobile365"/>
+                                    <width370 jcr:primaryType="nt:unstructured" text="Width 370px"
+                                              value="widthMobile370"/>
+                                    <width375 jcr:primaryType="nt:unstructured" text="Width 375px"
+                                              value="widthMobile375"/>
+                                    <width380 jcr:primaryType="nt:unstructured" text="Width 380px"
+                                              value="widthMobile380"/>
+                                    <width385 jcr:primaryType="nt:unstructured" text="Width 385px"
+                                              value="widthMobile385"/>
+                                    <width390 jcr:primaryType="nt:unstructured" text="Width 390px"
+                                              value="widthMobile390"/>
+                                    <width395 jcr:primaryType="nt:unstructured" text="Width 395px"
+                                              value="widthMobile395"/>
+                                    <width400 jcr:primaryType="nt:unstructured" text="Width 400px"
+                                              value="widthMobile400"/>
+                                    <width405 jcr:primaryType="nt:unstructured" text="Width 405px"
+                                              value="widthMobile405"/>
+                                    <width410 jcr:primaryType="nt:unstructured" text="Width 410px"
+                                              value="widthMobile410"/>
+                                    <width415 jcr:primaryType="nt:unstructured" text="Width 415px"
+                                              value="widthMobile415"/>
+                                    <width420 jcr:primaryType="nt:unstructured" text="Width 420px"
+                                              value="widthMobile420"/>
+                                    <width425 jcr:primaryType="nt:unstructured" text="Width 425px"
+                                              value="widthMobile425"/>
+                                    <width430 jcr:primaryType="nt:unstructured" text="Width 430px"
+                                              value="widthMobile430"/>
+                                    <width435 jcr:primaryType="nt:unstructured" text="Width 435px"
+                                              value="widthMobile435"/>
+                                    <width440 jcr:primaryType="nt:unstructured" text="Width 440px"
+                                              value="widthMobile440"/>
+                                    <width445 jcr:primaryType="nt:unstructured" text="Width 445px"
+                                              value="widthMobile445"/>
+                                    <width450 jcr:primaryType="nt:unstructured" text="Width 450px"
+                                              value="widthMobile450"/>
+                                    <width455 jcr:primaryType="nt:unstructured" text="Width 455px"
+                                              value="widthMobile455"/>
+                                    <width460 jcr:primaryType="nt:unstructured" text="Width 460px"
+                                              value="widthMobile460"/>
+                                    <width465 jcr:primaryType="nt:unstructured" text="Width 465px"
+                                              value="widthMobile465"/>
+                                    <width470 jcr:primaryType="nt:unstructured" text="Width 470px"
+                                              value="widthMobile470"/>
+                                    <width475 jcr:primaryType="nt:unstructured" text="Width 475px"
+                                              value="widthMobile475"/>
+                                    <width480 jcr:primaryType="nt:unstructured" text="Width 480px"
+                                              value="widthMobile480"/>
+                                    <width485 jcr:primaryType="nt:unstructured" text="Width 485px"
+                                              value="widthMobile485"/>
+                                    <width490 jcr:primaryType="nt:unstructured" text="Width 490px"
+                                              value="widthMobile490"/>
+                                    <width495 jcr:primaryType="nt:unstructured" text="Width 495px"
+                                              value="widthMobile495"/>
+                                    <width500 jcr:primaryType="nt:unstructured" text="Width 500px"
+                                              value="widthMobile500"/>
+                                    <width505 jcr:primaryType="nt:unstructured" text="Width 505px"
+                                              value="widthMobile505"/>
+                                    <width510 jcr:primaryType="nt:unstructured" text="Width 510px"
+                                              value="widthMobile510"/>
+                                    <width515 jcr:primaryType="nt:unstructured" text="Width 515px"
+                                              value="widthMobile515"/>
+                                    <width520 jcr:primaryType="nt:unstructured" text="Width 520px"
+                                              value="widthMobile520"/>
+                                </items>
+                            </widthMobile>
+                            <marginTopMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Margin Top"
+                                    fieldDescription="Choose the component Top margin on Mobile"
+                                    name="./marginTopMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <marginTopMobile0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 0px"
+                                            value="marginTopMobile0"/>
+                                    <marginTopMobile5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 5px"
+                                            value="marginTopMobile5"/>
+                                    <marginTopMobile10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 10px"
+                                            value="marginTopMobile10"/>
+                                    <marginTopMobile15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 15px"
+                                            value="marginTopMobile15"/>
+                                    <marginTopMobile20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 20px"
+                                            value="marginTopMobile20"/>
+                                    <marginTopMobile25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 25px"
+                                            value="marginTopMobile25"/>
+                                    <marginTopMobile30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 30px"
+                                            value="marginTopMobile30"/>
+                                    <marginTopMobile35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 35px"
+                                            value="marginTopMobile35"/>
+                                    <marginTopMobile40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top 40px"
+                                            value="marginTopMobile40"/>
+                                    <marginTopMobileMinus5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -5px"
+                                            value="marginTopMobileMinus5"/>
+                                    <marginTopMobileMinus10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -10px"
+                                            value="marginTopMobileMinus10"/>
+                                    <marginTopMobileMinus15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -15px"
+                                            value="marginTopMobileMinus15"/>
+                                    <marginTopMobileMinus20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Top -20px"
+                                            value="marginTopMobileMinus20"/>
+                                </items>
+                            </marginTopMobile>
+                            <marginBottomMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Margin Bottom"
+                                    fieldDescription="Choose the component Bottom margin on Mobile"
+                                    name="./marginBottomMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <marginBottomMobile0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 0px"
+                                            value="marginBottomMobile0"/>
+                                    <marginBottomMobile5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 5px"
+                                            value="marginBottomMobile5"/>
+                                    <marginBottomMobile10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 10px"
+                                            value="marginBottomMobile10"/>
+                                    <marginBottomMobile15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 15px"
+                                            value="marginBottomMobile15"/>
+                                    <marginBottomMobile20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 20px"
+                                            value="marginBottomMobile20"/>
+                                    <marginBottomMobile25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 25px"
+                                            value="marginBottomMobile25"/>
+                                    <marginBottomMobile30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 30px"
+                                            value="marginBottomMobile30"/>
+                                    <marginBottomMobile35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 35px"
+                                            value="marginBottomMobile35"/>
+                                    <marginBottomMobile40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom 40px"
+                                            value="marginBottomMobile40"/>
+                                    <marginBottomMobileMinus5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -5px"
+                                            value="marginBottomMobileMinus5"/>
+                                    <marginBottomMobileMinus10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -10px"
+                                            value="marginBottomMobileMinus10"/>
+                                    <marginBottomMobileMinus15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -15px"
+                                            value="marginBottomMobileMinus15"/>
+                                    <marginBottomMobileMinus20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Margin Bottom -20px"
+                                            value="marginBottomMobileMinus20"/>
+                                </items>
+                            </marginBottomMobile>
+                            <paddingTopMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Padding Top"
+                                    fieldDescription="Choose the component Top padding on Mobile"
+                                    name="./paddingTopMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <paddingTopMobile0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 0px"
+                                            value="paddingTopMobile0"/>
+                                    <paddingTopMobile5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 5px"
+                                            value="paddingTopMobile5"/>
+                                    <paddingTopMobile10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 10px"
+                                            value="paddingTopMobile10"/>
+                                    <paddingTopMobile15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 15px"
+                                            value="paddingTopMobile15"/>
+                                    <paddingTopMobile20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 20px"
+                                            value="paddingTopMobile20"/>
+                                    <paddingTopMobile25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 25px"
+                                            value="paddingTopMobile25"/>
+                                    <paddingTopMobile30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 30px"
+                                            value="paddingTopMobile30"/>
+                                    <paddingTopMobile35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 35px"
+                                            value="paddingTopMobile35"/>
+                                    <paddingTopMobile40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Top 40px"
+                                            value="paddingTopMobile40"/>
+                                </items>
+                            </paddingTopMobile>
+                            <paddingBottomMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    fieldLabel="Padding Bottom"
+                                    fieldDescription="Choose the component Bottom padding on Mobile"
+                                    name="./paddingBottomMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                            jcr:primaryType="nt:unstructured"
+                                            text="default"
+                                            value=""/>
+                                    <paddingBottomMobile0
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 0px"
+                                            value="paddingBottomMobile0"/>
+                                    <paddingBottomMobile5
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 5px"
+                                            value="paddingBottomMobile5"/>
+                                    <paddingBottomMobile10
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 10px"
+                                            value="paddingBottomMobile10"/>
+                                    <paddingBottomMobile15
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 15px"
+                                            value="paddingBottomMobile15"/>
+                                    <paddingBottomMobile20
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 20px"
+                                            value="paddingBottomMobile20"/>
+                                    <paddingBottomMobile25
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 25px"
+                                            value="paddingBottomMobile25"/>
+                                    <paddingBottomMobile30
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 30px"
+                                            value="paddingBottomMobile30"/>
+                                    <paddingBottomMobile35
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 35px"
+                                            value="paddingBottomMobile35"/>
+                                    <paddingBottomMobile40
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Padding Bottom 40px"
+                                            value="paddingBottomMobile40"/>
+                                </items>
+                            </paddingBottomMobile>
+                            <paddingLeftMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="15" fieldLabel="Padding Left" fieldDescription="Choose the component Left padding on Mobile" name="./paddingLeftMobilePixel" />
+                            <paddingRightMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="15" fieldLabel="Padding Right" fieldDescription="Choose the component Right padding on Mobile" name="./paddingRightMobilePixel" />
+                            <cssMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                    fieldLabel="Custom css Mobile"
+                                    rows="2"
+                                    fieldDescription="Custom css only Mobile"
+                                    name="./cssMobile"/>
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+            <advanceGeo jcr:primaryType="nt:unstructured" jcr:title="Advance Geolocation"
+                        sling:resourceType="granite/ui/components/foundation/container" class="full-width">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <geoList jcr:primaryType="nt:unstructured"
+                                     sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                     class="full-width" fieldLabel="Geo options">
+                                <field jcr:primaryType="nt:unstructured"
+                                       sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                       acs-commons-nested="NODE_STORE" name="./listText">
+                                    <layout jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                            method="absolute"/>
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container"
+                                                class="full-width">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <geoTag jcr:primaryType="nt:unstructured" fieldLabel="Geolocation tag"
+                                                        name="./geoTag" rootPath="/etc/tags"
+                                                        sling:resourceType="cq/gui/components/common/tagspicker"/>
+                                                <urlgeo jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldLabel="Link url" name="./urlgeo"
+                                                        rootPath="/content/"/>
+                                                <urlgeoMobile
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldLabel="Link url mobile"
+                                                        name="./urlgeoMobile"
+                                                        rootPath="/content/"/>
+                                                <textDesktopgeo jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                                fieldLabel="Desktop Text" name="./textDesktopgeo" />
+                                                <textTabletgeo jcr:primaryType="nt:unstructured"
+                                                               sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                               fieldLabel="Tablet Text" name="./textTabletgeo" />
+                                                <textMobilegeo jcr:primaryType="nt:unstructured"
+                                                               sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                               fieldLabel="Mobile Text" name="./textMobilegeo" />
+
+
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </geoList>
+                        </items>
+                    </column>
+                </items>
+            </advanceGeo>
+
+        </items>
+    </content>
+</jcr:root>

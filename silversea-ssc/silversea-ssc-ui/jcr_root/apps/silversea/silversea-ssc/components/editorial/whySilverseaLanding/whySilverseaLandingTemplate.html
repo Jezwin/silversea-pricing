@@ -1,0 +1,74 @@
+<template data-sly-template.default data-sly-test=${properties.assetReference}>
+	<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html">
+		<sly data-sly-call="${imageTemplate.default @ imagePath=properties.assetReference}" />
+	</sly>
+</template>
+
+<template data-sly-template.video>
+	<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html">
+		<sly data-sly-test=${properties.assetReference} data-sly-call="${imageTemplate.default @ imagePath=properties.assetReference}" />
+		<sly data-sly-test=${!properties.videoReferenceDAM}>
+			<script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+			<span class="wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+	   			<a href="#">
+	       			<i class="fa fa-play"></i>
+	   			</a>
+			</span>
+		</sly>
+		<sly data-sly-test=${properties.videoReferenceDAM}>
+			<span class="video-link video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}" data-target=".bs-modal-lg">
+	   			<a href="#">
+	       			<i class="fa fa-play"></i>
+	   			</a>
+			</span>
+		</sly>
+	</sly>
+	
+</template>
+
+<template data-sly-template.lightboxGallery data-sly-test=${properties.mediaSetReference}>
+						
+	<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+	<div class="c-whySilverseaLanding-inline-gallery 
+				c-whySilverseaLanding-inline-gallery-${properties.showEnlargeMessageDesktop ? 'showEnlargeMessageDesktop' : 'hideEnlargeMessageDesktop'}
+				c-whySilverseaLanding-inline-gallery-${properties.showEnlargeMessageMobile ? 'showEnlargeMessageMobile' : 'hideEnlargeMessageMobile'}"
+	    data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.mediaSetReference || pageProperties.mediaSetReference}"
+	    data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+	    <div data-sly-list="${setImage.renditionList}">
+	        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+	        <sly data-sly-test="${itemList.first}">
+	        	<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.respLazy @ imagePath=item.path}" />
+	        </sly>
+	        <a class="automatic-gallery-modal-ssc  ${itemList.first ? 'automatic-gallery-modal-open' : ''} ${isVideo && itemList.first ? 'video-link' : ''} ${isVideo && properties.videoAutoPlay ? 'video-autoplay': ''}" 
+	        	data-target=".bs-modal-lg" href="${item.path}"
+	        	data-hide-arrow-mobile-ssc="${properties.hideSliderArrowMobile}">
+        		<i data-sly-test="${isVideo && itemList.first }" class="fa fa-play"></i>
+       		</a>
+	    </div>
+	</div>
+	
+</template>
+       		
+<template data-sly-template.inlineGallery data-sly-test=${properties.mediaSetReference}>
+
+	<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+	<div class="c-slider c-whySilverseaLanding-inline-gallery 
+				c-whySilverseaLanding-inline-gallery-${properties.idComponent || properties.sscUUID} 
+				c-whySilverseaLanding-inline-gallery-${properties.hideSliderArrowDesktop ? 'hideArrowDesktop' : 'showArrowDesktop'} 
+				c-whySilverseaLanding-inline-gallery-${properties.hideSliderArrowMobile ? 'hideArrowMobile' : 'showArrowMobile'}
+				c-whySilverseaLanding-inline-gallery-${properties.showEnlargeMessageDesktop ? 'showEnlargeMessageDesktop' : 'hideEnlargeMessageDesktop'}
+				c-whySilverseaLanding-inline-gallery-${properties.showEnlargeMessageMobile ? 'showEnlargeMessageMobile' : 'hideEnlargeMessageMobile'}"
+	    data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.mediaSetReference || pageProperties.mediaSetReference}"
+	    data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+	    <div data-sly-repeat.asset="${setImage.renditionList}">
+	        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+	        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.respLazy @ imagePath=asset.path}" />
+	        <a class="automatic-gallery-modal-ssc automatic-gallery-modal-open ss ${isVideo ? 'video-link' : ''} ${isVideo && properties.videoAutoPlay ? 'video-autoplay': ''}" 
+	        	data-target=".bs-modal-lg" href="${asset.path}" 
+	        	data-hide-arrow-mobile-ssc="${properties.hideSliderArrowMobile}" data-remove-first-mobile-ssc="${properties.removeFirstVideoItemMobile}" data-only-video-mobile="${properties.disableLightboxInlineMobile}" data-only-video-desktop="${properties.disableLightboxInlineDesktop}">
+        		<i data-sly-test="${isVideo}" class="fa fa-play"></i>
+       		</a>
+	    </div>
+	</div>
+	
+</template>

@@ -1,0 +1,52 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SSC - Media Mix Slider Custom (#mediaMixSliderCustom-${properties.sscUUID})"></div>
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+<div class="slider-container">
+    <div id="mediaMixSliderCustom-${properties.sscUUID}" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}" class="container-fluid c-slider automatic-gallery-modal mediaMixSliderCustom ${properties.disableLightboxGalleryDesktop ? 'disable-gallery-desktop' : ''}  ${properties.disableLightboxGalleryTablet ? 'disable-gallery-tablet' : ''} ${properties.disableLightboxGallery ? 'disable-gallery' : ''}
+    ${properties.disableProgessBarMobile ? 'disable-progress-bar-mobile' : ''}
+    ${properties.disableProgressBarTablet ? 'disable-progress-bar-tablet' : ''}
+    ${properties.disableProgressBarDesktop ? 'disable-progress-bar-desktop' : ''}
+    ${properties.limitWidthSlider ? 'limit-width-slider' : ''}" style="--slideWidthDesktop:${properties.slideWidthDesktop @ context='html'}px;
+           --slideWidthTablet:${properties.slideWidthTablet || properties.slideWidthDesktop @ context='html'}px;
+           --slideWidthMobile:${properties.slideWidthMobile || properties.slideWidthDesktop  @ context='html'}px;
+            --marginTopDesktop:${properties.marginTopDesktop @ context='html'}px;
+--marginBottomDesktop:${properties.marginBottomDesktop @ context='html'}px;
+--paddingTopDesktop:${properties.paddingTopDesktop @ context='html'}px;
+--paddingBottomDesktop:${properties.paddingBottomDesktop @ context='html'}px;
+--marginTopTablet:${properties.marginTopTablet @ context='html'}px;
+--marginBottomTablet:${properties.marginBottomTablet @ context='html'}px;
+--paddingTopTablet:${properties.paddingTopTablet @ context='html'}px;
+--paddingBottomTablet:${properties.paddingBottomTablet @ context='html'}px;
+--marginTopMobile:${properties.marginTopMobile @ context='html'}px;
+--marginBottomMobile:${properties.marginBottomMobile @ context='html'}px;
+--paddingTopMobile:${properties.paddingTopMobile @ context='html'}px;
+--paddingBottomMobile:${properties.paddingBottomMobile @ context='html'}px;" data-ie-style="--slideWidthDesktop:${properties.slideWidthDesktop @ context='html'}px;
+            --slideWidthTablet:${properties.slideWidthTablet || properties.slideWidthDesktop @ context='html'}px;
+            --slideWidthMobile:${properties.slideWidthMobile || properties.slideWidthDesktop  @ context='html'}px;
+            --marginTopDesktop:${properties.marginTopDesktop @ context='html'}px;
+            --marginBottomDesktop:${properties.marginBottomDesktop @ context='html'}px;
+            --paddingTopDesktop:${properties.paddingTopDesktop @ context='html'}px;
+            --paddingBottomDesktop:${properties.paddingBottomDesktop @ context='html'}px;
+            --marginTopTablet:${properties.marginTopTablet @ context='html'}px;
+            --marginBottomTablet:${properties.marginBottomTablet @ context='html'}px;
+            --paddingTopTablet:${properties.paddingTopTablet @ context='html'}px;
+            --paddingBottomTablet:${properties.paddingBottomTablet @ context='html'}px;
+            --marginTopMobile:${properties.marginTopMobile @ context='html'}px;
+            --marginBottomMobile:${properties.marginBottomMobile @ context='html'}px;
+            --paddingTopMobile:${properties.paddingTopMobile @ context='html'}px;
+            --paddingBottomMobile:${properties.paddingBottomMobile @ context='html'}px;">
+        <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference || pageProperties.assetSelectionReference}" />
+        <div data-sly-repeat.asset="${setImage.renditionList}">
+            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+            <div data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+                <picture data-sly-test.imageUrl="${asset.path}">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
+                    <source data-lazy="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=constrain" media="(max-width: 767px)" />
+                    <source data-lazy="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" media="(min-width: 768px)" />
+                    <img data-lazy="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain"  class="o-img cq-dd-image" />
+                </picture>
+            </div>
+
+            <a class="automatic-gallery-modal ${isVideo ? 'video-link' : ''}" data-target=".bs-modal-lg" href="${asset.path}"><i data-sly-test="${isVideo}" class="fa fa-play"></i></a>
+        </div>
+    </div>
+</div>

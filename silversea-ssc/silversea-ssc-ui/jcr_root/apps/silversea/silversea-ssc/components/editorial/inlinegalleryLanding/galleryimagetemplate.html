@@ -1,0 +1,77 @@
+<template data-sly-template.style1="${ @ asset, index}">
+    <div class="col-sm-4">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+        <div class="c-inline-gallery-row ${((!properties.lightboxActivated == true) && (!isVideo)) ? 'lightboxInactive' : 'videolightboxActive'}">
+            <a href="${asset.path}" class="lazy c-inline-gallery__item  o-img cq-dd-image ${((!properties.lightboxActivated == true) && (isVideo)) ? 'automatic-gallery-video-modal' : 'automatic-gallery-modal'}
+						${isVideo ? 'video-link' : ''}" data-target=".bs-modal-lg" data-src="${assetHelper.imageUrl}?wid=970&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1">
+				<i data-sly-test="${isVideo}" class="fa fa-play"></i>
+            </a>
+        </div>
+    </div>    
+</template>
+
+<template data-sly-template.style2="${ @ assetList}">
+
+    <sly data-sly-test="${properties.horizontalSlider != 'true'}" data-sly-use.listHelper="${'com.silversea.aem.helper.ListHelper' @ list = assetList, size = 3}" 
+							data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/imagetemplate.html"
+          data-sly-list="${listHelper.objectListGroup}">
+        <div class="c-inline__gallery__featured clearfix ${((displayHelper.display == true)&&(properties.displayItem != '0'))||(properties.horizontalSlider == 'true')? 'display' : 'displayNone'}" 
+				data-sly-use.displayHelper="${'com.silversea.ssc.aem.helper.GalleryDisplayHelper' @ displayItem=properties.displayItem , indexList=itemList.count }">
+           <div class="c-inline__gallery__featured__left">
+                <sly data-sly-call="${imageTemplate.default @ asset=item[0]}" />
+            </div>
+            <div class="c-inline__gallery__featured__right">
+			  <div class="c-right-item">
+                <sly data-sly-call="${imageTemplate.right @ asset=item[1]}" />
+			  </div>
+              <div class="c-right-item">
+                <sly data-sly-call="${imageTemplate.right @ asset=item[2]}" />
+			  </div>
+            </div>    
+        </div>
+    </sly>
+    <sly data-sly-test="${properties.horizontalSlider == 'true'}">
+        <div class="c-slider c-inline__gallery-slider" data-sly-use.listHelper="${'com.silversea.aem.helper.ListHelper' @ list = assetList, size = 3}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/imagetemplate.html"
+              data-sly-list="${listHelper.objectListGroup}">
+            <div class="c-inline__gallery__featured clearfix ${((displayHelper.display == true)&&(properties.displayItem != '0'))||(properties.horizontalSlider == 'true')? 'display' : 'displayNone'}" 
+							data-sly-use.displayHelper="${'com.silversea.ssc.aem.helper.GalleryDisplayHelper' @ displayItem=properties.displayItem , indexList=itemList.count }">
+               <div class="c-inline__gallery__featured__left">
+                    <sly data-sly-call="${imageTemplate.default @ asset=item[0]}" />
+                </div>
+                <div class="c-inline__gallery__featured__right">
+                  <div class="c-right-item">
+                    <sly data-sly-call="${imageTemplate.right @ asset=item[1]}" />
+                  </div>
+                  <div class="c-right-item">
+                    <sly data-sly-call="${imageTemplate.right @ asset=item[2]}" />
+                  </div>
+                </div>    
+            </div>
+        </div>
+    </sly>
+	<div data-sly-test="${(properties.displayItem != '0') && (properties.horizontalSlider != 'true')}" class="c-inline-gallery__item-expander" >
+        <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all-pictures' @ i18n}</span><i class="fa fa-angle-down"></i></a>
+        <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
+    </div>
+</template>
+
+<template data-sly-template.style3="${ @ asset}">
+     <div class="slider-item">
+          <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/imagetemplate.html">
+               <div class="c-inline-gallery-slider__image-wrapper">
+                    <sly data-sly-call="${imageTemplate.default @ asset=asset}"></sly>
+               </div>
+          </sly>
+     </div>
+</template>
+
+<template data-sly-template.mobileStyle="${ @ asset}">
+     <div class="slider-item">
+          <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/imagetemplate.html">
+               <div class="c-inline-gallery-slider__image-wrapper">
+                    <sly data-sly-call="${imageTemplate.default @ asset=asset}"></sly>
+               </div>
+          </sly>
+     </div>
+</template>
+

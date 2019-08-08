@@ -1,0 +1,3 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Destination teaser ND 2018"></div>
+<sly data-sly-test="${properties.componentType == null || properties.componentType == 'target'}" data-sly-use.destinationTeaserTemplate="destinationTeaserTemplate.html" data-sly-call="${destinationTeaserTemplate.target}" />
+<sly data-sly-test="${properties.componentType == 'custom'}" data-sly-use.destinationTeaserTemplate="destinationTeaserTemplate.html" data-sly-call="${destinationTeaserTemplate.custom}" />

@@ -1,0 +1,25 @@
+<div data-sly-test.empty="${ wcmmode.edit}" class="cq-placeholder" data-emptytext="Specific Text Component"></div>
+<sly data-sly-use.pixelClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}" data-sly-use.pixelFontClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='fontSize'}" >
+    <sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ property='sscFwFontSize'}"/>
+    <div id="c-specifc-text-${properties.sscUUID  || properties.jcr:uuid }"
+         class="c-specifc-text ${pixelClass.allDevicesPixel}" style="${fw.allDevices @ context='unsafe'}" data-ie-style="${fw.allDevices @ context='unsafe'}">
+
+        <div class="c-specifc-text__header c-specifc-text-header-${properties.color}" data-sly-use.headerGeoText="${'com.silversea.ssc.aem.helper.GeoContentHelper' @ property='headerText'}">
+            ${headerGeoText.value @ context="html"}
+        </div>
+        <sly data-sly-use.titleGeoText="${'com.silversea.ssc.aem.helper.GeoContentHelper' @ property='title'}" />
+        <sly data-sly-use.descriptionGeoText="${'com.silversea.ssc.aem.helper.GeoContentHelper' @ property='description'}" />
+        <h1 data-sly-element="${properties.titletag}" class="c-specifc-text__title ${pixelFontClass.allDevicesPixel}" data-sly-test="${properties.ctaLink}"> <a href="${properties.ctaLink @ extension='html'}" >${titleGeoText.value @ context="html"} </a></h1>
+        <h1 data-sly-element="${properties.titletag}" class="c-specifc-text__title ${pixelFontClass.allDevicesPixel}" data-sly-test="${!properties.ctaLink}"> ${titleGeoText.value @ context="html"}</h1>
+        <div class="c-specifc-text__description">
+            <p class="ssc-fw-font-size"> ${descriptionGeoText.value @ context='html'} </p>
+        </div>
+        <div class="c-specifc-text__description__mobile" data-sly-test="${properties.noDescription}">
+            <p class="ssc-fw-font-size"> ${descriptionGeoText.value @ context='html'} </p>
+        </div>
+        <span class="c-specifc-text__button" data-sly-test="${properties.ctaLink && properties.ctaLabel}"><a href="${properties.ctaLink @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+            <span class="c-specifc-text__button-cta">${properties.ctaLabel}</span> </a>
+		 </span>
+        <div data-sly-resource="${'parSpecificText' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    </div>
+</sly>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Hero banner DCO"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <herobanner
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Hero Banner"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <videoReference
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Video"
+                                name="./videoReference"
+                                rootPath="/content/dam/silversea-com"/>
+                        </items>
+                    </column>
+                </items>
+            </herobanner>
+            <desktop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Title and Subtitle"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <titleTextDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        fieldLabel="Title Text"
+                                        name="./titleTextDesktop"/>
+                                    <titleColorDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
+                                        fieldLabel="Title Color"
+                                        freestylePaletteType="{Boolean}true"
+                                        name="./titleColorDesktop"/>
+                                    <subTitleTextDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        fieldLabel="Sub Title Text"
+                                        name="./subTitleTextDesktop"/>
+                                    <subTitleColorDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
+                                        fieldLabel="Sub Title Color"
+                                        freestylePaletteType="{Boolean}true"
+                                        name="./subTitleColorDesktop"/>
+                                </items>
+                            </title>
+                            <heights
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Height Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <heightTypeDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Unit of measurement for css"
+                                        fieldLabel="Height Unit Type"
+                                        name="./heightTypeDesktop">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <pxTypeDesktop
+                                                jcr:primaryType="nt:unstructured"
+                                                text="px"
+                                                value="px"/>
+                                            <vhTypeDesktop
+                                                jcr:primaryType="nt:unstructured"
+                                                text="vh"
+                                                value="vh"/>
+                                        </items>
+                                    </heightTypeDesktop>
+                                    <desktopHeight
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="220"
+                                        fieldLabel="Desktop Height"
+                                        name="./desktopHeight"/>
+                                    <desktopMaxHeight
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="1200"
+                                        fieldLabel="Desktop Max Height (px)"
+                                        name="./desktopMaxHeight"/>
+                                </items>
+                            </heights>
+                            <margin
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Margin Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <margBottomDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="0"
+                                        fieldLabel="Desktop Bottom Margin (px)"
+                                        name="./margBottomDesktop"/>
+                                </items>
+                            </margin>
+                            <backgroundConfig
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Background Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <desktopAssetReference
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        fieldLabel="Background"
+                                        name="./desktopAssetReference"
+                                        rootPath="/content/dam/silversea-com"/>
+                                    <desktopBackgroundPos
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            fieldLabel="Background Position Desktop (left, right, center, top, bottom, left top, left center, left bottom, right top, right center, right bottom, center top, center center, center bottom)"
+                                            name="./desktopBackgroundPos" />
+                                    <addShadeOverDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                        name="./addShadeOverDesktop"
+                                        text="Add Shade Over"
+                                        value="true"/>
+                                    <animateDesktop
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                            name="./animateDesktop"
+                                            text="Animate Desktop"
+                                            value="true"/>
+                                </items>
+                            </backgroundConfig>
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Tablet options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <heights
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Height Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <heightTypeTablet
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Unit of measurement for css"
+                                        fieldLabel="Unit Type"
+                                        name="./heightTypeTablet">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <pxTypeDesktop
+                                                jcr:primaryType="nt:unstructured"
+                                                text="px"
+                                                value="px"/>
+                                            <vhTypeDesktop
+                                                jcr:primaryType="nt:unstructured"
+                                                text="vh"
+                                                value="vh"/>
+                                        </items>
+                                    </heightTypeTablet>
+                                    <tabletHeight
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="220"
+                                        fieldLabel="Tablet Height"
+                                        name="./tabletHeight"/>
+                                    <tabletMaxHeight
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="1200"
+                                        fieldLabel="Tablet Max Height (px)"
+                                        name="./tabletMaxHeight"/>
+                                </items>
+                            </heights>
+                            <margin
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Margin Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <margBottomTablet
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="0"
+                                        fieldLabel="Tablet Bottom Margin (px)"
+                                        name="./margBottomTablet"/>
+                                </items>
+                            </margin>
+                            <backgroundConfig
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Background Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <tabletAssetReference
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        fieldLabel="Background"
+                                        name="./tabletAssetReference"
+                                        rootPath="/content/dam/silversea-com"/>
+                                    <tabletBackgroundPos
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        fieldLabel="Background Position Tablet (left, right, center, top, bottom, left top, left center, left bottom, right top, right center, right bottom, center top, center center, center bottom)"
+                                        name="./tabletBackgroundPos" />
+                                    <addShadeOverTablet
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                        name="./addShadeOverTablet"
+                                        text="Add Shade Over"
+                                        value="true"/>
+                                </items>
+                            </backgroundConfig>
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+            <mobile
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Mobile options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Title and Subtitle"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <titleTextMobile
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        fieldLabel="Title Text"
+                                        name="./titleTextMobile"/>
+                                    <titleColorMobile
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
+                                        fieldLabel="Title Color"
+                                        freestylePaletteType="{Boolean}true"
+                                        name="./titleColorMobile"/>
+                                    <mobileSubTitleColor
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="silversea/silversea-ssc/ui/components/foundation/form/colorpicker"
+                                        fieldLabel="Sub Title Color"
+                                        freestylePaletteType="{Boolean}true"
+                                        name="./mobileSubTitleColor"/>
+                                    <subTitleTextMobile
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                        useFixedInlineToolbar="{Boolean}true"
+                                        fieldLabel="Sub Title Text"
+                                        name="./text"/>
+                                </items>
+                            </title>
+                            <heights
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Height Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <heightTypeMobile
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/select"
+                                        fieldDescription="Unit of measurement for css"
+                                        fieldLabel="Unit Type"
+                                        name="./heightTypeMobile">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <pxTypeDesktop
+                                                jcr:primaryType="nt:unstructured"
+                                                text="px"
+                                                value="px"/>
+                                            <vhTypeDesktop
+                                                jcr:primaryType="nt:unstructured"
+                                                text="vh"
+                                                value="vh"/>
+                                        </items>
+                                    </heightTypeMobile>
+                                    <mobileHeight
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="220"
+                                        fieldLabel="Mobile Height"
+                                        name="./mobileHeight"/>
+                                    <mobileMaxHeight
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="1200"
+                                        fieldLabel="Mobile Max Height (px)"
+                                        name="./mobileMaxHeight"/>
+                                </items>
+                            </heights>
+                            <margin
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Margin Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <margBottomMobile
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        defaultValue="0"
+                                        fieldLabel="Mobile Bottom Margin (px)"
+                                        name="./margBottomMobile"/>
+                                </items>
+                            </margin>
+                            <backgroundConfig
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Background Configuration"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <mobileAssetReference
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        fieldLabel="Background"
+                                        name="./mobileAssetReference"
+                                        rootPath="/content/dam/silversea-com"/>
+                                    <mobileBackgroundPos
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            fieldLabel="Background Position Mobile (left, right, center, top, bottom, left top, left center, left bottom, right top, right center, right bottom, center top, center center, center bottom)"
+                                            name="./mobileBackgroundPos" />
+                                </items>
+                            </backgroundConfig>
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

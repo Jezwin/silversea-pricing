@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Icon List"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            margin="{Boolean}false"
+            type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <iconList
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Icon List"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <iconList
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                class="full-width"
+                                fieldLabel="Icon List">
+                                <field
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                    acs-commons-nested="NODE_STORE"
+                                    name="./listIcon">
+                                    <layout
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                        method="absolute"/>
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <titleIcon
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                    fieldLabel="Title"
+                                                    name="./titleIcon"/>
+                                                <imageIcon
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                    fieldLabel="Image"
+                                                    name="./imageIcon"
+                                                    rootPath="/content/dam/silversea-com"/>
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </iconList>
+                        </items>
+                    </column>
+                </items>
+            </iconList>
+            <desktop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <desktop
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Desktop"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <margingTopDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        fieldLabel="Marging-top px"
+                                        name="./margingTopDesktop"
+                                        value="{Long}5"/>
+                                    <margingBottomDesktop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        fieldLabel="Marging-bottom px"
+                                        name="./margingBottomDesktop"
+                                        value="{Long}5"/>
+                                </items>
+                            </desktop>
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Tablet"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <tablet
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Tablet"
+                                sling:resourceType="granite/ui/components/foundation/form/fieldset">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <margingTopTablet
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        fieldLabel="Marging-top px"
+                                        name="./margingTopTablet"
+                                        value="{Long}5"/>
+                                    <margingBottomTablet
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        fieldLabel="Marging-bottom px"
+                                        name="./margingBottomTablet"
+                                        value="{Long}5"/>
+                                </items>
+                            </tablet>
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+        </items>
+    </content>
+</jcr:root>

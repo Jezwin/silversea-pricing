@@ -1,0 +1,35 @@
+<template data-sly-template.default>
+    <sly data-sly-use.menu="com.silversea.ssc.aem.models.StickyMenuUse">
+        <div class="sm-menu-container-wrapper ${menu.showOnDesktop ? '' : 'hidden-lg'} ${menu.showOnTablet ? '' : 'hidden-md'} ${menu.showOnMobile ? '' : 'hidden-sm hidden-xs'} ">
+            <div class="sm-menu-container">
+                <div class="sm-menu ssc-table-full-width">
+                    <div class="row-menu-navigation">
+                        <div class="sm-menu-tab-wrapper">
+                            <sly data-sly-repeat.item="${menu.items}">
+                                <sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=item.properties, property='sscFwBackgroundColor,sscFwColor'}"/>
+                                <sly data-sly-test="${item.pageLink}"
+                                     data-sly-use.externalLink="${'com.silversea.aem.helper.ExternalizerHelper' @ path=item.pageLink, absolute=false}"/>
+                                <a href="${item.anchor || externalLink.externalizedUrl @ extension='html'}" target="${item.external ? '_blank' : ''}"
+                                   style="${fw.allDevices @ context='unsafe'}"
+                                   data-ie-style="${fw.allDevices @ context='unsafe'}"
+                                   class="sm-menu-tab ssc-cell-full-width ssc-fw-background-color ${itemList.first ? 'sm-menu-tab-first' :''} ${item.isDesktop ? '' : 'hidden-lg'} ${item.isTablet ? '' : 'hidden-md'} ${item.isMobile ? '' : 'hidden-xs'} "
+                                   data-offset-desktop="${item.offsetScrollDesktop}"
+                                   data-offset-tablet="${item.offsetScrollTablet}"
+                                   data-offset-mobile="${item.offsetScrollMobile}">
+                                    <span class="sm-menu-tab-text ssc-fw-color">${item.text}</span>
+                                </a>
+                            </sly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(function () {
+                        window.$$stickyMenu = new StickyMenu(${menu.replaceHeader @context='scriptToken'});
+                    }
+                );
+            </script>
+        </div>
+    </sly>
+</template>
+

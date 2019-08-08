@@ -1,0 +1,101 @@
+.c-landingPlanningCruiseContainer{
+	width: 100vw;
+	margin: auto;
+	left: ~"calc(-50vw + 50%)";
+	position: relative;
+	.planningCruise__section {
+	    padding: 30px 0;
+	    width: 100%;
+	    float: left;
+	}
+	
+	.planningCruise__bgset, .bg_set {
+	    background-position: center center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	}
+	
+	.planningCruise__section-cruises {
+		@media (max-width: 700px){
+	    	background: @white !important;
+	    	padding: 30px 0px 38px;
+	    }
+	}
+	
+	.bg_black{
+		background:@black-8 !important;
+		text-align:center;
+		.planningCruise__section_header_title,.planningCruise__section_header_subtitle {
+			color: @white !important;
+		}
+	}
+	
+	.planningCruise__section_header_title.whitecolor, .planningCruise__section_header_subtitle.whitecolor {
+		color: @white !important;
+	}	
+	
+	.planningCruise__section_header_title.backcolor,.planningCruise__section_header_subtitle.backcolor  {
+		color: @grey--3 !important;
+	}
+	
+	.bg_white{
+		background:@white !important;
+		text-align:center;
+		.planningCruise__section_header_title, .planningCruise__section_header_subtitle {
+			color: @grey--3 !important;
+		}
+	}
+	
+	.bg_none{
+		background:none;
+		text-align:center;
+	}
+	
+	.planningCruise__section_header {
+	    margin-bottom: 20px;
+	    text-align: center;
+	    
+		.planningCruise__section_header_title, .planningCruise__section_header_subtitle {
+		    font-family: @f-open_sans;
+		    text-align: center;
+		    color: @black;
+		    font-size: 30px;
+		    font-weight: 200;
+		    line-height: 1;
+		    margin-bottom: 10px;
+		    margin-top:5px;
+		    @media (max-width: @screen-sm){
+		    	font-size:22px;
+		    	line-height:1.1;
+		    }
+		}
+		
+		.planningCruise__section_header_subtitle {
+			font-weight: 700;
+		}
+	}
+	
+	
+	.container {
+		font-family: @f-open_sans;
+	    max-width: 1200px;
+	    margin: 0 auto;
+    	width: 100%;
+	}
+	
+	a.btn {
+		width: 250px;
+		text-align: center;
+		@media (max-width: 700px){
+			width: 200px;
+	    }
+		span {
+	    	font-size: 14px;
+	    	font-weight: 600;
+	    	width: 250px;
+	    	@media (max-width: 700px){
+		    	font-size: 12px;
+		    }
+		}
+	}
+}

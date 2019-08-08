@@ -1,0 +1,729 @@
+<template data-sly-template.default="${ @ banner}">
+    <div id="c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid }" class="c-hero-banner-landing ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''} ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html"
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+        <div class="c-hero-banner-landing__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.viewHeightMobile} ${properties.maxHeightDesktop} ${properties.maxHeightTablet} ${properties.maxHeightMobile}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+	         <sly data-sly-test="${properties.videoReference && !properties.videoReferenceDAM}">
+				<script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+	    	</sly>
+	        <sly data-sly-test="${properties.videoReference && !properties.hideMobileVideo && !properties.videoReferenceDAM}">
+		      <span class="hidden-sm hidden-md hidden-lg wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+		        <a href="#">
+		            <i class="fa fa-play "></i>
+		        </a>
+		        </span>
+	        </sly>
+	        
+	        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideMobileVideo}" class="video-link video-link-dam hidden-sm hidden-md hidden-lg " href="${currentNode.path @ selectors='video', extension='html'}"
+	            data-target=".bs-modal-lg">
+	            <i class="fa fa-play"></i>
+	        </a>
+	       	<div class="${properties.shadePitcure  ? 'gradient-overlay' : ''}"></div>
+	       	<div class="hidden-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+	       	</div>
+	       	<div class="visible-xs"> 
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
+	       	</div>
+        </div>
+        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner-landing__row ${properties.centerContent ? 'centerContent' : ''} ${properties.forceWhiteFont ? 'forceWhite' : ''}">
+            <div class="col-sm-${properties.contentSize ? properties.contentSize : '7'} c-hero-banner-landing__content ${properties.disabledTextBackground ? '' : 'c-hero-banner-landing__content--white'} ${properties.vcenter ? 'vcenter' : ''}">
+                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+                <p class="c-hero-banner-landing__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
+                <sly data-sly-test.btn1="${banner.btn1}" />
+                <sly data-sly-test.btn2="${banner.btn2}" />
+                
+                <p class="c-hero-banner-landing__buttons ${properties.anchorActivated ? 'anchorlink' : ''}" data-sly-test="${btn1 || btn2}">
+                	<sly data-sly-test="${btn1.analyticType != 'clic-RAQ'}">
+	                    <a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                    <sly data-sly-test="${btn1.analyticType == 'clic-RAQ'}">
+	                    <a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html', suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                    <br/>
+                    <sly data-sly-test="${btn2.analyticType != 'clic-RAQ'}">
+	                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                    <sly data-sly-test="${btn2.analyticType == 'clic-RAQ'}">
+	                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html', suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                </p>
+            </div>
+        </div> 
+		<div class="c-hero-banner-landing-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-landing-scrolldown-desktop' : '' } c-hero-banner-landing-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        	<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        	<span><i class="fa fa-angle-down"></i></span>
+        </div>
+        <sly data-sly-test="${properties.videoReference && !properties.hideDesktopVideo && !properties.videoReferenceDAM}">
+	      <span class="hidden-xs wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+	        <a href="#">
+	            <i class="fa fa-play "></i>
+	        </a>
+	        </span>
+        </sly>
+        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideDesktopVideo}" class="video-link video-link-dam hidden-xs " href="${currentNode.path @ selectors='video', extension='html'}"
+            data-target=".bs-modal-lg">
+            <i class="fa fa-play"></i>
+        </a>
+    </div>
+</template>
+<template data-sly-template.home="${ @ banner}">
+    <div id="c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid }" class="c-hero-banner-landing c-hero-banner__search ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''} ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html"
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+        <div class="c-hero-banner-landing__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.viewHeightMobile} ${properties.maxHeightDesktop} ${properties.maxHeightTablet} ${properties.maxHeightMobile}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+	        <sly data-sly-test="${properties.videoReference && !properties.videoReferenceDAM}">
+	     		<script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+	    	</sly>
+	        <sly data-sly-test="${properties.videoReference && !properties.hideMobileVideo && !properties.videoReferenceDAM}">
+		      <span class="hidden-sm hidden-md hidden-lg wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+		        <a href="#">
+		            <i class="fa fa-play"></i>
+		        </a>
+		      </span>
+	        </sly>
+	        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideMobileVideo}" class="video-link hidden-sm hidden-md hidden-lg video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}"
+	            data-target=".bs-modal-lg">
+	            <i class="fa fa-play"></i>
+	        </a>
+	        <div class="${properties.shadePitcure  ? 'gradient-overlay' : ''}"></div>
+ 			<div class="hidden-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+	       	</div>
+	       	<div class="visible-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
+	       	</div>       
+	       	</div>
+        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner-landing__row hidden-xs ${properties.centerContent ? 'centerContent' : ''} ">
+            <div class="col-sm-${properties.contentSize ? properties.contentSize : '7'} c-hero-banner-landing__content ${properties.disabledTextBackground ? '' : 'c-hero-banner-landing__content--white'} ${properties.forceWhiteFont ? 'forceWhite' : ''} ${properties.vcenter ? 'vcenter' : ''}">
+                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+                <p class="c-hero-banner-landing__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
+                <sly data-sly-test.btn1="${banner.btn1}" />
+                <sly data-sly-test.btn2="${banner.btn2}" />
+                <p class="c-hero-banner-landing__buttons ${properties.anchorActivated ? 'anchorlink' : ''}" data-sly-test="${btn1 || btn2}">
+                	<sly data-sly-test="${btn1.analyticType != 'clic-RAQ'}">
+	                    <a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                    <sly data-sly-test="${btn1.analyticType == 'clic-RAQ'}">
+	                    <a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html', suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                    <br/>
+                    <sly data-sly-test="${btn2.analyticType != 'clic-RAQ'}">
+	                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                    <sly data-sly-test="${btn2.analyticType == 'clic-RAQ'}">
+	                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html',suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                </p>
+            </div>
+        </div>
+		<div class="c-hero-banner-landing-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-landing-scrolldown-desktop' : '' } c-hero-banner-landing-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        	<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        	<span><i class="fa fa-angle-down"></i></span>
+        </div>
+        <sly data-sly-test="${properties.videoReference && !properties.hideDesktopVideo && !properties.videoReferenceDAM}">
+	        <span class="hidden-xs wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+	        <a href="#">
+	            <i class="fa fa-play"></i>
+	        </a>
+	        </span>
+        </sly>
+        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideDesktopVideo}" class="video-link hidden-xs video-link-dam " href="${currentNode.path @ selectors='video', extension='html'}"
+            data-target=".bs-modal-lg">
+            <i class="fa fa-play"></i>
+        </a>
+    </div>
+</template>
+<template data-sly-template.offer="${ @ banner}">
+    <div id="c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid }"  class="c-hero-banner-landing c-hero-banner__search c-hero-banner__exclusiveoffers ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''} ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html"
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+        <sly data-sly-test="${properties.videoReference && !properties.videoReferenceDAM}">
+              <script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+	    </sly>
+        <div class="hidden-xs">
+            <div class="c-hero-banner-landing__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.maxHeightDesktop} ${properties.maxHeightTablet}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+            	<div class="${properties.shadePitcure  ? 'gradient-overlay' : ''}"></div>
+			    <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+            </div>
+            <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner-landing__row ${properties.centerContent ? 'centerContent' : ''}">
+                <div class="col-sm-${properties.contentSize ? properties.contentSize : '7'} c-hero-banner-landing__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'} ${properties.vcenter ? 'vcenter' : ''} ${properties.forceWhiteFont ? 'forceWhite' : ''}">
+                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+                    <p class="c-hero-banner-landing__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
+                    <sly data-sly-test.btn1="${banner.btn1}" />
+                    <sly data-sly-test.btn2="${banner.btn2}" />
+                    <p class="c-hero-banner-landing__buttons ${properties.anchorActivated ? 'anchorlink' : ''}" data-sly-test="${btn1 || btn2}">
+                    	<sly data-sly-test="${btn1.analyticType != 'clic-RAQ'}">
+	                       	<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        	<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        	<span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                </sly>
+		                <sly data-sly-test="${btn1.analyticType == 'clic-RAQ'}">
+	                       	<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html', suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        	<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        	<span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                </sly>
+	                    <br/>
+	                    <sly data-sly-test="${btn2.analyticType != 'clic-RAQ'}">
+		                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+	                    </sly>
+	                    <sly data-sly-test="${btn2.analyticType == 'clic-RAQ'}">
+		                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html', suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+	                    </sly>
+                    </p>
+                </div>
+            </div>
+		<div class="c-hero-banner-landing-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-landing-scrolldown-desktop' : '' } c-hero-banner-landing-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        		<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        		<span><i class="fa fa-angle-down"></i></span>
+        	</div>
+        <sly data-sly-test="${properties.videoReference && !properties.hideDesktopVideo && !properties.videoReferenceDAM}">
+		      <span class="wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+		        <a href="#">
+		            <i class="fa fa-play "></i>
+		        </a>
+		        </span>
+	        </sly>
+	        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideDesktopVideo}" class="video-link hidden-xs video-link-dam " href="${currentNode.path @ selectors='video', extension='html'}"
+            data-target=".bs-modal-lg">
+	            <i class="fa fa-play"></i>
+	        </a>
+        </div>
+        <div class="hidden-sm hidden-md hidden-lg">
+	        	<div class="c-hero-banner-landing__image ${properties.viewHeightMobile} ${properties.maxHeightMobile}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+		        	<sly data-sly-test="${properties.videoReference && !properties.hideMobileVideo && !properties.videoReferenceDAM}">
+	                  <script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+				      <span class="wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+				        <a href="#">
+				            <i class="fa fa-play "></i>
+				        </a>
+				        </span>
+			        </sly>
+			        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideMobileVideo}" class="video-link hidden-sm hidden-md hidden-lg video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}"
+			            data-target=".bs-modal-lg">
+			            <i class="fa fa-play"></i>
+			        </a>
+	                <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
+	            </div>
+	            <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner-landing__row">
+	                <div class="col-sm-7 c-hero-banner-landing__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
+	                    <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+		                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+		                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+		                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner-landing__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+	                    <p class="c-hero-banner-landing__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
+	                    <sly data-sly-test.btn1="${banner.btn1}" />
+	                    <sly data-sly-test.btn2="${banner.btn2}" />
+	                    <p class="c-hero-banner-landing__buttons ${properties.anchorActivated ? 'anchorlink' : ''}" data-sly-test="${btn1 || btn2}">
+   		                    <sly data-sly-test="${btn1.analyticType != 'clic-RAQ'}">
+		                      	<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+		                        	<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        	<span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    	</a>
+		                    	<a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        	<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        	<span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    	</a>
+		                    </sly>
+		                    <sly data-sly-test="${btn1.analyticType == 'clic-RAQ'}">
+		                      	<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html', suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn1.color} ${btn1.size} ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+		                        	<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        	<span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    	</a>
+		                    	<a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        	<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        	<span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    	</a>
+		                    </sly>
+		                    <br/>
+  		                    <sly data-sly-test="${btn2.analyticType != 'clic-RAQ'}">
+			                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+			                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+			                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+			                    </a>
+			                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+			                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+			                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+			                    </a>
+			                </sly>
+			                <sly data-sly-test="${btn2.analyticType == 'clic-RAQ'}">
+			                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html', suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn2.color} ${btn2.size} ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+			                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+			                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+			                    </a>
+			                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+			                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+			                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+			                    </a>
+			                </sly>
+	                    </p>
+	                </div>
+	            </div>
+        </div>
+    </div>
+</template>
+
+<template data-sly-template.style1="${ @ banner}">
+        <div id="c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid }"  class="c-hero-banner-landing c-hero-banner-landing-dmp c-hero-banner__search style1 ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''} ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html"
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+        <sly data-sly-test="${properties.videoReference && !properties.videoReferenceDAM}">
+	        <script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+        </sly>
+        <div class="c-hero-banner-landing__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.viewHeightMobile} ${properties.maxHeightDesktop} ${properties.maxHeightTablet} ${properties.maxHeightMobile}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+          	<sly data-sly-test="${properties.videoReference && !properties.hideMobileVideo && !properties.videoReferenceDAM}">
+          		<span class="hidden-sm hidden-md hidden-lg wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+	          		<a href="#">
+		            	<i class="fa fa-play "></i>
+		        	</a>
+	      		</span>
+	        </sly>
+	        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideMobileVideo}" class="video-link hidden-sm hidden-md hidden-lg video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}"
+	            data-target=".bs-modal-lg">
+	            <i class="fa fa-play"></i>
+	        </a>
+	        <div class="${properties.shadePitcure  ? 'gradient-overlay' : ''}"></div>
+            <div class="hidden-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+	       	</div>
+	       	<div class="visible-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
+	       	</div>
+        </div>
+        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner-landing__row ">
+            <div class="col-sm-${properties.contentSize ? properties.contentSize : '7'} c-hero-banner-landing__content ${properties.forceWhiteFont ? 'forceWhite' : ''}  ${properties.disabledTextBackground ? 'noBackground' : 'c-hero-banner-landing__content--white'} ${properties.centerContent ? 'centerContent' : ''}">
+                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner-landing__title">
+                	<span class="preOffer" data-sly-test="${properties.preOffer}">${properties.preOffer}</span>${banner.title || pageProperties.jcr:title @ context="html"}<span class="postOffer" data-sly-test="${properties.postOffer}">${properties.postOffer}</span>
+               	</h1>
+                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner-landing__title">
+                	<span class="preOffer" data-sly-test="${properties.preOffer}">${properties.preOffer}</span>${banner.title || pageProperties.jcr:title @ context="html"}<span class="postOffer" data-sly-test="${properties.postOffer}">${properties.postOffer}</span>
+               	</h2>
+               	<h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner-landing__title">
+                	<span class="preOffer" data-sly-test="${properties.preOffer}">${properties.preOffer}</span>${banner.title || pageProperties.jcr:title @ context="html"}<span class="postOffer" data-sly-test="${properties.postOffer}">${properties.postOffer}</span>
+               	</h3>
+               	<span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner-landing__title">
+                	<span class="preOffer" data-sly-test="${properties.preOffer}">${properties.preOffer}</span>${banner.title || pageProperties.jcr:title @ context="html"}<span class="postOffer" data-sly-test="${properties.postOffer}">${properties.postOffer}</span>
+               	</span>               	
+                <p class="c-hero-banner-landing__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
+                <sly data-sly-test.btn1="${banner.btn1}" />
+                <sly data-sly-test.btn2="${banner.btn2}" />
+                <p class="c-hero-banner-landing__buttons ${properties.anchorActivated ? 'anchorlink' : ''}" data-sly-test="${btn1 || btn2}">
+	                <sly data-sly-test="${btn1.analyticType != 'clic-RAQ'}">
+	                    <a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly> 
+                    <sly data-sly-test="${btn1.analyticType == 'clic-RAQ'}">
+	                    <a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html',suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}"  href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} effect btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly> 
+                    <br/>
+                    <sly data-sly-test="${btn2.analyticType != 'clic-RAQ'}">
+	                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                    <sly data-sly-test="${btn2.analyticType == 'clic-RAQ'}">
+	                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html',suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}"  href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} effect btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </sly>
+                </p>
+            </div>
+        </div>
+		<div class="c-hero-banner-landing-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-landing-scrolldown-desktop' : '' } c-hero-banner-landing-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        	<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        	<span><i class="fa fa-angle-down"></i></span>
+        </div>
+        <sly data-sly-test="${properties.videoReference && !properties.hideDesktopVideo && !properties.videoReferenceDAM}">
+	      <span class="hidden-xs wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+	        <a href="#">
+	            <i class="fa fa-play"></i>
+	        </a>
+	      </span>
+        </sly>
+        <a data-sly-test="${properties.videoReferenceDAM && !properties.hideDesktopVideo}" class="video-link hidden-xs video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}"
+            data-target=".bs-modal-lg">
+            <i class="fa fa-play"></i>
+        </a>
+    </div>
+    <style data-sly-test="${properties.bFontSize}">
+    	.c-hero-banner-landing-dmp .c-hero-banner-landing__title b {
+    		font-size: ${properties.bFontSize @ context= 'unsafe'}px;
+    	}
+    </style>
+</template>
+
+<template data-sly-template.style2="${ @ banner}">
+<div id="c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid }"  class="c-hero-banner-landing lp17__herobanner ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''} ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html"
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+        <div class="c-hero-banner-landing__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.viewHeightMobile} ${properties.maxHeightDesktop} ${properties.maxHeightTablet} ${properties.maxHeightMobile}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+	         <sly data-sly-test="${properties.videoReference && !properties.videoReferenceDAM}">
+	     		<script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+			</sly>
+        	<sly data-sly-test="${properties.videoReference && !properties.hideMobileVideo && !properties.videoReferenceDAM}">
+		        <span class="hidden-sm hidden-md hidden-lg wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+		        <a href="#">
+		            <i class="fa fa-play "></i>
+		        </a>
+		        </span>
+        	</sly>
+        	<a data-sly-test="${properties.videoReferenceDAM && !properties.hideMobileVideo}" class="video-link hidden-sm hidden-md hidden-lg video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}"
+	            data-target=".bs-modal-lg">
+	            <i class="fa fa-play"></i>
+	        </a>
+        	<div class="${properties.shadePitcure  ? 'gradient-overlay' : ''}"></div>
+            <div class="hidden-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+	       	</div>
+	       	<div class="visible-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
+	       	</div>
+        </div>
+		<div class="lp17__herobanner_inner ${properties.centerContent ? 'centerContent' : ''} ${properties.forceWhiteFont ? 'forceWhite' : ''}">
+			<div class="lp17__herobanner_slide_desc">
+				<div class="container">
+					<sly data-sly-test="${properties.titletag == 'h1' || !properties.titletag}">
+						<h1 class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+						<h2 class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</h2>
+					</sly>		
+					<sly data-sly-test="${properties.titletag == 'h2'}">
+						<h2 class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+						<h3 class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</h3>
+					</sly>		
+					<sly data-sly-test="${properties.titletag == 'h3'}">
+						<h3 class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+						<h4 class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</h4>
+					</sly>		
+					<sly data-sly-test="${properties.titletag == 'span'}">
+						<span class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+						<span class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</span>
+					</sly>		
+				</div>
+			 <sly data-sly-test.btn1="${banner.btn1}" />
+             <sly data-sly-test.btn2="${banner.btn2}" />
+             			<div class="lp17__herobanner_slide_cta ${properties.leftContent ? 'leftContent' : ''}" data-sly-test="${btn1 || btn2 || properties.videoReference}">
+			
+			<div class="lp17__herobanner_slide_cta_item ">
+			  		<div class="hidden-xs lp17__herobanner_slide_cta_item" data-sly-test="${properties.videoReference && !properties.showPlayVideo && !properties.hideDesktopVideo && !properties.videoReferenceDAM}">
+                     <span class="wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link">
+	                   <a href="#" class="btn btn-default btn-sm btnlp17 ${properties.forceRedVideoCTA ? 'forceRedVideoCTA' : ''} ${btn1.size}" data-sscclicktype="clic-video">
+	                        <span>${'PLAY-OUR-VIDEO' @i18n}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </span> 
+                    </div>
+                    <div class="hidden-xs lp17__herobanner_slide_cta_item" data-sly-test="${properties.videoReferenceDAM && !properties.showPlayVideo && !properties.hideDesktopVideo}">
+                     <span class="">
+	                   <a href="${currentNode.path @ selectors='video', extension='html'}" data-target=".bs-modal-lg" class="btn btn-default btn-sm btnlp17 ${properties.forceRedVideoCTA ? 'forceRedVideoCTA' : ''} ${btn1.size} video-link-dam" data-sscclicktype="clic-video">
+	                        <span>${'PLAY-OUR-VIDEO' @i18n}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </span> 
+                    </div>
+	                    <sly data-sly-test="${btn1.analyticType != 'clic-RAQ'}">
+					 		<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}" href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                </sly>
+		                <sly data-sly-test="${btn1.analyticType == 'clic-RAQ'}">
+					 		<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html',suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}" href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                </sly>
+                    </div>
+                    <div class="lp17__herobanner_slide_cta_item">
+                    	<sly data-sly-test="${btn2.analyticType != 'clic-RAQ'}">
+		                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}" href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+                    	</sly>
+                    	<sly data-sly-test="${btn2.analyticType == 'clic-RAQ'}">
+		                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html',suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}" href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+                    	</sly>
+                    </div>
+                  
+			</div>
+			</div>
+		
+		</div>
+		<div class="c-hero-banner-landing-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-landing-scrolldown-desktop' : '' } c-hero-banner-landing-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        	<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        	<span><i class="fa fa-angle-down"></i></span>
+        </div>
+		<sly data-sly-test="${properties.videoReference && properties.showPlayVideo && !properties.hideDesktopVideo && !properties.videoReferenceDAM}">
+	        <span class="hidden-xs wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+	        <a href="#">
+	            <i class="fa fa-play style2"></i>
+	        </a>
+	        </span>
+       	</sly>
+       	<a data-sly-test="${properties.videoReferenceDAM && !properties.hideDesktopVideo && properties.showPlayVideo}" class="video-link hidden-xs video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}"
+            data-target=".bs-modal-lg">
+            <i class="fa fa-play"></i>
+        </a>
+		<div class="whyss__content_intro" data-sly-test="${properties.bottomNote}"><p>${properties.bottomNote}</p></div>
+		</div>
+   
+</template>
+
+
+<template data-sly-template.landingNSW4="${ @ banner}">
+	<div class="c-hero-banner-landing-nsw4Landing">
+		<sly data-sly-call="${heroBannerTemplate.style2 @ banner=banner}" />
+	</div>
+</template>
+
+<template data-sly-template.landing2017="${ @ banner}">
+	<div class="c-hero-banner-landing-2017Landing">
+		<sly data-sly-call="${heroBannerTemplate.style2 @ banner=banner}" />
+	</div>
+</template>
+
+<template data-sly-template.landing2018="${ @ banner}">
+<div id="c-hero-banner-landing-${properties.sscUUID  || properties.jcr:uuid }"  class="c-hero-banner-landing lp17__herobanner ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''} ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html"
+         data-sly-use.imageTransparentTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html" data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+         
+        <div class="c-hero-banner-landing__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.viewHeightMobile} ${properties.maxHeightDesktop} ${properties.maxHeightTablet} ${properties.maxHeightMobile} ${properties.enableDarkOverlay ? 'c-hero-dark-overlay' : ''}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+	         <sly data-sly-test="${properties.videoReference}">
+	     		<script src="https://fast.wistia.com/embed/medias/${properties.videoReference}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+			</sly>
+        	<sly data-sly-test="${properties.videoReference && !properties.hideMobileVideo}">
+		        <span class="hidden-sm hidden-md hidden-lg wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+		        <a href="#">
+		            <i class="fa fa-play "></i>
+		        </a>
+		        </span>
+        	</sly>
+        	<div class="${properties.shadePitcure  ? 'gradient-overlay' : ''}"></div>
+            <div class="hidden-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+	       	</div>
+	       	<div class="visible-xs">
+		        <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
+	       	</div>
+        </div>
+		<div class="lp17__herobanner_inner ${properties.centerContent ? 'centerContent' : ''} ${properties.forceWhiteFont ? 'forceWhite' : ''}">
+            <div class="banner-logo" data-sly-test.reference="${properties.foregroundImage}">
+                   <sly data-sly-call="${imageTransparentTemplate.image @ imagePath=reference , width=90}" />
+            </div>
+			<div class="lp17__herobanner_slide_desc">
+				<div class="container">
+					<sly data-sly-test="${properties.titletag == 'h1' || !properties.titletag}">
+						<h1 class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+						<h2 class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</h2>
+					</sly>		
+					<sly data-sly-test="${properties.titletag == 'h2'}">
+						<h2 class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+						<h3 class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</h3>
+					</sly>		
+					<sly data-sly-test="${properties.titletag == 'h3'}">
+						<h3 class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+						<h4 class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</h4>
+					</sly>		
+					<sly data-sly-test="${properties.titletag == 'span'}">
+						<span class="lp17__herobanner_slide_title ${properties.leftContent ? 'leftContent' : ''}">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+						<span class="lp17__herobanner_slide_subtitle ${properties.leftContent ? 'leftContent' : ''}">${banner.description || pageProperties.jcr:description @ context="html"}</span>
+					</sly>		
+				</div>
+			 <sly data-sly-test.btn1="${banner.btn1}" />
+             <sly data-sly-test.btn2="${banner.btn2}" />
+             			<div class="lp17__herobanner_slide_cta ${properties.leftContent ? 'leftContent' : ''}" data-sly-test="${btn1 || btn2 || properties.videoReference}">
+			
+			<div class="lp17__herobanner_slide_cta_item ">
+			  		<div class="hidden-xs lp17__herobanner_slide_cta_item" data-sly-test="${properties.videoReference && !properties.showPlayVideo && !properties.hideDesktopVideo}">
+                     <span class="wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link">
+	                   <a href="#" class="btn btn-default btn-sm btnlp17 ${properties.forceRedVideoCTA ? 'forceRedVideoCTA' : ''} ${btn1.size}" data-sscclicktype="clic-video">
+	                        <span>${'PLAY-OUR-VIDEO' @i18n}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+	                    </a>
+                    </span> 
+                    </div>
+	                    <sly data-sly-test="${btn1.analyticType != 'clic-RAQ'}">
+					 		<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}" href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                </sly>
+		                <sly data-sly-test="${btn1.analyticType == 'clic-RAQ'}">
+					 		<a data-sly-test="${btn1.reference && !properties.lightboxActivated1}" href="${btn1.reference @ extension='html',suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" target="${properties.targetBlank1 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn1.reference && properties.lightboxActivated1}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn1.reference}" href="${btn1.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn1.color} ${btn1.size} btnlp17 effect ${properties.hideMobileButton1 ? 'hidden-xs' : ''}" data-sscclicktype="${btn1.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                </sly>
+                    </div>
+                    <div class="lp17__herobanner_slide_cta_item">
+                    	<sly data-sly-test="${btn2.analyticType != 'clic-RAQ'}">
+		                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}" href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+                    	</sly>
+                    	<sly data-sly-test="${btn2.analyticType == 'clic-RAQ'}">
+		                    <a data-sly-test="${btn2.reference && !properties.lightboxActivated2}" href="${btn2.reference @ extension='html',suffix=banner.suffixUrl, selectors=banner.selectorUrl}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" target="${properties.targetBlank2 ? '_blank' : '_self'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+		                    <a data-sly-test="${btn2.reference && properties.lightboxActivated2}" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=btn2.reference}" href="${btn2.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${btn2.color} ${btn2.size} btnlp17 effect ${properties.hideMobileButton2 ? 'hidden-xs' : ''}" data-sscclicktype="${btn2.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+		                    </a>
+                    	</sly>
+                    </div>
+                  
+			</div>
+			</div>
+		
+		</div>
+		<div class="c-hero-banner-landing-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-landing-scrolldown-desktop' : '' } c-hero-banner-landing-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        	<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        	<span><i class="fa fa-angle-down"></i></span>
+        </div>
+		<sly data-sly-test="${properties.videoReference && properties.showPlayVideo && !properties.hideDesktopVideo}">
+	        <span class="hidden-xs wistia_embed wistia_async_${properties.videoReference} popover=true popoverContent=link video-link">
+	        <a href="#">
+	            <i class="fa fa-play style2"></i>
+	        </a>
+	        </span>
+       	</sly>
+		<div class="whyss__content_intro" data-sly-test="${properties.bottomNote}"><p>${properties.bottomNote}</p></div>
+		</div>
+   
+</template>

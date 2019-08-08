@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Text"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <desktop
+				    jcr:primaryType="nt:unstructured"
+				   jcr:title="Desktop options"
+				   sling:resourceType="granite/ui/components/foundation/container">
+				     <layout jcr:primaryType="nt:unstructured"
+				            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+				     <items jcr:primaryType="nt:unstructured">
+				        <column jcr:primaryType="nt:unstructured"
+				                sling:resourceType="granite/ui/components/foundation/container">
+				            <items jcr:primaryType="nt:unstructured">
+				                    <marginTopDesktop
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Margin Top"
+				                        fieldDescription="Choose the component Top margin on desktop"
+				                        name="./marginTopDesktop">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <marginTopDesktop0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 0px"
+				                            value="marginTopDesktop0"/>
+				                       <marginTopDesktop5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 5px"
+				                            value="marginTopDesktop5"/>
+				                       <marginTopDesktop10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 10px"
+				                            value="marginTopDesktop10"/>
+				                       <marginTopDesktop15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 15px"
+				                            value="marginTopDesktop15"/>
+				                       <marginTopDesktop20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 20px"
+				                            value="marginTopDesktop20"/>
+				                       <marginTopDesktop25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 25px"
+				                            value="marginTopDesktop25"/>
+				                       <marginTopDesktop30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 30px"
+				                            value="marginTopDesktop30"/>
+				                       <marginTopDesktop35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 35px"
+				                            value="marginTopDesktop35"/>
+				                        <marginTopDesktop40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 40px"
+				                            value="marginTopDesktop40"/>
+				                        <marginTopDesktopMinus5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -5px"
+				                            value="marginTopDesktopMinus5"/>
+				                       <marginTopDesktopMinus10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -10px"
+				                            value="marginTopDesktopMinus10"/>
+				                       <marginTopDesktopMinus15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -15px"
+				                            value="marginTopDesktopMinus15"/>               
+				                       <marginTopDesktopMinus20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -20px"
+				                            value="marginTopDesktopMinus20"/>
+				                      </items>
+				                    </marginTopDesktop>
+				                    <marginBottomDesktop
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Margin Bottom"
+				                        fieldDescription="Choose the component Bottom margin on desktop"
+				                        name="./marginBottomDesktop">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <marginBottomDesktop0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 0px"
+				                            value="marginBottomDesktop0"/>
+				                       <marginBottomDesktop5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 5px"
+				                            value="marginBottomDesktop5"/>
+				                       <marginBottomDesktop10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 10px"
+				                            value="marginBottomDesktop10"/>
+				                       <marginBottomDesktop15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 15px"
+				                            value="marginBottomDesktop15"/>
+				                       <marginBottomDesktop20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 20px"
+				                            value="marginBottomDesktop20"/>
+				                       <marginBottomDesktop25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 25px"
+				                            value="marginBottomDesktop25"/>
+				                       <marginBottomDesktop30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 30px"
+				                            value="marginBottomDesktop30"/>
+				                       <marginBottomDesktop35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 35px"
+				                            value="marginBottomDesktop35"/>
+				                        <marginBottomDesktop40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 40px"
+				                            value="marginBottomDesktop40"/>
+				                        <marginBottomDesktopMinus5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -5px"
+				                            value="marginBottomDesktopMinus5"/>
+				                       <marginBottomDesktopMinus10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -10px"
+				                            value="marginBottomDesktopMinus10"/>
+				                       <marginBottomDesktopMinus15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -15px"
+				                            value="marginBottomDesktopMinus15"/>            
+				                       <marginBottomDesktopMinus20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -20px"
+				                            value="marginBottomDesktopMinus20"/>
+				                      </items>
+				                    </marginBottomDesktop>
+				                    <paddingTopDesktop
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Padding Top"
+				                        fieldDescription="Choose the component Top padding on desktop"
+				                        name="./paddingTopDesktop">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <paddingTopDesktop0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 0px"
+				                            value="paddingTopDesktop0"/>
+				                       <paddingTopDesktop5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 5px"
+				                            value="paddingTopDesktop5"/>
+				                       <paddingTopDesktop10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 10px"
+				                            value="paddingTopDesktop10"/>
+				                       <paddingTopDesktop15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 15px"
+				                            value="paddingTopDesktop15"/>
+				                       <paddingTopDesktop20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 20px"
+				                            value="paddingTopDesktop20"/>
+				                       <paddingTopDesktop25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 25px"
+				                            value="paddingTopDesktop25"/>
+				                       <paddingTopDesktop30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 30px"
+				                            value="paddingTopDesktop30"/>
+				                       <paddingTopDesktop35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 35px"
+				                            value="paddingTopDesktop35"/>
+				                        <paddingTopDesktop40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 40px"
+				                            value="paddingTopDesktop40"/>
+				                      </items>
+				                    </paddingTopDesktop>
+				                    <paddingBottomDesktop
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Padding Bottom"
+				                        fieldDescription="Choose the component Bottom padding on desktop"
+				                        name="./paddingBottomDesktop">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <paddingBottomDesktop0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 0px"
+				                            value="paddingBottomDesktop0"/>
+				                       <paddingBottomDesktop5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 5px"
+				                            value="paddingBottomDesktop5"/>
+				                       <paddingBottomDesktop10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 10px"
+				                            value="paddingBottomDesktop10"/>
+				                       <paddingBottomDesktop15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 15px"
+				                            value="paddingBottomDesktop15"/>
+				                       <paddingBottomDesktop20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 20px"
+				                            value="paddingBottomDesktop20"/>
+				                       <paddingBottomDesktop25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 25px"
+				                            value="paddingBottomDesktop25"/>
+				                       <paddingBottomDesktop30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 30px"
+				                            value="paddingBottomDesktop30"/>
+				                       <paddingBottomDesktop35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 35px"
+				                            value="paddingBottomDesktop35"/>
+				                        <paddingBottomDesktop40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 40px"
+				                            value="paddingBottomDesktop40"/>
+				                      </items>
+				                    </paddingBottomDesktop>
+				                <cssDesktop
+				                    jcr:primaryType="nt:unstructured"
+				                    sling:resourceType="granite/ui/components/foundation/form/textarea"
+				                    fieldLabel="Custom css desktop"
+				                    rows="5"
+				                    fieldDescription="Custom css only desktop"
+				                    name="./cssDesktop" />
+				            </items>
+				        </column>
+				    </items>
+				</desktop>
+				<tablet
+				   jcr:primaryType="nt:unstructured"
+				   jcr:title="Tablet options"
+				   sling:resourceType="granite/ui/components/foundation/container">
+				     <layout jcr:primaryType="nt:unstructured"
+				            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+				     <items jcr:primaryType="nt:unstructured">
+				        <column jcr:primaryType="nt:unstructured"
+				                sling:resourceType="granite/ui/components/foundation/container">
+				            <items jcr:primaryType="nt:unstructured">
+				                <marginTopTablet
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Margin Top"
+				                        fieldDescription="Choose the component Top margin on tablet"
+				                        name="./marginTopTablet">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <marginTopTablet0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 0px"
+				                            value="marginTopTablet0"/>
+				                       <marginTopTablet5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 5px"
+				                            value="marginTopTablet5"/>
+				                       <marginTopTablet10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 10px"
+				                            value="marginTopTablet10"/>
+				                       <marginTopTablet15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 15px"
+				                            value="marginTopTablet15"/>
+				                       <marginTopTablet20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 20px"
+				                            value="marginTopTablet20"/>
+				                       <marginTopTablet25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 25px"
+				                            value="marginTopTablet25"/>
+				                       <marginTopTablet30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 30px"
+				                            value="marginTopTablet30"/>
+				                       <marginTopTablet35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 35px"
+				                            value="marginTopTablet35"/>
+				                        <marginTopTablet40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 40px"
+				                            value="marginTopTablet40"/>
+				                        <marginTopTabletMinus5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -5px"
+				                            value="marginTopTabletMinus5"/>
+				                       <marginTopTabletMinus10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -10px"
+				                            value="marginTopTabletMinus10"/>
+				                       <marginTopTabletMinus15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -15px"
+				                            value="marginTopTabletMinus15"/>            
+				                       <marginTopTabletMinus20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -20px"
+				                            value="marginTopTabletMinus20"/>
+				                      </items>
+				                    </marginTopTablet>
+				                    <marginBottomTablet
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Margin Bottom"
+				                        fieldDescription="Choose the component Bottom margin on tablet"
+				                        name="./marginBottomTablet">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <marginBottomTablet0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 0px"
+				                            value="marginBottomTablet0"/>
+				                       <marginBottomTablet5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 5px"
+				                            value="marginBottomTablet5"/>
+				                       <marginBottomTablet10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 10px"
+				                            value="marginBottomTablet10"/>
+				                       <marginBottomTablet15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 15px"
+				                            value="marginBottomTablet15"/>
+				                       <marginBottomTablet20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 20px"
+				                            value="marginBottomTablet20"/>
+				                       <marginBottomTablet25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 25px"
+				                            value="marginBottomTablet25"/>
+				                       <marginBottomTablet30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 30px"
+				                            value="marginBottomTablet30"/>
+				                       <marginBottomTablet35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 35px"
+				                            value="marginBottomTablet35"/>
+				                        <marginBottomTablet40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 40px"
+				                            value="marginBottomTablet40"/>
+				                        <marginBottomTabletMinus5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -5px"
+				                            value="marginBottomTabletMinus5"/>
+				                       <marginBottomTabletMinus10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -10px"
+				                            value="marginBottomTabletMinus10"/>
+				                       <marginBottomTabletMinus15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -15px"
+				                            value="marginBottomTabletMinus15"/>             
+				                       <marginBottomTabletMinus20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -20px"
+				                            value="marginBottomTabletMinus20"/>
+				                      </items>
+				                    </marginBottomTablet>
+				                    <paddingTopTablet
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Padding Top"
+				                        fieldDescription="Choose the component Top padding on tablet"
+				                        name="./paddingTopTablet">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <paddingTopTablet0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 0px"
+				                            value="paddingTopTablet0"/>
+				                       <paddingTopTablet5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 5px"
+				                            value="paddingTopTablet5"/>
+				                       <paddingTopTablet10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 10px"
+				                            value="paddingTopTablet10"/>
+				                       <paddingTopTablet15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 15px"
+				                            value="paddingTopTablet15"/>
+				                       <paddingTopTablet20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 20px"
+				                            value="paddingTopTablet20"/>
+				                       <paddingTopTablet25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 25px"
+				                            value="paddingTopTablet25"/>
+				                       <paddingTopTablet30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 30px"
+				                            value="paddingTopTablet30"/>
+				                       <paddingTopTablet35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 35px"
+				                            value="paddingTopTablet35"/>
+				                        <paddingTopTablet40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 40px"
+				                            value="paddingTopTablet40"/>
+				                      </items>
+				                    </paddingTopTablet>
+				                    <paddingBottomTablet
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Padding Bottom"
+				                        fieldDescription="Choose the component Bottom padding on tablet"
+				                        name="./paddingBottomTablet">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <paddingBottomTablet0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 0px"
+				                            value="paddingBottomTablet0"/>
+				                       <paddingBottomTablet5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 5px"
+				                            value="paddingBottomTablet5"/>
+				                       <paddingBottomTablet10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 10px"
+				                            value="paddingBottomTablet10"/>
+				                       <paddingBottomTablet15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 15px"
+				                            value="paddingBottomTablet15"/>
+				                       <paddingBottomTablet20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 20px"
+				                            value="paddingBottomTablet20"/>
+				                       <paddingBottomTablet25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 25px"
+				                            value="paddingBottomTablet25"/>
+				                       <paddingBottomTablet30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 30px"
+				                            value="paddingBottomTablet30"/>
+				                       <paddingBottomTablet35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 35px"
+				                            value="paddingBottomTablet35"/>
+				                        <paddingBottomTablet40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 40px"
+				                            value="paddingBottomTablet40"/>
+				                      </items>
+				                    </paddingBottomTablet>
+				                <cssTablet
+				                    jcr:primaryType="nt:unstructured"
+				                    sling:resourceType="granite/ui/components/foundation/form/textarea"
+				                    fieldLabel="Custom css tablet"
+				                    rows="5"
+				                    fieldDescription="Custom css only tablet"
+				                    name="./cssTablet" />
+				            </items>
+				        </column>
+				    </items>
+				</tablet>
+				<mobile
+				   jcr:primaryType="nt:unstructured"
+				   jcr:title="Mobile options"
+				   sling:resourceType="granite/ui/components/foundation/container">
+				     <layout jcr:primaryType="nt:unstructured"
+				            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+				     <items jcr:primaryType="nt:unstructured">
+				        <column jcr:primaryType="nt:unstructured"
+				                sling:resourceType="granite/ui/components/foundation/container">
+				            <items jcr:primaryType="nt:unstructured">
+				                <marginTopMobile
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Margin Top"
+				                        fieldDescription="Choose the component Top margin on mobile"
+				                        name="./marginTopMobile">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <marginTopMobile0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 0px"
+				                            value="marginTopMobile0"/>
+				                       <marginTopMobile5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 5px"
+				                            value="marginTopMobile5"/>
+				                       <marginTopMobile10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 10px"
+				                            value="marginTopMobile10"/>
+				                       <marginTopMobile15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 15px"
+				                            value="marginTopMobile15"/>
+				                       <marginTopMobile20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 20px"
+				                            value="marginTopMobile20"/>
+				                       <marginTopMobile25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 25px"
+				                            value="marginTopMobile25"/>
+				                       <marginTopMobile30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 30px"
+				                            value="marginTopMobile30"/>
+				                       <marginTopMobile35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 35px"
+				                            value="marginTopMobile35"/>
+				                        <marginTopMobile40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top 40px"
+				                            value="marginTopMobile40"/>
+				                        <marginTopMobileMinus5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -5px"
+				                            value="marginTopMobileMinus5"/>
+				                       <marginTopMobileMinus10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -10px"
+				                            value="marginTopMobileMinus10"/>
+				                       <marginTopMobileMinus15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -15px"
+				                            value="marginTopMobileMinus15"/>            
+				                       <marginTopMobileMinus20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Top -20px"
+				                            value="marginTopMobileMinus20"/>
+				                      </items>
+				                    </marginTopMobile>
+				                    <marginBottomMobile
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Margin Bottom"
+				                        fieldDescription="Choose the component Bottom margin on mobile"
+				                        name="./marginBottomMobile">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <marginBottomMobile0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 0px"
+				                            value="marginBottomMobile0"/>
+				                       <marginBottomMobile5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 5px"
+				                            value="marginBottomMobile5"/>
+				                       <marginBottomMobile10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 10px"
+				                            value="marginBottomMobile10"/>
+				                       <marginBottomMobile15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 15px"
+				                            value="marginBottomMobile15"/>
+				                       <marginBottomMobile20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 20px"
+				                            value="marginBottomMobile20"/>
+				                       <marginBottomMobile25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 25px"
+				                            value="marginBottomMobile25"/>
+				                       <marginBottomMobile30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 30px"
+				                            value="marginBottomMobile30"/>
+				                       <marginBottomMobile35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 35px"
+				                            value="marginBottomMobile35"/>
+				                        <marginBottomMobile40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom 40px"
+				                            value="marginBottomMobile40"/>
+				                        <marginBottomMobileMinus5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -5px"
+				                            value="marginBottomMobileMinus5"/>
+				                       <marginBottomMobileMinus10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -10px"
+				                            value="marginBottomMobileMinus10"/>
+				                       <marginBottomMobileMinus15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -15px"
+				                            value="marginBottomMobileMinus15"/>             
+				                       <marginBottomMobileMinus20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Margin Bottom -20px"
+				                            value="marginBottomMobileMinus20"/>
+				                      </items>
+				                    </marginBottomMobile>
+				                    <paddingTopMobile
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Padding Top"
+				                        fieldDescription="Choose the component Top padding on mobile"
+				                        name="./paddingTopMobile">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <paddingTopMobile0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 0px"
+				                            value="paddingTopMobile0"/>
+				                       <paddingTopMobile5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 5px"
+				                            value="paddingTopMobile5"/>
+				                       <paddingTopMobile10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 10px"
+				                            value="paddingTopMobile10"/>
+				                       <paddingTopMobile15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 15px"
+				                            value="paddingTopMobile15"/>
+				                       <paddingTopMobile20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 20px"
+				                            value="paddingTopMobile20"/>
+				                       <paddingTopMobile25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 25px"
+				                            value="paddingTopMobile25"/>
+				                       <paddingTopMobile30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 30px"
+				                            value="paddingTopMobile30"/>
+				                       <paddingTopMobile35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 35px"
+				                            value="paddingTopMobile35"/>
+				                        <paddingTopMobile40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Top 40px"
+				                            value="paddingTopMobile40"/>
+				                      </items>
+				                    </paddingTopMobile>
+				                    <paddingBottomMobile
+				                        jcr:primaryType="nt:unstructured"
+				                        sling:resourceType="granite/ui/components/foundation/form/select"
+				                        fieldLabel="Padding Bottom"
+				                        fieldDescription="Choose the component Bottom padding on mobile"
+				                        name="./paddingBottomMobile">
+				                      <items jcr:primaryType="nt:unstructured">
+				                        <default
+				                            jcr:primaryType="nt:unstructured"
+				                            text="default"
+				                            value=""/>
+				                        <paddingBottomMobile0
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 0px"
+				                            value="paddingBottomMobile0"/>
+				                       <paddingBottomMobile5
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 5px"
+				                            value="paddingBottomMobile5"/>
+				                       <paddingBottomMobile10
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 10px"
+				                            value="paddingBottomMobile10"/>
+				                       <paddingBottomMobile15
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 15px"
+				                            value="paddingBottomMobile15"/>
+				                       <paddingBottomMobile20
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 20px"
+				                            value="paddingBottomMobile20"/>
+				                       <paddingBottomMobile25
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 25px"
+				                            value="paddingBottomMobile25"/>
+				                       <paddingBottomMobile30
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 30px"
+				                            value="paddingBottomMobile30"/>
+				                       <paddingBottomMobile35
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 35px"
+				                            value="paddingBottomMobile35"/>
+				                        <paddingBottomMobile40
+				                            jcr:primaryType="nt:unstructured"
+				                            text="Padding Bottom 40px"
+				                            value="paddingBottomMobile40"/>
+				                      </items>
+				                    </paddingBottomMobile>
+				                <cssMobile
+				                    jcr:primaryType="nt:unstructured"
+				                    sling:resourceType="granite/ui/components/foundation/form/textarea"
+				                    fieldLabel="Custom css mobile"
+				                    rows="5"
+				                    fieldDescription="Custom css only mobile"
+				                    name="./cssMobile" />
+				            </items>
+				        </column>
+				    </items>
+				</mobile>
+        </items>
+    </content>
+</jcr:root>

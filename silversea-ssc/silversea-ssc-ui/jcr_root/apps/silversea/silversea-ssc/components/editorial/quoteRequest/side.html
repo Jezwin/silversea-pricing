@@ -1,0 +1,56 @@
+<!--/* html content if path as suffix for ship and [suite] */-->
+<template data-sly-template.default="${ @ quoteRequest }">
+	<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Quote request destination parameters"></div>
+	<div class="c-quote-request-side row">
+	    <sly data-sly-test="${!quoteRequest.raqModel}">
+		    <img class="hidden-xs" src="${quoteRequest.selectedCruise.thumbnail}" alt="${quoteRequest.selectedCruise.title || currentPage.title}" />
+		    <div class="c-quote-request-side__inner">
+		        <h3 class="c-quote-request-side__inner__title">${quoteRequest.selectedCruise.title}</h3>
+		        <ul class="c-quote-request-side__list">
+		            <li class="c-quote-request-side__list__departure" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=quoteRequest.selectedCruise.startDate}"><span class="hidden-xs">${'departure' @ i18n}:</span> <strong>${startDate.value}</strong></li>
+		            <li class="c-quote-request-side__list__duration"><span class="hidden-xs">${'duration' @ i18n}:</span>
+		                <strong>${quoteRequest.selectedCruise.duration} ${'days' @ i18n}</strong>
+		            </li>
+		            <li class="c-quote-request-side__list__ship">
+		                <span class="hidden-xs">${'ship' @ i18n}:</span> <strong>${quoteRequest.selectedCruise.ship.title}</strong>
+		            </li>
+		            <li data-sly-test="${quoteRequest.isSuiteRequested}" class="c-brochure__list__suite"><span class="hidden-xs">${'suite' @ i18n}:</span>
+		                <strong data-sly-test="${quoteRequest.isSuiteVariationRequested}"> ${quoteRequest.suiteName}</strong>
+		                <strong data-sly-test="${quoteRequest.isSuiteCategoryRequested}"> ${quoteRequest.suiteName @ i18n}</strong>
+		            </li>
+		        </ul>
+		    </div>
+		    <div class="c-quote-request-side__price hidden-xs">
+		        <strong data-sly-test="${quoteRequest.isWaitList}">${'waitlist' @ i18n}</strong>
+		        <sly data-sly-test="${!quoteRequest.isWaitList}">
+		            ${'fares-from' @ i18n}
+		            <span data-sly-test.early="${quoteRequest.cruisePrice.earlyBookingBonus}">
+		                <br />(${'per-guest' @ i18n})
+		            </span>
+		            <small data-sly-test="${early}"
+		                data-sly-use.priceHelper1="${'com.silversea.aem.helper.PriceHelper' @ value = quoteRequest.cruisePrice.price}">
+		                <br />
+		                ${quoteRequest.cruisePrice.currency @ i18n} ${priceHelper1.valueFormatted}
+		            </small>
+		            <strong data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = quoteRequest.cruisePrice.computedPrice}">
+		                ${quoteRequest.cruisePrice.currency @ i18n} ${priceHelper.valueFormatted}
+		            </strong>
+		            <span data-sly-test="${early}" class="price-suffixe">
+		                ${'with-early' @ i18n} <br />${'booking-bonus' @ i18n}
+		            </span>
+		            <span data-sly-test="${!early}">(${'per-guest' @ i18n})</span>
+		        </sly>
+		    </div>
+		</sly>
+		<sly data-sly-test="${quoteRequest.raqModel}">
+	       <img class="hidden-xs" src="${quoteRequest.raqModel.thumbnail}" alt="${quoteRequest.selectedCruise.title || currentPage.title}"/>
+	    	<div class="c-quote-request-side__inner">
+	        	<h3 class="c-quote-request-side__inner__title">${quoteRequest.raqModel.title @ context='html'}</h3>
+	        	<p class="c-quote-request-side__inner__description">${quoteRequest.raqModel.description @ context='html'}</p>
+				<script data-sly-test="${quoteRequest.raqModel.type == 'eo'}">eoraq = '${quoteRequest.raqModel.apiTitle @ context='html'}';</script>
+				<script data-sly-test="${quoteRequest.raqModel.type == 'sd'}">destraq = '${quoteRequest.raqModel.apiTitle @ context='html'}';</script>
+				<script data-sly-test="${quoteRequest.raqModel.type == 'ss'}">shipraq = '${quoteRequest.raqModel.apiTitle @ context='html'}';</script>
+	    	</div>
+	    </sly>
+	</div>
+</template>

@@ -1,0 +1,68 @@
+<div data-sly-test.empty="${wcmmode.edit}"
+	class="cq-placeholder cq-dd-image"
+	data-emptytext="Why Silversea Display - Drop Image Here"></div>
+<section id="c-whySilverseaLanding-${properties.sscUUID}" 
+	class="c-whySilverseaLanding c-whySilverseaLanding-${properties.style || 'black'} ${properties.normalWidth ? 'normalWidth' : ''} c-whySilverseaLanding-${properties.invert ? 'right' : 'left'} ${properties.displayMobileImage ? 'c-whySilverseaLanding-mobileImage' : ''}">
+	<div class="c-whySilverseaLanding-container">
+			<div class="col-md-6 c-whySilverseaLanding-image">
+				<sly data-sly-test="${properties.mediaStyle == 'singleImage' || !properties.mediaStyle}" data-sly-use.whySilverseaTemplate="whySilverseaLandingTemplate.html" data-sly-call="${whySilverseaTemplate.default}" />
+				<sly data-sly-test="${properties.mediaStyle == 'video'}" data-sly-use.whySilverseaTemplate="whySilverseaLandingTemplate.html" data-sly-call="${whySilverseaTemplate.video}" />
+           		<sly data-sly-test="${properties.mediaStyle == 'lightboxGallery'}" data-sly-use.whySilverseaTemplate="whySilverseaLandingTemplate.html" data-sly-call="${whySilverseaTemplate.lightboxGallery}" />
+        		<sly data-sly-test="${properties.mediaStyle == 'inlineGallery'}" data-sly-use.whySilverseaTemplate="whySilverseaLandingTemplate.html" data-sly-call="${whySilverseaTemplate.inlineGallery}" />
+			</div>
+	    <div class="col-md-6 col-xs-12 c-whySilverseaLanding-content c-whySilverseaLanding-content-${properties.invert ? 'right' : 'left'} ${properties.hideSeparator ? 'hideSeparator' : ''}">
+			<h3 class="c-whySilverseaLanding-title">${properties.title}</h3>
+			<span class="c-whySilverseaLanding-text">${properties.text @ context="html"}</span>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</section>
+<style data-sly-test="${properties.fontSizeDesktopTitle}">
+	@media screen and (min-width: 768px) {
+	    #c-whySilverseaLanding-${properties.sscUUID  @context="unsafe"}.c-whySilverseaLanding-${properties.style || 'black'  @context="unsafe"} .c-whySilverseaLanding-content h3.c-whySilverseaLanding-title {
+	    	font-size: ${properties.fontSizeDesktopTitle || "34" @ context="unsafe"}px !important;
+	    }
+	}
+</style>
+<style data-sly-test="${properties.fontSizeDesktopText}">
+	@media screen and (min-width: 768px) {
+	    #c-whySilverseaLanding-${properties.sscUUID  @context="unsafe"}.c-whySilverseaLanding-${properties.style || 'black'  @context="unsafe"} .c-whySilverseaLanding-content span.c-whySilverseaLanding-text {
+	    	font-size: ${properties.fontSizeDesktopText || "15" @ context="unsafe"}px !important;
+	    }
+	}
+</style>
+<style data-sly-test="${properties.fontSizeMobileTitle}">
+	@media screen and (max-width: 767px) {
+		 #c-whySilverseaLanding-${properties.sscUUID  @context="unsafe"}.c-whySilverseaLanding-${properties.style || 'black'  @context="unsafe"} .c-whySilverseaLanding-content h3.c-whySilverseaLanding-title  {
+	    	font-size: ${properties.fontSizeMobileTitle || "23" @ context="unsafe"}px !important;
+	    }
+	}
+</style>
+<style data-sly-test="${properties.fontSizeMobileText}">
+	@media screen and (max-width: 767px) {
+	    #c-whySilverseaLanding-${properties.sscUUID  @context="unsafe"}.c-whySilverseaLanding-${properties.style || 'black'  @context="unsafe"} .c-whySilverseaLanding-content span.c-whySilverseaLanding-text  {
+	    	font-size: ${properties.fontSizeMobileText || "15" @ context="unsafe"}px !important;
+	    }
+	}
+</style>
+<script data-sly-test="${properties.autoScrollSliderDesktop || properties.autoScrollSliderMobile || properties.disableLightboxInlineDesktop || properties.disableLightboxInlineMobile || properties.removeFirstVideoItemMobile}">
+	if (typeof whySilverseaAutoSliderList == "undefined") {
+		whySilverseaAutoSliderList = [];
+	}
+	var componentId = "${properties.idComponent || properties.sscUUID @ context='unsafe'}",
+		autoplayDesktop = "${properties.autoScrollSliderDesktop @ context='unsafe'}",
+		autoplayMobile = "${properties.autoScrollSliderMobile @ context='unsafe'}",
+		autoSpeedSlider = "${properties.autoSpeedSlider @ context='unsafe'}",
+		disableLightboxDesktop = "${properties.disableLightboxInlineDesktop @ context='unsafe'}",
+		disableLightboxMobile = "${properties.disableLightboxInlineMobile @ context='unsafe'}",
+		removeFirstVideoItemMobile = "${properties.removeFirstVideoItemMobile @ context='unsafe'}";
+	whySilverseaAutoSliderList.push({
+		"id": componentId,
+		"autoplayDesktop": autoplayDesktop,
+		"autoplayMobile": autoplayMobile,
+		"autoSpeedSlider": autoSpeedSlider,
+		"disableLightboxDesktop": disableLightboxDesktop,
+		"disableLightboxMobile": disableLightboxMobile,
+		"removeFirstVideoItemMobile" : removeFirstVideoItemMobile
+	});
+</script>

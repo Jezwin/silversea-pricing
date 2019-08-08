@@ -1,0 +1,60 @@
+ /*
+  * Fix FYC Perform a new search display
+  */
+  
+  .destination .c-fyc-filter__action, .ship .c-fyc-filter__action, .port .c-fyc-filter__action, .exclusiveoffer .c-fyc-filter__action{
+  	display:none;
+  }
+  
+  /*
+ * Fix SEO Destination title size
+ */
+.destination .destination-switchable-block .o-section.o-description {
+	h2 { 
+ 		font-size:26px !important;
+ 	}
+ 	.row:last-of-type{
+ 		margin-top:7px;
+ 	}
+ }
+ 
+ 
+/*
+ * Destination SEO link not bold
+ */
+.destination  {
+	.switcher-text-link {
+	    font-weight: 400;
+	    font-family: @f-open_sans;
+	}
+}
+
+/*
+ * Fix Destination SEO Title
+ */
+ .destination div.destination-switchable-block#destination-html-switchable-block .o-section.o-description h2 {
+    font-size: 26px !important;
+    font-family: @f-theano_didot;
+    font-weight: 100 !important;
+}
+
+ /*
+   * Destination hide the seo text on mobile 
+   */
+@media screen and (max-width: @screen-sm) {
+    div#destination-html-switcher {   
+        display: none;
+    }
+
+    div#destination-fyc-switcher { 
+        display: none;
+    }
+
+    div#destination-html-switchable-block { 
+        display: none;
+    }
+    
+    div#destination-fyc-switchable-block { 
+        display: unset !important;
+    }
+}

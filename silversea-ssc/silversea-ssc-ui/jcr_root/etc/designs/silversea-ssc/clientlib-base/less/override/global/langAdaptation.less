@@ -1,0 +1,36 @@
+/*
+ * Fix DE
+ */
+ .de .text-lowercase {
+    text-transform: none;
+}
+
+/*
+ * FIX Hero Banner CTA per lang
+ */
+  @media screen and (min-width: @screen-sm){
+	 .fr {
+	    .destination .c-hero-banner__buttons .btn, .ship .c-hero-banner__buttons .btn{
+	    	min-width:163px;
+	    }
+	}
+	
+	.de {
+		.destination .c-hero-banner__buttons .btn, .ship .c-hero-banner__buttons .btn{
+	    	min-width:172px;
+	    }
+	}
+	
+	.pt-BR {
+		.destination .c-hero-banner__buttons .btn, .ship .c-hero-banner__buttons .btn{
+	    	min-width:192px;
+	    }
+	}
+	
+	.es {
+		.destination .c-hero-banner__buttons .btn, .ship .c-hero-banner__buttons .btn{
+	    	min-width:197px;
+	    }
+	}
+}
+

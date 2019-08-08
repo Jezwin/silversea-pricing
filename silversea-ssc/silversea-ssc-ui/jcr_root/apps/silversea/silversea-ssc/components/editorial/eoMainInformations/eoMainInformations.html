@@ -1,0 +1,48 @@
+<div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder cq-dd-image"	data-emptytext="Exclusive Offer Main Informations"></div>
+
+<section id="c-eo_maininfo-${properties.sscUUID}" class="c-eo_maininfo c-eo_maininfo-${properties.positionDescriptionMobile}" data-sly-test="${properties.rootPath}" data-sly-use.eoMainInfo="com.silversea.ssc.aem.components.editorial.EoMainInformationsUse">
+
+	<sly data-sly-test="${(eoMainInfo.exclusiveOffer && eoMainInfo.exclusiveOffer.isAvailable) || wcmmode.edit}">
+		<h1 class="c-eo_maininfo-title" data-sly-test="${eoMainInfo.exclusiveOffer.title}">${eoMainInfo.exclusiveOffer.title @ context="html"}</h1>
+		<div class="exclusiveOfferBoxes-holder"><sly data-sly-resource="${'components' @ resourceType='wcm/foundation/components/parsys'}" /></div>
+		<span class="c-eo_maininfo-description" data-sly-test="${eoMainInfo.exclusiveOffer.description}">${eoMainInfo.exclusiveOffer.description @ context="html"}</span>
+ 		<div><sly data-sly-resource="${'components-after-description' @ resourceType='wcm/foundation/components/parsys'}" /></div>
+		<span class="c-eo_maininfo-shortDescription" data-sly-test="${eoMainInfo.exclusiveOffer.shortDescription}">${eoMainInfo.exclusiveOffer.shortDescription @ context="html"}</span>
+		<span class="c-eo_maininfo-footnotes" data-sly-test="${eoMainInfo.exclusiveOffer.eoFootnotes}">${eoMainInfo.exclusiveOffer.eoFootnotes @ context="html"}</span>
+	</sly>
+	
+	<sly data-sly-test="${(!eoMainInfo.exclusiveOffer || !eoMainInfo.exclusiveOffer.isAvailable) && !wcmmode.edit}">
+		<h1 class="c-eo_maininfo-title">${'exclusive-offer-not-available' @ i18n}</h1>
+	</sly>
+	
+</section>
+<style>
+	@media (min-width: 768px) {
+		#c-eo_maininfo-${properties.sscUUID @ context="unsafe"} .c-eo_maininfo-title {
+			font-size: ${properties.titleFontSizeDesktop @ context="unsafe" || 30 }px !important;
+			margin: ${properties.marginTitleDesktop @ context="unsafe" || '0px 0px 10px 0px' } !important;
+		}
+		#c-eo_maininfo-${properties.sscUUID @ context="unsafe"} .c-eo_maininfo-description {
+			font-size: ${properties.descriptionFontSizeDesktop @ context="unsafe" || 14 }px !important;
+			margin: ${properties.marginDescriptionDesktop @ context="unsafe" || '0px' } !important;
+		}
+		#c-eo_maininfo-${properties.sscUUID @ context="unsafe"} .c-eo_maininfo-shortDescription {
+			font-size: ${properties.shortDescriptionFontSizeDesktop @ context="unsafe" || 14 }px !important;
+			margin: ${properties.marginShortDescriptionDesktop @ context="unsafe" || '0px' } !important;
+		}
+	}
+	@media (max-width: 767px) {
+		#c-eo_maininfo-${properties.sscUUID @ context="unsafe"} .c-eo_maininfo-title {
+			font-size: ${properties.titleFontSizeMobile @ context="unsafe" || 26 }px !important;
+			margin: ${properties.marginTitleMobile @ context="unsafe" || '0px 0px 10px 0px' } !important;
+		}
+		#c-eo_maininfo-${properties.sscUUID @ context="unsafe"} .c-eo_maininfo-description {
+			font-size: ${properties.descriptionFontSizeMobile @ context="unsafe" || 14 }px !important;
+			margin: ${properties.marginDescriptionMobile @ context="unsafe" || '0px' } !important;
+		}
+		#c-eo_maininfo-${properties.sscUUID @ context="unsafe"} .c-eo_maininfo-shortDescription {
+			font-size: ${properties.shortDescriptionFontSizeMobile @ context="unsafe" || 14 }px !important;
+			margin: ${properties.marginShortDescriptionMobile @ context="unsafe" || '0px' } !important;
+		}
+	}
+</style>

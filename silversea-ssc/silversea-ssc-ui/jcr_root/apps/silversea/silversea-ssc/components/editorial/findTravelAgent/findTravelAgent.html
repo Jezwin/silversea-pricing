@@ -1,0 +1,60 @@
+<script src="/etc/designs/silversea-ssc/clientlib-base/js/components/jquery.easy-autocomplete.min.js"></script>
+<sly data-sly-use.travelAgent="com.silversea.ssc.aem.components.editorial.FindTravelAgentUse">
+</sly>
+<section class="c-findTravelAgent">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<div class="travel-agent-location">
+					<h6 class="travel-agent-your-location">${'your-location' @ i18n}</h6>
+					<div class="form-group">
+						<input type="text" id="location" class="form-control" placeholder="${'location' @ i18n}"/> 
+						<div  id="refine-search">
+							<input type="text" id="agency"	class="form-control" placeholder="${'agency-name' @ i18n}" value="" />
+						</div>
+					</div>
+					<h6> <span id="number_results"></span> ${'results-your-area' @ i18n }</h6>
+					<div class="scroll-box">
+						<div id="list" class="list-group"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-8 col-xs-12">
+				<div id="map-travel-agent"></div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	#map-travel-agent {
+		margin-top: 43px;
+		width: 100%;
+	}	
+	@media (min-width: 768px){
+		#map-travel-agent {
+			min-height: ${properties.heightMapDesktop || 676 @ context="unsafe"}px !important;
+		}
+		.c-findTravelAgent .travel-agent-location .scroll-box {
+			height: ${travelAgent.heightDivListDesktop @ context="unsafe"}px !important;
+		}
+	}
+	@media (max-width: 767px) {
+		#map-travel-agent {
+			min-height: ${properties.heightMapMobile || 338 @ context="unsafe"}px !important;
+		}
+		.c-findTravelAgent .travel-agent-location .scroll-box {
+			height: ${properties.heightMapMobile || 338 @ context="unsafe"}px !important;
+		}
+	}
+</style>
+
+<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3-LJxp0C5GMuKL9QrNg4UirWx6IcdgNo&callback&libraries=places"></script>
+<script src="/etc/designs/silversea-ssc/clientlib-base/js/components/c-findTravelAgent.js"></script>
+<script>
+	$(document).ready(function() {
+		var list = JSON.stringify(${travelAgent.travelAgentList @ context='unsafe'});
+        var listJson = JSON.parse(list);
+		cFindTravelAgent(listJson,'Phone');
+	});
+</script>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Generic Block Slider"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container"
+                class="cq-siteadmin-admin-properties-tabs">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                    type="nav"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <gallery
+                        cq:showOnCreate="{Boolean}false"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Configurations"
+                        sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    
+                                    <portType
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldLabel="Port Type"
+                                        name="./portType"
+                                        ordered="true">
+                                        <granite:data
+                                            jcr:primaryType="nt:unstructured"
+                                            metaType="dropdown"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <classic
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Classic"
+                                                value="classic"/>
+                                            <expedition
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Expedition"
+                                                value="expedition"/>
+                                            <mixed
+                                                jcr:primaryType="nt:unstructured"
+                                                text="Mixed"
+                                                value="mixed"/>
+                                        </items>
+                                    </portType>
+                                    <galleryItem
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="silversea/silversea-com/ui/components/foundation/form/multifields"
+                                        fieldLabel="Slider Item">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                            class="multifields-wrapper"
+                                            name="./galleryItem">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <assetReference
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                    fieldLabel="Media set"
+                                                    name="assetReference"
+                                                    rootPath="/content/dam"/>
+                                            </items>
+                                        </field>
+                                    </galleryItem>
+									<showFirstItemOnly
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                        name="./showFirstItemOnly"
+                                        text="Display First Item Only ?"
+                                        value="true"/>
+                                    <showFirstItemOnlyTH/>
+                                    <showFirstItemOnlyDV/>
+                                    <showFirstItemOnlyUDWM/>
+                                </items>
+                            </column>
+                        </items>
+                    </gallery>
+                    <description
+                        cq:showOnCreate="{Boolean}false"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Description"
+                        sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <description
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                        name="./description"/>
+                                </items>
+                            </column>
+                        </items>
+                    </description>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          xmlns:granite="http://www.adobe.com/jcr/granite/1.0" jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Slider 5 Lessons" sling:resourceType="cq/gui/components/authoring/dialog">
+
+    <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+        <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <desktop jcr:primaryType="nt:unstructured" jcr:title="Desktop"
+                     sling:resourceType="granite/ui/components/foundation/section" name="./desktop">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <assetSelectionReference
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection (Desktop Slider)"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReference"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <heightStyleDesktop jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                class="cq-dialog-dropdown-showhide"
+                                                cq-dialog-dropdown-showhide-target=".height-hide-show"
+                                                fieldLabel="Height Style" name="./heightDesktopMethod">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <pixel jcr:primaryType="nt:unstructured" text="Pixel" value="Pixel"/>
+                                    <vh jcr:primaryType="nt:unstructured" text="Viewport Height" value="Viewport"/>
+                                </items>
+                            </heightStyleDesktop>
+                            <heightPxContainer jcr:primaryType="nt:unstructured"
+                                               sling:resourceType="granite/ui/components/foundation/container"
+                                               class="hide height-hide-show" showhidetargetvalue="Pixel">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <height jcr:primaryType="nt:unstructured" fieldLabel="Height in pixel" name="./heightDesktopPixel" min="10" step="5" max="1800" defaultValue="500" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                </items>
+                            </heightPxContainer>
+                            <heightVpContainer jcr:primaryType="nt:unstructured"
+                                               sling:resourceType="granite/ui/components/foundation/container"
+                                               class="hide height-hide-show" showhidetargetvalue="Viewport">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <heightVh jcr:primaryType="nt:unstructured" fieldLabel="Height in vh"
+                                              name="./heightDesktopViewport" min="5" step="5" max="150"
+                                              defaultValue="50"
+                                              sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                                </items>
+                            </heightVpContainer>
+                            <maxHeightDesktop jcr:primaryType="nt:unstructured" fieldLabel="Max Height" name="./maxHeightDesktopPixel" min="10" step="5" max="1800" defaultValue="500" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <sscFwBackgroundPositionDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldLabel="Background Position Desktop (left, right, center, top, bottom, left top, left center, left bottom, right top, right center, right bottom, center top, center center, center bottom)"
+                                    value="center center"
+                                    name="./sscFwBackgroundPositionDesktop" />
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel"
+                                       name="./marginTopDesktopPixel" min="0" step="5" max="1800" defaultValue="0"
+                                       sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel"
+                                          name="./marginBottomDesktopPixel" min="0" step="5" max="1800"
+                                          defaultValue="20"
+                                          sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <customCssDesktop jcr:primaryType="nt:unstructured" fieldLabel="Custom css" name="./customCssDesktop" sling:resourceType="granite/ui/components/foundation/form/textarea" />
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet jcr:primaryType="nt:unstructured" jcr:title="Tablet"
+                    sling:resourceType="granite/ui/components/foundation/section" name="./tablet">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <heightStyleTablet jcr:primaryType="nt:unstructured"
+                                               sling:resourceType="granite/ui/components/foundation/form/select"
+                                               class="cq-dialog-dropdown-showhide"
+                                               cq-dialog-dropdown-showhide-target=".height-hide-show"
+                                               fieldLabel="Height Style" name="./heightTabletMethod">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <pixel jcr:primaryType="nt:unstructured" text="Pixel" value="Pixel"/>
+                                    <vh jcr:primaryType="nt:unstructured" text="Viewport Height" value="Viewport"/>
+                                </items>
+                            </heightStyleTablet>
+                            <heightPxContainer jcr:primaryType="nt:unstructured"
+                                               sling:resourceType="granite/ui/components/foundation/container"
+                                               class="hide height-hide-show" showhidetargetvalue="Pixel">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <height jcr:primaryType="nt:unstructured" fieldLabel="Height in pixel"
+                                            name="./heightTabletPixel" min="10" step="5" max="1800" defaultValue="400"
+                                            sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                                </items>
+                            </heightPxContainer>
+                            <heightVpContainer jcr:primaryType="nt:unstructured"
+                                               sling:resourceType="granite/ui/components/foundation/container"
+                                               class="hide height-hide-show" showhidetargetvalue="Viewport">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <heightVh jcr:primaryType="nt:unstructured" fieldLabel="Height in vh"
+                                              name="./heightTabletViewport" min="5" step="5" max="150" defaultValue="50"
+                                              sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                                </items>
+                            </heightVpContainer>
+                            <maxHeightTablet jcr:primaryType="nt:unstructured" fieldLabel="Max Height"
+                                             name="./maxHeightTabletPixel" min="10" step="5" max="1800"
+                                             defaultValue="400"
+                                             sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <sscFwBackgroundPositionTablet
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldLabel="Background Position Tablet (left, right, center, top, bottom, left top, left center, left bottom, right top, right center, right bottom, center top, center center, center bottom)"
+                                    name="./sscFwBackgroundPositionTablet" />
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel"
+                                       name="./marginTopTabletPixel" min="0" step="5" max="1800" defaultValue="0"
+                                       sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel"
+                                          name="./marginBottomTabletPixel" min="0" step="5" max="1800" defaultValue="20"
+                                          sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <customCssTablet jcr:primaryType="nt:unstructured" fieldLabel="Custom css"
+                                             name="./customCssTablet"
+                                             sling:resourceType="granite/ui/components/foundation/form/textarea"/>
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+
+            <mobile jcr:primaryType="nt:unstructured" jcr:title="Mobile"
+                    sling:resourceType="granite/ui/components/foundation/section" name="./mobile">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <assetSelectionReferenceMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection (Mobile Slider)"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceMobile"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <heightStyleMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/select" class="cq-dialog-dropdown-showhide" cq-dialog-dropdown-showhide-target=".height-hide-show" fieldLabel="Height Style" name="./heightMobileMethod">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <pixel jcr:primaryType="nt:unstructured" text="Pixel" value="Pixel"/>
+                                    <vh jcr:primaryType="nt:unstructured" text="Viewport Height" value="Viewport"/>
+                                </items>
+                            </heightStyleMobile>
+                            <heightPxContainer jcr:primaryType="nt:unstructured"
+                                               sling:resourceType="granite/ui/components/foundation/container"
+                                               class="hide height-hide-show" showhidetargetvalue="Pixel">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <height jcr:primaryType="nt:unstructured" fieldLabel="Height in pixel" name="./heightMobilePixel" min="10" step="5" max="1800" defaultValue="380" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                </items>
+                            </heightPxContainer>
+                            <heightVpContainer jcr:primaryType="nt:unstructured"
+                                               sling:resourceType="granite/ui/components/foundation/container"
+                                               class="hide height-hide-show" showhidetargetvalue="Viewport">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <heightVh jcr:primaryType="nt:unstructured" fieldLabel="Height in vh"
+                                              name="./heightMobileViewport" min="5" step="5" max="150" defaultValue="50"
+                                              sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                                </items>
+                            </heightVpContainer>
+                            <maxHeightMobile jcr:primaryType="nt:unstructured" fieldLabel="Max Height" name="./maxHeightMobilePixel" min="10" step="5" max="1800" defaultValue="380" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <sscFwBackgroundPositionMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldLabel="Background Position Mobile (left, right, center, top, bottom, left top, left center, left bottom, right top, right center, right bottom, center top, center center, center bottom)"
+                                    name="./sscFwBackgroundPositionMobile" />
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel"
+                                       name="./marginTopMobilePixel" min="0" step="5" max="1800" defaultValue="0"
+                                       sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel"
+                                          name="./marginBottomMobilePixel" min="0" step="5" max="1800" defaultValue="20"
+                                          sling:resourceType="granite/ui/components/foundation/form/numberfield"/>
+                            <customCssMobile jcr:primaryType="nt:unstructured" fieldLabel="Custom css" name="./customCssMobile" sling:resourceType="granite/ui/components/foundation/form/textarea" />
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+            <desktopGallery jcr:primaryType="nt:unstructured" jcr:title="Gallery Desktop"
+                     sling:resourceType="granite/ui/components/foundation/section" name="./desktopGallery">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <assetSelectionReferenceDesktopLesson0
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 1"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceDesktopLesson0"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceDesktopLesson1
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 2"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceDesktopLesson1"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceDesktopLesson2
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 3"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceDesktopLesson2"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceDesktopLesson3
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 4"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceDesktopLesson3"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceDesktopLesson4
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 5"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceDesktopLesson4"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                        </items>
+                    </column>
+                </items>
+            </desktopGallery>
+            <mobileGallery jcr:primaryType="nt:unstructured" jcr:title="Gallery Mobile"
+                            sling:resourceType="granite/ui/components/foundation/section" name="./mobileGallery">
+                <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <assetSelectionReferenceMobileLesson0
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 1"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceMobileLesson0"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceMobileLesson1
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 2"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceMobileLesson1"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceMobileLesson2
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 3"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceMobileLesson2"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceMobileLesson3
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 4"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceMobileLesson3"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                            <assetSelectionReferenceMobileLesson4
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="Asset Collection Gallery Lesson 5"
+                                    rootPath="/content/dam/silversea-com"
+                                    name="./assetSelectionReferenceMobileLesson4"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"/>
+                        </items>
+                    </column>
+                </items>
+            </mobileGallery>
+        </items>
+    </content>
+</jcr:root>

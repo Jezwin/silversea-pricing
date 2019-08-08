@@ -1,0 +1,34 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Teaser-2018"></div>
+
+<div id="c-teaser-2018-${properties.sscUUID}" class="c-teaser-2018 ${properties.fullWidthImage ? 'fullwidth':'column'} ${properties.invertImageText && !properties.fullWidthImage ? 'column invert-image-text' : ''} ${properties.greyBackground ? 'greyBackground':''} ${properties.centerContentDesktop ? 'centerContentDesktop':''} ${properties.centerContentMobile ? 'centerContentMobile':''} ${properties.addBorderMobile ? 'addBorderMobile' : ''}"
+	data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"
+  	data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
+    <sly data-sly-use.teaser2018Template="silversea/silversea-ssc/components/editorial/teaser2018/teaser2018template.html" />
+    <sly data-sly-test="${properties.type == 'automatic'}" data-sly-call="${teaser2018Template.automatic}"  />
+    <sly data-sly-test="${properties.type == 'manual' || !properties.type}" data-sly-call="${teaser2018Template.manual}" />
+</div>
+<style>
+	@media (min-width: 768px) {
+    	<sly data-sly-test="${!properties.fullWidthImage}">
+		#c-teaser-2018-${properties.sscUUID @ context="unsafe"} .c-teaser-2018-image {
+			height: ${properties.imageHeightDesktop @ context="unsafe" || 260 }px !important;
+		}
+        </sly>
+        <sly data-sly-test="${properties.fullWidthImage}">
+		#c-teaser-2018-${properties.sscUUID @ context="unsafe"} .c-teaser-2018-image {
+			height: ${properties.imageHeightDesktopFW @ context="unsafe" || 376 }px !important;
+		}
+        </sly>
+	}
+
+	@media (max-width: 767px) {
+		#c-teaser-2018-${properties.sscUUID @ context="unsafe"} .c-teaser-2018-image {
+			height: ${properties.imageHeightMobile @ context="unsafe" || 220 }px !important;
+		}
+	}
+</style>
+<script>
+$(function(){
+         $('.c-teaser-2018').find(".lazy").lazy(); 
+        } );
+</script>

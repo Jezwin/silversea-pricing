@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+	xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+	xmlns:nt="http://www.jcp.org/jcr/nt/1.0" jcr:primaryType="nt:unstructured"
+	jcr:title="Destinations Map" sling:resourceType="cq/gui/components/authoring/dialog"
+	helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+	<content jcr:primaryType="nt:unstructured"
+		sling:resourceType="granite/ui/components/foundation/container">
+		<layout jcr:primaryType="nt:unstructured"
+			sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+			margin="{Boolean}false" />
+		<items jcr:primaryType="nt:unstructured">
+			<column jcr:primaryType="nt:unstructured"
+				sling:resourceType="granite/ui/components/foundation/container">
+				<items jcr:primaryType="nt:unstructured">
+					<field jcr:primaryType="nt:unstructured"
+						sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						name="./items">
+						<layout jcr:primaryType="nt:unstructured"
+							sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+							method="absolute" />
+						<items jcr:primaryType="nt:unstructured">
+							<column jcr:primaryType="nt:unstructured"
+								sling:resourceType="granite/ui/components/foundation/container">
+								<items jcr:primaryType="nt:unstructured">
+								 <uuid
+							      	jcr:primaryType="nt:unstructured" 
+							      	name="./jcr:mixinTypes"
+							      	value="mix:referenceable"
+							      	sling:resourceType="granite/ui/components/foundation/form/hidden" />
+									<reference jcr:primaryType="nt:unstructured"
+										sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+										fieldLabel="Destination root" rootPath="/content/silversea-com/"
+										name="./reference" />
+
+									<margin jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom (double)"
+										name="./margin" defaultValue="20"
+										sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+
+									<style jcr:primaryType="nt:unstructured"
+										sling:resourceType="granite/ui/components/coral/foundation/form/select"
+										fieldDescription="Style 2 should be used in landingBackgroundContainer" fieldLabel="Style"
+										name="./style">
+										<items jcr:primaryType="nt:unstructured">
+											<style1 jcr:primaryType="nt:unstructured" text="Style Destinations page"
+												value="style1" />
+											<style2 jcr:primaryType="nt:unstructured" text="Style Landing Page"
+												value="style2" />
+										</items>
+									</style>
+									<hideDesktop
+                            			jcr:primaryType="nt:unstructured"
+                            			text="Hidden Desktop"
+                            			name="./hideDesktop"
+                            			value="true"
+                            			sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+								</items>
+							</column>
+						</items>
+					</field>
+				</items>
+			</column>
+		</items>
+	</content>
+</jcr:root>

@@ -1,0 +1,83 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder " data-emptytext="Hero Banner DCO - (#hero-banner-dco-${properties.sscUUID})">
+
+</div>
+
+<sly data-sly-use.heroBannerV="com.silversea.ssc.aem.components.editorial.HeroBannerDOCUse">
+    <div id="hero-banner-dco-${properties.sscUUID}" class="container-fluid hero-banner-dco ${properties.animateDesktop ? 'animateDesktop' : ''} ${wcmmode.edit ? 'cq-dd-image' : ''}" style="
+            --mobile-bottom-margin: ${properties.margBottomMobile @ context='styleToken'}px;
+            --desktop-bottom-margin: ${properties.margBottomDesktop @ context='styleToken'}px;
+            --tablet-bottom-margin: ${properties.margBottomTablet @ context='styleToken'}px;" data-ie-style="
+            --mobile-bottom-margin: ${properties.margBottomMobile @ context='styleToken'}px;
+            --desktop-bottom-margin: ${properties.margBottomDesktop @ context='styleToken'}px;
+            --tablet-bottom-margin: ${properties.margBottomTablet @ context='styleToken'}px;">
+        <div class="row">
+            <div style="--tooltip-mobile-height: ${heroBannerV.mobileHeight  @ context='styleToken'};
+            --tooltip-desktop-height: ${heroBannerV.desktopHeight @ context='styleToken'};
+            --tooltip-tablet-height: ${heroBannerV.tabletHeight  @ context='styleToken'};
+            --desktop-background-position: ${properties.desktopBackgroundPos || 'center center' @ context='html'};
+            --tablet-background-position: ${properties.tabletBackgroundPos || 'center center' @ context='html'};
+            --mobile-background-position: ${properties.mobileBackgroundPos || 'center center' @ context='html'};
+
+            --tooltip-mobile-max-height: ${properties.mobileMaxHeight @ context='styleToken'}px;
+            --tooltip-desktop-max-height: ${properties.desktopMaxHeight @ context='styleToken'}px;
+            --tooltip-tablet-max-height: ${properties.tabletMaxHeight @ context='styleToken'}px;
+
+            --desktop-title-color: ${properties.titleColorDesktop @ context='styleToken'};
+            --desktop-sub-title-color:${properties.subTitleColorDesktop  @ context='styleToken'};"  data-ie-style="--tooltip-mobile-height: ${heroBannerV.mobileHeight  @ context='styleToken'};
+                    --tooltip-desktop-height: ${heroBannerV.desktopHeight @ context='styleToken'};
+                    --tooltip-tablet-height: ${heroBannerV.tabletHeight  @ context='styleToken'};
+                    --desktop-background-position: ${properties.desktopBackgroundPos || 'center center' @ context='html'};
+                    --tablet-background-position: ${properties.tabletBackgroundPos || 'center center' @ context='html'};
+                    --mobile-background-position: ${properties.mobileBackgroundPos || 'center center' @ context='html'};
+
+                    --tooltip-mobile-max-height: ${properties.mobileMaxHeight @ context='styleToken'}px;
+                    --tooltip-desktop-max-height: ${properties.desktopMaxHeight @ context='styleToken'}px;
+                    --tooltip-tablet-max-height: ${properties.tabletMaxHeight @ context='styleToken'}px;
+
+                    --desktop-title-color: ${properties.titleColorDesktop @ context='styleToken'};
+                    --desktop-sub-title-color:${properties.subTitleColorDesktop  @ context='styleToken'};" class="hero-image-container">
+                <div data-sly-test="${properties.addShadeOverDesktop}" class="layer-desktop"></div>
+                <div data-sly-test="${properties.addShadeOverTablet}" class="layer-tablet"></div>
+                <picture>
+                    <source media="(max-width: 767px)" srcset="${heroBannerV.imageMobilepBackgroundPath || heroBannerV.imageDesktopBackgroundPath @ context='html'}?wid=2304&fit=hfit,1&fmt=pjpeg&pscan=5">
+                    <source media="(max-width: 990px) and (min-width: 768px) " srcset="${heroBannerV.imageTabletBackgroundPath || heroBannerV.imageDesktopBackgroundPath @ context='html'}?wid=2304&fit=hfit,1&fmt=pjpeg&pscan=5">
+                    <source media="(min-width: 991px)" srcset="${heroBannerV.imageDesktopBackgroundPath @ context='html'}?wid=2304&fit=hfit,1&fmt=pjpeg&pscan=5">
+                    <img src="${heroBannerV.imageDesktopBackgroundPath @ context='html'}?wid=2304&fit=hfit,1&fmt=pjpeg&pscan=5">
+                </picture>
+
+                <a data-sly-test="${properties.videoReference }" class="visible-xs video-link video-link-dam oval" href="${currentNode.path @ selectors='video', extension='html'}" data-target=".bs-modal-lg">
+                <span class="circle -right">
+                </span>
+
+                   </a>
+                <div class="hero-text ${ wcmmode.edit ? 'expand': '' }">
+                    <div class="hero-banner-dco-button" data-sly-resource="${'hero-banner-dco-parsys2' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+
+                    <h1 class="hidden-xs desktop-title">${properties.titleTextDesktop @ context="html"}</h1>
+
+
+
+
+
+
+                    <p class="hidden-xs desktop-subtitle">${properties.subTitleTextDesktop @ context="html"}</p>
+
+
+
+                    <div class="hero-banner-dco-button" data-sly-resource="${'hero-banner-dco-parsys' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+
+                </div>
+            </div>
+        </div>
+        <div data-sly-test="${properties.titleTextMobile || properties.titleTextDesktop || properties.text || properties.subTitleTextDesktop}" class="row visible-xs">
+            <div class="col-xs-12">
+                <div class="hero-mobile-text" style="--mobile-title-color: ${properties.titleColorMobile || properties.titleColorDesktop @ context='styleToken'};
+            --mobile-sub-title-color:${properties.mobileSubTitleColor || properties.subTitleColorDesktop  @ context='styleToken'};">
+                    <h1 class="visible-xs mobile-title">${properties.titleTextMobile || properties.titleTextDesktop @ context="html"}</h1>
+                    <span class="visible-xs mobile-subtitle">${properties.text || properties.subTitleTextDesktop @ context="html"}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</sly>

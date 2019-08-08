@@ -1,0 +1,35 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SSC - Brochure Banner - Drop Image Here - (#c-brochure-banner-${properties.sscUUID})"></div>
+<section id="c-brochure-banner-${properties.sscUUID}" class="c-brochure-banner marginTopDesktop${properties.marginTopDesktop} marginBottomDesktopDesktop${properties.marginBottomDesktop} marginTopTablet${properties.marginTopTablet} marginBottomDesktopTablet${properties.marginBottomTablet} marginTopMobile${properties.marginTopMobile} marginBottomMobile${properties.marginBottomMobile}">
+	<div class="container paddingTopDesktop${properties.paddingTopDesktop} paddingBottomDesktop${properties.paddingBottomDesktop} paddingTopTablet${properties.paddingTopTablet} paddingBottomTablet${properties.paddingBottomTablet} paddingTopMobile${properties.paddingTopMobile} paddingBottomMobile${properties.paddingBottomMobile}">
+		<div class="col-md-6 c-brochure-banner-info paddingRightDesktop${properties.paddingRightTextDesktop} paddingTopDesktop${properties.paddingTopTextDesktop} paddingLeftDesktop${properties.paddingLeftTextDesktop} paddingTopTablet${properties.paddingTopTextTablet} paddingRightTablet${properties.paddingRightTextTablet} paddingLeftTablet${properties.paddingLeftTextTablet} paddingRightMobile${properties.paddingRightTextMobile} paddingLeftMobile${properties.paddingLeftTextMobile} paddingTopMobile${properties.paddingTopTextMobile}">
+			<span class="c-brochure-banner-title" data-sly-element="${properties.titletag}">${properties.title @ context="html"}</span>
+			<span class="c-brochure-banner-description">${properties.description @ context="html"}</span>
+			<sly data-sly-resource="${'components-cta' @ resourceType='wcm/foundation/components/parsys'}" />
+		</div>
+		<div class="col-md-6 c-brochure-banner-image paddingRightDesktop${properties.paddingRightImageDesktop} paddingLeftDesktop${properties.paddingLeftImageDesktop} paddingRightTablet${properties.paddingRightImageTablet} paddingLeftTablet${properties.paddingLeftImageTablet} paddingRightMobile${properties.paddingRightImageMobile} paddingLeftMobile${properties.paddingLeftImageMobile}">
+			<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html" />
+			<sly data-sly-test="${properties.imageLinkCliccable}">
+				<a href="${properties.imageLinkCliccable @ extension='html'}" class="c-brochure-banner-image-link">
+			</sly>
+			<sly data-sly-call="${imageTemplate.default @ imagePath=properties.assetReference}" />
+			<sly data-sly-test="${properties.imageLinkCliccable}">
+				</a>
+			</sly>
+		</div>
+	</div>
+</section>
+<style data-sly-test="${properties.cssDesktop}">
+	@media(min-width: 991px) {
+	${properties.cssDesktop @ context='html'}
+	}
+</style>
+<style data-sly-test="${properties.cssTablet}">
+	@media(max-width: 990px) and (min-width: 768px) {
+	${properties.cssTablet @ context='html'}
+	}
+</style>
+<style data-sly-test="${properties.cssMobile}">
+	@media (max-width: 767px) {
+	${properties.cssMobile @ context='html'}
+	}
+</style>

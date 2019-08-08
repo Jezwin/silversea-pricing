@@ -1,0 +1,42 @@
+/*
+ * Sticky Filter - FYC
+ */
+.c-fyc-filter__header.c-fyc-filter__header-sticky{
+    padding-bottom: 70px;
+}
+
+form.c-find-your-cruise-filter.c-find-your-cruise-filter-sticky {
+    position: fixed;
+    top:110px;
+    left:0px;
+    z-index:1019;
+    width:100% !important;
+    padding-bottom:5px;
+    margin-bottom: 0;
+    background: @grey--53;
+    @media (min-width: @screen-md-min) and (max-width:@screen-md-max){
+    	top:60px;
+    }
+}
+
+form.c-find-your-cruise-filter.c-find-your-cruise-filter-sticky .filter-wrapper  {
+    width:932px !important;
+    padding-top:10px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 0;
+    background:transparent !important;
+    @media (min-width: @screen-md-min) and (max-width:@screen-md-max){
+    	width:738px !important;
+    } 
+}
+
+.landingpage {
+	form.c-find-your-cruise-filter.c-find-your-cruise-filter-sticky{
+		top:60px;
+	}
+}
+
+form.c-find-your-cruise-filter .filter-wrapper  {
+    margin-left: -2px;
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:ClientLibraryFolder"
+    categories="[apps.silversea-ssc]"
+    dependencies="[cq.foundation]"
+    embed="[apps.silversea-ssc.virtualtours,apps.silversea-ssc.videocustomthumbnail,apps.silversea-ssc.iconList,apps.silversea-ssc.herobannerDCO,apps.silversea-ssc.singleImage, apps.silversea-ssc.topPageTitle,apps.silversea-ssc.mediaMixSliderCustom,apps.silversea-ssc.navbarDCO,apps.silversea-ssc.teaserDCO,apps.silversea-ssc.bottomBannerTextCTA,apps.silversea-ssc.sticky-menu, apps.silversea-ssc.teaser-list-vanity, apps.silversea-ssc.findTravelAgent2019, apps.silversea-ssc.slider5Lessons]"/>

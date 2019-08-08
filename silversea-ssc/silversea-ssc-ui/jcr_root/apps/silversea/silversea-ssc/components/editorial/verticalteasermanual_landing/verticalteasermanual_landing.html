@@ -1,0 +1,44 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manual landing - (#c-vertical-teaser-${properties.sscUUID})"></div>
+<sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" data-sly-test="${properties.reference}"/>
+<section  id="c-vertical-teaser-${properties.sscUUID}" class="c-vertical-teaser thumbnail benefitsandevents"  data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <div class="c-vertical-teaser__image-wrapper" data-sly-test.reference="${properties.assetReference}">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+    </div>
+    <div class="caption c-vertical-teaser__caption">
+        <h4 class="c-vertical-teaser__title ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile}">${properties.jcr:title @ context="html"}</h4>
+        <p class="c-vertical-teaser__description ${properties.fontSizeTextDesktop} ${properties.fontSizeTextTablet} ${properties.fontSizeTextMobile}">
+            ${properties.jcr:description @ context="html"}
+        </p>
+        <sly data-sly-test="${!properties.openLinkNewTab}">
+        	<a class="c-vertical-teaser__link" href="${target.page.path @ extension='html'}" data-sly-test="${properties.reference}">
+            	<span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+        	</a>
+        </sly>
+        <sly data-sly-test="${properties.openLinkNewTab}">
+        	<a class="c-vertical-teaser__link" href="${target.page.path @ extension='html'}" data-sly-test="${properties.reference}" target="_blank">
+            	<span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+        	</a>
+        </sly>
+    </div>
+    <sly data-sly-test="${!properties.openLinkNewTab}">
+    	<a data-sly-test="${properties.reference}" class="c-vertical-teaser__link--block" href="${target.page.path @ extension='html'}"></a>
+    </sly>
+    <sly data-sly-test="${properties.openLinkNewTab}">
+    	<a data-sly-test="${properties.reference}" class="c-vertical-teaser__link--block" href="${target.page.path @ extension='html'}" target="_blank"></a>
+    </sly>
+</section>
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) {
+        ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {
+        ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+        ${properties.cssMobile @ context='html'}
+    }
+</style>

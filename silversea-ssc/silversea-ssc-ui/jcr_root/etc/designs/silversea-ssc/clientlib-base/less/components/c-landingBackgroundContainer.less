@@ -1,0 +1,324 @@
+@media (max-width: @screen-sm) {
+	.c-landingBackgroundContainer.hiddenMobile , .c-landingBackgroundContainer .hideSeparatorMobile{
+			display: none ! important;
+	}
+}
+
+@media (min-width: @screen-md-min) {
+	.c-landingBackgroundContainer.hiddenDesktop, .c-landingBackgroundContainer .hideSeparatorDesktop{
+			display: none ! important;
+	}
+}
+
+.landingpage .c-landingBackgroundContainer .lp17__section_header_separator {
+	background: @green--48;
+}
+	
+.c-landingBackgroundContainer{
+	width: 100vw;
+	margin: auto;
+	left: ~"calc(-50vw + 50%)";
+	position: relative;
+	.lp17__section {
+	    padding: 30px 0;
+	    width: 100%;
+	    float: left;
+	}
+	
+	.newDarkGrey {
+		background: @color-dark-bg !important;
+		text-align:center;
+		p, span, h2, h1, h3 {
+		    color: @white !important;
+		}
+		
+		.lp17__section_header_separator-light {
+			background: @white !important;
+		}
+		
+	}
+	
+	
+		
+	.lp17__bgset, .bg_set {
+	    background-position: center center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	}
+	
+	.lp17__section-cruises {
+		@media (max-width: 700px){
+	    	background: @white !important;
+	    	padding: 30px 0;
+	    	padding-bottom: 1px;
+	    }
+	}
+	
+	.bg_grey{
+		background:@grey--f5;
+		text-align:center;
+		@media (max-width: 700px){
+	    		background: @grey--f5 !important;
+	    	}
+	}
+	
+	.bg_black {
+	    background: @black !important;
+
+		p, span, h2, h1, h3 {
+		    color: @white !important;
+		}
+		
+		.lp17__section_header_separator-light {
+			background: @white !important;
+		}
+	}
+	
+	.lp17__section_header {
+	    margin-bottom: 60px;
+	    text-align: center;
+	    @media (max-width: 700px){
+	    	margin-bottom: 30px;
+	    }
+	    
+	    .lp17__section_header_subtitle {
+		    font-size: 20px;
+		    text-transform: uppercase;
+		    margin-bottom: 10px;
+		    margin-bottom:0px;
+		    display: block;
+		    @media (max-width: 700px){
+		    	font-size:14px;
+		    }
+		}
+		
+		.lp17__section_header_title {
+		    font-family: @f-theano_didot;
+		    text-align: center;
+		    text-transform: uppercase;
+		    color: @black;
+		    font-size: 50px;
+		    font-weight: 400;
+		    line-height: 1;
+		    margin-bottom: 10px;
+		    margin-top:5px;
+		    @media (max-width: 700px){
+		    	font-size:28px;
+		    }
+		}
+		
+		.lp17__section_header_separator {
+		    width: 40px;
+		    height: 4px;
+		    background: black;
+		    margin: 10px auto 0 auto;
+		    
+		    &-default {
+		    	background: @black;
+		    }
+		    
+		    &-red {
+		    	background: @red !important;
+		    }
+			
+			&-light {
+			    content: "";
+			    width: 100%;
+			    max-width: 101px;
+			    height: 1px;
+			    display: block;
+			    top: 0;
+			    right: 0;
+			    bottom: 0;
+			    left: 0;
+			    background: @black;
+			    margin: auto;
+			    margin-top: 10px;
+			    margin-bottom: 15px;
+			}
+		}
+		
+		
+		
+		
+		
+		.white{
+	    	color: @white;
+	    }
+	    
+	    .dmpTitleStyle{
+	    	.lp17__section_header_title {
+	    		 font-family: @f-open_sans !important;
+	    		line-height: 18px;
+    			margin: 0 auto;
+			    padding: 4px;
+			    font-size: 18px;
+			    
+			    text-transform: uppercase;
+			    margin-bottom: 0px;
+			    text-align: center;
+	    		@media (max-width: 700px){
+		    		display:none;
+		    	}
+	    	}
+	    	.lp17__section_header_title.showSubtitleMobileDMP {
+	    		@media (max-width: 700px){
+		    		display:block;
+		    	}
+	    	}
+	    	
+	    	.doNotForceDescriptionUppercase{
+	    		text-transform:none !important;	
+	    	}
+	    	
+	    	.lp17__section_header_subtitle {
+    		    font-size: 36px;
+    		    font-family: @f-theano_didot !important;
+			    word-break: break-word;
+			    display:block;
+	    		@media (max-width: 700px){
+		    		font-size:28px;
+		    	}
+	    	}
+	    }
+	}
+	
+	.reduceMarginUnderTitle{
+		margin-bottom:5px;
+	}
+	
+	.container {
+		font-family: @f-lato;
+	    max-width: 1200px;
+	    margin: 0 auto;
+    	width: 100%;
+    	
+	}
+	.container.normalWidth{
+		max-width: @landing-background-container-normal-width;
+	}
+	
+	.container.largerWidth{
+		max-width: 1600px;
+	}
+}
+
+.landingBackgroundContainer{
+	margin-bottom:0px !important;
+	
+	.goldText{
+		
+		color:#b59b4a !important;
+		.lp17__section-cruises{
+			background:none;
+			background-color:@black-8 !important;
+			@media (max-width: 700px){
+	    		background: @black-8 !important;
+	    	}
+		}
+		.lp17__section_header{
+			margin-bottom:15px;
+		}
+		.lp17__section_header_subtitle {
+			    font-size: 36px;
+			    font-weight: 200;
+			    line-height: 52px;
+			    text-transform:none;
+		}
+		.lp17__section_header_title {
+			color:@gold--50 !important;
+			font-weight:800;
+			line-height:52px;
+			font-size: 35px;
+			font-family:@f-sans_serif;
+			text-transform:none;
+		}
+	}
+	
+	.lp17__section_header_h1 {
+	 	font-size: 36px;
+	    font-family: @f-theano_didot !important;
+	    word-break: break-word !important;
+	    font-weight: 400 !important;
+	    text-align: center !important;
+	    text-transform: uppercase !important;
+		@media (min-width: 	@screen-md-min) and (max-width:1023px) {
+				font-size: 30px;
+			}
+			
+			@media (max-width: @screen-sm) {
+				font-size: 26px;
+			}
+	}
+}
+
+
+.landingBackgroundContainer  .c-landingBackgroundContainer-2017Landing, .landingBackgroundContainer  .c-landingBackgroundContainer-NSW4Landing {
+		
+		.bg_grey{
+    		text-align: left;
+		}
+
+		.bg_cruseblock {
+			@media (min-width: 	@screen-md-min) and (max-width:1023px) {
+				padding-left: 23px
+			}
+		}
+		.lp17__section_header_subtitle {
+			line-height: 39px;
+			
+			@media (max-width: @screen-sm) {
+				font-size: 27px;
+				line-height: 29px;
+				font-family: @f-open_sans;
+			}
+		}
+		
+		.lp17__section-cruises {
+			padding: 36px 0px;
+			@media (max-width: @screen-sm) {
+				padding: 10px 0px;
+    		}
+		}
+		
+		.lp17__section_header {
+			@media (max-width: @screen-sm) {
+				margin-bottom: 24px;
+    		}
+		}
+		
+		a.btn-lg {
+			width: 250px;
+			text-align: center;
+			padding: 12px 0px;
+			
+			@media (max-width: @screen-sm) {
+				width: 200px;
+				padding: 10px 0px;
+    		}
+			
+			span {
+				font-size: 14px;
+    			font-weight: 600;
+    			padding-right: 0px !important;
+    			
+    			@media (max-width: @screen-sm) {
+    				font-size: 12px;
+    			}
+    			
+			}
+		}
+}
+	
+
+
+ /*
+  * Fix mozaic slider + Landing backround combinaison
+  */
+  .landingBackgroundContainer {
+  	.mozaic-slider{
+  		.slick-list {
+  			overflow:visible;
+  		}
+  	}
+  }

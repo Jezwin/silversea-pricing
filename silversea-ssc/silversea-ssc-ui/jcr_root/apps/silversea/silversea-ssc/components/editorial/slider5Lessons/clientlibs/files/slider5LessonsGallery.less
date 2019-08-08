@@ -1,0 +1,58 @@
+.slider-5-lessons {
+
+  .slider-5-lessons-mobile {
+    display: none;
+  }
+}
+
+.modal {
+  .silder-5-lesson-gallery-mobile {
+    display: none;
+  }
+
+  .silder-5-lesson-gallery-desktop {
+    .c-gallery__counter {
+      display: none !important;
+    }
+
+    .c-slider--nav {
+      display: none !important;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .slider-5-lessons {
+
+    .slider-5-lessons-desktop {
+      display: none;
+    }
+
+    .slider-5-lessons-mobile {
+      display: block;
+    }
+  }
+
+  .modal {
+    .silder-5-lesson-gallery-desktop {
+      display: none;
+    }
+
+    .silder-5-lesson-gallery-mobile {
+      display: block;
+      top: 0 !important;
+
+      .c-gallery__counter {
+        display: none !important;
+      }
+
+      .modal-header {
+        padding-top: 0px !important;
+      }
+
+      .c-slider--for .slick-slide .ratio {
+        padding-bottom: 100vh;
+      }
+    }
+  }
+}

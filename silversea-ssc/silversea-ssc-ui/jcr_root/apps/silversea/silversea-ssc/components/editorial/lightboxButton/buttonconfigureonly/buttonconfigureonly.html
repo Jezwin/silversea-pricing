@@ -1,0 +1,5 @@
+<div data-sly-test.empty="${wcmmode.edit && !properties.reference}" class="cq-placeholder" data-emptytext="Bouton"></div>
+<a data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
+   <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title}</span>
+   <span class="hidden-sm hidden-xs">${properties.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+</a>

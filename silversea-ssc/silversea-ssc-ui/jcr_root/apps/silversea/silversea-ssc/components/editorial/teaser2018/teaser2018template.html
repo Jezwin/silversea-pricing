@@ -1,0 +1,139 @@
+<template data-sly-template.automatic>
+	<sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.targetPath}" />
+	<sly data-sly-test="${!properties.fullWidthImage}">
+		<div class="c-teaser-2018-image col-sm-6">
+			<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/teaser2018/galleryimagetemplate.html"  data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
+		</div>
+		<div class="caption col-sm-6 c-teaser-2018-caption">
+		 <a data-sly-test="${properties.targetPath }" href="${properties.targetPath @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+	               <span data-sly-test="${properties.headerText}" class="c-teaser-2018-header ${properties.headerTextColor}">
+	                  ${properties.headerText @ context="html"}
+	               </span>
+	               <span class="c-teaser-2018-title">
+	                   ${target.page.title || target.page.navigationTitle @ context="html"}
+	               </span>
+	               <div class="c-teaser-2018-description">
+	                   ${target.page.description @ context="html"}
+	               </div>
+	
+	               <span class="c-teaser-2018-link visible-sm visible-md visible-lg hidden-xs"> ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i> </span>
+	               <span class="c-teaser-2018-link-mobile hidden-lg hidden-sm hidden-md visible-xs"> ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i> </span>
+	           </a>
+	          </div>
+	</sly>
+	<sly data-sly-test="${properties.fullWidthImage}">
+  		<div class="c-teaser-2018-image col-sm-12">
+  			<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/teaser2018/galleryimagetemplate.html"  data-sly-call="${imageTemplate.fullwidth @ imagePath=target.thumbnail}" />
+        </div>
+        <div class="c-teaser-2018-caption col-sm-12 visible-sm visible-md visible-lg hidden-xs">
+            <span class="c-teaser-2018-title col-sm-6">
+                <a data-sly-test="${properties.targetPath}" href="${properties.targetPath  @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+             	     ${target.page.title || target.page.navigationTitle @ context="html"} <br>
+                	<span class="c-teaser-2018-link"> ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i> </span>
+            	</a>
+           	</span>
+            <div class="c-teaser-2018-description col-sm-6">
+                <a data-sly-test="${properties.targetPath}" href="${properties.targetPath @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+	        	     ${target.page.description @ context="html"}
+                </a>
+            </div>
+        </div>
+	</sly>
+		
+</template>
+
+<template data-sly-template.manual>
+	<sly data-sly-test="${!properties.fullWidthImage}">
+  		<div class="c-teaser-2018-image col-sm-6">
+             <sly data-sly-test="${!properties.assetSelectionReference}" >
+
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/teaser2018/galleryimagetemplate.html"  data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}" />
+
+            </sly>
+            <sly data-sly-test="${properties.assetSelectionReference}" data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}">
+                	<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/teaser2018/galleryimagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path}"/>
+            </sly>
+        </div>
+        <div class="caption col-sm-6 c-teaser-2018-caption">
+            <a data-sly-test="${properties.link}" href="${properties.link @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+                <span data-sly-test="${properties.headerText}" class="c-teaser-2018-header ${properties.headerTextColor}">
+                    ${properties.headerText @ context="html"}
+                </span>
+                <span class="c-teaser-2018-title">
+                    ${properties.title @ context="html"}
+                </span>
+                <div class="c-teaser-2018-description">
+                    ${properties.description @ context="html"}
+                </div>
+
+                <span class="c-teaser-2018-link visible-sm visible-md visible-lg hidden-xs"> ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i> </span>
+                <span class="c-teaser-2018-link-mobile hidden-lg hidden-sm hidden-md visible-xs"> ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i> </span>
+            </a>
+            <sly data-sly-test="${!properties.link}">
+                <span data-sly-test="${properties.headerText}" class="c-teaser-2018-header ${properties.headerTextColor}">
+                    ${properties.headerText @ context="html"}
+                </span>
+                <span class="c-teaser-2018-title">
+                    ${properties.title @ context="html"}
+                </span>
+                <div class="c-teaser-2018-description">
+                    ${properties.description @ context="html"}
+                </div>
+            </sly>
+        </div>
+	</sly>	
+	<sly data-sly-test="${properties.fullWidthImage}">
+  		<div class="c-teaser-2018-image col-sm-12">
+             <sly data-sly-test="${!properties.assetSelectionReference}" >
+
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/teaser2018/galleryimagetemplate.html"  data-sly-call="${imageTemplate.fullwidth @ imagePath=properties.imagePath}" />
+
+            </sly>
+            <sly data-sly-test="${properties.assetSelectionReference}" data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}">
+                	<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/teaser2018/galleryimagetemplate.html" data-sly-call="${imageTemplate.fullwidth @ imagePath=setImage.renditionList[0].path}"/>
+            </sly>
+        </div>
+        <div class="c-teaser-2018-caption col-sm-12 visible-sm visible-md visible-lg hidden-xs">
+            <span class="c-teaser-2018-title col-sm-6">
+                <a data-sly-test="${properties.link}" href="${properties.link @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+             	    ${properties.title @ context="html"} <br>
+
+                	<span class="c-teaser-2018-link"> ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i> </span>
+            	</a>
+            	 <sly data-sly-test="${!properties.link}">
+            	       ${properties.title @ context="html"} <br>
+            	     </sly>
+            	     
+           	</span>
+            <div class="c-teaser-2018-description col-sm-6">
+                <a data-sly-test="${properties.link}" href="${properties.link @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+	        	    ${properties.description @ context="html"}
+                </a>
+                	 <sly data-sly-test="${!properties.link}">
+            	    ${properties.description @ context="html"}
+            	     </sly>
+            </div>
+        </div>
+        <div class="c-teaser-2018-caption col-sm-12 hidden-sm hidden-md hidden-lg visible-xs">
+            <a data-sly-test="${properties.link}" href="${properties.link @ extension='html'}" target="${properties.targetBlank ? '_blank' : '_self'}">
+                <span class="c-teaser-2018-title">
+                    ${properties.title @ context="html"}
+                </span>
+                <div class="c-teaser-2018-description">
+                    ${properties.description @ context="html"}
+                </div>
+
+                <span class="c-teaser-2018-link-mobile"> ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i> </span>
+             </a>
+             	 <sly data-sly-test="${!properties.link}">
+            	    <span class="c-teaser-2018-title">
+                        ${properties.title @ context="html"}
+                    </span>
+                    <div class="c-teaser-2018-description">
+                        ${properties.description @ context="html"}
+                    </div>
+            	</sly>
+        </div>
+	</sly>
+
+</template>

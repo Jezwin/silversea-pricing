@@ -1,0 +1,32 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Destination Map"></div>
+
+<sly data-sly-use.destinationsMap="com.silversea.ssc.aem.components.editorial.DestinationsMapUse"></sly>
+<section class="c-destinationsMap c-destinationsMap-${properties.style || 'style1'} ${properties.hideDesktop ? 'c-destinationsMap-hideDesktop' : ''}" >
+<div id="silversea-destinations-interactive-map">
+    <div id="map">
+        <div class="map-container" style="">
+        	<sly data-sly-test="${!properties.style || properties.style == 'style1'}">
+            	<img src="/etc/designs/silversea-ssc/clientlib-base/images/destinationsMap/map.png" class="fMapLoad" alt="Destination - map" />
+            </sly>
+            <sly data-sly-test="${properties.style == 'style2'}">
+            	<img src="/etc/designs/silversea-ssc/clientlib-base/images/destinationsMap/map_naked.png" class="fMapLoad" alt="Destination - mapNaked" />
+            </sly>
+            <div data-sly-repeat="${destinationsMap.destinationsList}" class="">
+	            <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=item.path}"> 
+		            <div class="imap-marker all_destinations_to_single_destination" id="" data-link="${externalizerHelper.externalizedUrl @extension='html'}" style="left: ${item.xPosition@context = 'html'}%; top: ${item.yPosition@context = 'html'}%;" data-sscclicktype="clic-map" data-sscuuid="map_destination_${item.page.Name @ context='html'}" onclick="destinationRedirect('${externalizerHelper.externalizedUrl @extension='html' , context='unsafe'}');">
+		               <span class="number dest-${item.destinationId}"></span>
+		               <div class="marker-text"><b>${item.mapLabel @ context='html'}</b></div>
+	                </div> 
+	            </sly>
+        	</div>        
+  		</div>
+    </div>
+	<span class="close-tooltip-map"> </span>
+
+    </div>
+    <style>
+	    .c-destinationsMap, .destinationsMap {
+			margin-bottom: ${properties.margin || 20 @ context="unsafe"}px !important;
+		} 
+    </style>
+</section>

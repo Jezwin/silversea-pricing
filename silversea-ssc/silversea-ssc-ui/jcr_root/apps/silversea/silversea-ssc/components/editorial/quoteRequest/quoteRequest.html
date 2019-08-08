@@ -1,0 +1,44 @@
+<div class="c-quote-request-form ${quoteRequest.isGPDR ? 'gpdr' : ''}"  data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
+    ${quoteRequest.prepareDestinationParameters}
+    <div class="row">
+        <!--/*
+        include side.html if path has suffix for ship and [suite]*/-->
+        <!-- A version -->
+        <div data-sly-test="${quoteRequest.isCruiseRequested}" class="col-sm-${properties.modalDetailSize || 5}  c-quote-request-form__side">
+        	<sly data-sly-use.side="side.html" data-sly-call="${side.default @ quoteRequest=quoteRequest }" />
+        </div>
+		<!-- B version -->
+		<div data-sly-test="${quoteRequest.isSideHtmlToShow}" class="col-sm-${properties.modalDetailSize || 5}  c-quote-request-form__side">
+			<sly data-sly-use.side="side.html" data-sly-call="${side.default @ quoteRequest=quoteRequest }" />
+		</div>
+        
+        <div class="col-sm-${properties.modalFormSize || 7 } c-quote-request-form__form">
+        	<sly data-sly-use.form="form.html" data-sly-call="${form.default @ use=quoteRequest }" />
+        </div>
+    </div>
+</div>
+
+<script>
+//Refresh Global Mbox function - A/B Test 
+function TargetOffer(){
+	try {
+		  adobe.target.getOffer({  
+			  "mbox": "target-global-mbox",  
+			  "success": function(offers) {          
+			        adobe.target.applyOffer( { 
+			           "mbox": "target-global-mbox",
+			           "offer": offers 
+			        } );
+			  },  
+			  "error": function(status, error) {          
+			    
+			  },
+			"timeout": 5000
+			});
+		}
+		catch(error) {
+		  console.error(error);
+		}
+} TargetOffer()
+
+</script>

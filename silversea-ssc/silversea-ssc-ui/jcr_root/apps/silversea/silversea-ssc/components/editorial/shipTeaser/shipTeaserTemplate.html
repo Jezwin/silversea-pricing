@@ -1,0 +1,63 @@
+<template data-sly-template.target>
+    <a class="c-ship-teaser__link--block" href="${target.page.path @ extension='html'}" target="${properties.linkKind}"
+       data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}">
+        <section data-sly-test="${properties.reference}"
+                 class="c-ship-teaser ${pixelClassMargin.allDevicesPixel} ${properties.centerContentMobile ? 'centerContentMobile' : ''} ${properties.addBorderMobile ? 'addBorderMobile' : ''}
+                    ${properties.centerContentDesktop ? 'centerContentDesktop' : ''} ${properties.centerContentTablet ? 'centerContentTablet' : ''}"
+                 data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                 data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height'}"
+                 data-sly-use.minheightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='minHeight'}"
+                 data-sly-use.pixelClassMargin="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}">
+            <div class="c-ship-teaser__image-wrapper ${heightClass.allDevicesPixel}">
+                <sly data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}"></sly>
+            </div>
+            <div class="c-ship-teaser__caption ${minheightClass.allDevicesPixel} ${properties.whiteBackgroundDesktop ? 'whiteBackgroundDesktopShip' : ''} ${properties.whiteBackgroundMobile ? 'whiteBackgroundMobileShip' : ''}">
+                <div class="c-ship-teaser__title  ${properties.uppercaseTitleMobile ? 'uppercaseTitleMobile' : ''} ${properties.uppercaseTitleTablet ? 'uppercaseTitleTablet' : ''} ${properties.uppercaseTitleDesktop ? 'uppercaseTitleDesktop' : ''}">${target.page.navigationTitle || target.page.title}</div>
+                <div class="c-ship-teaser__description ${properties.hideDescriptionDesktop ? 'displayNoneDesktop' : ''} ${properties.hideDescriptionTablet ? 'displayNoneTablet' : ''} ${properties.hideDescriptionMobile ? 'displayNoneMobile' : ''}">${properties.description || target.page.description}</div>
+            </div>
+            <div class="c-ship-teaser__label ${properties.whiteBackgroundDesktop ? 'whiteBackgroundDesktopShip' : ''} ${properties.whiteBackgroundMobile ? 'whiteBackgroundMobileShip' : ''}">
+                <span>${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+            </div>
+        </section>
+    </a>
+</template>
+<template data-sly-template.custom>
+    <a data-sly-test="${properties.customLink}" class="c-ship-teaser__link--block"
+       href="${properties.customLink @ extension='html'}" target="${properties.linkKind}">
+        <section
+                class="c-ship-teaser ${pixelClassMargin.allDevicesPixel} ${properties.centerContentMobile ? 'centerContentMobile' : ''} ${properties.addBorderMobile ? 'addBorderMobile' : ''}
+                    ${properties.centerContentDesktop ? 'centerContentDesktop' : ''} ${properties.centerContentTablet ? 'centerContentTablet' : ''}"
+                data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height'}"
+                data-sly-use.minheightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='minHeight'}"
+                data-sly-use.pixelClassMargin="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}">
+            <div class="c-ship-teaser__image-wrapper ${heightClass.allDevicesPixel}">
+                <sly data-sly-call="${imageTemplate.resp @ imagePath=properties.customImage}"></sly>
+            </div>
+            <div class="c-ship-teaser__caption ${minheightClass.allDevicesPixel} ${properties.whiteBackgroundDesktop ? 'whiteBackgroundDesktopShip' : ''} ${properties.whiteBackgroundMobile ? 'whiteBackgroundMobileShip' : ''}">
+                <div class="c-ship-teaser__title ${properties.uppercaseTitleMobile ? 'uppercaseTitleMobile' : ''} ${properties.uppercaseTitleTablet ? 'uppercaseTitleTablet' : ''}
+                    ${properties.uppercaseTitleDesktop ? 'uppercaseTitleDesktop' : ''}">${properties.customTitle}</div>
+                <div class="c-ship-teaser__description ${properties.hideDescriptionDesktop ? 'displayNoneDesktop' : ''} ${properties.hideDescriptionTablet ? 'displayNoneTablet' : ''} ${properties.hideDescriptionMobile ? 'displayNoneMobile' : ''}">${properties.description}</div>
+            </div>
+            <div class="c-ship-teaser__label ${properties.whiteBackgroundDesktop ? 'whiteBackgroundDesktopShip' : ''} ${properties.whiteBackgroundMobile ? 'whiteBackgroundMobileShip' : ''}">
+                <span>${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i></div>
+        </section>
+    </a>
+    <div data-sly-test="${!properties.customLink}" class="c-ship-teaser__link--block c-ship-teaser__link--block-nohover">
+        <section style="cursor: default !important;"
+                 class="c-ship-teaser ${pixelClassMargin.allDevicesPixel} ${properties.centerContentMobile ? 'centerContentMobile' : ''} ${properties.addBorderMobile ? 'addBorderMobile' : ''}
+                    ${properties.centerContentDesktop ? 'centerContentDesktop' : ''} ${properties.centerContentTablet ? 'centerContentTablet' : ''}"
+                 data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                 data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height'}"
+                 data-sly-use.minheightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='minHeight'}"
+                 data-sly-use.pixelClassMargin="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}">
+            <div class="c-ship-teaser__image-wrapper ${heightClass.allDevicesPixel}">
+                <sly data-sly-call="${imageTemplate.resp @ imagePath=properties.customImage}"></sly>
+            </div>
+            <div class="c-ship-teaser__caption ${minheightClass.allDevicesPixel} ${properties.whiteBackgroundDesktop ? 'whiteBackgroundDesktopShip' : ''} ${properties.whiteBackgroundMobile ? 'whiteBackgroundMobileShip' : ''}">
+                <div class="c-ship-teaser__title ${properties.uppercaseTitleMobile ? 'uppercaseTitleMobile' : ''} ${properties.uppercaseTitleTablet ? 'uppercaseTitleTablet' : ''} ${properties.uppercaseTitleDesktop ? 'uppercaseTitleDesktop' : ''}">${properties.customTitle}</div>
+                <div class="c-ship-teaser__description ${properties.hideDescriptionDesktop ? 'displayNoneDesktop' : ''} ${properties.hideDescriptionTablet ? 'displayNoneTablet' : ''} ${properties.hideDescriptionMobile ? 'displayNoneMobile' : ''}">${properties.description}</div>
+            </div>
+        </section>
+    </div>
+</template>

@@ -1,0 +1,36 @@
+<sly data-sly-use.eoData="com.silversea.ssc.aem.components.editorial.ExclusiveOfferBoxesUse" />
+<div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder cq-dd-image"	data-emptytext="Exclusive Offer Boxes - 2018 (#c-exclusive-offer-boxes-${eoData.propertiesAdapted.sscUUID})"></div>
+<section id="c-exclusive-offer-boxes-${eoData.propertiesAdapted.sscUUID}" class="col-xs-12 ${eoData.showComponent ? 'c-exclusive-offer-boxes' : ''}">
+	<sly data-sly-test="${eoData.showComponent}"  data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxesTemplate.html">
+		<div class="title title-desktop-${eoData.propertiesAdapted.titleFontSizeDesktop} title-tablet-${eoData.propertiesAdapted.titleFontSizeTablet} title-mobile-${eoData.propertiesAdapted.titleFontSizeMobile}" data-sly-test="${eoData.propertiesAdapted.title}">
+			<span>${eoData.title @ context="html"}</span>
+		</div>
+		<sly data-sly-call="${eoBoxesTemplate.block1 @ eoData=eoData}" data-sly-test="${eoData.propertiesAdapted.numBlocks == 'block1'}" />
+		<sly data-sly-call="${eoBoxesTemplate.block2 @ eoData=eoData}" data-sly-test="${eoData.propertiesAdapted.numBlocks == 'block2'}" />
+		<sly data-sly-call="${eoBoxesTemplate.block3 @ eoData=eoData}" data-sly-test="${eoData.propertiesAdapted.numBlocks == 'block3'}" />
+		<sly data-sly-call="${eoBoxesTemplate.block4 @ eoData=eoData}" data-sly-test="${eoData.propertiesAdapted.numBlocks == 'block4'}" />
+	</sly>
+	<style data-sly-test="${eoData.cssDesktop}">
+		@media(min-width: 991px) {
+			${eoData.cssDesktop @ context='html'}
+		}
+	</style>
+	<style data-sly-test="${eoData.cssTablet}">
+		@media(max-width: 990px) and (min-width: 768px) {
+			${eoData.cssTablet @ context='html'}
+		}
+	</style>
+	<style data-sly-test="${eoData.cssMobile}">
+		@media (max-width: 767px) {
+			${eoData.cssMobile @ context='html'}
+		}
+	</style>
+	<script>
+	$(document).ready(function() {
+		if($(window).width() > 767) {
+			$(".c-exclusive-offer-boxes-block .block-content .block-text").matchHeight();
+		}
+	});
+	</script>
+</section>
+<div class="clearfix"></div>

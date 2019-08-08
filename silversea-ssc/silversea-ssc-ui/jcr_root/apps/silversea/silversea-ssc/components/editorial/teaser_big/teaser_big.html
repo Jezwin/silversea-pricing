@@ -1,0 +1,51 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image"
+     data-emptytext="SSC - Teaser Big(#c-teaserbig-${properties.sscUUID})"></div>
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+<div class="c-teaserbig__container c-teaserbig-${properties.backgroundColor}-bg-style ${properties.centerContentMobile ? 'centerContentMobile' : ''} ${properties.addBorderMobile ? 'addBorderMobile' : ''}">
+    <div class="c-teaserbig__bg c-teaserbig-${properties.backgroundColor}-bg"></div>
+    <div class="c-teaserbig__caption ">
+        <div class="c-teaserbig__title">${properties.title || properties.jcr:title @ context='html'}</div>
+        <div class="c-teaserbig__description">${properties.description || properties.jcr:description @ context='html'}</div>
+        <div data-sly-resource="${'parTeaserBig' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+        <span class="c-teaserbig__button" data-sly-test="${properties.ctaLink}"><a href="${properties.ctaLink @ extension='html'}">
+            <span class="c-teaserbig__button-cta">${properties.ctaLabel}</span></a>
+		 </span>
+    </div>
+    <sly data-sly-test.thisPath="${properties.assetSelectionReference || pageProperties.assetSelectionReference}"/>
+    <div data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}"
+         data-sly-use.spacesClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop,paddingTop,paddingBottom'}"
+         class="progress-line-bar-arrows c-slider activate-progressbar c-teaserbig  ${properties.disableLightboxGallery ? 'disable-gallery' : ''} ${spacesClass.allDevicesPixel}">
+        <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=thisPath}"/>
+        <sly data-sly-use.assetHelperP="${'com.silversea.aem.helper.AssetHelper' @ assetPath=thisPath}">
+            <sly data-sly-test="${assetHelperP.assetType=='MixedMediaSet'}">
+                <div data-sly-repeat.asset="${setImage.renditionList}">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+                         data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+                    <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                         data-sly-call="${imageTemplate.defaultNoRetina @ imagePath=asset.path}"></div>
+                    <a class="automatic-gallery-modal ${isVideo ? 'video-link' : ''}"
+                       data-target=".bs-modal-lg"
+                       href="${asset.path}"><i data-sly-test="${isVideo}" class="fa fa-play"></i></a>
+                </div>
+            </sly>
+            <sly data-sly-test="${assetHelperP.assetType=='Image'}">
+                <div>
+                    <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                         data-sly-call="${imageTemplate.defaultNoRetina @ imagePath=thisPath}"></div>
+                </div>
+            </sly>
+            <sly data-sly-test="${assetHelperP.assetType=='VideoAVS'}">
+                <div>
+                    <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                         data-sly-call="${imageTemplate.defaultNoRetina @ imagePath=thisPath}"></div>
+                    <a class="automatic-gallery-modal video-link" data-target=".bs-modal-lg"
+                       href="${assetHelperP.imageUrl}"><i class="fa fa-play"></i></a>
+                </div>
+            </sly>
+        </sly>
+    </div>
+    <div data-sly-test="${!properties.disableLightboxGalleryDesktop} " class="c-teaserbig__full-gallery ">
+        <span><i class="material-icons">fullscreen</i>${'full-gallery' @ i18n} </span></div>
+    <script>
+    </script>
+</div>

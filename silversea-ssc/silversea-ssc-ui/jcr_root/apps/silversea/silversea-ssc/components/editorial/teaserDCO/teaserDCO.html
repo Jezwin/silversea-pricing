@@ -1,0 +1,6 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder " data-emptytext="Teaser DCO - (#teaser-dco-${properties.sscUUID})"></div>
+
+<sly data-sly-use.teaserTemplate="silversea/silversea-ssc/components/editorial/teaserDCO/teaserTemplate.html">
+    <sly data-sly-test="${properties.template == 'vertical'}" data-sly-call="${teaserTemplate.vertical}" />
+    <sly data-sly-test="${properties.template == 'horizontal'}" data-sly-call="${teaserTemplate.horizontal}" />
+</sly>

@@ -1,0 +1,245 @@
+.c-ship-teaser {
+  position: relative;
+  display: block;
+  line-height: 1.42857143;
+  background-color: transparent;
+  @media (max-width: @screen-sm) {
+    //background-color: @white;
+  }
+
+
+  padding: 0 3px;
+
+  &__image-wrapper {
+    position: relative;
+    background-color: @black;
+    overflow: hidden;
+  }
+
+  picture {
+    @media (max-width: @screen-sm) {
+      max-height: 334px;
+    }
+
+    @media (min-width: @screen-md-min) {
+      img {
+        transform: scale(1.05);
+        -webkit-transition: all 0.5s linear;
+        -moz-transition: all 0.5s linear;
+        -o-transition: all 0.5s linear;
+        transition: all 0.5s linear;
+      }
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    & .c-ship-teaser__caption {
+    }
+  }
+
+  @media (min-width: 769px) {
+    &:hover picture {
+      opacity: .5;
+
+      img {
+        transform: scale(1.0);
+        -ms-transform: scale(1.0);
+        -moz-transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+        -o-transform: scale(1.0);
+      }
+    }
+  }
+
+
+  &__link--block-nohover:hover picture{
+    opacity: 1 !important;
+  }
+
+
+  &__link--block-nohover:hover picture img {
+    transform: scale(1.05) !important;
+    -webkit-transition: all 0.5s linear !important;
+    -moz-transition: all 0.5s linear !important;
+    -o-transition: all 0.5s linear !important;
+    transition: all 0.5s linear !important;
+  }
+
+  &__caption {
+    font-family: @freight;
+    margin: 0px 0 0;
+    text-align: left;
+    line-height: 1.1;
+    border-bottom: 1px solid transparent;
+    padding: 12px 0 18px;
+    @media screen and (max-width: @screen-sm) {
+      margin-top: 1px;
+      padding-bottom: 10px;
+    }
+  }
+
+  &__title {
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    @media screen and (max-width: @screen-sm) {
+      font-size: 22px;
+    }
+    @media screen and (min-width: @screen-md-min) {
+      font-size: 24px
+    }
+
+  }
+
+  &__description {
+    font-size: 13px;
+    font-family: @suisse;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    letter-spacing: 0.5px;
+    line-height: 19px;
+    display: inline-block;
+    @media screen and (max-width: @screen-sm) {
+      font-size: 12px !important;
+      line-height: 18px;
+      letter-spacing: 1px;
+      padding-bottom: 5px;
+      padding-top: 8px;
+    }
+  }
+
+  &__label {
+    font-size: 13px;
+    font-family: @suisse;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: @color-second;
+
+    span {
+      margin-right: 5px;
+    }
+
+    .fa {
+      font-size: 15pt;
+      font-weight: bold;
+      vertical-align: middle;
+      padding-bottom: 4px;
+      padding-left: 3px;
+    }
+
+    @media (max-width: @screen-sm) {
+      font-size: 12px !important;
+      text-align: right;
+      letter-spacing: 1px;
+    }
+
+  }
+
+  &.centerContentMobile {
+    @media (max-width: @screen-sm) {
+      .c-ship-teaser__caption, .c-ship-teaser__label {
+        text-align: center;
+      }
+    }
+  }
+
+  &.centerContentDesktop {
+    @media (min-width: @screen-lg-min) {
+      .c-ship-teaser__caption, .c-ship-teaser__label {
+        text-align: center;
+      }
+    }
+  }
+
+  &.centerContentTablet {
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+      .c-ship-teaser__caption, .c-ship-teaser__label {
+        text-align: center;
+      }
+    }
+  }
+
+  .uppercaseTitleMobile {
+    @media (max-width: @screen-sm) {
+      &.c-ship-teaser__title {
+          text-transform: uppercase !important;
+      }
+    }
+  }
+
+  .uppercaseTitleDesktop {
+    @media (min-width: @screen-lg-min) {
+      &.c-ship-teaser__title {
+          text-transform: uppercase !important;
+
+      }
+    }
+  }
+
+  .uppercaseTitleTablet {
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+      &.c-ship-teaser__title {
+          text-transform: uppercase !important;
+      }
+    }
+  }
+
+  &.addBorderMobile {
+    @media (max-width: @screen-sm) {
+      .c-ship-teaser__caption, .c-ship-teaser__label {
+        padding-left: 7% !important;
+        padding-right: 7% !important;
+      }
+
+      .c-ship-teaser__caption {
+        border: 1px solid rgb(211, 211, 211);
+        margin-top: 0;
+        border-bottom: 0;
+      }
+
+      .c-ship-teaser__label {
+        border: 1px solid rgb(211, 211, 211);
+        border-top: 0;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  &__caption.whiteBackgroundDesktopShip, &__label.whiteBackgroundDesktopShip {
+    @media (min-width: @screen-md-min) {
+      background-color: white;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  &__caption.whiteBackgroundMobileShip, &__label.whiteBackgroundMobileShip {
+    @media (max-width: @screen-sm) {
+      background-color: white;
+
+    }
+  }
+}
+
+//A/B Test related
+.tabbedmozaic {
+  .c-ship-teaser {
+    margin-bottom: 30px;
+
+    &__image-wrapper {
+      height: 300px;
+      @media (min-width: 768px) and (max-width: 991px) {
+        height: 280px;
+      }
+      @media (max-width: 767px) {
+        height: 250px;
+      }
+    }
+  }
+}
+
+.ab-test-global-v2 {
+  display: none;
+}
+

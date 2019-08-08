@@ -1,0 +1,70 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SSC - HR Separator - (#c-hrSeparator-${properties.sscUUID})"></div>
+	
+<hr id="c-hrSeparator-${properties.sscUUID}" class="c-hrSeparator c-hrSeparator-${properties.idSeparator ? properties.idSeparator : '0'}">
+<style>
+	.c-hrSeparator-${properties.idSeparator || 0 @ context="unsafe"} {
+		width:${properties.widthSeparator || 100 @ context="unsafe"}% !important;
+		border-width:${properties.borderWidthSeparator || 1 @ context="unsafe"}px !important;
+		border-color:${properties.colorSeparator || "" @ context="unsafe"} !important;
+		margin-top:${properties.marginSeparatorTopDesktop || 20 @ context="unsafe"}px !important;
+		margin-bottom:${properties.marginSeparatorBottomDesktop || 20 @ context="unsafe"}px !important;
+	}
+	
+	.hrSeparator {
+		margin-bottom: 0px !important;
+	}
+	
+	
+	@media (max-width: 767px) {
+		.c-hrSeparator-${properties.idSeparator || 0 @ context="unsafe"} {
+			margin-top:${properties.marginSeparatorTopMobile || 20 @ context="unsafe"}px !important;
+			margin-bottom:${properties.marginSeparatorBottomMobile || 20 @ context="unsafe"}px !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.hideSepatorDesktop}">
+	@media (min-width: 767px) {
+		.c-hrSeparator-${properties.idSeparator || 20 @ context="unsafe"} {
+			display: none !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.sscUUID}">
+	
+	#c-hrSeparator-${properties.sscUUID @ context="unsafe"} {
+		width:${properties.widthSeparator || 100 @ context="unsafe"}% !important;
+		border-width:${properties.borderWidthSeparator || 1 @ context="unsafe"}px !important;
+		border-color:${properties.colorSeparator || "" @ context="unsafe"} !important;
+		margin-top:${properties.marginSeparatorTopDesktop || 20 @ context="unsafe"}px !important;
+		margin-bottom:${properties.marginSeparatorBottomDesktop || 20 @ context="unsafe"}px !important;
+	}
+	
+	@media (max-width: 767px) {
+		#c-hrSeparator-${properties.sscUUID  @ context="unsafe"} {
+			margin-top:${properties.marginSeparatorTopMobile || 20 @ context="unsafe"}px !important;
+			margin-bottom:${properties.marginSeparatorBottomMobile || 20 @ context="unsafe"}px !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.hideSepatorDesktop && properties.sscUUID}">
+	@media (min-width: 767px) {
+		#c-hrSeparator-${properties.sscUUID @ context="unsafe"} {
+			display: none !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) {
+        ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {
+        ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+        ${properties.cssMobile @ context='html'}
+    }
+</style>

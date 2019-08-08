@@ -1,0 +1,46 @@
+<template data-sly-template.default="${ @ heightClass, pixelClass, externalizerHelper}">
+    <sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ property='sscFwBackgroundPosition'}"/>
+    <div class="slider-5-lessons" style="${fw.allDevices @ context='unsafe'}"
+         data-ie-style="${fw.allDevices @ context='unsafe'}">
+        <div class="slider-5-lessons-desktop" data-sly-test=${properties.assetSelectionReference}>
+            <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}">
+                <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside c-slider--full-width"
+                     data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "adaptiveHeight": true, "dots" : true, "autoplay" : false, "autoplaySpeed": 4000}'
+                     role="toolbar">
+                    <sly data-sly-list.asset="${setImage.renditionList}">
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}">
+                            <div>
+                                <a class="automatic-gallery-modal open-gallery-slider-5-lesson" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors=['gallery', assetList.index], extension='html'}"
+                                   data-target=".bs-modal-lg" href="${asset.path}">
+                                    <div class="${heightClass.allDevices} ${pixelClass.allDevicesPixel} ssc-fw-background-position"
+                                         style="background-size: cover;background-position: center; background-repeat: no-repeat;background-image:url('${assetHelper.imageUrl @ context='unsafe'}?wid=1920&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1');">
+                                    </div>
+                                </a>
+                            </div>
+                        </sly>
+                    </sly>
+                </div>
+            </sly>
+        </div>
+        <div class="slider-5-lessons-mobile" data-sly-test=${properties.assetSelectionReferenceMobile}>
+            <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReferenceMobile}">
+                <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside c-slider--full-width"
+                     data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "dots" : false, "autoplay" : true, "autoplaySpeed": 4000}'
+                     role="toolbar">
+                    <sly data-sly-list.asset="${setImage.renditionList}">
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}">
+                            <div>
+                                <a class="automatic-gallery-modal open-gallery-slider-5-lesson" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors=['gallery', assetList.index], extension='html'}"
+                                   data-target=".bs-modal-lg" href="${asset.path}">
+                                    <div class="${heightClass.allDevices} ${pixelClass.allDevicesPixel} ssc-fw-background-position"
+                                         style="background-size: cover;background-position: center; background-repeat: no-repeat;background-image:url('${assetHelper.imageUrl @ context='unsafe'}?wid=800&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1');">
+                                    </div>
+                                </a>
+                            </div>
+                        </sly>
+                    </sly>
+                </div>
+            </sly>
+        </div>
+    </div>
+</template>

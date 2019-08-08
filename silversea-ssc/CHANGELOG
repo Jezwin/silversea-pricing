@@ -1,0 +1,101 @@
+Changelog : 
+ v1.3.0 :
+ •	Mouse hover on teaser slider (mobile effet) to remove
+•	New RAQ FOrm with Submit xliff
+•	Create new footer version (simple black without planning on cruising soon)
+•	Clean of destination landing style (add option to header) and apply global fixes
+•	Hero Banner : ability to hide Video CTA play button on desktop
+•	DMP Presentation : ability to hide video on mobile
+•	Create new component to add under the destination map (planning on cruising soon)
+•	New Hero Banner Style for landing pages (video + mobile) (new brand style and modification of the DMP Style)
+•	DMP display component image video too small on macos should be max-width100% and width:100%
+•	Hero Banner - possibility to add a shade on picture - desktop only
+•	New Footer Style - white
+•	Destination custom order on homepage per market
+•	EO Slider - automatic outer arrow
+
+v1.4.0 :
+ -	Requested modification on Why SSC Component
+-	Bug fixing on Why SSC Component
+-	Modification of Press Realease and Press Release List template
+-	Correction of all datalayer value discrepancies
+-	Support of the new Shorex icon + hide on non related voyages.
+-	Shade picture on hero banner fix
+-	Clean and refactoring of all less /css that we have done during the post go-live stabilization period
+-	Landing page header i18n brochures addition
+
+v1.5.0 :
+ - •	NWS 4 – new component style 
+o	Will need content contribution – Done today by Sabina with Giuseppe
+	Remove css temp and do some content management on existing component to activate this nws 4 style (include modification of : Why Silversea, Hero Banner Landing, Landing Background container, Footer, Brochure landing)
+•	DNS Configuration fix
+•	Http to https in 301
+•	Why SSC 
+o	Ability to hide first item on mobile
+o	Ability to disable lightbox for inline gallery for desktop or mobile 
+•	Bug fixing 
+o	Fix margin for slick-dots
+o	Addition of missing i18
+o	Shorex icon minor fix
+•	Gitlab configuration and ready to switch
+•	SonarQube Static code analysis tools installation and  configuration done
+•	Jira import
+•	Confluence import
+•	Cleaning of wrike and integration of ready css / import of JIRA Task that still needs work
+•	New separator component / custom margin
+•	Modal CSS fixes
+•	RAQ Form enlarge for Lightbox 
+o	Need to have some configuration – content contribution required
+•	Rework of backend field (text area) to have bigger / more confortable size
+•	Fix GTM JS Error on TY Page
+•	New teaser for ship (displaying Cruise type) 
+o	Need content contribution – use teaser custom and use subtitle
+•	Cruise page : Map got now the enlarge option to open the lightbox.
+
+
+v1.6.0 :
+-	Can now edit Custom Order per brochure group 
+o	Will need content contribution – Training will be done by Giuseppe.
+-	Correct potential null pointer exception if a cruise has no map (performance reason)
+-	Full update of the overnight API behavior for Land program / Hotel / Shore Excursion
+-	Fix an issue where the Land Program / Shorex and Hotel were not unpublished from the publisher
+-	Creation and integration of Georgette – Everything ready and running – just need to finalize SSL and domain configuration
+-	PDF Generation of Cruise with CCPT customization
+o	Need to make a document for CCPT customization + content management to be done by me or Giuseppe.
+-	Global fix on text ellipsis. Do not cut in the middle of a sentence anymore
+-	Scroll down when clicking on suites and fares on a cruise page
+-	Change default sliding speed of all Slider 
+-	TY Brochure – Image is now clickable and will open issue
+-	Click outside of an expanded suite in the suites and fares tab of a cruise will now close the expanded cruise
+-	Robots.txt has been updated to avoid /etc/ crawling
+-	Fix position of page when opening a lightbox
+-	Split on three line the routes in a combo cruise page
+-	On the cruise page – cruise title- the “to” in not in capital anymore
+-	Exclusive offer template has been removed from the global search
+-	Ability to re-organize landing page in subfolders
+-	Rework of video bitrate configuration
+-	Sitemap do not reference combo cruise segment anymore
+-	New parsys on cruise page (one between the map and itinerary and one before footnotes)
+-	Vertical Teaser manual can now have a customized min-height
+-	Tabbed mosaic can now have a custom height
+-	Combo cruise – ship tab – Click on image is not opening an empty gallery anymore
+-	Why SSC is now available in 940px
+-	Minor fix on press release
+-	Clean integration of all HTML and Java override in -com project
+-	Sonar fixes and analyses
+-	New FYC security on past cruises
+-	Fix position of the close button in modal
+-	New geolocation text : can now have specific text content per tag (not only market)
+-	New Memory optimization for sqli code and our code
+-	Tracking of all FYC Filters
+-	Tracking of all destination 
+-	Fix EO Footers
+-	Fix crossdomain.xml
+-	For all pages – ability to hide it from global search\
+-	Exclusive offer will not be autopublished by API
+-	Fix old safari mobile design issue 
+-	Remove hover effect on mobile
+-	Fix some bugs on landing with iphone 5
+-	Ability to slide on the overview tab – cruise – itinerary map.
+-	Ability to have a red separator in landingbackgroundcontainer
+-	Landing pages are now only accessible from vanity (no more /en/landing-****)

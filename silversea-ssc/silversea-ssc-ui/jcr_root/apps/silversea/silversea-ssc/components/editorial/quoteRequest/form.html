@@ -1,0 +1,110 @@
+<template data-sly-template.default="${ @ use }">
+	<sly data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"/>
+	<form class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html'}" method="post" novalidate>
+	    <input name="requestsource" type="hidden" value="BKG" />
+	    <input name="requesttype" type="hidden" value="" />
+	    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
+	    <input name="sitecountry" type="hidden" value="${countryHelper.countryCodeIso3}" />
+	    <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
+	    <input type="hidden" name="destinationid" value="${use.selectedDestinationId}" />
+	    <sly data-sly-test="${use.isCruiseRequested}">
+	        <input type="hidden" name="voyagename" value="${use.selectedCruise.title}" />
+	        <input type="hidden" name="voyagecode" value="${use.selectedCruise.cruiseCode}" />
+	        <input type="hidden" name="departuredate"
+	            data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=use.selectedCruise.startDate, locale='en'}"
+	            value="${startDate.value}" />
+	        <input type="hidden" name="voyagelength" value="${use.selectedCruise.duration} ${'days' @ i18n}" />
+	        <input type="hidden" name="shipname" value="${use.selectedCruise.ship.title}" />
+	        <input type="hidden" name="price" value="${use.cruisePrice.price}" />
+	        <input data-sly-test="${use.isSuiteVariationRequested}" type="hidden" name="suitevariation" value="${use.suiteName}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}" />
+	        <input data-sly-test="${use.isSuiteCategoryRequested}" type="hidden" name="suitecategory" value="${use.suiteName @ i18n}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}"/>
+	    </sly>
+	
+	    <div class="form-group form-group-lg has-feedback input--title">
+	        <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
+	            <option value="">${'title' @ i18n}*</option>
+	            <option value="mr">${'mr' @i18n}.</option>
+	            <option value="mrs">${'mrs' @ i18n}.</option>
+	            <option value="miss">${'miss' @ i18n}.</option>
+	            <option value="ms">${'ms' @ i18n}.</option>
+	            <option value="dr">${'dr' @ i18n}.</option>
+	            <option value="dir">${'dir' @ i18n}.</option>
+	            <option value="lady">${'lady' @ i18n}.</option>
+	            <option value="prof">${'prof' @ i18n}.</option>
+	            <option value="lord">${'lord' @ i18n}.</option>
+	        </select>
+	        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+	        <div class="help-block with-errors"></div>
+	    </div>
+	
+	    <div class="form-group form-group-lg has-feedback">
+	        <input name="firstname" class="form-control" value="" placeholder="${'first-name' @ i18n}*" required data-error="${'required-firstname' @ i18n}" />
+	        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+	        <div class="help-block with-errors"></div>
+	    </div>
+	
+	    <div class="form-group form-group-lg has-feedback">
+	        <input name="lastname" class="form-control" value="" placeholder="${'last-name' @ i18n}*" required  data-error="${'required-lastname' @ i18n}" />
+	        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+	        <div class="help-block with-errors"></div>
+	    </div>
+	
+	    <div class="form-group form-group-lg has-feedback">
+	        <input type="email" name="email" class="form-control" value="" placeholder="${'email-address' @ i18n}*" required
+	            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
+	            data-required-error="${'required-email-address' @ i18n}"
+	            data-error="${'incorrect-email-address' @ i18n}"
+	            data-email-error="${'incorrect-email-address' @ i18n}"
+            	data-email="" />
+	        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+	        <div class="help-block with-errors incorrect"></div>
+	    </div>
+	
+	    <div class="countrycode">
+	        <div class="form-group form-group-lg has-feedback">
+	            <input id="InputTelephoneNumber" name="localphone" class="form-control" required
+	                data-countrycodeformat=""
+	                data-prepend-placeholder="${'example' @ i18n}"
+	                data-country-geolocalized="${countryHelper.country || 'US'}"
+	                data-required-error="${'required-phone-number' @ i18n}"
+	                data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
+	            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+	            <div class="help-block with-errors"></div>
+	        </div>
+	        <input type="hidden" name="phone" />
+	        <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
+	            <option value="">${'country-code' @ i18n}*</option>
+	            <option data-sly-repeat.country="${use.countries}" value="${country.countryCode}" data-country-code="${country.prefix}">${country.title} (${country.prefix})</option>
+	        </select>
+	    </div>
+	
+	    <div class="form-group form-group-lg textarea_autogrow">
+	        <textarea class="form-control textarea_autogrow__field" name="comments" placeholder="${'details-about-your-request' @ i18n}"></textarea>
+	        <div class="textarea_autogrow__size"></div>
+	    </div>
+	
+	    <p class="small text-muted">${'required-fields' @ i18n}*</p>
+	    <div class="form-group form-group-lg ${use.isGPDR ? 'hidden' : ''}">
+	        <div class="checkbox">
+	            <label>
+	                <input class="custom-checkbox" type="checkbox" name="subscribeemail-custom" checked="${use.isGPDR || use.isChecked}" />
+	                <input type="hidden" name="subscribeemail" value="false" />
+	                ${'receive-emails-with-news' @ i18n}
+	            </label>
+	        </div>
+	    </div>
+	
+	    <div class="row">
+	        <div class="col-sm-7 col-sm-offset-5">
+	            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="clic-RAQ"><span>${'submit' @ i18n}</span><i class="fa fa-angle-right"></i></button>
+	        </div>
+	    </div>
+	</form>
+	<script>
+window.dataLayer[0].track_voyage_id = $('[name=voyagecode]').val();
+window.dataLayer[0].track_departure_date = $('[name=departuredate]').val();
+window.dataLayer[0].track_shipname = $('[name=shipname]').val();
+window.dataLayer[0].track_voyage_duration = $('[name=voyagelength]').val();
+window.dataLayer[0].track_destination_id = $('[name=destinationid]').val();
+</script>
+</template>

@@ -1,0 +1,630 @@
+/**
+    Generate a collection of class properties
+
+    @property: string, the css name of the property to change, eg. 'margin-bottom'
+    @from: number, starting point, if <0 will add - as suffix;
+    @to: number, ending point;
+    @step: number, step;
+
+    @suffix: string, suffix of the class name, default '';
+    @prefix: string, prefix of the class name, default @property;
+    @unit: string, unit of the value, default px;
+    @important: string, string appended after a space to the value, default '!important';
+
+*/
+
+.generate-dimension(@property, @from, @to, @step, @suffix: '', @prefix: @property, @unit: px, @important: '!important') when (@from =< @to) {
+    .@{prefix}@{suffix}@{from} {
+        @{property}: ~"@{from}@{unit} @{important}"
+    }
+
+    .generate-dimension(@property, (@from+2*@step), @to, 2*@step, @suffix, @prefix, @unit, @important); //this is to avoid too high call stack
+    .generate-dimension(@property, (@from+@step), @to, 2*@step, @suffix, @prefix, @unit, @important);
+}
+
+@step : 5;
+
+
+
+//MAX-HEIGHT
+@min-max-height: 100;
+@max-max-height: 1250;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(max-height, @min-max-height, @max-max-height, @step, Desktop, maxHeight);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(max-height, @min-max-height, @max-max-height, @step, Tablet, maxHeight);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(max-height, @min-max-height, @max-max-height, @step, Mobile, maxHeight);
+}
+
+//MAX-HEIGHT
+@min-min-height: 100;
+@max-min-height: 1250;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(min-height, @min-min-height, @max-min-height, @step, Desktop, minHeight);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(min-height, @min-min-height, @max-min-height, @step, Tablet, minHeight);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(min-height, @min-min-height, @max-min-height, @step, Mobile, minHeight);
+}
+
+//HEIGHT
+@min-height: 100;
+@max-height: 1800;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(height, @min-height, @max-height, @step, Desktop);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(height, @min-height, @max-height, @step, Tablet);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(height, @min-height, @max-height, @step, Mobile);
+}
+
+
+//HEIGHT in vh
+@min-height-vh: 0;
+@max-height-vh: 150;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(height, @min-height-vh, @max-height-vh, @step, Desktop, viewHeight, vh);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(height, @min-height-vh, @max-height-vh, @step, Tablet, viewHeight, vh);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(height, @min-height-vh, @max-height-vh, @step, Mobile, viewHeight, vh);
+}
+
+
+//WIDTH
+@min-width: 100;
+@max-width: 1800;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(width, @min-width, @max-width, @step, Desktop);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(width, @min-width, @max-width, @step, Tablet);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(width, @min-width, @max-width, @step, Mobile);
+}
+
+//BACKGROUND-POSITION
+@media (min-width: @screen-lg-min) {
+    .backgroundPositionBottomDesktop {
+        background-position: bottom !important;
+    }
+
+    .backgroundPositionLeftDesktop {
+        background-position: left !important;
+    }
+
+    .backgroundPositionTopDesktop {
+        background-position: top !important;
+    }
+
+    .backgroundPositionRightDesktop {
+        background-position: right !important;
+    }
+
+    .backgroundPositionCenterDesktop {
+        background-position: center !important;
+    }
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .backgroundPositionBottomTablet {
+        background-position: bottom !important;
+    }
+
+    .backgroundPositionLeftTablet {
+        background-position: left !important;
+    }
+
+    .backgroundPositionTopTablet {
+        background-position: top !important;
+    }
+
+    .backgroundPositionRightTablet {
+        background-position: right !important;
+    }
+
+    .backgroundPositionCenterTablet {
+        background-position: center !important;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .backgroundPositionBottomMobile {
+        background-position: bottom !important;
+    }
+
+    .backgroundPositionLeftMobile {
+        background-position: left !important;
+    }
+
+    .backgroundPositionTopMobile {
+        background-position: top !important;
+    }
+
+    .backgroundPositionRightMobile {
+        background-position: right !important;
+    }
+
+    .backgroundPositionCenterMobile {
+        background-position: center !important;
+    }
+}
+
+//DISPLAY NONE
+@media (min-width: @screen-lg-min) {
+    .displayNoneDesktop {
+        display: none !important;
+    }
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .displayNoneTablet {
+        display: none !important;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .displayNoneMobile {
+        display: none !important;
+    }
+}
+
+//DISPLAY BLOCK
+@media (min-width: @screen-lg-min) {
+    .displayBlockDesktop {
+        display: block !important;
+    }
+    .displayBlockTablet {
+        display: none !important;
+    }
+    .displayBlockMobile {
+        display: none !important;
+    }
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .displayBlockDesktop {
+        display: none !important;
+    }
+    .displayBlockTablet {
+        display: block !important;
+    }
+    .displayBlockMobile {
+        display: none !important;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .displayBlockDesktop {
+        display: none !important;
+    }
+    .displayBlockTablet {
+        display: none !important;
+    }
+    .displayBlockMobile {
+        display: block !important;
+    }
+}
+
+//COLOR WHITE
+@media (min-width: @screen-lg-min) {
+    .colorWhiteDesktop {
+        color: @white;
+    }
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .colorWhiteTablet {
+        color: @white;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .colorWhiteMobile {
+        color: @white;
+    }
+}
+
+//COLOR BLACK
+@media (min-width: @screen-lg-min) {
+    .colorBlackDesktop {
+        color: @black;
+    }
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .colorBlackTablet {
+        color: @black;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .colorBlackMobile {
+        color: @black;
+    }
+}
+
+.beforeFullWidth {
+    left: 50%;
+    width: 100vw;
+    bottom: 0;
+    content: ' ';
+    display: block;
+    top: 0;
+    z-index: -1;
+    max-width: 1920px;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    position: absolute;
+    margin: auto;
+}
+
+//BACKGROUND COLOR
+@media (min-width: @screen-lg-min) {
+    .lightgreyBackgroundDesktop {
+        &:before {
+            background-color: @color-light-bg !important;
+            .beforeFullWidth();
+        }
+    }
+    .whiteBackgroundDesktop {
+        &:before {
+            background-color: @white !important;
+            .beforeFullWidth();
+        }
+    }
+    .darkblueBackgroundDesktop {
+        &:before {
+            background-color:  @color-dark-bg !important;
+            .beforeFullWidth();
+        }
+    }
+    .trasparentBackgroundDesktop {
+        &:before {
+            background-color: transparent !important;
+            .beforeFullWidth();
+        }
+    }
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .lightgreyBackgroundTablet {
+        &:before {
+            background-color: @color-light-bg !important;
+            .beforeFullWidth();
+        }
+    }
+    .whiteBackgroundTablet {
+        &:before {
+            background-color: @white !important;
+            .beforeFullWidth();
+        }
+    }
+    .darkblueBackgroundTablet {
+        &:before {
+            background-color:  @color-dark-bg !important;
+            .beforeFullWidth();
+        }
+    }
+    .trasparentBackgroundTablet {
+         &:before {
+            background-color: transparent !important;
+            .beforeFullWidth();
+        }
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .lightgreyBackgroundMobile {
+        &:before {
+            background-color: @color-light-bg !important;
+            .beforeFullWidth();
+        }
+    }
+    .whiteBackgroundMobile {
+        &:before {
+            background-color: @white !important;
+            .beforeFullWidth();
+        }
+    }
+    .darkblueBackgroundMobile {
+        &:before {
+            background-color:  @color-dark-bg !important;
+           .beforeFullWidth();
+        }
+    }
+    .trasparentBackgroundMobile {
+        &:before {
+            background-color: transparent !important;
+            .beforeFullWidth();
+        }
+    }
+}
+
+.genericWidthConfiguration {
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    width: 100vw;
+}
+
+//CONTAINER WIDTH
+@media (min-width: @screen-lg-min) {
+    .normalWidthDesktop {
+    }
+    .largerWidthDesktop{
+        max-width: 1200px;
+        .container{
+            max-width: 1200px;
+        }
+        .genericWidthConfiguration();
+    }
+    .fullWidthDesktop {
+        max-width: 1920px;
+        .container{
+            max-width:1920px;
+        }
+        .genericWidthConfiguration();
+    }
+}
+
+
+//padding
+@min-padding: 0;
+@max-padding: 105;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(padding-top, @min-padding, @max-padding, @step, Desktop, paddingTop);
+    .generate-dimension(padding-bottom, @min-padding, @max-padding, @step, Desktop, paddingBottom);
+    .generate-dimension(padding-right, @min-padding, @max-padding, @step, Desktop, paddingRight);
+    .generate-dimension(padding-left, @min-padding, @max-padding, @step, Desktop, paddingLeft);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(padding-top, @min-padding, @max-padding, @step, Tablet, paddingTop);
+    .generate-dimension(padding-bottom, @min-padding, @max-padding, @step, Tablet, paddingBottom);
+    .generate-dimension(padding-right, @min-padding, @max-padding, @step, Tablet, paddingRight);
+    .generate-dimension(padding-left, @min-padding, @max-padding, @step, Tablet, paddingLeft);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(padding-top, @min-padding, @max-padding, @step, Mobile, paddingTop);
+    .generate-dimension(padding-bottom, @min-padding, @max-padding, @step, Mobile, paddingBottom);
+    .generate-dimension(padding-right, @min-padding, @max-padding, @step, Mobile, paddingRight);
+    .generate-dimension(padding-left, @min-padding, @max-padding, @step, Mobile, paddingLeft);
+}
+
+//margin
+@min-margin: -50;
+@max-margin: 105;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(margin-top, @min-margin, @max-margin, @step, Desktop, marginTop);
+    .generate-dimension(margin-bottom, @min-margin, @max-margin, @step, Desktop, marginBottom);
+    .generate-dimension(margin-right, @min-margin, @max-margin, @step, Desktop, marginRight);
+    .generate-dimension(margin-left, @min-margin, @max-margin, @step, Desktop, marginLeft);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(margin-top, @min-margin, @max-margin, @step, Tablet, marginTop);
+    .generate-dimension(margin-bottom, @min-margin, @max-margin, @step, Tablet, marginBottom);
+    .generate-dimension(margin-right, @min-margin, @max-margin, @step, Tablet, marginRight);
+    .generate-dimension(margin-left, @min-margin, @max-margin, @step, Tablet, marginLeft);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(margin-top, @min-margin, @max-margin, @step, Mobile, marginTop);
+    .generate-dimension(margin-bottom, @min-margin, @max-margin, @step, Mobile, marginBottom);
+    .generate-dimension(margin-right, @min-margin, @max-margin, @step, Mobile, marginRight);
+    .generate-dimension(margin-left, @min-margin, @max-margin, @step, Mobile, marginLeft);
+}
+
+//font-size
+@min-font-size: 8;
+@max-font-size: 50;
+@step-font-size: 2;
+@media (min-width: @screen-lg-min) {
+    .generate-dimension(font-size, @min-font-size, @max-font-size, @step-font-size, Desktop, fontSize);
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .generate-dimension(font-size, @min-font-size, @max-font-size, @step-font-size, Tablet, fontSize);
+}
+
+@media (max-width: @screen-sm) {
+    .generate-dimension(font-size, @min-font-size, @max-font-size, @step-font-size, Mobile, fontSize);
+}
+
+
+//TODO: remove and put inside generate-dimension
+@media (min-width: @screen-lg-min) {
+    .backgroundWidthDesktopViewport40:before {
+        width: 40vw !important;
+    }
+
+    .backgroundWidthDesktopViewport45:before {
+        width: 45vw !important;
+    }
+
+    .backgroundWidthDesktopViewport50:before {
+        width: 50vw !important;
+    }
+
+    .backgroundWidthDesktopViewport55:before {
+        width: 55vw !important;
+    }
+
+    .backgroundWidthDesktopViewport60:before {
+        width: 60vw !important;
+    }
+
+    .backgroundWidthDesktopViewport65:before {
+        width: 65vw !important;
+    }
+
+    .backgroundWidthDesktopViewport70:before {
+        width: 70vw !important;
+    }
+
+    .backgroundWidthDesktopViewport75:before {
+        width: 75vw !important;
+    }
+
+    .backgroundWidthDesktopViewport80:before {
+        width: 80vw !important;
+    }
+
+    .backgroundWidthDesktopViewport85:before {
+        width: 85vw !important;
+    }
+
+    .backgroundWidthDesktopViewport90:before {
+        width: 90vw !important;
+    }
+
+    .backgroundWidthDesktopViewport95:before {
+        width: 95vw !important;
+    }
+
+    .backgroundWidthDesktopViewport100:before {
+        width: 100vw !important;
+    }
+
+    .backgroundWidthDesktopViewport105:before {
+        width: 105vw !important;
+    }
+}
+
+@media(min-width:@screen-md-min) and (max-width:@screen-md-max) {
+    .backgroundWidthTabletViewport40:before {
+        width: 40vw !important;
+    }
+
+    .backgroundWidthTabletViewport45:before {
+        width: 45vw !important;
+    }
+
+    .backgroundWidthTabletViewport50:before {
+        width: 50vw !important;
+    }
+
+    .backgroundWidthTabletViewport55:before {
+        width: 55vw !important;
+    }
+
+    .backgroundWidthTabletViewport60:before {
+        width: 60vw !important;
+    }
+
+    .backgroundWidthTabletViewport65:before {
+        width: 65vw !important;
+    }
+
+    .backgroundWidthTabletViewport70:before {
+        width: 70vw !important;
+    }
+
+    .backgroundWidthTabletViewport75:before {
+        width: 75vw !important;
+    }
+
+    .backgroundWidthTabletViewport80:before {
+        width: 80vw !important;
+    }
+
+    .backgroundWidthTabletViewport85:before {
+        width: 85vw !important;
+    }
+
+    .backgroundWidthTabletViewport90:before {
+        width: 90vw !important;
+    }
+
+    .backgroundWidthTabletViewport95:before {
+        width: 95vw !important;
+    }
+
+    .backgroundWidthTabletViewport100:before {
+        width: 100vw !important;
+    }
+
+    .backgroundWidthTabletViewport105:before {
+        width: 105vw !important;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .backgroundWidthMobileViewport40:before {
+        width: 40vw !important;
+    }
+
+    .backgroundWidthMobileViewport45:before {
+        width: 45vw !important;
+    }
+
+    .backgroundWidthMobileViewport50:before {
+        width: 50vw !important;
+    }
+
+    .backgroundWidthMobileViewport55:before {
+        width: 55vw !important;
+    }
+
+    .backgroundWidthMobileViewport60:before {
+        width: 60vw !important;
+    }
+
+    .backgroundWidthMobileViewport65:before {
+        width: 65vw !important;
+    }
+
+    .backgroundWidthMobileViewport70:before {
+        width: 70vw !important;
+    }
+
+    .backgroundWidthMobileViewport75:before {
+        width: 75vw !important;
+    }
+
+    .backgroundWidthMobileViewport80:before {
+        width: 80vw !important;
+    }
+
+    .backgroundWidthMobileViewport85:before {
+        width: 85vw !important;
+    }
+
+    .backgroundWidthMobileViewport90:before {
+        width: 90vw !important;
+    }
+
+    .backgroundWidthMobileViewport95:before {
+        width: 95vw !important;
+    }
+
+    .backgroundWidthMobileViewport100:before {
+        width: 100vw !important;
+    }
+
+    .backgroundWidthMobileViewport105:before {
+        width: 105vw !important;
+    }
+}

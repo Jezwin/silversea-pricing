@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Presentation DMP Landing "
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <field
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                        name="./items">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            method="absolute"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <image
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                        fieldDescription="Image"
+                                        fieldLabel="Image"
+                                        rootPath="/content/dam/silversea-com"
+                                        name="./assetReference" />
+                                    <title
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Title"
+                                        fieldLabel="Title"
+                                        name="./title"/>
+                                    <wrikeID
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Wistia video ID (example https://silversea-1.wistia.com/medias/dkb7sr4p31 =dkb7sr4p31 )"
+                                        fieldLabel="WistiaID"
+                                        name="./wrikeID"/> 
+                                     <videoDAM
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="DAM Video"
+		                                rootPath="/content/dam/silversea-com"
+		                                name="./videoReferenceDAM"
+		                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                                     <hideMobile
+			                            jcr:primaryType="nt:unstructured"
+			                            text="Hide video part on Mobile"
+			                            name="./hideMobile"
+			                            value="true"
+			                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                </items>
+                            </column>
+                        </items>
+                    </field>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

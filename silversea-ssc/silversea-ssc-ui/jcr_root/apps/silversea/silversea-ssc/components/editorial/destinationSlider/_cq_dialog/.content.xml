@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Destination Slider"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <mozaicslider
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Global"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        <type
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Type"
+                                name="./type">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <by3
+                                        jcr:primaryType="nt:unstructured"
+                                        text="By 3"
+                                        value="3" />
+                                    <by6
+                                        jcr:primaryType="nt:unstructured"
+                                        text="By 6"
+                                        value="6" />
+                                    <by1
+                                        jcr:primaryType="nt:unstructured"
+                                        text="By 1"
+                                        value="1" />
+                                    <by2
+                                        jcr:primaryType="nt:unstructured"
+                                        text="By 2"
+                                        value="2" />
+                                    <by1Landing
+                                        jcr:primaryType="nt:unstructured"
+                                        text="By 1 - Landing"
+                                        value="1Landing" />
+                                </items>
+                            </type>
+                        	<color
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Background Color"
+                                name="./color">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="default"
+                                        value="" />
+                                    <white
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="c-destinationSliderParent-white" />
+                                    <lightgrey
+                                        jcr:primaryType="nt:unstructured"
+                                        text="lightgrey"
+                                        value="c-destinationSliderParent-lightgrey" />
+                                </items>
+                            </color>
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./jcr:title"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <headline
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="HeadLine"
+                                name="./headline"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <description
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./jcr:description"
+                                cols="60"
+                                rows="15"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea" />	                				               
+			                <defaultWidth
+			                    jcr:primaryType="nt:unstructured"
+			                    text="Default Width"
+			                    name="./defaultWidth"
+			                    value="true"
+			                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <itemsReference
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Root Page (dest or ship)"
+                                name="./itemsReference"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />  
+                            <viewAllLink
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="View All Link"
+                                name="./viewAllLink"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <forceRedHeadLine
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Force red headline"
+                                    name="./forceRedHeadLine"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                        </items>
+                    </column>
+                </items>
+            </mozaicslider>
+            <desktop jcr:primaryType="nt:unstructured" jcr:title="Desktop" sling:resourceType="granite/ui/components/foundation/section" name="./desktop">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        <ctaLabel
+                             jcr:primaryType="nt:unstructured"
+                             fieldLabel="CTA Label"
+                             fieldDescription="Add custom label - default: View all"
+                             name="./ctaLabel"
+                             sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                        <hiddenDesktop
+			                    jcr:primaryType="nt:unstructured"
+			                    text="Hidden Desktop"
+			                    name="./hiddenDesktop"
+			                    value="true"
+			                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <hiddenDescriptionDesktop
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Hidden description"
+                                    name="./hiddenDescriptionDesktop"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <height jcr:primaryType="nt:unstructured" fieldLabel="Height in pixel" name="./heightDesktopPixel" min="10" step="5" max="1800" defaultValue="300" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <heightby1 jcr:primaryType="nt:unstructured" fieldLabel="Height by 1 in pixel" name="./heightby1DesktopPixel" min="10" step="5" max="1800" defaultValue="440" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <heightby2 jcr:primaryType="nt:unstructured" fieldLabel="Height by 2 in pixel" name="./heightby2DesktopPixel" min="10" step="5" max="1800" defaultValue="210" sling:resourceType="granite/ui/components/foundation/form/numberfield" />                             
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel" name="./marginTopDesktopPixel"  step="5"  defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel" name="./marginBottomDesktopPixel"  step="5"  defaultValue="50" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+
+
+            <tablet jcr:primaryType="nt:unstructured" jcr:title="Tablet" sling:resourceType="granite/ui/components/foundation/section" name="./tablet">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <height jcr:primaryType="nt:unstructured" fieldLabel="Height in pixel" name="./heightTabletPixel" min="10" step="5" max="1800" defaultValue="300" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                             <heightby1 jcr:primaryType="nt:unstructured" fieldLabel="Height by 1 in pixel" name="./heightby1TabletPixel" min="10" step="5" max="1800" defaultValue="440" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <heightby2 jcr:primaryType="nt:unstructured" fieldLabel="Height by 2 in pixel" name="./heightby2TabletPixel" min="10" step="5" max="1800" defaultValue="210" sling:resourceType="granite/ui/components/foundation/form/numberfield" />       
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel" name="./marginTopTabletPixel" step="5" defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel" name="./marginBottomTabletPixel" step="5" defaultValue="50" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+
+            <mobile jcr:primaryType="nt:unstructured" jcr:title="Mobile" sling:resourceType="granite/ui/components/foundation/section" name="./mobile">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <ctaLabelMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    fieldLabel="CTA Label"
+                                    fieldDescription="Add custom label - default: View all"
+                                    name="./ctaLabelMobile"
+                                    sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         <hiddenMobile
+			                    jcr:primaryType="nt:unstructured"
+			                    text="Hidden Mobile"
+			                    name="./hiddenMobile"
+			                    value="true"
+			                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <hiddenDescriptionMobile
+                                jcr:primaryType="nt:unstructured"
+                                text="Hidden description"
+                                name="./hiddenDescriptionMobile"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <forceCardDescriptionMobile
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Display Slide description"
+                                    name="./forceCardDescriptionMobile"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <height jcr:primaryType="nt:unstructured" fieldLabel="Height in pixel" name="./heightMobilePixel" min="10" step="5" max="1800" defaultValue="280" sling:resourceType="granite/ui/components/foundation/form/numberfield" /> 
+                            <heightby1 jcr:primaryType="nt:unstructured" fieldLabel="Height by 1 in pixel" name="./heightby1MobilePixel" min="10" step="5" max="1800" defaultValue="280" sling:resourceType="granite/ui/components/foundation/form/numberfield" /> 
+                            <heightby2 jcr:primaryType="nt:unstructured" fieldLabel="Height by 2 in pixel" name="./heightby2MobilePixel" min="10" step="5" max="1800" defaultValue="280" sling:resourceType="granite/ui/components/foundation/form/numberfield" />                             
+                            <marginTop jcr:primaryType="nt:unstructured" fieldLabel="Margin top in pixel" name="./marginTopMobilePixel" step="5"  defaultValue="0" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <marginBottom jcr:primaryType="nt:unstructured" fieldLabel="Margin Bottom in pixel" name="./marginBottomMobilePixel" step="5" defaultValue="50" sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+            
+            
+            <customOrder jcr:primaryType="nt:unstructured" jcr:title="Custom Order" sling:resourceType="granite/ui/components/foundation/section" name="./customOrder">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                             <destinationsOrder
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="Destinations order - (FT)"
+                            	fieldDescription="Insert destinations id for (FT) market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./destinationsOrder"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <destinationsOrderEU 
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="Destinations order - EU"
+                            	fieldDescription="Insert destinations id for EU market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./destinationsOrderEU"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <destinationsOrderAS
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="Destinations order - AS"
+                            	fieldDescription="Insert destinations id for AS market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./destinationsOrderAS"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <destinationsOrderUK
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="Destinations order - UK"
+                            	fieldDescription="Insert destinations id for UK market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./destinationsOrderUK"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            	
+                            <shipsOrder
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - (FT)"
+                            	fieldDescription="Insert ships id for (FT) market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrder"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <shipsOrderEU 
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - EU"
+                            	fieldDescription="Insert ships id for EU market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrderEU"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <shipsOrderAS
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - AS"
+                            	fieldDescription="Insert ships id for AS market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrderAS"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <shipsOrderUK
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - UK"
+                            	fieldDescription="Insert ships id for UK market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrderUK"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                        </items>
+                    </column>
+                </items>
+            </customOrder>
+            
+            
+            <ManualContributionPath jcr:primaryType="nt:unstructured" jcr:title="Manual Contribution Path" sling:resourceType="granite/ui/components/foundation/section" name="./ManualContributionPath">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                         <activatePathList
+			                    jcr:primaryType="nt:unstructured"
+			                    text="Activate"
+			                    name="./activatePathList"
+			                    value="true"
+			                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                             <pathList jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/multifield" class="full-width" fieldLabel="Path list">
+                                <field jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/fieldset" acs-commons-nested="NODE_STORE" name="./pathList">
+                                    <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" method="absolute" />
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container" class="full-width">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                 <itemPath
+					                                jcr:primaryType="nt:unstructured"
+					                                fieldLabel="One Page"
+					                                name="./itemPath"
+					                                rootPath="/content/silversea-com"
+					                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />              
+                                               
+                                                 
+
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </pathList>
+                        </items>
+                    </column>
+                </items>
+            </ManualContributionPath>
+            
+            
+        </items>
+    </content>
+</jcr:root>

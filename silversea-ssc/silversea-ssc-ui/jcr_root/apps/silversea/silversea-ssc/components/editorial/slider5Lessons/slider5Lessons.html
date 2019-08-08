@@ -1,0 +1,24 @@
+<div data-sly-test.empty="${ wcmmode.edit}" class="cq-placeholder cq-dd-image"
+     data-emptytext="Slider 5 Lessons - (#slider-5-lessons-${properties.sscUUID})"></div>
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path, absolute=false}"/>
+<div id="slider-5-lessons-${properties.sscUUID}" class="slider-5-lessons"
+     data-sly-use.desktopTemplate="silversea/silversea-ssc/components/editorial/slider5Lessons/template.html">
+    <sly data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height', localized=true}"
+         data-sly-use.pixelClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='maxHeight,marginBottom,marginTop'}">
+        <sly data-sly-call="${ desktopTemplate.default @ heightClass=heightClass, pixelClass=pixelClass, externalizerHelper=externalizerHelper}"/>
+    </sly>
+</div>
+
+<style>
+    @media (min-width: 992px) {
+    ${properties.customCssDesktop @ context = 'html'}
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+    ${properties.customCssTablet @ context = 'html'}
+    }
+
+    @media (max-width: 767px) {
+    ${properties.customCssMobile @ context = 'html'}
+    }
+</style>

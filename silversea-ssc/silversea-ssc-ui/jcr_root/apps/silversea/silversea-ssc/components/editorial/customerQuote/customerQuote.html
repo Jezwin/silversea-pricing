@@ -1,0 +1,19 @@
+<div data-sly-test="${(wcmmode.edit || wcmmode.design)}"
+     class="cq-placeholder cq-dd-image" data-emptytext="SSC - Customer Quote Component  (#c-awards-${properties.sscUUID})"></div>
+
+<div id="c-customer-quote-${properties.sscUUID}" class="c-customer-quote"
+     data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html">
+    <div class="c-customer-quote__image-container">
+        <div class="c-customer-quote__image">
+            <sly data-sly-call="${imageTemplate.default @ imagePath=properties.backgroundImage}"></sly>
+        </div>
+        <div class="c-customer-quote__text hidden-xs">
+            <div class="c-customer-quote__quote">${properties.quote @ context="html"}</div>
+            <div class="c-customer-quote__name">${properties.name @ context="html"}</div>
+        </div>
+    </div>
+    <div class="c-customer-quote__text-mobile visible-xs hidden-sm hidden-md hidden-lg">
+        <div class="c-customer-quote__quote">${properties.quote @ context="html"}</div>
+        <div class="c-customer-quote__name">${properties.name @ context="html"}</div>
+    </div>
+</div>

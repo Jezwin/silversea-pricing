@@ -1,0 +1,119 @@
+<template data-sly-template.default="${ @ banner, pageHelper, heightClass, pixelClass}">
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+    <sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=banner.sbProperties, property='sscFwBackgroundPosition'}"/>
+    <div id="c-hero-banner-homepage-${banner.randomId}"
+         class="nd c-hero-banner-homepage hero-banner-clickable-${properties.enableClickableHD}" style="${fw.allDevices @ context='unsafe'}" data-ie-style="${fw.allDevices @ context='unsafe'}">
+        <a data-sly-test="${properties.videoReferenceDAM}"
+           class="video-link ${properties.hideVideoMobile ? 'hidden-xs ' : ''} video-link-dam ${heightClass.allDevices} ${pixelClass.allDevicesPixel}"
+           href="${currentNode.path @ selectors='video', extension='html'}"
+           data-target=".bs-modal-lg">
+            <i class="fa fa-play"></i>
+        </a>
+        <sly data-sly-test=${properties.assetSelectionReference}>
+            <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}">
+                <div class="c-slider-homepage c-slider c-slider--default c-slider--style1 c-slider--arrowoutside c-slider--full-width"
+                     data-slick='{"responsive" : false, "slidesToShow": 1, "slidesToScroll": 1 , "dots" : true}'
+                     role="toolbar">
+                    <sly data-sly-list.asset="${setImage.renditionList}">
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}">
+                            <div class="picture ${heightClass.allDevices} ${pixelClass.allDevicesPixel} ${banner.backgroundPosition} ssc-fw-background-position"
+                                 style="background-size: cover;background-position: center; background-repeat: no-repeat;background-image:url('${assetHelper.imageUrl @ context='unsafe'}?wid=1920&fit=hfit,1');">
+                                <div class="${properties.shadePicture  ? 'gradient-overlay' : ''}"></div>
+                            </div>
+                        </sly>
+                    </sly>
+
+                </div>
+
+            </sly>
+        </sly>
+        <sly data-sly-use.link="${'com.silversea.aem.helper.ExternalizerHelper' @ path=properties.link}"/>
+        <div id="${banner.randomId}" href="${link.externalizedUrl @ extension='html'}"
+             data-sly-element="${properties.link ? 'a' : 'div'}"
+             class="coverImage ${heightClass.allDevices} ${pixelClass.allDevicesPixel} ${banner.backgroundPosition} ssc-fw-background-position ${properties.assetSelectionReference ? 'hidden' : ''}">
+            <div class="${properties.shadePicture  ? 'gradient-overlay' : ''}"></div>
+        </div>
+        <div class="container ${heightClass.allDevices} ${pixelClass.allDevicesPixel}">
+            <div class="hero-banner-container-absolute">
+                <div href="${link.externalizedUrl @ extension='html'}"
+                     data-sly-element="${properties.link ? 'a' : 'div'}"
+                     class="c-hero-banner-homepage__title ${properties.blackTitle ? 'blackTitle' : ''}"
+                     data-sly-test="${!properties.noTitle}">
+                    <h1 class="hidden-xs hidden-sm"
+                        data-sly-element="${properties.titletag}">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+                    <span data-sly-test="${!properties.hideTitleTablet}" class="visible-sm"
+                          >${banner.titleTablet || banner.title || pageProperties.jcr:title @ context="html"}</span>
+                    <span data-sly-test="${!properties.hideTitleMobile}" class="visible-xs"
+                          >${banner.titleMobile || banner.title || pageProperties.jcr:title @ context="html"}</span>
+                </div>
+                <div href="${link.externalizedUrl @ extension='html'}"
+                     data-sly-element="${properties.link ? 'a' : 'div'}"
+                     class="c-hero-banner-homepage__description hiddenMobile" data-sly-test="${banner.description}">
+                    <p> ${banner.description} </p>
+                </div>
+            </div>
+            <div class="c-hero-banner-homepage__buttons hiddenMobile"
+                 data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}"></div>
+        </div>
+        <div class="c-hero-banner-homepage__scrolldown">
+            <div class='${banner.scrollDownShowDesktop} ${banner.scrollActionTextColorDesktop} hidden'>
+                <span>${banner.scrollActionTextDesktop || 'scroll-to-continue' @ i18n}</span>
+                <span><i class="fa fa-angle-down"></i></span>
+            </div>
+            <div class='${banner.scrollDownShowTablet} ${banner.scrollActionTextColorTablet} hidden'>
+                <span>${banner.scrollActionTextTablet || 'scroll-to-continue' @ i18n}</span>
+                <span><i class="fa fa-angle-down"></i></span>
+            </div>
+            <div class='${banner.scrollDownShowMobile} ${banner.scrollActionTextColorMobile} hidden'>
+                <span>${banner.scrollActionTextMobile || 'scroll-to-continue' @ i18n}</span>
+                <span><i class="fa fa-angle-down"></i></span>
+            </div>
+        </div>
+    </div>
+    <sly data-sly-test="${ properties.inlineGallery}">
+        <script>
+
+            if ($(window).width() < 768) {
+                $(document).ready(function () {
+                    replaceInlineGallery('#c-hero-banner-homepage-${properties.sscUUID @context="unsafe"}', '${ banner.inlineGalleryId @ context="unsafe" }');
+                })
+            }
+        </script>
+        <style>
+            @media screen and (max-width: 767px) {
+                .inline-gallery-included .c-inline-gallery .slick-slide a {
+                    margin: 0 !important;
+                }
+
+                ${banner.inlineGalleryId @ context="unsafe"}.c-inline-gallery.c-slider .slick-slide > div {
+                    height: ${properties.mobileheight || 220 @ context="unsafe"}px !important;
+                }
+
+                ${banner.inlineGalleryId @ context="unsafe"}.inside-hero-banner .c-inline-gallery-slider__image-wrapper .o-img {
+                    height: ${properties.mobileheight || 250 @ context="unsafe" }px !important;
+                }
+            }
+
+            @media (max-width: 767px) {
+                ${banner.inlineGalleryId @ context="unsafe"}.inside-hero-banner, .inline-gallery-included ${banner.inlineGalleryID @ context="unsafe"} {
+                    margin-top: 0px !important;
+                    margin-bottom: 0px !important;
+                }
+
+                #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image .video-link {
+                    display: none;
+                }
+
+                .modal-content--gallery .c-gallery__counter {
+                    display: none;
+                }
+
+                .modal-content--gallery .slick-arrow {
+                    display: none !important;
+                }
+
+            }
+        </style>
+    </sly>
+</template>
+

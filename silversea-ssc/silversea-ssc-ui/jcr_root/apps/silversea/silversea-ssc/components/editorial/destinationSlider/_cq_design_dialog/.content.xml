@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Destination Slider"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <field
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                            name="./items">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                method="absolute"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <destinationsOrder
+		                            	jcr:primaryType="nt:unstructured"
+		                            	fieldLabel="Destinations order - (FT)"
+		                            	fieldDescription="Insert destinations id for (FT) market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+		                            	name="./destinationsOrder"
+		                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                             <destinationsOrderEU 
+		                            	jcr:primaryType="nt:unstructured"
+		                            	fieldLabel="Destinations order - EU"
+		                            	fieldDescription="Insert destinations id for EU market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+		                            	name="./destinationsOrderEU"
+		                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                             <destinationsOrderAS
+		                            	jcr:primaryType="nt:unstructured"
+		                            	fieldLabel="Destinations order - AS"
+		                            	fieldDescription="Insert destinations id for AS market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+		                            	name="./destinationsOrderAS"
+		                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                            <destinationsOrderUK
+		                            	jcr:primaryType="nt:unstructured"
+		                            	fieldLabel="Destinations order - UK"
+		                            	fieldDescription="Insert destinations id for UK market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+		                            	name="./destinationsOrderUK"
+		                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                            	 <shipsOrder
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - (FT)"
+                            	fieldDescription="Insert ships id for (FT) market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrder"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <shipsOrderEU 
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - EU"
+                            	fieldDescription="Insert ships id for EU market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrderEU"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <shipsOrderAS
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - AS"
+                            	fieldDescription="Insert ships id for AS market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrderAS"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <shipsOrderUK
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="ships order - UK"
+                            	fieldDescription="Insert ships id for UK market with ';' as separator. e.g.: 5;4;6;1;9 Leave empty to skip the order."
+                            	name="./shipsOrderUK"
+                            	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                                </items>
+                            </column>
+                        </items>
+                    </field>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Why Silversea Landing Display"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <field
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                        name="./items">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            method="absolute"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                   
+                                  <style
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Type of Landing Page"
+                                        fieldLabel="Style"
+		                                name="./style">
+		                                    <items jcr:primaryType="nt:unstructured">
+			                                    <antarctica
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="Antarctica"
+			                                        value="antarctica" />
+			                                    <arctic
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="Arctic"
+			                                        value="arctic" />
+			                                    <galapagos
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="Galapagos"
+			                                        value="galapagos" />
+			                                    <africa
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="Africa"
+			                                        value="africa" />
+			                                    <russian
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="Russian Far East"
+			                                        value="russian" />
+			                                    <south
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="South Pacific Islands"
+			                                        value="south" />
+		                                </items>
+                                        </style>
+                                   <usdprice
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="USD Price"
+		                                name="./usdprice"
+		                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                           <audprice
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="AUD Price"
+		                                name="./audprice"
+		                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                           <gbpprice
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="GBP Price"
+		                                name="./gbpprice"
+		                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                           <eurprice
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="Eur Price"
+		                                name="./eurprice"
+		                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                                </items>
+                            </column>
+                        </items>
+                    </field>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

@@ -1,0 +1,66 @@
+@import (reference) "/etc/designs/silversea-ssc/clientlib-base/less/variables";
+
+.bottom-banner-text-cta {
+    position: relative;
+    margin: var(--desktop-margin, 0, 0, 0, 0);
+    padding: var(--desktop-padding, 0, 0, 0, 0);
+
+    &.dark {
+        background: @nd-dark !important;
+
+        color: white;
+        &:before {
+            background-color: @nd-dark;
+        }
+    }
+
+    &.light {
+        background: @nd-light-bg;
+        &:before {
+            background-color: @nd-light-bg;
+        }
+    }
+    .text-container {
+        text-align: center;
+        font-family: @freight;
+        font-size: 30px;
+        word-spacing: .5px;
+        line-height: 32px;
+    }
+    &:before {
+        content: ' ';
+        display: block;
+        height: 100%;
+        left: 50%;
+        position: absolute;
+        top: 0;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        width: 100vw;
+        z-index: -1;
+    }
+}
+
+@media screen and (max-width: @screen-md-max-limit) and (min-width: @screen-md-min) {
+    .bottom-banner-text-cta {
+        margin: var(--tablet-margin, 0, 0, 0, 0);
+        padding: var(--tablet-padding, 0, 0, 0, 0);
+    }
+}
+
+@media screen and (max-width: @screen-sm) {
+    .bottom-banner-text-cta {
+        margin: var(--mobile-margin, 0, 0, 0, 0);
+        padding: var(--mobile-padding, 0, 0, 0, 0);
+
+        .text-container {
+            text-align: center;
+            font-family: @freight;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+            line-height: 24px;
+        }
+    }
+}
+

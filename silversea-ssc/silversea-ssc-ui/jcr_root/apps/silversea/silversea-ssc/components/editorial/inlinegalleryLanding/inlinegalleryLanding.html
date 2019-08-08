@@ -1,0 +1,137 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Inline Gallery Landing - (#c-inline-gallery-landing-${properties.sscUUID}) - DEPRECATED"></div>
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+
+<div id="c-inline-gallery-landing-${properties.sscUUID}" class="c-inline-gallery-landing  ${properties.positionDescriptionMobile}"
+    data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}"
+    data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}"
+	data-video-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery-video', extension='html'}">
+	<sly data-sly-test = "${properties.title}">
+        <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-inline-gallery__title">${properties.title @ context="html"}</h1>
+        <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-inline-gallery__title">${properties.title @ context="html"}</h2>
+        <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-inline-gallery__title">${properties.title @ context="html"}</h3>
+        <span data-sly-test="${properties.titletag == 'span'}" class="c-inline-gallery__title">${properties.title @ context="html"}</span>
+        <div class="c-inline-gallery__separator ${properties.separatorColor} ${properties.displaySeparatorMobile}"></div>
+	</sly>
+    <p data-sly-test="${properties.description}" class="c-inline-gallery__description">${properties.description @ context="html"}</p>
+
+    <div class="row hidden-xs" data-sly-test="${properties.type == 'style1'}" data-sly-test.imageList="${setImage.renditionList}">
+        <sly data-sly-test="${properties.horizontalSlider != 'true'}" data-sly-list.asset="${setImage.renditionList}">
+        	  <sly data-sly-use.displayHelper="${'com.silversea.ssc.aem.helper.GalleryDisplayHelper' @ displayItem=properties.displayItem , index=assetList.index }" data-sly-test="${!(displayHelper.display == false && properties.hideViewAllDesktop)}">
+	              <div class="c-inline-gallery-featured ${(displayHelper.display == true)&&(properties.displayItem != '0') ? 'display' : 'displayNone'}">
+	                    <div  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/galleryimagetemplate.html" data-sly-call="${imageTemplate.style1 @ asset=asset , index=assetList.index}"></div>
+	              </div>
+        	  </sly>
+        </sly>
+		<sly data-sly-test="${properties.horizontalSlider == 'true'}" data-sly-use.listHelper="${'com.silversea.aem.helper.ListHelper' @ list = imageList , size = 3}">
+              <div class="c-slider c-inline__gallery-slider">
+					<div class="c-slider-item" data-sly-repeat = "${listHelper.objectListGroup}">
+						<sly  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/galleryimagetemplate.html" data-sly-call="${imageTemplate.style1 @ asset=item[0]}"></sly>
+                        <sly  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/galleryimagetemplate.html" data-sly-call="${imageTemplate.style1 @ asset=item[1]}"></sly>
+                        <sly  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/galleryimagetemplate.html" data-sly-call="${imageTemplate.style1 @ asset=item[2]}"></sly>
+					</div>
+			  </div>
+        </sly>
+          <div data-sly-test="${(properties.displayItem != '0') && (properties.horizontalSlider != 'true') && !properties.hideViewAllDesktop}" class="c-inline-gallery__item-expander" >
+            <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all-pictures' @ i18n} ${properties.hideViewAllDesktop}</span><i class="fa fa-angle-down"></i></a>
+            <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
+          </div>
+    </div>    
+
+    <div class="c-inline__gallery hidden-xs" data-sly-test="${properties.type == 'style2'}" data-sly-test.assetList="${setImage.renditionList}">
+            <sly  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/galleryimagetemplate.html" data-sly-call="${imageTemplate.style2 @ assetList=assetList}"></sly>
+    </div>    
+
+	<div class="c-slider c-inline__gallery-slider hidden-xs" data-sly-test="${properties.type == 'style3'}" data-sly-test.assetList="${setImage.renditionList}">
+        <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside"
+                     data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "adaptiveHeight": true, "dots" : false}' role="toolbar">
+			<sly data-sly-repeat = "${setImage.renditionList}">
+				<div  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/galleryimagetemplate.html" data-sly-call="${imageTemplate.style3 @ asset=item}"></div>
+			</sly>
+		</div>
+	</div>
+
+    <div class="c-slider c-inline__gallery-slider c-slider-mobile visible-xs" data-sly-test.assetList="${setImage.renditionList}">
+        <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside"
+                     data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "adaptiveHeight": true, "dots" : false}' role="toolbar">
+			<sly data-sly-repeat = "${setImage.renditionList}">
+				<div  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/inlinegalleryLanding/galleryimagetemplate.html" data-sly-call="${imageTemplate.mobileStyle @ asset=item}"></div>
+			</sly>
+		</div>
+	</div>
+</div>
+
+
+<style>
+	@media (min-width: 768px) {
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline__gallery__featured__left .o-img {
+			height: ${properties.imageHeightDesktop @ context="unsafe" || 400 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline__gallery__featured__right .o-img {
+			height: calc((${properties.imageHeightDesktop @ context="unsafe" || 400 }px - 5px) / 2) !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline-gallery-slider__image-wrapper .o-img {
+			height: ${properties.imageHeightDesktop @ context="unsafe" || 500 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline-gallery-row .o-img {
+			height: ${properties.imageHeightDesktop @ context="unsafe" || 175 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline-gallery__title {
+			margin-top: ${properties.titletopmarginDesktop @ context="unsafe" || 30 }px !important;
+			margin-bottom: ${properties.titlebottommarginDesktop @ context="unsafe" || 10 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline-gallery__description {
+    		margin-top: ${properties.desctopmarginDesktop @ context="unsafe" || 15 }px !important;
+			margin-bottom: ${properties.descbottommarginDesktop @ context="unsafe" || 30 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} {
+    		margin-top: ${properties.comptopmarginDesktop @ context="unsafe" || 10 }px !important;
+			margin-bottom: ${properties.compbottommarginDesktop @ context="unsafe" || 10 }px !important;
+		}
+
+	}
+</style>
+<style>
+	@media (max-width: 767px) {
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline-gallery-slider__image-wrapper  .o-img {
+			height: ${properties.imageHeightMobile @ context="unsafe" || 250 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline-gallery__title {
+			margin-top: ${properties.titletopmarginMobile @ context="unsafe" || 30 }px !important;
+			margin-bottom: ${properties.titlebottommarginMobile @ context="unsafe" || 20 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} .c-inline-gallery__description {
+    		margin-top: ${properties.desctopmarginMobile @ context="unsafe" || 20 }px !important;
+			margin-bottom: ${properties.descbottommarginMobile @ context="unsafe" || 30 }px !important;
+		}
+
+		#c-inline-gallery-landing-${properties.sscUUID @ context="unsafe"} {
+    		margin-top: ${properties.comptopmarginMobile @ context="unsafe" || 10 }px !important;
+			margin-bottom: ${properties.compbottommarginMobile @ context="unsafe" || 10 }px !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.cssDesktop}">
+	@media(min-width: 991px) {
+		${properties.cssDesktop @ context='html'}
+	}
+</style>
+<style data-sly-test="${properties.cssTablet}">
+	@media(max-width: 990px) and (min-width: 768px) {
+		${properties.cssTablet @ context='html'}
+	}
+</style>
+<style data-sly-test="${properties.cssMobile}">
+	@media (max-width: 767px) {
+		${properties.cssMobile @ context='html'}
+	}
+</style>
+

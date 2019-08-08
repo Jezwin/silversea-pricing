@@ -1,0 +1,1273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Hero banner Landing"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <herobanner
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Hero Banner"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        
+                        <items jcr:primaryType="nt:unstructured">
+                            <type
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Type"
+                                name="./type">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="default"
+                                        value="" />
+                                    <home
+                                        jcr:primaryType="nt:unstructured"
+                                        text="home"
+                                        value="home" />
+                                   <offer
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Offer"
+                                        value="offer" />
+                                    <style1
+                                        jcr:primaryType="nt:unstructured"
+                                        text="DMP Style"
+                                        value="style1" />
+                                    <style2
+                                        jcr:primaryType="nt:unstructured"
+                                        text="2017 Style"
+                                        value="style2" />
+                                    <landingNSW4
+                                        jcr:primaryType="nt:unstructured"
+                                        text="NSW4 Style - Landing"
+                                        value="landingNSW4" />
+                                     <landing2017
+                                        jcr:primaryType="nt:unstructured"
+                                        text="2017 Style - Landing"
+                                        value="landing2017" />
+                                    <landing2018
+                                        jcr:primaryType="nt:unstructured"
+                                        text="2018 Style - Landing"
+                                        value="landing2018"/>
+                                </items>
+                            </type>
+                             <titletag
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Title Html Tag"
+                                name="./titletag">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <h1
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h1"
+                                        value="h1" />
+                                    <h2
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h2"
+                                        value="h2" />
+                                   <h3
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h3"
+                                        value="h3" />
+                                   <span
+                                        jcr:primaryType="nt:unstructured"
+                                        text="span"
+                                        value="span" />
+                                    
+                                </items>
+                            </titletag>
+                            <desktopBackgoundPosition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Background Position Desktop"
+                                name="./desktopBackgoundPosition">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <center
+                                        jcr:primaryType="nt:unstructured"
+                                        text="center"
+                                        value="center" />
+                                    <left
+                                        jcr:primaryType="nt:unstructured"
+                                        text="left"
+                                        value="left" />
+                                   <right
+                                        jcr:primaryType="nt:unstructured"
+                                        text="right"
+                                        value="right" />
+                                   <top
+                                        jcr:primaryType="nt:unstructured"
+                                        text="top"
+                                        value="top" />
+                                   <bottom
+                                        jcr:primaryType="nt:unstructured"
+                                        text="bottom"
+                                        value="bottom" />
+                                </items>
+                            </desktopBackgoundPosition>
+                            <mobileBackgoundPosition
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Background Position Mobile"
+                                name="./mobileBackgoundPosition">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <center
+                                        jcr:primaryType="nt:unstructured"
+                                        text="center"
+                                        value="center" />
+                                    <left
+                                        jcr:primaryType="nt:unstructured"
+                                        text="left"
+                                        value="left" />
+                                   <right
+                                        jcr:primaryType="nt:unstructured"
+                                        text="right"
+                                        value="right" />
+                                     <top
+                                        jcr:primaryType="nt:unstructured"
+                                        text="top"
+                                        value="top" />
+                                   <bottom
+                                        jcr:primaryType="nt:unstructured"
+                                        text="bottom"
+                                        value="bottom" />
+                                   
+                                </items>
+                            </mobileBackgoundPosition>
+                            <description
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./jcr:description"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <contentSize
+                            	jcr:primaryType="nt:unstructured"
+                            	fieldLabel="Content Size"
+                            	fieldDescription="Set custom content size: from 1 to 12 (col-sm-x)"
+                            	name="./contentSize"
+                            	min="1"
+                            	max="12"
+                            	defaultValue="7"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <bottomNote
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Bottom note (2017)"
+                                name="./bottomNote"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <preOffer
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="PreTitle Offer (DMP)"
+                                name="./preOffer"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <postOffer
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="PostTitle Offer (DMP)"
+                                name="./postOffer"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <height
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Height"
+                                name="./height"
+                                defaultValue = "330"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <mobileheight
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Mobile Height"
+                                name="./mobileheight"
+                                defaultValue = "330"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <margin
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Margin Bottom (double)"
+                                name="./margin"
+                                defaultValue = "20"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <marginMobile
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Margin Bottom mobile (double)"
+                                name="./marginMobile"
+                                defaultValue = "11"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                             <bFontSize
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Bold Font size (DMP)"
+                                name="./bFontSize"
+                                defaultValue = "48"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                            <background
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./assetReference"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <video
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="WistiaID"
+                                name="./videoReference"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <videoDAM
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="DAM Video"
+                                rootPath="/content/dam/silversea-com"
+                                name="./videoReferenceDAM"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <showPlayVideo
+                                jcr:primaryType="nt:unstructured"
+                                text="Show play video"
+                                name="./showPlayVideo"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <hideDesktopVideo 
+                             	jcr:primaryType="nt:unstructured"
+                                text="Hide play video - Desktop"
+                                name="./hideDesktopVideo"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <hideMobileVideo 
+                             	jcr:primaryType="nt:unstructured"
+                                text="Hide play video - Mobile"
+                                name="./hideMobileVideo"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <disabledText
+                                jcr:primaryType="nt:unstructured"
+                                text="Disable text"
+                                name="./disabledText"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <disabledTextBackground
+                                jcr:primaryType="nt:unstructured"
+                                text="Disable text background"
+                                name="./disabledTextBackground"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <centerContent
+                                jcr:primaryType="nt:unstructured"
+                                text="Center Content"
+                                name="./centerContent"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <vcenter
+                                jcr:primaryType="nt:unstructured"
+                                text="Vertical Center"
+                                name="./vcenter"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <leftContent
+                                jcr:primaryType="nt:unstructured"
+                                text="Force left Content (2017)"
+                                name="./leftContent"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <forceRedVideoCTA
+                                jcr:primaryType="nt:unstructured"
+                                text="Force red video CTA (2017)"
+                                name="./forceRedVideoCTA"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <forceWhiteFont
+                                jcr:primaryType="nt:unstructured"
+                                text="Force White Font"
+                                name="./forceWhiteFont"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                             <shadePitcure 
+                             	jcr:primaryType="nt:unstructured"
+                                text="Shade picture - Destkop only"
+                                name="./shadePitcure"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                             <hideArrow
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Hide Arrow?"
+	                            name="./hideArrow"
+	                            value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                        <anchorActivated
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Anchor button activated?"
+	                            name="./anchorActivated"
+	                            value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <lightboxActivated1
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Lightbox button 1?"
+	                            name="./lightboxActivated1"
+	                            value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                        <lightboxActivated2
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Lightbox button 2?"
+	                            name="./lightboxActivated2"
+	                            value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                        <targetBlank1
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Target Blank button 1?"
+	                            name="./targetBlank1"
+	                            value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                        <targetBlank2
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Target Blank button 2?"
+	                            name="./targetBlank2"
+	                            value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                        <hideMobileButton1
+                       			jcr:primaryType="nt:unstructured"
+                       			text="Hidden Mobile button 1"
+                       			name="./hideMobileButton1"
+                       			value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                        <hideMobileButton2
+                       			jcr:primaryType="nt:unstructured"
+                       			text="Hidden Mobile button 2"
+                       			name="./hideMobileButton2"
+					value="true"
+					sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                            <enableDarkOverlay
+	                                jcr:primaryType="nt:unstructured"
+	                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+	                                name="./enableDarkOverlay"
+	                                text="Enable Dark Overlay (2018)"
+	                                value="true"/>
+	                            <foregroundImage
+	                                jcr:primaryType="nt:unstructured"
+	                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+	                                fieldLabel="Banner logo (2018)"
+	                                name="./foregroundImage"
+	                                rootPath="/content/dam/silversea-com"/>
+	                          <enableInlineGallery
+                                jcr:primaryType="nt:unstructured"
+                                text="Enable Inline Gallery Image"
+                                name="./enableInlineGallery"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <enableVersionB jcr:primaryType="nt:unstructured" text="Enable version B (Hero Banner Destination)" name="./enableVersionB" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                        </items>
+                    </column>
+                </items>
+            </herobanner>
+            <button1
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Button 1"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <desktopTitle
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Desktop Title"
+                                name="./button1/titleDesktop"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <tabletTitle
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Tablet Title"
+                                name="./button1/titleTablet"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <urlLink
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="URL Link"
+                                name="./button1/reference"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <color
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Color"
+                                name="./button1/color">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <gray
+                                        jcr:primaryType="nt:unstructured"
+                                        text="gray"
+                                        value="gray" />
+                                    <red
+                                        jcr:primaryType="nt:unstructured"
+                                        text="red"
+                                        value="red" />
+                                    <black
+                                        jcr:primaryType="nt:unstructured"
+                                        text="black"
+                                        value="default" />
+                                    <white
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="white" />
+                                    <transparent
+                                        jcr:primaryType="nt:unstructured"
+                                        text="transparent"
+                                        value="transparent" />
+                                </items>
+                            </color>
+                            <size
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Size"
+                                name="./button1/size">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <normal
+                                        jcr:primaryType="nt:unstructured"
+                                        text="normal"
+                                        value="" />
+                                    <small
+                                        jcr:primaryType="nt:unstructured"
+                                        text="small"
+                                        value="btn-sm" />
+                                    <large
+                                        jcr:primaryType="nt:unstructured"
+                                        text="large"
+                                        value="btn-lg" />
+                                    <larger
+                                        jcr:primaryType="nt:unstructured"
+                                        text="larger"
+                                        value="btn-lgr" />
+                                </items>
+                            </size>
+                            <analyticType
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Analytic type"
+                                name="./button1/analyticType">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <empty
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Simple button"
+                                        value="" />
+                                    <raq
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Quote request"
+                                        value="clic-RAQ" />
+                                    <bro
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Brochure request"
+                                        value="clic-BRO" />
+                                    <rac
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Call request"
+                                        value="clic-RAC" />
+                                    <sfo
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Signup for offer"
+                                        value="clic-SFO" />
+                                </items>
+                            </analyticType>
+                        </items>
+                    </column>
+                </items>
+            </button1>
+            <button2
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Button 2"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <desktopTitle
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Desktop Title"
+                                name="./button2/titleDesktop"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <tabletTitle
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Tablet Title"
+                                name="./button2/titleTablet"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <urlLink
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="URL Link"
+                                name="./button2/reference"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <color
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Color"
+                                name="./button2/color"
+                                sling:resourceType="granite/ui/components/foundation/form/select">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <gray
+                                        jcr:primaryType="nt:unstructured"
+                                        text="gray"
+                                        value="gray" />
+                                    <red
+                                        jcr:primaryType="nt:unstructured"
+                                        text="red"
+                                        value="red" />
+                                    <black
+                                        jcr:primaryType="nt:unstructured"
+                                        text="black"
+                                        value="default" />
+                                    <white
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="white" />
+                                    <transparent
+                                        jcr:primaryType="nt:unstructured"
+                                        text="transparent"
+                                        value="transparent" />
+                                </items>
+                            </color>
+                            <size
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Size"
+                                name="./button2/size">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <normal
+                                        jcr:primaryType="nt:unstructured"
+                                        text="normal"
+                                        value="" />
+                                    <small
+                                        jcr:primaryType="nt:unstructured"
+                                        text="small"
+                                        value="btn-sm" />
+                                    <large
+                                        jcr:primaryType="nt:unstructured"
+                                        text="large"
+                                        value="btn-lg" />
+                                   <larger
+                                        jcr:primaryType="nt:unstructured"
+                                        text="larger"
+                                        value="btn-lgr" />
+                                </items>
+                            </size>
+                            <analyticType
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Analytic type"
+                                name="./button2/analyticType">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <empty
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Simple button"
+                                        value="" />
+                                    <raq
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Quote request"
+                                        value="clic-RAQ" />
+                                    <bro
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Brochure request"
+                                        value="clic-BRO" />
+                                    <rac
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Call request"
+                                        value="clic-RAC" />
+                                    <sfo
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Signup for offer"
+                                        value="clic-SFO" />
+                                </items>
+                            </analyticType>
+                        </items>
+                    </column>
+                </items>
+            </button2>
+            <ft
+                jcr:primaryType="nt:unstructured"
+                jcr:title="FT Options" 
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleFT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleFT"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionFT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionFT"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundFT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundFT"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink1FT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 1 Link"
+                                name="./button1LinkFT"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink2FT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 2 Link"
+                                name="./button2LinkFT"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </ft>
+            <eu
+                jcr:primaryType="nt:unstructured"
+                jcr:title="EU Options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleEU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleEU"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionEU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionEU"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundEU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundEU"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink1EU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 1 Link"
+                                name="./button1LinkEU"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink2EU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 2 Link"
+                                name="./button2LinkEU"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </eu>
+            <as
+                jcr:primaryType="nt:unstructured"
+                jcr:title="AS Options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleAS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleAS"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionAS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionAS"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundAS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundAS"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink1AS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 1 Link"
+                                name="./button1LinkAS"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink2AS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 2 Link"
+                                name="./button2LinkAS"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </as>
+            <uk
+                jcr:primaryType="nt:unstructured"
+                jcr:title="UK Options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleUK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleUK"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionUK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionUK"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundUK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundUK"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink1UK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 1 Link"
+                                name="./button1LinkUK"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <buttonLink2UK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Button 2 Link"
+                                name="./button2LinkUK"
+                                rootPath="/content/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </uk>
+            <advanceGeo
+               jcr:primaryType="nt:unstructured"
+               jcr:title="Advance Geolocation"
+               sling:resourceType="granite/ui/components/foundation/container">
+                 <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                 <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+							<geoList
+								jcr:primaryType="nt:unstructured"
+								sling:resourceType="granite/ui/components/foundation/form/multifield"
+								class="full-width"
+								fieldLabel="Geolocation options">
+								<field
+									jcr:primaryType="nt:unstructured"
+									sling:resourceType="granite/ui/components/foundation/form/fieldset"
+									acs-commons-nested="NODE_STORE"
+									name="./listText">
+									<layout
+										jcr:primaryType="nt:unstructured"
+										sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+										method="absolute"/>
+									<items jcr:primaryType="nt:unstructured">
+										<column
+											jcr:primaryType="nt:unstructured"
+											sling:resourceType="granite/ui/components/foundation/container">
+											<items jcr:primaryType="nt:unstructured">
+												<titleGeo
+					                                jcr:primaryType="nt:unstructured"
+					                                fieldLabel="Title"
+					                                name="./titleGeo"
+					                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+					                         	<descriptionGeo
+					                                jcr:primaryType="nt:unstructured"
+					                                fieldLabel="Description"
+					                                name="./descriptionGeo"
+					                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+					                            <backgroundGeo
+					                                jcr:primaryType="nt:unstructured"
+					                                fieldLabel="Background"
+					                                name="./backgroundGeo"
+					                                rootPath="/content/dam/silversea-com"
+					                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+					                            <buttonLink1Geo
+					                                jcr:primaryType="nt:unstructured"
+					                                fieldLabel="Button 1 Link"
+					                                name="./button1LinkGeo"
+					                                rootPath="/content/silversea-com"
+					                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+					                            <buttonLink2Geo
+					                                jcr:primaryType="nt:unstructured"
+					                                fieldLabel="Button 2 Link"
+					                                name="./button2LinkGeo"
+					                                rootPath="/content/silversea-com"
+					                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+					                             <desktopBackgoundPositionGeo
+					                                jcr:primaryType="nt:unstructured"
+					                                sling:resourceType="granite/ui/components/foundation/form/select"
+					                                fieldLabel="Background Position Desktop"
+					                                name="./desktopBackgoundPositionGeo">
+					                                <items jcr:primaryType="nt:unstructured">
+					                                    <center
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="center"
+					                                        value="center" />
+					                                    <left
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="left"
+					                                        value="left" />
+					                                   <right
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="right"
+					                                        value="right" />
+					                                    <top
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="top"
+					                                        value="top" />
+					                                   <bottom
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="bottom"
+					                                        value="bottom" />
+					                                </items>
+					                            </desktopBackgoundPositionGeo>
+					                            <mobileBackgoundPositionGeo
+					                                jcr:primaryType="nt:unstructured"
+					                                sling:resourceType="granite/ui/components/foundation/form/select"
+					                                fieldLabel="Background Position Mobile"
+					                                name="./mobileBackgoundPositionGeo">
+					                                <items jcr:primaryType="nt:unstructured">
+					                                    <center
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="center"
+					                                        value="center" />
+					                                    <left
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="left"
+					                                        value="left" />
+					                                   <right
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="right"
+					                                        value="right" />
+					                                     <top
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="top"
+					                                        value="top" />
+					                                   <bottom
+					                                        jcr:primaryType="nt:unstructured"
+					                                        text="bottom"
+					                                        value="bottom" />
+					                                </items>
+					                            </mobileBackgoundPositionGeo>
+					                            <geoTag
+					                                jcr:primaryType="nt:unstructured"
+					                                fieldLabel="Geolocation tag"
+					                                name="./geoTag"
+					                                rootPath="/etc/tags"
+					                                sling:resourceType="cq/gui/components/common/tagspicker" />
+											</items>
+										</column>
+									</items>
+								</field>
+							</geoList>
+                        </items>
+                    </column>
+                </items>
+            </advanceGeo>
+            <desktop
+               jcr:primaryType="nt:unstructured"
+               jcr:title="Desktop options"
+               sling:resourceType="granite/ui/components/foundation/container">
+                 <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                 <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                       		<top2017ContentPositionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Top Content Position of 2017 Hero Style"
+                                name="./top2017ContentPositionDesktop"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <showScrollActionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                text="Show scroll action"
+                                name="./showScrollActionDesktop"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <textScrollActionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Text scroll action"
+                                name="./textScrollActionDesktop"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <colorScrollActionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Color scroll action"
+                                name="./colorScrollActionDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <white
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="white" />
+                                    <black
+                                        jcr:primaryType="nt:unstructured"
+                                        text="black"
+                                        value="black" />
+                                </items>
+                            </colorScrollActionDesktop>
+                            <viewHeightDesktop
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="View Height"
+			                        fieldDescription="Choose the view port height"
+			                        name="./viewHeightDesktop">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+	  		                            <viewheightDesktop20 jcr:primaryType="nt:unstructured" text="View Height: 20vh" value="viewHeightDesktop20" />
+										<viewheightDesktop25 jcr:primaryType="nt:unstructured" text="View Height: 25vh" value="viewHeightDesktop25" />
+										<viewheightDesktop30 jcr:primaryType="nt:unstructured" text="View Height: 30vh" value="viewHeightDesktop30" />
+										<viewheightDesktop35 jcr:primaryType="nt:unstructured" text="View Height: 35vh" value="viewHeightDesktop35" />
+										<viewheightDesktop40 jcr:primaryType="nt:unstructured" text="View Height: 40vh" value="viewHeightDesktop40" />
+										<viewheightDesktop45 jcr:primaryType="nt:unstructured" text="View Height: 45vh" value="viewHeightDesktop45" />
+										<viewheightDesktop50 jcr:primaryType="nt:unstructured" text="View Height: 50vh" value="viewHeightDesktop50" />
+										<viewheightDesktop55 jcr:primaryType="nt:unstructured" text="View Height: 55vh" value="viewHeightDesktop55" />
+										<viewheightDesktop60 jcr:primaryType="nt:unstructured" text="View Height: 60vh" value="viewHeightDesktop60" />
+										<viewheightDesktop65 jcr:primaryType="nt:unstructured" text="View Height: 65vh" value="viewHeightDesktop65" />
+										<viewheightDesktop70 jcr:primaryType="nt:unstructured" text="View Height: 70vh" value="viewHeightDesktop70" />
+										<viewheightDesktop75 jcr:primaryType="nt:unstructured" text="View Height: 75vh" value="viewHeightDesktop75" />
+										<viewheightDesktop80 jcr:primaryType="nt:unstructured" text="View Height: 80vh" value="viewHeightDesktop80" />
+										<viewheightDesktop85 jcr:primaryType="nt:unstructured" text="View Height: 85vh" value="viewHeightDesktop85" />
+										<viewheightDesktop90 jcr:primaryType="nt:unstructured" text="View Height: 90vh" value="viewHeightDesktop90" />
+										<viewheightDesktop95 jcr:primaryType="nt:unstructured" text="View Height: 95vh" value="viewHeightDesktop95" />
+										<viewheightDesktop100 jcr:primaryType="nt:unstructured" text="View Height: 100vh" value="viewHeightDesktop100" />
+			                      </items>
+			                </viewHeightDesktop>
+			                <maxHeightDesktop
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="Max Height"
+			                        fieldDescription="Choose the max height"
+			                        name="./maxHeightDesktop">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                        <maxHeightDesktop1005 jcr:primaryType="nt:unstructured" text="Max Height: 1005px" value="maxHeightDesktop1005" />
+									<maxHeightDesktop1010 jcr:primaryType="nt:unstructured" text="Max Height: 1010px" value="maxHeightDesktop1010" />
+									<maxHeightDesktop1015 jcr:primaryType="nt:unstructured" text="Max Height: 1015px" value="maxHeightDesktop1015" />
+									<maxHeightDesktop1020 jcr:primaryType="nt:unstructured" text="Max Height: 1020px" value="maxHeightDesktop1020" />
+									<maxHeightDesktop1025 jcr:primaryType="nt:unstructured" text="Max Height: 1025px" value="maxHeightDesktop1025" />
+									<maxHeightDesktop1030 jcr:primaryType="nt:unstructured" text="Max Height: 1030px" value="maxHeightDesktop1030" />
+									<maxHeightDesktop1035 jcr:primaryType="nt:unstructured" text="Max Height: 1035px" value="maxHeightDesktop1035" />
+									<maxHeightDesktop1040 jcr:primaryType="nt:unstructured" text="Max Height: 1040px" value="maxHeightDesktop1040" />
+									<maxHeightDesktop1045 jcr:primaryType="nt:unstructured" text="Max Height: 1045px" value="maxHeightDesktop1045" />
+									<maxHeightDesktop1050 jcr:primaryType="nt:unstructured" text="Max Height: 1050px" value="maxHeightDesktop1050" />
+									<maxHeightDesktop1055 jcr:primaryType="nt:unstructured" text="Max Height: 1055px" value="maxHeightDesktop1055" />
+									<maxHeightDesktop1060 jcr:primaryType="nt:unstructured" text="Max Height: 1060px" value="maxHeightDesktop1060" />
+									<maxHeightDesktop1065 jcr:primaryType="nt:unstructured" text="Max Height: 1065px" value="maxHeightDesktop1065" />
+									<maxHeightDesktop1070 jcr:primaryType="nt:unstructured" text="Max Height: 1070px" value="maxHeightDesktop1070" />
+									<maxHeightDesktop1075 jcr:primaryType="nt:unstructured" text="Max Height: 1075px" value="maxHeightDesktop1075" />
+									<maxHeightDesktop1080 jcr:primaryType="nt:unstructured" text="Max Height: 1080px" value="maxHeightDesktop1080" />
+									<maxHeightDesktop1085 jcr:primaryType="nt:unstructured" text="Max Height: 1085px" value="maxHeightDesktop1085" />
+									<maxHeightDesktop1090 jcr:primaryType="nt:unstructured" text="Max Height: 1090px" value="maxHeightDesktop1090" />
+									<maxHeightDesktop1095 jcr:primaryType="nt:unstructured" text="Max Height: 1095px" value="maxHeightDesktop1095" />
+									<maxHeightDesktop1100 jcr:primaryType="nt:unstructured" text="Max Height: 1100px" value="maxHeightDesktop1100" />
+									<maxHeightDesktop1105 jcr:primaryType="nt:unstructured" text="Max Height: 1105px" value="maxHeightDesktop1105" />
+									<maxHeightDesktop1110 jcr:primaryType="nt:unstructured" text="Max Height: 1110px" value="maxHeightDesktop1110" />
+									<maxHeightDesktop1115 jcr:primaryType="nt:unstructured" text="Max Height: 1115px" value="maxHeightDesktop1115" />
+									<maxHeightDesktop1120 jcr:primaryType="nt:unstructured" text="Max Height: 1120px" value="maxHeightDesktop1120" />
+									<maxHeightDesktop1125 jcr:primaryType="nt:unstructured" text="Max Height: 1125px" value="maxHeightDesktop1125" />
+									<maxHeightDesktop1130 jcr:primaryType="nt:unstructured" text="Max Height: 1130px" value="maxHeightDesktop1130" />
+									<maxHeightDesktop1135 jcr:primaryType="nt:unstructured" text="Max Height: 1135px" value="maxHeightDesktop1135" />
+									<maxHeightDesktop1140 jcr:primaryType="nt:unstructured" text="Max Height: 1140px" value="maxHeightDesktop1140" />
+									<maxHeightDesktop1145 jcr:primaryType="nt:unstructured" text="Max Height: 1145px" value="maxHeightDesktop1145" />
+									<maxHeightDesktop1150 jcr:primaryType="nt:unstructured" text="Max Height: 1150px" value="maxHeightDesktop1150" />
+									<maxHeightDesktop1155 jcr:primaryType="nt:unstructured" text="Max Height: 1155px" value="maxHeightDesktop1155" />
+									<maxHeightDesktop1160 jcr:primaryType="nt:unstructured" text="Max Height: 1160px" value="maxHeightDesktop1160" />
+									<maxHeightDesktop1165 jcr:primaryType="nt:unstructured" text="Max Height: 1165px" value="maxHeightDesktop1165" />
+									<maxHeightDesktop1170 jcr:primaryType="nt:unstructured" text="Max Height: 1170px" value="maxHeightDesktop1170" />
+									<maxHeightDesktop1175 jcr:primaryType="nt:unstructured" text="Max Height: 1175px" value="maxHeightDesktop1175" />
+									<maxHeightDesktop1180 jcr:primaryType="nt:unstructured" text="Max Height: 1180px" value="maxHeightDesktop1180" />
+									<maxHeightDesktop1185 jcr:primaryType="nt:unstructured" text="Max Height: 1185px" value="maxHeightDesktop1185" />
+									<maxHeightDesktop1190 jcr:primaryType="nt:unstructured" text="Max Height: 1190px" value="maxHeightDesktop1190" />
+									<maxHeightDesktop1195 jcr:primaryType="nt:unstructured" text="Max Height: 1195px" value="maxHeightDesktop1195" />
+									<maxHeightDesktop1200 jcr:primaryType="nt:unstructured" text="Max Height: 1200px" value="maxHeightDesktop1200" />
+									<maxHeightDesktop1205 jcr:primaryType="nt:unstructured" text="Max Height: 1205px" value="maxHeightDesktop1205" />
+									<maxHeightDesktop1210 jcr:primaryType="nt:unstructured" text="Max Height: 1210px" value="maxHeightDesktop1210" />
+									<maxHeightDesktop1215 jcr:primaryType="nt:unstructured" text="Max Height: 1215px" value="maxHeightDesktop1215" />
+									<maxHeightDesktop1220 jcr:primaryType="nt:unstructured" text="Max Height: 1220px" value="maxHeightDesktop1220" />
+									<maxHeightDesktop1225 jcr:primaryType="nt:unstructured" text="Max Height: 1225px" value="maxHeightDesktop1225" />
+									<maxHeightDesktop1230 jcr:primaryType="nt:unstructured" text="Max Height: 1230px" value="maxHeightDesktop1230" />
+									<maxHeightDesktop1235 jcr:primaryType="nt:unstructured" text="Max Height: 1235px" value="maxHeightDesktop1235" />
+									<maxHeightDesktop1240 jcr:primaryType="nt:unstructured" text="Max Height: 1240px" value="maxHeightDesktop1240" />
+									<maxHeightDesktop1245 jcr:primaryType="nt:unstructured" text="Max Height: 1245px" value="maxHeightDesktop1245" />
+									<maxHeightDesktop1250 jcr:primaryType="nt:unstructured" text="Max Height: 1250px" value="maxHeightDesktop1250" />
+	                            </items>
+                            </maxHeightDesktop>
+							<cssDesktop
+							    jcr:primaryType="nt:unstructured"
+							    sling:resourceType="granite/ui/components/foundation/form/textarea"
+							    fieldLabel="Custom css desktop"
+							    rows="20"
+							    fieldDescription="Custom css only desktop"
+							    name="./cssDesktop" />
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet
+               jcr:primaryType="nt:unstructured"
+               jcr:title="Tablet options"
+               sling:resourceType="granite/ui/components/foundation/container">
+                 <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                 <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<viewHeightTablet
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="View Height"
+			                        fieldDescription="Choose the view port height"
+			                        name="./viewHeightTablet">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                            <viewheightTablet20  jcr:primaryType="nt:unstructured" text="View Height: 20vh" value="viewHeightTablet20" />
+										<viewheightTablet25  jcr:primaryType="nt:unstructured" text="View Height: 25vh" value="viewHeightTablet25" />
+										<viewheightTablet30  jcr:primaryType="nt:unstructured" text="View Height: 30vh" value="viewHeightTablet30" />
+										<viewheightTablet35  jcr:primaryType="nt:unstructured" text="View Height: 35vh" value="viewHeightTablet35" />
+										<viewheightTablet40  jcr:primaryType="nt:unstructured" text="View Height: 40vh" value="viewHeightTablet40" />
+										<viewheightTablet45  jcr:primaryType="nt:unstructured" text="View Height: 45vh" value="viewHeightTablet45" />
+										<viewheightTablet50  jcr:primaryType="nt:unstructured" text="View Height: 50vh" value="viewHeightTablet50" />
+										<viewheightTablet55  jcr:primaryType="nt:unstructured" text="View Height: 55vh" value="viewHeightTablet55" />
+										<viewheightTablet60  jcr:primaryType="nt:unstructured" text="View Height: 60vh" value="viewHeightTablet60" />
+										<viewheightTablet65  jcr:primaryType="nt:unstructured" text="View Height: 65vh" value="viewHeightTablet65" />
+										<viewheightTablet70  jcr:primaryType="nt:unstructured" text="View Height: 70vh" value="viewHeightTablet70" />
+										<viewheightTablet75  jcr:primaryType="nt:unstructured" text="View Height: 75vh" value="viewHeightTablet75" />
+										<viewheightTablet80  jcr:primaryType="nt:unstructured" text="View Height: 80vh" value="viewHeightTablet80" />
+										<viewheightTablet85  jcr:primaryType="nt:unstructured" text="View Height: 85vh" value="viewHeightTablet85" />
+										<viewheightTablet90  jcr:primaryType="nt:unstructured" text="View Height: 90vh" value="viewHeightTablet90" />
+										<viewheightTablet95  jcr:primaryType="nt:unstructured" text="View Height: 95vh" value="viewHeightTablet95" />
+										<viewheightTablet100  jcr:primaryType="nt:unstructured" text="View Height: 100vh" value="viewHeightTablet100" />
+			                       </items>
+			                </viewHeightTablet>
+			                <maxHeightTablet
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="Max Height"
+			                        fieldDescription="Choose the max height"
+			                        name="./maxHeightTablet">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                        <maxHeightTablet1005 jcr:primaryType="nt:unstructured" text="Max Height: 1005px" value="maxHeightTablet1005" />
+									<maxHeightTablet1010 jcr:primaryType="nt:unstructured" text="Max Height: 1010px" value="maxHeightTablet1010" />
+									<maxHeightTablet1015 jcr:primaryType="nt:unstructured" text="Max Height: 1015px" value="maxHeightTablet1015" />
+									<maxHeightTablet1020 jcr:primaryType="nt:unstructured" text="Max Height: 1020px" value="maxHeightTablet1020" />
+									<maxHeightTablet1025 jcr:primaryType="nt:unstructured" text="Max Height: 1025px" value="maxHeightTablet1025" />
+									<maxHeightTablet1030 jcr:primaryType="nt:unstructured" text="Max Height: 1030px" value="maxHeightTablet1030" />
+									<maxHeightTablet1035 jcr:primaryType="nt:unstructured" text="Max Height: 1035px" value="maxHeightTablet1035" />
+									<maxHeightTablet1040 jcr:primaryType="nt:unstructured" text="Max Height: 1040px" value="maxHeightTablet1040" />
+									<maxHeightTablet1045 jcr:primaryType="nt:unstructured" text="Max Height: 1045px" value="maxHeightTablet1045" />
+									<maxHeightTablet1050 jcr:primaryType="nt:unstructured" text="Max Height: 1050px" value="maxHeightTablet1050" />
+									<maxHeightTablet1055 jcr:primaryType="nt:unstructured" text="Max Height: 1055px" value="maxHeightTablet1055" />
+									<maxHeightTablet1060 jcr:primaryType="nt:unstructured" text="Max Height: 1060px" value="maxHeightTablet1060" />
+									<maxHeightTablet1065 jcr:primaryType="nt:unstructured" text="Max Height: 1065px" value="maxHeightTablet1065" />
+									<maxHeightTablet1070 jcr:primaryType="nt:unstructured" text="Max Height: 1070px" value="maxHeightTablet1070" />
+									<maxHeightTablet1075 jcr:primaryType="nt:unstructured" text="Max Height: 1075px" value="maxHeightTablet1075" />
+									<maxHeightTablet1080 jcr:primaryType="nt:unstructured" text="Max Height: 1080px" value="maxHeightTablet1080" />
+									<maxHeightTablet1085 jcr:primaryType="nt:unstructured" text="Max Height: 1085px" value="maxHeightTablet1085" />
+									<maxHeightTablet1090 jcr:primaryType="nt:unstructured" text="Max Height: 1090px" value="maxHeightTablet1090" />
+									<maxHeightTablet1095 jcr:primaryType="nt:unstructured" text="Max Height: 1095px" value="maxHeightTablet1095" />
+									<maxHeightTablet1100 jcr:primaryType="nt:unstructured" text="Max Height: 1100px" value="maxHeightTablet1100" />
+									<maxHeightTablet1105 jcr:primaryType="nt:unstructured" text="Max Height: 1105px" value="maxHeightTablet1105" />
+									<maxHeightTablet1110 jcr:primaryType="nt:unstructured" text="Max Height: 1110px" value="maxHeightTablet1110" />
+									<maxHeightTablet1115 jcr:primaryType="nt:unstructured" text="Max Height: 1115px" value="maxHeightTablet1115" />
+									<maxHeightTablet1120 jcr:primaryType="nt:unstructured" text="Max Height: 1120px" value="maxHeightTablet1120" />
+									<maxHeightTablet1125 jcr:primaryType="nt:unstructured" text="Max Height: 1125px" value="maxHeightTablet1125" />
+									<maxHeightTablet1130 jcr:primaryType="nt:unstructured" text="Max Height: 1130px" value="maxHeightTablet1130" />
+									<maxHeightTablet1135 jcr:primaryType="nt:unstructured" text="Max Height: 1135px" value="maxHeightTablet1135" />
+									<maxHeightTablet1140 jcr:primaryType="nt:unstructured" text="Max Height: 1140px" value="maxHeightTablet1140" />
+									<maxHeightTablet1145 jcr:primaryType="nt:unstructured" text="Max Height: 1145px" value="maxHeightTablet1145" />
+									<maxHeightTablet1150 jcr:primaryType="nt:unstructured" text="Max Height: 1150px" value="maxHeightTablet1150" />
+									<maxHeightTablet1155 jcr:primaryType="nt:unstructured" text="Max Height: 1155px" value="maxHeightTablet1155" />
+									<maxHeightTablet1160 jcr:primaryType="nt:unstructured" text="Max Height: 1160px" value="maxHeightTablet1160" />
+									<maxHeightTablet1165 jcr:primaryType="nt:unstructured" text="Max Height: 1165px" value="maxHeightTablet1165" />
+									<maxHeightTablet1170 jcr:primaryType="nt:unstructured" text="Max Height: 1170px" value="maxHeightTablet1170" />
+									<maxHeightTablet1175 jcr:primaryType="nt:unstructured" text="Max Height: 1175px" value="maxHeightTablet1175" />
+									<maxHeightTablet1180 jcr:primaryType="nt:unstructured" text="Max Height: 1180px" value="maxHeightTablet1180" />
+									<maxHeightTablet1185 jcr:primaryType="nt:unstructured" text="Max Height: 1185px" value="maxHeightTablet1185" />
+									<maxHeightTablet1190 jcr:primaryType="nt:unstructured" text="Max Height: 1190px" value="maxHeightTablet1190" />
+									<maxHeightTablet1195 jcr:primaryType="nt:unstructured" text="Max Height: 1195px" value="maxHeightTablet1195" />
+									<maxHeightTablet1200 jcr:primaryType="nt:unstructured" text="Max Height: 1200px" value="maxHeightTablet1200" />
+									<maxHeightTablet1205 jcr:primaryType="nt:unstructured" text="Max Height: 1205px" value="maxHeightTablet1205" />
+									<maxHeightTablet1210 jcr:primaryType="nt:unstructured" text="Max Height: 1210px" value="maxHeightTablet1210" />
+									<maxHeightTablet1215 jcr:primaryType="nt:unstructured" text="Max Height: 1215px" value="maxHeightTablet1215" />
+									<maxHeightTablet1220 jcr:primaryType="nt:unstructured" text="Max Height: 1220px" value="maxHeightTablet1220" />
+									<maxHeightTablet1225 jcr:primaryType="nt:unstructured" text="Max Height: 1225px" value="maxHeightTablet1225" />
+									<maxHeightTablet1230 jcr:primaryType="nt:unstructured" text="Max Height: 1230px" value="maxHeightTablet1230" />
+									<maxHeightTablet1235 jcr:primaryType="nt:unstructured" text="Max Height: 1235px" value="maxHeightTablet1235" />
+									<maxHeightTablet1240 jcr:primaryType="nt:unstructured" text="Max Height: 1240px" value="maxHeightTablet1240" />
+									<maxHeightTablet1245 jcr:primaryType="nt:unstructured" text="Max Height: 1245px" value="maxHeightTablet1245" />
+									<maxHeightTablet1250 jcr:primaryType="nt:unstructured" text="Max Height: 1250px" value="maxHeightTablet1250" />
+	                            </items>
+                            </maxHeightTablet>
+							<cssTablet
+							    jcr:primaryType="nt:unstructured"
+							    sling:resourceType="granite/ui/components/foundation/form/textarea"
+							    fieldLabel="Custom css tablet"
+							    rows="20"
+							    fieldDescription="Custom css only tablet"
+							    name="./cssTablet" />
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+            <mobile
+               jcr:primaryType="nt:unstructured"
+               jcr:title="Mobile options"
+               sling:resourceType="granite/ui/components/foundation/container">
+                 <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                 <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<viewHeightMobile
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="View Height"
+			                        fieldDescription="Choose the view port height"
+			                        name="./viewHeightMobile">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                            <viewheightMobile20 jcr:primaryType="nt:unstructured" text="View Height: 20vh" value="viewHeightMobile20" />
+										<viewheightMobile25 jcr:primaryType="nt:unstructured" text="View Height: 25vh" value="viewHeightMobile25" />
+										<viewheightMobile30 jcr:primaryType="nt:unstructured" text="View Height: 30vh" value="viewHeightMobile30" />
+										<viewheightMobile35 jcr:primaryType="nt:unstructured" text="View Height: 35vh" value="viewHeightMobile35" />
+										<viewheightMobile40 jcr:primaryType="nt:unstructured" text="View Height: 40vh" value="viewHeightMobile40" />
+										<viewheightMobile45 jcr:primaryType="nt:unstructured" text="View Height: 45vh" value="viewHeightMobile45" />
+										<viewheightMobile50 jcr:primaryType="nt:unstructured" text="View Height: 50vh" value="viewHeightMobile50" />
+										<viewheightMobile55 jcr:primaryType="nt:unstructured" text="View Height: 55vh" value="viewHeightMobile55" />
+										<viewheightMobile60 jcr:primaryType="nt:unstructured" text="View Height: 60vh" value="viewHeightMobile60" />
+										<viewheightMobile65 jcr:primaryType="nt:unstructured" text="View Height: 65vh" value="viewHeightMobile65" />
+										<viewheightMobile70 jcr:primaryType="nt:unstructured" text="View Height: 70vh" value="viewHeightMobile70" />
+										<viewheightMobile75 jcr:primaryType="nt:unstructured" text="View Height: 75vh" value="viewHeightMobile75" />
+										<viewheightMobile80 jcr:primaryType="nt:unstructured" text="View Height: 80vh" value="viewHeightMobile80" />
+										<viewheightMobile85 jcr:primaryType="nt:unstructured" text="View Height: 85vh" value="viewHeightMobile85" />
+										<viewheightMobile90 jcr:primaryType="nt:unstructured" text="View Height: 90vh" value="viewHeightMobile90" />
+										<viewheightMobile95 jcr:primaryType="nt:unstructured" text="View Height: 95vh" value="viewHeightMobile95" />
+										<viewheightMobile100 jcr:primaryType="nt:unstructured" text="View Height: 100vh" value="viewHeightMobile100" />
+			                       </items>
+			                </viewHeightMobile>
+			                <maxHeightMobile
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="Max Height"
+			                        fieldDescription="Choose the max height"
+			                        name="./maxHeightMobile">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                        <maxHeightMobile1005 jcr:primaryType="nt:unstructured" text="Max Height: 1005px" value="maxHeightMobile1005" />
+									<maxHeightMobile1010 jcr:primaryType="nt:unstructured" text="Max Height: 1010px" value="maxHeightMobile1010" />
+									<maxHeightMobile1015 jcr:primaryType="nt:unstructured" text="Max Height: 1015px" value="maxHeightMobile1015" />
+									<maxHeightMobile1020 jcr:primaryType="nt:unstructured" text="Max Height: 1020px" value="maxHeightMobile1020" />
+									<maxHeightMobile1025 jcr:primaryType="nt:unstructured" text="Max Height: 1025px" value="maxHeightMobile1025" />
+									<maxHeightMobile1030 jcr:primaryType="nt:unstructured" text="Max Height: 1030px" value="maxHeightMobile1030" />
+									<maxHeightMobile1035 jcr:primaryType="nt:unstructured" text="Max Height: 1035px" value="maxHeightMobile1035" />
+									<maxHeightMobile1040 jcr:primaryType="nt:unstructured" text="Max Height: 1040px" value="maxHeightMobile1040" />
+									<maxHeightMobile1045 jcr:primaryType="nt:unstructured" text="Max Height: 1045px" value="maxHeightMobile1045" />
+									<maxHeightMobile1050 jcr:primaryType="nt:unstructured" text="Max Height: 1050px" value="maxHeightMobile1050" />
+									<maxHeightMobile1055 jcr:primaryType="nt:unstructured" text="Max Height: 1055px" value="maxHeightMobile1055" />
+									<maxHeightMobile1060 jcr:primaryType="nt:unstructured" text="Max Height: 1060px" value="maxHeightMobile1060" />
+									<maxHeightMobile1065 jcr:primaryType="nt:unstructured" text="Max Height: 1065px" value="maxHeightMobile1065" />
+									<maxHeightMobile1070 jcr:primaryType="nt:unstructured" text="Max Height: 1070px" value="maxHeightMobile1070" />
+									<maxHeightMobile1075 jcr:primaryType="nt:unstructured" text="Max Height: 1075px" value="maxHeightMobile1075" />
+									<maxHeightMobile1080 jcr:primaryType="nt:unstructured" text="Max Height: 1080px" value="maxHeightMobile1080" />
+									<maxHeightMobile1085 jcr:primaryType="nt:unstructured" text="Max Height: 1085px" value="maxHeightMobile1085" />
+									<maxHeightMobile1090 jcr:primaryType="nt:unstructured" text="Max Height: 1090px" value="maxHeightMobile1090" />
+									<maxHeightMobile1095 jcr:primaryType="nt:unstructured" text="Max Height: 1095px" value="maxHeightMobile1095" />
+									<maxHeightMobile1100 jcr:primaryType="nt:unstructured" text="Max Height: 1100px" value="maxHeightMobile1100" />
+									<maxHeightMobile1105 jcr:primaryType="nt:unstructured" text="Max Height: 1105px" value="maxHeightMobile1105" />
+									<maxHeightMobile1110 jcr:primaryType="nt:unstructured" text="Max Height: 1110px" value="maxHeightMobile1110" />
+									<maxHeightMobile1115 jcr:primaryType="nt:unstructured" text="Max Height: 1115px" value="maxHeightMobile1115" />
+									<maxHeightMobile1120 jcr:primaryType="nt:unstructured" text="Max Height: 1120px" value="maxHeightMobile1120" />
+									<maxHeightMobile1125 jcr:primaryType="nt:unstructured" text="Max Height: 1125px" value="maxHeightMobile1125" />
+									<maxHeightMobile1130 jcr:primaryType="nt:unstructured" text="Max Height: 1130px" value="maxHeightMobile1130" />
+									<maxHeightMobile1135 jcr:primaryType="nt:unstructured" text="Max Height: 1135px" value="maxHeightMobile1135" />
+									<maxHeightMobile1140 jcr:primaryType="nt:unstructured" text="Max Height: 1140px" value="maxHeightMobile1140" />
+									<maxHeightMobile1145 jcr:primaryType="nt:unstructured" text="Max Height: 1145px" value="maxHeightMobile1145" />
+									<maxHeightMobile1150 jcr:primaryType="nt:unstructured" text="Max Height: 1150px" value="maxHeightMobile1150" />
+									<maxHeightMobile1155 jcr:primaryType="nt:unstructured" text="Max Height: 1155px" value="maxHeightMobile1155" />
+									<maxHeightMobile1160 jcr:primaryType="nt:unstructured" text="Max Height: 1160px" value="maxHeightMobile1160" />
+									<maxHeightMobile1165 jcr:primaryType="nt:unstructured" text="Max Height: 1165px" value="maxHeightMobile1165" />
+									<maxHeightMobile1170 jcr:primaryType="nt:unstructured" text="Max Height: 1170px" value="maxHeightMobile1170" />
+									<maxHeightMobile1175 jcr:primaryType="nt:unstructured" text="Max Height: 1175px" value="maxHeightMobile1175" />
+									<maxHeightMobile1180 jcr:primaryType="nt:unstructured" text="Max Height: 1180px" value="maxHeightMobile1180" />
+									<maxHeightMobile1185 jcr:primaryType="nt:unstructured" text="Max Height: 1185px" value="maxHeightMobile1185" />
+									<maxHeightMobile1190 jcr:primaryType="nt:unstructured" text="Max Height: 1190px" value="maxHeightMobile1190" />
+									<maxHeightMobile1195 jcr:primaryType="nt:unstructured" text="Max Height: 1195px" value="maxHeightMobile1195" />
+									<maxHeightMobile1200 jcr:primaryType="nt:unstructured" text="Max Height: 1200px" value="maxHeightMobile1200" />
+									<maxHeightMobile1205 jcr:primaryType="nt:unstructured" text="Max Height: 1205px" value="maxHeightMobile1205" />
+									<maxHeightMobile1210 jcr:primaryType="nt:unstructured" text="Max Height: 1210px" value="maxHeightMobile1210" />
+									<maxHeightMobile1215 jcr:primaryType="nt:unstructured" text="Max Height: 1215px" value="maxHeightMobile1215" />
+									<maxHeightMobile1220 jcr:primaryType="nt:unstructured" text="Max Height: 1220px" value="maxHeightMobile1220" />
+									<maxHeightMobile1225 jcr:primaryType="nt:unstructured" text="Max Height: 1225px" value="maxHeightMobile1225" />
+									<maxHeightMobile1230 jcr:primaryType="nt:unstructured" text="Max Height: 1230px" value="maxHeightMobile1230" />
+									<maxHeightMobile1235 jcr:primaryType="nt:unstructured" text="Max Height: 1235px" value="maxHeightMobile1235" />
+									<maxHeightMobile1240 jcr:primaryType="nt:unstructured" text="Max Height: 1240px" value="maxHeightMobile1240" />
+									<maxHeightMobile1245 jcr:primaryType="nt:unstructured" text="Max Height: 1245px" value="maxHeightMobile1245" />
+									<maxHeightMobile1250 jcr:primaryType="nt:unstructured" text="Max Height: 1250px" value="maxHeightMobile1250" />
+	                            </items>
+                            </maxHeightMobile>
+                        	<cssMobile
+							    jcr:primaryType="nt:unstructured"
+							    sling:resourceType="granite/ui/components/foundation/form/textarea"
+							    fieldLabel="Custom css mobile"
+							    rows="20"
+							    fieldDescription="Custom css only mobile"
+							    name="./cssMobile" />
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

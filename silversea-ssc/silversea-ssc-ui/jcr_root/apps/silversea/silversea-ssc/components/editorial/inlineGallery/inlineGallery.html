@@ -1,0 +1,38 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="SSC - Inline Gallery (#c-inlinegallery-${properties.sscUUID})"></div>
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+<div id="c-inlinegallery-${properties.sscUUID}" 
+	data-number-items-desktop="${properties.numberItemsDesktop || '5' @ context='unsafe'}" 
+	data-number-items-tablet="${properties.numberItemsTablet || '3' @ context='unsafe'}"
+	data-number-items-mobile="1"
+	data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}"
+	class="c-slider c-inlinegallery ${properties.disableLightboxGalleryDesktop ? 'disable-gallery-desktop' : ''}  ${properties.disableLightboxGalleryTablet ? 'disable-gallery-tablet' : ''} ${properties.disableLightboxGallery ? 'disable-gallery' : ''} ${properties.forceBiggerWidth ? 'forceBiggerWidth' : ''} arrowProgressBarDesktopFullWidth arrowProgressBarTabletFullWidth marginTopDesktop${properties.marginTopDesktop} marginBottomDesktop${properties.marginBottomDesktop} paddingTopDesktop${properties.paddingTopDesktop} paddingBottomDesktop${properties.paddingBottomDesktop} marginTopTablet${properties.marginTopTablet} marginBottomTablet${properties.marginBottomTablet} paddingTopTablet${properties.paddingTopTablet} paddingBottomTablet${properties.paddingBottomTablet} marginTopMobile${properties.marginTopMobile} marginBottomMobile${properties.marginBottomMobile} paddingTopMobile${properties.paddingTopMobile} paddingBottomMobile${properties.paddingBottomMobile}">
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference || pageProperties.assetSelectionReference}"  />
+    <div data-sly-repeat.asset="${setImage.renditionList}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+        <sly data-sly-test="${!properties.forceBiggerWidth}">
+            <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.defaultNoRetinaLazy @ imagePath=asset.path}"></div>
+        </sly>
+        <sly data-sly-test="${properties.forceBiggerWidth}">
+            <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.defaultNoRetinaLazy2 @ imagePath=asset.path, imageWidth=930}"></div>
+        </sly>
+        <a class="automatic-gallery-modal ${isVideo ? 'video-link' : ''}" data-target=".bs-modal-lg" href="${asset.path}"><i data-sly-test="${isVideo}" class="fa fa-play" rel="nofollow"></i></a>
+    </div>
+</div>
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) {
+        ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {
+        ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+        ${properties.cssMobile @ context='html'}
+    }
+</style>
+<script>
+    forceBiggerWidth = "${properties.forceBiggerWidth @context='unsafe'}";
+</script>

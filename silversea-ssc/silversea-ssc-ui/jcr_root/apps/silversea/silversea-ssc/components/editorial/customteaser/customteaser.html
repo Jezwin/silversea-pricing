@@ -1,0 +1,65 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Custom teaser"></div>
+
+<section id="c-custom-teaser-${properties.sscUUID}" class="c-custom-teaser">
+    <sly data-sly-use.customTeaserTemplate="silversea/silversea-ssc/components/editorial/customteaser/customteasertemplate.html" />
+    <sly data-sly-test="${properties.type == 'automatic'}" data-sly-call="${customTeaserTemplate.automatic}"  />
+    <sly data-sly-test="${properties.type == 'manual'}" data-sly-call="${customTeaserTemplate.manual}" />
+</section>
+<style>
+	@media (min-width: 768px) {
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-caption {
+			min-height: ${properties.heightDesktop @ context="unsafe" || 170 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-image {
+			height: ${properties.imageHeightDesktop @ context="unsafe" || 330 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-title {
+			font-size: ${properties.titleFontSizeDesktop @ context="unsafe" || 22 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-description {
+			font-size: ${properties.descriptionFontSizeDesktop @ context="unsafe" || 13 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-image-label {
+			font-size: ${properties.fontSizeLabelImageDesktop @ context="unsafe" || 12 }px !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.showBorderDesktop}">
+	@media (min-width: 768px) {
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"}.c-custom-teaser {
+			border: 1px solid #ddd !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-caption {
+			padding: 20px 20px 40px !important;
+		}
+	}
+</style>
+<style>
+	@media (max-width: 767px) {
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-caption {
+			min-height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-image {
+			height: ${properties.imageHeightMobile @ context="unsafe" || 220 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-title {
+			font-size: ${properties.titleFontSizeMobile @ context="unsafe" || 24 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-description {
+			font-size: ${properties.descriptionFontSizeMobile @ context="unsafe" || 13 }px !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-image-label {
+			font-size: ${properties.fontSizeLabelImageMobile @ context="unsafe" || 12 }px !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.showBorderMobile}">
+	@media (max-width: 767px) {
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"}.c-custom-teaser {
+			border: 1px solid #ddd !important;
+		}
+		#c-custom-teaser-${properties.sscUUID @ context="unsafe"} .c-custom-teaser-caption {
+			padding: 20px 20px 40px !important;
+		}
+	}
+</style>

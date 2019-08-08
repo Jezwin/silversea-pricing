@@ -1,0 +1,250 @@
+<template data-sly-template.filterv1="${@ fyc}">
+<div class="c-fyc-filter"
+    data-sly-use.fyc="com.silversea.ssc.aem.components.editorial.FindYourCruiseLandingUse"
+    data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
+    <div class="c-fyc-filter__header text-center text-uppercase c-fyc-v1-filter-mobile-hide">
+      <!-- <p class="c-fyc-filter__action">
+            <i class="fa fa-mail-reply"></i> <a href="#" onclick="history.go(-1);return false">${'perform-a-new-search' @ i18n}</a>
+        </p> -->
+
+        <sly data-sly-test="${!properties.hideTitle}">
+            <h3 class="c-fyc-filter__title ${properties.hideFycTitle ? 'hidden' : ''}" data-sly-test="${!properties.jcr:title && !properties.hideTitle}">${'your-search-results' @ i18n} </h3>
+            <h3 class="c-fyc-filter__title" data-sly-test="${properties.jcr:title && !properties.hideTitle}">${properties.jcr:title}</h3>
+            <span class="c-fyc-filter__text ${properties.hideResultNb ? 'hidden' : ''}">
+                <span id="matching-value">${fyc.totalMatches}</span>
+                <span class="result-label">${properties.resultsLabelSingular || 'cruise' @ i18n}</span>
+                <span class="results-label">${properties.resultsLabelPlural || 'cruises' @ i18n}</span>
+            </span>
+        </sly>
+        <p class="c-fyc-filter__reset hidden-xs">
+            ${'adjust-your-search-filters' @ i18n}
+            <a href="#"><i class="fa fa-undo"></i> <span class="text-capitalize">${'clear-all-filters' @ i18n}</span></a>
+        </p>
+    </div>
+
+
+    <div class="c-fyc-v1-filter__header text-uppercase c-fyc-v1-filter-mobile-show fyc-filter-hidden">
+        <div class="c-fyc-v1-filter__text container">
+            <div class="c-fyc-v1-filter__text-header" id="matching-value-nd">${fyc.totalMatches}</div>
+            <div class="c-fyc-v1-filter__text-header result-label" >${'result' @ i18n}</div>
+            <div class="c-fyc-v1-filter__text-header results-label">${'results' @ i18n}</div>
+            <button class="btn c-fyc-btn" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false"
+                    aria-controls="filter-collapse" data-text-opened="${'close' @ i18n}">
+                <i class="material-icons fyc-tune-i">
+                    tune
+                </i>
+                <i class="material-icons fyc-close-i">
+                    clear
+                </i>
+            </button>
+        </div>
+    </div>
+
+
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+    <sly data-sly-use.externalizerHelperWC="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.worldCruisesPagePath }" />
+    <sly data-sly-use.externalizerHelperGV="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.grandVoyagesPagePath  }" />
+    <form id="filter-form" class="c-find-your-cruise-filter" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='results'}"
+        data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
+        <div class="filter-wrapper collapse clearfix" id="filter-collapse">
+            <div class="single-filter destination-tracking" data-sly-test="${!fyc.isPrefilteredByDestination}">
+                <select class="chosen destination-filter" name="destination">
+                    <option value="all">${'destination' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
+                    <option value="wc" data-ssc-link="${externalizerHelperWC.externalizedUrl @ extension='html'}">${'world-cruises' @ i18n}</option>
+                    <option value="gv" data-ssc-link="${externalizerHelperGV.externalizedUrl @ extension='html'}">${'grand-voyages' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter date-tracking">
+                <select class="chosen date-filter" name="date">
+                    <option value="all">${'departure-date' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
+                        <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue.toString}"/>
+                        ${month.value} ${item.year}
+                    </option>
+                </select>
+            </div>
+            <div class="single-filter duration-tracking">
+                <select class="chosen duration-filter" name="duration">
+                    <option value="all">${'duration' @ i18n}</option>
+                    <option value="1-8">1-8 ${'days' @ i18n}</option>
+                    <option value="9-12">9-12 ${'days' @ i18n}</option>
+                    <option value="13-18">13-18 ${'days' @ i18n}</option>
+                    <option value="19">19+ ${'days' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter ship-tracking" data-sly-test="${!fyc.isPrefilteredByShip}">
+                <select class="chosen ship-filter" name="ship">
+                    <option value="all">${'ship' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.ships}" value="${item.name}">${item.title}</option>
+                </select>
+            </div>
+            <div class="single-filter cruisetype-tracking">
+                <select class="chosen cruisetype-filter" name="cruisetype">
+                    <option value="all">${'cruise-type' @ i18n}</option>
+                    <option value="silversea-cruise" data-value="silversea-cruise">
+                        ${'silversea-cruise' @ i18n}
+                    </option>
+                    <option value="silversea-expedition" data-value="silversea-expedition">
+                        ${'silversea-expedition' @ i18n}
+                    </option>
+                </select>
+            </div>
+            <div class="single-filter port-tracking" data-sly-test="${!fyc.isPrefilteredByPort}">
+                <select class="chosen chosen-with-search port-filter" name="port">
+                    <option value="all">${'port' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.ports}" value="${item.name}">${item.apiTitle}</option>
+                </select>
+            </div>
+            <div class="single-filter feature-tracking" data-sly-test="${!fyc.isPrefilteredByFeature && fyc.initialDisplayedFeatures.size > 0}">
+                <div class="dropdown">
+                    <button class="btn btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="text-selected" data-default-text="${'more-features' @ i18n}" data-feature-text="${'feature' @ i18n}"
+                            data-features-text="${'features' @ i18n}">
+                            ${'more-features' @ i18n}
+                        </span><i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <ul class="feature-filter">
+                            <li data-sly-repeat.feature="${fyc.features}">
+                                <input id="${feature.name}" type="checkbox" name="feature" value="${feature.name}"
+                                    data-value="${feature.name}"/>
+                                <label class="feature-name" for="${feature.name}"><i class="${feature.icon}"></i>
+                                    ${feature.title}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c-fyc-filter__button visible-xs text-center c-fyc-v1-filter-mobile-hide">
+            <button class="btn btn-dark effect" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false"
+                aria-controls="filter-collapse"
+                data-text-closed="${'refine-your-search' @ i18n}"
+                data-text-opened="${'close' @ i18n}">
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+            </button>
+        </div>
+    </form>
+</div>
+</template>
+<template data-sly-template.filterv2="${@ fyc}">
+<div class="c-fyc-v2-filter" data-sly-use.fyc="com.silversea.ssc.aem.components.editorial.FindYourCruiseLandingUse" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
+
+    <div class="c-fyc-v2-filter__header text-uppercase c-fyc-v1-filter-mobile-hide">
+        <div class="c-fyc-v2-filter__text container">
+          	<div class="c-fyc-v2-filter__text-header ${properties.hideFycTitle ? 'hidden' : ''}">${properties.jcr:title || 'your-search-results' @ i18n}</div>
+            <div class="c-fyc-v2-filter__text-header" id="v2-matching-value">${fyc.totalMatches}</div>
+            <div class="c-fyc-v2-filter__text-header result-label" >${properties.resultsLabelSingular || 'cruise' @ i18n}</div>
+            <div class="c-fyc-v2-filter__text-header results-label" >${properties.resultsLabelPlural || 'cruises' @ i18n}</div>
+          
+            <div class="c-fyc-v2-filter__text-header c-fyc-v2-filter__reset hidden-xs">
+                <a href="#"><i class="fa fa-undo"></i> <span class="text-uppercase">${'clear-all-filters' @ i18n}</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="c-fyc-v1-filter__header text-uppercase c-fyc-v1-filter-mobile-show fyc-filter-hidden">
+        <div class="c-fyc-v1-filter__text container">
+            <div class="c-fyc-v1-filter__text-header" id="v2-matching-value-nd">${fyc.totalMatches}</div>
+            <div class="c-fyc-v1-filter__text-header result-label" >${'result' @ i18n}</div>
+            <div class="c-fyc-v1-filter__text-header results-label">${'results' @ i18n}</div>
+            <button class="btn c-fyc-btn" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false"
+                    aria-controls="filter-collapse" data-text-opened="${'close' @ i18n}">
+                <i class="material-icons fyc-tune-i">
+                    tune
+                </i>
+                <i class="material-icons fyc-close-i">
+                    clear
+                </i>
+            </button>
+        </div>
+    </div>
+
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+    <sly data-sly-use.externalizerHelperWC="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.worldCruisesPagePath }" />
+    <sly data-sly-use.externalizerHelperGV="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.grandVoyagesPagePath  }" />
+    <form id="filter-form-v2" class="c-fyc-v2-filter__form" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='resultsv2'}" data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
+        <div class="v2-filter-wrapper collapse clearfix" id="v2-filter-collapse">
+            <div class="single-filter destination-tracking" data-sly-test="${!fyc.isPrefilteredByDestination}">
+                <select class="chosen destination-filter" name="destination">
+                    <option value="all">${'destination' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
+                    <option value="wc" data-ssc-link="${externalizerHelperWC.externalizedUrl @ extension='html'}">${'world-cruises' @ i18n}</option>
+                    <option value="gv" data-ssc-link="${externalizerHelperGV.externalizedUrl @ extension='html'}">${'grand-voyages' @ i18n}</option>
+                </select>
+            </div>
+
+            <div class="single-filter date-tracking">
+                <select class="chosen date-filter" name="date">
+                    <option value="all">${'departure' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
+                        <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue.toString}"/>
+                        ${month.value} ${item.year}
+                    </option>
+                </select>
+            </div>
+            <div class="single-filter duration-tracking">
+                <select class="chosen duration-filter" name="duration">
+                    <option value="all">${'duration' @ i18n}</option>
+                    <option value="1-8">1-8 ${'days' @ i18n}</option>
+                    <option value="9-12">9-12 ${'days' @ i18n}</option>
+                    <option value="13-18">13-18 ${'days' @ i18n}</option>
+                    <option value="19">19+ ${'days' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter ship-tracking" data-sly-test="${!fyc.isPrefilteredByShip}">
+                <select class="chosen ship-filter" name="ship">
+                    <option value="all">${'ship' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.ships}" value="${item.name}">${item.title}</option>
+                </select>
+            </div>
+            <div class="single-filter cruisetype-tracking">
+                <select class="chosen cruisetype-filter" name="cruisetype">
+                    <option value="all">${'cruise-type' @ i18n}</option>
+                    <option value="silversea-cruise" data-value="silversea-cruise">
+                        ${'silversea-cruise' @ i18n}
+                    </option>
+                    <option value="silversea-expedition" data-value="silversea-expedition">
+                        ${'silversea-expedition' @ i18n}
+                    </option>
+                </select>
+            </div>
+            <div class="single-filter port-tracking" data-sly-test="${!fyc.isPrefilteredByPort}">
+                <select class="chosen chosen-with-search port-filter" name="port">
+                    <option value="all">${'port' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.ports}" value="${item.name}">${item.apiTitle}</option>
+                </select>
+            </div>
+            <div class="single-filter feature-tracking" data-sly-test="${!fyc.isPrefilteredByFeature && fyc.initialDisplayedFeatures.size > 0}">
+                <div class="dropdown">
+                    <button class="btn btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="text-selected" data-default-text="${'more' @ i18n}" data-feature-text="${'feature' @ i18n}"
+                            data-features-text="${'features' @ i18n}">
+                            ${'more' @ i18n}
+                        </span><i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <ul class="v2-feature-filter">
+                            <li data-sly-repeat.feature="${fyc.features}">
+                                <input id="v2-${feature.name}" type="checkbox" name="feature" value="${feature.name}" data-value="${feature.name}" />
+                                <label class="feature-name" for="v2-${feature.name}"><i class="${feature.icon}"></i>
+                                    ${feature.title}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c-fyc-v2-filter__button visible-xs text-center c-fyc-v1-filter-mobile-hide">
+            <button class="btn btn-dark effect" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false" aria-controls="filter-collapse" data-text-closed="${'refine-your-search' @ i18n}" data-text-opened="${'close' @ i18n}">
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+            </button>
+        </div>
+
+        <input type="hidden" name="psize" value="9" />
+    </form>
+</div>
+</template>

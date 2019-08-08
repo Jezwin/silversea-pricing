@@ -1,0 +1,120 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder"
+     data-emptytext="SSC - Button - (#c-smartbtn-${properties.sscUUID}) - DEPRECATED"></div>
+<sly data-sly-use.pixelClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='paddingLeft,paddingRight'}" />
+
+<sly data-sly-use.pageHelper="${'com.silversea.ssc.aem.components.editorial.SmartButtonHelper'}">
+    <sly data-sly-test.kind="${((properties.linkType=='video' || properties.linkType=='file') || !properties.lightboxActivated) && pageHelper.url }"/>
+    <sly data-sly-test="${kind}"
+         data-sly-test.pageLinkHtmlMobile="${pageHelper.urlMobile @ extension='html', selectors=pageHelper.selectorUrl, suffix=pageHelper.suffixUrl}"
+         data-sly-test.pageLinkHtml="${pageHelper.url @ extension='html', selectors=pageHelper.selectorUrl, suffix=pageHelper.suffixUrl}">
+        <div class="${properties.textalignDesktop} ${properties.textalignTablet} ${properties.textalignMobile} innerSmart">
+            <a id="c-smartbtn-${properties.sscUUID}"
+               href="${properties.linkType=='page' ? pageLinkHtml : pageHelper.url}"
+               data-sscclicktype="${properties.analyticType}"
+               target="${properties.externalLinkDesktop ? '_blank' : ''}"
+               data-video-href="${currentNode.path @ selectors='video', extension='html'}" data-target-video=".bs-modal-lg"
+               class="hidden-xs c-smartbtn btn  c-smartbtn-${properties.sscUUID}  ${properties.linkType=='video' ? 'video-link-dam' : '' } btn-${properties.color} ${pixelClass.allDevicesPixel} ${properties.textalignTextDesktop} ${properties.textalignTextTablet} ${properties.textalignTextMobile} ${properties.widthDesktop} ${properties.widthTablet} ${properties.widthMobile} ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile} ${properties.marginTopDesktop} ${properties.marginBottomDesktop} ${properties.paddingTopDesktop} ${properties.paddingBottomDesktop} ${properties.marginTopTablet} ${properties.marginBottomTablet} ${properties.paddingTopTablet} ${properties.paddingBottomTablet} ${properties.marginTopMobile} ${properties.marginBottomMobile} ${properties.paddingTopMobile} ${properties.paddingBottomMobile}">
+       		<span class="showDesktop hideTablet hideMobile">
+       			${pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+                <span class="showTablet hideDesktop hideMobile">
+       			${pageHelper.textTablet || pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+                <span class="showMobile hideDesktop hideTablet">
+       			${pageHelper.textMobile || pageHelper.textTablet || pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+            </a>
+
+            <a id="c-smartbtn-${properties.sscUUID}-mobile"
+               href="${properties.linkType=='page' ? pageLinkHtmlMobile : pageHelper.urlMobile}"
+               data-sscclicktype="${properties.analyticType}"
+               target="${properties.externalLinkMobile ? '_blank' : ''}"
+               data-video-href="${currentNode.path @ selectors='video', extension='html'}" data-target-video=".bs-modal-lg"
+               class="visible-xs c-smartbtn btn  c-smartbtn-${properties.sscUUID}  ${properties.linkType=='video' ? 'video-link-dam' : '' } btn-${properties.color} ${pixelClass.allDevicesPixel} ${properties.textalignTextDesktop} ${properties.textalignTextTablet} ${properties.textalignTextMobile} ${properties.widthDesktop} ${properties.widthTablet} ${properties.widthMobile} ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile} ${properties.marginTopDesktop} ${properties.marginBottomDesktop} ${properties.paddingTopDesktop} ${properties.paddingBottomDesktop} ${properties.marginTopTablet} ${properties.marginBottomTablet} ${properties.paddingTopTablet} ${properties.paddingBottomTablet} ${properties.marginTopMobile} ${properties.marginBottomMobile} ${properties.paddingTopMobile} ${properties.paddingBottomMobile}">
+       		<span class="showDesktop hideTablet hideMobile">
+       			${pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+                <span class="showTablet hideDesktop hideMobile">
+       			${pageHelper.textTablet || pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+                <span class="showMobile hideDesktop hideTablet">
+       			${pageHelper.textMobile || pageHelper.textTablet || pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+            </a>
+        </div>
+    </sly>
+
+    <sly data-sly-test="${!kind}"
+         data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.url}">
+        <div class="${properties.textalignDesktop} ${properties.textalignTablet} ${properties.textalignMobile}">
+            <a id="c-smartbtn-${properties.sscUUID}"
+               href="${pageHelper.url @ selectors='modalcontent'}"
+               data-sscclicktype="${properties.analyticType}" data-toggle="modal"
+               data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
+               class="hidden-xs c-smartbtn btn c-smartbtn-${properties.sscUUID}  btn-${properties.color} ${pixelClass.allDevicesPixel} ${properties.textalignTextDesktop} ${properties.textalignTextTablet} ${properties.textalignTextMobile} ${properties.widthDesktop} ${properties.widthTablet} ${properties.widthMobile} ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile} ${properties.marginTopDesktop} ${properties.marginBottomDesktop} ${properties.paddingTopDesktop} ${properties.paddingBottomDesktop} ${properties.marginTopTablet} ${properties.marginBottomTablet} ${properties.paddingTopTablet} ${properties.paddingBottomTablet} ${properties.marginTopMobile} ${properties.marginBottomMobile} ${properties.paddingTopMobile} ${properties.paddingBottomMobile}">
+       		<span class="showDesktop hideTablet hideMobile">
+       			${pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+                <span class="showTablet hideDesktop hideMobile">
+       			${pageHelper.textTablet || pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+            </a>
+
+            <a id="c-smartbtn-${properties.sscUUID}-mobile"
+               href="${pageHelper.urlMobile @ selectors='modalcontent'}"
+               data-sscclicktype="${properties.analyticType}" data-toggle="modal"
+               data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
+               class="visible-xs c-smartbtn btn c-smartbtn-${properties.sscUUID} btn-${properties.color} ${pixelClass.allDevicesPixel} ${properties.textalignTextDesktop} ${properties.textalignTextTablet} ${properties.textalignTextMobile} ${properties.widthDesktop} ${properties.widthTablet} ${properties.widthMobile} ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile} ${properties.marginTopDesktop} ${properties.marginBottomDesktop} ${properties.paddingTopDesktop} ${properties.paddingBottomDesktop} ${properties.marginTopTablet} ${properties.marginBottomTablet} ${properties.paddingTopTablet} ${properties.paddingBottomTablet} ${properties.marginTopMobile} ${properties.marginBottomMobile} ${properties.paddingTopMobile} ${properties.paddingBottomMobile}">
+                <span class="showMobile hideDesktop hideTablet">
+       			${pageHelper.textMobile || pageHelper.textTablet || pageHelper.textDesktop @ context = "html"}
+       			<i class="fa fa-lg fa-angle-right" data-sly-test="${properties.showArrow}"></i>
+       		</span>
+            </a>
+
+        </div>
+    </sly>
+</sly>
+<script data-sly-test="${properties.elementToScroll}">
+    var referenceElementDesktop = "${properties.elementToScroll @ context='unsafe'}";
+    var referenceElementMobile = "${properties.elementToScrollMobile @ context='unsafe'}";
+    var referenceElement = referenceElementDesktop;
+    if($("body").width() < 768 && typeof referenceElementMobile != "undefined" && referenceElementMobile != null && referenceElementMobile.trim() != "") {
+        referenceElement = referenceElementMobile;
+    }
+    var classElement = ".c-smartbtn-${properties.sscUUID @ context ='unsafe'}";
+    if (typeof referenceElement != "undefined" && referenceElement != null && referenceElement.trim() != "") {
+        $(classElement).on('click', function (e) {
+            if($('[href="#voyages"]').length >0 ) { $('[href="#voyages"]').click(); }
+            e.stopPropagation();
+            e.preventDefault();
+            var target = $(referenceElement).offset().top;
+            $('html, body').animate({
+                scrollTop: target - 100
+            }, 1500);
+            return false;
+        });
+    }
+</script>
+<style data-sly-test="${properties.cssDesktop}">
+    @media (min-width: 991px) {
+    ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media (max-width: 990px) and (min-width: 768px) {
+    ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+    ${properties.cssMobile @ context='html'}
+    }
+</style>

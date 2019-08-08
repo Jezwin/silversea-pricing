@@ -1,0 +1,35 @@
+<div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder "	data-emptytext="SSC - Single Image - (#singleimage-${properties.sscUUID})"></div>
+
+<div data-sly-use.payload="singleImage.js" id="singleimage-${properties.sscUUID}" class="single-image ${wcmmode.edit ? 'cq-dd-image':''}">
+	<div style="
+            --desktop-background-position: ${properties.desktopBackgroundPos @ context='html'};
+            --tablet-background-position: ${properties.tabletBackgroundPos @ context='html'};
+            --mobile-background-position: ${properties.mobileBackgroundPos @ context='html'};
+			--desktop-image-height:${properties.d_height @ context='html'}px;
+			--tablet-image-height:${properties.t_height @ context='html'}px;
+			--mobile-image-height:${properties.m_height @ context='html'}px;" data-ie-style="--desktop-background-position: ${properties.desktopBackgroundPos @ context='html'};
+			--tablet-background-position: ${properties.tabletBackgroundPos @ context='html'};
+			--mobile-background-position: ${properties.mobileBackgroundPos @ context='html'};
+			--desktop-image-height:${properties.d_height @ context='html'}px;
+			--tablet-image-height:${properties.t_height @ context='html'}px;
+			--mobile-image-height:${properties.m_height @ context='html'}px;"
+		 class="single-image-container">
+		<picture>
+			<sly data-sly-test.empty="${properties.mobileFileReference || properties.desktopFileReference}">
+				<sly data-sly-test.height2x="?hei=${properties.m_height}&fit=constrain"/>
+				<sly data-sly-use.m_assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = properties.mobileFileReference || properties.desktopFileReference}"/>
+				<source srcset="${m_assetHelper.imageUrl}${payload.mobileImageUrlQryStr2x}, ${m_assetHelper.imageUrl}${payload.mobileImageUrlQryStr2x} 2x" media="(max-width: 767px)" />
+			</sly>
+
+			<sly data-sly-test.empty="${properties.tabletFileReference || properties.desktopFileReference}">
+				<sly data-sly-use.t_assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = properties.tabletFileReference || properties.desktopFileReference}"/>
+				<source srcset="${t_assetHelper.imageUrl}${payload.tabletImageUrlQryStr2x}, ${t_assetHelper.imageUrl}${payload.tabletImageUrlQryStr2x} 2x" media="(min-width: 768px) and (max-width: 991px)" />
+			</sly>
+			<sly data-sly-test.empty="${properties.desktopFileReference}">
+				<sly data-sly-use.d_assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = properties.desktopFileReference }"/>
+				<source srcset="${d_assetHelper.imageUrl}${payload.desktopImageUrlQryStr2x}, ${d_assetHelper.imageUrl}${payload.desktopImageUrlQryStr2x}	 2x" />
+			</sly>
+			<img src="${d_assetHelper.imageUrl}${payload.desktopImageUrlQryStr2x}" />
+		</picture>
+	</div>
+</div>

@@ -1,0 +1,24 @@
+<div data-sly-test.empty="${wcmmode.edit}"
+	class="cq-placeholder cq-dd-image"
+	data-emptytext="Presentation DMP Landing - Drop Video Thumbnail Here"></div>
+<section
+	class="c-presentationDMPLanding"
+	data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+	<div class="lp17__section_topheader">
+	<div class="blocleft">
+		<p class="blocleft_p">
+			<strong>${properties.title}</strong></p>
+		${properties.text @ context="html"}
+	</div>
+	<div class="blocright ${properties.hideMobile ? 'hidden-xs' : ''}" data-sly-test.reference="${properties.assetReference}" data-sly-test="${!properties.videoReferenceDAM}">
+		<script src="https://fast.wistia.com/embed/medias/${properties.wrikeID}.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+		<span class="wistia_embed wistia_async_${properties.wrikeID} popover=true popoverContent=link" style="display:inline"><a href="#"><sly data-sly-call="${imageTemplate.default @ imagePath=reference}" /></a></span>
+	<div class="clearfix"></div>
+	</div>
+	
+	<div class="blocright ${properties.hideMobile ? 'hidden-xs' : ''}" data-sly-test.reference="${properties.assetReference}" data-sly-test="${properties.videoReferenceDAM}">
+		<span class="" style="display:inline"><a class="video-link-dam" href="${currentNode.path @ selectors='video', extension='html'}" data-target=".bs-modal-lg"><sly data-sly-call="${imageTemplate.default @ imagePath=reference}" /></a></span>
+	<div class="clearfix"></div>
+	</div>
+</div>
+</section>

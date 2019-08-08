@@ -1,0 +1,173 @@
+<template data-sly-template.default="${ @ banner, pageHelper, heightClass, pixelClass}">
+    <sly data-sly-use.fw="${'com.silversea.aem.helper.FrameworkVarHelper' @ properties=banner.sbProperties, property='sscFwBackgroundPosition'}"/>
+    <div id="c-hero-banner-destination-${properties.sscUUID  || properties.jcr:uuid }"
+         class="nd c-hero-banner-destination hero-banner-clickable-${properties.enableClickableHD}" style="${fw.allDevices @ context='unsafe'}" data-ie-style="${fw.allDevices @ context='unsafe'}">
+        <a data-sly-test="${properties.videoReferenceDAM}"
+           class="video-link ${properties.hideVideoMobile ? 'hidden-xs ' : ''} ${properties.hideVideoDesktop ? 'hideVideoDesktop' : ''} video-link-dam ${heightClass.allDevices} ${pixelClass.allDevicesPixel}"
+           href="${currentNode.path @ selectors='video', extension='html'}"
+           data-target=".bs-modal-lg">
+            <i class="fa fa-play"></i>
+        </a>
+        <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=properties.link}"/>
+        <sly data-sly-test=${properties.assetSelectionReference}>
+            <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}">
+
+                <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside c-slider--full-width"
+                     data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "adaptiveHeight": true, "dots" : false}'
+                     role="toolbar">
+                    <sly data-sly-list.asset="${setImage.renditionList}">
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}">
+                            <div class="${heightClass.allDevices} ${pixelClass.allDevicesPixel} ${banner.backgroundPosition} ssc-fw-background-position"
+                                 style="background-size: cover;background-position: center; background-repeat: no-repeat;background-image:url('${assetHelper.imageUrl @ context='unsafe'}?wid=1920&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1');">
+                                <div class="${properties.shadePicture  ? 'gradient-overlay' : ''}"></div>
+                            </div>
+                        </sly>
+                    </sly>
+
+                </div>
+
+            </sly>
+        </sly>
+        <div href="${externalizerHelper.externalizedUrl @ extension='html'}"
+             data-sly-element="${properties.link ? 'a' : 'div'}"
+             class="c-hero-banner-destination-image-container ${heightClass.allDevices} ${pixelClass.allDevicesPixel}">
+            <div id="${banner.randomId}"
+                 class="coverImage ${heightClass.allDevices} ${pixelClass.allDevicesPixel} ${banner.backgroundPosition} ssc-fw-background-position ${properties.assetSelectionReference ? 'hidden' : ''} ${properties.animateDesktop ? 'AnimateDesktop' : ''}">
+                <div class="${properties.shadePicture  ? 'gradient-overlay' : ''}"></div>
+            </div>
+        </div>
+        <div class="container ${heightClass.allDevices} ${pixelClass.allDevicesPixel}">
+            <div href="${externalizerHelper.externalizedUrl @ extension='html'}"
+                 data-sly-element="${properties.link ? 'a' : 'div'}"
+                 class="c-hero-banner-destination__title ${properties.blackTitle ? 'blackTitle' : ''}"
+                 data-sly-test="${!properties.noTitle}">
+                <h1 class="hidden-xs hidden-sm"
+                    data-sly-element="${properties.titletag}">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+                <span data-sly-test="${!properties.hideTitleTablet}" class="visible-sm"
+                      >${banner.titleTablet || banner.title || pageProperties.jcr:title @ context="html"}</span>
+                <span data-sly-test="${!properties.hideTitleMobile}" class="visible-xs"
+                      >${banner.titleMobile || banner.title || pageProperties.jcr:title @ context="html"}</span>
+            </div>
+            <div href="${externalizerHelper.externalizedUrl @ extension='html'}"
+                 data-sly-element="${properties.link ? 'a' : 'div'}" class="c-hero-banner-destination__description"
+                 data-sly-test="${banner.description || banner.descriptionMobile}">
+                <p> ${banner.descriptionMobile ? banner.descriptionMobile : banner.description @ context='html'} </p>
+            </div>
+            <div class="c-hero-banner-destination__buttons"
+                 data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}"></div>
+        </div>
+        <div class="c-hero-banner-destination__scrolldown">
+            <div class='${banner.scrollDownShowDesktop} ${banner.scrollActionTextColorDesktop} hidden'>
+                <span>${banner.scrollActionTextDesktop || 'scroll-to-continue' @ i18n}</span>
+                <span><i class="fa fa-angle-down"></i></span>
+            </div>
+            <div class='${banner.scrollDownShowTablet} ${banner.scrollActionTextColorTablet} hidden'>
+                <span>${banner.scrollActionTextTablet || 'scroll-to-continue' @ i18n}</span>
+                <span><i class="fa fa-angle-down"></i></span>
+            </div>
+            <div class='${banner.scrollDownShowMobile} ${banner.scrollActionTextColorMobile} hidden'>
+                <span>${banner.scrollActionTextMobile || 'scroll-to-continue' @ i18n}</span>
+                <span><i class="fa fa-angle-down"></i></span>
+            </div>
+        </div>
+    </div>
+    <div href="${externalizerHelper.externalizedUrl @ extension='html'}"
+         data-sly-element="${properties.link ? 'a' : 'div'}" class="c-hero-banner-destination__description__desktop"
+         data-sly-test="${banner.description}">
+        <p> ${banner.description @ context='html'} </p>
+    </div>
+    <div class="containerDownArrow" data-sly-test="${properties.bounceArrowActivated}"><a class="linkDownArrow" href=""
+                                                                                          id="linkDownArrow">
+        <span>${properties.bounceArrowText ? properties.bounceArrowText : 'view-voyages' @ i18n}</span>
+        <div class="downArrow bounce"><i class="fa fa-angle-down"></i></div>
+    </a></div>
+    <sly data-sly-test="${properties.bounceArrowActivated}">
+        <script>
+            $(document).ready(function () {
+                $("#linkDownArrow").on('click', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var target = $("${properties.bounceArrowTarget @ context='unsafe'}").offset().top;
+                    $('html, body').animate({
+                        scrollTop: target - 100
+                    }, 1500);
+                    return false;
+                });
+            })
+        </script>
+    </sly>
+    <sly data-sly-test="${ properties.inlineGallery}">
+        <script>
+
+            if ($(window).width() < 768) {
+                $(document).ready(function () {
+                    replaceInlineGallery('#c-hero-banner-destination-${properties.sscUUID @context="unsafe"}', '${ banner.inlineGalleryId @ context="unsafe" }');
+                })
+            }
+        </script>
+        <style>
+            @media screen and (max-width: 767px) {
+                .inline-gallery-included .c-inline-gallery .slick-slide a {
+                    margin: 0 !important;
+                }
+
+                ${banner.inlineGalleryId @ context="unsafe"}.c-inline-gallery.c-slider .slick-slide > div {
+                    height: ${properties.mobileheight || 220 @ context="unsafe"}px !important;
+                }
+
+                ${banner.inlineGalleryId @ context="unsafe"}.inside-hero-banner .c-inline-gallery-slider__image-wrapper .o-img {
+                    height: ${properties.mobileheight || 250 @ context="unsafe" }px !important;
+                }
+            }
+
+            @media (max-width: 767px) {
+                ${banner.inlineGalleryId @ context="unsafe"}.inside-hero-banner, .inline-gallery-included ${banner.inlineGalleryID @ context="unsafe"} {
+                    margin-top: 0px !important;
+                    margin-bottom: 0px !important;
+                }
+
+                #c-hero-banner-landing-${properties.sscUUID || properties.jcr:uuid  @context="unsafe"} .c-hero-banner-landing__image .video-link {
+                    display: none;
+                }
+
+                .modal-content--gallery .c-gallery__counter {
+                    display: none;
+                }
+
+                .modal-content--gallery .slick-arrow {
+                    display: none !important;
+                }
+
+            }
+        </style>
+    </sly>
+</template>
+
+
+<template data-sly-template.coverBackground="${ @ banner, properties, id}">    <!--move this to imageCoverTemplate-->
+
+    <style data-sly-use.assetHelperDesktop="${'com.silversea.aem.helper.AssetHelper' @ assetPath = banner.backgroundDesktop}"
+           data-sly-use.assetHelperTablet="${'com.silversea.aem.helper.AssetHelper' @ assetPath = banner.backgroundTablet}"
+           data-sly-use.assetHelperMobile="${'com.silversea.aem.helper.AssetHelper' @ assetPath = banner.backgroundMobile}"
+           data-sly-use.image="com.silversea.aem.components.editorial.ImageUse"
+
+    >
+        @media (min-width: 992px) {
+            ${id @context='unsafe'}.coverImage {
+                background-image: url("${assetHelperDesktop.imageUrl @ context='uri'}?wid=2304&fit=hfit,1&fmt=pjpeg&pscan=5");
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            ${id @context='unsafe'}.coverImage {
+                background-image: url("${assetHelperTablet.imageUrl @ context='uri'}?wid=2304&fit=hfit,1&fmt=pjpeg&pscan=5");
+            }
+        }
+
+        @media (max-width: 767px) {
+            ${id @context='unsafe'}.coverImage {
+                background-image: url("${assetHelperMobile.imageUrl @ context='uri'}?wid=768&fit=hfit,1&fmt=pjpeg&pscan=5");
+            }
+        }
+    </style>
+</template>

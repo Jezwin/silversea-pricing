@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:EditConfig">
+    <cq:inplaceEditing
+        jcr:primaryType="cq:InplaceEditingConfig"
+        active="{Boolean}true"
+        configPath="/apps/silversea/silversea-com/components/editorial/text/cq:editConfig/cq:inplaceEditing/config"
+        editorType="text" />
+    <cq:dropTargets jcr:primaryType="nt:unstructured">
+        <image
+            jcr:primaryType="cq:DropTargetConfig"
+            accept="[image/.*]"
+            groups="[media]"
+            propertyName="./assetReferenceDesktop" />
+    </cq:dropTargets>
+</jcr:root>

@@ -1,0 +1,28 @@
+<template data-sly-template.target>
+	<a class="c-destination-teaser__link--block" href="${target.page.path @ extension='html'}" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" >
+		<section data-sly-test="${properties.reference}" class="c-destination-teaser ${pixelClassMargin.allDevicesPixel}" 
+		    data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height', localized=false}" data-sly-use.pixelClassMargin="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}">
+		    <div class="c-destination-teaser__image-wrapper ${heightClass.allDevicesPixel}">
+		        <sly data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}"></sly>
+		    </div>
+		    <div class="c-destination-teaser__caption">
+		        <span class="c-destination-teaser__title">${target.page.navigationTitle || target.page.title}</span>
+				<span class="visible-xs c-destination-teaser__discovermore">${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i></span>
+		    </div>	    
+		</section>
+	</a>
+</template>
+<template data-sly-template.custom>
+	<a class="c-destination-teaser__link--block" href="${properties.customLink @ extension='html'}">
+		<section class="c-destination-teaser ${pixelClassMargin.allDevicesPixel}"
+		    data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height', localized=false}" data-sly-use.pixelClassMargin="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='marginBottom,marginTop'}">
+		    <div class="c-destination-teaser__image-wrapper ${heightClass.allDevicesPixel}">
+		        <sly data-sly-call="${imageTemplate.resp @ imagePath=properties.customImage}"></sly>
+		    </div>
+		    <div class="c-destination-teaser__caption">
+		        <span class="c-destination-teaser__title">${properties.customTitle}</span>
+				<span class="visible-xs c-destination-teaser__discovermore">${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i></span>
+		    </div>	   
+		</section>
+	 </a>
+</template>

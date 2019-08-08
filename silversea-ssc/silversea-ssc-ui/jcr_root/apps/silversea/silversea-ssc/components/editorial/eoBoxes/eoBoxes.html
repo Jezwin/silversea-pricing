@@ -1,0 +1,17 @@
+<div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder cq-dd-image"	data-emptytext="Exclusive Offer Boxes"></div>
+
+<section id="c-eo_boxes-${eoData.propertiesAdapted.sscUUID}" class="${eoData.showComponent ? 'c-eo_boxes' : ''}" data-sly-use.eoData="com.silversea.ssc.aem.components.editorial.EoBoxesUse">
+
+	<sly data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxesTemplate.html" />
+	<sly data-sly-test="${eoData.showComponent}">
+		<sly data-sly-test="${eoData.propertiesAdapted.activeBox1}" data-sly-call="${eoBoxesTemplate.box1 @ eoData=eoData}" />
+		<sly data-sly-test="${eoData.propertiesAdapted.activeBoxSeparator1}" data-sly-call="${eoBoxesTemplate.separator1 @ eoData=eoData}" />
+		<sly data-sly-test="${eoData.propertiesAdapted.activeBox2}" data-sly-call="${eoBoxesTemplate.box2 @ eoData=eoData}" />
+		<sly data-sly-test="${eoData.propertiesAdapted.activeBoxSeparator2}" data-sly-call="${eoBoxesTemplate.separator2 @ eoData=eoData}" />
+		<sly data-sly-test="${eoData.propertiesAdapted.activeBox3}" data-sly-call="${eoBoxesTemplate.box3 @ eoData=eoData}" />
+		<sly data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxesStyle.html" data-sly-call="${eoBoxesTemplate.style @ eoData=eoData}" />
+	</sly>
+	<div class="clearfix"></div>
+</section>
+
+

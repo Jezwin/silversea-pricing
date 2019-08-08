@@ -1,0 +1,10 @@
+<div class="modal-content modal-content--transparent">    
+    <div class="modal-header" style="padding: 0 15px;">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <sly data-sly-test="${properties.videoReference}"
+            data-sly-use.videoTemplate="silversea/silversea-com/components/editorial/video/videotemplate.html"
+            data-sly-call="${videoTemplate.default @ videoPath = properties.videoReference, autoplay = 1}" />
+    </div>
+</div>

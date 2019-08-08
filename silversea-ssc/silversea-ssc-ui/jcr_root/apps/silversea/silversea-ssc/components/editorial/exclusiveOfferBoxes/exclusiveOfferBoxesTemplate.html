@@ -1,0 +1,51 @@
+<template data-sly-template.box="${ @ eoData, eoBoxData, sizeBox }">
+
+	<div class="block-content ${sizeBox} col-xs-12">
+	  <div class="block-image" data-sly-test="${eoBoxData.icon}">
+	      <img src="${eoBoxData.icon}" alt="Box Image" />
+	  </div>
+	  <div class="block-text text-desktop-${eoData.propertiesAdapted.textFontSizeDesktop} text-tablet-${eoData.propertiesAdapted.textFontSizeTablet} text-mobile-${eoData.propertiesAdapted.textFontSizeMobile}">
+	  	<span data-sly-test="${eoBoxData.text1}">${eoBoxData.text1 @ context="html"}</span>	  
+	  </div>
+	</div>
+	
+</template>
+
+<template data-sly-template.block1="${ @ eoData }">
+
+	<div class="c-exclusive-offer-boxes-block ${eoData.propertiesAdapted.numBlocks}" data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxesTemplate.html">
+		<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['1'] }"  />
+	</div>
+</template>
+
+<template data-sly-template.block2="${ @ eoData }">
+
+	<div class="c-exclusive-offer-boxes-block ${eoData.propertiesAdapted.numBlocks}" data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxesTemplate.html">
+		<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['1'], sizeBox='col-sm-6' }"  />
+		<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['2'], sizeBox='col-sm-6' }"  />
+	</div>
+	
+</template>
+
+<template data-sly-template.block3="${ @ eoData }">
+
+	<div class="c-exclusive-offer-boxes-block ${eoData.propertiesAdapted.numBlocks}" data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxesTemplate.html">
+		<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['1'], sizeBox='col-sm-4' }"  />
+		<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['2'], sizeBox='col-sm-4' }"  />
+		<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['3'], sizeBox='col-sm-4' }"  />
+	</div>
+	
+</template>
+
+<template data-sly-template.block4="${ @ eoData }">
+
+	<div class="c-exclusive-offer-boxes-block ${eoData.propertiesAdapted.numBlocks}" data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxesTemplate.html">
+			<div class="row">
+				<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['1'], sizeBox='col-sm-6' }"  />
+				<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['2'], sizeBox='col-sm-6' }"  />
+				<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['3'], sizeBox='col-sm-6' }"  />
+				<sly data-sly-call="${eoBoxesTemplate.box @ eoData=eoData, eoBoxData=eoData.boxes['4'], sizeBox='col-sm-6' }"  />
+			</div>
+	</div>
+	
+</template>

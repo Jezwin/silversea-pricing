@@ -1,0 +1,35 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SSC - Find your cruise 2019"></div>
+<sly data-sly-use.use="com.silversea.ssc.aem.components.editorial.FindTravelAgent2019Use"/>
+<div class="findTravelAgent2019" id="findTravelAgent2019" data-phone-label="${'phone' @ i18n}">
+    <div data-sly-test="${!wcmmode.edit}" id="findTravelAgent2019-overlay"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="findTravelAgent2019-location">
+                    <h6 class="findTravelAgent2019-your-location">${'your-location' @ i18n}</h6>
+                    <div class="form-group">
+                        <input type="text" id="findTravelAgent2019-location" class="form-control" placeholder="${'location' @ i18n}"/>
+                        <div id="refine-search">
+                            <input type="text" id="findTravelAgent2019-agency" class="form-control" placeholder="${'agency-name' @ i18n}" value=""/>
+                        </div>
+                    </div>
+                    <h6><span id="findTravelAgent2019-results" data-result="${'result-your-area' @ i18n }" data-results="${'results-your-area' @ i18n }"></span></h6>
+                    <div class="scroll-box">
+                        <div id="findTravelAgent2019-list" class="list-group">
+                            <script lang="javascript">
+                                window.travelAgents = '${use.travelAgents @ context="scriptString" }';
+                            </script>
+                        </div>
+                        <div id="findTravelAgents-more">
+                            <span>${'view-more' @ i18n}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div id="map-findTravelAgent2019"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3-LJxp0C5GMuKL9QrNg4UirWx6IcdgNo&callback&libraries=places"></script>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Custom Teaser"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            margin="{Boolean}false"
+            type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <customteaser
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Global options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <type
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Type"
+                                name="./type">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <automatic
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Automatic"
+                                        value="automatic"/>
+                                    <manual
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Manual"
+                                        value="manual"/>
+                                </items>
+                            </type>
+                            <targetPath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Target path (both type)"
+                                name="./targetPath"
+                                rootPath="/content/silversea-com"/>
+                            <labelImage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="Label image (both type)"
+                                name="./labelImage" />
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="Title (manual type)"
+                                name="./jcr:title" />
+                            <description
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                fieldLabel="Description (manual type)"
+                                name="./jcr:description"/>
+                            <imagePath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Image path (manual type)"
+                                name="./imagePath"
+                                rootPath="/content/dam/silversea-com"/>
+                        </items>
+                    </column>
+                </items>
+            </customteaser>
+            <desktop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<heightDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="170"
+                                fieldDescription="Set box min-height"
+                                fieldLabel="Min height"
+                                min="0"
+                                name="./heightDesktop"/>
+                            <imageHeightDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="330"
+                                fieldDescription="Image height"
+                                fieldLabel="Image height"
+                                min="0"
+                                name="./imageHeightDesktop"/>
+                           <titleFontSizeDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="22"
+                                fieldDescription="Font size title"
+                                fieldLabel="Font size title"
+                                min="0"
+                                name="./titleFontSizeDesktop"/>
+                           <descriptionFontSizeDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="13"
+                                fieldDescription="Font size description"
+                                fieldLabel="Font size description"
+                                min="0"
+                                name="./descriptionFontSizeDesktop"/>
+                           <fontSizeLabelImageDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="12"
+                                fieldDescription="Font size label image"
+                                fieldLabel="Font size label image"
+                                min="0"
+                                name="./fontSizeLabelImageDesktop"/>
+                           <showBorderDesktop
+                                jcr:primaryType="nt:unstructured"
+                                text="Show border"
+                                name="./showBorderDesktop"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <mobile
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Mobile options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<heightMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="150"
+                                fieldDescription="Set box min-height"
+                                fieldLabel="Min height"
+                                min="0"
+                                name="./heightMobile"/>
+                            <imageHeightMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="220"
+                                fieldDescription="Image height"
+                                fieldLabel="Image height"
+                                min="0"
+                                name="./imageHeightMobile"/>
+                           <titleFontSizeMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="24"
+                                fieldDescription="Font size title"
+                                fieldLabel="Font size title"
+                                min="0"
+                                name="./titleFontSizeMobile"/>
+                           <descriptionFontSizeMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="13"
+                                fieldDescription="Font size description"
+                                fieldLabel="Font size description"
+                                min="0"
+                                name="./descriptionFontSizeMobile"/>
+                            <fontSizeLabelImageMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="12"
+                                fieldDescription="Font size label image"
+                                fieldLabel="Font size label image"
+                                min="0"
+                                name="./fontSizeLabelImageMobile"/>
+                           <showBorderMobile
+                                jcr:primaryType="nt:unstructured"
+                                text="Show border"
+                                name="./showBorderMobile"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

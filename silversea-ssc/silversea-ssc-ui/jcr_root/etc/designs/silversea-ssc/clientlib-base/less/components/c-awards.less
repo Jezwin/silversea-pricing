@@ -1,0 +1,38 @@
+.c-awards {
+
+    .row-centered {
+        text-align:center;
+    }
+    .col-centered {
+        display:inline-block;
+        float:none;
+        text-align:left;
+        margin-right:-4px;
+        text-align: center;
+        margin-bottom: 10px;
+        vertical-align: middle;
+    }
+
+    .col-xs-4 {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+	&__title {
+	color: @color-typography;
+        font-family: @suisse;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        line-height: 19px;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 30px;
+
+        @media(max-width: @screen-sm) {
+            font-size: 12px;
+            letter-spacing: 1px;
+            line-height: 14px;
+            margin-bottom: 20px;
+        }
+	}
+}

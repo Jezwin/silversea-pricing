@@ -1,0 +1,42 @@
+<div data-sly-test.empty="${ wcmmode.edit}" class="cq-placeholder cq-dd-image"
+     data-emptytext="Hero banner destination ND - (#c-hero-banner-destination-${properties.sscUUID})"></div>
+<sly data-sly-use.banner="com.silversea.ssc.aem.components.editorial.HeroBannerDestination">
+
+    <sly data-sly-use.heroBannerTemplate="silversea/silversea-ssc/components/editorial/heroBannerDestinationND/destination.html"
+         data-sly-use.heroBannerHomepageTemplate="silversea/silversea-ssc/components/editorial/heroBannerDestinationND/homepage.html">
+        <sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
+             data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height', localized=true}"
+             data-sly-use.pixelClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='maxHeight,marginBottom,marginTop'}">
+            <sly data-sly-test.imgId="#${banner.randomId}"/>
+            <sly data-sly-call="${ heroBannerTemplate.coverBackground @ banner=banner, properties=properties, id=imgId}"/>
+            <sly data-sly-test="${properties.style!='homepage'}"
+                 data-sly-call="${ heroBannerTemplate.default @ banner=banner, pageHelper=pageHelper, heightClass=heightClass, pixelClass=pixelClass}"/>
+            <sly data-sly-test="${properties.style=='homepage'}"
+                 data-sly-call="${ heroBannerHomepageTemplate.default @ banner=banner, pageHelper=pageHelper, heightClass=heightClass, pixelClass=pixelClass}"/>
+        </sly>
+    </sly>
+
+    <style>
+        @media (min-width: 992px) {
+            /*@screen-lg-min*/
+        ${properties.customCssDesktop @ context = 'html'}
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            /* @screen-md-min @screen-md-max*/
+        ${properties.customCssTablet @ context = 'html'}
+        }
+
+        @media (max-width: 767px) {
+            /* @screen-sm */
+        ${properties.customCssMobile @ context = 'html'}
+        }
+
+    </style>
+
+    <style data-sly-test="${properties.forceNoMarginBottom}">
+        .heroBannerDestinationND {
+            margin-bottom: 0px !important;
+        }
+    </style>
+</sly>

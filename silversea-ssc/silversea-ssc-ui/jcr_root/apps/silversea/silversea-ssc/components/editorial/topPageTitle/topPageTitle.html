@@ -1,0 +1,114 @@
+<!-- START topPageTitle -->
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image"
+     data-emptytext="SSC - Top Page Title - (#tpt-${properties.sscUUID})"></div>
+<div id="tpt-${properties.sscUUID}"
+     class="top-page-title col-md-12">
+    <div class=" col-md-12 ">
+        <div class="title"
+             style="
+                --td-font-size:     ${properties.titleDesktopFontSize @ context='styleToken'}px;
+		 		--td-padding-top:   ${properties.titleDesktopPaddingTop @ context='styleToken'}px;
+		 		--td-padding-bottom:${properties.titleDesktopPaddingBottom @ context='styleToken'}px;
+		 		--td-margin-top:    ${properties.titleDesktopMarginTop @ context='styleToken'}px;
+		 		--td-margin-bottom: ${properties.titleDesktopMarginBottom @ context='styleToken'}px;
+		 		--tt-font-size:     ${properties.titleTabletFontSize @ context='styleToken'}px;
+		 		--tt-padding-top:   ${properties.titleTabletPaddingTop @ context='styleToken'}px;
+		 		--tt-padding-bottom:${properties.titleTabletPaddingBottom @ context='styleToken'}px;
+		 		--tt-margin-top:    ${properties.titleTabletMarginTop @ context='styleToken'}px;
+		 		--tt-margin-bottom: ${properties.titleTabletMarginBottom @ context='styleToken'}px;
+		 		--tm-font-size:     ${properties.titleMobileFontSize @ context='styleToken'}px;
+		 		--tm-padding-top:   ${properties.titleMobilePaddingTop @ context='styleToken'}px;
+		 		--tm-padding-bottom:${properties.titleMobilePaddingBottom @ context='styleToken'}px;
+		 		--tm-margin-top:    ${properties.titleMobileMarginTop @ context='styleToken'}px;
+		 		--tm-margin-bottom: ${properties.titleMobileMarginBottom @ context='styleToken'}px;
+	"  data-ie-style="--td-font-size:     ${properties.titleDesktopFontSize @ context='styleToken'}px;
+				--td-padding-top:   ${properties.titleDesktopPaddingTop @ context='styleToken'}px;
+				--td-padding-bottom:${properties.titleDesktopPaddingBottom @ context='styleToken'}px;
+				--td-margin-top:    ${properties.titleDesktopMarginTop @ context='styleToken'}px;
+				--td-margin-bottom: ${properties.titleDesktopMarginBottom @ context='styleToken'}px;
+				--tt-font-size:     ${properties.titleTabletFontSize @ context='styleToken'}px;
+				--tt-padding-top:   ${properties.titleTabletPaddingTop @ context='styleToken'}px;
+				--tt-padding-bottom:${properties.titleTabletPaddingBottom @ context='styleToken'}px;
+				--tt-margin-top:    ${properties.titleTabletMarginTop @ context='styleToken'}px;
+				--tt-margin-bottom: ${properties.titleTabletMarginBottom @ context='styleToken'}px;
+				--tm-font-size:     ${properties.titleMobileFontSize @ context='styleToken'}px;
+				--tm-padding-top:   ${properties.titleMobilePaddingTop @ context='styleToken'}px;
+				--tm-padding-bottom:${properties.titleMobilePaddingBottom @ context='styleToken'}px;
+				--tm-margin-top:    ${properties.titleMobileMarginTop @ context='styleToken'}px;
+				--tm-margin-bottom: ${properties.titleMobileMarginBottom @ context='styleToken'}px;
+				">
+            ${properties.title @ context='html'}
+        </div>
+        <div class="subtitle"
+             style="
+                --sd-font-size:         ${properties.subtitleDesktopFontSize @ context='styleToken'}px;
+                --sd-padding-top:       ${properties.subtitleDesktopPaddingTop @ context='styleToken'}px;
+		 		--sd-padding-bottom:    ${properties.subtitleDesktopPaddingBottom @ context='styleToken'}px;
+                --sd-margin-top:        ${properties.subtitleDesktopMarginTop @ context='styleToken'}px;
+		 		--sd-margin-bottom:     ${properties.subtitleDesktopMarginBottom @ context='styleToken'}px;
+		 		--st-font-size:         ${properties.subtitleTabletFontSize @ context='styleToken'}px;
+		 		--st-padding-top:       ${properties.subtitleTabletPaddingTop @ context='styleToken'}px;
+		 		--st-padding-bottom:    ${properties.subtitleTabletPaddingBottom @ context='styleToken'}px;
+		 		--st-margin-top:        ${properties.subtitleTabletMarginTop @ context='styleToken'}px;
+		 		--st-margin-bottom:     ${properties.subtitleTabletMarginBottom @ context='styleToken'}px;
+		 		--sm-font-size:         ${properties.subtitleMobileFontSize @ context='styleToken'}px;
+		 		--sm-padding-top:       ${properties.subtitleMobilePaddingTop @ context='styleToken'}px;
+                --sm-padding-bottom:    ${properties.subtitleMobilePaddingBottom @ context='styleToken'}px;
+		 		--sm-margin-top:        ${properties.subtitleMobileMarginTop @ context='styleToken'}px;
+                --sm-margin-bottom:     ${properties.subtitleMobileMarginBottom @ context='styleToken'}px;
+	" data-ie-style="--sd-font-size:         ${properties.subtitleDesktopFontSize @ context='styleToken'}px;
+				--sd-padding-top:       ${properties.subtitleDesktopPaddingTop @ context='styleToken'}px;
+				--sd-padding-bottom:    ${properties.subtitleDesktopPaddingBottom @ context='styleToken'}px;
+				--sd-margin-top:        ${properties.subtitleDesktopMarginTop @ context='styleToken'}px;
+				--sd-margin-bottom:     ${properties.subtitleDesktopMarginBottom @ context='styleToken'}px;
+				--st-font-size:         ${properties.subtitleTabletFontSize @ context='styleToken'}px;
+				--st-padding-top:       ${properties.subtitleTabletPaddingTop @ context='styleToken'}px;
+				--st-padding-bottom:    ${properties.subtitleTabletPaddingBottom @ context='styleToken'}px;
+				--st-margin-top:        ${properties.subtitleTabletMarginTop @ context='styleToken'}px;
+				--st-margin-bottom:     ${properties.subtitleTabletMarginBottom @ context='styleToken'}px;
+				--sm-font-size:         ${properties.subtitleMobileFontSize @ context='styleToken'}px;
+				--sm-padding-top:       ${properties.subtitleMobilePaddingTop @ context='styleToken'}px;
+				--sm-padding-bottom:    ${properties.subtitleMobilePaddingBottom @ context='styleToken'}px;
+				--sm-margin-top:        ${properties.subtitleMobileMarginTop @ context='styleToken'}px;
+				--sm-margin-bottom:     ${properties.subtitleMobileMarginBottom @ context='styleToken'}px;
+				">
+            ${properties.subtitle @ context='html'}
+        </div>
+        <div class="description"
+             style="--dd-font-size:         ${properties.descriptionDesktopFontSize @ context='styleToken'}px;
+                --dd-padding-top:       ${properties.descriptionDesktopPaddingTop @ context='styleToken'}px;
+		 		--dd-padding-bottom:    ${properties.descriptionDesktopPaddingBottom @ context='styleToken'}px;
+                --dd-margin-top:        ${properties.descriptionDesktopMarginTop @ context='styleToken'}px;
+		 		--dd-margin-bottom:     ${properties.descriptionDesktopMarginBottom @ context='styleToken'}px;
+                --dt-font-size:         ${properties.descriptionTabletFontSize @ context='styleToken'}px;
+		 		--dt-padding-top:       ${properties.descriptionTabletPaddingTop @ context='styleToken'}px;
+		 		--dt-padding-bottom:    ${properties.descriptionTabletPaddingBottom @ context='styleToken'}px;
+		 		--dt-margin-top:        ${properties.descriptionTabletMarginTop @ context='styleToken'}px;
+		 		--dt-margin-bottom:     ${properties.descriptionTabletMarginBottom @ context='styleToken'}px;
+                --dm-font-size:         ${properties.descriptionMobileFontSize @ context='styleToken'}px;
+		 		--dm-padding-top:       ${properties.descriptionMobilePaddingTop @ context='styleToken'}px;
+		 		--dm-padding-bottom:    ${properties.descriptionMobilePaddingBottom @ context='styleToken'}px;
+		 		--dm-margin-top:        ${properties.descriptionMobileMarginTop @ context='styleToken'}px;
+		 		--dm-margin-bottom:     ${properties.descriptionMobileMarginBottom @ context='styleToken'}px;
+	" data-ie-style="--dd-font-size:         ${properties.descriptionDesktopFontSize @ context='styleToken'}px;
+				--dd-padding-top:       ${properties.descriptionDesktopPaddingTop @ context='styleToken'}px;
+				--dd-padding-bottom:    ${properties.descriptionDesktopPaddingBottom @ context='styleToken'}px;
+				--dd-margin-top:        ${properties.descriptionDesktopMarginTop @ context='styleToken'}px;
+				--dd-margin-bottom:     ${properties.descriptionDesktopMarginBottom @ context='styleToken'}px;
+				--dt-font-size:         ${properties.descriptionTabletFontSize @ context='styleToken'}px;
+				--dt-padding-top:       ${properties.descriptionTabletPaddingTop @ context='styleToken'}px;
+				--dt-padding-bottom:    ${properties.descriptionTabletPaddingBottom @ context='styleToken'}px;
+				--dt-margin-top:        ${properties.descriptionTabletMarginTop @ context='styleToken'}px;
+				--dt-margin-bottom:     ${properties.descriptionTabletMarginBottom @ context='styleToken'}px;
+				--dm-font-size:         ${properties.descriptionMobileFontSize @ context='styleToken'}px;
+				--dm-padding-top:       ${properties.descriptionMobilePaddingTop @ context='styleToken'}px;
+				--dm-padding-bottom:    ${properties.descriptionMobilePaddingBottom @ context='styleToken'}px;
+				--dm-margin-top:        ${properties.descriptionMobileMarginTop @ context='styleToken'}px;
+				--dm-margin-bottom:     ${properties.descriptionMobileMarginBottom @ context='styleToken'}px;
+				">
+            ${properties.text @ context='html'}
+        </div>
+
+    </div>
+</div>
+<!-- END topPageTitle -->

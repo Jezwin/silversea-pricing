@@ -1,0 +1,24 @@
+<div data-sly-test="${(wcmmode.edit || wcmmode.design)}"
+     class="cq-placeholder" data-emptytext="SSC - Teaser List vanity Component"></div>
+
+ <div id="c-teaser-list-vanity-${properties.sscUUID}" class="c-teaser-list-vanity" data-sly-use.teaserVanities="com.silversea.ssc.aem.components.editorial.TeaserListVanityUse">
+	<div class="row row-centered">
+        <div class="center">
+         <sly data-sly-list.vanity="${teaserVanities.vanityPages}">
+             <sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=vanity.pagePath}" />
+
+              <div class="col-md-2 col-xs-6 col-centered c-teaser-item">
+                  <a href="https://www.silversea.com/${target.page.vanityUrl}.html">
+                  <sly data-sly-test.image="${vanity.image || target.thumbnail}"></sly>
+                  <div data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"  data-sly-call="${imageTemplate.respWidth @ imagePath=image, Width='550'}" class="c-teaser-item-image"></div>
+                  <div class="c-teaser-item-title">
+                      ${vanity.title || target.page.navigationTitle}
+                  </div>
+             </a>
+              </div>
+
+
+         </sly>
+        </div>
+    </div>
+ </div>

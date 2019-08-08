@@ -1,0 +1,24 @@
+<template data-sly-template.target>
+	<section data-sly-test="${properties.reference}" class="c-signature-teaser c-signature-teaser--style1" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" 
+	    data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html">
+	    <div class="c-signature-teaser__image-wrapper">
+	        <sly data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}"></sly>
+	    </div>
+	    <div class="caption c-signature-teaser__caption">
+	        <span class="c-signature-teaser__title">${target.page.navigationTitle || target.page.title}</span>
+	    </div>
+	    <a class="c-signature-teaser__link--block" href="${target.page.path @ extension='html'}"></a>
+	</section>
+</template>
+<template data-sly-template.custom>
+	<section class="c-signature-teaser c-signature-teaser--style1"
+	    data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html">
+	    <div class="c-signature-teaser__image-wrapper">
+	        <sly data-sly-call="${imageTemplate.resp @ imagePath=properties.customImage}"></sly>
+	    </div>
+	    <div class="caption c-signature-teaser__caption">
+	        <span class="c-signature-teaser__title">${properties.customTitle}</span>
+	    </div>
+	    <a class="c-signature-teaser__link--block" href="${properties.customLink @ extension='html'}"></a>
+	</section>
+</template>

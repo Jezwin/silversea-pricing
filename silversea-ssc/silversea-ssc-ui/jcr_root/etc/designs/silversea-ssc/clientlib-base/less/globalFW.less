@@ -1,0 +1,1529 @@
+@import "globalFW/desktop/viewHeightDesktopFW.less";
+@import "globalFW/tablet/viewHeightTabletFW.less";
+@import "globalFW/mobile/viewHeightMobileFW.less";
+
+@import "globalFW/dimensionFW.less";
+/*
+@import "globalFW/desktop/maxHeightDesktopFW.less"; 
+@import "globalFW/tablet/maxHeightTabletFW.less";
+@import "globalFW/mobile/maxHeightMobileFW.less";
+*/
+
+.btn-common-style-2018 {
+  letter-spacing: 1.5px;
+  line-height: 16px;
+  text-transform: uppercase;
+  border-radius: 0;
+  min-width: 230px;
+  padding: 14px 20px 11px 20px;
+  font-size: 13px;
+
+  span {
+    font-family: @suisse !important;
+    font-weight: normal;
+  }
+	i{
+		display: inline-block !important;
+	}
+
+}
+
+.btn-red-2018 {
+  .btn-common-style-2018();
+  color: @white !important;
+  background-color: @nd-red !important;
+  &:hover {
+    background-color: @nd-red-darker !important;
+  }
+}
+
+.btn-purple {
+  .btn-common-style-2018();
+  color: @white !important;
+  background-color: @color-second;
+  opacity: 0.9 !important;
+  &:hover {
+    opacity: 1.0 !important;
+  }
+}
+
+.btn-black-border-white {
+  .btn-common-style-2018();
+    color: @white !important;
+	background-color: @black !important;
+	border: 1px solid fade(@white, 50%) !important;
+	&:hover {
+		border: 1px solid fade(@white, 100%) !important;
+	}
+	i{
+		display: inline-block;
+	}
+}
+
+.btn-transparent-border-white {
+	.btn-common-style-2018();
+	color: @white !important;
+	background-color: transparent !important;
+	border: 1px solid fade(@white, 50%) !important;
+	&:hover {
+		border: 1px solid fade(@white, 100%) !important;
+	}
+	i{
+		display: inline-block;
+	}
+}
+
+.btn-white-border-purple {
+  .btn-common-style-2018();
+    color: @color-second !important;
+	background-color: @white !important;
+	border: 1px solid fade(@color-second, 50%) !important;
+	&:hover {
+		border: 1px solid fade(@color-second, 100%) !important;
+        color: @color-second !important;
+    }
+	i{
+		display: inline-block;
+	}
+}
+
+.btn-purple-link {
+  .btn-common-style-2018();
+  color: @color-second !important;
+  i {
+    color: @color-second !important;
+    margin-left: 4px !important;
+    vertical-align: -6% !important;
+    font-size: 1.5em !important;
+    float: none !important;
+	  display: inline-block;
+  }
+}
+
+.btn-white-link {
+  .btn-common-style-2018();
+  color: @white !important;
+  i {
+    color: @white !important;
+    margin-left: 4px !important;
+    vertical-align: -6% !important;
+    font-size: 1.5em !important;
+    float: none !important;
+	  display: inline-block;
+  }
+}
+
+//Desktop 
+@media (min-width:992px){
+
+	.showDesktop {
+		display: initial !important;
+	}
+	.hideDesktop {
+		display: none !important;
+	}
+	.textDesktopLeft {
+		text-align: left !important;
+	}
+	.textDesktopCenter {
+		text-align: center !important;
+	}
+	.textDesktopRight {
+		text-align: right !important;
+	}
+	.heightDesktop1 {
+		height: 1px !important;
+	}
+	.heightDesktop1 {
+		height: 1px !important;
+	}
+	.heightDesktop2 {
+		height: 2px !important;
+	}
+	.heightDesktop3 {
+		height: 3px !important;
+	}
+	.heightDesktop4 {
+		height: 4px !important;
+	}
+	.marginTopDesktop0{
+		margin-top:0px !important;
+	}
+	.marginTopDesktop5{
+		margin-top:5px !important;
+	}
+	.marginTopDesktop10{
+		margin-top:10px !important;
+	}
+	.marginTopDesktop15{
+		margin-top:15px !important;
+	}
+	.marginTopDesktop20{
+		margin-top:20px !important;
+	}
+	.marginTopDesktop25{
+		margin-top:25px !important;
+	}
+	.marginTopDesktop30{
+		margin-top:30px !important;
+	}
+	.marginTopDesktop35{
+		margin-top:35px !important;
+	}
+	.marginTopDesktop40{
+		margin-top:40px !important;
+	}
+	.marginBottomDesktop0{
+		margin-bottom:0px !important;
+	}
+	.marginBottomDesktop5{
+		margin-bottom:5px !important;
+	}
+	.marginBottomDesktop10{
+		margin-bottom:10px !important;
+	}
+	.marginBottomDesktop15{
+		margin-bottom:15px !important;
+	}
+	.marginBottomDesktop20{
+		margin-bottom:20px !important;
+	}
+	.marginBottomDesktop25{
+		margin-bottom:25px !important;
+	}
+	.marginBottomDesktop30{
+		margin-bottom:30px !important;
+	}
+	.marginBottomDesktop35{
+		margin-bottom:35px !important;
+	}
+	.marginBottomDesktop40{
+		margin-bottom:40px !important;
+	}
+
+	.marginTopDesktopMinus5{
+		margin-top:-5px !important;
+	}
+	.marginTopDesktopMinus10{
+		margin-top:-10px !important;
+	}
+	.marginTopDesktopMinus15{
+		margin-top:-15px !important;
+	}
+	.marginTopDesktopMinus20{
+		margin-top:-20px !important;
+	}
+	.marginBottomDesktopMinus5{
+		margin-bottom:-5px !important;
+	}
+	.marginBottomDesktopMinus10{
+		margin-bottom:-10px !important;
+	}
+	.marginBottomDesktopMinus15{
+		margin-bottom:-15px !important;
+	}
+	.marginBottomDesktopMinus20{
+		margin-bottom:-20px !important;
+	}
+	.paddingTopDesktopMinus5{
+		padding-top:-5px !important;
+	}
+	.paddingTopDesktopMinus10{
+		padding-top:-10px !important;
+	}
+	.paddingTopDesktopMinus15{
+		padding-top:-15px !important;
+	}
+	.paddingTopDesktopMinus20{
+		padding-top:-20px !important;
+	}
+	.paddingBottomDesktopMinus5{
+		padding-bottom:-5px !important;
+	}
+	.paddingBottomDesktopMinus10{
+		padding-bottom:-10px !important;
+	}
+	.paddingBottomDesktopMinus15{
+		padding-bottom:-15px !important;
+	}
+	.paddingBottomDesktopMinus20{
+		padding-bottom:-20px !important;
+	}
+
+    .marginTopDesktop-5{
+		margin-top:-5px !important;
+	}
+	.marginTopDesktop-10{
+		margin-top:-10px !important;
+	}
+	.marginTopDesktop-15{
+		margin-top:-15px !important;
+	}
+	.marginTopDesktop-20{
+		margin-top:-20px !important;
+	}
+	.marginBottomDesktop-5{
+		margin-bottom:-5px !important;
+	}
+	.marginBottomDesktop-10{
+		margin-bottom:-10px !important;
+	}
+	.marginBottomDesktop-15{
+		margin-bottom:-15px !important;
+	}
+	.marginBottomDesktop-20{
+		margin-bottom:-20px !important;
+	}
+
+	.forceDisplayBlockDesktop{
+		display:block !important;
+	}
+
+	.widthDesktop50 {
+    	width: 50px !important;
+	}
+	.widthDesktop55 {
+	    width: 55px !important;
+	}
+	.widthDesktop60 {
+	    width: 60px !important;
+	}
+	.widthDesktop65 {
+	    width: 65px !important;
+	}
+	.widthDesktop70 {
+	    width: 70px !important;
+	}
+	.widthDesktop75 {
+	    width: 75px !important;
+	}
+	.widthDesktop80 {
+	    width: 80px !important;
+	}
+	.widthDesktop85 {
+	    width: 85px !important;
+	}
+	.widthDesktop90 {
+	    width: 90px !important;
+	}
+	.widthDesktop95 {
+	    width: 95px !important;
+	}
+	.widthDesktop100 {
+	    width: 100px !important;
+	}
+	.widthDesktop105 {
+	    width: 105px !important;
+	}
+	.widthDesktop110 {
+	    width: 110px !important;
+	}
+	.widthDesktop115 {
+	    width: 115px !important;
+	}
+	.widthDesktop120 {
+	    width: 120px !important;
+	}
+	.widthDesktop125 {
+	    width: 125px !important;
+	}
+	.widthDesktop130 {
+	    width: 130px !important;
+	}
+	.widthDesktop135 {
+	    width: 135px !important;
+	}
+	.widthDesktop140 {
+	    width: 140px !important;
+	}
+	.widthDesktop145 {
+	    width: 145px !important;
+	}
+	.widthDesktop150 {
+	    width: 150px !important;
+	}
+	.widthDesktop155 {
+	    width: 155px !important;
+	}
+	.widthDesktop160 {
+	    width: 160px !important;
+	}
+	.widthDesktop165 {
+	    width: 165px !important;
+	}
+	.widthDesktop170 {
+	    width: 170px !important;
+	}
+	.widthDesktop175 {
+	    width: 175px !important;
+	}
+	.widthDesktop180 {
+	    width: 180px !important;
+	}
+	.widthDesktop185 {
+	    width: 185px !important;
+	}
+	.widthDesktop190 {
+	    width: 190px !important;
+	}
+	.widthDesktop195 {
+	    width: 195px !important;
+	}
+	.widthDesktop200 {
+	    width: 200px !important;
+	}
+	.widthDesktop205 {
+	    width: 205px !important;
+	}
+	.widthDesktop210 {
+	    width: 210px !important;
+	}
+	.widthDesktop215 {
+	    width: 215px !important;
+	}
+	.widthDesktop220 {
+	    width: 220px !important;
+	}
+	.widthDesktop225 {
+	    width: 225px !important;
+	}
+	.widthDesktop230 {
+	    width: 230px !important;
+	}
+	.widthDesktop235 {
+	    width: 235px !important;
+	}
+	.widthDesktop240 {
+	    width: 240px !important;
+	}
+	.widthDesktop245 {
+	    width: 245px !important;
+	}
+	.widthDesktop250 {
+	    width: 250px !important;
+	}
+	.widthDesktop255 {
+	    width: 255px !important;
+	}
+	.widthDesktop260 {
+	    width: 260px !important;
+	}
+	.widthDesktop265 {
+	    width: 265px !important;
+	}
+	.widthDesktop270 {
+	    width: 270px !important;
+	}
+	.widthDesktop275 {
+	    width: 275px !important;
+	}
+	.widthDesktop280 {
+	    width: 280px !important;
+	}
+	.widthDesktop285 {
+	    width: 285px !important;
+	}
+	.widthDesktop290 {
+	    width: 290px !important;
+	}
+	.widthDesktop295 {
+	    width: 295px !important;
+	}
+	.widthDesktop300 {
+	    width: 300px !important;
+	}
+	.widthDesktop305 {
+	    width: 305px !important;
+	}
+	.widthDesktop310 {
+	    width: 310px !important;
+	}
+	.widthDesktop315 {
+	    width: 315px !important;
+	}
+	.widthDesktop320 {
+	    width: 320px !important;
+	}
+	.widthDesktop325 {
+	    width: 325px !important;
+	}
+	.widthDesktop330 {
+	    width: 330px !important;
+	}
+	.widthDesktop335 {
+	    width: 335px !important;
+	}
+	.widthDesktop340 {
+	    width: 340px !important;
+	}
+	.widthDesktop345 {
+	    width: 345px !important;
+	}
+	.widthDesktop350 {
+	    width: 350px !important;
+	}
+	.widthDesktop355 {
+	    width: 355px !important;
+	}
+	.widthDesktop360 {
+	    width: 360px !important;
+	}
+	.widthDesktop365 {
+	    width: 365px !important;
+	}
+	.widthDesktop370 {
+	    width: 370px !important;
+	}
+	.widthDesktop375 {
+	    width: 375px !important;
+	}
+	.widthDesktop380 {
+	    width: 380px !important;
+	}
+	.widthDesktop385 {
+	    width: 385px !important;
+	}
+	.widthDesktop390 {
+	    width: 390px !important;
+	}
+	.widthDesktop395 {
+	    width: 395px !important;
+	}
+	.widthDesktop400 {
+	    width: 400px !important;
+	}
+	.widthDesktop405 {
+	    width: 405px !important;
+	}
+	.widthDesktop410 {
+	    width: 410px !important;
+	}
+	.widthDesktop415 {
+	    width: 415px !important;
+	}
+	.widthDesktop420 {
+	    width: 420px !important;
+	}
+	.widthDesktop425 {
+	    width: 425px !important;
+	}
+	.widthDesktop430 {
+	    width: 430px !important;
+	}
+	.widthDesktop435 {
+	    width: 435px !important;
+	}
+	.widthDesktop440 {
+	    width: 440px !important;
+	}
+	.widthDesktop445 {
+	    width: 445px !important;
+	}
+	.widthDesktop450 {
+	    width: 450px !important;
+	}
+	.widthDesktop455 {
+	    width: 455px !important;
+	}
+	.widthDesktop460 {
+	    width: 460px !important;
+	}
+	.widthDesktop465 {
+	    width: 465px !important;
+	}
+	.widthDesktop470 {
+	    width: 470px !important;
+	}
+	.widthDesktop475 {
+	    width: 475px !important;
+	}
+	.widthDesktop480 {
+	    width: 480px !important;
+	}
+	.widthDesktop485 {
+	    width: 485px !important;
+	}
+	.widthDesktop490 {
+	    width: 490px !important;
+	}
+	.widthDesktop495 {
+	    width: 495px !important;
+	}
+	.widthDesktop500 {
+	    width: 500px !important;
+	}
+	.widthDesktop505 {
+	    width: 505px !important;
+	}
+	.widthDesktop510 {
+	    width: 510px !important;
+	}
+	.widthDesktop515 {
+	    width: 515px !important;
+	}
+	.widthDesktop520 {
+	    width: 520px !important;
+	}
+
+}
+
+//Tablet
+@media(min-width:768px) and (max-width:991px){
+
+	.textTabletLeft {
+		text-align: left !important;
+	}
+	.textTabletCenter {
+		text-align: center !important;
+	}
+	.textTabletRight {
+		text-align: right !important;
+	}
+
+	.showTablet {
+		display: initial !important;
+	}
+	.hideTablet {
+		display: none !important;
+	}
+	.heightTablet1 {
+		height: 1px !important;
+	}
+	.heightTablet1 {
+		height: 1px !important;
+	}
+	.heightTablet2 {
+		height: 2px !important;
+	}
+	.heightTablet3 {
+		height: 3px !important;
+	}
+	.heightTablet4 {
+		height: 4px !important;
+	}
+
+	.marginTopTablet0{
+		margin-top:0px !important;
+	}
+	.marginTopTablet5{
+		margin-top:5px !important;
+	}
+	.marginTopTablet10{
+		margin-top:10px !important;
+	}
+	.marginTopTablet15{
+		margin-top:15px !important;
+	}
+	.marginTopTablet20{
+		margin-top:20px !important;
+	}
+	.marginTopTablet25{
+		margin-top:25px !important;
+	}
+	.marginTopTablet30{
+		margin-top:30px !important;
+	}
+	.marginTopTablet35{
+		margin-top:35px !important;
+	}
+	.marginTopTablet40{
+		margin-top:40px !important;
+	}
+	.marginBottomTablet0{
+		margin-bottom:0px !important;
+	}
+	.marginBottomTablet5{
+		margin-bottom:5px !important;
+	}
+	.marginBottomTablet10{
+		margin-bottom:10px !important;
+	}
+	.marginBottomTablet15{
+		margin-bottom:15px !important;
+	}
+	.marginBottomTablet20{
+		margin-bottom:20px !important;
+	}
+	.marginBottomTablet25{
+		margin-bottom:25px !important;
+	}
+	.marginBottomTablet30{
+		margin-bottom:30px !important;
+	}
+	.marginBottomTablet35{
+		margin-bottom:35px !important;
+	}
+	.marginBottomTablet40{
+		margin-bottom:40px !important;
+	}
+
+	.marginTopTabletMinus5{
+		margin-top:-5px !important;
+	}
+	.marginTopTabletMinus10{
+		margin-top:-10px !important;
+	}
+	.marginTopTabletMinus15{
+		margin-top:-15px !important;
+	}
+	.marginTopTabletMinus20{
+		margin-top:-20px !important;
+	}
+	.marginBottomTabletMinus5{
+		margin-bottom:-5px !important;
+	}
+	.marginBottomTabletMinus10{
+		margin-bottom:-10px !important;
+	}
+	.marginBottomTabletMinus15{
+		margin-bottom:-15px !important;
+	}
+	.marginBottomTabletMinus20{
+		margin-bottom:-20px !important;
+	}
+	.paddingTopTabletMinus5{
+		padding-top:-5px !important;
+	}
+	.paddingTopTabletMinus10{
+		padding-top:-10px !important;
+	}
+	.paddingTopTabletMinus15{
+		padding-top:-15px !important;
+	}
+	.paddingTopTabletMinus20{
+		padding-top:-20px !important;
+	}
+	.paddingBottomTabletMinus5{
+		padding-bottom:-5px !important;
+	}
+	.paddingBottomTabletMinus10{
+		padding-bottom:-10px !important;
+	}
+	.paddingBottomTabletMinus15{
+		padding-bottom:-15px !important;
+	}
+	.paddingBottomTabletMinus20{
+		padding-bottom:-20px !important;
+	}
+
+    .marginTopTablet-5{
+		margin-top:-5px !important;
+	}
+	.marginTopTablet-10{
+		margin-top:-10px !important;
+	}
+	.marginTopTablet-15{
+		margin-top:-15px !important;
+	}
+	.marginTopTablet-20{
+		margin-top:-20px !important;
+	}
+	.marginBottomTablet-5{
+		margin-bottom:-5px !important;
+	}
+	.marginBottomTablet-10{
+		margin-bottom:-10px !important;
+	}
+	.marginBottomTablet-15{
+		margin-bottom:-15px !important;
+	}
+	.marginBottomTablet-20{
+		margin-bottom:-20px !important;
+	}
+	.paddingTopTablet-5{
+		padding-top:-5px !important;
+	}
+	.paddingTopTablet-10{
+		padding-top:-10px !important;
+	}
+	.paddingTopTablet-15{
+		padding-top:-15px !important;
+	}
+	.paddingTopTablet-20{
+		padding-top:-20px !important;
+	}
+	.paddingBottomTablet-5{
+		padding-bottom:-5px !important;
+	}
+	.paddingBottomTablet-10{
+		padding-bottom:-10px !important;
+	}
+	.paddingBottomTablet-15{
+		padding-bottom:-15px !important;
+	}
+	.paddingBottomTablet-20{
+		padding-bottom:-20px !important;
+	}
+
+	.forceDisplayBlockTablet{
+		display:block !important;
+	}
+	.widthTablet50 {
+	    width: 50px !important;
+	}
+	.widthTablet55 {
+	    width: 55px !important;
+	}
+	.widthTablet60 {
+	    width: 60px !important;
+	}
+	.widthTablet65 {
+	    width: 65px !important;
+	}
+	.widthTablet70 {
+	    width: 70px !important;
+	}
+	.widthTablet75 {
+	    width: 75px !important;
+	}
+	.widthTablet80 {
+	    width: 80px !important;
+	}
+	.widthTablet85 {
+	    width: 85px !important;
+	}
+	.widthTablet90 {
+	    width: 90px !important;
+	}
+	.widthTablet95 {
+	    width: 95px !important;
+	}
+	.widthTablet100 {
+	    width: 100px !important;
+	}
+	.widthTablet105 {
+	    width: 105px !important;
+	}
+	.widthTablet110 {
+	    width: 110px !important;
+	}
+	.widthTablet115 {
+	    width: 115px !important;
+	}
+	.widthTablet120 {
+	    width: 120px !important;
+	}
+	.widthTablet125 {
+	    width: 125px !important;
+	}
+	.widthTablet130 {
+	    width: 130px !important;
+	}
+	.widthTablet140 {
+	    width: 140px !important;
+	}
+	.widthTablet145 {
+	    width: 145px !important;
+	}
+	.widthTablet150 {
+	    width: 150px !important;
+	}
+	.widthTablet155 {
+	    width: 155px !important;
+	}
+	.widthTablet160 {
+	    width: 160px !important;
+	}
+	.widthTablet165 {
+	    width: 165px !important;
+	}
+	.widthTablet170 {
+	    width: 170px !important;
+	}
+	.widthTablet175 {
+	    width: 175px !important;
+	}
+	.widthTablet180 {
+	    width: 180px !important;
+	}
+	.widthTablet185 {
+	    width: 185px !important;
+	}
+	.widthTablet190 {
+	    width: 190px !important;
+	}
+	.widthTablet195 {
+	    width: 195px !important;
+	}
+	.widthTablet200 {
+	    width: 200px !important;
+	}
+	.widthTablet205 {
+	    width: 205px !important;
+	}
+	.widthTablet210 {
+	    width: 210px !important;
+	}
+	.widthTablet215 {
+	    width: 215px !important;
+	}
+	.widthTablet220 {
+	    width: 220px !important;
+	}
+	.widthTablet225 {
+	    width: 225px !important;
+	}
+	.widthTablet230 {
+	    width: 230px !important;
+	}
+	.widthTablet235 {
+	    width: 235px !important;
+	}
+	.widthTablet240 {
+	    width: 240px !important;
+	}
+	.widthTablet245 {
+	    width: 245px !important;
+	}
+	.widthTablet250 {
+	    width: 250px !important;
+	}
+	.widthTablet255 {
+	    width: 255px !important;
+	}
+	.widthTablet260 {
+	    width: 260px !important;
+	}
+	.widthTablet265 {
+	    width: 265px !important;
+	}
+	.widthTablet270 {
+	    width: 270px !important;
+	}
+	.widthTablet275 {
+	    width: 275px !important;
+	}
+	.widthTablet280 {
+	    width: 280px !important;
+	}
+	.widthTablet285 {
+	    width: 285px !important;
+	}
+	.widthTablet290 {
+	    width: 290px !important;
+	}
+	.widthTablet295 {
+	    width: 295px !important;
+	}
+	.widthTablet300 {
+	    width: 300px !important;
+	}
+	.widthTablet305 {
+	    width: 305px !important;
+	}
+	.widthTablet310 {
+	    width: 310px !important;
+	}
+	.widthTablet315 {
+	    width: 315px !important;
+	}
+	.widthTablet320 {
+	    width: 320px !important;
+	}
+	.widthTablet325 {
+	    width: 325px !important;
+	}
+	.widthTablet330 {
+	    width: 330px !important;
+	}
+	.widthTablet335 {
+	    width: 335px !important;
+	}
+	.widthTablet340 {
+	    width: 340px !important;
+	}
+	.widthTablet345 {
+	    width: 345px !important;
+	}
+	.widthTablet350 {
+	    width: 350px !important;
+	}
+	.widthTablet355 {
+	    width: 355px !important;
+	}
+	.widthTablet360 {
+	    width: 360px !important;
+	}
+	.widthTablet365 {
+	    width: 365px !important;
+	}
+	.widthTablet370 {
+	    width: 370px !important;
+	}
+	.widthTablet375 {
+	    width: 375px !important;
+	}
+	.widthTablet380 {
+	    width: 380px !important;
+	}
+	.widthTablet385 {
+	    width: 385px !important;
+	}
+	.widthTablet390 {
+	    width: 390px !important;
+	}
+	.widthTablet395 {
+	    width: 395px !important;
+	}
+	.widthTablet400 {
+	    width: 400px !important;
+	}
+	.widthTablet405 {
+	    width: 405px !important;
+	}
+	.widthTablet410 {
+	    width: 410px !important;
+	}
+	.widthTablet415 {
+	    width: 415px !important;
+	}
+	.widthTablet420 {
+	    width: 420px !important;
+	}
+	.widthTablet425 {
+	    width: 425px !important;
+	}
+	.widthTablet430 {
+	    width: 430px !important;
+	}
+	.widthTablet435 {
+	    width: 435px !important;
+	}
+	.widthTablet440 {
+	    width: 440px !important;
+	}
+	.widthTablet445 {
+	    width: 445px !important;
+	}
+	.widthTablet450 {
+	    width: 450px !important;
+	}
+	.widthTablet455 {
+	    width: 455px !important;
+	}
+	.widthTablet460 {
+	    width: 460px !important;
+	}
+	.widthTablet465 {
+	    width: 465px !important;
+	}
+	.widthTablet470 {
+	    width: 470px !important;
+	}
+	.widthTablet475 {
+	    width: 475px !important;
+	}
+	.widthTablet480 {
+	    width: 480px !important;
+	}
+	.widthTablet485 {
+	    width: 485px !important;
+	}
+	.widthTablet490 {
+	    width: 490px !important;
+	}
+	.widthTablet495 {
+	    width: 495px !important;
+	}
+	.widthTablet500 {
+	    width: 500px !important;
+	}
+	.widthTablet505 {
+	    width: 505px !important;
+	}
+	.widthTablet510 {
+	    width: 510px !important;
+	}
+	.widthTablet515 {
+	    width: 515px !important;
+	}
+	.widthTablet520 {
+	    width: 520px !important;
+	}
+
+}
+
+//Mobile
+@media (max-width:767px){
+	.textMobileLeft {
+		text-align: left !important;
+	}
+	.textMobileCenter {
+		text-align: center !important;
+	}
+	.textMobileRight {
+		text-align: right !important;
+	}
+
+	.showMobile {
+		display: initial !important;
+	}
+	.hideMobile {
+		display: none !important;
+	}
+	.heightMobile1 {
+		height: 1px !important;
+	}
+	.heightMobile1 {
+		height: 1px !important;
+	}
+	.heightMobile2 {
+		height: 2px !important;
+	}
+	.heightMobile3 {
+		height: 3px !important;
+	}
+	.heightMobile4 {
+		height: 4px !important;
+	}
+
+	.marginTopMobile0{
+		margin-top:0px !important;
+	}
+	.marginTopMobile5{
+		margin-top:5px !important;
+	}
+	.marginTopMobile10{
+		margin-top:10px !important;
+	}
+	.marginTopMobile15{
+		margin-top:15px !important;
+	}
+	.marginTopMobile20{
+		margin-top:20px !important;
+	}
+	.marginTopMobile25{
+		margin-top:25px !important;
+	}
+	.marginTopMobile30{
+		margin-top:30px !important;
+	}
+	.marginTopMobile35{
+		margin-top:35px !important;
+	}
+	.marginTopMobile40{
+		margin-top:40px !important;
+	}
+	.marginBottomMobile0{
+		margin-bottom:0px !important;
+	}
+	.marginBottomMobile5{
+		margin-bottom:5px !important;
+	}
+	.marginBottomMobile10{
+		margin-bottom:10px !important;
+	}
+	.marginBottomMobile15{
+		margin-bottom:15px !important;
+	}
+	.marginBottomMobile20{
+		margin-bottom:20px !important;
+	}
+	.marginBottomMobile25{
+		margin-bottom:25px !important;
+	}
+	.marginBottomMobile30{
+		margin-bottom:30px !important;
+	}
+	.marginBottomMobile35{
+		margin-bottom:35px !important;
+	}
+	.marginBottomMobile40{
+		margin-bottom:40px !important;
+	}
+
+	.marginTopMobileMinus5{
+		margin-top:-5px !important;
+	}
+	.marginTopMobileMinus10{
+		margin-top:-10px !important;
+	}
+	.marginTopMobileMinus15{
+		margin-top:-15px !important;
+	}
+	.marginTopMobileMinus20{
+		margin-top:-20px !important;
+	}
+	.marginBottomMobileMinus5{
+		margin-bottom:-5px !important;
+	}
+	.marginBottomMobileMinus10{
+		margin-bottom:-10px !important;
+	}
+	.marginBottomMobileMinus15{
+		margin-bottom:-15px !important;
+	}
+	.marginBottomMobileMinus20{
+		margin-bottom:-20px !important;
+	}
+	.paddingTopMobileMinus5{
+		padding-top:-5px !important;
+	}
+	.paddingTopMobileMinus10{
+		padding-top:-10px !important;
+	}
+	.paddingTopMobileMinus15{
+		padding-top:-15px !important;
+	}
+	.paddingTopMobileMinus20{
+		padding-top:-20px !important;
+	}
+	.paddingBottomMobileMinus5{
+		padding-bottom:-5px !important;
+	}
+	.paddingBottomMobileMinus10{
+		padding-bottom:-10px !important;
+	}
+	.paddingBottomMobileMinus15{
+		padding-bottom:-15px !important;
+	}
+	.paddingBottomMobileMinus20{
+		padding-bottom:-20px !important;
+	}
+
+
+    .marginTopMobile-5{
+		margin-top:-5px !important;
+	}
+	.marginTopMobile-10{
+		margin-top:-10px !important;
+	}
+	.marginTopMobile-15{
+		margin-top:-15px !important;
+	}
+	.marginTopMobile-20{
+		margin-top:-20px !important;
+	}
+	.marginBottomMobile-5{
+		margin-bottom:-5px !important;
+	}
+	.marginBottomMobile-10{
+		margin-bottom:-10px !important;
+	}
+	.marginBottomMobile-15{
+		margin-bottom:-15px !important;
+	}
+	.marginBottomMobile-20{
+		margin-bottom:-20px !important;
+	}
+	.paddingTopMobile-5{
+		padding-top:-5px !important;
+	}
+	.paddingTopMobile-10{
+		padding-top:-10px !important;
+	}
+	.paddingTopMobile-15{
+		padding-top:-15px !important;
+	}
+	.paddingTopMobile-20{
+		padding-top:-20px !important;
+	}
+	.paddingBottomMobile-5{
+		padding-bottom:-5px !important;
+	}
+	.paddingBottomMobile-10{
+		padding-bottom:-10px !important;
+	}
+	.paddingBottomMobile-15{
+		padding-bottom:-15px !important;
+	}
+	.paddingBottomMobile-20{
+		padding-bottom:-20px !important;
+	}
+
+	.forceDisplayBlockMobile{
+		display:block !important;
+	}
+
+	.widthMobile50 {
+    	width: 50px !important;
+	}
+	.widthMobile55 {
+	    width: 55px !important;
+	}
+	.widthMobile60 {
+	    width: 60px !important;
+	}
+	.widthMobile65 {
+	    width: 65px !important;
+	}
+	.widthMobile70 {
+	    width: 70px !important;
+	}
+	.widthMobile75 {
+	    width: 75px !important;
+	}
+	.widthMobile80 {
+	    width: 80px !important;
+	}
+	.widthMobile85 {
+	    width: 85px !important;
+	}
+	.widthMobile90 {
+	    width: 90px !important;
+	}
+	.widthMobile95 {
+	    width: 95px !important;
+	}
+	.widthMobile100 {
+	    width: 100px !important;
+	}
+	.widthMobile105 {
+	    width: 105px !important;
+	}
+	.widthMobile110 {
+	    width: 110px !important;
+	}
+	.widthMobile115 {
+	    width: 115px !important;
+	}
+	.widthMobile120 {
+	    width: 120px !important;
+	}
+	.widthMobile125 {
+	    width: 125px !important;
+	}
+	.widthMobile130 {
+	    width: 130px !important;
+	}
+	.widthMobile140 {
+	    width: 140px !important;
+	}
+	.widthMobile145 {
+	    width: 145px !important;
+	}
+	.widthMobile150 {
+	    width: 150px !important;
+	}
+	.widthMobile155 {
+	    width: 155px !important;
+	}
+	.widthMobile160 {
+	    width: 160px !important;
+	}
+	.widthMobile165 {
+	    width: 165px !important;
+	}
+	.widthMobile170 {
+	    width: 170px !important;
+	}
+	.widthMobile175 {
+	    width: 175px !important;
+	}
+	.widthMobile180 {
+	    width: 180px !important;
+	}
+	.widthMobile185 {
+	    width: 185px !important;
+	}
+	.widthMobile190 {
+	    width: 190px !important;
+	}
+	.widthMobile195 {
+	    width: 195px !important;
+	}
+	.widthMobile200 {
+	    width: 200px !important;
+	}
+	.widthMobile205 {
+	    width: 205px !important;
+	}
+	.widthMobile210 {
+	    width: 210px !important;
+	}
+	.widthMobile215 {
+	    width: 215px !important;
+	}
+	.widthMobile220 {
+	    width: 220px !important;
+	}
+	.widthMobile225 {
+	    width: 225px !important;
+	}
+	.widthMobile230 {
+	    width: 230px !important;
+	}
+	.widthMobile235 {
+	    width: 235px !important;
+	}
+	.widthMobile240 {
+	    width: 240px !important;
+	}
+	.widthMobile245 {
+	    width: 245px !important;
+	}
+	.widthMobile250 {
+	    width: 250px !important;
+	}
+	.widthMobile255 {
+	    width: 255px !important;
+	}
+	.widthMobile260 {
+	    width: 260px !important;
+	}
+	.widthMobile265 {
+	    width: 265px !important;
+	}
+	.widthMobile270 {
+	    width: 270px !important;
+	}
+	.widthMobile275 {
+	    width: 275px !important;
+	}
+	.widthMobile280 {
+	    width: 280px !important;
+	}
+	.widthMobile285 {
+	    width: 285px !important;
+	}
+	.widthMobile290 {
+	    width: 290px !important;
+	}
+	.widthMobile295 {
+	    width: 295px !important;
+	}
+	.widthMobile300 {
+	    width: 300px !important;
+	}
+	.widthMobile305 {
+	    width: 305px !important;
+	}
+	.widthMobile310 {
+	    width: 310px !important;
+	}
+	.widthMobile315 {
+	    width: 315px !important;
+	}
+	.widthMobile320 {
+	    width: 320px !important;
+	}
+	.widthMobile325 {
+	    width: 325px !important;
+	}
+	.widthMobile330 {
+	    width: 330px !important;
+	}
+	.widthMobile335 {
+	    width: 335px !important;
+	}
+	.widthMobile340 {
+	    width: 340px !important;
+	}
+	.widthMobile345 {
+	    width: 345px !important;
+	}
+	.widthMobile350 {
+	    width: 350px !important;
+	}
+	.widthMobile355 {
+	    width: 355px !important;
+	}
+	.widthMobile360 {
+	    width: 360px !important;
+	}
+	.widthMobile365 {
+	    width: 365px !important;
+	}
+	.widthMobile370 {
+	    width: 370px !important;
+	}
+	.widthMobile375 {
+	    width: 375px !important;
+	}
+	.widthMobile380 {
+	    width: 380px !important;
+	}
+	.widthMobile385 {
+	    width: 385px !important;
+	}
+	.widthMobile390 {
+	    width: 390px !important;
+	}
+	.widthMobile395 {
+	    width: 395px !important;
+	}
+	.widthMobile400 {
+	    width: 400px !important;
+	}
+	.widthMobile405 {
+	    width: 405px !important;
+	}
+	.widthMobile410 {
+	    width: 410px !important;
+	}
+	.widthMobile415 {
+	    width: 415px !important;
+	}
+	.widthMobile420 {
+	    width: 420px !important;
+	}
+	.widthMobile425 {
+	    width: 425px !important;
+	}
+	.widthMobile430 {
+	    width: 430px !important;
+	}
+	.widthMobile435 {
+	    width: 435px !important;
+	}
+	.widthMobile440 {
+	    width: 440px !important;
+	}
+	.widthMobile445 {
+	    width: 445px !important;
+	}
+	.widthMobile450 {
+	    width: 450px !important;
+	}
+	.widthMobile455 {
+	    width: 455px !important;
+	}
+	.widthMobile460 {
+	    width: 460px !important;
+	}
+	.widthMobile465 {
+	    width: 465px !important;
+	}
+	.widthMobile470 {
+	    width: 470px !important;
+	}
+	.widthMobile475 {
+	    width: 475px !important;
+	}
+	.widthMobile480 {
+	    width: 480px !important;
+	}
+	.widthMobile485 {
+	    width: 485px !important;
+	}
+	.widthMobile490 {
+	    width: 490px !important;
+	}
+	.widthMobile495 {
+	    width: 495px !important;
+	}
+	.widthMobile500 {
+	    width: 500px !important;
+	}
+	.widthMobile505 {
+	    width: 505px !important;
+	}
+	.widthMobile510 {
+	    width: 510px !important;
+	}
+	.widthMobile515 {
+	    width: 515px !important;
+	}
+	.widthMobile520 {
+	    width: 520px !important;
+	}
+}
+
+.expeditionRedBackgroundColor{
+	background-color: #d40728 !important;
+}
+
+.expeditionRedColor {
+	color: #d40728 !important;
+}
+

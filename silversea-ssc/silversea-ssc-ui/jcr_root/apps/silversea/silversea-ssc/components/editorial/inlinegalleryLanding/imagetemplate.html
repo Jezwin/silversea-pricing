@@ -1,0 +1,29 @@
+<template data-sly-template.default="${ @ asset}">
+    <sly data-sly-test="${asset}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+             data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+        <a href="${asset.path}"
+           class="lazy c-inline-gallery__item o-img cq-dd-image ${isVideo ? 'video-link' : ''} ${((!properties.lightboxActivated == true) && (isVideo)) ? 'automatic-gallery-video-modal' : 'automatic-gallery-modal'} ${((!properties.lightboxActivated == true) && (!isVideo)) ? 'lightboxInactive' : 'videolightboxActive'}
+            	${((!properties.lightboxActivatedMobile) && (isVideo)) ? 'automatic-gallery-video-modal' : 'automatic-gallery-modal'} ${!properties.lightboxActivatedMobile ? (isVideo ? 'videolightboxActive' : 'lightboxInactiveMobile') : '' }"
+           data-target=".bs-modal-lg" data-src="${assetHelper.imageUrl}?wid=970&fmt=pjpeg&pscan=5&qlt=81&fit=hfit,1">
+            <i data-sly-test="${isVideo}" class="fa fa-play"></i>
+        </a>
+    </sly>
+    </sly>
+</template>
+
+<template data-sly-template.right="${ @ asset}">
+    <sly data-sly-test="${asset}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"
+             data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
+        <a href="${asset.path}"
+           class="lazy c-inline-gallery__item o-img cq-dd-image ${isVideo ? 'video-link' : ''} ${((!properties.lightboxActivated == true) && (isVideo)) ? 'automatic-gallery-video-modal' : 'automatic-gallery-modal'} ${((!properties.lightboxActivated == true) && (!isVideo)) ? 'lightboxInactive' : 'videolightboxActive'}"
+           data-target=".bs-modal-lg" data-src="${assetHelper.imageUrl}?wid=970&fmt=pjpeg&pscan=5&qlt=81&fit=hfit,1">
+            <i data-sly-test="${isVideo}" class="fa fa-play"></i>
+        </a>
+    </sly>
+    </sly>
+</template>
+
+<template data-sly-template.coverBackground="${ @ banner, id}">
+</template>

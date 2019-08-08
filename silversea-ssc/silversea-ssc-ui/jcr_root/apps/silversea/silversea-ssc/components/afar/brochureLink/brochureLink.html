@@ -1,0 +1,8 @@
+<div data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse"
+     data-sly-test="${(wcmmode.edit || wcmmode.design) && !brochureTeaserUse.brochure}"
+     class="cq-placeholder cq-dd-file" data-emptytext="Brochure Link"></div>
+
+<div data-sly-test.brochure="${brochureTeaserUse.brochure}" data-sly-unwrap="${!wcmmode.edit}" class="cq-dd-file">
+    <sly data-sly-use.brochureTemplate="brochure.html"
+         data-sly-call="${brochureTemplate.default @ brochure = brochureTeaserUse.brochure, currentStyle = currentStyle}"></sly>
+</div>

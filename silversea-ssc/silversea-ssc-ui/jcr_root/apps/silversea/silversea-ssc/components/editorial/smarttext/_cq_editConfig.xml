@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:EditConfig">
+    <cq:inplaceEditing
+        jcr:primaryType="cq:InplaceEditingConfig"
+        active="{Boolean}true"
+        editorType="text">
+        <config
+            jcr:primaryType="nt:unstructured"
+            externalStyleSheets="/etc/designs/silversea-com/clientlib-rte.min.css">
+            <rtePlugins jcr:primaryType="nt:unstructured">
+                <subsuperscript
+                    jcr:primaryType="nt:unstructured"
+                    features="*" />
+                <paraformat
+                    jcr:primaryType="nt:unstructured"
+                    features="*">
+                    <formats jcr:primaryType="cq:WidgetCollection">
+                        <p
+                            jcr:primaryType="nt:unstructured"
+                            description="Paragraph"
+                            tag="p" />
+                        <h1
+                            jcr:primaryType="nt:unstructured"
+                            description="Heading 1"
+                            tag="h1" />
+                        <h2
+                            jcr:primaryType="nt:unstructured"
+                            description="Heading 2"
+                            tag="h2" />
+                        <h3
+                            jcr:primaryType="nt:unstructured"
+                            description="Heading 3"
+                            tag="h3" />
+                        <h4
+                            jcr:primaryType="nt:unstructured"
+                            description="Heading 4"
+                            tag="h4" />
+                        <h5
+                            jcr:primaryType="nt:unstructured"
+                            description="Heading 5"
+                            tag="h5" />
+                    </formats>
+                </paraformat>
+                <misctools
+                    jcr:primaryType="nt:unstructured"
+                    features="*">
+                    <specialCharsConfig jcr:primaryType="nt:unstructured">
+                        <chars jcr:primaryType="nt:unstructured">
+                            <copyright
+                                jcr:primaryType="nt:unstructured"
+                                entity="&amp;#169;" />
+                            <trademark
+                                jcr:primaryType="nt:unstructured"
+                                entity="&amp;#8482;" />
+                            <registered
+                                jcr:primaryType="nt:unstructured"
+                                entity="&amp;#174;" />
+                            <emDash
+                                jcr:primaryType="nt:unstructured"
+                                entity="&amp;#8212;" />
+                            <pound
+                                jcr:primaryType="nt:unstructured"
+                                entity="&amp;#163;" />
+                            <nbsp
+                                jcr:primaryType="nt:unstructured"
+                                entity="&amp;#160;" />
+                        </chars>
+                    </specialCharsConfig>
+                </misctools>
+                <links jcr:primaryType="nt:unstructured">
+                    <linkDialogConfig
+                        jcr:primaryType="nt:unstructured"
+                        height="{Long}316">
+                        <linkAttributes jcr:primaryType="cq:WidgetCollection">
+                            <linkAdvanced
+                                jcr:primaryType="cq:Widget"
+                                collapsed="{Boolean}true"
+                                collapsible="{Boolean}true"
+                                inputValue="advanced"
+                                name="./linkdialog/cq:adhocLinkTrackingTab"
+                                title="Link tracking"
+                                xtype="dialogfieldset">
+                                <items jcr:primaryType="cq:WidgetCollection">
+                                    <enable
+                                        jcr:primaryType="nt:unstructured"
+                                        attribute="enabletracking"
+                                        fieldDescription="override analytics framework settings"
+                                        fieldLabel="Custom link tracking"
+                                        name="./linkdialog/cq:adhocLinkTrackingEnableTracking"
+                                        xtype="checkbox">
+                                        <listeners
+                                            jcr:primaryType="nt:unstructured"
+                                            check="function(component){var dlg=component.findParentByType('rtelinkdialog');dlg.enableSCFields(component.checked);}" />
+                                    </enable>
+                                    <events
+                                        jcr:primaryType="nt:unstructured"
+                                        attribute="adhocevents"
+                                        fieldDescription="e.g.: event2, event7"
+                                        fieldLabel="Include SiteCatalyst events"
+                                        name="./linkdialog/cq:adhocLinkTrackingEvents"
+                                        xtype="textfield" />
+                                    <evars
+                                        jcr:primaryType="nt:unstructured"
+                                        attribute="adhocevars"
+                                        fieldDescription="e.g.: eVar1: pagedata.url, prop4: 'const'"
+                                        fieldLabel="Include SiteCatalyst variables"
+                                        name="./linkdialog/cq:adhocLinkTrackingEvars"
+                                        xtype="textfield" />
+                                </items>
+                            </linkAdvanced>
+                        </linkAttributes>
+                    </linkDialogConfig>
+                </links>
+                <edit
+                    jcr:primaryType="nt:unstructured"
+                    defaultPasteMode="plaintext"
+                    stripHtmlTags="{Boolean}true" />
+                <spellcheck
+                    jcr:primaryType="nt:unstructured"
+                    features="*" />
+                <findreplace
+                    jcr:primaryType="nt:unstructured"
+                    features="*" />
+                <styles
+                    jcr:primaryType="nt:unstructured"
+                    features="*">
+                    <styles jcr:primaryType="cq:WidgetCollection">
+                        <footnote
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h-text--footnote"
+                            text="Footnote" />
+                        <lead
+                            jcr:primaryType="nt:unstructured"
+                            cssName="lead"
+                            text="Lead" />
+                        <red
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h-text-red"
+                            text="red" />
+                        <serif
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h-serif"
+                            text="serif" />
+                        <alternateh1
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h1"
+                            text="Alternate h1" />
+                        <alternateh2
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h2"
+                            text="Alternate h2" />
+                        <alternateh3
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h3"
+                            text="Alternate h3" />
+                         <urlLink
+							jcr:primaryType="nt:unstructured"
+							text="Link"
+							cssName="urlLink"/>
+						<readMoreDesktopTrigger
+								jcr:primaryType="nt:unstructured"
+								text="readMore Desktop Trigger"
+								cssName="readMoreDesktopTrigger"/>
+						<readMoreDesktopContent
+								jcr:primaryType="nt:unstructured"
+								text="readMore Desktop Content"
+								cssName="readMoreDesktopContent"/>
+						<readMoreMobileTrigger
+								jcr:primaryType="nt:unstructured"
+								text="readMore Mobile Trigger"
+								cssName="readMoreMobileTrigger"/>
+						<readMoreMobileContent
+								jcr:primaryType="nt:unstructured"
+								text="readMore Mobile Content"
+								cssName="readMoreMobileContent"/>
+                         <fontSizeDesktop10
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 10px"
+                                cssName="fontSizeDesktop10"/>
+                            <fontSizeDesktop12
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 12px"
+                                cssName="fontSizeDesktop12"/>
+                            <fontSizeDesktop14
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 14px"
+                                cssName="fontSizeDesktop14"/>
+                            <fontSizeDesktop16
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 16px"
+                                cssName="fontSizeDesktop16"/>
+                             <fontSizeDesktop18
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 18px"
+                                cssName="fontSizeDesktop18"/>
+                            <fontSizeDesktop20
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 20px"
+                                cssName="fontSizeDesktop20"/>
+                            <fontSizeDesktop22
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 22px"
+                                cssName="fontSizeDesktop22"/>
+                            <fontSizeDesktop24
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 24px"
+                                cssName="fontSizeDesktop24"/>
+                            <fontSizeDesktop26
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 26px"
+                                cssName="fontSizeDesktop26"/>
+                            <fontSizeDesktop28
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 28px"
+                                cssName="fontSizeDesktop28"/>
+                           <fontSizeDesktop30
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 30px"
+                                cssName="fontSizeDesktop30"/>
+                            <fontSizeDesktop32
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 32px"
+                                cssName="fontSizeDesktop32"/>
+                            <fontSizeDesktop34
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 34px"
+                                cssName="fontSizeDesktop34"/>
+                            <fontSizeDesktop36
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 36px"
+                                cssName="fontSizeDesktop36"/>
+                            <fontSizeDesktop38
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 38px"
+                                cssName="fontSizeDesktop38"/>
+                            <fontSizeDesktop40
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 40px"
+                                cssName="fontSizeDesktop40"/>
+                            <fontSizeDesktop42
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 42px"
+                                cssName="fontSizeDesktop42"/>
+                            <fontSizeDesktop44
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 44px"
+                                cssName="fontSizeDesktop44"/>
+                            <fontSizeDesktop46
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 46px"
+                                cssName="fontSizeDesktop46"/>
+                            <fontSizeDesktop48
+                                jcr:primaryType="nt:unstructured"
+                                text="Font Size Desktop 48px"
+                                cssName="fontSizeDesktop48"/>
+							<fontSizeTablet10
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 10px"
+	                            cssName="fontSizeTablet10"/>
+	                        <fontSizeTablet12
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 12px"
+	                            cssName="fontSizeTablet12"/>
+	                        <fontSizeTablet14
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 14px"
+	                            cssName="fontSizeTablet14"/>
+	                        <fontSizeTablet16
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 16px"
+	                            cssName="fontSizeTablet16"/>
+	                         <fontSizeTablet18
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 18px"
+	                            cssName="fontSizeTablet18"/>
+	                        <fontSizeTablet20
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 20px"
+	                            cssName="fontSizeTablet20"/>
+	                        <fontSizeTablet22
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 22px"
+	                            cssName="fontSizeTablet22"/>
+	                        <fontSizeTablet24
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 24px"
+	                            cssName="fontSizeTablet24"/>
+	                        <fontSizeTablet26
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 26px"
+	                            cssName="fontSizeTablet26"/>
+	                        <fontSizeTablet28
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 28px"
+	                            cssName="fontSizeTablet28"/>
+	                       <fontSizeTablet30
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 30px"
+	                            cssName="fontSizeTablet30"/>
+	                        <fontSizeTablet32
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 32px"
+	                            cssName="fontSizeTablet32"/>
+	                        <fontSizeTablet34
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 34px"
+	                            cssName="fontSizeTablet34"/>
+	                        <fontSizeTablet36
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 36px"
+	                            cssName="fontSizeTablet36"/>
+	                        <fontSizeTablet38
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 38px"
+	                            cssName="fontSizeTablet38"/>
+	                        <fontSizeTablet40
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 40px"
+	                            cssName="fontSizeTablet40"/>
+	                        <fontSizeTablet42
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 42px"
+	                            cssName="fontSizeTablet42"/>
+	                        <fontSizeTablet44
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 44px"
+	                            cssName="fontSizeTablet44"/>
+	                        <fontSizeTablet46
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 46px"
+	                            cssName="fontSizeTablet46"/>
+	                        <fontSizeTablet48
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Font Size Tablet 48px"
+	                            cssName="fontSizeTablet48"/>
+							<fontSizeMobile10
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 10px"
+		                        cssName="fontSizeMobile10"/>
+		                    <fontSizeMobile12
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 12px"
+		                        cssName="fontSizeMobile12"/>
+		                    <fontSizeMobile14
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 14px"
+		                        cssName="fontSizeMobile14"/>
+		                    <fontSizeMobile16
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 16px"
+		                        cssName="fontSizeMobile16"/>
+		                     <fontSizeMobile18
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 18px"
+		                        cssName="fontSizeMobile18"/>
+		                    <fontSizeMobile20
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 20px"
+		                        cssName="fontSizeMobile20"/>
+		                    <fontSizeMobile22
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 22px"
+		                        cssName="fontSizeMobile22"/>
+		                    <fontSizeMobile24
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 24px"
+		                        cssName="fontSizeMobile24"/>
+		                    <fontSizeMobile26
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 26px"
+		                        cssName="fontSizeMobile26"/>
+		                    <fontSizeMobile28
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 28px"
+		                        cssName="fontSizeMobile28"/>
+		                   <fontSizeMobile30
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 30px"
+		                        cssName="fontSizeMobile30"/>
+		                    <fontSizeMobile32
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 32px"
+		                        cssName="fontSizeMobile32"/>
+		                    <fontSizeMobile34
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 34px"
+		                        cssName="fontSizeMobile34"/>
+		                    <fontSizeMobile36
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 36px"
+		                        cssName="fontSizeMobile36"/>
+		                    <fontSizeMobile38
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 38px"
+		                        cssName="fontSizeMobile38"/>
+		                    <fontSizeMobile40
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 40px"
+		                        cssName="fontSizeMobile40"/>
+		                    <fontSizeMobile42
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 42px"
+		                        cssName="fontSizeMobile42"/>
+		                    <fontSizeMobile44
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 44px"
+		                        cssName="fontSizeMobile44"/>
+		                    <fontSizeMobile46
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 46px"
+		                        cssName="fontSizeMobile46"/>
+		                    <fontSizeMobile48
+		                        jcr:primaryType="nt:unstructured"
+		                        text="Font Size Mobile 48px"
+		                        cssName="fontSizeMobile48"/>
+                    </styles>
+                </styles>
+            </rtePlugins>
+        </config>
+    </cq:inplaceEditing>
+</jcr:root>

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Landing Background Container - DEPRACTED (Use Smart Container)"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <main
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Main options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <titletag
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Title Html Tag"
+                                name="./titletag">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <h1
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h1"
+                                        value="h1" />
+                                    <h2
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h2"
+                                        value="h2" />
+                                   <h3
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h3"
+                                        value="h3" />
+                                   <span
+                                        jcr:primaryType="nt:unstructured"
+                                        text="span"
+                                        value="span" />
+                                    
+                                </items>
+                            </titletag>
+                    <title
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                            name="./jcr:title"
+                            fieldLabel="Title"/>
+                    <description
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                            name="./jcr:description"
+                            fieldLabel="Description"/>
+                    <image 
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                            fieldDescription="Image"
+                            fieldLabel="Image"
+                            rootPath="/content/dam/silversea-com"
+                            name="./assetReference" />
+                      <urllink
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Url link"
+                                name="./urllink"
+                                rootPath="/content/silversea-com"
+                                fieldDescription="Link when the user click on the title"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                      <styleComponent
+                      		jcr:primaryType="nt:unstructured"
+                            fieldLabel="Style component"
+                            name="./styleComponent"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/select">
+                            <items jcr:primaryType="nt:unstructured">
+                            	 <default
+                                     jcr:primaryType="nt:unstructured"
+                                     text="default"
+                                     value="" />
+                                 <landingNSW4
+                                     jcr:primaryType="nt:unstructured"
+                                     text="NSW4 - Landing"
+                                     value="landingNSW4" />
+                                 <landing2017
+                                     jcr:primaryType="nt:unstructured"
+                                     text="2017 - Landing"
+                                     value="landing2017" />
+                            </items>
+                      </styleComponent>
+                      <separatorColor
+                      		jcr:primaryType="nt:unstructured"
+                            fieldLabel="Separator color"
+                            name="./separatorColor"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/select">
+                            <items jcr:primaryType="nt:unstructured">
+                                 <default
+                                     jcr:primaryType="nt:unstructured"
+                                     text="Default"
+                                     value="default" />
+                                 <redColor
+                                     jcr:primaryType="nt:unstructured"
+                                     text="Red"
+                                     value="red" />
+                            </items>
+                      </separatorColor>
+                      <lightSeparator
+                            jcr:primaryType="nt:unstructured"
+                            text="Enable light separator"
+                            name="./lightSeparator"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     
+                      <dmpTitleStyle
+                            jcr:primaryType="nt:unstructured"
+                            text="DMP Title Style"
+                            name="./dmpTitleStyle"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <greyBackground
+                            jcr:primaryType="nt:unstructured"
+                            text="Grey background"
+                            name="./greyBackground"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <greyBackgroundContentOnly
+                            jcr:primaryType="nt:unstructured"
+                            text="Grey background content Only"
+                            name="./greyBackgroundContentOnly"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <blackBackground
+                            jcr:primaryType="nt:unstructured"
+                            text="Black background - white text"
+                            name="./blackBackground"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <whiteTitle
+                            jcr:primaryType="nt:unstructured"
+                            text="White Title Font Color"
+                            name="./whiteTitle"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <normalWidth
+                            jcr:primaryType="nt:unstructured"
+                            text="Default width"
+                            name="./normalWidth"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <largerWidth
+                            jcr:primaryType="nt:unstructured"
+                            text="Larger width"
+                            name="./largerWidth"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <goldText
+                            jcr:primaryType="nt:unstructured"
+                            text="Gold Text"
+                            name="./goldText"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                     <newDarkGrey
+                            jcr:primaryType="nt:unstructured"
+                            text="New Dark Grey"
+                            name="./newDarkGrey"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                    <reduceMarginUnderTitle
+                            jcr:primaryType="nt:unstructured"
+                            text="Reduce Under Title Margin"
+                            name="./reduceMarginUnderTitle"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                    <doNotForceDescriptionUppercase
+                            jcr:primaryType="nt:unstructured"
+                            text="Do not force description uppercase"
+                            name="./doNotForceDescriptionUppercase"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                        </items>
+                    </column>
+                </items>
+            </main>
+            <desktop
+               jcr:primaryType="nt:unstructured"
+               jcr:title="Desktop options"
+               sling:resourceType="granite/ui/components/foundation/container">
+                 <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                 <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                         <marginH1Desktop
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                            name="./marginH1Desktop"
+                            value="0 0 25px"
+                            fieldLabel="Margin H1 - Desktop"/>
+                         <widthLightSeparatorDesktop
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                            name="./widthLightSeparatorDesktop"
+                            value="101px"
+                            fieldLabel="Width Light Separator - Desktop"/>
+                        	 <marginLightSeparatorDesktop
+	                            jcr:primaryType="nt:unstructured"
+	                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+	                            name="./marginLightSeparatorDesktop"
+	                            value="10px auto 15px auto"
+	                            fieldLabel="Margin Light Separator - Desktop"/>
+                        	 <hiddenDesktop
+		                            jcr:primaryType="nt:unstructured"
+		                            text="Hidden on Desktop"
+		                            name="./hiddenDesktop"
+		                            value="true"
+		                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                      <hideSeparatorDesktop
+		                            jcr:primaryType="nt:unstructured"
+		                            text="Hide separator on Desktop"
+		                            name="./hideSeparatorDesktop"
+		                            value="true"
+		                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                             <marginTopDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="36"
+                                fieldLabel="Margin Top Desktop"
+                                name="./marginTopDesktop"/>
+                     		<marginBottomDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="36"
+                                fieldLabel="Margin Bottom Desktop"
+                                name="./marginBottomDesktop"/>
+                            <cssDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                fieldLabel="Custom css desktop"
+                                rows="20"
+                                fieldDescription="Custom css only desktop"
+                                name="./cssDesktop" />
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet
+               jcr:primaryType="nt:unstructured"
+               jcr:title="Tablet options"
+               sling:resourceType="granite/ui/components/foundation/container">
+                 <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                 <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <cssTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                fieldLabel="Custom css tablet"
+                                rows="20"
+                                fieldDescription="Custom css only tablet"
+                                name="./cssTablet" />
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+            <mobile
+               jcr:primaryType="nt:unstructured"
+               jcr:title="Mobile options"
+               sling:resourceType="granite/ui/components/foundation/container">
+                 <layout jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                 <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        <showSubtitleMobile
+                            jcr:primaryType="nt:unstructured"
+                            text="Show subtitle in DMP Title style"
+                            name="./showSubtitleMobile"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                        <marginH1Mobile
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                            name="./marginH1Mobile"
+                            value="0 0 25px"
+                            fieldLabel="Margin H1 - Mobile"/>
+                          <hiddenMobile
+                            jcr:primaryType="nt:unstructured"
+                            text="Hidden on Mobile"
+                            name="./hiddenMobile"
+                            value="true"
+                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                         <widthLightSeparatorMobile
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                            name="./widthLightSeparatorMobile"
+                            value="101px"
+                            fieldLabel="Width Light Separator - Mobile"/>
+                        	   <marginLightSeparatorMobile
+	                            jcr:primaryType="nt:unstructured"
+	                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+	                            name="./marginLightSeparatorMobile"
+	                            value="10px auto 15px auto"
+	                            fieldLabel="Margin Light Separator - Mobile"/>
+                        	 <hideSeparatorMobile
+	                            jcr:primaryType="nt:unstructured"
+	                            text="Hide separator on Mobile"
+	                            name="./hideSeparatorMobile"
+	                            value="true"
+	                            sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                             <marginTopMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="10"
+                                fieldLabel="Margin Top Mobile"
+                                name="./marginTopMobile"/>
+                     		<marginBottomMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="10"
+                                fieldLabel="Margin Bottom Mobile"
+                                name="./marginBottomMobile"/>
+                            <cssMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                fieldLabel="Custom css mobile"
+                                rows="20"
+                                fieldDescription="Custom css only mobile"
+                                name="./cssMobile" />
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

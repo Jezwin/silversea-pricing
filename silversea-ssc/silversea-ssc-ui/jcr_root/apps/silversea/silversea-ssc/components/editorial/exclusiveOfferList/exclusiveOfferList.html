@@ -1,0 +1,79 @@
+<template data-sly-template.slider="${@ EOTeaserList, externalizerHelper}">
+    <div class="slider" id="EoList">
+        <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside"
+             data-sly-list.EO="${EOTeaserList.EOs}"
+             data-slick='{"slidesToShow": 3, "slidesToScroll": 3, "dots" : true}'
+             data-sly-test="${EOTeaserList.EOs}">
+            <div class="slider-item">
+                <section data-sly-test="${EO.path}"
+                         class="c-vertical-teaser c-teaser-eo c-vertical-teaser--style1 thumbnail eoname"
+                         data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=EO.path}"
+                         data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                         data-sly-use.EOName="${'com.silversea.ssc.aem.helper.StringSplitHelper' @ text=EO.path, split='/'}"
+                         data-ssc-offer="${EOName.lastSplit}">
+                    <div class="c-vertical-teaser__image-wrapper">
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
+                        <span data-sly-test.style2="${properties.style == 'style2'}"
+                              class="c-vertical-teaser__title alternative-h"><span>${EO.variedTitle}</span></span>
+                    </div>
+                    <div class="caption c-vertical-teaser__caption c-vertical-teaser-EO__caption-dektop">
+                    <span data-sly-test="${!style2}"
+                          class="c-vertical-teaser__title alternative-h">${EO.variedTitle}</span>
+                        <p class="c-vertical-teaser__description">
+                            ${EO.variedDescription}
+                        </p>
+                        <a class="c-vertical-teaser__link" href="${target.page.path @ extension='html'}"
+                           onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';">
+                            <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i
+                                class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <a class="c-vertical-teaser__link--block" href="${target.page.path @ extension='html'}"
+                       onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';"></a>
+                </section>
+            </div>
+        </div>
+    </div>
+</template>
+<template data-sly-template.default="${@ EOTeaserList, externalizerHelper}">
+    <div data-sly-test="${EOTeaserList.EOs}" data-sly-list.EO="${EOTeaserList.EOs}"
+         class="aem-Grid aem-Grid--default--12 aem-Grid--phone--12 containerB" id="EoList">
+        <sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=EO.path}"/>
+        <div class="aem-GridColumn--phone--none aem-GridColumn--phone--12 aem-GridColumn aem-GridColumn--default--6 eoname"
+             data-sly-use.EOName="${'com.silversea.ssc.aem.helper.StringSplitHelper' @ text=EO.path, split='/'}"
+             data-ssc-offer="${EOName.lastSplit}">
+            <section class="c-vertical-teaser thumbnail benefitsandevents ">
+                <div class="c-vertical-teaser__image-wrapper c-vertical-teaser__image-wrapper-new">
+                    <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                         data-sly-call="${imageTemplate.resp @ imagePath=target.thumbnail}"/>
+                </div>
+                <div class="caption c-vertical-teaser__caption c-vertical-teaser__caption_default-new">
+                    <span class="c-vertical-teaser__title alternative-h">${EO.variedTitle}</span>
+                    <p class="c-vertical-teaser__description">
+                        ${EO.variedDescription}
+                    </p>
+                    <a class="c-vertical-teaser__link" href="${target.page.path @ extension='html'}"
+                       onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';">
+                        <span class="c-vertical-teaser__label"><sly>${'discover-more' @ i18n}</sly></span><i
+                            class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+                <a class="c-vertical-teaser__link--block" href="${target.page.path @ extension='html'}"
+                   onClick="s_objectID='${EOName.lastSplit @ context='unsafe'}';"></a>
+            </section>
+        </div>
+        <div class="clearfix" data-sly-test="${EOList.even}"></div>
+    </div>
+</template>
+
+<sly data-sly-use.EOTeaserList="com.silversea.ssc.aem.components.editorial.ExclusiveOfferTeaserListUse"
+     data-sly-use.helper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}">
+    <div data-sly-test="${(wcmmode.edit || wcmmode.design) && !EOTeaserList.EOs}"
+         class="cq-placeholder" data-emptytext="Exclusive Offer teaser list"></div>
+
+  <div data-sly-test="${properties.slider}"
+         data-sly-call="${slider @ EOTeaserList=EOTeaserList, externalizerHelper=helper}"></div>
+    <div data-sly-test="${!properties.slider}"
+         data-sly-call="${default @ EOTeaserList=EOTeaserList, externalizerHelper=helper}"></div>
+
+</sly>

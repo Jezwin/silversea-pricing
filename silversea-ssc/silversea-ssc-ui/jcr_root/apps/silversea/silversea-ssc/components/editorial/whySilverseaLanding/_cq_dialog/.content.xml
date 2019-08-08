@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Why Silversea Landing Display"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <field
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                        name="./items">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            method="absolute"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                 	<mediaStyle 
+                                     	jcr:primaryType="nt:unstructured"
+                                     	sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                     	fieldDescription="Different style for media: video, gallery..."
+                                     	fieldLabel="Media style"
+                                     	name="./mediaStyle" >
+                                     	<items jcr:primaryType="nt:unstructured">
+                                     		<singleImage
+                                     			jcr:primaryType="nt:unstructured"
+                                     			text="Single Image"
+                                     			value="singleImage" />
+                                     		<video
+                                     			jcr:primaryType="nt:unstructured"
+                                     			text="Video"
+                                     			value="video" />
+                                     		<lightboxGallery 
+                                     			jcr:primaryType="nt:unstructured"
+                                     			text="Lightbox gallery"
+                                     			value="lightboxGallery" />
+                                     		<inlineGallery 
+                                     			jcr:primaryType="nt:unstructured"
+                                     			text="Inline gallery"
+                                     			value="inlineGallery" />
+                                     	</items>
+                                    </mediaStyle>
+                                    <style
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                        fieldDescription="Black or white style"
+                                        fieldLabel="Style"
+		                                name="./style">
+		                                    <items jcr:primaryType="nt:unstructured">
+			                                    <black
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="Black Style"
+			                                        value="black" />
+			                                    <white
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="White Style"
+			                                        value="white" />
+			                                    <landing2017
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="2017 - Landing"
+			                                        value="landing2017" />
+			                                    <landingNSW4
+			                                        jcr:primaryType="nt:unstructured"
+			                                        text="NSW4 - Landing"
+			                                        value="landingNSW4" />
+		                                </items>
+                                      </style>
+                                    <title
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldDescription="Title"
+                                        fieldLabel="Title"
+                                        name="./title"/>
+                                    <image
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                        fieldDescription="Image reference"
+                                        fieldLabel="Image"
+                                        rootPath="/content/dam/silversea-com"
+                                        name="./assetReference" />
+                                    <mediaSet
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                        fieldDescription="Media set reference"
+                                        fieldLabel="Media Set"
+                                        rootPath="/content/dam/silversea-com"
+                                        name="./mediaSetReference" />
+                                    <video
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="WistiaID"
+		                                name="./videoReference"
+		                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                            <videoDAM
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="DAM Video"
+		                                rootPath="/content/dam/silversea-com"
+		                                name="./videoReferenceDAM"
+                                		sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                                  <invert
+	                                jcr:primaryType="nt:unstructured"
+	                                text="Invert text and image"
+	                                name="./invert"
+	                                value="true"
+	                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                              <displayMobileImage
+	                                jcr:primaryType="nt:unstructured"
+	                                text="Display image on mobile"
+	                                name="./displayMobileImage"
+	                                value="true"
+	                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+	                              <hideSeparator
+	                                jcr:primaryType="nt:unstructured"
+	                                text="Hide Separator between Title and Desc"
+	                                name="./hideSeparator"
+	                                value="true"
+	                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                     <hideSliderArrowDesktop
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Hide Slider Arrow - Desktop"
+		                                name="./hideSliderArrowDesktop"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                             <hideSliderArrowMobile
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Hide Slider Arrow - Mobile"
+		                                name="./hideSliderArrowMobile"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                             <showEnlargeMessageDesktop
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Show 'ENLARGE' Text - Desktop"
+		                                name="./showEnlargeMessageDesktop"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                             <showEnlargeMessageMobile
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Show 'ENLARGE' Text - Mobile"
+		                                name="./showEnlargeMessageMobile"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                             <autoScrollSliderDesktop
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Auto Scroll Slider - Desktop"
+		                                name="./autoScrollSliderDesktop"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                             <autoScrollSliderMobile
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Auto Scroll Slider - Mobile"
+		                                name="./autoScrollSliderMobile"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                             <autoSpeedSlider
+		                                jcr:primaryType="nt:unstructured"
+		                                fieldLabel="Auto Speed Slider"
+		                                fieldDescription="Set speed slider, Default: 5000 (5s)"
+		                                name="./autoSpeedSlider"
+		                                defaultValue="5000"
+                                     	sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                                   <disableLightboxInlineDesktop
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Disable Lightbox for Inline Gallery Desktop"
+		                                name="./disableLightboxInlineDesktop"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />  
+		                           <disableLightboxInlineMobile
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Disable Lightbox for Inline Gallery Mobile"
+		                                name="./disableLightboxInlineMobile"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />  
+		                           <removeFirstVideoItemMobile
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Remove first item - Mobile"
+		                                name="./removeFirstVideoItemMobile"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />  
+		                           <normalWidth
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Default width"
+		                                name="./normalWidth"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+		                           <videoAutoPlay
+		                                jcr:primaryType="nt:unstructured"
+		                                text="Video autoplay"
+		                                name="./videoAutoPlay"
+		                                value="true"
+		                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+									<fontSizeDesktopTitle
+										jcr:primaryType="nt:unstructured"
+										fieldLabel="Font size title (Desktop)"
+										name="./fontSizeDesktopTitle"
+										sling:resourceType="granite/ui/components/foundation/form/textfield" />
+									<fontSizeDesktopText
+										jcr:primaryType="nt:unstructured"
+										fieldLabel="Font size text (Desktop)"
+										name="./fontSizeDesktopText"
+										sling:resourceType="granite/ui/components/foundation/form/textfield" />
+		                           <fontSizeMobileTitle
+										jcr:primaryType="nt:unstructured"
+										fieldLabel="Font size title (Mobile)"
+										name="./fontSizeMobileTitle"
+										sling:resourceType="granite/ui/components/foundation/form/textfield" />
+									<fontSizeMobileText
+										jcr:primaryType="nt:unstructured"
+										fieldLabel="Font size text (Mobile)"
+										name="./fontSizeMobileText"
+										sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                                </items>
+                            </column>
+                        </items>
+                    </field>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

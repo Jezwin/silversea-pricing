@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Teaser List Vanity"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <ItemList
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                            composite="{Boolean}true"
+                            fieldLabel="ItemList">
+                        <field
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/container"
+                                name="./ItemList">
+                            <items jcr:primaryType="nt:unstructured">
+                                <column
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <title
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                fieldLabel="Override title"
+                                                name="./titleover"
+                                                rootPath="/content/silversea-com"/>
+                                        <image
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                fieldLabel="Override image"
+                                                name="./imageover"
+                                                rootPath="/content/dam/silversea-com"/>
+                                        <pageLink
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                fieldLabel="Link to page"
+                                                name="./pageLink"
+                                                rootPath="/content/silversea-com"/>
+                                    </items>
+                                </column>
+                            </items>
+                        </field>
+                    </ItemList>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

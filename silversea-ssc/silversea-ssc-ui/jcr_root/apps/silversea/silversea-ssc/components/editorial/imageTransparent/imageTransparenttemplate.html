@@ -1,0 +1,29 @@
+<!--/* Responsive image */-->
+<template data-sly-template.default="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <picture data-sly-test.imageUrl="${imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+                srcset="${assetHelper.imageUrl @ context='unsafe'}?wid=${image.mobileWidth}&fit=hfit,1&fmt=png-alpha" media="(max-width: 767px)" />
+        <source
+                srcset="${assetHelper.imageUrl @ context='unsafe'}?wid=${image.desktopWidth}&fit=hfit,1&fmt=png-alpha" media="(min-width: 768px)" />
+        <img src="${assetHelper.imageUrl @ context='unsafe'}?wid=${image.desktopWidth}&fit=hfit,1&fmt=png-alpha" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || properties.jcr:title || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+    </picture>
+</template>
+
+<template data-sly-template.defaultsmall="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <picture data-sly-test.imageUrl="${imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+                srcset="${assetHelper.imageUrl @ context='unsafe'}?wid=450&fit=hfit,1&fmt=png-alpha" media="(max-width: 767px)" />
+        <source
+                srcset="${assetHelper.imageUrl @ context='unsafe'}?wid=450&fit=hfit,1&fmt=png-alpha" media="(min-width: 768px)" />
+        <img src="${assetHelper.imageUrl @ context='unsafe'}?wid=450&fit=hfit,1&fmt=png-alpha" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || properties.jcr:title || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+    </picture>
+</template>
+
+<!--/* Image */-->
+<template data-sly-template.image="${ @ imagePath, width}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <sly data-sly-test.imagePrefix="${'/is/image/'}" data-sly-test.imageUrl="${imagePath}"/>
+     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+    <img src="${assetHelper.imageUrl @ context='unsafe'}?wid=${width}&fit=hfit,1&fmt=png-alpha" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || properties.jcr:title || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+</template>

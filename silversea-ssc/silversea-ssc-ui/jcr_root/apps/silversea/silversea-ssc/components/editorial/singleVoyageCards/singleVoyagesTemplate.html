@@ -1,0 +1,45 @@
+<template data-sly-template.default="${ @ voyage }">
+       <div class="c-svg__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = voyage.cruiseModel.thumbnail}">
+       	   <div class="c-svg__result__image" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=450&fmt=pjpeg&pscan=5&qlt=80)"></div>
+           <div class="c-svg__result__content">
+               <div class="c-svg__result__content__inner">
+                   <span class="c-svg__result__content__title">${voyage.cruiseModel.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${voyage.cruiseModel.arrivalPortName}</span>
+                   <ul class="c-svg__result__content__summary clearfix">
+                       <li class="c-svg__result__content__summary__item">
+                           <dl>
+                               <dd data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd,', date=voyage.cruiseModel.startDate}"
+                                   data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=voyage.cruiseModel.startDate}"
+                                   data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=voyage.cruiseModel.startDate}"
+                                   data-date="${dateFull.value}">
+                                  <strong  class="text_uppercase">${dateMonthDay.value}</strong> <span class="sub_value">${dateYear.value}</span>
+                               </dd>
+                           </dl>
+                       </li>
+                       <li class="c-svg__result__content__summary__item">
+                           <dl>
+                               <dd><strong  class="text_uppercase">${voyage.cruiseModel.duration}</strong> <span class="text_lowercase sub_value">${'days' @ i18n}</span></dd>
+                           </dl>
+                       </li>
+                       <li class="c-svg__result__content__summary__item">
+                           <dl>
+                               <dd><strong class="text_uppercase singleVoyageShipName">${voyage.cruiseModel.ship.title}</strong></dd>
+                           </dl>
+                       </li>
+                   </ul>
+               </div>
+               <p class="c-svg__result__content__price ${voyage.isWaitList ? 'c-svg__result__content__price_isWaitList' : 'c-svg__result__content__price_isNotWaitList'}">
+                   <span data-sly-test="${voyage.pricePrefix}" class="price-prefixe">${voyage.pricePrefix}<br /></span>
+                   <strong data-sly-test="${voyage.isWaitList}">${'waitlist' @ i18n}</strong>
+                   <span data-sly-test="${!voyage.isWaitList}" class="price-prefixe text_lowercase">${'from' @ i18n} <br /></span>
+                   <strong data-sly-test="${!voyage.isWaitList}">
+                       ${voyage.lowestPrice.currency @ i18n} ${voyage.lowestPriceFormated}
+                   </strong>
+                   <span data-sly-test="${voyage.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} ${'early-booking-bonus' @ i18n}</span>
+               </p>
+               <p class="c-svg__result__content__button text-center">
+                  	<a href="${voyage.cruiseModel.path @ extension='html'}" class="btn effect c-svg-btn-discover-more" data-sscclicktype="clic-results-viewmore" onClick="s_objectID='${voyage.cruiseModel.cruiseCode @ context='unsafe'}';">${'discover-more' @ i18n} </a>
+               </p>
+           </div>
+	       <a class="c-svg__result__link" href="${voyage.cruiseModel.path @ extension='html'}"  onClick="s_objectID='${voyage.cruiseModel.cruiseCode @ context='unsafe'}';"></a>
+       </div>
+</template>

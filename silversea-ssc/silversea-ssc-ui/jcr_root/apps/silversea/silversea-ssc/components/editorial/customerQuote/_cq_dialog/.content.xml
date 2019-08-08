@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Customer Quote"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <quote
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                        fieldDescription="Quote"
+                        fieldLabel="Quote"
+                        name="./quote"/>
+                    <name
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Name"
+                        fieldLabel="Name"
+                        name="./name"/>
+                    <backgroundImage
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                        fieldDescription="Background Image"
+                        fieldLabel="Background Image"
+                        name="./backgroundImage"
+                        rootPath="/content/dam/silversea-com"/>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

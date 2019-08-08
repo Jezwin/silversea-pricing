@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Sticky menu"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <main
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Main"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <replaceHeader
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Replace header on scroll"
+                                    name="./replaceHeader"
+                                    value="true"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <menuItems
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                                    composite="{Boolean}true"
+                                    fieldLabel="menuItems">
+                                <field
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                        name="./menuItems">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <text
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Text"
+                                                        fieldLabel="Text"
+                                                        required="{Boolean}true"
+                                                        name="./text"/>
+                                                <anchor
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldDescription="Internal link to page anchor or external (http://)"
+                                                        fieldLabel="Anchor"
+                                                        name="./anchor"/>
+                                                <externalLink
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                        fieldDescription="Internal Page (automatic open new tab)."
+                                                        rootPath="/content/silversea-com"
+                                                        fieldLabel="Internal Page (open new tab)"
+                                                        name="./pageLink"/>
+                                                <desktop
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Visible on desktop"
+                                                        name="./desktop"
+                                                        value="true"
+                                                        sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                                <sscFwBackgroundColorDesktop
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldLabel="Background Color: #D60524(red),#171D47(blue),#273233(skyblue)#ffffff(white),#F4F4F4(lightgrey),#98989B(mediumgrey),#263133(darkgrey)"
+                                                        value="#f4f4f4"
+                                                        name="./sscFwBackgroundColorDesktop"/>
+                                                <sscFwColorDesktop
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldLabel="Color: #D60524(red),#171D47(blue),#273233(skyblue)#ffffff(white),#F4F4F4(lightgrey),#98989B(mediumgrey),#263133(darkgrey)"
+                                                        value="#171d47"
+                                                        name="./sscFwColorDesktop"/>
+                                                <offsetScrollDesktop
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                        defaultValue="60"
+                                                        fieldLabel="Offset scroll Desktop"
+                                                        name="./offsetScrollDesktop"/>
+                                                <tablet
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Visible on tablet"
+                                                        name="./tablet"
+                                                        value="true"
+                                                        sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                                <sscFwBackgroundColorTablet
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldLabel="Background Color: #D60524(red),#171D47(blue),#273233(skyblue)#ffffff(white),#F4F4F4(lightgrey),#98989B(mediumgrey),#263133(darkgrey)"
+                                                        value="#f4f4f4"
+                                                        name="./sscFwBackgroundColorTablet"/>
+                                                <sscFwColorTablet
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldLabel="Color: #D60524(red),#171D47(blue),#273233(skyblue)#ffffff(white),#F4F4F4(lightgrey),#98989B(mediumgrey),#263133(darkgrey)"
+                                                        value="#171d47"
+                                                        name="./sscFwColorTablet"/>
+                                                <offsetScrollTablet
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                        defaultValue="60"
+                                                        fieldLabel="Offset scroll Tablet"
+                                                        name="./offsetScrollTablet"/>
+                                                <mobile
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Visible on mobile"
+                                                        name="./mobile"
+                                                        value="true"
+                                                        sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                                <sscFwBackgroundColorMobile
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldLabel="Background Color: #D60524(red),#171D47(blue),#273233(skyblue)#ffffff(white),#F4F4F4(lightgrey),#98989B(mediumgrey),#263133(darkgrey)"
+                                                        value="#f4f4f4"
+                                                        name="./sscFwBackgroundColorMobile"/>
+                                                <sscFwColorMobile
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                        fieldLabel="Color: #D60524(red),#171D47(blue),#273233(skyblue)#ffffff(white),#F4F4F4(lightgrey),#98989B(mediumgrey),#263133(darkgrey)"
+                                                        value="#171d47"
+                                                        name="./sscFwColorMobile"/>
+                                                <offsetScrollMobile
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                        defaultValue="60"
+                                                        fieldLabel="Offset scroll Mobile"
+                                                        name="./offsetScrollMobile"/>
+                                                <geoTag jcr:primaryType="nt:unstructured"
+                                                        fieldLabel="Geolocation tag"
+                                                        name="./geoTag" rootPath="/etc/tags"
+                                                        multiple="{Boolean}true"
+                                                        sling:resourceType="cq/gui/components/coral/common/form/tagfield"/>
+
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </menuItems>
+                        </items>
+                    </column>
+                </items>
+            </main>
+        </items>
+    </content>
+</jcr:root>

@@ -1,0 +1,47 @@
+<sly data-sly-use.singleVoyageCards="com.silversea.ssc.aem.components.editorial.SingleVoyageCardsUse" />
+<div data-sly-test="${(wcmmode.edit || wcmmode.design) }"  class="cq-placeholder" data-emptytext="Single Voyage Cards - (.c-singleVoyageCards-${properties.sscUUID})"></div>
+ <section class="c-singleVoyageCards  ${properties.styleCards} c-singleVoyageCards-${properties.sscUUID} ${properties.marginTopDesktop} ${properties.marginBottomDesktop} ${properties.paddingTopDesktop} ${properties.paddingBottomDesktop} ${properties.marginTopTablet} ${properties.marginBottomTablet} ${properties.paddingTopTablet} ${properties.paddingBottomTablet} ${properties.marginTopMobile} ${properties.marginBottomMobile} ${properties.paddingTopMobile} ${properties.paddingBottomMobile}" id="SliderVoyageCards">
+ 	<div class="c-slider ${properties.styleCards == 'singleVoyageCardsNewDesign2018' ? 'activate-progressbar' : ''} c-slider--default c-slider--style1 c-slider--arrowoutside c-singleVoyageCards-slider number-${properties.numCards}" data-sly-list.voyage="${singleVoyageCards.voyages}" data-sly-test="${singleVoyageCards.voyages}" data-num-cards="${properties.numCards ? properties.numCards : '4'}">
+        <div class="slider-item">
+        	<sly data-sly-use.singleVoyagesTemplate="singleVoyagesTemplate.html" data-sly-call="${singleVoyagesTemplate.default @  voyage = voyage}" />
+        </div>
+ 	</div>
+ 	<div class="div-fares">
+	 	<span class="fares">*${'fares-from' @ i18n} <span>(${'per-guest' @ i18n})</span></span>
+ 	</div>
+	 <sly data-sly-test.voyageFirst="${singleVoyageCards.firstElement}">
+		 <script data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=voyageFirst.cruiseModel.startDate}">
+			 $(document)
+					 .ready(
+							 function () {
+								 var dataLayerVar = window.dataLayer[0];
+								 dataLayerVar.track_destination_id = "${voyageFirst.cruiseModel.destinationId @ context='unsafe'}";
+								 dataLayerVar.track_destination_name = "${voyageFirst.cruiseModel.destination.name @ context='unsafe'}";
+								 dataLayerVar.track_voyage_id = "${voyageFirst.cruiseModel.CruiseCode @ context='unsafe'}";
+								 dataLayerVar.track_departure_date = "${dateFull.value @ context='unsafe'}";
+								 dataLayerVar.track_voyage_duration = "${voyageFirst.cruiseModel.Duration @ context='unsafe'}";
+								 dataLayerVar.track_voyage_type = "${voyageFirst.cruiseModel.CruiseType @ context='unsafe'}";
+								 dataLayerVar.track_shipname = "${voyageFirst.cruiseModel.ship.name @ context='unsafe'}";
+								 dataLayerVar.track_ship_id = "${voyageFirst.cruiseModel.ship.id @ context='unsafe'}";
+								 dataLayerVar.track_voyage_departure_harbor = "${voyageFirst.cruiseModel.departurePortName @ context='unsafe'}";
+								 dataLayerVar.track_voyage_arrival_harbor = "${voyageFirst.cruiseModel.arrivalPortName @ context='unsafe'}";
+							 });
+
+		 </script>
+	 </sly>
+ </section>
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) {
+        ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {
+        ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+        ${properties.cssMobile @ context='html'}
+    }
+</style>

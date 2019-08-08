@@ -1,0 +1,38 @@
+@import (reference) "/etc/designs/silversea-ssc/clientlib-base/less/variables";
+.single-image {
+  overflow: hidden;
+
+  .single-image-container {
+    position: relative;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    overflow: hidden;
+
+    img {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: @screen-sm) {
+    .single-image-container {
+      height: var(--mobile-image-height);
+      background-position: var(--mobile-background-position, "center center");
+    }
+  }
+
+  @media screen and (max-width: @screen-md-max-limit) and (min-width: @screen-md-min) {
+    .single-image-container {
+      height: var(--tablet-image-height);
+      background-position: var(--tablet-background-position, "center center");
+    }
+  }
+
+  @media screen and (min-width: @screen-md-max) {
+    .single-image-container {
+      height: var(--desktop-image-height);
+      background-position: var(--desktop-background-position, "center center");
+    }
+  }
+}

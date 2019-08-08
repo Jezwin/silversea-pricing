@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" jcr:primaryType="nt:unstructured" jcr:title="SSC - Smart Container" sling:resourceType="cq/gui/components/authoring/dialog">
+    <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+        <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/tabs" type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <desktop jcr:primaryType="nt:unstructured" jcr:title="Desktop options" sling:resourceType="granite/ui/components/foundation/container">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <backgroundColorDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/select" fieldLabel="Background color" name="./backgroundColorDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <trasparentBackgroundDesktop jcr:primaryType="nt:unstructured" text="trasparent" value="trasparentBackgroundDesktop"/>
+                                    <lightgreyBackgroundDesktop jcr:primaryType="nt:unstructured" text="lightgrey" value="lightgreyBackgroundDesktop"/>
+                                    <whiteBackgroundDesktop jcr:primaryType="nt:unstructured" text="white" value="whiteBackgroundDesktop"/>
+                                    <darkblueBackgroundDesktop jcr:primaryType="nt:unstructured" text="darkblue" value="darkblueBackgroundDesktop"/>
+                                </items>
+                            </backgroundColorDesktop>
+                            <containerWidthDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/select" fieldLabel="Width" name="./containerWidthDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <normalWidthDesktop jcr:primaryType="nt:unstructured" text="normal" value="normalWidthDesktop"/>
+                                    <largerWidthDesktop jcr:primaryType="nt:unstructured" text="larger" value="largerWidthDesktop"/>
+                                    <fullWidthDesktop jcr:primaryType="nt:unstructured" text="full" value="fullWidthDesktop"/>
+                                </items>
+                            </containerWidthDesktop>
+                            <hideDesktop jcr:primaryType="nt:unstructured" text="Hide" name="./hideDesktop" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <backgroundWidthDesktopViewport jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="100" fieldLabel="Background width" fieldDescription="Choose the component background width on desktop" name="./backgroundWidthDesktopViewport" />
+                            <marginTopDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Top" fieldDescription="Choose the component Top margin on desktop" name="./marginTopDesktopPixel" />
+                            <marginBottomDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Bottom" fieldDescription="Choose the component Bottom margin on desktop" name="./marginBottomDesktopPixel" />
+                            <marginLeftDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Left" fieldDescription="Choose the component Left margin on desktop" name="./marginLeftDesktopPixel" />
+                            <marginRightDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Right" fieldDescription="Choose the component Right margin on desktop" name="./marginRightDesktopPixel" />
+                            <paddingTopDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="0" fieldLabel="Padding Top" fieldDescription="Choose the component Top padding on desktop" name="./paddingTopDesktopPixel" />
+                            <paddingBottomDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="0" fieldLabel="Padding Bottom" fieldDescription="Choose the component Bottom padding on desktop" name="./paddingBottomDesktopPixel"/>
+                            <paddingLeftDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="0" fieldLabel="Padding Left" fieldDescription="Choose the component Left padding on desktop" name="./paddingLeftDesktopPixel" />
+                            <paddingRightDesktopPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="0" fieldLabel="Padding Right" fieldDescription="Choose the component Right padding on desktop" name="./paddingRightDesktopPixel" />
+                            <cssDesktop jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css desktop" rows="5" fieldDescription="Custom css only desktop" name="./cssDesktop" />
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet jcr:primaryType="nt:unstructured" jcr:title="Tablet options" sling:resourceType="granite/ui/components/foundation/container">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <backgroundColorTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/select" fieldLabel="Background color" name="./backgroundColorTablet">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <trasparentBackgroundTablet jcr:primaryType="nt:unstructured" text="trasparent" value="trasparentBackgroundTablet"/>
+                                    <lightgreyBackgroundTablet jcr:primaryType="nt:unstructured" text="lightgrey" value="lightgreyBackgroundTablet"/>
+                                    <whiteBackgroundTablet jcr:primaryType="nt:unstructured" text="white" value="whiteBackgroundTablet"/>
+                                    <darkblueBackgroundTablet jcr:primaryType="nt:unstructured" text="darkblue" value="darkblueBackgroundTablet"/>
+                                </items>
+                            </backgroundColorTablet>
+                            <hideTablet jcr:primaryType="nt:unstructured" text="Hide" name="./hideTablet" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <backgroundWidthTabletViewport jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="100" fieldLabel="Background width" fieldDescription="Choose the component background width on tablet" name="./backgroundWidthTabletViewport" />
+                            <marginTopTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Top" fieldDescription="Choose the component Top margin on Tablet" name="./marginTopTabletPixel" />
+                            <marginBottomTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Bottom" fieldDescription="Choose the component Bottom margin on Tablet" name="./marginBottomTabletPixel" />
+                            <marginLeftTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Left" fieldDescription="Choose the component Left margin on Tablet" name="./marginLeftTabletPixel" />
+                            <marginRightTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Right" fieldDescription="Choose the component Right margin on Tablet" name="./marginRightTabletPixel" />
+                            <paddingTopTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" defaultValue="0" fieldLabel="Padding Top" fieldDescription="Choose the component Top padding on Tablet" name="./paddingTopTabletPixel" />
+                            <paddingBottomTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" defaultValue="0" fieldLabel="Padding Bottom" fieldDescription="Choose the component Bottom padding on Tablet" name="./paddingBottomTabletPixel"/>
+                            <paddingLeftTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" defaultValue="0" fieldLabel="Padding Left" fieldDescription="Choose the component Left padding on Tablet" name="./paddingLeftTabletPixel" />
+                            <paddingRightTabletPixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" defaultValue="0" fieldLabel="Padding Right" fieldDescription="Choose the component Right padding on Tablet" name="./paddingRightTabletPixel" />
+                            <cssTablet jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css Tablet" rows="5" fieldDescription="Custom css only Tablet" name="./cssTablet" />
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+            <mobile jcr:primaryType="nt:unstructured" jcr:title="Mobile options" sling:resourceType="granite/ui/components/foundation/container">
+                <layout jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <backgroundColorMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/select" fieldLabel="Background color" name="./backgroundColorMobile">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <trasparentBackgroundMobile jcr:primaryType="nt:unstructured" text="trasparent" value="trasparentBackgroundMobile"/>
+                                    <lightgreyBackgroundMobile jcr:primaryType="nt:unstructured" text="lightgrey" value="lightgreyBackgroundMobile"/>
+                                    <whiteBackgroundMobile jcr:primaryType="nt:unstructured" text="white" value="whiteBackgroundMobile"/>
+                                    <darkblueBackgroundMobile jcr:primaryType="nt:unstructured" text="darkblue" value="darkblueBackgroundMobile"/>
+                                </items>
+                            </backgroundColorMobile>
+                            <hideMobile jcr:primaryType="nt:unstructured" text="Hide" name="./hideMobile" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <backgroundWidthMobileViewport jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="100" fieldLabel="Background width" fieldDescription="Choose the component background width on mobile" name="./backgroundWidthMobileViewport" />
+                            <marginTopMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Top" fieldDescription="Choose the component Top margin on Mobile" name="./marginTopMobilePixel" />
+                            <marginBottomMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Bottom" fieldDescription="Choose the component Bottom margin on Mobile" name="./marginBottomMobilePixel" />
+                            <marginLeftMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Left" fieldDescription="Choose the component Left margin on Mobile" name="./marginLeftMobilePixel" />
+                            <marginRightMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="5"  defaultValue="0" fieldLabel="Margin Right" fieldDescription="Choose the component Right margin on Mobile" name="./marginRightMobilePixel" />
+                            <paddingTopMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="0" fieldLabel="Padding Top" fieldDescription="Choose the component Top padding on Mobile" name="./paddingTopMobilePixel" />
+                            <paddingBottomMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5" defaultValue="0" fieldLabel="Padding Bottom" fieldDescription="Choose the component Bottom padding on Mobile" name="./paddingBottomMobilePixel"/>
+                            <paddingLeftMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="0" fieldLabel="Padding Left" fieldDescription="Choose the component Left padding on Mobile" name="./paddingLeftMobilePixel" />
+                            <paddingRightMobilePixel jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield" min="0" step="5"  defaultValue="0" fieldLabel="Padding Right" fieldDescription="Choose the component Right padding on Mobile" name="./paddingRightMobilePixel" />
+                            <cssMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/textarea" fieldLabel="Custom css Mobile" rows="5" fieldDescription="Custom css only Mobile" name="./cssMobile" />
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

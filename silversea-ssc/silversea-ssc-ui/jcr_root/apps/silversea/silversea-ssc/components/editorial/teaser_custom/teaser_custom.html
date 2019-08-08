@@ -1,0 +1,24 @@
+<div data-sly-test="${(wcmmode.edit || wcmmode.design) && !properties.reference}"
+     class="cq-placeholder" data-emptytext="Teaser"></div>
+
+<sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" />
+
+<div class="c-teaser ${target.thumbnail ? '':'no-image'}"
+     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <a href="${properties.reference @ extension='html'}" class="c-teaser__wrapperhover" data-sly-test=${!properties.customURL}></a>
+    <a href="${properties.customURL}" class="c-teaser__wrapperhover" data-sly-test=${properties.customURL}></a>
+    <div class="c-teaser__wrapper">
+        <h2 class="c-teaser__wrapper__title">${target.page.navigationTitle || target.page.title}</h2>
+        <div class="trip-type ${properties.subTitleColor}" data-sly-test=${properties.subTitle}>${properties.subTitle}</div>
+        <div class="c-teaser__wrapper__descr hidden-xs">
+            ${target.page.description}
+        </div>
+    </div>
+    <div class="c-teaser__shader hidden-xs"></div>
+    <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
+    <div class="c-teaser__descr-mobile visible-xs-block">
+        ${target.page.description}
+    </div>
+    <a rel="nofollow" class="c-teaser__link" href="${properties.reference @ extension='html'}" data-sly-test=${!properties.customURL}>${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></a>
+    <a rel="nofollow" class="c-teaser__link" href="${properties.customURL}" data-sly-test=${properties.customURL}>${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></a>
+</div>

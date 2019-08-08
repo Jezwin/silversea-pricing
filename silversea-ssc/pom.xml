@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ====================================================================== -->
+    <!-- P A R E N T   P R O J E C T   D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <parent>
+        <groupId>com.silversea.aem</groupId>
+        <artifactId>silversea-aem-parent</artifactId>
+        <version>1.5.1</version>
+    </parent>
+
+    <!-- ====================================================================== -->
+    <!-- P R O J E C T   D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <artifactId>silversea-ssc</artifactId>
+    <version>2.1.S13-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Silversea.com Internal</name>
+    <url/>
+
+    <!-- ====================================================================== -->
+    <!-- P R O P E R T I E S -->
+    <!-- ====================================================================== -->
+    <properties>
+        <cq.project.name>silversea-ssc</cq.project.name>
+    </properties>
+
+    <!-- ====================================================================== -->
+    <!-- M O D U L E S -->
+    <!-- ====================================================================== -->
+    <modules>
+        <module>silversea-ssc-core</module>
+        <module>silversea-ssc-ui</module>
+    </modules>
+
+    <!-- ====================================================================== -->
+    <!-- D E P E N D E N C I E S   M A N A G E M E N T -->
+    <!-- ====================================================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.silversea.aem</groupId>
+                <artifactId>silversea-com-core</artifactId>
+                <version>2.1.S13-SNAPSHOT</version>
+				 <scope>provided</scope>            
+			 </dependency>
+			 <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.9.1</version>
+                <scope>provided</scope>
+            </dependency>
+			 <dependency>
+		        <groupId>biz.aQute</groupId>
+		        <artifactId>bndlib</artifactId>
+		        <version>1.50.0</version>
+		        <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

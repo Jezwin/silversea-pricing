@@ -1,0 +1,123 @@
+.c-hero-banner-video {
+    left: 50%;
+    margin-left: -50vw;
+    position: relative;
+    right: 50%;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center center !important;
+
+   video {
+        top: 50% !important;
+    	left: 50% !important;
+    	min-width: 100%;
+    	min-height: 100%;
+   		width: auto !important;
+    	height: auto !important;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%); 
+    	-webkit-transform: translate(-50%, -50%);
+    }
+
+    .wrap {
+        margin: 0 auto;
+    }
+
+    @media only screen and (min-width: 1030px) { 
+        .wrap {
+            max-width: 1040px;
+        }
+	}
+
+	@media only screen and (min-width: 1024px) {
+        .wrap {
+            max-width: 1000px;
+        }
+	}
+
+	@media only screen and (min-width: @screen-md-min) {
+        .wrap {
+            width: 92%;
+            max-width: 760px;
+        }
+	}
+
+	.vertical-centre-align {		
+        position: absolute;
+        top: 30%;
+        text-transform: uppercase;
+        text-align: center;
+        color: #fff;
+        left: 0px;
+    	right: 0px;
+
+        h1 {
+            line-height: normal;
+            letter-spacing: 2px;
+            font-size: 3.8em;   
+            font-family: @freight;
+        }
+
+        @media only screen and (max-width: @screen-sm) {
+            h1 {
+                letter-spacing: 2px;
+            	font-size: 2.3em;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.7rem;
+            letter-spacing: 0;
+            opacity: 0.6;
+            font-family: @suisse;
+
+            em {
+                font-style: italic;
+            }
+        }
+
+         @media only screen and (max-width: @screen-sm) {
+            .subtitle {
+                letter-spacing: 2px;
+            	font-size: 1rem;
+            }
+         }
+
+        .caption {
+            letter-spacing: 3px;
+            opacity: 0.6;
+            font-size: 16px;
+            font-family: @suisse;
+        }
+	}
+
+	.fadeIn {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
+
+    .animated {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+
+    .vertical-centre-align .subtitle em {
+        font-style:  normal !important;
+        opacity: 1.0 !important;   
+        font-size: 18px;   
+        line-height: 22px;  
+        color: #fff;  
+        opacity: 1.0 !important;  
+        display: block;  
+        text-transform: initial !important;
+    }
+
+    .vertical-centre-align .subtitle  {
+        opacity: 1.0 !important;   
+        color: #fff;   
+    }
+}

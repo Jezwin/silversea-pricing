@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="SSC - Single Voyage Cards"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false" />
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                     <voyageFT
+                    	jcr:primaryType="nt:unstructured"
+                    	fieldLabel="Voyages (FT) code list"
+                    	fieldDescription="Insert voyage code for (FT) market with ',' as separator. e.g.: 5,4,6,1,9 Leave empty to skip the order."
+                    	name="./voyageFT"
+                    	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                    <voyageEU
+                    	jcr:primaryType="nt:unstructured"
+                    	fieldLabel="Voayges (EU) code list"
+                    	fieldDescription="Insert voyage code for (EU) market with ',' as separator. e.g.: 5,4,6,1,9 Leave empty to skip the order."
+                    	name="./voyageEU"
+                    	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                     <voyageAS
+                    	jcr:primaryType="nt:unstructured"
+                    	fieldLabel="Voyages (AS) code list"
+                    	fieldDescription="Insert voyage code for (AS) market with ',' as separator. e.g.: 5,4,6,1,9 Leave empty to skip the order."
+                    	name="./voyageAS"
+                    	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                    <voyageUK
+                    	jcr:primaryType="nt:unstructured"
+                    	fieldLabel="Voyages (UK) code list"
+                    	fieldDescription="Insert voyage code for (UK) market with ',' as separator. e.g.: 5,4,6,1,9 Leave empty to skip the order."
+                    	name="./voyageUK"
+                    	sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

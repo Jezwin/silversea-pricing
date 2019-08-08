@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Media Mix Slider Custom"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <main
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Main options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <assetSelectionReference
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Asset selection"
+                                name="./assetSelectionReference"
+                                rootPath="/content/dam/silversea-com"/>
+                        </items>
+                    </column>
+                </items>
+            </main>
+            <desktop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <slideWidthDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="780"
+                                fieldDescription="Choose the slide width"
+                                fieldLabel="Width (px)"
+                                name="./slideWidthDesktop"/>
+                            <disableLightboxGalleryDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./disableLightboxGalleryDesktop"
+                                text="Disable lightbox"
+                                value="true"/>
+                            <disableProgressBarDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./disableProgressBarDesktop"
+                                text="Disable progress bar"
+                                value="true"/>
+                            <limitWidthSlider
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    name="./limitWidthSlider"
+                                    text="Limit width Slider - 1920px"
+                                    value="true"/>
+                            <marginTopDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Top margin on desktop"
+                                fieldLabel="Margin Top (px)"
+                                name="./marginTopDesktop"/>
+                            <marginBottomDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Bottom margin on desktop"
+                                fieldLabel="Margin Bottom (px)"
+                                name="./marginBottomDesktop"/>
+                            <paddingTopDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Top padding on desktop"
+                                fieldLabel="Padding Top (px)"
+                                name="./paddingTopDesktop"/>
+                            <paddingBottomDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Bottom padding on desktop"
+                                fieldLabel="Padding Bottom (px)"
+                                name="./paddingBottomDesktop"/>
+                        </items>
+                    </column>
+                </items>
+            </desktop>
+            <tablet
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Tablet options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <slideWidthTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="400"
+                                fieldDescription="Choose the slide width"
+                                fieldLabel="Width (px)"
+                                name="./slideWidthTablet"/>
+                            <disableLightboxGalleryTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./disableLightboxGalleryTablet"
+                                text="Disable lightbox"
+                                value="true"/>
+                            <disableProgressBarTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./disableProgressBarTablet"
+                                text="Disable progress bar"
+                                value="true"/>
+                            <marginTopTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Top margin on tablet"
+                                fieldLabel="Margin Top (px)"
+                                name="./marginTopTablet"/>
+                            <marginBottomTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Bottom margin on tablet"
+                                fieldLabel="Margin Bottom (px)"
+                                name="./marginBottomTablet"/>
+                            <paddingTopTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Top padding on tablet"
+                                fieldLabel="Padding Top (px)"
+                                name="./paddingTopTablet"/>
+                            <paddingBottomTablet
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Bottom padding on tablet"
+                                fieldLabel="Padding Bottom (px)"
+                                name="./paddingBottomTablet"/>
+                        </items>
+                    </column>
+                </items>
+            </tablet>
+            <mobile
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Mobile options"
+                sling:resourceType="granite/ui/components/foundation/container">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <slideWidthMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="325"
+                                fieldDescription="Choose the slide width"
+                                fieldLabel="Width (px)"
+                                name="./slideWidthMobile"/>
+                            <disableLightboxGallery
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./disableLightboxGallery"
+                                text="Disable lightbox"
+                                value="true"/>
+                            <disableProgessBarMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./disableProgessBarMobile"
+                                text="Disable progress bar"
+                                value="true"/>
+                            <marginTopMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Top margin on mobile"
+                                fieldLabel="Margin Top (px)"
+                                name="./marginTopMobile"/>
+                            <marginBottomMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Bottom margin on mobile"
+                                fieldLabel="Margin Bottom (px)"
+                                name="./marginBottomMobile"/>
+                            <paddingTopMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Top padding on mobile"
+                                fieldLabel="Padding Top (px)"
+                                name="./paddingTopMobile"/>
+                            <paddingBottomMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Choose the component Bottom padding on mobile"
+                                fieldLabel="Padding Bottom (px)"
+                                name="./paddingBottomMobile"/>
+                        </items>
+                    </column>
+                </items>
+            </mobile>
+        </items>
+    </content>
+</jcr:root>

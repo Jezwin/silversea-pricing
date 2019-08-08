@@ -1,0 +1,21 @@
+<div data-sly-test="${(wcmmode.edit || wcmmode.design)}" class="cq-placeholder"
+     data-emptytext="SSC - Bottom Banner Text CTA (#bottom-banner-text-cta-${properties.sscUUID})">
+</div>
+
+<div id="bottom-banner-text-cta-${properties.sscUUID}"
+     class="bottom-banner-text-cta  ${properties.isDark ? 'dark' : 'light'}"
+     style="--desktop-margin: ${properties.desktopMarginTop @ context='styleToken'}px 0 ${properties.desktopMarginBottom @ context='styleToken'}px 0;
+            --desktop-padding: ${properties.desktopPaddingTop @ context='styleToken'}px 0 ${properties.desktopPaddingBottom @ context='styleToken'}px 0;
+            --tablet-margin: ${properties.tabletMarginTop @ context='styleToken'}px 0 ${properties.tabletMarginBottom @ context='styleToken'}px 0;
+            --tablet-padding: ${properties.tabletPaddingTop @ context='styleToken'}px 0 ${properties.tabletPaddingBottom @ context='styleToken'}px 0;
+            --mobile-padding: ${properties.mobilePaddingTop @ context='styleToken'}px 0 ${properties.mobilePaddingBottom @ context='styleToken'}px 0;
+            --mobile-margin: ${properties.mobileMarginTop @ context='styleToken'}px 0 ${properties.mobileMarginBottom @ context='styleToken'}px 0;">
+    <div class="text-container row">
+        <div class="col-md-10 col-md-offset-1">
+            ${properties.text @ context='html'}
+        </div>
+    </div>
+
+    <div data-sly-resource="${'bottom-banner-parsys' @ resourceType='wcm/foundation/components/responsivegrid'}">
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder"	data-emptytext="Localized Phone Display"></div>
+
+<span class="c-localizedPhonedisplay-${properties.style || 'normal'} ${properties.center ? 'c-localizedPhonedisplay-center' : ''} " data-sly-test="${!properties.bold}">
+	<sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html" />
+    <sly data-sly-call="${googleForwardingNumberTemplate.localizedPhone}" />  
+</span>
+<span class="c-localizedPhonedisplay-${properties.style || 'normal'} ${properties.center ? 'c-localizedPhonedisplay-center' : ''}" data-sly-test="${properties.bold}">
+	<b>
+		<sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html" />
+    	<sly data-sly-call="${googleForwardingNumberTemplate.localizedPhone}" /> 
+	</b>
+</span>

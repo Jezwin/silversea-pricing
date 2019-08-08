@@ -1,0 +1,208 @@
+<template data-sly-template.by3="${ @ destSlider}">
+<sly data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height'}" />
+<div class="c-destinationSlider c-destinationSlider-by3 ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.hiddenMobile ? 'hiddenMobile' : ''} ${properties.defaultWidth ? 'defaultWidth' : ''}"> 
+	 <div class="c-destinationSlider-header">
+		 <span class="c-destinationSlider-header__headline" data-sly-test="${properties.headline}">
+	 		${properties.headline}
+	 	</span>
+	    <span class="c-destinationSlider-header__title" data-sly-test="${properties.viewAllLink}">
+	 		<a href="${properties.viewAllLink @ extension='html'}">${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}</a>
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${!properties.viewAllLink}">
+	 		${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}
+	 	</span>
+		 <span class="c-destinationSlider-header__description ${properties.hiddenDescriptionDesktop ? 'hideOnDesktop' : ''} ${properties.hiddenDescriptionMobile ? 'hideOnMobile' : ''}" data-sly-test="${properties.jcr:description}">
+	 		${properties.jcr:description}
+	 	</span>
+		 <span class="c-destinationSlider-header__viewmore" data-sly-test="${properties.viewAllLink}"><a href="${properties.viewAllLink @ extension='html'}">
+			 <span class="hidden-xs">${properties.ctaLabel ? properties.ctaLabel : 'view-all' @ i18n}</span>
+			 <span class="visible-xs">${properties.ctaLabelMobile ? properties.ctaLabelMobile : 'view-all' @ i18n}</span>
+			 <i class="fa fa-lg fa-angle-right"></i></a>
+		 </span>
+	 </div> 
+	 <div class="c-destinationSlider__slider-parent">
+	    <div class="c-destinationSlider__slider" data-ssc-row="1" data-ssc-element="3" data-ssc-total="3">
+	        <sly data-sly-list.destination="${destSlider.itemList}">
+	            <div class="c-destinationSlider__slider__slide msname">
+				<sly data-sly-use.singleItemTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/singleSlideTemplate.html">
+				        <sly data-sly-call="${ singleItemTemplate.singleItemDefault @ singleItem=destination, heightClass=heightClass}" />
+				</sly>
+	            </div>
+	        </sly>
+	    </div>
+    </div>
+</div>
+</template>
+
+<template data-sly-template.by6="${ @ destSlider}">
+<sly data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height'}" />
+<div class="c-destinationSlider c-destinationSlider-by6 ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.hiddenMobile ? 'hiddenMobile' : ''} ${properties.defaultWidth ? 'defaultWidth' : ''}">
+	 <div class="c-destinationSlider-header">
+		 <span class="c-destinationSlider-header__headline" data-sly-test="${properties.headline}">
+	 		${properties.headline}
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${properties.viewAllLink}">
+	 		<a href="${properties.viewAllLink @ extension='html'}">${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}</a>
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${!properties.viewAllLink}">
+	 		${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}
+	 	</span>
+		 <span class="c-destinationSlider-header__description ${properties.hiddenDescriptionDesktop ? 'hideOnDesktop' : ''} ${properties.hiddenDescriptionMobile ? 'hideOnMobile' : ''}" data-sly-test="${properties.jcr:description}">
+	 		${properties.jcr:description}
+	 	</span>
+		 <span class="c-destinationSlider-header__viewmore" data-sly-test="${properties.viewAllLink}"><a href="${properties.viewAllLink @ extension='html'}">
+			 <span class="hidden-xs">${properties.ctaLabel ? properties.ctaLabel : 'view-all' @ i18n}</span>
+			 <span class="visible-xs">${properties.ctaLabelMobile ? properties.ctaLabelMobile : 'view-all' @ i18n}</span>
+			 <i class="fa fa-lg fa-angle-right"></i></a>
+		 </span>
+	 </div> 
+	 <div class="c-destinationSlider__slider-parent">
+	    <div class="c-destinationSlider__slider" data-ssc-row="2" data-ssc-element="3" data-ssc-total="6">
+	        <sly data-sly-list.destination="${destSlider.itemList}">
+	            <div class="c-destinationSlider__slider__slide msname">
+				<sly data-sly-use.singleItemTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/singleSlideTemplate.html">
+				        <sly data-sly-call="${ singleItemTemplate.singleItemDefault @ singleItem=destination, heightClass=heightClass}" />
+				</sly>
+	            </div>
+	        </sly>
+	    </div>
+	</div>
+</div>
+</template>
+
+<template data-sly-template.by1="${ @ destSlider}">
+<sly data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='heightby1'}" />
+<div class="c-destinationSlider c-destinationSlider-by1 ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.hiddenMobile ? 'hiddenMobile' : ''} ${properties.defaultWidth ? 'defaultWidth' : ''}"> 
+	 <div class="c-destinationSlider-header">
+		 <span class="c-destinationSlider-header__headline" data-sly-test="${properties.headline}">
+	 		${properties.headline}
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${properties.viewAllLink}">
+	 		<a href="${properties.viewAllLink @ extension='html'}">${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}</a>
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${!properties.viewAllLink}">
+	 		${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}
+	 	</span>
+		 <span class="c-destinationSlider-header__description ${properties.hiddenDescriptionDesktop ? 'hideOnDesktop' : ''} ${properties.hiddenDescriptionMobile ? 'hideOnMobile' : ''}" data-sly-test="${properties.jcr:description}">
+	 		${properties.jcr:description}
+	 	</span>
+	 	<span class="c-destinationSlider-header__viewmore" data-sly-test="${properties.viewAllLink}"><a href="${properties.viewAllLink @ extension='html'}">
+			<span class="hidden-xs">${properties.ctaLabel ? properties.ctaLabel : 'view-all' @ i18n}</span>
+			<span class="visible-xs">${properties.ctaLabelMobile ? properties.ctaLabelMobile : 'view-all' @ i18n}</span>
+			<i class="fa fa-lg fa-angle-right"></i></a></span>
+	 </div> 
+	 <div class="c-destinationSlider__slider-parent">
+	    <div class="c-destinationSlider__slider" data-ssc-row="1" data-ssc-element="1" data-ssc-total="1">
+	        <sly data-sly-list.destination="${destSlider.itemList}">
+	            <div class="c-destinationSlider__slider__slide msname">
+				<sly data-sly-use.singleItemTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/singleSlideTemplate.html">
+				        <sly data-sly-call="${ singleItemTemplate.singleItemBig @ singleItem=destination, heightClass=heightClass}" />
+				</sly>
+	            </div>
+	        </sly>
+	    </div>
+	</div>
+</div>
+</template>
+
+<template data-sly-template.by2="${ @ destSlider}">
+<sly data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='heightby2'}" />
+<div class="c-destinationSlider c-destinationSlider-by2 ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.hiddenMobile ? 'hiddenMobile' : ''} ${properties.defaultWidth ? 'defaultWidth' : ''}"> 
+	 <div class="c-destinationSlider-header">
+		 <span class="c-destinationSlider-header__headline" data-sly-test="${properties.headline}">
+	 		${properties.headline}
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${properties.viewAllLink}">
+	 		<a href="${properties.viewAllLink @ extension='html'}">${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}</a>
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${!properties.viewAllLink}">
+	 		${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}
+	 	</span>
+		 <span class="c-destinationSlider-header__description ${properties.hiddenDescriptionDesktop ? 'hideOnDesktop' : ''} ${properties.hiddenDescriptionMobile ? 'hideOnMobile' : ''}" data-sly-test="${properties.jcr:description}">
+	 		${properties.jcr:description}
+	 	</span>
+	 	<span class="c-destinationSlider-header__viewmore" data-sly-test="${properties.viewAllLink}"><a href="${properties.viewAllLink @ extension='html'}">
+			<span class="hidden-xs">${properties.ctaLabel ? properties.ctaLabel : 'view-all' @ i18n}</span>
+			<span class="visible-xs">${properties.ctaLabelMobile ? properties.ctaLabelMobile : 'view-all' @ i18n}</span>
+			<i class="fa fa-lg fa-angle-right"></i></a></span>
+	 </div> 
+	 <div class="c-destinationSlider__slider-parent">
+	    <div class="c-destinationSlider__slider" data-ssc-row="1" data-ssc-element="2" data-ssc-total="2">
+	        <sly data-sly-list.destination="${destSlider.itemList}">
+	            <div class="c-destinationSlider__slider__slide msname" >
+				<sly data-sly-use.singleItemTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/singleSlideTemplate.html">
+				        <sly data-sly-call="${ singleItemTemplate.singleItemBig @ singleItem=destination, heightClass=heightClass}" />
+				</sly>
+	            </div>
+	        </sly>
+	    </div>
+	</div>
+</div>
+</template>
+
+<template data-sly-template.by1Landing="${ @ destSlider}">
+<sly data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='heightby1'}" />
+<div class="c-destinationSlider c-destinationSlider-by1Landing ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.hiddenMobile ? 'hiddenMobile' : ''} ${properties.defaultWidth ? 'defaultWidth' : ''}"> 
+	 <div class="c-destinationSlider-header">
+	 	<span class="c-destinationSlider-header__headline" data-sly-test="${properties.headline}">
+	 		${properties.headline}
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${properties.viewAllLink}">
+	 		<a href="${properties.viewAllLink @ extension='html'}">${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}</a>
+	 	</span>
+		 <span class="c-destinationSlider-header__title" data-sly-test="${!properties.viewAllLink}">
+	 		${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}
+	 	</span>
+	 	<span class="c-destinationSlider-header__description ${properties.hiddenDescriptionDesktop ? 'hideOnDesktop' : ''} ${properties.hiddenDescriptionMobile ? 'hideOnMobile' : ''}" data-sly-test="${properties.jcr:description}">
+	 		${properties.jcr:description}
+	 	</span>
+	 	<span class="c-destinationSlider-header__viewmore" data-sly-test="${properties.viewAllLink}"><a href="${properties.viewAllLink @ extension='html'}">
+			<span class="hidden-xs">${properties.ctaLabel ? properties.ctaLabel : 'view-all' @ i18n}</span>
+			<span class="visible-xs">${properties.ctaLabelMobile ? properties.ctaLabelMobile : 'view-all' @ i18n}</span>
+			<i class="fa fa-lg fa-angle-right"></i></a></span>
+	 </div> 
+	 <div class="c-destinationSlider__slider-parent">
+	    <div class="c-destinationSlider__slider" data-ssc-row="1" data-ssc-element="1" data-ssc-total="1">
+	        <sly data-sly-list.destination="${destSlider.itemList}">
+	            <div class="c-destinationSlider__slider__slide msname">
+				<sly data-sly-use.singleItemTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/singleSlideTemplate.html">
+				        <sly data-sly-call="${ singleItemTemplate.singleItemBigLanding @ singleItem=destination, heightClass=heightClass}" />
+				</sly>
+	            </div>
+	        </sly>
+	    </div>
+	</div>
+</div>
+</template>
+
+<template data-sly-template.by3Auto="${ @ destSlider}">
+	<sly data-sly-use.heightClass="${'com.silversea.ssc.aem.helper.FrameworkHelper' @ property='height'}" />
+	<div class="c-destinationSlider c-destinationSlider-by3 ${properties.hiddenDesktop ? 'hiddenDesktop' : ''} ${properties.hiddenMobile ? 'hiddenMobile' : ''} ${properties.defaultWidth ? 'defaultWidth' : ''}">
+		<div class="c-destinationSlider-header">
+	    <span class="c-destinationSlider-header__title" data-sly-test="${properties.destinationsReference}">
+	 		<a href="${properties.destinationsReference @ extension='html'}">${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}</a>
+	 	</span>
+			<span class="c-destinationSlider-header__title" data-sly-test="${!properties.destinationsReference}">
+	 		${properties.jcr:title ? properties.jcr:title : 'worldwide-destinations' @ i18n}
+	 	</span>
+			<span class="c-destinationSlider-header__description hidden-xs ${properties.hiddenDescriptionDesktop ? 'hideOnDesktop' : ''} ${properties.hiddenDescriptionMobile ? 'hideOnMobile' : ''}" data-sly-test="${properties.jcr:description}">
+	 		${properties.jcr:description}
+	 	</span>
+			<span class="c-destinationSlider-header__viewmore" data-sly-test="${properties.destinationsReference}"><a href="${properties.destinationsReference @ extension='html'}">
+				<span class="hidden-xs">${properties.ctaLabel ? properties.ctaLabel : 'view-all' @ i18n}</span>
+			 	<span class="visible-xs">${properties.ctaLabelMobile ? properties.ctaLabelMobile : 'view-all' @ i18n}</span>
+				<i class="fa fa-lg fa-angle-right"></i></a></span>
+		</div>
+		<div class="c-destinationSlider__slider-parent">
+			<div class="c-destinationSlider__slider" data-ssc-row="1" data-ssc-element="3" data-ssc-total="3">
+				<sly data-sly-list.destination="${destSlider.itemList}">
+					<div class="c-destinationSlider__slider__slide msname">
+						<sly data-sly-use.singleItemTemplate="silversea/silversea-ssc/components/editorial/destinationSlider/singleSlideTemplate.html">
+							<sly data-sly-call="${ singleItemTemplate.singleItemDefault @ singleItem=destination, heightClass=heightClass}" />
+						</sly>
+					</div>
+				</sly>
+			</div>
+		</div>
+	</div>
+</template>

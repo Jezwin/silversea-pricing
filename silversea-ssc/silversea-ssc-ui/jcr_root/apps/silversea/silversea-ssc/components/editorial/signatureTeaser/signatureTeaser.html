@@ -1,0 +1,3 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="signature teaser"></div>
+<sly data-sly-test="${properties.componentType == null || properties.componentType == 'target'}" data-sly-use.signatureTeaserTemplate="signatureTeaserTemplate.html" data-sly-call="${signatureTeaserTemplate.target}" />
+<sly data-sly-test="${properties.componentType == 'custom'}" data-sly-use.signatureTeaserTemplate="signatureTeaserTemplate.html" data-sly-call="${signatureTeaserTemplate.custom}" />

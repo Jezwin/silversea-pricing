@@ -1,0 +1,20 @@
+<div data-sly-test.empty="${wcmmode.edit && !properties.reference}" class="cq-placeholder" data-emptytext="Bouton Lightbox"></div>
+<div class="${properties.textalign || ''} ${properties.noMargin ? 'noMargin' : ''}" data-sly-test="${ !properties.lightboxActivated }">
+    <a data-sly-test="${properties.reference && !properties.isFile}" href="${properties.reference @ extension='html'}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
+    
+       <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title @ context = "html"}</span>
+       <span class="hidden-sm hidden-xs">${properties.title @ context = "html"}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+    </a>
+        <a data-sly-test="${properties.reference && properties.isFile}" href="${properties.reference}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
+    
+       <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title @ context = "html"}</span>
+       <span class="hidden-sm hidden-xs">${properties.title @ context = "html"}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+    </a>
+</div>
+
+<div class="${properties.textalign || ''} ${properties.noMargin ? 'noMargin' : ''}" data-sly-test="${ properties.lightboxActivated }" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" >
+            <a href="${properties.reference @ extension='html', selectors='modalcontent'}" class="btn btn-${properties.color} ${properties.size} effect" type="button" data-sscclicktype="${properties.analyticType}" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title @ context = "html"}</span>
+       <span class="hidden-sm hidden-xs">${properties.title @ context = "html"}</span> <i class="fa fa-lg fa-angle-right" data-sly-test="${!properties.hideArrow}"></i>
+            </a>
+        </div>

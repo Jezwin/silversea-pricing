@@ -1,0 +1,39 @@
+<template data-sly-template.automatic>
+		<sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.targetPath}" />
+		<a href="${properties.targetPath @ extension='html'}" class="c-custom-teaser-wrapperhover"></a>
+	 	<div class="c-custom-teaser-image ${target.thumbnail ? '':'no-image'}" data-sly-test="${properties.targetPath}">
+            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"  data-sly-call="${imageTemplate.image @ imagePath=target.thumbnail}" />
+            <div data-sly-test="${properties.labelImage}" class="c-custom-teaser-image-label">	${properties.labelImage @ context="html"}</div>
+        </div>
+        <div class="caption c-custom-teaser-caption">
+            <span class="c-custom-teaser-title">
+             	${target.page.title || target.page.navigationTitle @ context="html"}
+           	</span>
+            <p class="c-custom-teaser-description">
+	        	${target.page.description @ context="html"}
+	            <a class="c-custom-teaser-link" data-sly-test="${properties.targetPath}" href="${properties.targetPath @ extension='html'}">
+	                <span class="c-custom-teaser-label">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            </a>
+            </p>
+        </div>
+        <a class="c-custom-teaser-block" data-sly-test="${properties.targetPath}" href="${properties.targetPath @ extension='html'}"></a>
+</template>
+<template data-sly-template.manual>
+		<a href="${properties.targetPath @ extension='html'}" class="c-custom-teaser-wrapperhover"></a>
+	 	<div class="c-custom-teaser-image ${properties.imagePath ? '':'no-image'}" data-sly-test="${properties.imagePath}">
+            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"  data-sly-call="${imageTemplate.image @ imagePath=properties.imagePath}" />
+            <div data-sly-test="${properties.labelImage}" class="c-custom-teaser-image-label">	${properties.labelImage @ context="html"}</div>
+        </div>
+        <div class="caption c-custom-teaser-caption">
+            <span class="c-custom-teaser-title">
+             	${properties.jcr:title @ context="html"}
+           	</span>
+            <p class="c-custom-teaser-description">
+	        	${properties.jcr:description @ context="html"}
+	            <a class="c-custom-teaser-link" data-sly-test="${properties.targetPath}" href="${properties.targetPath @ extension='html'}">
+	                <span class="c-custom-teaser-label">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            </a>
+            </p>
+        </div>
+        <a class="c-custom-teaser-block" data-sly-test="${properties.targetPath}" href="${properties.targetPath @ extension='html'}"></a>
+</template>

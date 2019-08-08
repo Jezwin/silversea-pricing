@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:language="de"
+    jcr:mixinTypes="[mix:language]"
+    jcr:primaryType="nt:folder">
+    <category
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Category"
+        sling:message="Category"/>
+    <day-by-day
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Day-by-day"
+        sling:message="Tag für Tag"/>
+    <dimensions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Dimensions"
+        sling:message="Dimensions"/>
+    <expedition-cruise-itinerary
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-cruise-itinerary"
+        sling:message="Routenplan der Expeditionskreuzfahrt"/>
+    <FOLLOW-SILVERSEA-CRUISES-ON-THE-WEB
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="FOLLOW-SILVERSEA-CRUISES-ON-THE-WEB"
+        sling:message="FOLGEN SILVERSEA CRUISES SIE AUF DEM WEB" />
+    <view-all-terms-and-conditions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="View-all-terms-and-conditions"
+        sling:message="Die vollständigen Allgemeinen Geschäftsbedingungen finden Sie unter"/>
+	<table-break-text-next
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="table-break-text-next"
+        sling:message="Auf der folgenden Seite finden Sie den zweiten Teil der Routenpläne"/>
+	<table-break-text-previous
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="table-break-text-previous"
+        sling:message="Fortsetzung der Routenpläne der vorherigen Seite"/>
+    <view-more-about-this-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="View-more-about-this-cruise"
+        sling:message="Mehr über diese Kreuzfahrt anzeigen"/>
+    <view-more-about-this-expedition-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="View-more-about-this-expedition-cruise"
+        sling:message="Mehr über diese Expeditionskreuzfahrt anzeigen"/>
+    <VIEW-OUR-BROCHURES
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="VIEW-OUR-BROCHURES"
+        sling:message="unsere broschüren ansehen" />
+    <PLAY-OUR-VIDEO
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="PLAY-OUR-VIDEO"
+        sling:message="VIDEO ANSEHEN" />
+    <Planning-on-cruising-soon
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Planning-on-cruising-soon"
+        sling:message="Planning on cruising soon?" />
+    <We-help-you-plan-your-next-luxury-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="We-help-you-plan-your-next-luxury-cruise"
+        sling:message="We help you plan your next luxury cruise" />
+    <brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="brochures"
+        sling:message="Broschüren" />
+    <Discover-more-about
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Discover-more-about"
+        sling:message="Erfahren Sie mehr über" />
+    <by-requesting-our-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="by-requesting-our-brochures"
+        sling:message="indem Sie unsere Broschüren anfordern" />
+    <view-voyages
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="view-voyages"
+            sling:message="Reisen Ansehen" />
+   <worldwide-destinations
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="worldwide-destinations"
+        sling:message="Weltweite Reiseziele" />
+</jcr:root>

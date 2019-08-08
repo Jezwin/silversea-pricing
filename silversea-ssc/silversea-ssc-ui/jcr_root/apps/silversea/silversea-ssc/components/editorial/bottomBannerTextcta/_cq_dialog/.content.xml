@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Bottom Banner Text CTA"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <items jcr:primaryType="nt:unstructured">
+            <columns
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <tabs
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container"
+                                class="cq-siteadmin-admin-properties-tabs">
+                                <layout
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                                    type="nav"/>
+                                <items jcr:primaryType="nt:unstructured">
+                                    <bottomBannerTextcta
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Bottom Banner Text CTA"
+                                        sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                            margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <text
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                                        useFixedInlineToolbar="{Boolean}true"
+                                                        fieldLabel="Text"
+                                                        name="./text"/>
+                                                    <isDark
+                                                        jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                                        checked="false"
+                                                        name="./isDark"
+                                                        text="Dark banner"
+                                                        value="isDark"/>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </bottomBannerTextcta>
+                                    <desktop
+                                        cq:showOnCreate="{Boolean}false"
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Desktop"
+                                        sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                            margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <desktop
+                                                        jcr:primaryType="nt:unstructured"
+                                                        jcr:title="Desktop"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <marginTop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="0"
+                                                                fieldLabel="Margin top (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./desktopMarginTop"
+                                                                step="5"/>
+                                                            <marginBottom
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="0"
+                                                                fieldLabel="Margin bottom (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./desktopMarginBottom"
+                                                                step="5"/>
+                                                            <paddingTop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="60"
+                                                                fieldLabel="Padding top (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./desktopPaddingTop"
+                                                                step="5"/>
+                                                            <paddingBottom
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="60"
+                                                                fieldLabel="Padding bottom (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./desktopPaddingBottom"
+                                                                step="5"/>
+                                                        </items>
+                                                    </desktop>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </desktop>
+                                    <tablet
+                                        cq:showOnCreate="{Boolean}false"
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Tablet"
+                                        sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                            margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <tablet
+                                                        jcr:primaryType="nt:unstructured"
+                                                        jcr:title="Tablet"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <marginTop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="0"
+                                                                fieldLabel="Margin top (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./tabletMarginTop"
+                                                                step="5"/>
+                                                            <marginBottom
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="0"
+                                                                fieldLabel="Margin bottom (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./tabletMarginBottom"
+                                                                step="5"/>
+                                                            <paddingTop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="30"
+                                                                fieldLabel="Padding top (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./tabletPaddingTop"
+                                                                step="5"/>
+                                                            <paddingBottom
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="30"
+                                                                fieldLabel="Padding bottom (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./tabletPaddingBottom"
+                                                                step="5"/>
+                                                        </items>
+                                                    </tablet>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </tablet>
+                                    <mobile
+                                        cq:showOnCreate="{Boolean}false"
+                                        jcr:primaryType="nt:unstructured"
+                                        jcr:title="Mobile"
+                                        sling:resourceType="granite/ui/components/foundation/section">
+                                        <layout
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                            margin="{Boolean}false"/>
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <column
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/container">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <mobile
+                                                        jcr:primaryType="nt:unstructured"
+                                                        jcr:title="Mobile"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                                        <items jcr:primaryType="nt:unstructured">
+                                                            <marginTop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="0"
+                                                                fieldLabel="Margin top (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./mobileMarginTop"
+                                                                step="5"/>
+                                                            <marginBottom
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="0"
+                                                                fieldLabel="Margin bottom (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./mobileMarginBottom"
+                                                                step="5"/>
+                                                            <paddingTop
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="25"
+                                                                fieldLabel="Padding top (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./mobilePaddingTop"
+                                                                step="5"/>
+                                                            <paddingBottom
+                                                                jcr:primaryType="nt:unstructured"
+                                                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                                                defaultValue="25"
+                                                                fieldLabel="Padding bottom (px)"
+                                                                max="500"
+                                                                min="0"
+                                                                name="./mobilePaddingBottom"
+                                                                step="5"/>
+                                                        </items>
+                                                    </mobile>
+                                                </items>
+                                            </column>
+                                        </items>
+                                    </mobile>
+                                </items>
+                            </tabs>
+                        </items>
+                    </column>
+                </items>
+            </columns>
+        </items>
+    </content>
+</jcr:root>
