@@ -19,42 +19,42 @@ pipelines:
             - curl -4 https://ifconfig.co/      
       # Staging
       - step:
-          name: Stage Build Author
+          name: COM Stage Build Author
           trigger: manual
           deployment: stage-author
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502 -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.204.183.84:4502 -DapiClientVersion="[3.0, 4.0]"
       - step:
-          name: Stage Build Publish 1
+          name: COM Stage Build Publish 1
           trigger: manual
           deployment: stage-publish-1
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]" 
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503 -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]" 
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.234.4.77:4503 -DapiClientVersion="[3.0, 4.0]"
       - step:
-          name: Stage Build Publish 2
+          name: COM Stage Build Publish 2
           trigger: manual
           deployment: stage-publish-2
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503 -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://35.173.158.72:4503 -DapiClientVersion="[3.0, 4.0]"
       # Production
       - step:
-          name: Prod Build Author
+          name: COM Prod Build Author
           trigger: manual
           deployment: prod-author
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
-            - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502 -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502 -DapiClientVersion="[3.0, 4.0]"
       - step:
           name: Prod Build Publish 1
           trigger: manual
@@ -62,14 +62,14 @@ pipelines:
           caches:
            - maven
           script:
-            - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
-            - mvn --settings maven-settings-ci.xml clean install -Pauto--Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
+            - cd silveresea-com && mvn --settings maven-settings-ci.xml clean install -Pauto--Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD -DapiClientVersion="[3.0, 4.0]"
       - step:
-          name: Prod Build Publish 2
+          name: COM Prod Build Publish 2
           trigger: manual
           deployment: prod-publish-2
           caches:
            - maven
           script:
-           - mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]" 
-           - mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503 -DapiClientVersion="[3.0, 4.0]"            
+           - cd silveresea-com && mvn --settings maven-settings-ci.xml -f pom2.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]" 
+           - cd silveresea-com && mvn --settings maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503 -DapiClientVersion="[3.0, 4.0]"            
