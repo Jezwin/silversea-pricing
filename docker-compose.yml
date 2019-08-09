@@ -1,0 +1,16 @@
+version: '3'
+services:
+  silversea:
+    image: maven:3.6.1-jdk-8
+    container_name: silverseacom
+    command: ["sleep", "infinity"]
+    working_dir: /code
+    volumes:
+     - ".:/code"
+     - maven-cache:/root/.m2 # this will be persisted - see below
+    environment:
+     - AEM_HOST=host.docker.internal
+
+# These volumess will be persisted
+volumes:
+  maven-cache:
