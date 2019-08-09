@@ -4,21 +4,19 @@ pipelines:
   # runs on all builds on any branch. Unit tests to run here?
   default: 
     - step:
-        name: Sonar Analysis
+        name: Build and Test
         script: 
-          - echo "Sonar not currently configured in cloud environment"
+          - ./build_and_test_local.sh
   branches:
     # we only deploy from bitbucketmaster
     bitbucketmaster: 
       # First step cannot be manual
       - step:
-          name: Capture IP For Diagnostics
+          name: Build and Test
           caches:
             - maven
           script: 
-            - curl -4 https://ifconfig.co/ 
-            - pwd
-            - ls  
+            - ./build_and_test_local.sh 
 
       #########################   
       # Staging
