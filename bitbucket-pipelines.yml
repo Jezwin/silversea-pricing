@@ -1,12 +1,12 @@
 image: maven:3.6.1-jdk-8
 
 pipelines:
-  # runs on all builds on any branch. Unit tests to run here?
+  # runs on all builds on any branch
   default: 
     - step:
         name: Build and Test
         caches:
-            - maven
+          - maven
         script: 
           - ./build_and_test_local.sh
   branches:
@@ -28,7 +28,7 @@ pipelines:
           trigger: manual
           deployment: stage-author
           caches:
-           - maven
+            - maven
           script:
             - ./build_and_deploy.sh http://18.204.183.84:4502 $AUTHOR_STAGE_PASSWORD ci-user
       - step:
@@ -36,7 +36,7 @@ pipelines:
           trigger: manual
           deployment: stage-publish-1
           caches:
-           - maven
+            - maven
           script:
             - ./build_and_deploy.sh http://18.234.4.77:4503 $AUTHOR_STAGE_PASSWORD ci-user
       - step:
@@ -44,7 +44,7 @@ pipelines:
           trigger: manual
           deployment: stage-publish-2
           caches:
-           - maven
+            - maven
           script:
             - ./build_and_deploy.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD ci-user
       
@@ -56,28 +56,22 @@ pipelines:
           trigger: manual
           deployment: prod-author
           caches:
-           - maven
+            - maven
           script:
-            - cd silversea-com
-            - mvn --settings ../maven-settings-ci.xml -f ../parent-fetcher-pom.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
-            - mvn --settings ../maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.211.58.161:4502 -DapiClientVersion="[3.0, 4.0]"
+            - ./build_and_deploy.sh http://18.211.58.161:4502 $AUTHOR_PROD_PASSWORD ci-user
       - step:
           name: Prod Build Publish 1
           trigger: manual
           deployment: prod-publish-1
           caches:
-           - maven
+            - maven
           script:
-            - cd silversea-com
-            - mvn --settings ../maven-settings-ci.xml -f ../parent-fetcher-pom.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]"
-            - mvn --settings ../maven-settings-ci.xml clean install -Pauto--Daws.key=$ARTIFACTS_USER -Daws.secret=$ARTIFACTS_PASSWORD -DapiClientVersion="[3.0, 4.0]"
+            - ./build_and_deploy.sh http://35.168.37.187:4503 $AUTHOR_PROD_PASSWORD ci-user
       - step:
           name: Prod Build Publish 2
           trigger: manual
           deployment: prod-publish-2
           caches:
-           - maven
+            - maven
           script:
-            - cd silversea-com
-            - mvn --settings ../maven-settings-ci.xml -f ../parent-fetcher-pom.xml dependency:get -Dartifact=com.silversea.aem:silversea-aem-parent:1.5.1 -DremoteRepositories=s3.release -Dpackaging=pom -DapiClientVersion="[3.0, 4.0]" 
-            - mvn --settings ../maven-settings-ci.xml clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://18.214.75.8:4503 -DapiClientVersion="[3.0, 4.0]"            
+            - ./build_and_deploy.sh http://18.214.75.8:4503 $AUTHOR_PROD_PASSWORD ci-user
