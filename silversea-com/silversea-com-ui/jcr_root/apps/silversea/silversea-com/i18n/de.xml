@@ -604,7 +604,7 @@
     <from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Von"/>
+        sling:message="Ab"/>
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
