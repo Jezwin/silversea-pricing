@@ -1,0 +1,2 @@
+#Normalise Line Endings
+*.sh text eol=lf
