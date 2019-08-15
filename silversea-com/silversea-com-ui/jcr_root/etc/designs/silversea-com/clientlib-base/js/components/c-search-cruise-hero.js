@@ -116,7 +116,7 @@ $(function() {
             mapDest["northern-europe-british-isles-cruise"] = 2;
             mapDest["russian-far-east-cruise"] = 21;
             mapDest["south-america-cruise"] = 7;
-            mapDest["south-pacific-islands-cruise"] = 7;
+            mapDest["south-pacific-islands-cruise"] = 26;
             mapDest["transoceanic-cruise"] = 8;
 
             e.preventDefault();
