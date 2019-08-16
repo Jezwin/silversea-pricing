@@ -40,6 +40,27 @@
                               			value="custom" />
                               	</items>
                             </componentType>
+                            <cruiseType
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                    fieldDescription="Choose which type of cruise to filter by"
+                                    fieldLabel="Cruise Type"
+                                    name="./cruiseType" >
+                                <items jcr:primaryType="nt:unstructured">
+                                    <all
+                                            jcr:primaryType="nt:unstructured"
+                                            text="All"
+                                            value="" />
+                                    <classic
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Classic"
+                                            value="?type=silversea-cruise" />
+                                    <expedition
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Expedition"
+                                            value="?type=silversea-expedition" />
+                                </items>
+                            </cruiseType>
                             <targetpath
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Target path"
