@@ -151,7 +151,8 @@
                 <plugin>
                     <groupId>com.day.jcr.vault</groupId>
                     <artifactId>content-package-maven-plugin</artifactId>
-                    <version>0.5.24</version>
+                    <!-- Errors with latest version, see: https://forums.adobe.com/thread/2526615 -->
+                    <version>0.5.1</version>
                     <extensions>true</extensions>
                     <configuration>
                         <packaging>zip</packaging>
@@ -163,6 +164,12 @@
                         <install>true</install>
                         <verbose>true</verbose>
                         <useProxy>false</useProxy>
+                        <filters>
+                            <filter>
+                                <root>/apps/silversea</root>
+                                <mode>update</mode>
+                            </filter>
+                        </filters>
                     </configuration>
                 </plugin>
                 <plugin>
