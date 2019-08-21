@@ -160,7 +160,7 @@
                             <acHandling>overwrite</acHandling>
                             <granite.suppressSnapshots>true</granite.suppressSnapshots>
                         </properties>
-                        <failOnError>false</failOnError>
+                        <failOnError>true</failOnError>
                         <install>true</install>
                         <verbose>true</verbose>
                         <useProxy>false</useProxy>
