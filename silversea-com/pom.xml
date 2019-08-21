@@ -38,6 +38,7 @@
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S   M A N A G E M E N T -->
     <!-- ====================================================================== -->
+
     <dependencyManagement>
         <dependencies>
             <!-- Api client -->
@@ -45,6 +46,11 @@
                 <groupId>com.silversea.aem</groupId>
                 <artifactId>ssc-api-client-auth</artifactId>
                 <version>2.1.S13-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.silversea.aem</groupId>
