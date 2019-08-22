@@ -39,21 +39,21 @@ pipelines:
           script:
             - ./build_and_deploy_ssc.sh http://18.204.183.84:4502 $AUTHOR_STAGE_PASSWORD ci-user
       - step:
-          name: Stage Build Publish 1
+          name: Stage Build Publish 1 COM
           trigger: manual
           caches:
             - maven
           script:
             - ./build_and_deploy_com.sh http://18.234.4.77:4503 $AUTHOR_STAGE_PASSWORD ci-user
       - step:
-          name: Stage Build Publish 1
+          name: Stage Build Publish 1 SSC
           trigger: manual
           caches:
             - maven
           script:
             - ./build_and_deploy_ssc.sh http://18.234.4.77:4503 $AUTHOR_STAGE_PASSWORD ci-user
       - step:
-          name: Stage Build Publish 2
+          name: Stage Build Publish 2 COM
           trigger: manual
           deployment: stage-publish-2
           caches:
@@ -61,7 +61,7 @@ pipelines:
           script:
             - ./build_and_deploy_com.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD ci-user
       - step:
-          name: Stage Build Publish 2
+          name: Stage Build Publish 2 SSC
           trigger: manual
           deployment: stage-publish-2
           caches:
