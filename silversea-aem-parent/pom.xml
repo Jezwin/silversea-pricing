@@ -156,9 +156,7 @@
                     <extensions>true</extensions>
                     <configuration>
                         <packaging>zip</packaging>
-                        <!-- 
-                        <packageType>container</packageType>
-                    -->
+                        <packageType>mixed</packageType>
                         <properties>
                             <acHandling>overwrite</acHandling>
                             <granite.suppressSnapshots>true</granite.suppressSnapshots>
@@ -167,14 +165,12 @@
                         <install>true</install>
                         <verbose>true</verbose>
                         <useProxy>false</useProxy>
-                        <!--
                         <filters>
                             <filter>
                                 <root>/apps/silversea</root>
-                                <mode>update</mode>
+                                <mode>merge</mode>
                             </filter>
                         </filters>
-                        -->
                     </configuration>
                 </plugin>
                 <plugin>
