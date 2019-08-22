@@ -55,7 +55,6 @@ pipelines:
       - step:
           name: Stage Build Publish 2 COM
           trigger: manual
-          deployment: stage-publish-2
           caches:
             - maven
           script:
@@ -63,7 +62,6 @@ pipelines:
       - step:
           name: Stage Build Publish 2 SSC
           trigger: manual
-          deployment: stage-publish-2
           caches:
             - maven
           script:
