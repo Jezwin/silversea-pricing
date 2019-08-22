@@ -165,12 +165,14 @@
                         <install>true</install>
                         <verbose>true</verbose>
                         <useProxy>false</useProxy>
+                        <!--
                         <filters>
                             <filter>
                                 <root>/apps/silversea</root>
                                 <mode>update</mode>
                             </filter>
                         </filters>
+                        -->
                     </configuration>
                 </plugin>
                 <plugin>
