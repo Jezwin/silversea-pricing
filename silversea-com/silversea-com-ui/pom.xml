@@ -46,6 +46,7 @@
                 <groupId>com.day.jcr.vault</groupId>
                 <artifactId>content-package-maven-plugin</artifactId>
                 <configuration>
+                    <finalName>silversea-com-ui-${releaseNumber}</finalName>
                     <embeddeds>
                         <embedded>
                             <groupId>${project.groupId}</groupId>

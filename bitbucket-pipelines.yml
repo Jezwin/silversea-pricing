@@ -24,49 +24,29 @@ pipelines:
       # Staging
       #########################
       - step:
-          name: Stage Build Author COM
+          name: Stage Build Author
           trigger: manual
           deployment: stage-author
           caches:
             - maven
           script:
-            - ./build_and_deploy_com.sh http://18.204.183.84:4502 $AUTHOR_STAGE_PASSWORD ci-user
+            - ./build_and_deploy_com.sh http://18.204.183.84:4502 $AUTHOR_STAGE_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"
       - step:
-          name: Stage Build Author SSC
+          name: Stage Build Publish 1
           trigger: manual
+          deployment: stage-publish-1
           caches:
             - maven
           script:
-            - ./build_and_deploy_ssc.sh http://18.204.183.84:4502 $AUTHOR_STAGE_PASSWORD ci-user
+            - ./build_and_deploy_com.sh http://18.234.4.77:4503 $AUTHOR_STAGE_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"
       - step:
-          name: Stage Build Publish 1 COM
+          name: Stage Build Publish 2
           trigger: manual
+          deployment: stage-publish-2
           caches:
             - maven
           script:
-            - ./build_and_deploy_com.sh http://18.234.4.77:4503 $AUTHOR_STAGE_PASSWORD ci-user
-      - step:
-          name: Stage Build Publish 1 SSC
-          trigger: manual
-          caches:
-            - maven
-          script:
-            - ./build_and_deploy_ssc.sh http://18.234.4.77:4503 $AUTHOR_STAGE_PASSWORD ci-user
-      - step:
-          name: Stage Build Publish 2 COM
-          trigger: manual
-          caches:
-            - maven
-          script:
-            - ./build_and_deploy_com.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD ci-user
-      - step:
-          name: Stage Build Publish 2 SSC
-          trigger: manual
-          caches:
-            - maven
-          script:
-            - ./build_and_deploy_ssc.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD ci-user
-      
+            - ./build_and_deploy_com.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"   
       #########################   
       # Prod
       #########################
@@ -77,7 +57,7 @@ pipelines:
           caches:
             - maven
           script:
-            - ./build_and_deploy.sh http://18.211.58.161:4502 $AUTHOR_PROD_PASSWORD ci-user
+            - ./build_and_deploy.sh http://18.211.58.161:4502 $AUTHOR_PROD_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"
       - step:
           name: Prod Build Publish 1
           trigger: manual
@@ -85,7 +65,7 @@ pipelines:
           caches:
             - maven
           script:
-            - ./build_and_deploy.sh http://35.168.37.187:4503 $AUTHOR_PROD_PASSWORD ci-user
+            - ./build_and_deploy.sh http://35.168.37.187:4503 $AUTHOR_PROD_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"
       - step:
           name: Prod Build Publish 2
           trigger: manual
@@ -93,4 +73,4 @@ pipelines:
           caches:
             - maven
           script:
-            - ./build_and_deploy.sh http://18.214.75.8:4503 $AUTHOR_PROD_PASSWORD ci-user
+            - ./build_and_deploy.sh http://18.214.75.8:4503 $AUTHOR_PROD_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"

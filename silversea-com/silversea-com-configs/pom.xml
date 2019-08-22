@@ -39,6 +39,9 @@
             <plugin>
                 <groupId>com.day.jcr.vault</groupId>
                 <artifactId>content-package-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>silversea-com-configs-${releaseNumber}</finalName>
+                </configuration>
             </plugin>
         </plugins>
     </build>
