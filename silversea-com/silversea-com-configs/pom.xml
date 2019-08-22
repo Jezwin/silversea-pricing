@@ -17,6 +17,7 @@
     <packaging>content-package</packaging>
     <name>Silversea.com Configurations</name>
     <description>Silversea.com configurations</description>
+    <version>${releaseNumber}</version>
 
     <!-- ====================================================================== -->
     <!-- P R O P E R T I E S -->
@@ -40,7 +41,6 @@
                 <groupId>com.day.jcr.vault</groupId>
                 <artifactId>content-package-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>silversea-com-configs-${releaseNumber}</finalName>
                 </configuration>
             </plugin>
         </plugins>
