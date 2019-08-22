@@ -14,7 +14,7 @@ cd silversea-aem-parent && mvn clean install
 echo "Building ssc-api-client"
 cd ../ssc-api-client && mvn clean install
 
-echo "Building and deploying silversea-com"
+echo "Building silversea-com"
 cd ../silversea-com && mvn --settings ../maven-settings-ci.xml clean install
 
 echo "Building and deploying silversea-ssc"
