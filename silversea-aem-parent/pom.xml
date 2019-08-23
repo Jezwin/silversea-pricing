@@ -167,11 +167,7 @@
                         <filters>
                             <filter>
                                 <root>/apps/silversea</root>
-                                <mode>update</mode>
-                                <includes>
-                                    <include>/apps/silversea/silversea-ssc</include>
-                                    <include>/apps/silvesea/silvesea-com</include>
-                               </includes>
+                                <mode>merge</mode>
                             </filter>
                         </filters>
                     </configuration>
