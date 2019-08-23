@@ -31,8 +31,9 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -407,10 +408,11 @@ public class ImportersUtils {
 
         String finalDestination = destinationPath + "/" + fileName;
         try {
+            String assetUrlFileNameEncoded = encodeFileNameAssetUrl(assetUrl,fileName);
             if (!session.itemExists(finalDestination) ||
-                    isResourceToBeUpdated(resourceResolver, finalDestination, new URL(assetUrl))) {
+                    isResourceToBeUpdated(resourceResolver, finalDestination, new URL(assetUrlFileNameEncoded))) {
                 LOGGER.info("Creating itinerary asset {}", finalDestination);
-                try (InputStream mapStream = new URL(assetUrl).openStream()) {
+                try (InputStream mapStream = new URL(assetUrlFileNameEncoded).openStream()) {
                     final Asset asset = assetManager.createAsset(finalDestination, mapStream,
                             mimeTypeService.getMimeType(assetUrl), false);
                     LOGGER.info("Creating {} SAVED.", finalDestination);
@@ -426,7 +428,7 @@ public class ImportersUtils {
                 return finalDestination;
 
             }
-        } catch (RepositoryException | IOException e) {
+        } catch (RepositoryException | IOException e  ) {
             LOGGER.error("Error during creation of {}", assetUrl);
             LOGGER.error("Error during creation of {}", e.getMessage());
         }
@@ -455,5 +457,30 @@ public class ImportersUtils {
         }
         return true;
 
+    }
+
+    /***
+     * Encode the filename of the assetUrl
+     * (avoid exceptions during URL.openStream())
+     *
+     * @param assetUrl
+     * @param filename
+     * @return
+     * @throws UnsupportedEncodingException (subclass of IOException)
+     */
+    private static String encodeFileNameAssetUrl(String assetUrl, String filename) throws UnsupportedEncodingException {
+
+        String assetUrlFileNameEncoded = "";
+
+        if(StringUtils.isNotEmpty(assetUrlFileNameEncoded) && StringUtils.isNotEmpty(filename)) {
+            //asseturl without filename
+            assetUrlFileNameEncoded = assetUrl.substring(0, assetUrl.lastIndexOf("/") + 1);
+            //Encode filename
+            String fileNameEncoded = URLEncoder.encode(filename, "UTF-8");
+
+            assetUrlFileNameEncoded = assetUrlFileNameEncoded + fileNameEncoded;
+        }
+
+        return assetUrlFileNameEncoded;
     }
 }
