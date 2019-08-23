@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/silversea/silversea-ssc">
+        <!--<exclude pattern="/apps/silversea/silversea-ssc/config(.*)" />-->
+    </filter>
+   
+    <filter root="/etc/designs/silversea-ssc">
+        <exclude pattern="/etc/designs/silversea-ssc/jcr:content(.*)" />
+    </filter>
+
+    <filter root="/etc/clientlibs/silversea-ssc">
+        <exclude pattern="/etc/clientlibs/silversea-ssc/jcr:content(.*)" />
+    </filter>
+</workspaceFilter>

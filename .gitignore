@@ -14,7 +14,6 @@
 # Maven
 log/
 target/
-**/META-INF/
 
 # Brackets
 .brackets.json
