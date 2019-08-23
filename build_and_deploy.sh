@@ -16,7 +16,7 @@ echo "Building ssc-api-client"
 cd ../ssc-api-client && mvn clean install
 
 echo "Building and deploying silversea-com"
-cd ../silversea-com && mvn --settings ../maven-settings-ci.xml clean install -Pauto-install-package -Dvault.verbose=true -Dcq.password="${PASSWORD}" -Dcq.user="${USER}" -Dcq.url="${AEM_URL}" -DreleaseNumber="${VERSION}" -X
+cd ../silversea-com && mvn --settings ../maven-settings-ci.xml clean install -Pauto-install-package -Dvault.verbose=true -Dcq.password="${PASSWORD}" -Dcq.user="${USER}" -Dcq.url="${AEM_URL}" -DreleaseNumber="${VERSION}"
 
 echo "Building and deploying silversea-ssc"
-cd ../silversea-ssc && mvn --settings ../maven-settings-ci.xml clean install -Pauto-install-package -Dvault.verbose=true -Dcq.password="${PASSWORD}" -Dcq.user="${USER}" -Dcq.url="${AEM_URL}" -DreleaseNumber="${VERSION}" -X
+cd ../silversea-ssc && mvn --settings ../maven-settings-ci.xml clean install -Pauto-install-package -Dvault.verbose=true -Dcq.password="${PASSWORD}" -Dcq.user="${USER}" -Dcq.url="${AEM_URL}" -DreleaseNumber="${VERSION}"
