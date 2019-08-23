@@ -34,9 +34,6 @@ private AwsSecretManager awsSecretManager;
     }
 
     private void createSender() {
-
-
-
             Try<String> token = getSecret();
             token.map(tk -> {
                     HttpsRequestConfiguration conf = HttpsRequestConfiguration
@@ -55,7 +52,10 @@ private AwsSecretManager awsSecretManager;
                             .withInMemoryQueue()
                             .endInMemoryQueue()
                             .build();
-                }).onSuccess(s -> sender = Optional.of(s)).onFailure(e -> {
+                }).onSuccess(s -> {
+                sender = Optional.of(s);
+                s.start();
+            }).onFailure(e -> {
                     sender = Optional.empty();
                     Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
                 logger.error("something in the logger initialization went wrong", e);
