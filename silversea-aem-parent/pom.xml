@@ -166,8 +166,12 @@
                         <useProxy>false</useProxy>
                         <filters>
                             <filter>
-                                <root>/apps/</root>
+                                <root>/apps/silversea</root>
                                 <mode>update</mode>
+                                <includes>
+                                    <include>/apps/silversea/silversea-ssc</include>
+                                    <include>/apps/silvesea/silvesea-com</include>
+                               </includes>
                             </filter>
                         </filters>
                     </configuration>
