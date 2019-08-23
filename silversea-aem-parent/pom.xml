@@ -164,12 +164,6 @@
                         <install>true</install>
                         <verbose>true</verbose>
                         <useProxy>false</useProxy>
-                        <filters>
-                            <filter>
-                                <root>/apps</root>
-                                <mode>merge</mode>
-                            </filter>
-                        </filters>
                     </configuration>
                 </plugin>
                 <plugin>
