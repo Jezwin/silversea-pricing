@@ -166,7 +166,7 @@
                         <useProxy>false</useProxy>
                         <filters>
                             <filter>
-                                <root>/apps/silversea</root>
+                                <root>/apps</root>
                                 <mode>merge</mode>
                             </filter>
                         </filters>
