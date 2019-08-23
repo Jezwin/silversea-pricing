@@ -155,7 +155,6 @@
                     <extensions>true</extensions>
                     <configuration>
                         <packaging>zip</packaging>
-                        <packageType>mixed</packageType>
                         <properties>
                             <acHandling>overwrite</acHandling>
                             <granite.suppressSnapshots>true</granite.suppressSnapshots>
