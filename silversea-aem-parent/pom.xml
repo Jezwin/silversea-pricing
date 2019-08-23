@@ -151,7 +151,6 @@
                 <plugin>
                     <groupId>com.day.jcr.vault</groupId>
                     <artifactId>content-package-maven-plugin</artifactId>
-                    <!-- Errors with latest version, see: https://forums.adobe.com/thread/2526615 -->
                     <version>0.5.24</version>
                     <extensions>true</extensions>
                     <configuration>
@@ -168,7 +167,7 @@
                         <filters>
                             <filter>
                                 <root>/apps/silversea</root>
-                                <mode>merge</mode>
+                                <mode>update</mode>
                             </filter>
                         </filters>
                     </configuration>

@@ -46,7 +46,7 @@ pipelines:
           caches:
             - maven
           script:
-            - ./build_and_deploy.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"   
+            - ./build_and_deploy.sh http://35.173.158.72:4503 $AUTHOR_STAGE_PASSWORD silversea-admin "${BITBUCKET_BUILD_NUMBER}"   
       #########################   
       # Prod
       #########################
@@ -57,7 +57,7 @@ pipelines:
           caches:
             - maven
           script:
-            - ./build_and_deploy.sh http://18.211.58.161:4502 $AUTHOR_PROD_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"
+            - ./build_and_deploy.sh http://18.211.58.161:4502 $AUTHOR_PROD_PASSWORD silversea-admin "${BITBUCKET_BUILD_NUMBER}"
       - step:
           name: Prod Build Publish 1
           trigger: manual
@@ -65,7 +65,7 @@ pipelines:
           caches:
             - maven
           script:
-            - ./build_and_deploy.sh http://35.168.37.187:4503 $AUTHOR_PROD_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"
+            - ./build_and_deploy.sh http://35.168.37.187:4503 $AUTHOR_PROD_PASSWORD silversea-admin "${BITBUCKET_BUILD_NUMBER}"
       - step:
           name: Prod Build Publish 2
           trigger: manual
@@ -73,4 +73,4 @@ pipelines:
           caches:
             - maven
           script:
-            - ./build_and_deploy.sh http://18.214.75.8:4503 $AUTHOR_PROD_PASSWORD ci-user "${BITBUCKET_BUILD_NUMBER}"
+            - ./build_and_deploy.sh http://18.214.75.8:4503 $AUTHOR_PROD_PASSWORD silversea-admin "${BITBUCKET_BUILD_NUMBER}"
