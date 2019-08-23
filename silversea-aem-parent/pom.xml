@@ -8,7 +8,7 @@
     <artifactId>silversea-aem-parent</artifactId>
     <version>1.5.1</version>
     <packaging>pom</packaging>
-    <name>Silversea AEM Parent</name>
+    <name>Silversea AEM Parent</name> 
 
     <!-- ====================================================================== -->
     <!-- P R O P E R T I E S -->
