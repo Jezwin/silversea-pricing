@@ -472,7 +472,7 @@ public class ImportersUtils {
 
         String assetUrlFileNameEncoded = "";
 
-        if(StringUtils.isNotEmpty(assetUrlFileNameEncoded) && StringUtils.isNotEmpty(filename)) {
+        if(StringUtils.isNotEmpty(assetUrl) && StringUtils.isNotEmpty(filename)) {
             //asseturl without filename
             assetUrlFileNameEncoded = assetUrl.substring(0, assetUrl.lastIndexOf("/") + 1);
             //Encode filename
