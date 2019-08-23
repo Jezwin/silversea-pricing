@@ -28,7 +28,7 @@ public class AwsSecretManager {
     @Activate
     protected final void activate(final ComponentContext context) {
         Dictionary<String,String> properties = context.getProperties();
-        region = PropertiesUtil.toString(properties.get("region"), "");
+        region = PropertiesUtil.toString(properties.get("region"), "us-east-1");
     }
 
     public Try<GetSecretValueResult> getSecretValue(String secretName) {
@@ -38,10 +38,7 @@ public class AwsSecretManager {
                     .build();
             GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest()
                     .withSecretId(secretName);
-            GetSecretValueResult getSecretValueResult = null;
-            getSecretValueResult = client.getSecretValue(getSecretValueRequest);
-
-            return getSecretValueResult;
+            return client.getSecretValue(getSecretValueRequest);
         });
     }
 }
