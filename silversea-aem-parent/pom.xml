@@ -166,7 +166,7 @@
                         <useProxy>false</useProxy>
                         <filters>
                             <filter>
-                                <root>/apps/*</root>
+                                <root>/apps/</root>
                                 <mode>update</mode>
                             </filter>
                         </filters>
