@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/silversea/silversea-com">
+        <include pattern="/apps/silversea/silversea-com/config(.*)" />
+        <include pattern="/apps/silversea/silversea-com/rep:policy" />
+    </filter>
+
+    <filter root="/apps/silversea/config/rewriter"/>
+
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataschema/brochures"/>
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-de"/>
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-en"/>
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-es"/>
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-fr"/>
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-pt-br"/>
+	<filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-it"/>
+	<filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-ru"/>
+
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataschema/default/image"/>
+
+
+    <filter root="/conf/silversea-com"/>
+
+    <filter root="/content/elb.txt"/>
+    <filter root="/content/silversea-com/rep:policy"/>
+    <filter root="/content/silversea-com/en/robots.txt"/>
+    <filter root="/content/silversea-com/en/robots-author.txt"/>
+    <filter root="/content/silversea-com/en/crossdomain.xml"/>
+    <filter root="/content/silversea-com/en/akamai/akamai-sureroute-test-object.html"/>
+    <filter root="/content/dam/silversea-com/rep:policy"/>
+
+    <filter root="/etc/blueprints/silversea-com"/>
+    <filter root="/etc/tags/features/rep:policy"/>
+    <filter root="/etc/tags/geotagging/rep:policy"/>
+    <filter root="/etc/rep:policy"/>
+    <filter root="/etc/dam/imageserver/configuration/jcr:content/settings"/>
+    <filter root="/etc/dam/video/dynamicmedia/silversea-video-profile"/>
+
+    <filter root="/etc/workflow/launcher/config/dam_xmp_writeback"/>
+    <filter root="/etc/workflow/launcher/config/metadata_set_lastmodified"/>
+    <filter root="/etc/workflow/models/dam/update_asset"/>
+
+    <filter root="/home/users/system/gHzmOV4k0ZqfqqXhf0RL"/>
+    <filter root="/home/users/system/L0iRqDg5spfz2wRwtrCu"/>
+</workspaceFilter>
