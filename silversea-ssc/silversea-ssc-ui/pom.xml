@@ -42,16 +42,6 @@
                 <groupId>com.day.jcr.vault</groupId>
                 <artifactId>content-package-maven-plugin</artifactId>
                 <configuration>
-                    <filters>
-                        <filter>
-                            <root>/apps/silversea/silversea-ssc</root>
-                            <mode>update</mode>
-                        </filter>
-                        <filter>
-                            <root>/etc</root>
-                            <mode>update</mode>
-                        </filter>
-                    </filters>
                     <embeddeds>
                         <embedded>
                             <groupId>${project.groupId}</groupId>
