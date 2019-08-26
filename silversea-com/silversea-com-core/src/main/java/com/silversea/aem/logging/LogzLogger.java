@@ -1,5 +1,6 @@
-package com.silversea.aem.utils;
+package com.silversea.aem.logging;
 
+import com.silversea.aem.logging.JsonLog;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.com.google.gson.Gson;
 import io.logz.sender.com.google.gson.JsonObject;
@@ -28,23 +29,21 @@ public class LogzLogger {
         }
     }
 
-    private void log(String logLevel, String event, JsonObject message) {
+    private void log(String level, JsonLog message) {
         sender.ifPresent(s -> {
-            message.addProperty("level", logLevel);
-            message.add("runMode", serialiser.toJsonTree(runModes));
-            message.addProperty("component", component);
-            message.addProperty("event", event);
-            s.send(message);
+            JsonObject js = message.underlying();
+            js.addProperty("level", level);
+            js.add("runMode", serialiser.toJsonTree(runModes));
+            js.addProperty("component", component);
+            s.send(js);
         });
     }
 
-    public void logInfo(String event, JsonObject message) {
-        log("info", event, message);
+    public void logInfo(JsonLog message) { log("info", message); }
+    public void logWarning(JsonLog message) {
+        log("warning", message);
     }
-    public void logWarning(String event, JsonObject message) {
-        log("warning", event, message);
-    }
-    public void logError(String event, JsonObject message) {
-        log("error", event, message);
+    public void logError(JsonLog message) {
+        log("error", message);
     }
 }

@@ -11,9 +11,9 @@ import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 
-import com.silversea.aem.utils.LogzLogger;
-import com.silversea.aem.utils.LogzLoggerFactory;
-import io.logz.sender.com.google.gson.JsonObject;
+import com.silversea.aem.logging.JsonLog;
+import com.silversea.aem.logging.LogzLogger;
+import com.silversea.aem.logging.LogzLoggerFactory;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.api.VoyagesApi;
@@ -40,6 +40,8 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import java.util.*;
+
+import static com.silversea.aem.logging.JsonLog.jsonLog;
 
 @Service
 @Component
@@ -74,9 +76,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     @Override
     public ImportResult importAllItems(final boolean update) throws ImporterException {
         LogzLogger logzLogger = logzLoggerFactory.getLogger("CruisesItinerariesExcursionsImporterImpl");
-        JsonObject log = new JsonObject();
-        log.addProperty("message", "Start of the import process");
-        logzLogger.logInfo("start",log);
+        logzLogger.logInfo(jsonLog("start").with("message", "Start of the import process"));
         if (importRunning) {
             throw new ImporterException("Import is already running");
         }

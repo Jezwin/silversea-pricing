@@ -1,11 +1,11 @@
-package com.silversea.aem.utils;
+package com.silversea.aem.logging;
 
 import com.amazonaws.services.secretsmanager.model.*;
 import com.jasongoodwin.monads.Try;
+import com.silversea.aem.utils.AwsSecretManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.SenderStatusReporter;
-import io.logz.sender.exceptions.LogzioParameterErrorException;
 import org.apache.felix.scr.annotations.*;
 import org.json.JSONObject;
 import org.osgi.service.component.ComponentContext;
