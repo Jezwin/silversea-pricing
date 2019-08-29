@@ -18,12 +18,13 @@
     <packaging>content-package</packaging>
     <name>Silversea.com Internal UI</name>
     <description>Silversea.com Internal templates and components</description>
-    <version>2.1.S13-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <!-- ====================================================================== -->
     <!-- P R O P E R T I E S -->
     <!-- ====================================================================== -->
     <properties>
+        <revision>2.1.S13-SNAPSHOT</revision>
         <sonar.sources>jcr_root</sonar.sources>
     </properties>
 
