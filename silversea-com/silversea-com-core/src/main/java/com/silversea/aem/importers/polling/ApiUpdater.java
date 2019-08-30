@@ -3,13 +3,16 @@ package com.silversea.aem.importers.polling;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
-import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.*;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
+import com.silversea.aem.logging.LogzLogger;
+import com.silversea.aem.logging.LogzLoggerFactory;
+import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.CruisesCacheService;
 
 import org.apache.felix.scr.annotations.*;
+import org.apache.felix.scr.annotations.Properties;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -22,9 +25,9 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+
+import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
 
 @Component(label = "Silversea - API Updater", metatype = true, immediate = true)
 @Service(value = Runnable.class)
@@ -114,145 +117,18 @@ public class ApiUpdater implements Runnable {
     @Reference
     private Replicator replicator;
 
+    @Reference
+    private LogzLoggerFactory sscLogFactory;
+
     @Override
     public void run() {
+        SSCLogger sscLog = sscLogFactory.getLogger(ApiUpdater.class);
+
         if (slingSettingsService.getRunModes().contains("author")) {
             LOGGER.info("Running ...");
-
-            // update cities
-            ImportResult importResult = citiesImporter.updateItems();
-            LOGGER.info("Cities import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            // update hotels
-            importResult = hotelsImporter.updateHotels();
-            LOGGER.info("Hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            // update land programs
-            importResult = landProgramsImporter.updateLandPrograms();
-            LOGGER.info("Land programs import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            // update excursions
-            importResult = shoreExcursionsImporter.updateShoreExcursions();
-            LOGGER.info("Excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            // update brochures
-            importResult = brochuresImporter.updateBrochures();
-            LOGGER.info("Brochures import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            // update features
-            importResult = featuresImporter.updateFeatures();
-            LOGGER.info("Features import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            // update exclusive offers
-            importResult = exclusiveOffersImporter.importAllItems();
-            LOGGER.info("Exclusive offers import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            // update cruises
-            importResult = cruisesImporter.updateItems();
-            LOGGER.info("Cruises import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            importResult = cruisesItinerariesImporter.importAllItems(true);
-            LOGGER.info("Cruises itineraries import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            try {
-                importResult = cruisesPricesImporter.importAllItems(true);
-                LOGGER.info("Cruises prices import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import cruise prices", e);
-            }
-
-            try {
-                importResult = cruisesItinerariesHotelsImporter.importAllItems(true);
-                LOGGER.info("Cruises hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import cruise hotels", e);
-            }
-
-            try {
-                importResult = cruisesItinerariesLandProgramsImporter.importAllItems(true);
-                LOGGER.info("Cruises land programs import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import cruise land programs", e);
-            }
-
-            try {
-                importResult = cruisesItinerariesExcursionsImporter.importAllItems(true);
-                LOGGER.info("Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import cruise excursions", e);
-            }
-
-            try {
-                importResult = cruisesExclusiveOffersImporter.importAllItems();
-                LOGGER.info("Cruises exclusive offers import : {} success, {} errors", importResult.getSuccessNumber(),
-                        importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import cruises exclusive offers", e);
-            }
-
-            //update multicruise
-            importResult = multiCruisesImporter.updateItems();
-            LOGGER.info("Multi Cruises import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            importResult = multiCruisesItinerariesImporter.importAllItems();
-            LOGGER.info("Multi Cruises itineraries import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            try {
-                importResult = multiCruisesPricesImporter.importAllItems();
-                LOGGER.info("Multi Cruises prices import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import Multi cruise prices", e);
-            }
-
-            try {
-                importResult = multiCruisesItinerariesHotelsImporter.importAllItems();
-                LOGGER.info("Multi Cruises hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import Multi cruise hotels", e);
-            }
-
-            try {
-                importResult = multiCruisesItinerariesLandProgramsImporter.importAllItems();
-                LOGGER.info("Multi Cruises land programs import : {} success, {} errors", importResult.getSuccessNumber(),
-                        importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import Multi cruise land programs", e);
-            }
-
-            try {
-                importResult = multiCruisesItinerariesExcursionsImporter.importAllItems();
-                LOGGER.info("Multi Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(),
-                        importResult.getErrorNumber());
-            } catch (ImporterException e) {
-                LOGGER.error("Cannot import Multi cruise excursions", e);
-            }
-
-
-            //desactivate port without planned cruises
-            importResult = citiesImporter.DesactivateUselessPort();
-            LOGGER.info("Cities desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            //desactivate Shorex not present anymore in the API
-            importResult = shoreExcursionsImporter.disactiveAllItemDeltaByAPI();
-            LOGGER.info("Shorex desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            //desactivate Land Program not present anymore in the API
-            importResult = landProgramsImporter.disactiveAllItemDeltaByAPI();
-            LOGGER.info("Land Programs desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            //desactivate Hotel not present anymore in the API
-            importResult = hotelsImporter.disactiveAllItemDeltaByAPI();
-            LOGGER.info("Hotels desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            //Check all cruises alias to make sure we are aligned with the [departureport]-to-[arrivalport]-[voyagecode]
-            importResult = cruisesImporter.updateCheckAlias();
-            LOGGER.info("Cruise Alias Updater : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-            comboCruisesImporter.markSegmentsForActivation();
-
-            //update travel agencies
-            importResult = agenciesImporter.importAllItems();
-            LOGGER.info("Agencies import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            List<ImportJobRequest> jobs = buildImportSchedule();
+            ImportRunner runner = new ImportRunner(jobs, sscLog);
+            runner.run();
 
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
@@ -284,6 +160,38 @@ public class ApiUpdater implements Runnable {
         } else {
             LOGGER.debug("API updater service run only on author instance");
         }
+    }
+
+    private List<ImportJobRequest> buildImportSchedule() {
+        return Arrays.asList(
+            jobRequest("CitiesUpdate", citiesImporter::updateItems),
+            jobRequest("HotelsUpdate", hotelsImporter::updateHotels),
+            jobRequest("LandProgramsUpdate", landProgramsImporter::updateLandPrograms),
+            jobRequest("ShorexesUpdate", shoreExcursionsImporter::updateShoreExcursions),
+            jobRequest("BrochuresUpdate", brochuresImporter::updateBrochures),
+            jobRequest("FeaturesUpdate", featuresImporter::updateFeatures),
+            jobRequest("ExclusiveOffersFull", exclusiveOffersImporter::importAllItems),
+            jobRequest("CruisesUpdate", cruisesImporter::updateItems),
+            jobRequest("CruisesItinerariesUpdate", () -> cruisesItinerariesImporter.importAllItems(true)),
+            jobRequest("CruisesPricesUpdate", () -> cruisesPricesImporter.importAllItems(true)),
+            jobRequest("CruisesHotelsUpdate", () -> cruisesItinerariesHotelsImporter.importAllItems(true)),
+            jobRequest("CruisesLandProgramsUpdate", () -> cruisesItinerariesLandProgramsImporter.importAllItems(true)),
+            jobRequest("CruisesExcursionsUpdate", () -> cruisesItinerariesExcursionsImporter.importAllItems(true)),
+            jobRequest("CruiseExclusiveOffersFull", cruisesExclusiveOffersImporter::importAllItems),
+            jobRequest("MultiCruiseUpdate", multiCruisesImporter::updateItems),
+            jobRequest("MultiCruiseItinerariesFull", multiCruisesItinerariesImporter::importAllItems),
+            jobRequest("MultiCruisesPricesFull", multiCruisesPricesImporter::importAllItems),
+            jobRequest("MultiCruisesHotelsFull", multiCruisesItinerariesHotelsImporter::importAllItems),
+            jobRequest("MultiCruisesLandProgramsFull", multiCruisesItinerariesLandProgramsImporter::importAllItems),
+            jobRequest("MultiCruisesExcursions", multiCruisesItinerariesExcursionsImporter::importAllItems),
+            jobRequest("CitiesDeactivate", citiesImporter::DesactivateUselessPort),
+            jobRequest("ShorexesDeactivate", shoreExcursionsImporter::disactiveAllItemDeltaByAPI),
+            jobRequest("LandProgramsDeactivate", landProgramsImporter::disactiveAllItemDeltaByAPI),
+            jobRequest("HotelsDeactivate", hotelsImporter::disactiveAllItemDeltaByAPI),
+            jobRequest("CruiseAliasUpdate", cruisesImporter::updateCheckAlias),
+            jobRequest("CruisesMarkActivation", () ->  { comboCruisesImporter.markSegmentsForActivation(); return new ImportResult(0, 0);}),
+            jobRequest("AgenciesFull", agenciesImporter::importAllItems)
+        );
     }
 
     /**

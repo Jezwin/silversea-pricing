@@ -237,6 +237,12 @@
             <version>2.4.2</version>
             <artifactId>org.apache.sling.testing.osgi-mock.junit4</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- AEM APIs JAR -->
         <dependency>

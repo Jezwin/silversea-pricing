@@ -2,6 +2,7 @@ package com.silversea.aem.logging;
 
 import com.amazonaws.services.secretsmanager.model.*;
 import com.jasongoodwin.monads.Try;
+import com.silversea.aem.importers.polling.ApiUpdater;
 import com.silversea.aem.utils.AwsSecretManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
@@ -32,6 +33,8 @@ private AwsSecretManager awsSecretManager;
     public LogzLogger getLogger(String component) {
         return new LogzLogger(sender, component);
     }
+
+    public SSCLogger getLogger(Class clazz) { return new LogzLogger(sender, clazz.getName()); }
 
     private void createSender() {
             Try<String> token = getSecret();
@@ -70,8 +73,6 @@ private AwsSecretManager awsSecretManager;
             return Try.ofFailable(() -> new JSONObject(JsonResponse).getString("token"));
         });
     }
-
-
 
     public class LogzioStatusReporter implements SenderStatusReporter {
         private Logger logger;

@@ -12,39 +12,51 @@ import static org.junit.Assert.assertEquals;
 
 public class JsonLogTest {
 
-    @Test public void eventIsRequiredForLogs() {
+    @Test
+    public void eventIsRequiredForLogs() {
         JsonLog log = jsonLog("abc");
-        String json = log.underlying().toString();
-        assertEquals("{\"event\":\"abc\"}", json);
+        assertEquals("{\"event\":\"abc\"}", log.toString());
     }
 
-    @Test public void canAddStringProperties() {
+    @Test
+    public void canAddStringProperties() {
         JsonLog log = jsonLog("stringTest").with("stringkey", "stringvalue");
-        String json = log.underlying().toString();
-        assertEquals("{\"event\":\"stringTest\",\"stringkey\":\"stringvalue\"}", json);
+        assertEquals("{\"event\":\"stringTest\",\"stringkey\":\"stringvalue\"}", log.toString());
     }
 
-    @Test public void canAddLongProperties() {
+    @Test
+    public void canAddLongProperties() {
         JsonLog log = jsonLog("longTest").with("longkey", (long)444558897);
-        String json = log.underlying().toString();
-        assertEquals("{\"event\":\"longTest\",\"longkey\":444558897}", json);
+        assertEquals("{\"event\":\"longTest\",\"longkey\":444558897}", log.toString());
     }
 
-    @Test public void canAddDecimalProperties() {
+    @Test
+    public void canAddDecimalProperties() {
         JsonLog log = jsonLog("decimalTest").with("decimalkey", new BigDecimal(444.01).setScale(2, RoundingMode.CEILING));
-        String json = log.underlying().toString();
-        assertEquals("{\"event\":\"decimalTest\",\"decimalkey\":444.01}", json);
+        assertEquals("{\"event\":\"decimalTest\",\"decimalkey\":444.01}", log.toString());
     }
 
-    @Test public void canAddStringArrays() {
+    @Test
+    public void canAddStringArrays() {
         JsonLog log = jsonLog("stringArrayTest").with("stringArrayKey", new String[]{ "aaa", "bbb", "ccc" });
-        String json = log.underlying().toString();
-        assertEquals("{\"event\":\"stringArrayTest\",\"stringArrayKey\":[\"aaa\",\"bbb\",\"ccc\"]}", json);
+        assertEquals("{\"event\":\"stringArrayTest\",\"stringArrayKey\":[\"aaa\",\"bbb\",\"ccc\"]}", log.toString());
     }
 
-    @Test public void canAddNestedJsonProperties() {
+    @Test
+    public void canAddNestedJsonProperties() {
         JsonLog log = jsonLog("nestedTest").with("nestedKey", nested().with("a", 22).with("b", "blah"));
-        String json = log.underlying().toString();
-        assertEquals("{\"event\":\"nestedTest\",\"nestedKey\":{\"a\":22,\"b\":\"blah\"}}", json);
+        assertEquals("{\"event\":\"nestedTest\",\"nestedKey\":{\"a\":22,\"b\":\"blah\"}}", log.toString());
+    }
+
+    @Test
+    public void canLogExceptionWithCause() {
+        JsonLog log = jsonLog("exceptionTest").with(new Exception("abc123", new Exception("nestedError")));
+        assertEquals("{\"event\":\"exceptionTest\",\"exception\":{\"type\":\"java.lang.Exception\",\"message\":\"abc123\",\"cause\":\"nestedError\"}}", log.toString());
+    }
+
+    @Test
+    public void canLogExceptionWithouCause() {
+        JsonLog log = jsonLog("exceptionTest").with(new Exception("zzzaaawww"));
+        assertEquals("{\"event\":\"exceptionTest\",\"exception\":{\"type\":\"java.lang.Exception\",\"message\":\"zzzaaawww\"}}", log.toString());
     }
 }

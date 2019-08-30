@@ -53,7 +53,33 @@ public class JsonLog {
         return this;
     }
 
-    public JsonObject underlying() {
+    public JsonLog with(Throwable e) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("type", e.getClass().getCanonicalName());
+        obj.addProperty("message", e.getMessage());
+        if (e.getCause() != null) obj.addProperty("cause", e.getCause().getMessage());
+        underlying().add("exception", obj);
+        return this;
+    }
+
+    JsonObject underlying() {
         return json;
+    }
+
+    @Override
+    public String toString() {
+        return underlying().toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        JsonLog other = (JsonLog)obj;
+        return other.underlying().toString().equals(this.underlying().toString());
     }
 }

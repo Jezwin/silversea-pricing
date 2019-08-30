@@ -9,14 +9,17 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class LogzLogger {
+public class LogzLogger implements SSCLogger {
     Optional<LogzioSender> sender;
     private Gson serialiser = new Gson();
-    String component;
-    Set runModes;
+    private String component;
+    private Set<String> runModes;
+    private String environment = "undefined";
 
     public LogzLogger(Optional<LogzioSender> sender, String component) {
         this.sender = sender;
@@ -26,6 +29,7 @@ public class LogzLogger {
         SlingSettingsService slingSettingsService = (SlingSettingsService) context.getService(context.getServiceReference(SlingSettingsService.class.getName()));
         if (slingSettingsService != null) {
             this.runModes = slingSettingsService.getRunModes();
+            environment = runModes.stream().filter(x -> Environments.all.contains(x.toLowerCase())).findFirst().orElse("unknown");
         }
     }
 
@@ -35,15 +39,24 @@ public class LogzLogger {
             js.addProperty("level", level);
             js.add("runMode", serialiser.toJsonTree(runModes));
             js.addProperty("component", component);
+            js.addProperty("application", "silversea-com");
+            js.addProperty("environment", environment);
             s.send(js);
         });
     }
 
+    @Override
     public void logInfo(JsonLog message) { log("info", message); }
+    @Override
     public void logWarning(JsonLog message) {
         log("warning", message);
     }
+    @Override
     public void logError(JsonLog message) {
         log("error", message);
+    }
+
+    public static class Environments {
+        public static List<String> all = Arrays.asList("local", "stage", "prod");
     }
 }
