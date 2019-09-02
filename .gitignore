@@ -24,3 +24,4 @@ git_stats/
 #Vim
 *~
 crx-packages/
+installed-packages.txt
