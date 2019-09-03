@@ -15,8 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @SlingServlet(paths = "/bin/api-import-full")
 public class FullImportServlet extends SlingSafeMethodsServlet {
@@ -104,36 +103,60 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
         final String modeParam = request.getParameter("mode");
         if (modeParam == null) {
-
             throw new ServletException("the mode parameter must be among the values :\n" + StringUtils.join(Mode.values(), ",\n"));
         }
-
-        PrintWriter out = response.getWriter();
 
         final List<Mode> modes = new ArrayList<>();
         String[] modeParams = modeParam.split(",");
         for (String mod : modeParams) {
-            modes.add(getMode(mod, out));
+            modes.add(getMode(mod, response));
         }
-
-
-        out.println("Importing Report");
+        Map<Mode, ImportResult> results = new HashMap<>();
         for (Mode mode : modes) {
             ImportResult result = RunFullExtract(mode);
-            out.println(mode +
-                    ": Success " + result.getSuccessNumber() +
-                    "\tFailure " + result.getErrorNumber() + "\n"
-            );
+            results.put(mode, result);
         }
-        response.setContentType("text/plain");
+        buildResponse(response, results);
     }
 
-    private Mode getMode(String mod, PrintWriter out) {
+    private void buildResponse(SlingHttpServletResponse response, Map<Mode, ImportResult> results) throws IOException {
+        // Returning a html doc like this is old fashion.
+        // Replace this method, by using RequestDispatcher and a html template.
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html><head>");
+            out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+            out.println("<title>Full Import</title></head>");
+            out.println("<body>");
+            out.println("<h1>Importer Results</h1>");
+            out.println("<table>");
+            out.println("<tr> <th>Importer mode</th> <th> Success Count</th> <th>Error Count</th></tr>");
+            for (Mode mode: results.keySet()) {
+                ImportResult result = results.get(mode);
+                out.println("<tr>" +
+                            "<td>"+ mode +"</td>" +
+                            "<td>"+result.getSuccessNumber()+"</td>" +
+                            "<td>"+result.getErrorNumber()+ "</td>" +
+                            "</tr>");
+            }
+            out.println("</table>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            response.setContentType("text/html");
+        }
+    }
+
+    private Mode getMode(String mod, SlingHttpServletResponse response) throws IOException {
+
         try {
             return Mode.valueOf(mod);
         } catch (IllegalArgumentException e) {
-            out.println("Invalid param:" + mod);
+            try(PrintWriter out = response.getWriter()) {
+                out.println("Invalid param:" + mod);
+            }
             return Mode.invalid;
+
         }
     }
 
