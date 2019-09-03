@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -e
+set -ex
 
 CRX_HOST=$1
 CRX_PORT=$2
@@ -30,9 +30,10 @@ upload_failed() {
     exit 1;
 }
 
-for filename in "$PKGS_DIR"/*; do
-    echo "Checking ${filename} was correctly installed..."
-    pkg_file="$(basename "$filename")"
-    grep -A2 -B2 "<downloadName>${pkg_file}</downloadName>" installed-packages.txt || upload_failed
-    echo "${filename} was correctly installed..."
-done
+
+#for filename in "$PKGS_DIR"/*; do
+#    echo "Checking ${filename} was correctly installed..."
+#    grep -A2 -B2 "<downloadName>${pkg_file}</downloadName>" installed-packages.txt || upload_failed
+#    pkg_file="$(basename "$filename")"
+#    echo "${filename} was correctly installed..."
+#done
