@@ -2,6 +2,7 @@ package com.silversea.aem.importers.servlets;
 
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.*;
+import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -13,6 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @SlingServlet(paths = "/bin/api-import-full")
 public class FullImportServlet extends SlingSafeMethodsServlet {
@@ -40,12 +44,13 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         prices,
         cruisesexclusiveoffers,
 
-        combocruises
+        combocruises,
+        invalid
     }
 
     @Reference
     private TravelAgenciesImporter agenciesImporter;
-    
+
     @Reference
     private CitiesImporter citiesImporter;
 
@@ -96,58 +101,86 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException, ServletException {
+
         final String modeParam = request.getParameter("mode");
         if (modeParam == null) {
-            throw new ServletException("the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
+
+            throw new ServletException("the mode parameter must be among the values :\n" + StringUtils.join(Mode.values(), ",\n"));
         }
 
-        final Mode mode;
+        PrintWriter out = response.getWriter();
+
+        final List<Mode> modes = new ArrayList<>();
+        String[] modeParams = modeParam.split(",");
+        for (String mod : modeParams) {
+            modes.add(getMode(mod, out));
+        }
+
+
+        out.println("Importing Report");
+        for (Mode mode : modes) {
+            ImportResult result = RunFullExtract(mode);
+            out.println(mode +
+                    "Success " + result.getSuccessNumber() +
+                    "\tFailure " + result.getErrorNumber() + "\n"
+            );
+        }
+        response.setContentType("text/html");
+    }
+
+    private Mode getMode(String mod, PrintWriter out) {
         try {
-            mode = Mode.valueOf(modeParam);
+            return Mode.valueOf(mod);
         } catch (IllegalArgumentException e) {
-            throw new ServletException("the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
+            out.println("Invalid param:" + mod);
+            return Mode.invalid;
         }
+    }
 
+    private ImportResult RunFullExtract(Mode mode) throws ServletException {
+        ImportResult result = null;
         try {
             if (mode.equals(Mode.cities)) {
-                citiesImporter.importAllItems();
+                result = citiesImporter.importAllItems();
             } else if (mode.equals(Mode.excursions)) {
-                shoreExcursionsImporter.importAllShoreExcursions();
+                result = shoreExcursionsImporter.importAllShoreExcursions();
             } else if (mode.equals(Mode.hotels)) {
-                hotelsImporter.importAllHotels();
+                result = hotelsImporter.importAllHotels();
             } else if (mode.equals(Mode.landprograms)) {
-                landProgramsImporter.importAllLandPrograms();
+                result = landProgramsImporter.importAllLandPrograms();
             } else if (mode.equals(Mode.exclusiveoffers)) {
-                exclusiveOffersImporter.importAllItems();
+                result = exclusiveOffersImporter.importAllItems();
             } else if (mode.equals(Mode.countries)) {
-                countriesImporter.importData(false);
+                result = countriesImporter.importData(false);
             } else if (mode.equals(Mode.features)) {
-                featuresImporter.importAllFeatures();
+                result = featuresImporter.importAllFeatures();
             } else if (mode.equals(Mode.brochures)) {
-                brochuresImporter.importAllBrochures();
+                result = brochuresImporter.importAllBrochures();
             } else if (mode.equals(Mode.cruises)) {
-                cruisesImporter.importAllItems();
+                result = cruisesImporter.importAllItems();
             } else if (mode.equals(Mode.combocruises)) {
-                comboCruisesImporter.importAllItems();
+                result = comboCruisesImporter.importAllItems();
             } else if (mode.equals(Mode.itineraries)) {
-                cruisesItinerariesImporter.importAllItems(false);
+                result = cruisesItinerariesImporter.importAllItems(false);
             } else if (mode.equals(Mode.itinerarieshotels)) {
-                cruisesItinerariesHotelsImporter.importAllItems(false);
+                result = cruisesItinerariesHotelsImporter.importAllItems(false);
             } else if (mode.equals(Mode.itinerarieslandprograms)) {
-                cruisesItinerariesLandProgramsImporter.importAllItems(false);
+                result = cruisesItinerariesLandProgramsImporter.importAllItems(false);
             } else if (mode.equals(Mode.itinerariesexcursions)) {
-                cruisesItinerariesExcursionsImporter.importAllItems(false);
+                result = cruisesItinerariesExcursionsImporter.importAllItems(false);
             } else if (mode.equals(Mode.prices)) {
-                cruisesPricesImporter.importAllItems(false);
+                result = cruisesPricesImporter.importAllItems(false);
             } else if (mode.equals(Mode.cruisesexclusiveoffers)) {
-                cruisesExclusiveOffersImporter.importAllItems();
+                result = cruisesExclusiveOffersImporter.importAllItems();
             } else if (mode.equals(Mode.agencies)) {
-                agenciesImporter.importAllItems();
+                result = agenciesImporter.importAllItems();
+            }
+            else if (mode.equals(Mode.invalid)){
+                return new ImportResult();
             }
         } catch (ImporterException e) {
             throw new ServletException(e);
         }
-
-        response.setContentType("text/html");
+        return result;
     }
 }
