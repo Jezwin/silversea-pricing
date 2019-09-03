@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -ex
+set -e
 
 CRX_HOST=$1
 CRX_PORT=$2
