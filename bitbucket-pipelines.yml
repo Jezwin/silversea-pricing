@@ -2,28 +2,28 @@ image: maven:3.6.1-jdk-8
 
 pipelines:
   # runs on all builds on any branch
-  default: 
+  default:
     - step:
         name: Build and Test
         caches:
           - maven
-        script: 
+        script:
           - ./build_and_test_local.sh ${BITBUCKET_BUILD_NUMBER}
         artifacts:
-          - crx-packages/*  
+          - crx-packages/*
   branches:
     # we only deploy from bitbucketmaster
-    bitbucketmaster: 
+    bitbucketmaster:
       # First step cannot be manual
       - step:
           name: Build and Test
           caches:
             - maven
-          script: 
+          script:
             - ./build_and_test_local.sh ${BITBUCKET_BUILD_NUMBER}
           artifacts:
             - crx-packages/*
-      #########################   
+      #########################
       # Staging
       #########################
       - step:
@@ -31,20 +31,20 @@ pipelines:
           trigger: manual
           deployment: stage-author
           script:
-            - ./deploy.sh 18.204.183.84:4502 crx-packages ci-user $AUTHOR_STAGE_PASSWORD  
+            - ./deploy.sh 18.204.183.84 4502 4502 crx-packages ci-user $AUTHOR_STAGE_PASSWORD
       - step:
           name: Stage Build Publish 1
           trigger: manual
           deployment: stage-publish-1
           script:
-            - ./deploy.sh 18.234.4.77:4503 crx-packages ci-user $AUTHOR_STAGE_PASSWORD 
+            - ./deploy.sh 18.234.4.77 4503 4503 crx-packages ci-user $AUTHOR_STAGE_PASSWORD
       - step:
           name: Stage Build Publish 2
           trigger: manual
           deployment: stage-publish-2
           script:
-            - ./deploy.sh 35.173.158.72:4503 crx-packages ci-user $AUTHOR_STAGE_PASSWORD
-      #########################   
+            - ./deploy.sh 35.173.158.72 4503 4503 crx-packages ci-user $AUTHOR_STAGE_PASSWORD
+      #########################
       # Prod
       #########################
       - step:
@@ -52,16 +52,16 @@ pipelines:
           trigger: manual
           deployment: prod-author
           script:
-            - ./deploy.sh 18.211.58.161:4502 crx-packages ci-user $AUTHOR_PROD_PASSWORD 
+            - ./deploy.sh 18.211.58.161 4502 4502 crx-packages ci-user $AUTHOR_PROD_PASSWORD
       - step:
           name: Prod Build Publish 1
           trigger: manual
           deployment: prod-publish-1
           script:
-            - ./deploy.sh 35.168.37.187:4503 crx-packages ci-user $AUTHOR_PROD_PASSWORD
+            - ./deploy.sh 35.168.37.187 4503 5433 crx-packages ci-user $AUTHOR_PROD_PASSWORD
       - step:
           name: Prod Build Publish 2
           trigger: manual
           deployment: prod-publish-2
           script:
-            - ./deploy.sh 18.214.75.8:4503 crx-packages ci-user $AUTHOR_PROD_PASSWORD
+            - ./deploy.sh 18.214.75.8 4503 5433 crx-packages ci-user $AUTHOR_PROD_PASSWORD
