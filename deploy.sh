@@ -23,7 +23,7 @@ done
 
 echo "Checking packages installed correctly..."
 
-#curl --fail -o installed-packages.txt -u "${USER}:${PASSWORD}" "http://${CRX_HOST}:${CRX_TEST_PORT}/crx/packmgr/service.jsp?cmd=ls"
+curl --fail -o installed-packages.txt -u "${USER}:${PASSWORD}" "http://${CRX_HOST}:${CRX_TEST_PORT}/crx/packmgr/service.jsp?cmd=ls"
 
 upload_failed() {
     echo "Upload failed."
@@ -31,9 +31,9 @@ upload_failed() {
 }
 
 
-#for filename in "$PKGS_DIR"/*; do
-#    echo "Checking ${filename} was correctly installed..."
-#    grep -A2 -B2 "<downloadName>${pkg_file}</downloadName>" installed-packages.txt || upload_failed
-#    pkg_file="$(basename "$filename")"
-#    echo "${filename} was correctly installed..."
-#done
+for filename in "$PKGS_DIR"/*; do
+    echo "Checking ${filename} was correctly installed..."
+    pkg_file="$(basename "$filename")"
+    grep -A2 -B2 "<downloadName>${pkg_file}</downloadName>" installed-packages.txt || upload_failed
+    echo "${filename} was correctly installed..."
+done
