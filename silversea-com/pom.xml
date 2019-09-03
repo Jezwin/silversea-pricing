@@ -7,14 +7,14 @@
     <parent>
         <groupId>com.silversea.aem</groupId>
         <artifactId>silversea-aem-parent</artifactId>
-        <version>1.5.1</version>
+        <version>${revision}</version>
     </parent>
 
     <!-- ====================================================================== -->
     <!-- P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>silversea-com</artifactId>
-    <version>2.1.S13-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>Silversea.com</name>
 
@@ -22,6 +22,7 @@
     <!-- P R O P E R T I E S -->
     <!-- ====================================================================== -->
     <properties>
+        <revision>2.1.S13-SNAPSHOT</revision>
         <cq.project.name>silversea-com</cq.project.name>
     </properties>
 
@@ -45,7 +46,7 @@
             <dependency>
                 <groupId>com.silversea.aem</groupId>
                 <artifactId>ssc-api-client-auth</artifactId>
-                <version>2.1.S13-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
@@ -55,7 +56,7 @@
             <dependency>
                 <groupId>com.silversea.aem</groupId>
                 <artifactId>ssc-api-client-swagger</artifactId>
-                <version>2.1.S13-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>

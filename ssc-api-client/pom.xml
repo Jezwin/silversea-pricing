@@ -7,14 +7,14 @@
     <parent>
         <groupId>com.silversea.aem</groupId>
         <artifactId>silversea-aem-parent</artifactId>
-        <version>1.5.1</version>
+        <version>${revision}</version>
     </parent>
 
     <!-- ====================================================================== -->
     <!-- P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>ssc-api-client</artifactId>
-    <version>2.1.S13-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>SSC Api Client</name>
 
@@ -22,6 +22,7 @@
     <!-- P R O P E R T I E S -->
     <!-- ====================================================================== -->
     <properties>
+        <revision>2.1.S13-SNAPSHOT</revision>
         <cq.project.name>ssc-api-client</cq.project.name>
     </properties>
 

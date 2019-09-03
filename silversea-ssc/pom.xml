@@ -8,14 +8,14 @@
     <parent>
         <groupId>com.silversea.aem</groupId>
         <artifactId>silversea-aem-parent</artifactId>
-        <version>1.5.1</version>
+        <version>${revision}</version>
     </parent>
 
     <!-- ====================================================================== -->
     <!-- P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>silversea-ssc</artifactId>
-    <version>2.1.S13-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>Silversea.com Internal</name>
     <url/>
@@ -24,6 +24,7 @@
     <!-- P R O P E R T I E S -->
     <!-- ====================================================================== -->
     <properties>
+        <revision>2.1.S13-SNAPSHOT</revision>
         <cq.project.name>silversea-ssc</cq.project.name>
     </properties>
 
@@ -43,7 +44,7 @@
             <dependency>
                 <groupId>com.silversea.aem</groupId>
                 <artifactId>silversea-com-core</artifactId>
-                <version>2.1.S13-SNAPSHOT</version>
+                <version>${project.version}</version>
 				 <scope>provided</scope>            
 			 </dependency>
 			 <dependency>
