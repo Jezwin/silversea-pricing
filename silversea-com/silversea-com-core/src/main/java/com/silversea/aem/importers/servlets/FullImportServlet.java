@@ -121,11 +121,11 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         for (Mode mode : modes) {
             ImportResult result = RunFullExtract(mode);
             out.println(mode +
-                    "Success " + result.getSuccessNumber() +
+                    ": Success " + result.getSuccessNumber() +
                     "\tFailure " + result.getErrorNumber() + "\n"
             );
         }
-        response.setContentType("text/html");
+        response.setContentType("text/plain");
     }
 
     private Mode getMode(String mod, PrintWriter out) {
