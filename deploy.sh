@@ -23,7 +23,7 @@ done
 
 echo "Checking packages installed correctly..."
 
-curl --fail -o installed-packages.txt -u "${USER}:${PASSWORD}" "http://${CRX_HOST}:${CRX_TEST_PORT}/crx/packmgr/service.jsp?cmd=ls"
+#curl --fail -o installed-packages.txt -u "${USER}:${PASSWORD}" "http://${CRX_HOST}:${CRX_TEST_PORT}/crx/packmgr/service.jsp?cmd=ls"
 
 upload_failed() {
     echo "Upload failed."
