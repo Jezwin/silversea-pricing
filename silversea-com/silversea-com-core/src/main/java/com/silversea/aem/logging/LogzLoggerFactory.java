@@ -20,8 +20,8 @@ import java.util.concurrent.Executors;
 @Service(LogzLoggerFactory.class)
 public class LogzLoggerFactory {
 
-@Reference
-private AwsSecretManager awsSecretManager;
+    @Reference
+    private AwsSecretManager awsSecretManager;
 
     private Optional<LogzioSender> sender;
 
@@ -34,51 +34,46 @@ private AwsSecretManager awsSecretManager;
         return new LogzLogger(sender, component);
     }
 
-    public SSCLogger getLogger(Class clazz) { return new LogzLogger(sender, clazz.getName()); }
+    public SSCLogger getLogger(Class clazz) {
+        return new LogzLogger(sender, clazz.getName());
+    }
 
     private void createSender() {
-            Try<String> token = getSecret();
-            token.map(tk -> {
-                    HttpsRequestConfiguration conf = HttpsRequestConfiguration
-                            .builder()
-                            .setLogzioListenerUrl("http://listener-eu.logz.io:8070")
-                            .setLogzioType("java")
-                            .setLogzioToken(tk)
-                            .build();
+        Try<String> token = awsSecretManager.getSecret("LOGZIO_TOKEN");
+        token.map(tk -> {
+            HttpsRequestConfiguration conf = HttpsRequestConfiguration
+                    .builder()
+                    .setLogzioListenerUrl("http://listener-eu.logz.io:8070")
+                    .setLogzioType("java")
+                    .setLogzioToken(tk)
+                    .build();
 
-                    return LogzioSender
-                            .builder()
-                            .setTasksExecutor(Executors.newScheduledThreadPool(3))
-                            .setDrainTimeoutSec(5)
-                            .setReporter(new LogzioStatusReporter())
-                            .setHttpsRequestConfiguration(conf)
-                            .withInMemoryQueue()
-                            .endInMemoryQueue()
-                            .build();
-                }).onSuccess(s -> {
-                sender = Optional.of(s);
-                s.start();
-            }).onFailure(e -> {
-                    sender = Optional.empty();
-                    Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
-                logger.error("something in the logger initialization went wrong", e);
-            });
-    }
-    private Try<String> getSecret() {
-        String secretName = "prod/logzio/token";
-        Try<GetSecretValueResult> secret = awsSecretManager.getSecretValue(secretName);
-
-        return secret.flatMap(secretSuccess -> {
-            String JsonResponse = secretSuccess.getSecretString();
-            return Try.ofFailable(() -> new JSONObject(JsonResponse).getString("token"));
+            return LogzioSender
+                    .builder()
+                    .setTasksExecutor(Executors.newScheduledThreadPool(3))
+                    .setDrainTimeoutSec(5)
+                    .setReporter(new LogzioStatusReporter())
+                    .setHttpsRequestConfiguration(conf)
+                    .withInMemoryQueue()
+                    .endInMemoryQueue()
+                    .build();
+        }).onSuccess(s -> {
+            sender = Optional.of(s);
+            s.start();
+        }).onFailure(e -> {
+            sender = Optional.empty();
+            Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
+            logger.error("something in the logger initialization went wrong", e);
         });
     }
 
     public class LogzioStatusReporter implements SenderStatusReporter {
         private Logger logger;
+
         public LogzioStatusReporter() {
             logger = LoggerFactory.getLogger(LogzioStatusReporter.class);
         }
+
         @Override
         public void error(String s) {
             logger.error(s);
