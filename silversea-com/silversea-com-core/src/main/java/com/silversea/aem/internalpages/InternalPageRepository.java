@@ -4,6 +4,7 @@ import com.amazonaws.util.IOUtils;
 import com.jasongoodwin.monads.Try;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.importers.servlets.FullImportServlet;
+import com.silversea.aem.importers.servlets.UpdateImportServlet;
 import com.silversea.aem.logging.SSCLogger;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -18,23 +19,24 @@ import javax.jcr.RepositoryException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.jasongoodwin.monads.Try.ofFailable;
+import static java.util.stream.Collectors.toList;
 
 
 public class InternalPageRepository {
     private ResourceResolver resourceResolver;
     private Configuration cfg;
 
+    private final String importResultPage = "importResult";
+
     public InternalPageRepository(ResourceResolver resourceResolver) {
         this.resourceResolver = resourceResolver;
         cfg = new Configuration(Configuration.VERSION_2_3_23);
         StringTemplateLoader loader = new StringTemplateLoader();
-        get("fullImportResult").ifPresent(t -> loader.putTemplate("fullImportResult", ""));
+        get(importResultPage).ifPresent(t -> loader.putTemplate(importResultPage, t));
         cfg.setTemplateLoader(loader);
     }
 
@@ -54,19 +56,30 @@ public class InternalPageRepository {
         return writer.toString();
     }
 
-    public Try<String> getFullImportResultPage(Map<FullImportServlet.Mode, ImportResult> results, List<String> modes) {
-        Map<String, Object> viewModel = new HashMap<String, Object>() {{ put("results", results); put("modes", modes); }};
-        return ofFailable(() -> cfg.getTemplate("fullImportResult")).map(t -> render(viewModel, t));
+    private Try<String> getImportResultPage(String name, Map<Enum, ImportResult> results, List<String> modes, HashMap<String, Object> model) {
+        Map<String, Object> viewModel = new HashMap<String, Object>(model) {
+            {
+                put("results", results);
+                put("modes", modes);
+                put("importerName", name);
+            }
+        };
+        return ofFailable(() -> cfg.getTemplate(importResultPage)).map(t -> render(viewModel, t));
     }
 
+    public Try<String> fullImportPage(Map<Enum, ImportResult> results) {
+        List<String> modes = Arrays.stream(FullImportServlet.Mode.values()).map(Enum::name).collect(toList());
+        return getImportResultPage("Full Import", results, modes, new HashMap<>());
+    }
 
-    /*
-        How to use this:
+    public Try<String> diffImportPage(Map<Enum, ImportResult> results) {
+        List<String> modes = Arrays.stream(UpdateImportServlet.Mode.values()).map(Enum::name).collect(toList());
+        HashMap<String, Object> model = new HashMap<String, Object>() {{
+            put("caches", Arrays.stream(UpdateImportServlet.Cache.values()).map(Enum::name).collect(toList()));
+            put("replications", Arrays.stream(UpdateImportServlet.Replicate.values()).map(Enum::name).collect(toList()));
+        }};
+        return getImportResultPage("Diff API", results, modes, model);
 
-        InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver());
-        String content = repo.getFullImportResultPage(results, modes).recover(error -> ...);
-        response.getWriter().write(content);
-
-     */
+    }
 
 }

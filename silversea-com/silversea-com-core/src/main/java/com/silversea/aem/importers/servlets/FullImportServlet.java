@@ -3,7 +3,7 @@ package com.silversea.aem.importers.servlets;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
-import com.silversea.aem.importers.servlets.responses.ImportResponseView;
+import com.silversea.aem.internalpages.InternalPageRepository;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @SlingServlet(paths = "/bin/api-import-full")
 public class FullImportServlet extends SlingSafeMethodsServlet {
@@ -102,27 +103,28 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException, ServletException {
-
-        final List<Enum> modes = parseRequest(request, response);
+        final List<Mode> modes = parseRequest(request, response);
 
         Map<Enum, ImportResult> results = new HashMap<>();
-        for (Enum mode : modes) {
+        for (Mode mode : modes) {
             ImportResult result = RunImporter(mode);
             results.put(mode, result);
         }
-        ImportResponseView.buildResponse(response, results);
+
+        InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver());
+        String content = repo.fullImportPage(results).recover(Throwable::getMessage);
+        response.getWriter().write(content);
+        response.setContentType("text/html");
     }
 
-    private List<Enum> parseRequest(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    private List<Mode> parseRequest(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         final String modeParam = request.getParameter("mode");
-        if (modeParam == null) {
-            throw new ServletException("the mode parameter must be among the values :\n" + StringUtils.join(Mode.values(), ",\n"));
-        }
-
-        final List<Enum> modes = new ArrayList<>();
-        String[] modeParams = modeParam.split(",");
-        for (String mod : modeParams) {
-            modes.add(getMode(mod, response));
+        final List<Mode> modes = new ArrayList<>();
+        if (modeParam != null) {
+            String[] modeParams = modeParam.split(",");
+            for (String mod : modeParams) {
+                modes.add(getMode(mod, response));
+            }
         }
         return modes;
     }

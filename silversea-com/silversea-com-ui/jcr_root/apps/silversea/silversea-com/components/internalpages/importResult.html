@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+        <title>API Import</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                $('#runimport').click(function() {
+                    var modes = $('.modecheck:checked').map(function() {return this.value;}).get().join(',')
+                    var caches = $('.cachecheck:checked').map(function() {return this.value;}).get().join(',')
+                    var replications = $('.repcheck:checked').map(function() {return this.value;}).get().join(',')
+                    var newUrl = window.location.href.split('?')[0] + "?mode=" + modes;
+                    if (caches) {
+                        newUrl = newUrl + "&cache=" + caches;
+                    }
+                    if (replications) {
+                        newUrl = newUrl + "&replicate=" + replications;
+                    }
+                    window.location.href = newUrl;
+                });
+            });
+        </script>
+    </head>
+        <body>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Digital Dev Tools</a>
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/bin/api-import-full">${importerName}<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <br />
+            <main role="main" class="container">
+                <div>
+                    <h1>Importer Results</h1>
+                    <table class="table">
+                    <tr>
+                        <th>Importer mode</th>
+                        <th>Success Count</th>
+                        <th>Error Count</th></tr>
+                        <#list results as key, value>
+                        <tr>
+                            <td>${key}</td>
+                            <td>${value.successNumber}</td>
+                            <td>${value.errorNumber}</td>
+                        </tr>
+                        </#list>
+                    </table>
+                </div>
+                <br />
+                <div>
+                    <h1>Run ${importerName}</h1>
+                        <div>
+                        <label class="font-weight-bold">Choose Modes:</label>
+                        <#list modes as mode>
+                            <div class="form-check">
+                                <input class="form-check-input modecheck" type="checkbox" name="mode" value="${mode}" id="${mode}">
+                                <label class="form-check-label" for="${mode}">
+                                    ${mode}
+                                </label>
+                            </div>
+                        </#list>
+                        </div>
+                        <br />
+                        <#if caches??>
+                            <div>
+                                <label class="font-weight-bold">Choose Caches:</label>
+                                <#list caches as cache>
+                                    <div class="form-check">
+                                        <input class="form-check-input cachecheck" type="checkbox" name="cache" value="${cache}" id="${cache}">
+                                        <label class="form-check-label" for="${cache}">
+                                            ${cache}
+                                        </label>
+                                    </div>
+                                </#list>
+                            </div>
+                            <br />
+                        </#if>
+                        <#if replications??>
+                            <div>
+                                <label class="font-weight-bold">Choose Replications:</label>
+                                <#list replications as rep>
+                                <div class="form-check">
+                                    <input class="form-check-input repcheck" type="checkbox" name="cache" value="${rep}" id="${rep}">
+                                    <label class="form-check-label" for="${rep}">
+                                        ${rep}
+                                    </label>
+                                </div>
+                            </#list>
+                            </div>
+                            <br />
+                        </#if>
+                        <button type="submit" class="btn btn-primary" id="runimport">Run Import</button>
+
+                </div>
+            </main>
+        </body>
+</html>

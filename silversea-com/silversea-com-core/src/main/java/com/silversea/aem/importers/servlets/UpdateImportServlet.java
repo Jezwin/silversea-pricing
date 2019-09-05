@@ -3,7 +3,7 @@ package com.silversea.aem.importers.servlets;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
-import com.silversea.aem.importers.servlets.responses.ImportResponseView;
+import com.silversea.aem.internalpages.InternalPageRepository;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GlobalCacheService;
 import org.apache.commons.lang3.NotImplementedException;
@@ -20,15 +20,18 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @SlingServlet(paths = "/bin/api-import-diff")
 public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(UpdateImportServlet.class);
 
-    private enum Mode {
+    public enum Mode {
         brochures,
         ccptgeneration,
         cities,
@@ -65,11 +68,11 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         dummy
     }
 
-    private enum Replicate{
+    public enum Replicate {
         all
     }
 
-    private enum Cache {
+    public enum Cache {
         FYCCacheRebuild,
         clearGlobalCache,
         stylesconfiguration
@@ -169,23 +172,18 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
-
-        if(!hasParameters(request)){
-            String errorMessage = "One or more parameters missing. Please include 'mode', 'replicate' and/or 'cache'\n";
-            errorMessage += "\nmode parameter values:\n" +StringUtils.join(Mode.values(), ",\n");
-            errorMessage += "\nreplication parameter values:\n" +StringUtils.join(Replicate.values(), ",\n");
-            errorMessage += "\ncache parameter values:\n" +StringUtils.join(Cache.values(), ",\n");
-            throw new ServletException(errorMessage);
-        }
         Map<Enum, ImportResult> results = new HashMap<>();
 
-        if (slingSettingsService.getRunModes().contains("author")) {
+        if(hasParameters(request) && slingSettingsService.getRunModes().contains("author")){
             Import(request, response, results);
             Replicate(request);
         }
         ClearCache(request, results);
 
-        ImportResponseView.buildResponse(response, results);
+        InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver());
+        String content = repo.diffImportPage(results).recover(Throwable::getMessage);
+        response.getWriter().write(content);
+        response.setContentType("text/html");
     }
 
     private void ClearCache(SlingHttpServletRequest request, Map<Enum, ImportResult> results) {
@@ -207,7 +205,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
     private void Replicate(SlingHttpServletRequest request) {
         final String replicateParam = request.getParameter("replicate");
-        if(replicateParam != null && replicateParam.equals("all")) {
+        if(replicateParam != null && replicateParam.equals(Replicate.all.name())) {
             replicateImporter.replicate();
         }
     }
