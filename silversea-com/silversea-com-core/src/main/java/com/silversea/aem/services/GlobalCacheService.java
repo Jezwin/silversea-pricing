@@ -1,12 +1,13 @@
 package com.silversea.aem.services;
 
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.importers.services.impl.ImportResult;
 
 import java.util.function.Supplier;
 
 public interface GlobalCacheService {
 
-    void clear();
+    ImportResult clear();
 
     <T> T getCache(String textKey, Class<T> typeKey, Supplier<T> o);
 

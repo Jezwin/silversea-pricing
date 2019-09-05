@@ -1,6 +1,7 @@
 package com.silversea.aem.services.impl;
 
 
+import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.services.GlobalCacheService;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
@@ -16,8 +17,11 @@ public class GlobalCacheServiceImpl implements GlobalCacheService {
     private Map<String, Object> globalCache = new HashMap<>();
 
     @Override
-    public void clear() {
+    public ImportResult clear() {
+        ImportResult importResult = new ImportResult();
         globalCache.clear();
+        importResult.incrementSuccessNumber();
+        return importResult;
     }
 
     @Override

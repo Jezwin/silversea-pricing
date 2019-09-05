@@ -2,19 +2,26 @@ package com.silversea.aem.importers.servlets;
 
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.*;
+import com.silversea.aem.importers.services.impl.ImportResult;
+import com.silversea.aem.importers.servlets.responses.ImportResponseView;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GlobalCacheService;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 @SlingServlet(paths = "/bin/api-import-diff")
 public class UpdateImportServlet extends SlingSafeMethodsServlet {
@@ -22,7 +29,6 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     static final private Logger LOGGER = LoggerFactory.getLogger(UpdateImportServlet.class);
 
     private enum Mode {
-        FYCCacheRebuild,
         brochures,
         ccptgeneration,
         cities,
@@ -55,11 +61,20 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         phonegeneration,
         portsGeneration,
         prices,
-        replicate,
-        clearGlobalCache,
         testAliasCruiseAlign,
+        dummy
+    }
+
+    private enum Replicate{
+        all
+    }
+
+    private enum Cache {
+        FYCCacheRebuild,
+        clearGlobalCache,
         stylesconfiguration
     }
+
 
     @Reference
     private PortsImporter portsImporter;
@@ -148,104 +163,157 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     @Reference
     private GlobalCacheService globalCacheService;
 
+    @Reference
+    private SlingSettingsService slingSettingsService;
+
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
-        final String modeParam = request.getParameter("mode");
-        if (modeParam == null) {
-            throw new ServletException(
-                    "the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
-        }
 
-        final Mode mode;
+        if(!hasParameters(request)){
+            String errorMessage = "One or more parameters missing. Please include 'mode', 'replicate' and/or 'cache'\n";
+            errorMessage += "\nmode parameter values:\n" +StringUtils.join(Mode.values(), ",\n");
+            errorMessage += "\nreplication parameter values:\n" +StringUtils.join(Replicate.values(), ",\n");
+            errorMessage += "\ncache parameter values:\n" +StringUtils.join(Cache.values(), ",\n");
+            throw new ServletException(errorMessage);
+        }
+        Map<Enum, ImportResult> results = new HashMap<>();
+
+        if (slingSettingsService.getRunModes().contains("author")) {
+            Import(request, response, results);
+            Replicate(request);
+        }
+        ClearCache(request, results);
+
+        ImportResponseView.buildResponse(response, results);
+    }
+
+    private void ClearCache(SlingHttpServletRequest request, Map<Enum, ImportResult> results) {
+        final String cacheParams = request.getParameter("cache");
+        if(cacheParams == null){
+            return;
+        }
+        for (String cacheParam : cacheParams.split(",")) {
+            Cache cache = Cache.valueOf(cacheParam);
+            if (cache.equals(Cache.stylesconfiguration)) {
+                results.put(cache, styleCache.buildCache());
+            } else if (cache.equals(Cache.FYCCacheRebuild)) {
+                results.put(cache, cruisesCacheService.buildCruiseCache());
+            } else if (cache.equals(Cache.clearGlobalCache)) {
+                results.put(cache, globalCacheService.clear());
+            }
+        }
+    }
+
+    private void Replicate(SlingHttpServletRequest request) {
+        final String replicateParam = request.getParameter("replicate");
+        if(replicateParam != null && replicateParam.equals("all")) {
+            replicateImporter.replicate();
+        }
+    }
+
+    private void Import(SlingHttpServletRequest request, SlingHttpServletResponse response, Map<Enum, ImportResult> results) throws IOException, ServletException {
+        final String modeParams = request.getParameter("mode");
+        if(modeParams == null){
+            return;
+        }
+        for (String modeParam : modeParams.split(",")){
+            Mode mode = getMode(modeParam, response);
+            ImportResult result = RunImporter(mode);
+            results.put(mode, result);
+        }
+    }
+
+    private boolean hasParameters(SlingHttpServletRequest request) {
+        return request.getParameterNames().hasMoreElements();
+    }
+
+    private Mode getMode(String mod, SlingHttpServletResponse response) throws IOException {
         try {
-            mode = Mode.valueOf(modeParam);
+            return Mode.valueOf(mod);
         } catch (IllegalArgumentException e) {
-            throw new ServletException(
-                    "the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
+            try(PrintWriter out = response.getWriter()) {
+                out.println("Invalid param:" + mod);
+            }
+            return Mode.dummy;
         }
+    }
 
+    private ImportResult RunImporter(Mode mode) throws ServletException {
         try {
             if (mode.equals(Mode.cities)) {
-                citiesImporter.updateItems();
+                return citiesImporter.updateItems();
             } else if (mode.equals(Mode.citiesDisactive)) {
-                citiesImporter.DesactivateUselessPort();
+                return citiesImporter.DesactivateUselessPort();
             } else if (mode.equals(Mode.hotels)) {
-                hotelsImporter.updateHotels();
+                return hotelsImporter.updateHotels();
             } else if (mode.equals(Mode.excursions)) {
-                shoreExcursionsImporter.updateShoreExcursions();
+                return shoreExcursionsImporter.updateShoreExcursions();
             } else if (mode.equals(Mode.landprograms)) {
-                landProgramsImporter.updateLandPrograms();
+                return landProgramsImporter.updateLandPrograms();
             } else if (mode.equals(Mode.countries)) {
-                countriesImporter.importData(false);
+                return countriesImporter.importData(false);
             } else if (mode.equals(Mode.exclusiveoffers)) {
-                exclusiveOffersImporter.importAllItems();
+                return exclusiveOffersImporter.importAllItems();
             } else if (mode.equals(Mode.features)) {
-                featuresImporter.updateFeatures();
+                return featuresImporter.updateFeatures();
             } else if (mode.equals(Mode.cruises)) {
-                cruisesImporter.updateItems();
+                return cruisesImporter.updateItems();
             } else if (mode.equals(Mode.itineraries)) {
-                cruisesItinerariesImporter.importAllItems(true);
+                return cruisesItinerariesImporter.importAllItems(true);
             } else if (mode.equals(Mode.prices)) {
-                cruisesPricesImporter.importAllItems(true);
+                return cruisesPricesImporter.importAllItems(true);
             } else if (mode.equals(Mode.itinerarieshotels)) {
-                cruisesItinerariesHotelsImporter.importAllItems(true);
+                return cruisesItinerariesHotelsImporter.importAllItems(true);
             } else if (mode.equals(Mode.itinerarieslandprograms)) {
-                cruisesItinerariesLandProgramsImporter.importAllItems(true);
+                return cruisesItinerariesLandProgramsImporter.importAllItems(true);
             } else if (mode.equals(Mode.itinerariesexcursions)) {
-                cruisesItinerariesExcursionsImporter.importAllItems(true);
+                return cruisesItinerariesExcursionsImporter.importAllItems(true);
             } else if (mode.equals(Mode.cruisesexclusiveoffers)) {
-                cruisesExclusiveOffersImporter.importAllItems();
+                return cruisesExclusiveOffersImporter.importAllItems();
             } else if (mode.equals(Mode.multicruises)) {
-                multiCruisesImporter.updateItems();
+                return multiCruisesImporter.updateItems();
             } else if (mode.equals(Mode.multicruisesitineraries)) {
-                multiCruisesItinerariesImporter.importAllItems();
+                return multiCruisesItinerariesImporter.importAllItems();
             } else if (mode.equals(Mode.multicruisesprices)) {
-                multiCruisesPricesImporter.importAllItems();
+                return multiCruisesPricesImporter.importAllItems();
             } else if (mode.equals(Mode.multicruisesitinerarieshotels)) {
-                multiCruisesItinerariesHotelsImporter.importAllItems();
+                return multiCruisesItinerariesHotelsImporter.importAllItems();
             } else if (mode.equals(Mode.multicruisesitinerarieslandprograms)) {
-                multiCruisesItinerariesLandProgramsImporter.importAllItems();
+                return multiCruisesItinerariesLandProgramsImporter.importAllItems();
             } else if (mode.equals(Mode.multicruisesitinerariesexcursions)) {
-                multiCruisesItinerariesExcursionsImporter.importAllItems();
+                return multiCruisesItinerariesExcursionsImporter.importAllItems();
             } else if (mode.equals(Mode.combocruises)) {
                 // comboCruisesImporter.importData(true);
             } else if (mode.equals(Mode.brochures)) {
-                brochuresImporter.updateBrochures();
-            } else if (mode.equals(Mode.combocruisessegmentsactivation)) {
-                comboCruisesImporter.markSegmentsForActivation();
+                return brochuresImporter.updateBrochures();
             } else if (mode.equals(Mode.ccptgeneration)) {
-                ccptImporter.importAllItems();
+                return ccptImporter.importAllItems();
             } else if (mode.equals(Mode.phonegeneration)) {
-                phoneImporter.importAllItems();
-            } else if (mode.equals(Mode.stylesconfiguration)) {
-                styleCache.buildCache();
+                return phoneImporter.importAllItems();
             } else if (mode.equals(Mode.excursionsDisactive)) {
-                shoreExcursionsImporter.disactiveAllItemDeltaByAPI();
+                return shoreExcursionsImporter.disactiveAllItemDeltaByAPI();
             } else if (mode.equals(Mode.landProgramsDisactive)) {
-                landProgramsImporter.disactiveAllItemDeltaByAPI();
+                return landProgramsImporter.disactiveAllItemDeltaByAPI();
             } else if (mode.equals(Mode.hotelsDisactive)) {
-                hotelsImporter.disactiveAllItemDeltaByAPI();
+                return hotelsImporter.disactiveAllItemDeltaByAPI();
             } else if (mode.equals(Mode.importAllPortImages)) {
-                citiesImporter.importAllPortImages();
+                return citiesImporter.importAllPortImages();
             } else if (mode.equals(Mode.portsGeneration)) {
-                portsImporter.importAllItems();
-            } else if (mode.equals(Mode.FYCCacheRebuild)) {
-                cruisesCacheService.buildCruiseCache();
+                return portsImporter.importAllItems();
             } else if (mode.equals(Mode.hotelImagesGeneration)) {
-                hotelsImporter.importHotelImages();
-            } else if (mode.equals(Mode.replicate)) {
-                replicateImporter.replicate();
+                return hotelsImporter.importHotelImages();
             } else if (mode.equals(Mode.testAliasCruiseAlign)) {
-                cruisesImporter.updateCheckAlias();
-            }else if (mode.equals(Mode.clearGlobalCache)) {
-                globalCacheService.clear();
+                return cruisesImporter.updateCheckAlias();
+            } else if (mode.equals(Mode.combocruisessegmentsactivation)) {
+                return comboCruisesImporter.markSegmentsForActivation();
             }
-
+            else if(mode.equals(Mode.dummy)){
+                return new ImportResult();
+            }
         } catch (ImporterException e) {
             throw new ServletException(e);
         }
-
-        response.setContentType("text/html");
+        throw new NotImplementedException("Mode " + mode + " does not have an importer defined");
     }
 }

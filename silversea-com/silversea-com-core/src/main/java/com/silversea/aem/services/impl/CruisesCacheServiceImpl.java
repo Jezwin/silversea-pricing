@@ -5,6 +5,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
@@ -63,7 +64,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     private Map<String, Set<FeatureModelLight>> featuresTmp = new HashMap<>();
 
     @Override
-    public void buildCruiseCache() {
+    public ImportResult buildCruiseCache() {
+        ImportResult importResult = new ImportResult();
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
@@ -124,11 +126,13 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             for (Map.Entry<String, Map<String, CruiseModelLight>> cruise : cruisesByCode.entrySet()) {
                 i += cruise.getValue().size();
             }
-
+            importResult.incrementSuccessNumber();
             LOGGER.info("End of cruise cache build, {} cruises cached", i);
         } catch (LoginException e) {
+            importResult.incrementErrorNumber();
             LOGGER.error("Cannot create resource resolver", e);
         }
+        return importResult;
     }
 
     @Override

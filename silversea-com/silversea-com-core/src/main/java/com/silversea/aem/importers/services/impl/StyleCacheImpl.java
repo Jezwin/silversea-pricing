@@ -42,7 +42,8 @@ public class StyleCacheImpl implements StyleCache {
 		return styles;
 	}
 	
-	public void buildCache() {
+	public ImportResult buildCache() {
+		ImportResult importResult = new ImportResult();
 		styles = new HashMap<>();
 		Map<String, Object> authenticationParams = new HashMap<>();
 		authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -56,6 +57,7 @@ public class StyleCacheImpl implements StyleCache {
 				Node tagNode = pageResource.adaptTo(Node.class);
 				
 				if (tagNode == null) {
+					importResult.incrementErrorNumber();
 					throw new ImporterException("Cannot find node");
 				}
 				
@@ -71,6 +73,7 @@ public class StyleCacheImpl implements StyleCache {
 						styles.put(splitStyle[0], valueType);
 					}
 				}
+				importResult.incrementSuccessNumber();
 			}
 
 		} catch (LoginException | ImporterException e) {
@@ -78,6 +81,6 @@ public class StyleCacheImpl implements StyleCache {
 		} catch (RepositoryException e) {
 			LOGGER.error("Cannot save modification", e);
 		}
-
+		return importResult;
 	}
 }

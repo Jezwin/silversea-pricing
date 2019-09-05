@@ -11,5 +11,5 @@ public interface ComboCruisesImporter {
     * TODO move it to combocruise diff when ok
     * TODO add better logs
     */
-   void markSegmentsForActivation();
+   ImportResult markSegmentsForActivation();
 }

@@ -1,5 +1,6 @@
 package com.silversea.aem.services;
 
+import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.models.*;
 
 import java.time.YearMonth;
@@ -74,5 +75,5 @@ public interface CruisesCacheService {
     /**
      * Build the cache
      */
-    void buildCruiseCache();
+    ImportResult buildCruiseCache();
 }

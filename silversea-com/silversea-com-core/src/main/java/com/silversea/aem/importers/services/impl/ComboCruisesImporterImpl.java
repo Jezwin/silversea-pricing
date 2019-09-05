@@ -249,10 +249,10 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
     }
 
     @Override
-    public void markSegmentsForActivation() {
+    public ImportResult markSegmentsForActivation() {
+        ImportResult importResult = new ImportResult();
         LOGGER.debug("Starting combo cruise segments activation");
 
-        int i = 0;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -285,7 +285,7 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
                                 cruiseContentNode.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
                             }
 
-                            i++;
+                            importResult.incrementSuccessNumber();
 
                             LOGGER.debug("Cruise {} mark to be activated", cruiseContentNode.getPath());
                         }
@@ -309,6 +309,7 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
             LOGGER.error("Cannot get resource resolver or session", e);
         }
 
-        LOGGER.debug("Ending segments activation, {} cruises touched", i);
+        LOGGER.debug("Ending segments activation, {} cruises touched", importResult.getSuccessNumber());
+        return importResult;
     }
 }

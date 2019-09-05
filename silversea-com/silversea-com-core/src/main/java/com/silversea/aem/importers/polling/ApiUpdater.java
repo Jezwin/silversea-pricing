@@ -129,7 +129,6 @@ public class ApiUpdater implements Runnable {
             List<ImportJobRequest> jobs = buildImportSchedule();
             ImportRunner runner = new ImportRunner(jobs, sscLog);
             runner.run();
-
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
             replicateModifications(resourceResolverFactory, replicator,
@@ -155,7 +154,6 @@ public class ApiUpdater implements Runnable {
             replicateModifications(resourceResolverFactory, replicator,
                     "/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toActivate]");
             replicateModifications(resourceResolverFactory, replicator, "/jcr:root/etc/tags//element(*,cq:Tag)[toDeactivate or toActivate]");
-
             cruisesCacheService.buildCruiseCache();
         } else {
             LOGGER.debug("API updater service run only on author instance");
@@ -199,7 +197,9 @@ public class ApiUpdater implements Runnable {
      *
      * @param query the query of the resources to replicate
      */
-    public static void replicateModifications(ResourceResolverFactory resourceResolverFactory, Replicator replicator, final String query) {
+    public static void replicateModifications(ResourceResolverFactory resourceResolverFactory,
+                                                      Replicator replicator, final String query) {
+
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
@@ -210,8 +210,8 @@ public class ApiUpdater implements Runnable {
                 throw new ImporterException("Cannot get session");
             }
 
-            int successNumber = 0, errorNumber = 0;
             int j = 0;
+            int success = 0, error = 0;
 
             final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
 
@@ -264,7 +264,7 @@ public class ApiUpdater implements Runnable {
                             LOGGER.info("{} page deactivated", node.getPath());
                         }
 
-                        successNumber++;
+                        success++;
                         j++;
 
                         //Force some wait in replication process to avoid overusing publisher.
@@ -286,11 +286,10 @@ public class ApiUpdater implements Runnable {
                     } catch (ReplicationException e) {
                         LOGGER.error("Cannot replicate page {}", node.getPath());
 
-                        errorNumber++;
+                        error++;
                     } catch (RepositoryException e) {
                         LOGGER.error("Cannot remove status property on page {}", node.getPath());
-
-                        errorNumber++;
+                        error++;
                     }
                     resource = null;
                     node = null;
@@ -311,7 +310,7 @@ public class ApiUpdater implements Runnable {
                 }
             }
 
-            LOGGER.info("Replication done, success: {}, errors: {}", successNumber, errorNumber);
+            LOGGER.info("Replication done, success: {}, errors: {}", success, error);
             session = null;
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot get resource resolver or session", e);
