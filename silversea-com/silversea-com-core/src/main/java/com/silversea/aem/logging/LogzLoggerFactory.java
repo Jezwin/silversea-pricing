@@ -1,14 +1,11 @@
 package com.silversea.aem.logging;
 
-import com.amazonaws.services.secretsmanager.model.*;
-import com.jasongoodwin.monads.Try;
-import com.silversea.aem.importers.polling.ApiUpdater;
-import com.silversea.aem.utils.AwsSecretManager;
+import com.silversea.aem.utils.AwsSecretsManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.SenderStatusReporter;
+import io.logz.sender.exceptions.LogzioParameterErrorException;
 import org.apache.felix.scr.annotations.*;
-import org.json.JSONObject;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +17,13 @@ import java.util.concurrent.Executors;
 @Service(LogzLoggerFactory.class)
 public class LogzLoggerFactory {
 
+    public static final String LOGZIO_LISTENER_URL = "http://listener-eu.logz.io:8070";
+    public static final String LOGZIO_TYPE = "java";
+    public static final String LOGZIO_TOKEN_SECRET_KEY = "LOGZIO_TOKEN";
+    public static final int LOGZIO_DRAIN_TIMEOUT_IN_SECONDS = 5;
+    public static final int LOGZIO_CORE_POOL_SIZE = 3;
     @Reference
-    private AwsSecretManager awsSecretManager;
+    private AwsSecretsManager awsSecretsManager;
 
     private Optional<LogzioSender> sender;
 
@@ -39,32 +41,35 @@ public class LogzLoggerFactory {
     }
 
     private void createSender() {
-        Try<String> token = awsSecretManager.getSecret("LOGZIO_TOKEN");
-        token.map(tk -> {
-            HttpsRequestConfiguration conf = HttpsRequestConfiguration
-                    .builder()
-                    .setLogzioListenerUrl("http://listener-eu.logz.io:8070")
-                    .setLogzioType("java")
-                    .setLogzioToken(tk)
-                    .build();
+        awsSecretsManager
+                .getValue(LOGZIO_TOKEN_SECRET_KEY)
+                .map(token -> LogzioSender
+                        .builder()
+                        .setTasksExecutor(Executors.newScheduledThreadPool(LOGZIO_CORE_POOL_SIZE))
+                        .setDrainTimeoutSec(LOGZIO_DRAIN_TIMEOUT_IN_SECONDS)
+                        .setReporter(new LogzioStatusReporter())
+                        .setHttpsRequestConfiguration(buildRequestConfig(token))
+                        .withInMemoryQueue()
+                        .endInMemoryQueue()
+                        .build())
+                .onSuccess(s -> {
+                    sender = Optional.of(s);
+                    s.start();
+                })
+                .onFailure(e -> {
+                    sender = Optional.empty();
+                    Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
+                    logger.error(String.format("Logz.io initialization failed: %s", e.getMessage()), e);
+                });
+    }
 
-            return LogzioSender
-                    .builder()
-                    .setTasksExecutor(Executors.newScheduledThreadPool(3))
-                    .setDrainTimeoutSec(5)
-                    .setReporter(new LogzioStatusReporter())
-                    .setHttpsRequestConfiguration(conf)
-                    .withInMemoryQueue()
-                    .endInMemoryQueue()
-                    .build();
-        }).onSuccess(s -> {
-            sender = Optional.of(s);
-            s.start();
-        }).onFailure(e -> {
-            sender = Optional.empty();
-            Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
-            logger.error("something in the logger initialization went wrong", e);
-        });
+    private HttpsRequestConfiguration buildRequestConfig(String tk) throws LogzioParameterErrorException {
+        return HttpsRequestConfiguration
+                .builder()
+                .setLogzioListenerUrl(LOGZIO_LISTENER_URL)
+                .setLogzioType(LOGZIO_TYPE)
+                .setLogzioToken(tk)
+                .build();
     }
 
     public class LogzioStatusReporter implements SenderStatusReporter {
