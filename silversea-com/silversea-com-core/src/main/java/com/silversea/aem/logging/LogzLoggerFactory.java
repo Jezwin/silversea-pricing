@@ -1,5 +1,6 @@
 package com.silversea.aem.logging;
 
+import com.jasongoodwin.monads.Try;
 import com.silversea.aem.utils.AwsSecretsManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
@@ -29,7 +30,15 @@ public class LogzLoggerFactory {
 
     @Activate
     protected final void activate(final ComponentContext context) {
-        createSender();
+        this.sender = createSender(this.awsSecretsManager)
+                .onSuccess(sender -> sender.start())
+                .map(Optional::of)
+                .recover(exception -> {
+                    // Fail quietly so that logz.io doesn't block execution, but log failure locally.
+                    Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
+                    logger.error(String.format("Logz.io initialization failed: %s", exception.getMessage()), exception);
+                    return Optional.empty();
+                });
     }
 
     public LogzLogger getLogger(String component) {
@@ -40,39 +49,37 @@ public class LogzLoggerFactory {
         return new LogzLogger(sender, clazz.getName());
     }
 
-    private void createSender() {
-        awsSecretsManager
+    private Try<LogzioSender> createSender(AwsSecretsManager secretsManager) {
+        return secretsManager
                 .getValue(LOGZIO_TOKEN_SECRET_KEY)
-                .map(token -> LogzioSender
-                        .builder()
-                        .setTasksExecutor(Executors.newScheduledThreadPool(LOGZIO_CORE_POOL_SIZE))
-                        .setDrainTimeoutSec(LOGZIO_DRAIN_TIMEOUT_IN_SECONDS)
-                        .setReporter(new LogzioStatusReporter())
-                        .setHttpsRequestConfiguration(buildRequestConfig(token))
-                        .withInMemoryQueue()
-                        .endInMemoryQueue()
-                        .build())
-                .onSuccess(s -> {
-                    sender = Optional.of(s);
-                    s.start();
-                })
-                .onFailure(e -> {
-                    sender = Optional.empty();
-                    Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
-                    logger.error(String.format("Logz.io initialization failed: %s", e.getMessage()), e);
+                .map(token -> {
+                    HttpsRequestConfiguration request = buildRequestConfig(token);
+                    return buildLogzioSender(request);
                 });
     }
 
-    private HttpsRequestConfiguration buildRequestConfig(String tk) throws LogzioParameterErrorException {
+    private static LogzioSender buildLogzioSender(HttpsRequestConfiguration requestConfig) throws LogzioParameterErrorException {
+        return LogzioSender
+                .builder()
+                .setTasksExecutor(Executors.newScheduledThreadPool(LOGZIO_CORE_POOL_SIZE))
+                .setDrainTimeoutSec(LOGZIO_DRAIN_TIMEOUT_IN_SECONDS)
+                .setReporter(new LogzioStatusReporter())
+                .setHttpsRequestConfiguration(requestConfig)
+                .withInMemoryQueue()
+                .endInMemoryQueue()
+                .build();
+    }
+
+    private static HttpsRequestConfiguration buildRequestConfig(String token) throws LogzioParameterErrorException {
         return HttpsRequestConfiguration
                 .builder()
                 .setLogzioListenerUrl(LOGZIO_LISTENER_URL)
                 .setLogzioType(LOGZIO_TYPE)
-                .setLogzioToken(tk)
+                .setLogzioToken(token)
                 .build();
     }
 
-    public class LogzioStatusReporter implements SenderStatusReporter {
+    public static class LogzioStatusReporter implements SenderStatusReporter {
         private Logger logger;
 
         public LogzioStatusReporter() {
