@@ -16,22 +16,23 @@ import java.util.Dictionary;
 @Component(immediate = true, metatype = true, label = "AwsSecretManager")
 @Service(AwsSecretsManager.class)
 @Properties({
-        @Property(name = "region")}
-)
+    @Property(name = "region"),
+    @Property(name = "secretName")
+})
 public class AwsSecretsManager {
     private String region;
     private String secretName;
 
     @Activate
     protected final void activate(final ComponentContext context) {
-        Dictionary<String,String> properties = context.getProperties();
+        Dictionary<String, String> properties = context.getProperties();
         this.region = PropertiesUtil.toString(properties.get("region"), "us-east-1");
         this.secretName = PropertiesUtil.toString(properties.get("secretName"), null);
     }
 
     public Try<String> getValue(String key) {
         return Try.ofFailable(() -> {
-            if(this.secretName == null) throw new Exception("AWS secretName not set in configuration.");
+            if (this.secretName == null) throw new Exception("AWS secretName not set in configuration.");
             JSONObject secret = fetchSecret(this.region, this.secretName);
             return secret.getString(key);
         });
