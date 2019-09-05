@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+        <title>Full Import</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    </head>
+        <body>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Digital Dev Tools</a>
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/bin/api-import-full">Full API Import<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <br />
+            <main role="main" class="container">
+                <div>
+                    <h1>Importer Results</h1>
+                    <table class="table">
+                    <tr>
+                        <th>Importer mode</th>
+                        <th>Success Count</th>
+                        <th>Error Count</th></tr>
+                        <#list results as key, value>
+                        <tr>
+                            <td>${key}</td>
+                            <td>${value.successNumber}</td>
+                            <td>${value.errorNumber}</td>
+                        </tr>
+                        </#list>
+                    </table>
+                </div>
+                <div>
+                    <h1>Run Full Import</h1>
+
+                    <form method="get">
+                        <div>
+                        <label>Choose Modes:</label>
+                        <#list modes as mode>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="modes[]" value="${mode}" id="${mode}Check">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    ${mode}
+                                </label>
+                            </div>
+                        </#list>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Run Full Import</button>
+                    </form>
+
+                </div>
+            </main>
+        </body>
+</html>

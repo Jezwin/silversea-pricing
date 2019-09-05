@@ -22,7 +22,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(FullImportServlet.class);
 
-    private enum Mode {
+    public enum Mode {
         agencies,
         cities,
         excursions,

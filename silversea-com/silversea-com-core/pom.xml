@@ -73,6 +73,11 @@
                             sun.*;resolution:=optional,
                             org.apache.*;resolution:=optional,
                             org.jvnet.*;resolution:=optional,
+                            org.dom4j.*;resolution:=optional,
+                            org.jaxen.*;resolution:=optional,
+                            org.jdom.*;resolution:=optional,
+                            org.python.*;resolution:=optional,
+                            org.zeroturnaround.*;resolution:=optional,
                             *
                         </Import-Package>
                     </instructions>
@@ -122,6 +127,11 @@
     <!-- D E P E N D E N C I E S -->
     <!-- ====================================================================== -->
     <dependencies>
+    <dependency>
+        <groupId>org.freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>2.3.29</version>
+    </dependency>
         <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
         <dependency>
             <groupId>com.amazonaws</groupId>
