@@ -50,13 +50,10 @@ public class LogzLoggerFactory {
     private Try<LogzioSender> createSender(AwsSecretsManager secretsManager) {
         return secretsManager
                 .getValue(LOGZIO_TOKEN_SECRET_KEY)
-                .map(token -> {
-                    HttpsRequestConfiguration request = buildRequestConfig(token);
-                    return buildLogzioSender(request);
-                });
+                .map(token -> buildSender(buildRequest(token)));
     }
 
-    private static LogzioSender buildLogzioSender(HttpsRequestConfiguration requestConfig) throws LogzioParameterErrorException {
+    private static LogzioSender buildSender(HttpsRequestConfiguration requestConfig) throws LogzioParameterErrorException {
         return LogzioSender
                 .builder()
                 .setTasksExecutor(Executors.newScheduledThreadPool(LOGZIO_CORE_POOL_SIZE))
@@ -68,7 +65,7 @@ public class LogzLoggerFactory {
                 .build();
     }
 
-    private static HttpsRequestConfiguration buildRequestConfig(String token) throws LogzioParameterErrorException {
+    private static HttpsRequestConfiguration buildRequest(String token) throws LogzioParameterErrorException {
         return HttpsRequestConfiguration
                 .builder()
                 .setLogzioListenerUrl(LOGZIO_LISTENER_URL)
