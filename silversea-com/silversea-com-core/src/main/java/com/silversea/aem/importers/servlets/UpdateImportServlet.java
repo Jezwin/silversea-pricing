@@ -9,6 +9,8 @@ import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GlobalCacheService;
+import io.vavr.Lazy;
+import io.vavr.collection.List;
 import io.vavr.control.Either;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -20,7 +22,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
@@ -174,12 +178,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     @Reference
     private CruisesCacheService cruiseCache;
 
-    private List<ImportJobRequest> allImportJobs;
-
-    private List<ImportJobRequest> allImportJobs() {
-        if (allImportJobs == null) {
-
-            allImportJobs = Arrays.asList(
+    private Lazy<List<ImportJobRequest>> allImportJobs = Lazy.of(() ->
+            List.of(
                     jobRequest(Mode.cities.name(), citiesImporter::updateItems),
                     jobRequest(Mode.citiesDisactive.name(), citiesImporter::DesactivateUselessPort),
                     jobRequest(Mode.hotels.name(), hotelsImporter::updateHotels),
@@ -213,17 +213,15 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                     jobRequest(Mode.testAliasCruiseAlign.name(), cruisesImporter::updateCheckAlias),
                     jobRequest(Mode.combocruisessegmentsactivation.name(), comboCruisesImporter::markSegmentsForActivation),
                     jobRequest(Mode.dummy.name(), ImportResult::new)
-            );
-        }
-        return allImportJobs;
-    }
+            )
+    );
 
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
-        List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft).collect(toList());
-        List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get).collect(toList());
+        List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
+        List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get);
         Map<String, ImportResult> results = new HashMap<>();
 
         if(errors.isEmpty()) {
@@ -238,27 +236,25 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         response.setContentType("text/html");
     }
 
-    private Stream<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {
+    private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {
         return Optional
                 .ofNullable(request.getParameter("mode"))
-                .map(s -> Arrays.stream(s.split(",")))
-                .orElse(Stream.empty())
+                .map(s -> List.of(s.split(",")))
+                .orElse(List.empty())
                 .map(this::findImporter);
     }
 
     private Either<String, ImportJobRequest> findImporter(String m) {
-        return allImportJobs()
-                .stream()
-                .filter(x -> x.name().equals(m))
-                .findFirst()
+        return allImportJobs.get()
+                .find(x -> x.name().equals(m))
                 .map(Either::right)
-                .orElse(Either.left("Mode does not exist: " + m))
+                .getOrElse(Either.left("Mode does not exist: " + m))
                 .mapLeft(Object::toString);
     }
 
     private void ClearCache(SlingHttpServletRequest request, Map<String, ImportResult> results) {
         Optional.ofNullable(request.getParameter("cache"))
-                .map(p -> Arrays.stream(p.split(",")))
+                .map(p -> List.of(p.split(",")))
                 .ifPresent(ps -> ps.forEach(p -> {
                     Cache cache = Cache.valueOf(p);
                     if (cache.equals(Cache.stylesconfiguration)) {

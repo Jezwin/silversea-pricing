@@ -10,6 +10,7 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import io.vavr.collection.List;
 import io.vavr.control.Try;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.sling.api.resource.Resource;
@@ -20,7 +21,9 @@ import javax.jcr.RepositoryException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -46,7 +49,7 @@ public class InternalPageRepository {
 
     private Optional<String> get(String pageName) {
         String path = "/jcr:root/apps/silversea/silversea-com/components/internalpages/" + pageName + ".html/jcr:content";
-        List<Resource> res = IteratorUtils.toList(resourceResolver.findResources(path, null));
+        List<Resource> res = List.ofAll(IteratorUtils.toList(resourceResolver.findResources(path, null)));
         return Try.of(() -> res.get(0).adaptTo(Node.class)).mapTry(this::loadJcrBinary).toJavaOptional();
     }
 
@@ -75,18 +78,17 @@ public class InternalPageRepository {
     }
 
     public Try<String> fullImportPage(Map<String, ImportResult> results, List<String> errors) {
-        List<String> modes = Arrays.stream(FullImportServlet.Mode.values()).map(Enum::name).collect(toList());
+        List<String> modes = List.of(FullImportServlet.Mode.values()).map(Enum::name);
         return getImportResultPage("Full Import", results, modes, new HashMap<>(), errors);
     }
 
     public Try<String> diffImportPage(Map<String, ImportResult> results, List<String> errors) {
-        List<String> modes = Arrays.stream(UpdateImportServlet.Mode.values()).map(Enum::name).collect(toList());
+        List<String> modes = List.of(UpdateImportServlet.Mode.values()).map(Enum::name);
         HashMap<String, Object> model = new HashMap<String, Object>() {{
-            put("caches", Arrays.stream(UpdateImportServlet.Cache.values()).map(Enum::name).collect(toList()));
-            put("replications", Arrays.stream(UpdateImportServlet.Replicate.values()).map(Enum::name).collect(toList()));
+            put("caches", List.of(UpdateImportServlet.Cache.values()).map(Enum::name));
+            put("replications", List.of(UpdateImportServlet.Replicate.values()).map(Enum::name));
         }};
         return getImportResultPage("Diff API", results, modes, model, errors);
-
     }
 
 }

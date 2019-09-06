@@ -3,13 +3,11 @@ package com.silversea.aem.importers;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.SSCLogger;
+import io.vavr.collection.List;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
@@ -27,7 +25,7 @@ public class ImportRunnerBlowUpTest {
 
     @Before
     public void configureBlowUpImports() {
-        failureJobs = Arrays.asList(
+        failureJobs = List.of(
             jobRequest("errorJob1", () -> { throw new ImporterException("Boom"); }),
             jobRequest("successJob1", () -> new ImportResult(500000, 0)),
             jobRequest("errorJob2", () -> { throw new Exception("Something went wrong"); }),

@@ -3,20 +3,13 @@ package com.silversea.aem.importers;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.SSCLogger;
-import org.junit.Assert;
+import io.vavr.collection.List;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
 import static com.silversea.aem.logging.JsonLog.jsonLog;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
@@ -29,7 +22,7 @@ public class ImportRunnerFailureTest {
 
     @Before
     public void configureErrorImports() {
-        failureJobs = Arrays.asList(
+        failureJobs = List.of(
             jobRequest("failureJob1", () -> new ImportResult(100, 25)),
             jobRequest("successJob", () -> new ImportResult(8888888, 0)),
             jobRequest("failureJob2", () -> new ImportResult(0, 99999))

@@ -11,6 +11,7 @@ import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.CruisesCacheService;
 
+import io.vavr.collection.List;
 import org.apache.felix.scr.annotations.*;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.sling.api.resource.LoginException;
@@ -25,7 +26,9 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
 
@@ -161,7 +164,7 @@ public class ApiUpdater implements Runnable {
     }
 
     private List<ImportJobRequest> buildImportSchedule() {
-        return Arrays.asList(
+        return List.of(
             jobRequest("CitiesUpdate", citiesImporter::updateItems),
             jobRequest("HotelsUpdate", hotelsImporter::updateHotels),
             jobRequest("LandProgramsUpdate", landProgramsImporter::updateLandPrograms),

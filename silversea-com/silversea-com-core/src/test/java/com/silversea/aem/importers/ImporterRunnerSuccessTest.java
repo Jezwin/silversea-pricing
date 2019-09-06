@@ -3,12 +3,11 @@ package com.silversea.aem.importers;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.SSCLogger;
+import io.vavr.collection.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
 import static com.silversea.aem.logging.JsonLog.jsonLog;
@@ -32,10 +31,11 @@ public class ImporterRunnerSuccessTest {
     public static void configureImportJobs() {
         GlobalState = "";
         log = mock(SSCLogger.class);
-        importJobs = new ArrayList<>();
-        importJobs.add(jobRequest("import1", () -> { GlobalState += "aa"; return success1; }));
-        importJobs.add(jobRequest("import2", () -> { GlobalState += "bb"; return success2; }));
-        importJobs.add(jobRequest("import3", () -> { GlobalState += "cc"; return success3; }));
+        importJobs = List.of(
+            jobRequest("import1", () -> { GlobalState += "aa"; return success1; }),
+            jobRequest("import2", () -> { GlobalState += "bb"; return success2; }),
+            jobRequest("import3", () -> { GlobalState += "cc"; return success3; })
+        );
         new ImportRunner(importJobs, log).run();
     }
 
