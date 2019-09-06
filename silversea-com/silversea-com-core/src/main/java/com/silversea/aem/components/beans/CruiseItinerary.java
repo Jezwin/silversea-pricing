@@ -161,7 +161,7 @@ public class CruiseItinerary {
                 .filter(string -> !Strings.isNullOrEmpty(string))
                 .map(excursionTimeFormatter::parse)
                 .map(time -> time.get(ChronoField.HOUR_OF_DAY))
-                .map(hours -> hours < 22)
+                .map(hours -> hours < 18)
                 .orElse(true);
         return okForArrive && okForDepart;
     }
