@@ -3,11 +3,13 @@ package com.silversea.aem.importers;
 import com.jasongoodwin.monads.Try;
 import com.silversea.aem.importers.services.impl.ImportResult;
 
+import static com.jasongoodwin.monads.Try.ofFailable;
+
 @FunctionalInterface
 public interface ImportJob {
 
     default Try<ImportResult> run() {
-        return Try.ofFailable(this::lambda);
+        return ofFailable(this::lambda);
     }
 
     // The lambda will be converted into this method
