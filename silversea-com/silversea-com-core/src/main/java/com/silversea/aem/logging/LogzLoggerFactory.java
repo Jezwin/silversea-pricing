@@ -32,13 +32,11 @@ public class LogzLoggerFactory {
     protected final void activate(final ComponentContext context) {
         this.sender = createSender(this.awsSecretsManager)
                 .onSuccess(sender -> sender.start())
-                .map(Optional::of)
-                .recover(exception -> {
+                .onFailure(exception -> {
                     // Fail quietly so that logz.io doesn't block execution, but log failure locally.
                     Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
                     logger.error(String.format("Logz.io initialization failed: %s", exception.getMessage()), exception);
-                    return Optional.empty();
-                });
+                }).toOptional();
     }
 
     public LogzLogger getLogger(String component) {
