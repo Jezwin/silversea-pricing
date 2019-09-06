@@ -39,19 +39,19 @@ public class AwsSecretsManager {
     }
 
     private static JSONObject fetchSecret(String region, String secretName) throws JSONException {
-        AWSSecretsManager client = buildASMClient(region);
-        GetSecretValueRequest request = buildASMRequest(secretName);
+        AWSSecretsManager client = buildClient(region);
+        GetSecretValueRequest request = buildRequest(secretName);
         GetSecretValueResult secretValue = client.getSecretValue(request);
         String jsonString = secretValue.getSecretString();
         return new JSONObject(jsonString);
     }
 
-    private static GetSecretValueRequest buildASMRequest(String secretName) {
+    private static GetSecretValueRequest buildRequest(String secretName) {
         return new GetSecretValueRequest()
                 .withSecretId(secretName);
     }
 
-    private static AWSSecretsManager buildASMClient(String region) {
+    private static AWSSecretsManager buildClient(String region) {
         return AWSSecretsManagerClientBuilder.standard()
                 .withRegion(region)
                 .build();
