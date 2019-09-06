@@ -1,14 +1,12 @@
 package com.silversea.aem.logging;
 
-import com.amazonaws.services.secretsmanager.model.*;
 import com.jasongoodwin.monads.Try;
-import com.silversea.aem.importers.polling.ApiUpdater;
-import com.silversea.aem.utils.AwsSecretManager;
+import com.silversea.aem.utils.AwsSecretsManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.SenderStatusReporter;
+import io.logz.sender.exceptions.LogzioParameterErrorException;
 import org.apache.felix.scr.annotations.*;
-import org.json.JSONObject;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,65 +18,69 @@ import java.util.concurrent.Executors;
 @Service(LogzLoggerFactory.class)
 public class LogzLoggerFactory {
 
-@Reference
-private AwsSecretManager awsSecretManager;
+    public static final String LOGZIO_LISTENER_URL = "http://listener-eu.logz.io:8070";
+    public static final String LOGZIO_TYPE = "java";
+    public static final String LOGZIO_TOKEN_SECRET_KEY = "LOGZIO_TOKEN";
+    public static final int LOGZIO_DRAIN_TIMEOUT_IN_SECONDS = 5;
+    public static final int LOGZIO_CORE_POOL_SIZE = 3;
+    @Reference
+    private AwsSecretsManager awsSecretsManager;
 
     private Optional<LogzioSender> sender;
 
     @Activate
     protected final void activate(final ComponentContext context) {
-        createSender();
+        this.sender = createSender(this.awsSecretsManager)
+                .onSuccess(sender -> sender.start())
+                .onFailure(exception -> {
+                    // Fail quietly so that logz.io doesn't block execution, but log failure locally.
+                    Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
+                    logger.error(String.format("Logz.io initialization failed: %s", exception.getMessage()), exception);
+                }).toOptional();
     }
 
     public LogzLogger getLogger(String component) {
         return new LogzLogger(sender, component);
     }
 
-    public SSCLogger getLogger(Class clazz) { return new LogzLogger(sender, clazz.getName()); }
-
-    private void createSender() {
-            Try<String> token = getSecret();
-            token.map(tk -> {
-                    HttpsRequestConfiguration conf = HttpsRequestConfiguration
-                            .builder()
-                            .setLogzioListenerUrl("http://listener-eu.logz.io:8070")
-                            .setLogzioType("java")
-                            .setLogzioToken(tk)
-                            .build();
-
-                    return LogzioSender
-                            .builder()
-                            .setTasksExecutor(Executors.newScheduledThreadPool(3))
-                            .setDrainTimeoutSec(5)
-                            .setReporter(new LogzioStatusReporter())
-                            .setHttpsRequestConfiguration(conf)
-                            .withInMemoryQueue()
-                            .endInMemoryQueue()
-                            .build();
-                }).onSuccess(s -> {
-                sender = Optional.of(s);
-                s.start();
-            }).onFailure(e -> {
-                    sender = Optional.empty();
-                    Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
-                logger.error("something in the logger initialization went wrong", e);
-            });
-    }
-    private Try<String> getSecret() {
-        String secretName = "prod/logzio/token";
-        Try<GetSecretValueResult> secret = awsSecretManager.getSecretValue(secretName);
-
-        return secret.flatMap(secretSuccess -> {
-            String JsonResponse = secretSuccess.getSecretString();
-            return Try.ofFailable(() -> new JSONObject(JsonResponse).getString("token"));
-        });
+    public SSCLogger getLogger(Class clazz) {
+        return new LogzLogger(sender, clazz.getName());
     }
 
-    public class LogzioStatusReporter implements SenderStatusReporter {
+    private Try<LogzioSender> createSender(AwsSecretsManager secretsManager) {
+        return secretsManager
+                .getValue(LOGZIO_TOKEN_SECRET_KEY)
+                .map(token -> buildSender(buildRequest(token)));
+    }
+
+    private static LogzioSender buildSender(HttpsRequestConfiguration requestConfig) throws LogzioParameterErrorException {
+        return LogzioSender
+                .builder()
+                .setTasksExecutor(Executors.newScheduledThreadPool(LOGZIO_CORE_POOL_SIZE))
+                .setDrainTimeoutSec(LOGZIO_DRAIN_TIMEOUT_IN_SECONDS)
+                .setReporter(new LogzioStatusReporter())
+                .setHttpsRequestConfiguration(requestConfig)
+                .withInMemoryQueue()
+                .endInMemoryQueue()
+                .build();
+    }
+
+    private static HttpsRequestConfiguration buildRequest(String token) throws LogzioParameterErrorException {
+        return HttpsRequestConfiguration
+                .builder()
+                .setLogzioListenerUrl(LOGZIO_LISTENER_URL)
+                .setLogzioType(LOGZIO_TYPE)
+                .setLogzioToken(token)
+                .build();
+    }
+
+    public static class LogzioStatusReporter implements SenderStatusReporter {
         private Logger logger;
+
         public LogzioStatusReporter() {
             logger = LoggerFactory.getLogger(LogzioStatusReporter.class);
         }
+
         @Override
         public void error(String s) {
             logger.error(s);
