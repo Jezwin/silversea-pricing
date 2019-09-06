@@ -1,7 +1,5 @@
 package com.silversea.aem.importers.servlets;
 
-import com.jasongoodwin.monads.Try;
-import com.silversea.aem.importers.ImportJob;
 import com.silversea.aem.importers.ImportJobRequest;
 import com.silversea.aem.importers.ImportRunner;
 import com.silversea.aem.importers.services.*;
@@ -11,7 +9,7 @@ import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GlobalCacheService;
-import io.vavr.control.Option;
+import io.vavr.control.Either;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -21,13 +19,9 @@ import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import io.vavr.control.Either;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
 import static java.util.stream.Collectors.toList;
@@ -239,7 +233,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         }
 
         InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver(), cruiseCache);
-        String content = repo.diffImportPage(results, errors).recover(Throwable::getMessage);
+        String content = repo.diffImportPage(results, errors).getOrElseGet(Throwable::getMessage);
         response.getWriter().write(content);
         response.setContentType("text/html");
     }

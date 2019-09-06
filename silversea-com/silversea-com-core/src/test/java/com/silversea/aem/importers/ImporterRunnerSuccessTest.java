@@ -1,6 +1,5 @@
 package com.silversea.aem.importers;
 
-import com.jasongoodwin.monads.Try;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.SSCLogger;
@@ -16,7 +15,6 @@ import static com.silversea.aem.logging.JsonLog.jsonLog;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 

@@ -1,7 +1,6 @@
 package com.silversea.aem.internalpages;
 
 import com.amazonaws.util.IOUtils;
-import com.jasongoodwin.monads.Try;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.importers.servlets.FullImportServlet;
 import com.silversea.aem.importers.servlets.UpdateImportServlet;
@@ -11,6 +10,7 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import io.vavr.control.Try;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -23,8 +23,9 @@ import java.io.Writer;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.jasongoodwin.monads.Try.ofFailable;
 import static java.util.stream.Collectors.toList;
+import static io.vavr.API.*;
+import static io.vavr.Predicates.*;
 
 
 public class InternalPageRepository {
@@ -46,7 +47,7 @@ public class InternalPageRepository {
     private Optional<String> get(String pageName) {
         String path = "/jcr:root/apps/silversea/silversea-com/components/internalpages/" + pageName + ".html/jcr:content";
         List<Resource> res = IteratorUtils.toList(resourceResolver.findResources(path, null));
-        return ofFailable(() -> res.get(0).adaptTo(Node.class)).map(this::loadJcrBinary).toOptional();
+        return Try.of(() -> res.get(0).adaptTo(Node.class)).mapTry(this::loadJcrBinary).toJavaOptional();
     }
 
     private String loadJcrBinary(Node n) throws IOException, RepositoryException {
@@ -66,11 +67,11 @@ public class InternalPageRepository {
                 put("results", results);
                 put("modes", modes);
                 put("importerName", name);
-                put("cruiseCacheSizeEn", ofFailable(() -> String.valueOf(cruiseCache.getCruises("en").size())).recover(Object::toString));
+                put("cruiseCacheSizeEn", Try.of(() -> String.valueOf(cruiseCache.getCruises("en").size())).recover(Object::toString));
             }
         };
         if (!errors.isEmpty()) viewModel.put("errors", errors);
-        return ofFailable(() -> cfg.getTemplate(importResultPage)).map(t -> render(viewModel, t));
+        return Try.of(() -> cfg.getTemplate(importResultPage)).mapTry(t -> render(viewModel, t));
     }
 
     public Try<String> fullImportPage(Map<String, ImportResult> results, List<String> errors) {

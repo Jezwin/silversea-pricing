@@ -152,7 +152,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         }
 
         InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver(), cruiseCache);
-        String content = repo.fullImportPage(results, errors).recover(Throwable::getMessage);
+        String content = repo.fullImportPage(results, errors).getOrElseGet(Throwable::getMessage);
         response.getWriter().write(content);
         response.setContentType("text/html");
     }

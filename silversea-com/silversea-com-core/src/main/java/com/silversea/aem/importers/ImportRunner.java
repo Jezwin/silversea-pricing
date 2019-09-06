@@ -27,7 +27,7 @@ public class ImportRunner {
 
     private ImportReport run(ImportJobRequest request) {
         log.logInfo(jsonLog("ImportStarting").with("job", request.name()));
-        ImportReport report = request.job().run().map(r -> buildReport(request, r)).recover(x -> buildErrorReport(request, x));
+        ImportReport report = request.job().run().map(r -> buildReport(request, r)).getOrElseGet(x -> buildErrorReport(request, x));
         log(report);
         return report;
     }
