@@ -27,20 +27,17 @@ pipelines:
       # Staging
       #########################
       - step:
-          name: Stage Build Author
-          trigger: manual
+          name: Stage Deploy to Author
           deployment: stage-author
           script:
             - ./deploy.sh 18.204.183.84 4502 4502 crx-packages ci-user $AUTHOR_STAGE_PASSWORD
       - step:
-          name: Stage Build Publish 1
-          trigger: manual
+          name: Stage Deploy to Publish 1
           deployment: stage-publish-1
           script:
             - ./deploy.sh 18.234.4.77 4503 4503 crx-packages ci-user $AUTHOR_STAGE_PASSWORD
       - step:
-          name: Stage Build Publish 2
-          trigger: manual
+          name: Stage Deploy to Publish 2
           deployment: stage-publish-2
           script:
             - ./deploy.sh 35.173.158.72 4503 4503 crx-packages ci-user $AUTHOR_STAGE_PASSWORD
