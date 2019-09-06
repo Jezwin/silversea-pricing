@@ -6,6 +6,7 @@ import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.importers.servlets.FullImportServlet;
 import com.silversea.aem.importers.servlets.UpdateImportServlet;
 import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.services.CruisesCacheService;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -29,11 +30,13 @@ import static java.util.stream.Collectors.toList;
 public class InternalPageRepository {
     private ResourceResolver resourceResolver;
     private Configuration cfg;
+    private CruisesCacheService cruiseCache;
 
     private final String importResultPage = "importResult";
 
-    public InternalPageRepository(ResourceResolver resourceResolver) {
+    public InternalPageRepository(ResourceResolver resourceResolver, CruisesCacheService cruiseCache) {
         this.resourceResolver = resourceResolver;
+        this.cruiseCache = cruiseCache;
         cfg = new Configuration(Configuration.VERSION_2_3_23);
         StringTemplateLoader loader = new StringTemplateLoader();
         get(importResultPage).ifPresent(t -> loader.putTemplate(importResultPage, t));
@@ -56,29 +59,32 @@ public class InternalPageRepository {
         return writer.toString();
     }
 
-    private Try<String> getImportResultPage(String name, Map<Enum, ImportResult> results, List<String> modes, HashMap<String, Object> model) {
+    private Try<String> getImportResultPage(String name, Map<String, ImportResult> results, List<String> modes,
+                                            HashMap<String, Object> model, List<String> errors) {
         Map<String, Object> viewModel = new HashMap<String, Object>(model) {
             {
                 put("results", results);
                 put("modes", modes);
                 put("importerName", name);
+                put("cruiseCacheSizeEn", ofFailable(() -> String.valueOf(cruiseCache.getCruises("en").size())).recover(Object::toString));
             }
         };
+        if (!errors.isEmpty()) viewModel.put("errors", errors);
         return ofFailable(() -> cfg.getTemplate(importResultPage)).map(t -> render(viewModel, t));
     }
 
-    public Try<String> fullImportPage(Map<Enum, ImportResult> results) {
+    public Try<String> fullImportPage(Map<String, ImportResult> results, List<String> errors) {
         List<String> modes = Arrays.stream(FullImportServlet.Mode.values()).map(Enum::name).collect(toList());
-        return getImportResultPage("Full Import", results, modes, new HashMap<>());
+        return getImportResultPage("Full Import", results, modes, new HashMap<>(), errors);
     }
 
-    public Try<String> diffImportPage(Map<Enum, ImportResult> results) {
+    public Try<String> diffImportPage(Map<String, ImportResult> results, List<String> errors) {
         List<String> modes = Arrays.stream(UpdateImportServlet.Mode.values()).map(Enum::name).collect(toList());
         HashMap<String, Object> model = new HashMap<String, Object>() {{
             put("caches", Arrays.stream(UpdateImportServlet.Cache.values()).map(Enum::name).collect(toList()));
             put("replications", Arrays.stream(UpdateImportServlet.Replicate.values()).map(Enum::name).collect(toList()));
         }};
-        return getImportResultPage("Diff API", results, modes, model);
+        return getImportResultPage("Diff API", results, modes, model, errors);
 
     }
 

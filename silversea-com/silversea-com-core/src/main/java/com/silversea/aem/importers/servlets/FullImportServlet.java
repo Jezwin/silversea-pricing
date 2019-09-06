@@ -1,11 +1,14 @@
 package com.silversea.aem.importers.servlets;
 
-import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImportJobRequest;
+import com.silversea.aem.importers.ImportRunner;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.internalpages.InternalPageRepository;
-import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.StringUtils;
+import com.silversea.aem.logging.LogzLoggerFactory;
+import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.services.CruisesCacheService;
+import io.vavr.control.Either;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -16,9 +19,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
+import static java.util.stream.Collectors.toList;
 
 @SlingServlet(paths = "/bin/api-import-full")
 public class FullImportServlet extends SlingSafeMethodsServlet {
@@ -101,88 +106,73 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     @Reference
     private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
 
+    @Reference
+    private LogzLoggerFactory sscLogFactory;
+
+    @Reference
+    private CruisesCacheService cruiseCache;
+
+    private List<ImportJobRequest> allImportJobs;
+
+    private List<ImportJobRequest> allImportJobs() {
+        if (allImportJobs ==  null) {
+            allImportJobs = Arrays.asList(
+                    jobRequest(Mode.cities.name(), citiesImporter::importAllItems),
+                    jobRequest(Mode.excursions.name(), shoreExcursionsImporter::importAllShoreExcursions),
+                    jobRequest(Mode.hotels.name(), hotelsImporter::importAllHotels),
+                    jobRequest(Mode.landprograms.name(), landProgramsImporter::importAllLandPrograms),
+                    jobRequest(Mode.exclusiveoffers.name(), exclusiveOffersImporter::importAllItems),
+                    jobRequest(Mode.countries.name(), () -> countriesImporter.importData(false)),
+                    jobRequest(Mode.features.name(), featuresImporter::importAllFeatures),
+                    jobRequest(Mode.brochures.name(), brochuresImporter::importAllBrochures),
+                    jobRequest(Mode.cruises.name(), cruisesImporter::importAllItems),
+                    jobRequest(Mode.combocruises.name(), comboCruisesImporter::importAllItems),
+                    jobRequest(Mode.itineraries.name(), () -> cruisesItinerariesImporter.importAllItems(false)),
+                    jobRequest(Mode.itinerarieshotels.name(), () -> cruisesItinerariesHotelsImporter.importAllItems(false)),
+                    jobRequest(Mode.itinerarieslandprograms.name(), () -> cruisesItinerariesLandProgramsImporter.importAllItems(false)),
+                    jobRequest(Mode.itinerariesexcursions.name(), () -> cruisesItinerariesExcursionsImporter.importAllItems(false)),
+                    jobRequest(Mode.prices.name(), () -> cruisesPricesImporter.importAllItems(false)),
+                    jobRequest(Mode.cruisesexclusiveoffers.name(), cruisesExclusiveOffersImporter::importAllItems),
+                    jobRequest(Mode.agencies.name(), agenciesImporter::importAllItems),
+                    jobRequest(Mode.dummy.name(), ImportResult::new)
+            );
+        }
+        return allImportJobs;
+    }
+
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException, ServletException {
-        final List<Mode> modes = parseRequest(request, response);
+        SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
+        List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft).collect(toList());
+        List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get).collect(toList());
+        Map<String, ImportResult> results = new HashMap<>();
 
-        Map<Enum, ImportResult> results = new HashMap<>();
-        for (Mode mode : modes) {
-            ImportResult result = RunImporter(mode);
-            results.put(mode, result);
+        if (errors.isEmpty()) {
+            new ImportRunner(jobs, logger).run().forEach(report -> results.put(report.name(), report.result()));
         }
 
-        InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver());
-        String content = repo.fullImportPage(results).recover(Throwable::getMessage);
+        InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver(), cruiseCache);
+        String content = repo.fullImportPage(results, errors).recover(Throwable::getMessage);
         response.getWriter().write(content);
         response.setContentType("text/html");
     }
 
-    private List<Mode> parseRequest(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        final String modeParam = request.getParameter("mode");
-        final List<Mode> modes = new ArrayList<>();
-        if (modeParam != null) {
-            String[] modeParams = modeParam.split(",");
-            for (String mod : modeParams) {
-                modes.add(getMode(mod, response));
-            }
-        }
-        return modes;
+    private Stream<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {
+        return Optional
+                .ofNullable(request.getParameter("mode"))
+                .map(s -> Arrays.stream(s.split(",")))
+                .orElse(Stream.empty())
+                .map(this::findImporter);
     }
 
-    private Mode getMode(String mode, SlingHttpServletResponse response) throws IOException {
-        try {
-            return Mode.valueOf(mode);
-        } catch (IllegalArgumentException e) {
-            try(PrintWriter out = response.getWriter()) {
-                out.println("Invalid param:" + mode);
-            }
-            return Mode.dummy;
-        }
+    private Either<String, ImportJobRequest> findImporter(String m) {
+        return allImportJobs()
+                .stream()
+                .filter(x -> x.name().equals(m))
+                .findFirst()
+                .map(Either::right)
+                .orElse(Either.left("Mode does not exist: " + m))
+                .mapLeft(Object::toString);
     }
 
-    private ImportResult RunImporter(Enum mode) throws ServletException {
-        try {
-            if (mode.equals(Mode.cities)) {
-                return citiesImporter.importAllItems();
-            } else if (mode.equals(Mode.excursions)) {
-                return shoreExcursionsImporter.importAllShoreExcursions();
-            } else if (mode.equals(Mode.hotels)) {
-                return hotelsImporter.importAllHotels();
-            } else if (mode.equals(Mode.landprograms)) {
-                return landProgramsImporter.importAllLandPrograms();
-            } else if (mode.equals(Mode.exclusiveoffers)) {
-                return exclusiveOffersImporter.importAllItems();
-            } else if (mode.equals(Mode.countries)) {
-                return countriesImporter.importData(false);
-            } else if (mode.equals(Mode.features)) {
-                return featuresImporter.importAllFeatures();
-            } else if (mode.equals(Mode.brochures)) {
-                return brochuresImporter.importAllBrochures();
-            } else if (mode.equals(Mode.cruises)) {
-                return cruisesImporter.importAllItems();
-            } else if (mode.equals(Mode.combocruises)) {
-                return comboCruisesImporter.importAllItems();
-            } else if (mode.equals(Mode.itineraries)) {
-                return cruisesItinerariesImporter.importAllItems(false);
-            } else if (mode.equals(Mode.itinerarieshotels)) {
-                return cruisesItinerariesHotelsImporter.importAllItems(false);
-            } else if (mode.equals(Mode.itinerarieslandprograms)) {
-                return cruisesItinerariesLandProgramsImporter.importAllItems(false);
-            } else if (mode.equals(Mode.itinerariesexcursions)) {
-                return cruisesItinerariesExcursionsImporter.importAllItems(false);
-            } else if (mode.equals(Mode.prices)) {
-                return cruisesPricesImporter.importAllItems(false);
-            } else if (mode.equals(Mode.cruisesexclusiveoffers)) {
-                return cruisesExclusiveOffersImporter.importAllItems();
-            } else if (mode.equals(Mode.agencies)) {
-                return agenciesImporter.importAllItems();
-            }
-            else if (mode.equals(Mode.dummy)){
-                return new ImportResult();
-            }
-        } catch (ImporterException e) {
-            throw new ServletException(e);
-        }
-        throw new NotImplementedException("Mode " + mode + "does not have an importer defined");
-    }
 }

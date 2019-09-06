@@ -159,6 +159,12 @@
             <artifactId>better-monads</artifactId>
             <version>0.4.0</version>
         </dependency>
+        <!-- We need to stop using json goodwin (above) and use vavr below -->
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>0.10.2</version>
+        </dependency>
         <!-- Apache Felix dependencies -->
         <dependency>
             <groupId>org.apache.felix</groupId>

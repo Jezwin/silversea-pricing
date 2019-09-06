@@ -1,16 +1,13 @@
 package com.silversea.aem.importers;
 
-import com.jasongoodwin.monads.Try;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.SSCLogger;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 import static com.silversea.aem.logging.JsonLog.jsonLog;
+import static java.util.stream.Collectors.toList;
 
 public class ImportRunner {
     private List<ImportJobRequest> jobs;
@@ -21,50 +18,86 @@ public class ImportRunner {
         this.log = log;
     }
 
-    public void run() {
+    public List<ImportReport> run() {
         log.logInfo(jsonLog("ApiBatchImportStarting"));
-        jobs.forEach(this::run);
+        List<ImportReport> reports = jobs.stream().map(this::run).collect(toList());
         log.logInfo(jsonLog("ApiBatchImportComplete"));
+        return reports;
     }
 
-    private void run(ImportJobRequest request) {
+    private ImportReport run(ImportJobRequest request) {
         log.logInfo(jsonLog("ImportStarting").with("job", request.name()));
         ImportReport report = request.job().run().map(r -> buildReport(request, r)).recover(x -> buildErrorReport(request, x));
         log(report);
+        return report;
     }
 
     private void log(ImportReport report) {
         switch (report.status) {
-            case Success: log.logInfo(report.log); break;
-            case Failures:
-            case Error:
-                log.logError(report.log); break;
+            case Success: {
+                JsonLog j = jsonLog("ImportSuccess").with("job", report.name()).with("imported", report.result().getSuccessNumber());
+                log.logInfo(j);
+            } break;
+            case Failures: {
+                JsonLog j = jsonLog("ImportFailures")
+                            .with("job", report.name())
+                            .with("imported", report.result().getSuccessNumber())
+                            .with("failed", report.result().getErrorNumber());
+                log.logError(j);
+            } break;
+            case Error: {
+                JsonLog j = jsonLog("ImportError").with("job", report.name()).with(report.error());
+                log.logError(j);
+            } break;
+
         }
     }
 
     private ImportReport buildReport(ImportJobRequest request, ImportResult result) {
         if (result.getErrorNumber() > 0)
-             return new ImportReport(ImportStatus.Failures, jsonLog("ImportFailures")
-               .with("job", request.name())
-               .with("imported", result.getSuccessNumber())
-               .with("failed", result.getErrorNumber()));
+             return new ImportReport(request.name(), ImportStatus.Failures, result);
         else
-            return new ImportReport(ImportStatus.Success, jsonLog("ImportSuccess")
-               .with("job", request.name())
-               .with("imported", result.getSuccessNumber()));
+            return new ImportReport(request.name(), ImportStatus.Success, result);
     }
 
     private ImportReport buildErrorReport(ImportJobRequest request, Throwable x) {
-        return new ImportReport(ImportStatus.Error, jsonLog("ImportError").with("job", request.name()).with(x));
+        return new ImportReport(request.name(), ImportStatus.Error, x);
     }
 
-    private class ImportReport {
-        public ImportStatus status;
-        public JsonLog log;
-        ImportReport(ImportStatus status, JsonLog log) {
+    public class ImportReport {
+        private String name;
+        private ImportStatus status;
+        private ImportResult result;
+        private Throwable error;
+
+        ImportReport(String name, ImportStatus status, ImportResult result) {
+            this.name = name;
             this.status = status;
-            this.log = log;
+            this.result = result;
         }
+
+        ImportReport(String name, ImportStatus status, Throwable error) {
+            this.name = name;
+            this.status = status;
+            this.error = error;
+        }
+
+        public String name() {
+            return name;
+        }
+
+        public ImportStatus status() {
+            return status;
+        }
+
+        public ImportResult result() {
+            return result;
+        }
+
+        public Throwable error() {
+            return error;
+        }
+
     }
     private enum ImportStatus {
         Success, Failures, Error
