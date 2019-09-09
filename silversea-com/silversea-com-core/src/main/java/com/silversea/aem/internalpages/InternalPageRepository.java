@@ -8,6 +8,7 @@ import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.CruisesCacheService;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import io.vavr.collection.List;
@@ -26,6 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static freemarker.template.Configuration.VERSION_2_3_23;
 import static java.util.stream.Collectors.toList;
 import static io.vavr.API.*;
 import static io.vavr.Predicates.*;
@@ -41,7 +43,11 @@ public class InternalPageRepository {
     public InternalPageRepository(ResourceResolver resourceResolver, CruisesCacheService cruiseCache) {
         this.resourceResolver = resourceResolver;
         this.cruiseCache = cruiseCache;
-        cfg = new Configuration(Configuration.VERSION_2_3_23);
+        cfg = new Configuration(VERSION_2_3_23);
+        DefaultObjectWrapper objectWrapper = new DefaultObjectWrapper(VERSION_2_3_23);
+        // Allows us to use vavr.io collections in templates.
+        objectWrapper.setIterableSupport(true);
+        cfg.setObjectWrapper(objectWrapper);
         StringTemplateLoader loader = new StringTemplateLoader();
         get(importResultPage).ifPresent(t -> loader.putTemplate(importResultPage, t));
         cfg.setTemplateLoader(loader);
@@ -70,7 +76,8 @@ public class InternalPageRepository {
                 put("results", results);
                 put("modes", modes);
                 put("importerName", name);
-                put("cruiseCacheSizeEn", Try.of(() -> String.valueOf(cruiseCache.getCruises("en").size())).recover(Object::toString));
+                put("cruiseCacheSizeEn", Try.of(() -> String.valueOf(cruiseCache.getCruises("en").size()))
+                        .getOrElse("Unable to query cruise cache. Maybe it needs rebuilding?"));
             }
         };
         if (!errors.isEmpty()) viewModel.put("errors", errors);
