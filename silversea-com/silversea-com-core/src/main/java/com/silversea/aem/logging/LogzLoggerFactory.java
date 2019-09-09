@@ -1,11 +1,11 @@
 package com.silversea.aem.logging;
 
-import com.jasongoodwin.monads.Try;
 import com.silversea.aem.utils.AwsSecretsManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.SenderStatusReporter;
 import io.logz.sender.exceptions.LogzioParameterErrorException;
+import io.vavr.control.Try;
 import org.apache.felix.scr.annotations.*;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
@@ -31,12 +31,12 @@ public class LogzLoggerFactory {
     @Activate
     protected final void activate(final ComponentContext context) {
         this.sender = createSender(this.awsSecretsManager)
-                .onSuccess(sender -> sender.start())
+                .onSuccess(LogzioSender::start)
                 .onFailure(exception -> {
                     // Fail quietly so that logz.io doesn't block execution, but log failure locally.
                     Logger logger = LoggerFactory.getLogger(LoggerFactory.class);
                     logger.error(String.format("Logz.io initialization failed: %s", exception.getMessage()), exception);
-                }).toOptional();
+                }).toJavaOptional();
     }
 
     public LogzLogger getLogger(String component) {
@@ -48,9 +48,7 @@ public class LogzLoggerFactory {
     }
 
     private Try<LogzioSender> createSender(AwsSecretsManager secretsManager) {
-        return secretsManager
-                .getValue(LOGZIO_TOKEN_SECRET_KEY)
-                .map(token -> buildSender(buildRequest(token)));
+        return secretsManager.getValue(LOGZIO_TOKEN_SECRET_KEY).mapTry(token -> buildSender(buildRequest(token)));
     }
 
     private static LogzioSender buildSender(HttpsRequestConfiguration requestConfig) throws LogzioParameterErrorException {

@@ -155,12 +155,6 @@
             <version>2.5.5</version>
         </dependency>
         <dependency>
-            <groupId>com.jason-goodwin</groupId>
-            <artifactId>better-monads</artifactId>
-            <version>0.4.0</version>
-        </dependency>
-        <!-- We need to stop using json goodwin (above) and use vavr below -->
-        <dependency>
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
             <version>0.10.2</version>

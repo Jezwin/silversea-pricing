@@ -3,11 +3,9 @@ package com.silversea.aem.importers;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.SSCLogger;
-
-import java.util.List;
+import io.vavr.collection.List;
 
 import static com.silversea.aem.logging.JsonLog.jsonLog;
-import static java.util.stream.Collectors.toList;
 
 public class ImportRunner {
     private List<ImportJobRequest> jobs;
@@ -20,14 +18,14 @@ public class ImportRunner {
 
     public List<ImportReport> run() {
         log.logInfo(jsonLog("ApiBatchImportStarting"));
-        List<ImportReport> reports = jobs.stream().map(this::run).collect(toList());
+        List<ImportReport> reports = jobs.map(this::run);
         log.logInfo(jsonLog("ApiBatchImportComplete"));
         return reports;
     }
 
     private ImportReport run(ImportJobRequest request) {
         log.logInfo(jsonLog("ImportStarting").with("job", request.name()));
-        ImportReport report = request.job().run().map(r -> buildReport(request, r)).recover(x -> buildErrorReport(request, x));
+        ImportReport report = request.job().run().map(r -> buildReport(request, r)).getOrElseGet(x -> buildErrorReport(request, x));
         log(report);
         return report;
     }

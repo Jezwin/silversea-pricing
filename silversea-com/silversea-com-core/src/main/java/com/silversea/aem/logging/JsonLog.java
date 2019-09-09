@@ -3,7 +3,6 @@ package com.silversea.aem.logging;
 import io.logz.sender.com.google.gson.JsonArray;
 import io.logz.sender.com.google.gson.JsonObject;
 import io.logz.sender.com.google.gson.JsonPrimitive;
-import scala.collection.immutable.List;
 
 public class JsonLog {
 

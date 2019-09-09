@@ -4,7 +4,7 @@ import com.amazonaws.services.secretsmanager.AWSSecretsManager;
 import com.amazonaws.services.secretsmanager.AWSSecretsManagerClientBuilder;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
-import com.jasongoodwin.monads.Try;
+import io.vavr.control.Try;
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.json.JSONException;
@@ -13,7 +13,6 @@ import org.osgi.service.component.ComponentContext;
 
 import java.util.Dictionary;
 
-import static com.jasongoodwin.monads.Try.ofFailable;
 
 @Component(immediate = true, metatype = true, label = "AwsSecretManager")
 @Service(AwsSecretsManager.class)
@@ -33,7 +32,7 @@ public class AwsSecretsManager {
     }
 
     public Try<String> getValue(String key) {
-        return ofFailable(() -> {
+        return Try.of(() -> {
             if (this.secretName == null) throw new Exception("AWS secretName not set in configuration.");
             JSONObject secret = fetchSecret(this.region, this.secretName);
             return secret.getString(key);

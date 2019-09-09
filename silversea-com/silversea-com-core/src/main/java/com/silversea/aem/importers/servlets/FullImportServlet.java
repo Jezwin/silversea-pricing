@@ -19,8 +19,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
+import io.vavr.collection.List;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
 import static java.util.stream.Collectors.toList;
@@ -116,7 +120,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     private List<ImportJobRequest> allImportJobs() {
         if (allImportJobs ==  null) {
-            allImportJobs = Arrays.asList(
+            allImportJobs = List.of(
                     jobRequest(Mode.cities.name(), citiesImporter::importAllItems),
                     jobRequest(Mode.excursions.name(), shoreExcursionsImporter::importAllShoreExcursions),
                     jobRequest(Mode.hotels.name(), hotelsImporter::importAllHotels),
@@ -141,10 +145,10 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     }
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException, ServletException {
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
-        List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft).collect(toList());
-        List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get).collect(toList());
+        List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
+        List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get);
         Map<String, ImportResult> results = new HashMap<>();
 
         if (errors.isEmpty()) {
@@ -152,26 +156,24 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         }
 
         InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver(), cruiseCache);
-        String content = repo.fullImportPage(results, errors).recover(Throwable::getMessage);
+        String content = repo.fullImportPage(results, errors).getOrElseGet(Throwable::getMessage);
         response.getWriter().write(content);
         response.setContentType("text/html");
     }
 
-    private Stream<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {
+    private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {
         return Optional
                 .ofNullable(request.getParameter("mode"))
-                .map(s -> Arrays.stream(s.split(",")))
-                .orElse(Stream.empty())
+                .map(s -> List.of(s.split(",")))
+                .orElse(List.empty())
                 .map(this::findImporter);
     }
 
     private Either<String, ImportJobRequest> findImporter(String m) {
         return allImportJobs()
-                .stream()
-                .filter(x -> x.name().equals(m))
-                .findFirst()
+                .find(x -> x.name().equals(m))
                 .map(Either::right)
-                .orElse(Either.left("Mode does not exist: " + m))
+                .getOrElse(Either.left("Mode does not exist: " + m))
                 .mapLeft(Object::toString);
     }
 
