@@ -1,13 +1,16 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.ctc.wstx.util.StringUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.BrochuresImporter;
+import com.silversea.aem.importers.servlets.UpdateImportServlet;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.logging.JsonLog;
+import com.silversea.aem.logging.LogzLoggerFactory;
+import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.services.GeolocationTagService;
 
@@ -30,6 +33,8 @@ import javax.jcr.Session;
 
 import java.util.*;
 
+import static com.silversea.aem.logging.JsonLog.jsonLog;
+
 @Service
 @Component
 public class BrochuresImporterImpl implements BrochuresImporter {
@@ -47,6 +52,9 @@ public class BrochuresImporterImpl implements BrochuresImporter {
 
     @Reference
     private GeolocationTagService geolocationTagService;
+
+    @Reference
+    private LogzLoggerFactory sscLogFactory;
 
     @Activate
     protected void activate(final ComponentContext context) {
@@ -70,6 +78,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
     }
 
     private ImportResult importOrUpdateBrochures(final String mode) {
+        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
         LOGGER.debug("Starting brochures import");
 
         final ImportResult importResult = new ImportResult();
@@ -107,7 +116,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                         if (!resources.hasNext()) {
                             LOGGER.error("Cannot find any brochure for {} ({}) in lang {}", brochure.getTitle(),
                                     brochure.getBrochureCod(), brochure.getLanguageCod().toLowerCase());
-
+                            logger.logError(getLogMessage("Cannot find brochure", brochure));
                             importResult.incrementErrorNumber();
                         }
 
@@ -142,6 +151,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                 metadataNode.setProperty("brochureDigitalOnly", brochure.getDigitalOnly());
                                 metadataNode.setProperty("cq:tags", tags.toArray(new String[tags.size()]));
 
+                                logger.logInfo(getLogMessage("Successfully imported brochure", brochure));
                                 importResult.incrementSuccessNumber();
                                 itemsWritten++;
 
@@ -193,6 +203,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
 
                                     metadataNode.getParent().setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
+                                    logger.logInfo(getLogMessage("Successfully imported brochure", brochure));
                                     importResult.incrementSuccessNumber();
                                     itemsWritten++;
 
@@ -214,6 +225,8 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                         }
                     } catch (RepositoryException | ImporterException e) {
                         LOGGER.error("Cannot set brochure properties", e);
+
+                        logger.logError(getLogMessage("Cannot set brochure properties", brochure));
 
                         importResult.incrementErrorNumber();
                     }
@@ -273,6 +286,16 @@ public class BrochuresImporterImpl implements BrochuresImporter {
         LOGGER.debug("Ending brochures import, success: {}, error: {}", +importResult.getSuccessNumber(), +importResult.getErrorNumber());
 
         return importResult;
+    }
+
+    private JsonLog getLogMessage(String message, Brochure brochure) {
+        return jsonLog("BrochureImport")
+                .with("title", brochure.getTitle())
+                .with("message", message)
+                .with("brochureCode", brochure.getBrochureCod())
+                .with("brochureLanguage", brochure.getLanguageCod().toLowerCase())
+                .with("brochureId", brochure.getBrochureId())
+                .with("brochureUrl", brochure.getBrochureUrl());
     }
 
     private static boolean compareLists(List<String> l1, List<String> l2) {
