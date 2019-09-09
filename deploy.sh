@@ -23,7 +23,20 @@ done
 
 echo "Checking packages installed correctly..."
 
-curl --fail -o installed-packages.txt -u "${USER}:${PASSWORD}" "http://${CRX_HOST}:${CRX_TEST_PORT}/crx/packmgr/service.jsp?cmd=ls"
+attempt_counter=0
+max_attempts=5
+
+until $(curl --fail -o installed-packages.txt -u "${USER}:${PASSWORD}" "http://${CRX_HOST}:${CRX_TEST_PORT}/crx/packmgr/service.jsp?cmd=ls"); do
+    if [ ${attempt_counter} -eq ${max_attempts} ];then
+      echo "Max attempts reached when trying to list installed packages"
+      exit 1
+    fi
+
+    printf '.'
+    attempt_counter=$(($attempt_counter+1))
+    sleep 5
+done
+
 
 upload_failed() {
     echo "Upload failed."
