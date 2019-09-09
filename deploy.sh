@@ -37,16 +37,26 @@ until $(curl --fail -o installed-packages.txt -u "${USER}:${PASSWORD}" "http://$
     sleep 5
 done
 
-
-upload_failed() {
-    echo "Upload failed."
-    exit 1;
-}
-
-
 for filename in "$PKGS_DIR"/*; do
     echo "Checking ${filename} was correctly installed..."
     pkg_file="$(basename "$filename")"
-    grep -A2 -B2 "<downloadName>${pkg_file}</downloadName>" installed-packages.txt || upload_failed
-    echo "${filename} was correctly installed..."
+    result=$(grep -c -A2 -B2 "<downloadName>${pkg_file}</downloadName>" installed-packages.txt) || :
+    if [ "${result}" -gt 0 ] 
+    then
+        echo "OK - ${pkg_file} was correctly installed..."
+    else
+        echo "${pkg_file} not found in package list after upload"
+        pkg_file_prefix=$(sed -E 's/[0-9].+//' <<< $pkg_file) 
+        echo "Searching instead for: $pkg_file_prefix"
+        result=$(grep "<downloadName>${pkg_file_prefix}" installed-packages.txt) || :
+        if [ -z ${result[0]} ]
+        then
+            echo "No match found for ${pkg_file_prefix} either."
+            echo "Outputting first 30 lines of response:"
+            echo $(head -30 installed-packages.txt)
+        else
+            echo "Found: ${result[0]}"
+        fi
+        exit 1
+    fi
 done
