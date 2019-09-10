@@ -51,12 +51,14 @@ public class AwsSecretsManager {
         } catch (ResourceNotFoundException e) {
             throw new Exception(
                     "AWS SecretsManager returned NotFound for: " + secretName + ".\n" +
-                            "If the secret exists, this probably means your AWS CLI credentials (~/.aws/credentials), or the AWS_PROFILE environment variable is referring to the wrong IAM user.", e);
+                            "If the secret exists, this probably means you're authenticated as an IAM user under a different AWS subscription. " +
+                            "The IAM user is picked up from your local AWS CLI settings (~/.aws/credentials and the AWS_PROFILE environment variable).", e);
         } catch (AWSSecretsManagerException e) {
             if (e.getErrorCode().equalsIgnoreCase("AccessDeniedException"))
                 throw new Exception(
                         "AWS SecretsManager returned AccessDenied for: " + secretName + ".\n" +
-                                "Maybe your AWS CLI credentials (~/.aws/credentials) are not set up, or the AWS_PROFILE environment variable is referring to the wrong IAM user?", e);
+                                "This probably means you're either not authenticated with AWS, or are set up as an IAM user that doesn't have access to the secret. " +
+                                "The IAM user is picked up from your local AWS CLI settings (~/.aws/credentials and the AWS_PROFILE environment variable).", e);
             else
                 throw e;
         }
