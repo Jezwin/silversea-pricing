@@ -2,8 +2,10 @@ package com.silversea.aem.utils;
 
 import com.amazonaws.services.secretsmanager.AWSSecretsManager;
 import com.amazonaws.services.secretsmanager.AWSSecretsManagerClientBuilder;
+import com.amazonaws.services.secretsmanager.model.AWSSecretsManagerException;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
+import com.amazonaws.services.secretsmanager.model.ResourceNotFoundException;
 import io.vavr.control.Try;
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.commons.osgi.PropertiesUtil;
@@ -17,8 +19,8 @@ import java.util.Dictionary;
 @Component(immediate = true, metatype = true, label = "AwsSecretManager")
 @Service(AwsSecretsManager.class)
 @Properties({
-    @Property(name = "region"),
-    @Property(name = "secretName")
+        @Property(name = "region"),
+        @Property(name = "secretName")
 })
 public class AwsSecretsManager {
     private String region;
@@ -39,12 +41,25 @@ public class AwsSecretsManager {
         });
     }
 
-    private static JSONObject fetchSecret(String region, String secretName) throws JSONException {
+    private static JSONObject fetchSecret(String region, String secretName) throws Exception {
         AWSSecretsManager client = buildClient(region);
         GetSecretValueRequest request = buildRequest(secretName);
-        GetSecretValueResult secretValue = client.getSecretValue(request);
-        String jsonString = secretValue.getSecretString();
-        return new JSONObject(jsonString);
+        try {
+            GetSecretValueResult secretValue = client.getSecretValue(request);
+            String jsonString = secretValue.getSecretString();
+            return new JSONObject(jsonString);
+        } catch (ResourceNotFoundException e) {
+            throw new Exception(
+                    "AWS SecretsManager returned NotFound for: " + secretName + ".\n" +
+                            "If the secret exists, this probably means your AWS CLI credentials (~/.aws/credentials), or the AWS_PROFILE environment variable is referring to the wrong IAM user.", e);
+        } catch (AWSSecretsManagerException e) {
+            if (e.getErrorCode().equalsIgnoreCase("AccessDeniedException"))
+                throw new Exception(
+                        "AWS SecretsManager returned AccessDenied for: " + secretName + ".\n" +
+                                "Maybe your AWS CLI credentials (~/.aws/credentials) are not set up, or the AWS_PROFILE environment variable is referring to the wrong IAM user?", e);
+            else
+                throw e;
+        }
     }
 
     private static GetSecretValueRequest buildRequest(String secretName) {
