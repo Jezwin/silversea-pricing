@@ -425,8 +425,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         //today date
-        Calendar today = Calendar.getInstance();
-        today.setTime(new Date()); //today date
+        Calendar today = Calendar.getInstance(); //today date
         String todayDate = dateFormat.format(today.getTime()) + "T00:00:00.000";
         today.add(Calendar.DATE, 120); // Adding 120 days
 
