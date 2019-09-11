@@ -1,5 +1,6 @@
 package com.silversea.aem.logging;
 
+import com.amazonaws.services.secretsmanager.model.ResourceNotFoundException;
 import com.silversea.aem.utils.AwsSecretsManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
@@ -48,7 +49,9 @@ public class LogzLoggerFactory {
     }
 
     private Try<LogzioSender> createSender(AwsSecretsManager secretsManager) {
-        return secretsManager.getValue(LOGZIO_TOKEN_SECRET_KEY).mapTry(token -> buildSender(buildRequest(token)));
+        return secretsManager
+                .getValue(LOGZIO_TOKEN_SECRET_KEY)
+                .mapTry(token -> buildSender(buildRequest(token)));
     }
 
     private static LogzioSender buildSender(HttpsRequestConfiguration requestConfig) throws LogzioParameterErrorException {
