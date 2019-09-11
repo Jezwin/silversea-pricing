@@ -11,15 +11,12 @@ import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 
-import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLogger;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ShorexesApi;
-import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.ShorexItinerary77;
-import io.swagger.client.model.Voyage77;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
@@ -39,6 +36,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.silversea.aem.logging.JsonLog.jsonLog;
@@ -114,20 +112,10 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
             final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItinerariesExcursions");
 
-            // init modified voyages cruises
-            final Set<Integer> modifiedCruises = new HashSet<>();
-            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
-            List<Voyage77> cruises;
-            do {
-                cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+            // init cruises with dedicated shorex
+            Set<Integer> modifiedCruises = new HashSet<>();
+            modifiedCruises = getCruisesWithDedicatedShorex(resourceResolver);
 
-                for (Voyage77 voyage : cruises) {
-                    modifiedCruises.add(voyage.getVoyageId());
-                }
-
-                apiPage++;
-            } while (cruises.size() > 0);
-            
             // Initializing elements necessary to import excursions
             
             // cruises mapping
@@ -422,5 +410,39 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                 +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage, apiPageDiff);
 
         return importResult;
+    }
+
+
+    /***
+     * Retrieve all the cruises that needs dedicated shorex
+     * (cruises with startDate > today and startDate < (today + 120d)
+     *
+     * @return modifiedCruises
+     */
+    private Set<Integer> getCruisesWithDedicatedShorex (ResourceResolver resourceResolver){
+
+        Set<Integer> modifiedCruises = new HashSet<>();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        //today date
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date()); //today date
+        String todayDate = dateFormat.format(today.getTime()) + "T00:00:00.000";
+        today.add(Calendar.DATE, 120); // Adding 120 days
+
+        //cutoff date
+        String cutoffDate = dateFormat.format(today.getTime()) + "T00:00:00.000";
+
+        //define the set of modified cruises
+        final Map<Integer, Map<String, String>> modifiedCruisesMapping = ImportersUtils.getItemsMapping(resourceResolver,
+                "/jcr:root/content/silversea-com//*[(( @sling:resourceType=\"silversea/silversea-com/components/pages/cruise\""  +
+                        " and " + "@startDate > xs:dateTime('" + todayDate + "')" +
+                        " and " + "@startDate < xs:dateTime('" + cutoffDate + "')))]",
+                "cruiseId");
+
+        modifiedCruises.addAll(modifiedCruisesMapping.keySet());
+
+        return modifiedCruises;
     }
 }
