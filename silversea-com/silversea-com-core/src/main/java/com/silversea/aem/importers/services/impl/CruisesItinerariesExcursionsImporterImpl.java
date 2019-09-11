@@ -112,8 +112,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
             final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItinerariesExcursions");
 
-            // init cruises with dedicated shorex
-            Set<Integer> modifiedCruises = getCruisesWithDedicatedShorex(resourceResolver);
+            // init cruises with dedicated shorex (cruises with startDate < (today date + 120d)
+            Set<Integer> cruisesWithDedicatedShorex = getCruisesWithDedicatedShorex(resourceResolver);
 
             // Initializing elements necessary to import excursions
             
@@ -146,7 +146,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                     // Trying to deal with one excursion
                     try {
-                        if (update && !modifiedCruises.contains(excursion.getVoyageId())) {
+                        if (update && !cruisesWithDedicatedShorex.contains(excursion.getVoyageId())) {
                             throw new ImporterException("Cruise " + excursion.getVoyageId() + " is not modified");
                         }
 
