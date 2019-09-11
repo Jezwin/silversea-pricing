@@ -113,8 +113,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItinerariesExcursions");
 
             // init cruises with dedicated shorex
-            Set<Integer> modifiedCruises = new HashSet<>();
-            modifiedCruises = getCruisesWithDedicatedShorex(resourceResolver);
+            Set<Integer> modifiedCruises = getCruisesWithDedicatedShorex(resourceResolver);
 
             // Initializing elements necessary to import excursions
             
