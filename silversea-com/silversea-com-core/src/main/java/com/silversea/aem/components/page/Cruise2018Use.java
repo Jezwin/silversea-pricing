@@ -576,15 +576,37 @@ public class Cruise2018Use extends EoHelper {
         return suites;
     }
 
+    private static class PricePromotionRepository {
+        public static String getPricePromotion(String currencyCode, String voyageCode) {
+            return currencyCode + " 3,456 schmeckles" ;
+        }
+    }
+
     private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruise) {
+        Function<ExclusiveOfferModel, ExclusiveOfferItem> exclusiveOfferModelExclusiveOfferItemFunction = exclusiveOfferModel -> {
+            EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
+
+            if (cruise.getCruiseCode().equals("6928")) {
+                if (exclusiveOfferModel.getId().equals("143")) {
+                    String[] customMainSettings = exclusiveOfferModel.getCustomVoyageSettings();
+                    for (int i = 0; i < customMainSettings.length; i++) {
+                        if (customMainSettings[i].contains("#air_price#")) {
+                            String price = PricePromotionRepository.getPricePromotion(currency, cruise.getCruiseCode());
+                            //String newPrice = customMainSettings[i].replaceAll("#air_price#", price);
+                            //customMainSettings[i] = newPrice;
+                        }
+                    }
+                }
+            }
+
+            EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
+            String destinationPath = cruise.getDestination().getPath();
+            return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
+        };
+
         return cruise.getExclusiveOffers().stream()
                 .filter(eo -> eo.getGeomarkets() != null && eo.getGeomarkets().contains(geomarket))
-                .map(exclusiveOfferModel -> {
-                    EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
-                    EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
-                    String destinationPath = cruise.getDestination().getPath();
-                    return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
-                })
+                .map(exclusiveOfferModelExclusiveOfferItemFunction)
                 .sorted(comparing((ExclusiveOfferItem eo) -> CruiseUtils.firstNonNull(eo.getPriorityWeight(), 0)).reversed())
                 .collect(toList());
     }
