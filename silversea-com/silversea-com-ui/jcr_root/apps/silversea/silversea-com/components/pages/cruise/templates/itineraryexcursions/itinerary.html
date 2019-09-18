@@ -10,6 +10,7 @@
 </template>
 
 <template
+        data-sly-use.newCruiseDisclaimerHelper="${'com.silversea.aem.helper.NewCruiseDisclaimerHelper' @ cruiseCode = model.cruiseCode}"
         data-sly-template.commonHeader="${@ duration, currentPath, countryCode, model, dayUntilDeparture, portsGallery, numPorts,numRoutes, numCountries,customDescription, hideVoyageCode, externalizerHelper,numEO,numExcursions }">
     <div class="cruise-2018-itineraries-header ${numEO &&  numEO > 0 ? '' : 'cruise-2018-itineraries-header-no-eo'}">
         <sly data-sly-test="${model.cruiseType != 'silversea-expedition'}">
@@ -38,6 +39,9 @@
              data-viewless="${'view-less' @ i18n}">${'view-more' @ i18n}</div>
         <div class="cruise-2018-itineraries-voyage-code hidden-xs"
              data-sly-test="${!hideVoyageCode}">${'voyage-number' @ i18n}: ${model.cruiseCode}</div>
+        <div class="cruise-2018-new-cruise-disclaimer"
+            data-sly-test="${newCruiseDisclaimerHelper.showDisclaimer}">
+            ${'new-cruise-disclaimer' @ i18n}</div>
         <div class="cruise-2018-itineraries-120-label"
              data-sly-test="${ dayUntilDeparture >= 120 && model.cruiseType != 'silversea-expedition' }">${'cruise-itinerary-120-day' @ i18n}</div>
 

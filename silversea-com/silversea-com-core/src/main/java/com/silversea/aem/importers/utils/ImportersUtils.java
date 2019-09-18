@@ -382,7 +382,6 @@ public class ImportersUtils {
         return null;
     }
 
-
     /**
      * Create a new asset if not already existent.
      *

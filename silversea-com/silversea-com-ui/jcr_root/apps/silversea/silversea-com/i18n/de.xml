@@ -248,6 +248,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Beachten Sie, dass die folgenden Ausflüge beispielhaft für die Ausflüge stehen, die auf dieser Reise angeboten werden können, wobei Änderungen vorbehalten sind.  Wir empfehlen den Gästen, 120 Tage vor der Abfahrt die neuesten Informationen auf https://my.silversea.com abzurufen."/>
+    <new-cruise-disclaimer
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="new-cruise-disclaimer"
+            sling:message="New cruise disclaimer[DE]"/>
     <cruise-excursion-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
