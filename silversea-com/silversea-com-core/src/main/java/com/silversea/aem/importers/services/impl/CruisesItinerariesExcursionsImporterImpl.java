@@ -15,9 +15,11 @@ import com.silversea.aem.logging.LogzLogger;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ShorexesApi;
+import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.ShorexItinerary77;
 
+import io.swagger.client.model.Voyage;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -113,7 +115,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItinerariesExcursions");
 
             // init cruises with dedicated shorex (cruises with startDate < (today date + 120d)
-            Set<Integer> cruisesWithDedicatedShorex = getCruisesWithDedicatedShorex(resourceResolver);
+            Set<Integer> cruisesWithDedicatedShorex = getCruisesWithDedicatedShorex();
 
             // Initializing elements necessary to import excursions
             
@@ -418,29 +420,32 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
      *
      * @return modifiedCruises
      */
-    private Set<Integer> getCruisesWithDedicatedShorex (ResourceResolver resourceResolver){
+    private Set<Integer> getCruisesWithDedicatedShorex () throws ApiException {
 
-        Set<Integer> modifiedCruises = new HashSet<>();
+        Set<Integer> cruisesWithDedicatedShorex = new HashSet<>();
+        int apiPage = 1;
 
+        //formatter
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        //today date
+        //define today date and cutoff date
         Calendar today = Calendar.getInstance(); //today date
-        String todayDate = dateFormat.format(today.getTime()) + "T00:00:00.000";
+        String todayString = dateFormat.format(today.getTime());
         today.add(Calendar.DATE, 120); // Adding 120 days
+        String cutoffString = dateFormat.format(today.getTime());
 
-        //cutoff date
-        String cutoffDate = dateFormat.format(today.getTime()) + "T00:00:00.000";
+        final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+        List<Voyage> cruises;
+        do {
+            cruises = voyagesApi.voyagesGet(null, null, null, todayString, cutoffString, apiPage, pageSize, null, null);
 
-        //define the set of modified cruises
-        final Map<Integer, Map<String, String>> modifiedCruisesMapping = ImportersUtils.getItemsMapping(resourceResolver,
-                "/jcr:root/content/silversea-com//*[(( @sling:resourceType=\"silversea/silversea-com/components/pages/cruise\""  +
-                        " and " + "@startDate > xs:dateTime('" + todayDate + "')" +
-                        " and " + "@startDate < xs:dateTime('" + cutoffDate + "')))]",
-                "cruiseId");
+            for (Voyage voyage : cruises) {
+                cruisesWithDedicatedShorex.add(voyage.getVoyageId());
+            }
 
-        modifiedCruises.addAll(modifiedCruisesMapping.keySet());
+            apiPage++;
+        } while (cruises.size() > 0);
 
-        return modifiedCruises;
+        return cruisesWithDedicatedShorex;
     }
 }
