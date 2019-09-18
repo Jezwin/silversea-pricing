@@ -11,7 +11,6 @@ import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 
-import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLogger;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import io.swagger.client.ApiException;
@@ -19,8 +18,8 @@ import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.ShorexItinerary77;
-import io.swagger.client.model.Voyage77;
 
+import io.swagger.client.model.Voyage;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -39,6 +38,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.silversea.aem.logging.JsonLog.jsonLog;
@@ -114,20 +114,9 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
             final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItinerariesExcursions");
 
-            // init modified voyages cruises
-            final Set<Integer> modifiedCruises = new HashSet<>();
-            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
-            List<Voyage77> cruises;
-            do {
-                cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+            // init cruises with dedicated shorex (cruises with startDate < (today date + 120d)
+            Set<Integer> cruisesWithDedicatedShorex = getCruisesWithDedicatedShorex();
 
-                for (Voyage77 voyage : cruises) {
-                    modifiedCruises.add(voyage.getVoyageId());
-                }
-
-                apiPage++;
-            } while (cruises.size() > 0);
-            
             // Initializing elements necessary to import excursions
             
             // cruises mapping
@@ -159,7 +148,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                     // Trying to deal with one excursion
                     try {
-                        if (update && !modifiedCruises.contains(excursion.getVoyageId())) {
+                        if (update && !cruisesWithDedicatedShorex.contains(excursion.getVoyageId())) {
                             throw new ImporterException("Cruise " + excursion.getVoyageId() + " is not modified");
                         }
 
@@ -422,5 +411,41 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                 +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage, apiPageDiff);
 
         return importResult;
+    }
+
+
+    /***
+     * Retrieve all the cruises that needs dedicated shorex
+     * (cruises with startDate > today and startDate < (today + 120d)
+     *
+     * @return modifiedCruises
+     */
+    private Set<Integer> getCruisesWithDedicatedShorex () throws ApiException {
+
+        Set<Integer> cruisesWithDedicatedShorex = new HashSet<>();
+        int apiPage = 1;
+
+        //formatter
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        //define today date and cutoff date
+        Calendar today = Calendar.getInstance(); //today date
+        String todayString = dateFormat.format(today.getTime());
+        today.add(Calendar.DATE, 120); // Adding 120 days
+        String cutoffString = dateFormat.format(today.getTime());
+
+        final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+        List<Voyage> cruises;
+        do {
+            cruises = voyagesApi.voyagesGet(null, null, null, todayString, cutoffString, apiPage, pageSize, null, null);
+
+            for (Voyage voyage : cruises) {
+                cruisesWithDedicatedShorex.add(voyage.getVoyageId());
+            }
+
+            apiPage++;
+        } while (cruises.size() > 0);
+
+        return cruisesWithDedicatedShorex;
     }
 }
