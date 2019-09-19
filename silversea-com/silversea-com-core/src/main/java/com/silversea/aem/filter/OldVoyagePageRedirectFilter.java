@@ -56,21 +56,29 @@ public class OldVoyagePageRedirectFilter implements Filter {
             }
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             String pathInfo = httpRequest.getRequestURI().toString();
+            Logger.debug("OldVoyagePageRedirectFilter - current pathInfo: " + pathInfo);
             if (pathInfo.lastIndexOf(WcmConstants.HTML_SUFFIX) != -1 && pathInfo.lastIndexOf("/") != -1) {
                 final SlingHttpServletResponse slingResponse = (SlingHttpServletResponse) response;
                 final SlingHttpServletRequest slingRequest = (SlingHttpServletRequest) request;
                 final Resource resource = slingRequest.getResource();
+                Logger.debug("OldVoyagePageRedirectFilter - resourceType: " + resource.getResourceType());
                 if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
                     Resource parentResourceTry = resource.getResourceResolver().resolve(resource.getParent().getPath());
+
                     if (parentResourceTry != null) {
+                        Logger.debug("OldVoyagePageRedirectFilter - parentResourceTry not null");
                         Resource resourceNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content");
                         if (resourceNode != null) {
+                            Logger.debug("OldVoyagePageRedirectFilter - resourceNode not null");
                             Node parentNode = resourceNode.adaptTo(Node.class);
                             try {
+                                Logger.debug("OldVoyagePageRedirectFilter - parentNode: " + parentNode);
                                 if (null != parentNode && null != parentNode.getProperty("sling:resourceType") &&
                                         parentNode.getProperty("sling:resourceType").getValue().getString().equalsIgnoreCase("silversea/silversea-com/components/pages/destination")) {
+                                    Logger.debug("OldVoyagePageRedirectFilter - parentNode resourceType: " + parentNode.getProperty("sling:resourceType"));
                                     slingResponse.setStatus(SlingHttpServletResponse.SC_MOVED_PERMANENTLY);
                                     Externalizer externalizer = resource.getResourceResolver().adaptTo(Externalizer.class);
+                                    Logger.debug("OldVoyagePageRedirectFilter - Location: " + externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath()));
                                     slingResponse.setHeader("Location",externalizer.publishLink(resource.getResourceResolver(), resource.getParent().getPath())
                                             + WcmConstants.HTML_SUFFIX);
                                     return;
@@ -78,7 +86,11 @@ public class OldVoyagePageRedirectFilter implements Filter {
                             } catch (IllegalStateException | RepositoryException e) {
                                 Logger.debug("Exception while fetching node property value" + e.getMessage());
                             }
+                        }else{
+                            Logger.debug("OldVoyagePageRedirectFilter resourceNode null!");
                         }
+                    }else{
+                        Logger.debug("OldVoyagePageRedirectFilter parentResourceTry null!");
                     }
                 }
             }
