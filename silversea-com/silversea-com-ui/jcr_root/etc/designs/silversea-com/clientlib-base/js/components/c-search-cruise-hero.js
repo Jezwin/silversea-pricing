@@ -98,8 +98,8 @@ $(function() {
             mapShip["silver-spirit"] = 5;
             mapShip["silver-whisper"] = 6;
             mapShip["silver-wind"] = 7;
-            mapShip["silver-wind"] = 998;
-            mapShip["silver-origin"] = 9999;
+            mapShip["silver-origin"] = 14;
+            mapShip["silver-dawn"] = 16;
 
             var mapDest= [];
             mapDest["africa-indian-ocean-cruise"] = 3;
