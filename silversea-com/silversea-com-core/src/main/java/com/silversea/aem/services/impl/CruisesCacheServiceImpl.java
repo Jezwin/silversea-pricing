@@ -224,8 +224,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             final String lang = LanguageHelper.getLanguage(rootPage);
 
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
-
-            if (cruiseModel != null && cruiseModel.isVisible() && cruiseModel.getStartDate().after(Calendar.getInstance())) {
+            
+            if (cruiseShouldBeCached(cruiseModel)) {
                 CruiseModelLight cruiseModelLight = new CruiseModelLight(cruiseModel);
                 cruisesByCodeTmp.get(lang).put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
 
@@ -276,5 +276,15 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 collectCruisesPages(children.next());
             }
         }
+    }
+
+    private boolean cruiseShouldBeCached(CruiseModel cruiseModel) {
+        if(cruiseModel == null)
+            return false;
+
+        boolean isVisible = slingSettingsService.getRunModes().contains("author") || cruiseModel.isVisible();
+        boolean departureInTheFuture = cruiseModel.getStartDate().after(Calendar.getInstance());
+
+        return isVisible && departureInTheFuture;
     }
 }
