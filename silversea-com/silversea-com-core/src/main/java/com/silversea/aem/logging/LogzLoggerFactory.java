@@ -1,13 +1,15 @@
 package com.silversea.aem.logging;
 
-import com.amazonaws.services.secretsmanager.model.ResourceNotFoundException;
 import com.silversea.aem.utils.AwsSecretsManager;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.SenderStatusReporter;
 import io.logz.sender.exceptions.LogzioParameterErrorException;
 import io.vavr.control.Try;
-import org.apache.felix.scr.annotations.*;
+import org.apache.felix.scr.annotations.Activate;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,5 +114,4 @@ public class LogzLoggerFactory {
             logger.info(s);
         }
     }
-
 }
