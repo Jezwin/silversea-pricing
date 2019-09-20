@@ -67,6 +67,8 @@ public class OldVoyagePageRedirectFilter implements Filter {
 
                     if (parentResourceTry != null) {
                         Logger.info("OldVoyagePageRedirectFilter - parentResourceTry not null");
+                        Logger.info("OldVoyagePageRedirectFilter - parentResourceTry value " + parentResourceTry);
+                        Logger.info("OldVoyagePageRedirectFilter - parentResourceTry path value " + parentResourceTry.getPath());
                         Resource resourceNode = resource.getResourceResolver().getResource(parentResourceTry.getPath() + "/jcr:content");
                         if (resourceNode != null) {
                             Logger.info("OldVoyagePageRedirectFilter - resourceNode not null");
