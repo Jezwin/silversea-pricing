@@ -63,6 +63,7 @@ public class OldVoyagePageRedirectFilter implements Filter {
                 final Resource resource = slingRequest.getResource();
                 Logger.info("OldVoyagePageRedirectFilter - resourceType: " + resource.getResourceType());
                 if (resource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
+                    Logger.info("OldVoyagePageRedirectFilter - parentResourceTry path without resource resolver: " + resource.getParent().getPath());
                     Resource parentResourceTry = resource.getResourceResolver().resolve(resource.getParent().getPath());
 
                     if (parentResourceTry != null) {
