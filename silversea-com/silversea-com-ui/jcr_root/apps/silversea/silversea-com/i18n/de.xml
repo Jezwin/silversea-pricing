@@ -251,7 +251,7 @@
     <new-cruise-disclaimer
             jcr:primaryType="sling:MessageEntry"
             sling:key="new-cruise-disclaimer"
-            sling:message="New cruise disclaimer[DE]"/>
+            sling:message="Der Vorverkauf für Mitglieder der Venetian Society hat nun begonnen."/>
     <cruise-excursion-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

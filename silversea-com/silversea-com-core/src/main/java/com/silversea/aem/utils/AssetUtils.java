@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.day.cq.dam.commons.util.DamUtil;
-import com.sun.istack.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
