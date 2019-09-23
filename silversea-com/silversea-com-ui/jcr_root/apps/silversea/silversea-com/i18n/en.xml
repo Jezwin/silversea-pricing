@@ -262,7 +262,7 @@
     <new-cruise-disclaimer
             jcr:primaryType="sling:MessageEntry"
             sling:key="new-cruise-disclaimer"
-            sling:message="New cruise disclaimer. CHANGE ME!"/>
+            sling:message="Pre-sale is open to Venetian Society members."/>
     <cruise-excursion-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-excursion-description"

@@ -249,6 +249,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="Veuillez noter que les excursions suivantes vous sont présentées en tant qu'échantillon de ce qui pourrait vous être proposé lors de cette croisière et qu'elles sont susceptibles d'être modifiées. Nous invitons les passagers à consulter https://my.silversea.com 120 jours avant leur départ pour accéder aux informations les plus récentes."/>
+    <new-cruise-disclaimer
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="new-cruise-disclaimer"
+            sling:message="La prévente est ouverte aux membres de la Venetian Society."/>
     <cruise-excursion-description
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
