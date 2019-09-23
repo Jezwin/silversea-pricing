@@ -15,7 +15,7 @@ import org.osgi.service.component.ComponentContext;
 import java.util.Dictionary;
 
 
-@Component(immediate = true, metatype = true, label = "AwsSecretManager")
+@Component(immediate = true, metatype = true, label = "AwsSecretsManager")
 @Service(AwsSecretsManager.class)
 @Properties({
         @Property(name = "region"),

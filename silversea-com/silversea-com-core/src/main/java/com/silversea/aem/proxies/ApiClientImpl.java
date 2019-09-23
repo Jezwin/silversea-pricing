@@ -4,6 +4,7 @@ import com.silversea.aem.utils.AwsSecretsManager;
 import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
@@ -29,6 +30,7 @@ public class ApiClientImpl implements ApiClient {
                 .url(url)
                 .build();
 
-        return client.newCall(request).execute().toString();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 }
