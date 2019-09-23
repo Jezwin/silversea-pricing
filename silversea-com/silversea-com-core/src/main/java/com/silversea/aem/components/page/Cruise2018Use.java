@@ -13,15 +13,20 @@ import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
+import com.silversea.aem.proxies.OkHttpClientWrapper;
+import com.silversea.aem.proxies.PromoProxy;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
+import com.silversea.aem.utils.AwsSecretsManager;
 import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -576,14 +581,16 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruise) {
+        Function<ExclusiveOfferModel, ExclusiveOfferItem> exclusiveOfferModelExclusiveOfferItemFunction = exclusiveOfferModel -> {
+            EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
+            EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
+            String destinationPath = cruise.getDestination().getPath();
+            return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
+        };
+
         return cruise.getExclusiveOffers().stream()
                 .filter(eo -> eo.getGeomarkets() != null && eo.getGeomarkets().contains(geomarket))
-                .map(exclusiveOfferModel -> {
-                    EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
-                    EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
-                    String destinationPath = cruise.getDestination().getPath();
-                    return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
-                })
+                .map(exclusiveOfferModelExclusiveOfferItemFunction)
                 .sorted(comparing((ExclusiveOfferItem eo) -> CruiseUtils.firstNonNull(eo.getPriorityWeight(), 0)).reversed())
                 .collect(toList());
     }
@@ -881,7 +888,5 @@ public class Cruise2018Use extends EoHelper {
     public Integer getHasexcursionsCounter() {
         return hasexcursionsCounter;
     }
-
-
 }
 
