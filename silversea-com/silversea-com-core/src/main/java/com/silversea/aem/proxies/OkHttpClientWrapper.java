@@ -30,8 +30,7 @@ public class OkHttpClientWrapper implements ApiClient {
                 .url(url)
                 .build();
 
-         Response result = client.newCall(request).execute();
-
-         return result.body().string();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 }
