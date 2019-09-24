@@ -1,5 +1,8 @@
 package com.silversea.aem.importers.polling;
 
+import com.silversea.aem.logging.JsonLog;
+import com.silversea.aem.logging.LogzLoggerFactory;
+import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.CruisesCacheService;
 
 import org.apache.felix.scr.annotations.*;
@@ -23,14 +26,18 @@ public class CruiseCacheUpdater implements Runnable {
     @Reference
     private CruisesCacheService cruisesCacheService;
 
-   
+    @Reference
+    private LogzLoggerFactory sscLogFactory;
 
     @Override
     public void run() {
+        SSCLogger logger = sscLogFactory.getLogger(CruiseCacheUpdater.class);
         if (!slingSettingsService.getRunModes().contains("author")) {
             LOGGER.info("Running ...");
+            logger.logInfo(JsonLog.jsonLog("CruiseCacheUpdateStarting"));
             cruisesCacheService.buildCruiseCache();
             LOGGER.debug("Cruise Cache update service end");
+            logger.logInfo(JsonLog.jsonLog("CruiseCacheUpdateComplete"));
         } else {
         	LOGGER.debug("Cruise Cache updater service run only on publish instance");
         }
