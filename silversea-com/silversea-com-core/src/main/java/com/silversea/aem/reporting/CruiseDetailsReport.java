@@ -66,7 +66,7 @@ public class CruiseDetailsReport extends SlingSafeMethodsServlet {
     private List<CruiseDetailsBean> getCruiseDetails(ResourceResolver resourceResolver) {
         List<String> split = Arrays.asList(restrictList.split(","));
 
-        final String query = "/jcr:root/content/silversea-com/en//element(*,cq:PageContent)" +
+        final String query = "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                 "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]";
 
         final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
