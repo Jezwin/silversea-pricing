@@ -6,30 +6,18 @@ import com.amazonaws.services.secretsmanager.model.AWSSecretsManagerException;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
 import com.amazonaws.services.secretsmanager.model.ResourceNotFoundException;
+import com.silversea.aem.config.CoreConfig;
 import io.vavr.control.Try;
-import org.apache.felix.scr.annotations.*;
-import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.json.JSONObject;
-import org.osgi.service.component.ComponentContext;
 
-import java.util.Dictionary;
-
-
-@Component(immediate = true, metatype = true, label = "AwsSecretManager")
-@Service(AwsSecretsManager.class)
-@Properties({
-        @Property(name = "region"),
-        @Property(name = "secretName")
-})
 public class AwsSecretsManagerImpl implements AwsSecretsManager {
     private String region;
     private String secretName;
 
-    @Activate
-    protected final void activate(final ComponentContext context) {
-        Dictionary<String, String> properties = context.getProperties();
-        this.region = PropertiesUtil.toString(properties.get("region"), "us-east-1");
-        this.secretName = PropertiesUtil.toString(properties.get("secretName"), null);
+    public AwsSecretsManagerImpl(CoreConfig config)
+    {
+        this.region = config.getAwsRegion();
+        this.secretName = config.getAwsSecretName();
     }
 
     @Override

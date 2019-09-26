@@ -11,33 +11,14 @@ import org.junit.Test;
 import org.osgi.framework.BundleContext;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
-public class PromoProxyTest {
-
+public class PromoProxyIntegrationTest {
     @Before
-    public void before() {
+    public void before(){
 
-    }
-
-    @Test
-    public void mapsBusinessAirFareFromResponse() throws IOException, JSONException {
-
-        ApiClient apiClientMock = mock(ApiClient.class);
-        when(apiClientMock
-                .Get("https://shop.silversea.com/api/v1/prices_promotions/1925/GBP"))
-                .thenReturn(GetFileContents("src/test/resources/pricePromoApiResponse.json"));
-        PromoProxy proxy = new PromoProxy(apiClientMock);
-
-        PromoPrice promo = proxy.getPromoByCurrencyAndCruiseCode("GBP", "1925");
-
-        assertEquals(3498, promo.businessClassPromoPrice);
     }
 
     @Test
@@ -63,9 +44,5 @@ public class PromoProxyTest {
 
         MockOsgi.activate(config,bundleContext,properties);
         return config;
-    }
-
-    private String GetFileContents(String path) throws IOException {
-        return new String (Files.readAllBytes(Paths.get(path)));
     }
 }
