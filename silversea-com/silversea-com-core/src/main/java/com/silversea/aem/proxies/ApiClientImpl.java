@@ -4,6 +4,7 @@ import com.silversea.aem.utils.AwsSecretsManager;
 import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
@@ -16,6 +17,8 @@ public class ApiClientImpl implements ApiClient {
     public ApiClientImpl(AwsSecretsManager secretManager){
         username = secretManager.getValue("username").get();
         password =  secretManager.getValue("password").get();
+//        username = "auolivier@sqli.com";
+//        password = "123qweASD";
         client = new OkHttpClient();
     }
 
@@ -29,6 +32,8 @@ public class ApiClientImpl implements ApiClient {
                 .url(url)
                 .build();
 
-        return client.newCall(request).execute().toString();
+         Response result = client.newCall(request).execute();
+
+         return result.body().string();
     }
 }

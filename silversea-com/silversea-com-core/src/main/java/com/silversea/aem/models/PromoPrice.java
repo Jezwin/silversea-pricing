@@ -1,4 +1,4 @@
-package com.silversea.aem.proxies;
+package com.silversea.aem.models;
 
 import com.google.gson.annotations.SerializedName;
 

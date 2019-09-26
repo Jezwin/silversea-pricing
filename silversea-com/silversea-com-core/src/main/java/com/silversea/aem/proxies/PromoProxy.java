@@ -2,6 +2,7 @@ package com.silversea.aem.proxies;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.silversea.aem.models.PromoPrice;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
