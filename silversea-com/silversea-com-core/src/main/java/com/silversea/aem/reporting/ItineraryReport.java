@@ -9,7 +9,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
-import com.silversea.aem.reporting.models.ItineraryBean;
+import com.silversea.aem.reporting.models.write.ItineraryBean;
 import com.silversea.aem.services.ApiConfigurationService;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -62,11 +62,7 @@ public class ItineraryReport extends SlingSafeMethodsServlet {
             }
             out.close();
 
-        } catch (LoginException | ImporterException e) {
-
-        } catch (CsvRequiredFieldEmptyException e) {
-            e.printStackTrace();
-        } catch (CsvDataTypeMismatchException e) {
+        } catch (LoginException | ImporterException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
             e.printStackTrace();
         }
     }

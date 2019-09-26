@@ -1,11 +1,14 @@
 package com.silversea.aem.reporting;
 
 import com.day.cq.wcm.api.PageManager;
-import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.logging.LogzLogger;
-import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.reporting.models.read.CruiseModelCrx;
+import com.silversea.aem.reporting.models.write.CruiseDetailsBean;
 import com.silversea.aem.services.ApiConfigurationService;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -18,7 +21,6 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 
 import javax.jcr.Session;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -49,40 +51,33 @@ public class CruiseDetailsReport extends SlingSafeMethodsServlet {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            final List<CruiseModel> cruiseModels = getCruiseDetails(resourceResolver);
+            final List<CruiseModelCrx> cruiseModels = getCruiseDetails(resourceResolver);
 
-            CSVWriter csvWriter = new CSVWriter(out, ',', '"', '\\', System.lineSeparator());
+            StatefulBeanToCsv<CruiseDetailsBean> beanToCsv = new StatefulBeanToCsvBuilder<CruiseDetailsBean>(out).build();
 
-
-            for (CruiseModel cruiseModel: cruiseModels) {
-                List<String> output = new ArrayList<>();
-                output.add(cruiseModel.getCruiseCode());
-                output.add(cruiseModel.getBigItineraryMap());
-                output.add(cruiseModel.getDescription());
-                output.add(cruiseModel.getDescription());
-                csvWriter.writeNext(output.toArray(new String[0]));
+            for (CruiseModelCrx cruiseModelCrx : cruiseModels) {
+                CruiseDetailsBean bean = new CruiseDetailsBean(cruiseModelCrx);
+                beanToCsv.write(bean);
             }
             out.close();
 
-            csvWriter.close();
-
-            // Iterate over exclusive offers from API
-        } catch (LoginException | ImporterException e) {
+        } catch (LoginException | ImporterException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
+            e.printStackTrace();
         }
     }
-    private List<CruiseModel> getCruiseDetails(ResourceResolver resourceResolver) {
-        final String query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
+    private List<CruiseModelCrx> getCruiseDetails(ResourceResolver resourceResolver) {
+           final String query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
                 "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/destination\"]";
 
         final Iterator<Resource> resources = resourceResolver.findResources(query,"xpath");
 
-        final List<CruiseModel> cruiseModels = new ArrayList<>();
+        final List<CruiseModelCrx> cruiseModels = new ArrayList<>();
         while (resources.hasNext()) {
             final Resource itinerary = resources.next();
-            final CruiseModel itineraryModel = itinerary.adaptTo(CruiseModel.class);
+            final CruiseModelCrx cruiseModelCrx = itinerary.adaptTo(CruiseModelCrx.class);
 
-            if (itineraryModel != null) {
-                cruiseModels.add(itineraryModel);
+            if (cruiseModelCrx != null) {
+                cruiseModels.add(cruiseModelCrx);
             }
         }
         return cruiseModels;

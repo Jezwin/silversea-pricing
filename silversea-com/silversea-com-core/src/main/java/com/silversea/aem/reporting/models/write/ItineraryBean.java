@@ -1,4 +1,4 @@
-package com.silversea.aem.reporting.models;
+package com.silversea.aem.reporting.models.write;
 
 import com.silversea.aem.models.ItineraryModel;
 
