@@ -73,8 +73,8 @@ public class CruiseDetailsReport extends SlingSafeMethodsServlet {
 
         final List<CruiseModelCrx> cruiseModels = new ArrayList<>();
         while (resources.hasNext()) {
-            final Resource itinerary = resources.next();
-            final CruiseModelCrx cruiseModelCrx = itinerary.adaptTo(CruiseModelCrx.class);
+            final Resource resource = resources.next();
+            final CruiseModelCrx cruiseModelCrx = resource.adaptTo(CruiseModelCrx.class);
 
             if (cruiseModelCrx != null) {
                 cruiseModels.add(cruiseModelCrx);
