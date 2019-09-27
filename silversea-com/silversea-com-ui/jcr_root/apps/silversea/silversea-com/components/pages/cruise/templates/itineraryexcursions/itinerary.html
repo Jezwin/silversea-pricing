@@ -33,15 +33,14 @@
                 <img src="/etc/designs/silversea-com/clientlib-icon-2018/18px/country.png"/> ${numCountries} ${ (numCountries> 1 ? 'countries' : 'country') @ i18n}
             </span>
         </div>
-
+        <div class="cruise-2018-new-cruise-disclaimer"
+             data-sly-test="${newCruiseDisclaimerHelper.showDisclaimer}">
+            ${'new-cruise-disclaimer' @ i18n}</div>
         <div class="cruise-2018-itineraries-description">${customDescription || model.description @ context="html"}</div>
         <div class="cruise-2018-itineraries-description-view view-more" data-viewmore="${'view-more' @ i18n }"
              data-viewless="${'view-less' @ i18n}">${'view-more' @ i18n}</div>
         <div class="cruise-2018-itineraries-voyage-code hidden-xs"
              data-sly-test="${!hideVoyageCode}">${'voyage-number' @ i18n}: ${model.cruiseCode}</div>
-        <div class="cruise-2018-new-cruise-disclaimer"
-            data-sly-test="${newCruiseDisclaimerHelper.showDisclaimer}">
-            ${'new-cruise-disclaimer' @ i18n}</div>
         <div class="cruise-2018-itineraries-120-label"
              data-sly-test="${ dayUntilDeparture >= 120 && model.cruiseType != 'silversea-expedition' }">${'cruise-itinerary-120-day' @ i18n}</div>
 
