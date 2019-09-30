@@ -1,5 +1,6 @@
 <div data-sly-test.empty="${wcmmode.edit}"
      class="cq-placeholder cq-dd-image" data-emptytext="Find your cruise 2018"></div>
+<div id="fyc-container"></div>
 <div class="findyourcruise2018 v2 ">
 
     <div
@@ -15,3 +16,15 @@
     <div class="fyc2018-tmp-div">
     </div>
 </div>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script crossorigin src="http://silversea-com-ui-stage.s3-website-us-east-1.amazonaws.com/silversea-com-ui.js"></script>
+<script>
+var domContainer = document.querySelector("#fyc-container");
+ReactDOM.render(
+    React.createElement(SilverseaComUi.FindYourCruise, {
+        bffApiBaseUrl: "https://silversea-cms-bff-staging/"
+    }),
+    domContainer
+);
+</script>
