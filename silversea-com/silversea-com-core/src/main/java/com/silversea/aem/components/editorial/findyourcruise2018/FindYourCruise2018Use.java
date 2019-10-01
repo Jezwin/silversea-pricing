@@ -48,6 +48,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private String grandVoyagePath;
     private String comboCruisePath;
 
+    private Boolean useExternalUi;
+
     private List<CruiseItem> cruises;
 
     private FilterBar filterBar;
@@ -76,8 +78,11 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
         comboCruisePath = getComboCruisePath(resourceResolver, getCurrentPage(), getRequest());
         requestQuotePagePath = retrieveRequestQuotePath(resource);
-        String paginationLimit = null;
 
+        this.useExternalUi = currentPage.getProperties().get("useExternalUi", false);
+        if(this.useExternalUi) return;
+
+        String paginationLimit = null;
         if (getProp("paginationLimit", String.class).isPresent()) {
             paginationLimit = getProp("paginationLimit", String.class).get();
         } else {
@@ -321,6 +326,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     public String getMarketCurrency() {
         return super.geomarket + super.currency;
     }
+
+    public Boolean getUseExternalUi() { return this.useExternalUi; }
 
     public String toJson() {
         JsonArray array = new JsonArray();

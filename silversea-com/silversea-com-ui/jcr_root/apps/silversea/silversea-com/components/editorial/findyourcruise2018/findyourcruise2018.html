@@ -1,30 +1,36 @@
 <div data-sly-test.empty="${wcmmode.edit}"
-     class="cq-placeholder cq-dd-image" data-emptytext="Find your cruise 2018"></div>
-<div id="fyc-container"></div>
-<div class="findyourcruise2018 v2 ">
-
-    <div
-            data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='15'}"
-            id="findyourcruise2018-wrapper" class="findyourcruise2018-wrapper">
-        <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-             data-sly-call="${filterTemplate.default @ fyc=fyc}"/>
-        <div class="c-fyc-v2__result-wrapper fyc2018-results-div c-fyc-v2">
-            <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/results.html"
-                 data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
+     class="cq-placeholder cq-dd-image" data-emptytext="Find your cruise 2018"
+></div>
+<div class="findyourcruise2018 v2 "
+     data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='15'}"
+>
+    <sly data-sly-test="${!fyc.useExternalUi}">
+        <div id="findyourcruise2018-wrapper" class="findyourcruise2018-wrapper">
+            <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+                 data-sly-call="${filterTemplate.default @ fyc=fyc}"/>
+            <div class="c-fyc-v2__result-wrapper fyc2018-results-div c-fyc-v2">
+                <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/results.html"
+                     data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
+            </div>
         </div>
-    </div>
-    <div class="fyc2018-tmp-div">
-    </div>
+        <div class="fyc2018-tmp-div">
+        </div>
+    </sly>
+    <sly data-sly-test="${fyc.useExternalUi}">
+        <div id="fyc-container"></div>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <!-- TODO Get UI JS URL from config, or CRX -->
+        <script src="http://silversea-com-ui-stage.s3-website-us-east-1.amazonaws.com/silversea-com-ui.js"></script>
+        <script>
+            var domContainer = document.querySelector("#fyc-container");
+            ReactDOM.render(
+                React.createElement(SilverseaComUi.FindYourCruise, {
+                    // TODO Get BFF base URL from config, or CRX
+                    bffApiBaseUrl: "https://qwew2v1pu8.execute-api.us-east-1.amazonaws.com/Prod/"
+                }),
+                domContainer
+            );
+        </script>
+    </sly>
 </div>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-<script crossorigin src="http://silversea-com-ui-stage.s3-website-us-east-1.amazonaws.com/silversea-com-ui.js"></script>
-<script>
-var domContainer = document.querySelector("#fyc-container");
-ReactDOM.render(
-    React.createElement(SilverseaComUi.FindYourCruise, {
-        bffApiBaseUrl: "https://silversea-cms-bff-staging/"
-    }),
-    domContainer
-);
-</script>
