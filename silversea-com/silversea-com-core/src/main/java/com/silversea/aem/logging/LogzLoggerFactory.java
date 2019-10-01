@@ -17,10 +17,6 @@ import java.util.concurrent.Executors;
 
 @Component(immediate = true, metatype = true, label = "LoggingServiceFactory")
 @Service(LogzLoggerFactory.class)
-@Properties({
-        @Property(name = "region"),
-        @Property(name = "secretName")
-})
 
 public class LogzLoggerFactory {
 
