@@ -17,8 +17,6 @@ public class ApiClientImpl implements ApiClient {
     public ApiClientImpl(AwsSecretsManager secretManager){
         username = secretManager.getValue("username").get();
         password =  secretManager.getValue("password").get();
-//        username = "auolivier@sqli.com";
-//        password = "123qweASD";
         client = new OkHttpClient();
     }
 
