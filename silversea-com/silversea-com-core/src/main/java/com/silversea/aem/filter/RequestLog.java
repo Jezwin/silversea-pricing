@@ -46,6 +46,10 @@ public class RequestLog implements Filter {
 
         JsonLog log = jsonLog("HttpRequest")
                 .with("url", request.getRequestURI())
+                .with("queryString", request.getQueryString())
+                .with("remoteHost", request.getRemoteHost())
+                .with("remoteAddress", request.getRemoteAddr())
+                .with("localAddress", request.getLocalAddr())
                 .with("status", response.getStatus())
                 .with("method", request.getMethod());
 
