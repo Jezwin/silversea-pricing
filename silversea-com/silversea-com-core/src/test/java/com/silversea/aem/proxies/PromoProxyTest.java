@@ -41,30 +41,31 @@ public class PromoProxyTest {
         assertEquals(3498, promo.businessClassPromoPrice);
     }
 
-    @Test
-    public void mapsBusinessAirFareFromResponseIntegration()throws IOException, JSONException {
-        AwsSecretsManager secretManager = new AwsSecretsManagerImpl(getCoreConfig());
-        ApiClient apiClient = new ApiClientImpl(secretManager);
-        PromoProxy proxy = new PromoProxy(apiClient);
-
-        PromoPrice promo=proxy.getPromoPrice("GBP","1925");
-
-        //todo: make assert more generic
-        assertEquals(1998, promo.businessClassPromoPrice);
-    }
-
-    private CoreConfig getCoreConfig(){
-        BundleContext bundleContext=MockOsgi.newBundleContext();
-        CoreConfig config = new CoreConfig();
-
-        //todo get region and secretName from env specific config
-        HashMap<String,String> properties = new HashMap<>();
-        properties.put("awsRegion","us-east-1");
-        properties.put("awsSecretName","dev/silversea-com");
-
-        MockOsgi.activate(config,bundleContext,properties);
-        return config;
-    }
+        //todo: Move to a separate project for integration tests
+//    @Test
+//    public void mapsBusinessAirFareFromResponseIntegration()throws IOException, JSONException {
+//        AwsSecretsManager secretManager = new AwsSecretsManagerImpl(getCoreConfig());
+//        ApiClient apiClient = new ApiClientImpl(secretManager);
+//        PromoProxy proxy = new PromoProxy(apiClient);
+//
+//        PromoPrice promo=proxy.getPromoPrice("GBP","1925");
+//
+//        //todo: make assert more generic
+//        assertEquals(1998, promo.businessClassPromoPrice);
+//    }
+//
+//    private CoreConfig getCoreConfig(){
+//        BundleContext bundleContext=MockOsgi.newBundleContext();
+//        CoreConfig config = new CoreConfig();
+//
+//        //todo get region and secretName from env specific config so that it can be run in build pipeline
+//        HashMap<String,String> properties = new HashMap<>();
+//        properties.put("awsRegion","us-east-1");
+//        properties.put("awsSecretName","dev/silversea-com");
+//
+//        MockOsgi.activate(config,bundleContext,properties);
+//        return config;
+//    }
 
     private String GetFileContents(String path) throws IOException {
         return new String (Files.readAllBytes(Paths.get(path)));
