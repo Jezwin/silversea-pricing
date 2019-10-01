@@ -2,7 +2,7 @@ package com.silversea.aem.logging;
 
 import com.silversea.aem.config.CoreConfig;
 import com.silversea.aem.utils.AwsSecretsManager;
-import com.silversea.aem.utils.AwsSecretsManagerImpl;
+import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.SenderStatusReporter;
@@ -33,7 +33,7 @@ public class LogzLoggerFactory {
 
     @Activate
     protected final void activate() {
-        this.sender = createSender(new AwsSecretsManagerImpl(config))
+        this.sender = createSender(new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName()))
                 .onSuccess(LogzioSender::start)
                 .onFailure(exception -> {
                     // Fail quietly so that logz.io doesn't block execution, but log failure locally.

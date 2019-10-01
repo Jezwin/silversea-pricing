@@ -6,18 +6,17 @@ import com.amazonaws.services.secretsmanager.model.AWSSecretsManagerException;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest;
 import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
 import com.amazonaws.services.secretsmanager.model.ResourceNotFoundException;
-import com.silversea.aem.config.CoreConfig;
 import io.vavr.control.Try;
 import org.json.JSONObject;
 
-public class AwsSecretsManagerImpl implements AwsSecretsManager {
+public class AwsSecretsManagerClientWrapper implements AwsSecretsManager {
     private String region;
     private String secretName;
 
-    public AwsSecretsManagerImpl(CoreConfig config)
+    public AwsSecretsManagerClientWrapper(String region, String secretName)
     {
-        this.region = config.getAwsRegion();
-        this.secretName = config.getAwsSecretName();
+        this.region = region;
+        this.secretName = secretName;
     }
 
     @Override

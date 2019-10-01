@@ -8,13 +8,13 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-public class ApiClientImpl implements ApiClient {
+public class OkHttpClientWrapper implements ApiClient {
 
     private String username;
     private String password;
     private OkHttpClient client;
 
-    public ApiClientImpl(AwsSecretsManager secretManager){
+    public OkHttpClientWrapper(AwsSecretsManager secretManager){
         username = secretManager.getValue("username").get();
         password =  secretManager.getValue("password").get();
         client = new OkHttpClient();

@@ -1,23 +1,18 @@
 package com.silversea.aem.proxies;
 
-import com.silversea.aem.config.CoreConfig;
 import com.silversea.aem.models.PromoPrice;
 import com.silversea.aem.utils.AwsSecretsManager;
-import com.silversea.aem.utils.AwsSecretsManagerImpl;
-import org.apache.sling.testing.mock.osgi.MockOsgi;
+import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.osgi.framework.BundleContext;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,27 +41,15 @@ public class PromoProxyTest {
     @Test
     @Ignore
     public void mapsBusinessAirFareFromResponseIntegration()throws IOException, JSONException {
-        AwsSecretsManager secretManager = new AwsSecretsManagerImpl(getCoreConfig());
-        ApiClient apiClient = new ApiClientImpl(secretManager);
+        //todo: get env specific config
+        AwsSecretsManager secretManager = new AwsSecretsManagerClientWrapper("us-east-1", "dev/silversea-com");
+        ApiClient apiClient = new OkHttpClientWrapper(secretManager);
         PromoProxy proxy = new PromoProxy(apiClient);
 
         PromoPrice promo=proxy.getPromoPrice("GBP","1925");
 
         //todo: make assert more generic
         assertEquals(1998, promo.businessClassPromoPrice);
-    }
-
-    private CoreConfig getCoreConfig(){
-        BundleContext bundleContext=MockOsgi.newBundleContext();
-        CoreConfig config = new CoreConfig();
-
-        //todo get region and secretName from env specific config so that it can be run in build pipeline
-        HashMap<String,String> properties = new HashMap<>();
-        properties.put("awsRegion","us-east-1");
-        properties.put("awsSecretName","dev/silversea-com");
-
-        MockOsgi.activate(config,bundleContext,properties);
-        return config;
     }
 
     private String GetFileContents(String path) throws IOException {
