@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,18 +36,18 @@ public class PromoProxyTest {
                 .thenReturn(GetFileContents("src/test/resources/pricePromoApiResponse.json"));
         PromoProxy proxy = new PromoProxy(apiClientMock);
 
-        PromoPrice promo = proxy.getPromoByCurrencyAndCruiseCode("GBP", "1925");
+        PromoPrice promo = proxy.getPromoPrice("GBP", "1925");
 
         assertEquals(3498, promo.businessClassPromoPrice);
     }
 
     @Test
-    public void mapsBusinessAirFareFromResponseInt()throws IOException, JSONException {
+    public void mapsBusinessAirFareFromResponseIntegration()throws IOException, JSONException {
         AwsSecretsManager secretManager = new AwsSecretsManagerImpl(getCoreConfig());
         ApiClient apiClient = new ApiClientImpl(secretManager);
         PromoProxy proxy = new PromoProxy(apiClient);
 
-        PromoPrice promo=proxy.getPromoByCurrencyAndCruiseCode("GBP","1925");
+        PromoPrice promo=proxy.getPromoPrice("GBP","1925");
 
         //todo: make assert more generic
         assertEquals(1998, promo.businessClassPromoPrice);

@@ -19,17 +19,21 @@ public class PromoProxy {
         this.apiClient = apiClient;
     }
 
-    public PromoPrice getPromoByCurrencyAndCruiseCode(String currency, String cruiseCode) throws IOException, JSONException {
+    public PromoPrice getPromoPrice(String currency, String cruiseCode) throws IOException, JSONException {
 
             String resolvedUrl = url.replace("{cruiseCode}", cruiseCode).replace("{currency}", currency);
 
             String response = apiClient.Get(resolvedUrl);
 
-            JSONObject jsonResponse = new JSONObject(response);
-            JSONArray airPrices = jsonResponse.getJSONArray("air_prices");
+            return MapPromoPrice(response);
+    }
 
-            final GsonBuilder builder = new GsonBuilder();
-            final Gson gson = builder.create();
-            return gson.fromJson(airPrices.getJSONObject(0).toString(), PromoPrice.class);
+    private PromoPrice MapPromoPrice(String response) throws JSONException {
+        JSONObject jsonResponse = new JSONObject(response);
+        JSONArray airPrices = jsonResponse.getJSONArray("air_prices");
+
+        final GsonBuilder builder = new GsonBuilder();
+        final Gson gson = builder.create();
+        return gson.fromJson(airPrices.getJSONObject(0).toString(), PromoPrice.class);
     }
 }
