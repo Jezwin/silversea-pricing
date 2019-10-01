@@ -4,11 +4,13 @@ import com.silversea.aem.logging.JsonLog;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.com.google.gson.Gson;
 import io.logz.sender.com.google.gson.JsonObject;
+import io.vavr.control.Try;
 import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
+import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +43,8 @@ public class LogzLogger implements SSCLogger {
             js.addProperty("component", component);
             js.addProperty("application", "silversea-com");
             js.addProperty("environment", environment);
+            js.addProperty("ipAddress", Try.of(InetAddress::getLocalHost).mapTry(InetAddress::getHostAddress).mapTry(Object::toString).getOrElseGet(x -> "error"));
+            js.addProperty("hostName", Try.of(InetAddress::getLocalHost).mapTry(InetAddress::getHostName).getOrElseGet(x -> "error"));
             s.send(js);
         });
     }
