@@ -1,16 +1,14 @@
 package com.silversea.aem.logging;
 
+import com.silversea.aem.config.CoreConfig;
 import com.silversea.aem.utils.AwsSecretsManager;
+import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
 import io.logz.sender.HttpsRequestConfiguration;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.SenderStatusReporter;
 import io.logz.sender.exceptions.LogzioParameterErrorException;
 import io.vavr.control.Try;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
-import org.osgi.service.component.ComponentContext;
+import org.apache.felix.scr.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +17,7 @@ import java.util.concurrent.Executors;
 
 @Component(immediate = true, metatype = true, label = "LoggingServiceFactory")
 @Service(LogzLoggerFactory.class)
+
 public class LogzLoggerFactory {
 
     public static final String LOGZIO_LISTENER_URL = "http://listener-eu.logz.io:8070";
@@ -26,14 +25,15 @@ public class LogzLoggerFactory {
     public static final String LOGZIO_TOKEN_SECRET_KEY = "LOGZIO_TOKEN";
     public static final int LOGZIO_DRAIN_TIMEOUT_IN_SECONDS = 5;
     public static final int LOGZIO_CORE_POOL_SIZE = 3;
-    @Reference
-    private AwsSecretsManager awsSecretsManager;
 
     private Optional<LogzioSender> sender;
 
+    @Reference
+    private CoreConfig config;
+
     @Activate
-    protected final void activate(final ComponentContext context) {
-        this.sender = createSender(this.awsSecretsManager)
+    protected final void activate() {
+        this.sender = createSender(new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName()))
                 .onSuccess(LogzioSender::start)
                 .onFailure(exception -> {
                     // Fail quietly so that logz.io doesn't block execution, but log failure locally.

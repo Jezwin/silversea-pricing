@@ -1,7 +1,11 @@
 package com.silversea.aem.proxies;
 
+import com.silversea.aem.models.PromoPrice;
+import com.silversea.aem.utils.AwsSecretsManager;
+import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
 import org.json.JSONException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -28,9 +32,24 @@ public class PromoProxyTest {
                 .thenReturn(GetFileContents("src/test/resources/pricePromoApiResponse.json"));
         PromoProxy proxy = new PromoProxy(apiClientMock);
 
-        PromoPrice promo = proxy.getPromoByCurrencyAndCruiseCode("GBP", "1925");
+        PromoPrice promo = proxy.getPromoPrice("GBP", "1925");
 
         assertEquals(3498, promo.businessClassPromoPrice);
+    }
+
+    //todo: Move to a separate project for integration tests
+    @Test
+    @Ignore
+    public void mapsBusinessAirFareFromResponseIntegration()throws IOException, JSONException {
+        //todo: get env specific config
+        AwsSecretsManager secretManager = new AwsSecretsManagerClientWrapper("us-east-1", "dev/silversea-com");
+        ApiClient apiClient = new OkHttpClientWrapper(secretManager);
+        PromoProxy proxy = new PromoProxy(apiClient);
+
+        PromoPrice promo=proxy.getPromoPrice("GBP","1925");
+
+        //todo: make assert more generic
+        assertEquals(1998, promo.businessClassPromoPrice);
     }
 
     private String GetFileContents(String path) throws IOException {
