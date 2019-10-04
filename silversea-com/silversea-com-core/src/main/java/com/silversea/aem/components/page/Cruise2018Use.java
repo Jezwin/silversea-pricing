@@ -601,7 +601,7 @@ public class Cruise2018Use extends EoHelper {
         Function<ExclusiveOfferModel, ExclusiveOfferItem> exclusiveOfferModelExclusiveOfferItemFunction = exclusiveOfferModel -> {
             EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
 
-            setAirfarePricePromotion(cruise, exclusiveOfferModel);
+            //setAirfarePricePromotion(cruise, exclusiveOfferModel);
 
             EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
             String destinationPath = cruise.getDestination().getPath();
