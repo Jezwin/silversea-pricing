@@ -7,10 +7,16 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ValueTypeBean;
+import com.silversea.aem.config.CoreConfig;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.services.StyleCache;
 import com.silversea.aem.models.ExclusiveOfferFareModel;
 import com.silversea.aem.models.ExclusiveOfferModel;
+import com.silversea.aem.proxies.OkHttpClientWrapper;
+import com.silversea.aem.proxies.PromoProxy;
+import com.silversea.aem.services.ExclusiveOffer;
+import com.silversea.aem.utils.AwsSecretsManager;
+import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -20,14 +26,20 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
     private StyleCache styleCache;
     private Gson gson;
+    private PromoProxy promoProxy;
+    private ExclusiveOffer exclusiveOffer;
 
     @Override
     public void activate() throws Exception {
         super.activate();
         styleCache = getSlingScriptHelper().getService(StyleCache.class);
         gson = new GsonBuilder().create();
-    }
 
+        CoreConfig config = getSlingScriptHelper().getService(CoreConfig.class);
+        AwsSecretsManager awsSecretsManager = new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName());
+        promoProxy = new PromoProxy(new OkHttpClientWrapper(awsSecretsManager));
+        exclusiveOffer = new ExclusiveOffer(promoProxy);
+    }
 
     public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {
         EoBean eoBean = null;
@@ -43,6 +55,15 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
+
+            //Benefit of doing it here is that it's filtered by geotag already
+            if(getCurrentPage().getProperties().get("cruiseCode").equals("6928") && tokensAndStyle.containsKey("air_price"))
+            {
+                String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
+                Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
+                exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
+            }
+
             ValueTypeBean eoValue = null;
             if (eoModel.getExpirationDate() != null) {
                 Date expirationDate = eoModel.getExpirationDate();
