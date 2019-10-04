@@ -20,14 +20,12 @@
         <div id="fyc-container"></div>
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-        <!-- TODO Get UI JS URL from config, or CRX -->
-        <script src="https://d1fs5q3tf60e2g.cloudfront.net/silversea-com-ui.js"></script>
+        <script src="${fyc.externalUiJsUrl}"></script>
         <script>
             var domContainer = document.querySelector("#fyc-container");
             ReactDOM.render(
                 React.createElement(SilverseaComUi.FindYourCruise, {
-                    // TODO Get BFF base URL from config, or CRX
-                    bffApiBaseUrl: "https://qwew2v1pu8.execute-api.us-east-1.amazonaws.com/Prod/"
+                    bffApiBaseUrl: "${fyc.bffApiBaseUrl @ context='scriptString'}"
                 }),
                 domContainer
             );

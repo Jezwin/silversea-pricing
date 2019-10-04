@@ -49,6 +49,8 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private String comboCruisePath;
 
     private Boolean useExternalUi;
+    private String bffApiBaseUrl;
+    private String externalUiJsUrl;
 
     private List<CruiseItem> cruises;
 
@@ -79,8 +81,16 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         comboCruisePath = getComboCruisePath(resourceResolver, getCurrentPage(), getRequest());
         requestQuotePagePath = retrieveRequestQuotePath(resource);
 
-        this.useExternalUi = currentPage.getProperties().get("useExternalUi", false);
-        if(this.useExternalUi) return;
+        this.externalUiJsUrl = (String) currentPage.getProperties().get("externalUiJsUrl");
+        this.bffApiBaseUrl = (String) currentPage.getProperties().get("bffApiBaseUrl");
+        this.useExternalUi = this.externalUiJsUrl != null
+                && this.bffApiBaseUrl != null
+                && currentPage.getProperties().get("useExternalUi", false);
+        // If we're using external UI, we can skip the model building.
+        if (this.useExternalUi) {
+            dullInit();
+            return;
+        }
 
         String paginationLimit = null;
         if (getProp("paginationLimit", String.class).isPresent()) {
@@ -114,7 +124,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
      * @param request
      * @return path of the combocruise
      */
-    public static String getComboCruisePath(ResourceResolver resourceResolver, Page currentPage , SlingHttpServletRequest request ) {
+    public static String getComboCruisePath(ResourceResolver resourceResolver, Page currentPage, SlingHttpServletRequest request) {
 
         //current language
         String language = LanguageHelper.getLanguage(currentPage);
@@ -131,7 +141,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
             ValueMap properties = resourceComboCruise.getValueMap();
 
-            internalLink = properties.get(language.replaceAll("-",""),String.class);
+            internalLink = properties.get(language.replaceAll("-", ""), String.class);
 
         }
 
@@ -316,7 +326,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return grandVoyagePath;
     }
 
-    public String getComboCruisePath() { return comboCruisePath; }
+    public String getComboCruisePath() {
+        return comboCruisePath;
+    }
 
 
     public Pagination getPagination() {
@@ -327,7 +339,17 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return super.geomarket + super.currency;
     }
 
-    public Boolean getUseExternalUi() { return this.useExternalUi; }
+    public Boolean getUseExternalUi() {
+        return this.useExternalUi;
+    }
+
+    public String getBffApiBaseUrl() {
+        return bffApiBaseUrl;
+    }
+
+    public String getExternalUiJsUrl() {
+        return externalUiJsUrl;
+    }
 
     public String toJson() {
         JsonArray array = new JsonArray();
