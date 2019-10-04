@@ -586,7 +586,7 @@ public class Cruise2018Use extends EoHelper {
             final AwsSecretsManager awsSecretsManager = getSlingScriptHelper().getService(AwsSecretsManager.class);
             PromoProxy promoProxy = new PromoProxy(new OkHttpClientWrapper(awsSecretsManager));
             try {
-                int price =  (promoProxy.getPromoPrice(currencyCode, voyageCode).businessClassPromoPrice);
+                int price =  (promoProxy.getPromoPrice(currencyCode, voyageCode).getBusinessClassPromoPrice());
                 return String.valueOf(price);
             } catch (IOException e) {
                 e.printStackTrace();

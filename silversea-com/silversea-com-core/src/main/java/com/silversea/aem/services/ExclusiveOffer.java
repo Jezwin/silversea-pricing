@@ -1,6 +1,7 @@
 package com.silversea.aem.services;
 
 import com.silversea.aem.components.beans.ValueTypeBean;
+import com.silversea.aem.models.PromoPrice;
 import com.silversea.aem.proxies.PromoProxy;
 import org.json.JSONException;
 
@@ -19,9 +20,9 @@ public class ExclusiveOffer {
 
     public void ResolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokens, String currency, String cruiseCode, Locale locale) {
         try {
-            int newEachWayPrice = promoProxy.getPromoPrice(currency, cruiseCode).businessClassPromoPrice / 2;
+            PromoPrice promoprice = promoProxy.getPromoPrice(currency, cruiseCode);
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-            String formattedPrice = currencyFormatter.format(newEachWayPrice);
+            String formattedPrice = currencyFormatter.format(promoprice.getBusinessClassPromoPriceEachWay());
 
             tokens.put("air_price", new ValueTypeBean(formattedPrice, "token"));
 
