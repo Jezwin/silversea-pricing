@@ -1,56 +1,36 @@
 package com.silversea.aem.services;
 
 import com.silversea.aem.components.beans.ValueTypeBean;
-import com.silversea.aem.logging.JsonLog;
-import com.silversea.aem.logging.SSCLogger;
-import com.silversea.aem.proxies.ExclusiveOfferProxy;
-import com.silversea.aem.proxies.UnsuccessfulHttpRequestException;
+import com.silversea.aem.proxies.PromoProxy;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.silversea.aem.logging.JsonLog.jsonLog;
-
 public class ExclusiveOffer {
 
-    private ExclusiveOfferProxy exclusiveOfferProxy;
-    private SSCLogger logger;
+    private final PromoProxy promoProxy;
 
-    public ExclusiveOffer(ExclusiveOfferProxy exclusiveOfferProxy, SSCLogger logger) {
-        this.exclusiveOfferProxy = exclusiveOfferProxy;
-        this.logger = logger;
+    public ExclusiveOffer(PromoProxy promoProxy) {
+        this.promoProxy = promoProxy;
     }
 
     public void ResolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokens, String currency, String cruiseCode, Locale locale) {
         try {
+            int newEachWayPrice = promoProxy.getPromoPrice(currency, cruiseCode).businessClassPromoPrice / 2;
+            NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+            String formattedPrice = currencyFormatter.format(newEachWayPrice);
 
-            Map tokenValues = exclusiveOfferProxy.getExclusiveOfferTokens(currency, cruiseCode, locale);
-
-            for (Object key : tokens.keySet())
-            {
-                if(tokenValues.containsKey(key.toString())) {
-                    tokens.put(key.toString(), new ValueTypeBean(tokenValues.get(key).toString(), "token"));
-                }
-            }
+            tokens.put("air_price", new ValueTypeBean(formattedPrice, "token"));
 
         } catch (IOException e) {
-            logger.logError(getLogMessage(currency, cruiseCode, locale).with(e));
+            e.printStackTrace();
         } catch (JSONException e) {
-            logger.logError(getLogMessage(currency, cruiseCode, locale).with(e));
-        } catch (UnsuccessfulHttpRequestException e) {
-            logger.logError(getLogMessage(currency, cruiseCode, locale)
-                .with("statusCode", e.getCode())
-                .with("url", e.getUrl())
-                .with(e));
+            e.printStackTrace();
         }
     }
-
-    private JsonLog getLogMessage(String currency, String cruiseCode, Locale locale) {
-        return jsonLog("ResolveExclusiveOfferTokens")
-                .with("currency", currency)
-                .with("cruiseCode", cruiseCode)
-                .with("locale", locale.toString());
-    }
 }
+
+
