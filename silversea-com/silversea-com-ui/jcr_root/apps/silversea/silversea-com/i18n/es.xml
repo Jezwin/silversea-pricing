@@ -1832,7 +1832,7 @@
     <GHA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ghana"/>
     <GIB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gibraltar"/>
     <GIN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinea"/>
-    <GLP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guadalupe"/>
+    <GLP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="French West Indies"/>
     <GMB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gambia"/>
     <GNB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinea Bissau"/>
     <GNQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinea Ecuatorial"/>
