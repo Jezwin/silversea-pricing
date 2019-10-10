@@ -16,6 +16,6 @@ In Adobe Launch there is a custom "Data Element" called `api_indiv_id` which rea
 
 Then, again in Launch, in "Rules" the main "all pages rules" maps this value to `eVar14`
 
-### `temporaryId` (Individual ID?)
+### (Temporary Individual ID?) `temporaryId`
 
 There is also something called `temporaryId` on the response which is stored in the `api_temporary_id` cookie. It might be worth looking into this further - is it the IndividualID that's been assigned?
