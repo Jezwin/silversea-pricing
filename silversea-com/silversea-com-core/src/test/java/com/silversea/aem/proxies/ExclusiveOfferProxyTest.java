@@ -1,13 +1,9 @@
 package com.silversea.aem.proxies;
 
 import com.silversea.aem.components.beans.ValueTypeBean;
-import com.silversea.aem.logging.JsonLog;
-import com.silversea.aem.logging.LogzLogger;
-import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.ExclusiveOffer;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,23 +13,21 @@ import java.util.Locale;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ExclusiveOfferProxyTest {
 
     private ExclusiveOffer exclusiveOffer;
 
     @Before
-    public void before() throws IOException, UnsuccessfulHttpRequestException {
+    public void before() throws IOException {
         ApiClient apiClientMock = mock(ApiClient.class);
-        SSCLogger logger = new NullLogger();
         when(apiClientMock
-                .Get("http://notUsed/exclusive-offers/1925/GBP/en_GB"))
-                .thenReturn("{\"air_price\":\"£1'199\", \"non_use_air_credit\": \"£100\"}");
-
-        ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "notUsed");
-        exclusiveOffer = new ExclusiveOffer(proxy, logger);
+                .Get("https://aws.lambda/api/v1/prices_promotions/1925/GBP/en_GB"))
+                .thenReturn(GetFileContents("src/test/resources/exclusiveOfferApiResponse.json"));
+        ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock);
+        exclusiveOffer = new ExclusiveOffer(proxy);
     }
 
     @Test
@@ -58,5 +52,9 @@ public class ExclusiveOfferProxyTest {
         exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale);
 
         assertEquals("original_value", token.get("key_that_does_not_exist").getValue());
+    }
+
+    private String GetFileContents(String path) throws IOException {
+        return new String (Files.readAllBytes(Paths.get(path)));
     }
 }
