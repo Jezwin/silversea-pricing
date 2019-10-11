@@ -1,30 +1,32 @@
 package com.silversea.aem.services;
 
 import com.silversea.aem.components.beans.ValueTypeBean;
-import com.silversea.aem.models.PromoPrice;
-import com.silversea.aem.proxies.PromoProxy;
+import com.silversea.aem.proxies.ExclusiveOfferProxy;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
 public class ExclusiveOffer {
 
-    private final PromoProxy promoProxy;
+    private ExclusiveOfferProxy exclusiveOfferProxy;
 
-    public ExclusiveOffer(PromoProxy promoProxy) {
-        this.promoProxy = promoProxy;
+    public ExclusiveOffer(ExclusiveOfferProxy exclusiveOfferProxy) {
+        this.exclusiveOfferProxy = exclusiveOfferProxy;
     }
 
     public void ResolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokens, String currency, String cruiseCode, Locale locale) {
         try {
-            PromoPrice promoprice = promoProxy.getPromoPrice(currency, cruiseCode);
-            NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-            String formattedPrice = currencyFormatter.format(promoprice.getBusinessClassPromoPriceEachWay());
 
-            tokens.put("air_price", new ValueTypeBean(formattedPrice, "token"));
+            Map tokenValues = exclusiveOfferProxy.getExclusiveOfferTokens(currency, cruiseCode, locale);
+
+            for (Object key : tokens.keySet())
+            {
+                if(tokenValues.containsKey(key.toString())) {
+                    tokens.put(key.toString(), new ValueTypeBean(tokenValues.get(key).toString(), "token"));
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -33,5 +35,3 @@ public class ExclusiveOffer {
         }
     }
 }
-
-

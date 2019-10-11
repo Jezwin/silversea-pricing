@@ -12,8 +12,8 @@ import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.services.StyleCache;
 import com.silversea.aem.models.ExclusiveOfferFareModel;
 import com.silversea.aem.models.ExclusiveOfferModel;
+import com.silversea.aem.proxies.ExclusiveOfferProxy;
 import com.silversea.aem.proxies.OkHttpClientWrapper;
-import com.silversea.aem.proxies.PromoProxy;
 import com.silversea.aem.services.ExclusiveOffer;
 import com.silversea.aem.utils.AwsSecretsManager;
 import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
@@ -26,7 +26,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
     private StyleCache styleCache;
     private Gson gson;
-    private PromoProxy promoProxy;
+    private ExclusiveOfferProxy exclusiveOfferProxy;
     private ExclusiveOffer exclusiveOffer;
 
     @Override
@@ -37,8 +37,8 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
         CoreConfig config = getSlingScriptHelper().getService(CoreConfig.class);
         AwsSecretsManager awsSecretsManager = new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName());
-        promoProxy = new PromoProxy(new OkHttpClientWrapper(awsSecretsManager));
-        exclusiveOffer = new ExclusiveOffer(promoProxy);
+        exclusiveOfferProxy = new ExclusiveOfferProxy(new OkHttpClientWrapper(awsSecretsManager));
+        exclusiveOffer = new ExclusiveOffer(exclusiveOfferProxy);
     }
 
     public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {
@@ -56,7 +56,6 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 
-            //Benefit of doing it here is that it's filtered by geotag already
             if(getCurrentPage().getProperties().get("cruiseCode").equals("6928") && tokensAndStyle.containsKey("air_price"))
             {
                 String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
