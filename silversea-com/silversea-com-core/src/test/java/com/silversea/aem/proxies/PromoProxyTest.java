@@ -34,7 +34,7 @@ public class PromoProxyTest {
 
         PromoPrice promo = proxy.getPromoPrice("GBP", "1925");
 
-        assertEquals(3498, promo.businessClassPromoPrice);
+        assertEquals(3498, promo.getBusinessClassPromoPrice());
     }
 
     //todo: Move to a separate project for integration tests
@@ -49,7 +49,7 @@ public class PromoProxyTest {
         PromoPrice promo=proxy.getPromoPrice("GBP","1925");
 
         //todo: make assert more generic
-        assertEquals(1998, promo.businessClassPromoPrice);
+        assertEquals(1998, promo.getBusinessClassPromoPrice());
     }
 
     private String GetFileContents(String path) throws IOException {
