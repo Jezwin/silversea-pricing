@@ -173,6 +173,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                 // Trying to write excursion data on itinerary
                                 try {
                                     if (!excursionsMapping.containsKey(excursionId + "-" + itineraryModel.getPortId())) {
+                                        LOGGER.error("Excursion with excursionId:" + excursionId + " and itineraryModel getPortId:" + itineraryModel.getPortId() + " is not present in excursions cache ");
                                         throw new ImporterException(
                                                 "Excursion " + excursionId + " is not present in excursions cache");
                                     }
