@@ -298,6 +298,13 @@ function hideFreeShorexIcon(){
 
 $(document).ready(function(){
 	hideFreeShorexIcon();
+
+	//used when we change tab in case of grand voyage or world cruise
+    if($(".slick-track .silversea-slide.change-route-onclick").length > 0){
+        $(".slick-track .silversea-slide.change-route-onclick").on('click', function (){
+            hideFreeShorexIcon();
+        });
+    };
 });
 
 /*
