@@ -1829,7 +1829,7 @@
     <GHA jcr:primaryType="sling:MessageEntry" sling:key="GHA" sling:message="Ghana" />
     <GIB jcr:primaryType="sling:MessageEntry" sling:key="GIB" sling:message="Gibraltar" />
     <GIN jcr:primaryType="sling:MessageEntry" sling:key="GIN" sling:message="Guinea" />
-    <GLP jcr:primaryType="sling:MessageEntry" sling:key="GLP" sling:message="French West Indies" />
+    <GLP jcr:primaryType="sling:MessageEntry" sling:key="GLP" sling:message="Guadeloupe" />
     <GMB jcr:primaryType="sling:MessageEntry" sling:key="GMB" sling:message="Gambia" />
     <GNB jcr:primaryType="sling:MessageEntry" sling:key="GNB" sling:message="Guinea-Bissau" />
     <GNQ jcr:primaryType="sling:MessageEntry" sling:key="GNQ" sling:message="Equatorial Guinea" />
