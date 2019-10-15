@@ -28,9 +28,12 @@ $(function () {
         $arrow.blur();
         $arrow.find('i').toggle();
 
+        //hide free shorex symbols
+        hideFreeIconShorexSegment();
 
         var id = $(e.target).closest(".cruise-2018-itineraries-itinerary").attr("id");
         history.pushState(null, null, "#" + id);
+
     }
 
     $(".cruise-2018-itineraries-container").on('click', ".cruise-2018-itineraries-port-excursions-btn", toggle);
@@ -101,4 +104,42 @@ $(function () {
         }
         return isVisible;
     };//isElementInView
+
+    function hideFreeIconShorexSegment(){
+        if($('.icon-shorex').length > 0) {
+            $('.icon-shorex').hide();
+            if($('.cruise-2018-itineraries-port-excursions-excursion-features').length > 0) {
+                $('.icon-shorex').parent().hide();
+                $(".cruise-2018-itineraries-port-excursions-moredetails").on("click", function() {
+                    setTimeout(function(){
+                        $(".lsh-icon-list .icon-shorex").hide();
+                        $(".lsh-icon-list .icon-shorex").parent().hide();
+                        $(".lsh-icon .icon-shorex").parent().hide();
+                    }, 500);
+                    setTimeout(function(){
+                        $(".lsh-icon-list .icon-shorex").hide();
+                        $(".lsh-icon-list .icon-shorex").parent().hide();
+                        $(".lsh-icon .icon-shorex").parent().hide();
+                    }, 1000);
+                    setTimeout(function(){
+                        $(".lsh-icon-list .icon-shorex").hide();
+                        $(".lsh-icon-list .icon-shorex").parent().hide();
+                        $(".lsh-icon .icon-shorex").parent().hide();
+                    }, 1500);
+                    setTimeout(function(){
+                        $(".lsh-icon-list .icon-shorex").hide();
+                        $(".lsh-icon-list .icon-shorex").parent().hide();
+                        $(".lsh-icon .icon-shorex").parent().hide();
+                    }, 2000);
+                    setTimeout(function(){
+                        $(".lsh-icon-list .icon-shorex").hide();
+                        $(".lsh-icon-list .icon-shorex").parent().hide();
+                        $(".lsh-icon .icon-shorex").parent().hide();
+                    }, 3000);
+                });
+            }else {
+                $('.icon-shorex').parent().parent().hide();
+            };
+        };
+    };
 });
