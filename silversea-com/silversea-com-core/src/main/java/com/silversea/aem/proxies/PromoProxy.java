@@ -19,7 +19,7 @@ public class PromoProxy {
         this.apiClient = apiClient;
     }
 
-    public PromoPrice getPromoPrice(String currency, String cruiseCode) throws IOException, JSONException {
+    public PromoPrice getPromoPrice(String currency, String cruiseCode) throws IOException, JSONException, UnsuccessfulHttpRequestException {
 
             String resolvedUrl = url.replace("{cruiseCode}", cruiseCode).replace("{currency}", currency);
 

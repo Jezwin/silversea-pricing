@@ -21,7 +21,7 @@ public class OkHttpClientWrapper implements ApiClient {
     }
 
     @Override
-    public String Get(String url) throws IOException {
+    public String Get(String url) throws IOException, UnsuccessfulHttpRequestException {
 
         String credential = Credentials.basic(username, password);
 
@@ -30,7 +30,13 @@ public class OkHttpClientWrapper implements ApiClient {
                 .url(url)
                 .build();
 
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+         Response result = client.newCall(request).execute();
+
+         if (!result.isSuccessful())
+         {
+             throw new UnsuccessfulHttpRequestException(result.code(), url);
+         }
+
+         return result.body().string();
     }
 }

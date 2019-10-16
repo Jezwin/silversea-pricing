@@ -24,7 +24,7 @@ public class PromoProxyTest {
     }
 
     @Test
-    public void mapsBusinessAirFareFromResponse() throws IOException, JSONException {
+    public void mapsBusinessAirFareFromResponse() throws IOException, JSONException, UnsuccessfulHttpRequestException {
 
         ApiClient apiClientMock = mock(ApiClient.class);
         when(apiClientMock
@@ -40,7 +40,7 @@ public class PromoProxyTest {
     //todo: Move to a separate project for integration tests
     @Test
     @Ignore
-    public void mapsBusinessAirFareFromResponseIntegration()throws IOException, JSONException {
+    public void mapsBusinessAirFareFromResponseIntegration() throws IOException, JSONException, UnsuccessfulHttpRequestException {
         //todo: get env specific config
         AwsSecretsManager secretManager = new AwsSecretsManagerClientWrapper("us-east-1", "dev/silversea-com");
         ApiClient apiClient = new OkHttpClientWrapper(secretManager);
