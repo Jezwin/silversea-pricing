@@ -65,21 +65,22 @@ public class JsonLog {
     public JsonLog with(Throwable e) {
         JsonObject obj = new JsonObject();
         obj.addProperty("type", e.getClass().getCanonicalName());
-        obj.addProperty("message", e.getMessage());
+        obj.addProperty("stackTrace", GetStackTraceString(e));
         if (e.getCause() != null) obj.addProperty("cause", e.getCause().getMessage());
         underlying().add("exception", obj);
+
+        this.json.addProperty("message", e.getMessage());
+
         return this;
     }
 
-    public static JsonLog jsonLogWithMessageAndError(String event, String message, Exception e){
-        JsonLog jsonLog = new JsonLog(event,message)
-                .with("error",e.getMessage());
-        return jsonLog;
-    }
-
-    public static JsonLog jsonLogWithMessage(String event, String message){
-        JsonLog jsonLog = new JsonLog(event,message);
-        return jsonLog;
+    private String GetStackTraceString(Throwable e) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : e.getStackTrace()) {
+            sb.append(element.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     JsonObject underlying() {

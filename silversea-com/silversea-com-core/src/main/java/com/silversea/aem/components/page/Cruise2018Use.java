@@ -13,20 +13,15 @@ import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
-import com.silversea.aem.proxies.OkHttpClientWrapper;
-import com.silversea.aem.proxies.PromoProxy;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
-import com.silversea.aem.utils.AwsSecretsManager;
 import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
-import org.json.JSONException;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -580,28 +575,9 @@ public class Cruise2018Use extends EoHelper {
         return suites;
     }
 
-    private class PricePromotionRepository {
-        public String getPricePromotion(String currencyCode, String voyageCode) {
-            final AwsSecretsManager awsSecretsManager = getSlingScriptHelper().getService(AwsSecretsManager.class);
-            PromoProxy promoProxy = new PromoProxy(new OkHttpClientWrapper(awsSecretsManager));
-            try {
-                int price =  (promoProxy.getPromoPrice(currencyCode, voyageCode).getBusinessClassPromoPrice());
-                return String.valueOf(price);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return currencyCode + " 3,456 schmeckles" ;
-        }
-    }
-
     private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruise) {
         Function<ExclusiveOfferModel, ExclusiveOfferItem> exclusiveOfferModelExclusiveOfferItemFunction = exclusiveOfferModel -> {
             EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
-
-            //setAirfarePricePromotion(cruise, exclusiveOfferModel);
-
             EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
             String destinationPath = cruise.getDestination().getPath();
             return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
@@ -614,20 +590,6 @@ public class Cruise2018Use extends EoHelper {
                 .collect(toList());
     }
 
-    private void setAirfarePricePromotion(CruiseModel cruise, ExclusiveOfferModel exclusiveOfferModel) {
-        if (cruise.getCruiseCode().equals("6928")) {
-            if (exclusiveOfferModel.getId().equals("143")) {
-                String[] customMainSettings = exclusiveOfferModel.getCustomVoyageSettings();
-                for (int i = 0; i < customMainSettings.length; i++) {
-                    if (customMainSettings[i].contains("#air_price#")) {
-                        String price = new PricePromotionRepository().getPricePromotion(currency, cruise.getCruiseCode());
-                        String newPrice = customMainSettings[i].replaceAll("#air_price#", price);
-                        customMainSettings[i] = newPrice;
-                    }
-                }
-            }
-        }
-    }
 
     private CruiseModel retrieveCruiseModel() {
         if (getRequest().getAttribute("cruiseModel") != null) {
