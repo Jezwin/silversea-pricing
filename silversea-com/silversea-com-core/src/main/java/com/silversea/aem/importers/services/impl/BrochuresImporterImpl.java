@@ -114,8 +114,6 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                         final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
 
                         if (!resources.hasNext()) {
-                            LOGGER.error("Cannot find any brochure for {} ({}) in lang {}", brochure.getTitle(),
-                                    brochure.getBrochureCod(), brochure.getLanguageCod().toLowerCase());
                             logger.logError(getLogMessage("Cannot find brochure", brochure));
                             importResult.incrementErrorNumber();
                         }

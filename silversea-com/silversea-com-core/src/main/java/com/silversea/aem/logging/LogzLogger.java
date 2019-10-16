@@ -1,6 +1,5 @@
 package com.silversea.aem.logging;
 
-import com.silversea.aem.logging.JsonLog;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.com.google.gson.Gson;
 import io.logz.sender.com.google.gson.JsonObject;

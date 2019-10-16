@@ -10,6 +10,8 @@ import com.silversea.aem.components.beans.ValueTypeBean;
 import com.silversea.aem.config.CoreConfig;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.services.StyleCache;
+import com.silversea.aem.logging.LogzLoggerFactory;
+import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.models.ExclusiveOfferFareModel;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.proxies.ExclusiveOfferProxy;
@@ -18,6 +20,7 @@ import com.silversea.aem.services.ExclusiveOffer;
 import com.silversea.aem.utils.AwsSecretsManager;
 import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.felix.scr.annotations.Reference;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,16 +32,19 @@ public class EoHelper extends AbstractGeolocationAwareUse {
     private ExclusiveOfferProxy exclusiveOfferProxy;
     private ExclusiveOffer exclusiveOffer;
 
+    private LogzLoggerFactory sscLogFactory;
+
     @Override
     public void activate() throws Exception {
         super.activate();
         styleCache = getSlingScriptHelper().getService(StyleCache.class);
+        sscLogFactory = getSlingScriptHelper().getService(LogzLoggerFactory.class);
         gson = new GsonBuilder().create();
 
         CoreConfig config = getSlingScriptHelper().getService(CoreConfig.class);
         AwsSecretsManager awsSecretsManager = new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName());
-        exclusiveOfferProxy = new ExclusiveOfferProxy(new OkHttpClientWrapper(awsSecretsManager));
-        exclusiveOffer = new ExclusiveOffer(exclusiveOfferProxy);
+        exclusiveOfferProxy = new ExclusiveOfferProxy(new OkHttpClientWrapper(awsSecretsManager), config.getExclusiveOfferApiDomain());
+        exclusiveOffer = new ExclusiveOffer(exclusiveOfferProxy, sscLogFactory.getLogger(ExclusiveOffer.class));
     }
 
     public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {

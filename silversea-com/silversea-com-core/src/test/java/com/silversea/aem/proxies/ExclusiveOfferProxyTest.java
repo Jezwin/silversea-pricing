@@ -1,6 +1,8 @@
 package com.silversea.aem.proxies;
 
 import com.silversea.aem.components.beans.ValueTypeBean;
+import com.silversea.aem.logging.LogzLogger;
+import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.ExclusiveOffer;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,13 +23,14 @@ public class ExclusiveOfferProxyTest {
     private ExclusiveOffer exclusiveOffer;
 
     @Before
-    public void before() throws IOException {
+    public void before() throws IOException, UnsuccessfulHttpRequestException {
         ApiClient apiClientMock = mock(ApiClient.class);
+        SSCLogger loggerMock = mock(LogzLogger.class);
         when(apiClientMock
                 .Get("https://aws.lambda/api/v1/prices_promotions/1925/GBP/en_GB"))
                 .thenReturn(GetFileContents("src/test/resources/exclusiveOfferApiResponse.json"));
-        ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock);
-        exclusiveOffer = new ExclusiveOffer(proxy);
+        ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "notUsed");
+        exclusiveOffer = new ExclusiveOffer(proxy, loggerMock);
     }
 
     @Test
@@ -52,6 +55,11 @@ public class ExclusiveOfferProxyTest {
         exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale);
 
         assertEquals("original_value", token.get("key_that_does_not_exist").getValue());
+    }
+
+    @Test
+    public void ShouldNotDuplicateCallsToTheApiProxy(){
+
     }
 
     private String GetFileContents(String path) throws IOException {

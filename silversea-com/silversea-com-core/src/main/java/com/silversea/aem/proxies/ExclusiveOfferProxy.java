@@ -13,15 +13,20 @@ public class ExclusiveOfferProxy {
 
     private ApiClient apiClient;
 
-    private final String url = "https://aws.lambda/api/v1/prices_promotions/{cruiseCode}/{currency}/{locale}";
+    private final String url = "http://{domain}/exclusive-offers/{cruiseCode}/{currency}/{locale}";
+    private String domain;
 
-    public ExclusiveOfferProxy(ApiClient apiClient){
+    public ExclusiveOfferProxy(ApiClient apiClient, String domain){
+        this.domain = domain;
         this.apiClient = apiClient;
     }
 
-    public Map getExclusiveOfferTokens(String currency, String cruiseCode, Locale locale) throws IOException, JSONException {
+    public Map getExclusiveOfferTokens(String currency, String cruiseCode, Locale locale) throws IOException, JSONException, UnsuccessfulHttpRequestException {
 
-            String resolvedUrl = url.replace("{cruiseCode}", cruiseCode).replace("{currency}", currency).replace("{locale}", locale.toString());
+            String resolvedUrl = url.replace("{domain}", domain)
+                    .replace("{cruiseCode}", cruiseCode)
+                    .replace("{currency}", currency)
+                    .replace("{locale}", locale.toString());
 
             String response = apiClient.Get(resolvedUrl);
 
