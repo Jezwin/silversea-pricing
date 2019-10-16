@@ -12,8 +12,8 @@ pipelines:
         artifacts:
           - crx-packages/*
   branches:
-    # we only deploy from bitbucketmaster
-    bitbucketmaster:
+    # we only deploy from master
+    master:
       # First step cannot be manual
       - step:
           name: Build and Test
