@@ -8,6 +8,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesExcursionsImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -149,6 +150,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                     // Trying to deal with one excursion
                     try {
                         if (update && !cruisesWithDedicatedShorex.contains(excursion.getVoyageId())) {
+                            logzLogger.logError(getCruiseNotModifiedError(excursion));
                             throw new ImporterException("Cruise " + excursion.getVoyageId() + " is not modified");
                         }
 
@@ -173,7 +175,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                 // Trying to write excursion data on itinerary
                                 try {
                                     if (!excursionsMapping.containsKey(excursionId + "-" + itineraryModel.getPortId())) {
-                                        LOGGER.error("Excursion with excursionId:" + excursionId + " and itineraryModel getPortId:" + itineraryModel.getPortId() + " is not present in excursions cache ");
+                                        logzLogger.logError(getExcursionNotPresentInExcursionsMapError(excursion,itineraryModel));
                                         throw new ImporterException(
                                                 "Excursion " + excursionId + " is not present in excursions cache");
                                     }
@@ -449,4 +451,32 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
         return cruisesWithDedicatedShorex;
     }
+
+
+    /***
+     * Get the excursions not present in excursions map error
+     *
+     * @param excursion
+     * @param itineraryModel
+     * @return jsonLog
+     */
+    private JsonLog getExcursionNotPresentInExcursionsMapError(ShorexItinerary excursion, ItineraryModel itineraryModel) {
+        return jsonLog("ExcursionNotPresentInExcursionsMapError")
+                .with("message", "Excursion " + excursion.getShorexId() + " is not present in excursions cache")
+                .with("shorexId", excursion.getShorexId())
+                .with("portId", itineraryModel.getPortId());
+    }
+
+    /***
+     * Get the Cruise not modified error
+     *
+     * @param excursion
+     * @return jsonLog
+     */
+    private JsonLog getCruiseNotModifiedError(ShorexItinerary excursion){
+        return jsonLog("CruiseNotModifiedError")
+                .with("message","Cruise with voyageId: " + excursion.getVoyageId() + " is not modified")
+                .with("voyageId", excursion.getVoyageId());
+    }
+
 }
