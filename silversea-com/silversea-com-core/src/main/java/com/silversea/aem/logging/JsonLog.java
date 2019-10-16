@@ -4,6 +4,8 @@ import io.logz.sender.com.google.gson.JsonArray;
 import io.logz.sender.com.google.gson.JsonObject;
 import io.logz.sender.com.google.gson.JsonPrimitive;
 
+import java.io.StringWriter;
+
 public class JsonLog {
 
     private final JsonObject json;
