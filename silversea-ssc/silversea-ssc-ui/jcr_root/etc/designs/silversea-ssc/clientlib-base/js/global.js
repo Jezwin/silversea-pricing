@@ -253,54 +253,6 @@ $(document).ready(function(){
 });
 
 /*
- * FIX SHOREX ICON (HIDE ON VOYAGE NOT PART OF PROMO)
- */
-function hideFreeShorexIcon(){
-	var includedCruise = ['2804','2806','2807','2809','2811','2812','6805','6806','3801','3802','3803','3804','3805','3806','3807','3808','3809','3810','3811'];
-	if($('.icon-shorex').length > 0) {
-		if(includedCruise.indexOf(window.dataLayer[0].track_voyage_id) == -1){
-			$('.icon-shorex').hide();
-            if($('.cruise-2018-itineraries-port-excursions-excursion-features').length > 0) {
-                $('.icon-shorex').parent().hide();
-                $(".cruise-2018-itineraries-port-excursions-moredetails").on("click", function() {
-                    setTimeout(function(){
-                        $(".lsh-icon-list .icon-shorex").hide();
-                        $(".lsh-icon-list .icon-shorex").parent().hide();
-                        $(".lsh-icon .icon-shorex").parent().hide();
-                    }, 500);
-                    setTimeout(function(){
-                        $(".lsh-icon-list .icon-shorex").hide();
-                        $(".lsh-icon-list .icon-shorex").parent().hide();
-                        $(".lsh-icon .icon-shorex").parent().hide();
-                    }, 1000);
-                    setTimeout(function(){
-                        $(".lsh-icon-list .icon-shorex").hide();
-                        $(".lsh-icon-list .icon-shorex").parent().hide();
-                        $(".lsh-icon .icon-shorex").parent().hide();
-                    }, 1500);
-                    setTimeout(function(){
-                        $(".lsh-icon-list .icon-shorex").hide();
-                        $(".lsh-icon-list .icon-shorex").parent().hide();
-                        $(".lsh-icon .icon-shorex").parent().hide();
-                    }, 2000);
-                    setTimeout(function(){
-                        $(".lsh-icon-list .icon-shorex").hide();
-                        $(".lsh-icon-list .icon-shorex").parent().hide();
-                        $(".lsh-icon .icon-shorex").parent().hide();
-                    }, 3000);
-                });
-            }else {
-                $('.icon-shorex').parent().parent().hide();
-            }
-		}
-	}
-	}
-
-$(document).ready(function(){
-	hideFreeShorexIcon();
-});
-
-/*
  * Function called in googleforwardingnumber.html
  * real_number: real number to change with google number
  * idGoogleText: element id to apply the new google number (formatted_number)
