@@ -12,7 +12,10 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.FeatureToggles;
+import com.silversea.aem.helper.FeatureTogglesHelper;
 import com.silversea.aem.helper.LanguageHelper;
+import com.silversea.aem.helper.content.CrxContentLoader;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.OfferPriorityModel;
@@ -48,7 +51,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private String grandVoyagePath;
     private String comboCruisePath;
 
-    private Boolean useExternalUi;
     private String bffApiBaseUrl;
     private String externalUiJsUrl;
 
@@ -65,6 +67,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     public void activate() throws Exception {
         super.activate();
 
+        FeatureToggles featureToggles = new FeatureToggles(new CrxContentLoader(super.getResourceResolver()));
         Page currentPage = getCurrentPage();
         Resource resource = getResource();
         SlingHttpServletRequest request = getRequest();
@@ -83,16 +86,16 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
         this.externalUiJsUrl = (String) currentPage.getProperties().get("externalUiJsUrl");
         this.bffApiBaseUrl = (String) currentPage.getProperties().get("bffApiBaseUrl");
-        this.useExternalUi = this.externalUiJsUrl != null
+
+        boolean useExternalUi = this.externalUiJsUrl != null
                 && this.bffApiBaseUrl != null
-                && currentPage.getProperties().get("useExternalUi", false);
+                && featureToggles.isEnabled("findYourCruiseExternalUi");
         // If we're using external UI, we can skip the model building.
-        /*
-        if (this.useExternalUi) {
+        if (useExternalUi) {
             dullInit();
             return;
         }
-        */
+
         String paginationLimit = null;
         if (getProp("paginationLimit", String.class).isPresent()) {
             paginationLimit = getProp("paginationLimit", String.class).get();
@@ -338,10 +341,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     public String getMarketCurrency() {
         return super.geomarket + super.currency;
-    }
-
-    public Boolean getUseExternalUi() {
-        return this.useExternalUi;
     }
 
     public String getBffApiBaseUrl() {

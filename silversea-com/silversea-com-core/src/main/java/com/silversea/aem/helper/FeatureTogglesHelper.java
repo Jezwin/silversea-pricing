@@ -13,6 +13,6 @@ public class FeatureTogglesHelper extends WCMUsePojo {
     }
 
     public Boolean isEnabled(String key) throws Exception {
-        return this.featureToggles.IsEnabled(key);
+        return this.featureToggles.isEnabled(key);
     }
 }

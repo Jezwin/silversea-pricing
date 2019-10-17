@@ -1,7 +1,6 @@
 package com.silversea.aem.helper;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -13,7 +12,7 @@ public class FeatureTogglesTests {
         FakeContentLoader contentLoader = new FakeContentLoader();
         FeatureToggles featureToggles = new FeatureToggles(contentLoader);
 
-        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
+        Assert.assertFalse(featureToggles.isEnabled("myFeature"));
     }
 
     @Test
@@ -21,7 +20,7 @@ public class FeatureTogglesTests {
         FakeContentLoader contentLoader = new FakeContentLoader();
         FeatureToggles featureToggles = new FeatureToggles(contentLoader);
 
-        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
+        Assert.assertFalse(featureToggles.isEnabled("myFeature"));
     }
 
     @Test
@@ -33,7 +32,7 @@ public class FeatureTogglesTests {
         contentLoader.addNode(FeatureToggles.CRX_NODE_PATH, nodeProperties);
         FeatureToggles featureToggles = new FeatureToggles(contentLoader);
 
-        Assert.assertTrue(featureToggles.IsEnabled("myFeature"));
+        Assert.assertTrue(featureToggles.isEnabled("myFeature"));
     }
 
     @Test
@@ -45,7 +44,7 @@ public class FeatureTogglesTests {
         contentLoader.addNode(FeatureToggles.CRX_NODE_PATH, nodeProperties);
         FeatureToggles featureToggles = new FeatureToggles(contentLoader);
 
-        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
+        Assert.assertFalse(featureToggles.isEnabled("myFeature"));
     }
 
     @Test
@@ -57,6 +56,6 @@ public class FeatureTogglesTests {
         contentLoader.addNode(FeatureToggles.CRX_NODE_PATH, nodeProperties);
         FeatureToggles featureToggles = new FeatureToggles(contentLoader);
 
-        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
+        Assert.assertFalse(featureToggles.isEnabled("myFeature"));
     }
 }
