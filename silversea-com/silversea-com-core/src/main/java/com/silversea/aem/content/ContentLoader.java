@@ -1,4 +1,4 @@
-package com.silversea.aem.helper.content;
+package com.silversea.aem.content;
 
 import java.util.HashMap;
 

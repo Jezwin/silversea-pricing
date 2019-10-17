@@ -1,4 +1,4 @@
-package com.silversea.aem.helper;
+package com.silversea.aem.newcruisedisclaimer;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -6,14 +6,14 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class)
-public class NewCruiseDisclaimerNode {
+public class NewCruiseDisclaimerModel {
 
     @Inject
     private String cruiseCodes;
 
-    public NewCruiseDisclaimerNode() {}
+    public NewCruiseDisclaimerModel() {}
 
-    public NewCruiseDisclaimerNode(String cruiseCodes) {
+    public NewCruiseDisclaimerModel(String cruiseCodes) {
         this.cruiseCodes = cruiseCodes;
     }
 
