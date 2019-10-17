@@ -4,20 +4,36 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 public class FeatureTogglesTests {
 
     @Test
     public void returnsFalseIfNodeDoesNotExist() {
-        Assert.assertFalse(new FeatureToggles().IsEnabled("myFeature"));
+        FeatureToggles featureToggles = build();
+        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
     }
 
     @Test
     public void returnsFalseIfKeyDoesNotExist() {
-        Assert.assertFalse(new FeatureToggles().IsEnabled("myFeature"));
+        FeatureToggles featureToggles = build();
+        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
     }
 
     @Test @Ignore
     public void returnsTrueIfValueIsTrue() {
-        Assert.assertTrue(new FeatureToggles().IsEnabled("myFeature"));
+        HashMap<String, Object> nodes = new HashMap<String, Object>();
+        //nodes.put(FeatureToggles.CRX_NODE_PATH, new Object());
+        FeatureToggles featureToggles = build(nodes);
+        Assert.assertTrue(featureToggles.IsEnabled("myFeature"));
+    }
+
+    private FeatureToggles build() {
+        return build(new HashMap<>());
+    }
+
+    private FeatureToggles build(HashMap<String, Object> nodes) {
+        FakeContentLoader contentLoader = new FakeContentLoader(nodes);
+        return new FeatureToggles(contentLoader);
     }
 }
