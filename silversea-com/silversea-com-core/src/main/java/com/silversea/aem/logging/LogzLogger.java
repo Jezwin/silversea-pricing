@@ -1,6 +1,5 @@
 package com.silversea.aem.logging;
 
-import com.silversea.aem.logging.JsonLog;
 import io.logz.sender.LogzioSender;
 import io.logz.sender.com.google.gson.Gson;
 import io.logz.sender.com.google.gson.JsonObject;
@@ -50,14 +49,28 @@ public class LogzLogger implements SSCLogger {
     }
 
     @Override
-    public void logInfo(JsonLog message) { log("info", message); }
+    public void logInfo(JsonLog message) {
+        log("info", message);
+    }
+
     @Override
     public void logWarning(JsonLog message) {
         log("warning", message);
     }
+
     @Override
     public void logError(JsonLog message) {
         log("error", message);
+    }
+
+    @Override
+    public void logDebug(JsonLog message) {
+        log("debug", message);
+    }
+
+    @Override
+    public void logTrace(JsonLog message) {
+        log("trace", message);
     }
 
     public static class Environments {
