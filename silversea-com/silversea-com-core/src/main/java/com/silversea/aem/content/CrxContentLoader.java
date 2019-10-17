@@ -1,4 +1,4 @@
-package com.silversea.aem.helper.content;
+package com.silversea.aem.content;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;

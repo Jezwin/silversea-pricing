@@ -1,6 +1,6 @@
-package com.silversea.aem.helper;
+package com.silversea.aem.content;
 
-import com.silversea.aem.helper.content.ContentLoader;
+import com.silversea.aem.content.ContentLoader;
 
 import java.util.HashMap;
 

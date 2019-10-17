@@ -1,9 +1,9 @@
-package com.silversea.aem.helper;
+package com.silversea.aem.featuretoggles;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.silversea.aem.helper.content.CrxContentLoader;
+import com.silversea.aem.content.CrxContentLoader;
 
-public class FeatureTogglesHelper extends WCMUsePojo {
+public class FeatureToggleHelper extends WCMUsePojo {
 
     private boolean isEnabled;
 

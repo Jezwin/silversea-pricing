@@ -1,7 +1,7 @@
-package com.silversea.aem.helper;
+package com.silversea.aem.newcruisedisclaimer;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.silversea.aem.helper.content.CrxContentLoader;
+import com.silversea.aem.content.CrxContentLoader;
 
 public class NewCruiseDisclaimerHelper extends WCMUsePojo {
 

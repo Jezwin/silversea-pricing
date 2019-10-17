@@ -1,6 +1,6 @@
-package com.silversea.aem.helper;
+package com.silversea.aem.newcruisedisclaimer;
 
-import com.silversea.aem.helper.content.ContentLoader;
+import com.silversea.aem.content.ContentLoader;
 
 import java.util.Arrays;
 
@@ -14,8 +14,8 @@ public class NewCruiseDisclaimerChecker {
     }
 
     public boolean needsDisclaimer(String cruiseCode) throws Exception {
-        NewCruiseDisclaimerNode node = this.contentLoader.get(CRX_NODE_PATH, NewCruiseDisclaimerNode.class);
-        String[] cruiseCodes = splitCsv(node.getCruiseCodes());
+        NewCruiseDisclaimerModel model = this.contentLoader.get(CRX_NODE_PATH, NewCruiseDisclaimerModel.class);
+        String[] cruiseCodes = splitCsv(model.getCruiseCodes());
         return containsIgnoreCase(cruiseCode, cruiseCodes);
     }
 
