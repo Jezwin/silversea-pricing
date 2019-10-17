@@ -154,7 +154,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                     // Trying to deal with one excursion
                     try {
                         if (update && !cruisesWithDedicatedShorex.contains(excursion.getVoyageId())) {
-                            //logzLogger.logError(getCruiseNotModifiedError(excursion)); //TODO
+                            //logzLogger.logError(getCruiseNotModifiedError(excursion));
                             throw new ImporterException("Cruise " + excursion.getVoyageId() + " is not modified");
                         }
 
