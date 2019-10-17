@@ -87,11 +87,12 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                 && this.bffApiBaseUrl != null
                 && currentPage.getProperties().get("useExternalUi", false);
         // If we're using external UI, we can skip the model building.
+        /*
         if (this.useExternalUi) {
             dullInit();
             return;
         }
-
+        */
         String paginationLimit = null;
         if (getProp("paginationLimit", String.class).isPresent()) {
             paginationLimit = getProp("paginationLimit", String.class).get();
