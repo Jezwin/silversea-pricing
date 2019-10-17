@@ -1,5 +1,5 @@
 package com.silversea.aem.helper.crx;
 
-public interface CrxQuerier {
+public interface ContentLoader {
     <T> T get(String path, Class<T> objectClass) throws Exception;
 }

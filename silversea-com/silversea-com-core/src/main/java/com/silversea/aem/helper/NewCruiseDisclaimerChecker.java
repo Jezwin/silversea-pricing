@@ -1,20 +1,20 @@
 package com.silversea.aem.helper;
 
-import com.silversea.aem.helper.crx.CrxQuerier;
+import com.silversea.aem.helper.crx.ContentLoader;
 
 import java.util.Arrays;
 
 public class NewCruiseDisclaimerChecker {
     public static final String CRX_NODE_PATH = "/content/silversea-com/en/destinations/jcr:content/newItinerariesDisclaimer";
 
-    private CrxQuerier crxQuerier;
+    private ContentLoader contentLoader;
 
-    public NewCruiseDisclaimerChecker(CrxQuerier crxQuerier) {
-        this.crxQuerier = crxQuerier;
+    public NewCruiseDisclaimerChecker(ContentLoader contentLoader) {
+        this.contentLoader = contentLoader;
     }
 
     public boolean needsDisclaimer(String cruiseCode) throws Exception {
-        NewCruiseDisclaimerNode node = this.crxQuerier.get(CRX_NODE_PATH, NewCruiseDisclaimerNode.class);
+        NewCruiseDisclaimerNode node = this.contentLoader.get(CRX_NODE_PATH, NewCruiseDisclaimerNode.class);
         String[] cruiseCodes = splitCsv(node.getCruiseCodes());
         return containsIgnoreCase(cruiseCode, cruiseCodes);
     }

@@ -3,10 +3,10 @@ package com.silversea.aem.helper.crx;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
-public class CrxQuerierImpl implements CrxQuerier {
+public class CrxContentLoader implements ContentLoader {
     private ResourceResolver resourceResolver;
 
-    public CrxQuerierImpl(ResourceResolver resourceResolver) {
+    public CrxContentLoader(ResourceResolver resourceResolver) {
         this.resourceResolver = resourceResolver;
     }
 

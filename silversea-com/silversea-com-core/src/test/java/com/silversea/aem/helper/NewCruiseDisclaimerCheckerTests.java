@@ -36,10 +36,10 @@ public class NewCruiseDisclaimerCheckerTests {
     }
 
     private boolean getResult(String codesInCrx, String cruiseCodeToCheck) throws Exception {
-        FakeCrxQuerier crxQuerier = new FakeCrxQuerier();
+        FakeContentLoader contentLoader = new FakeContentLoader();
         NewCruiseDisclaimerNode node = new NewCruiseDisclaimerNode(codesInCrx);
-        crxQuerier.addNode(NewCruiseDisclaimerChecker.CRX_NODE_PATH, node);
-        NewCruiseDisclaimerChecker checker = new NewCruiseDisclaimerChecker(crxQuerier);
+        contentLoader.addNode(NewCruiseDisclaimerChecker.CRX_NODE_PATH, node);
+        NewCruiseDisclaimerChecker checker = new NewCruiseDisclaimerChecker(contentLoader);
         return checker.needsDisclaimer(cruiseCodeToCheck);
     }
 }
