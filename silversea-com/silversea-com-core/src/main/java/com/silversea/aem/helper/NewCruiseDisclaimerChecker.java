@@ -1,6 +1,6 @@
 package com.silversea.aem.helper;
 
-import com.silversea.aem.helper.crx.ContentLoader;
+import com.silversea.aem.helper.content.ContentLoader;
 
 import java.util.Arrays;
 

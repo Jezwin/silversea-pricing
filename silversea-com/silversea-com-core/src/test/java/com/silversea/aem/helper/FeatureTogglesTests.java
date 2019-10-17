@@ -9,31 +9,31 @@ import java.util.HashMap;
 public class FeatureTogglesTests {
 
     @Test
-    public void returnsFalseIfNodeDoesNotExist() {
-        FeatureToggles featureToggles = build();
+    public void returnsFalseIfNodeDoesNotExist() throws Exception {
+        FakeContentLoader contentLoader = new FakeContentLoader();
+        FeatureToggles featureToggles = new FeatureToggles(contentLoader);
+
         Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
     }
 
     @Test
-    public void returnsFalseIfKeyDoesNotExist() {
-        FeatureToggles featureToggles = build();
+    public void returnsFalseIfKeyDoesNotExist() throws Exception {
+        FakeContentLoader contentLoader = new FakeContentLoader();
+        FeatureToggles featureToggles = new FeatureToggles(contentLoader);
+
         Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
     }
 
-    @Test @Ignore
-    public void returnsTrueIfValueIsTrue() {
-        HashMap<String, Object> nodes = new HashMap<String, Object>();
-        //nodes.put(FeatureToggles.CRX_NODE_PATH, new Object());
-        FeatureToggles featureToggles = build(nodes);
+    @Test
+    public void returnsTrueIfValueIsTrue() throws Exception {
+        HashMap<String, Object> nodeProperties = new HashMap<>();
+        nodeProperties.put("myFeature", true);
+
+        FakeContentLoader contentLoader = new FakeContentLoader();
+        contentLoader.addNode(FeatureToggles.CRX_NODE_PATH, nodeProperties);
+        FeatureToggles featureToggles = new FeatureToggles(contentLoader);
+
         Assert.assertTrue(featureToggles.IsEnabled("myFeature"));
     }
 
-    private FeatureToggles build() {
-        return build(new HashMap<>());
-    }
-
-    private FeatureToggles build(HashMap<String, Object> nodes) {
-        FakeContentLoader contentLoader = new FakeContentLoader(nodes);
-        return new FeatureToggles(contentLoader);
-    }
 }
