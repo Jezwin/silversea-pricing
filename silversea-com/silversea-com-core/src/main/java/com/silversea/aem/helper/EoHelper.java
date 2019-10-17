@@ -62,11 +62,15 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 
-            if(getCurrentPage().getProperties().get("cruiseCode").equals("6928") && tokensAndStyle.containsKey("air_price"))
+            //todo: Get boolean from feature toggle
+            if (false)
             {
-                String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
-                Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
-                exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
+                if(getCurrentPage().getProperties().get("cruiseCode").equals("6928") && tokensAndStyle.containsKey("air_price"))
+                {
+                    String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
+                    Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
+                    exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
+                }
             }
 
             ValueTypeBean eoValue = null;
