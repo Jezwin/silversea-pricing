@@ -12,6 +12,10 @@ public class FakeContentLoader implements ContentLoader {
         this.repo = new HashMap<>();
     }
 
+    public FakeContentLoader(HashMap<String, Object> nodes) {
+        this.repo = nodes;
+    }
+
     public void addNode(String path, Object node) {
         this.repo.put(path, node);
     }
