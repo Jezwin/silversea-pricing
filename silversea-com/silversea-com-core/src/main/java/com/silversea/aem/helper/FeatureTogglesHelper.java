@@ -5,14 +5,17 @@ import com.silversea.aem.helper.content.CrxContentLoader;
 
 public class FeatureTogglesHelper extends WCMUsePojo {
 
-    private FeatureToggles featureToggles;
+    private boolean isEnabled;
 
     @Override
     public void activate() throws Exception {
-        this.featureToggles = new FeatureToggles(new CrxContentLoader(super.getResourceResolver()));
+        String key = super.get("key", String.class);
+        FeatureToggles featureToggles = new FeatureToggles(new CrxContentLoader(super.getResourceResolver()));
+
+        this.isEnabled = featureToggles.isEnabled(key);
     }
 
-    public Boolean isEnabled(String key) throws Exception {
-        return this.featureToggles.isEnabled(key);
+    public Boolean getIsEnabled() {
+        return this.isEnabled;
     }
 }

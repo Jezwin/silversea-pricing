@@ -5,7 +5,7 @@ import com.silversea.aem.helper.content.ContentLoader;
 import java.util.HashMap;
 
 public class FeatureToggles {
-    static final String CRX_NODE_PATH = "/content/silversea-com/jcr:content/feature-toggles";
+    static final String CRX_NODE_PATH = "/content/silversea-com/feature-toggles";
 
     private ContentLoader contentLoader;
 
