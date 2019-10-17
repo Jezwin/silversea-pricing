@@ -22,8 +22,6 @@ public class CrxContentLoader implements ContentLoader {
             throw new Exception(message);
         }
 
-        //crxResource.getValueMap()
-
         T adaptedResult = crxResource.adaptTo(objectClass);
 
         if(adaptedResult == null) {
