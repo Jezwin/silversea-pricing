@@ -59,6 +59,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private Pagination pagination;
     private String requestQuotePagePath;
     private List<OfferPriorityModel> priorityOffer;
+    private boolean useExternalUi;
 
 
     @Override
@@ -85,11 +86,12 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         this.externalUiJsUrl = (String) currentPage.getProperties().get("externalUiJsUrl");
         this.bffApiBaseUrl = (String) currentPage.getProperties().get("bffApiBaseUrl");
 
-        boolean useExternalUi = this.externalUiJsUrl != null
+        this.useExternalUi = this.externalUiJsUrl != null
                 && this.bffApiBaseUrl != null
                 && featureToggles.isEnabled("findYourCruiseExternalUi");
+
         // If we're using external UI, we can skip the model building.
-        if (useExternalUi) {
+        if (this.useExternalUi) {
             dullInit();
             return;
         }
@@ -319,6 +321,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return tagManager;
     }
 
+    public boolean getUseExternalUi() { return this.useExternalUi; }
 
     public String getWorldCruisePath() {
         return worldCruisePath;
