@@ -36,4 +36,27 @@ public class FeatureTogglesTests {
         Assert.assertTrue(featureToggles.IsEnabled("myFeature"));
     }
 
+    @Test
+    public void returnsFalseIfValueIsFalse() throws Exception {
+        HashMap<String, Object> nodeProperties = new HashMap<>();
+        nodeProperties.put("myFeature", false);
+
+        FakeContentLoader contentLoader = new FakeContentLoader();
+        contentLoader.addNode(FeatureToggles.CRX_NODE_PATH, nodeProperties);
+        FeatureToggles featureToggles = new FeatureToggles(contentLoader);
+
+        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
+    }
+
+    @Test
+    public void returnsFalseIfValueIsInvalid() throws Exception {
+        HashMap<String, Object> nodeProperties = new HashMap<>();
+        nodeProperties.put("myFeature", "hgfhdjsfgj");
+
+        FakeContentLoader contentLoader = new FakeContentLoader();
+        contentLoader.addNode(FeatureToggles.CRX_NODE_PATH, nodeProperties);
+        FeatureToggles featureToggles = new FeatureToggles(contentLoader);
+
+        Assert.assertFalse(featureToggles.IsEnabled("myFeature"));
+    }
 }
