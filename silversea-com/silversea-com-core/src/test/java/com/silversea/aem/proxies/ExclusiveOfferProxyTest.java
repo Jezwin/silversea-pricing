@@ -1,11 +1,13 @@
 package com.silversea.aem.proxies;
 
 import com.silversea.aem.components.beans.ValueTypeBean;
+import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLogger;
 import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.ExclusiveOffer;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,20 +17,23 @@ import java.util.Locale;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.atLeast;
 
 public class ExclusiveOfferProxyTest {
 
     private ExclusiveOffer exclusiveOffer;
+    ArgumentCaptor<JsonLog> errorLogs = ArgumentCaptor.forClass(JsonLog.class);
 
     @Before
     public void before() throws IOException, UnsuccessfulHttpRequestException {
         ApiClient apiClientMock = mock(ApiClient.class);
-        SSCLogger loggerMock = mock(LogzLogger.class);
+        SSCLogger loggerMock = mock(SSCLogger.class);
         when(apiClientMock
                 .Get("http://notUsed/exclusive-offers/1925/GBP/en_GB"))
                 .thenReturn(GetFileContents("src/test/resources/exclusiveOfferApiResponse.json"));
+
+        verify(loggerMock, atLeast(0)).logError(errorLogs.capture());
         ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "notUsed");
         exclusiveOffer = new ExclusiveOffer(proxy, loggerMock);
     }
