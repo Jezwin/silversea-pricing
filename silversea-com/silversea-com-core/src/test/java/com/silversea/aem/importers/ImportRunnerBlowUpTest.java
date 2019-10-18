@@ -26,9 +26,9 @@ public class ImportRunnerBlowUpTest {
     @Before
     public void configureBlowUpImports() {
         failureJobs = List.of(
-            jobRequest("errorJob1", () -> { throw new ImporterException("Boom"); }),
+            jobRequest("errorJob1", () -> { throw getImporterException(); }),
             jobRequest("successJob1", () -> new ImportResult(500000, 0)),
-            jobRequest("errorJob2", () -> { throw new Exception("Something went wrong"); }),
+            jobRequest("errorJob2", () -> { throw getException(); }),
             jobRequest("successJob2", () -> new ImportResult(3, 0))
         );
         log = mock(SSCLogger.class);
@@ -39,14 +39,28 @@ public class ImportRunnerBlowUpTest {
 
     @Test
     public void catchesImportExceptionsAndLogsError() {
-        JsonLog error1Log = jsonLog("ImportError").with("job", "errorJob1").with(new ImporterException("Boom"));
+        JsonLog error1Log = jsonLog("ImportError").with("job", "errorJob1").with(getImporterException());
         assertThat(errorLogs.getAllValues(), hasItem(error1Log));
+    }
+
+    private Exception getImporterException() {
+        Exception  importerException = new ImporterException("Boom");
+        StackTraceElement[] stackTrace = new StackTraceElement[]{};
+        importerException.setStackTrace(stackTrace);
+        return importerException;
     }
 
     @Test
     public void catchesAllExceptionsAndLogsError() {
-        JsonLog error2Log = jsonLog("ImportError").with("job", "errorJob2").with(new Exception("Something went wrong"));
+        JsonLog error2Log = jsonLog("ImportError").with("job", "errorJob2").with(getException());
         assertThat(errorLogs.getAllValues(), hasItem(error2Log));
+    }
+
+    private Exception getException() {
+        Exception  exception = new Exception("Something went wrong");
+        StackTraceElement[] stackTrace = new StackTraceElement[]{};
+        exception.setStackTrace(stackTrace);
+        return exception;
     }
 
     @Test

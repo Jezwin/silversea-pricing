@@ -27,7 +27,7 @@ public class ExclusiveOfferProxyTest {
         ApiClient apiClientMock = mock(ApiClient.class);
         SSCLogger loggerMock = mock(LogzLogger.class);
         when(apiClientMock
-                .Get("https://aws.lambda/api/v1/prices_promotions/1925/GBP/en_GB"))
+                .Get("http://notUsed/exclusive-offers/1925/GBP/en_GB"))
                 .thenReturn(GetFileContents("src/test/resources/exclusiveOfferApiResponse.json"));
         ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "notUsed");
         exclusiveOffer = new ExclusiveOffer(proxy, loggerMock);
@@ -55,11 +55,6 @@ public class ExclusiveOfferProxyTest {
         exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale);
 
         assertEquals("original_value", token.get("key_that_does_not_exist").getValue());
-    }
-
-    @Test
-    public void ShouldNotDuplicateCallsToTheApiProxy(){
-
     }
 
     private String GetFileContents(String path) throws IOException {
