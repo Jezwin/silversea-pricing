@@ -23,7 +23,6 @@ import static org.mockito.Mockito.atLeast;
 public class ExclusiveOfferProxyTest {
 
     private ExclusiveOffer exclusiveOffer;
-    ArgumentCaptor<JsonLog> errorLogs = ArgumentCaptor.forClass(JsonLog.class);
 
     @Before
     public void before() throws IOException, UnsuccessfulHttpRequestException {
@@ -31,7 +30,7 @@ public class ExclusiveOfferProxyTest {
         SSCLogger logger = new NullLogger();
         when(apiClientMock
                 .Get("http://notUsed/exclusive-offers/1925/GBP/en_GB"))
-                .thenReturn(GetFileContents("src/test/resources/exclusiveOfferApiResponse.json"));
+                .thenReturn("{\"air_price\":\"£1'199\", \"non_use_air_credit\": \"£100\"}");
 
         ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "notUsed");
         exclusiveOffer = new ExclusiveOffer(proxy, logger);
@@ -59,9 +58,5 @@ public class ExclusiveOfferProxyTest {
         exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale);
 
         assertEquals("original_value", token.get("key_that_does_not_exist").getValue());
-    }
-
-    private String GetFileContents(String path) throws IOException {
-        return new String (Files.readAllBytes(Paths.get(path)));
     }
 }
