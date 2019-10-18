@@ -28,14 +28,13 @@ public class ExclusiveOfferProxyTest {
     @Before
     public void before() throws IOException, UnsuccessfulHttpRequestException {
         ApiClient apiClientMock = mock(ApiClient.class);
-        SSCLogger loggerMock = mock(SSCLogger.class);
+        SSCLogger logger = new NullLogger();
         when(apiClientMock
                 .Get("http://notUsed/exclusive-offers/1925/GBP/en_GB"))
                 .thenReturn(GetFileContents("src/test/resources/exclusiveOfferApiResponse.json"));
 
-        verify(loggerMock, atLeast(0)).logError(errorLogs.capture());
         ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "notUsed");
-        exclusiveOffer = new ExclusiveOffer(proxy, loggerMock);
+        exclusiveOffer = new ExclusiveOffer(proxy, logger);
     }
 
     @Test
