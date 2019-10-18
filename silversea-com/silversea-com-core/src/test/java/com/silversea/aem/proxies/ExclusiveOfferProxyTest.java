@@ -1,24 +1,19 @@
 package com.silversea.aem.proxies;
 
 import com.silversea.aem.components.beans.ValueTypeBean;
-import com.silversea.aem.logging.JsonLog;
-import com.silversea.aem.logging.LogzLogger;
 import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.ExclusiveOffer;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ExclusiveOfferProxyTest {
 

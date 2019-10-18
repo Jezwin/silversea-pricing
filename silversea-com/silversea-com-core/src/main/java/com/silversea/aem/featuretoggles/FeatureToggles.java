@@ -13,8 +13,15 @@ public class FeatureToggles {
         this.contentLoader = contentLoader;
     }
 
-    public boolean isEnabled(String key) throws Exception {
-        HashMap<String, Object> node = contentLoader.get(CRX_NODE_PATH);
+    public boolean isEnabled(String key) {
+        HashMap<String, Object> node;
+
+        try {
+            node = contentLoader.get(CRX_NODE_PATH);
+        } catch (Exception e) {
+            //todo log error
+            return false;
+        }
 
         if (node == null) return false;
 
