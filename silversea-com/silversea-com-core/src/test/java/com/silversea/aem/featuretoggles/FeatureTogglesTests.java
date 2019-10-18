@@ -1,10 +1,8 @@
 package com.silversea.aem.featuretoggles;
 
 import com.silversea.aem.content.FakeContentLoader;
-import com.silversea.aem.featuretoggles.FeatureToggles;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.HashMap;
 
 public class FeatureTogglesTests {
