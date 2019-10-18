@@ -1,12 +1,15 @@
-package com.silversea.aem.helper.crx;
+package com.silversea.aem.content;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
 
-public class CrxQuerierImpl implements CrxQuerier {
+import java.util.HashMap;
+
+public class CrxContentLoader implements ContentLoader {
     private ResourceResolver resourceResolver;
 
-    public CrxQuerierImpl(ResourceResolver resourceResolver) {
+    public CrxContentLoader(ResourceResolver resourceResolver) {
         this.resourceResolver = resourceResolver;
     }
 
@@ -27,5 +30,22 @@ public class CrxQuerierImpl implements CrxQuerier {
         }
 
         return adaptedResult;
+    }
+
+    @Override
+    public HashMap<String, Object> get(String path) throws Exception {
+        Resource crxResource = resourceResolver.getResource(path);
+
+        if(crxResource == null) {
+            String message = String.format("Couldn't find node at CRX path %s", path);
+            throw new Exception(message);
+        }
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        ValueMap valueMap = crxResource.getValueMap();
+        valueMap.keySet()
+                .forEach(k -> map.put(k, valueMap.get(k)));
+        return map;
     }
 }

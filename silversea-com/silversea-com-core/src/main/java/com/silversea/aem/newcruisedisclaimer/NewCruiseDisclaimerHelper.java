@@ -1,7 +1,7 @@
-package com.silversea.aem.helper;
+package com.silversea.aem.newcruisedisclaimer;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.silversea.aem.helper.crx.CrxQuerierImpl;
+import com.silversea.aem.content.CrxContentLoader;
 
 public class NewCruiseDisclaimerHelper extends WCMUsePojo {
 
@@ -14,8 +14,8 @@ public class NewCruiseDisclaimerHelper extends WCMUsePojo {
         this.showDisclaimer = checker.needsDisclaimer(cruiseCode);
     }
 
-    private CrxQuerierImpl buildCrxQuerier() {
-        return new CrxQuerierImpl(super.getResourceResolver());
+    private CrxContentLoader buildCrxQuerier() {
+        return new CrxContentLoader(super.getResourceResolver());
     }
 
     public Boolean getShowDisclaimer() {

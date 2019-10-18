@@ -1,14 +1,14 @@
-package com.silversea.aem.helper;
+package com.silversea.aem.content;
 
-import com.silversea.aem.helper.crx.CrxQuerier;
+import com.silversea.aem.content.ContentLoader;
 
 import java.util.HashMap;
 
-public class FakeCrxQuerier implements CrxQuerier {
+public class FakeContentLoader implements ContentLoader {
 
     private final HashMap<String, Object> repo;
 
-    public FakeCrxQuerier() {
+    public FakeContentLoader() {
         this.repo = new HashMap<>();
     }
 
@@ -19,5 +19,10 @@ public class FakeCrxQuerier implements CrxQuerier {
     @Override
     public <T> T get(String path, Class<T> objectClass) {
         return (T) this.repo.get(path);
+    }
+
+    @Override
+    public HashMap<String, Object> get(String path) throws Exception {
+        return (HashMap<String, Object>) this.repo.get(path);
     }
 }
