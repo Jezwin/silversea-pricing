@@ -62,8 +62,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 
-            //todo: Get boolean from feature toggle
-            if (false)
+            //todo: Get exclusiveOffersExternalBff value from Feature Toggle
+            Boolean exclusiveOffersExternalBff = false;
+            if (exclusiveOffersExternalBff)
             {
                 if(getCurrentPage().getProperties().get("cruiseCode").equals("6928") && tokensAndStyle.containsKey("air_price"))
                 {

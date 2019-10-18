@@ -50,13 +50,23 @@ public class JsonLogTest {
 
     @Test
     public void canLogExceptionWithCause() {
-        JsonLog log = jsonLog("exceptionTest").with(new Exception("abc123", new Exception("nestedError")));
-        assertEquals("{\"event\":\"exceptionTest\",\"exception\":{\"type\":\"java.lang.Exception\",\"message\":\"abc123\",\"cause\":\"nestedError\"}}", log.toString());
+        Exception  exception = new Exception("zzzaaawww", new Exception("nestedError"));
+        StackTraceElement[] stackTrace = new StackTraceElement[]{};
+        exception.setStackTrace(stackTrace);
+
+        JsonLog log = jsonLog("exceptionTest").with(exception);
+        assertEquals("{\"event\":\"exceptionTest\",\"exception\":{\"type\":\"java.lang.Exception\",\"stackTrace\":\"\",\"cause\":\"nestedError\"},\"message\":\"zzzaaawww\"}", log.toString());
     }
 
     @Test
     public void canLogExceptionWithouCause() {
-        JsonLog log = jsonLog("exceptionTest").with(new Exception("zzzaaawww"));
-        assertEquals("{\"event\":\"exceptionTest\",\"exception\":{\"type\":\"java.lang.Exception\",\"message\":\"zzzaaawww\"}}", log.toString());
+        Exception  exception = new Exception("zzzaaawww");
+        StackTraceElement[] stackTrace = new StackTraceElement[]{};
+        exception.setStackTrace(stackTrace);
+
+        JsonLog log = jsonLog("exceptionTest").with(exception);
+        assertEquals("{\"event\":\"exceptionTest\",\"exception\":{\"type\":\"java.lang.Exception\",\"stackTrace\":\"\"},\"message\":\"zzzaaawww\"}", log.toString());
+
+
     }
 }
