@@ -48,7 +48,6 @@ import static com.silversea.aem.logging.JsonLog.jsonLog;
 @Component
 public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerariesExcursionsImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesItinerariesExcursionsImporterImpl.class);
     protected int sessionRefresh = 100;
     protected int pageSize = 100;
 
@@ -77,14 +76,13 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     @Override
     public ImportResult importAllItems(final boolean update) throws ImporterException {
         LogzLogger logzLogger = logzLoggerFactory.getLogger("CruisesItinerariesExcursionsImporterImpl");
-        logzLogger.logInfo(jsonLog("start")
+        logzLogger.logInfo(jsonLog("Start")
                 .with("message", "Start of the import process"));
         if (importRunning) {
             throw new ImporterException("Import is already running");
         }
 
-        //LOGGER.debug("Starting excursions import");
-        logzLogger.logInfo(jsonLog("start excursions import")
+        logzLogger.logInfo(jsonLog("StartExcursionsImport")
                 .with("message", "start the import of excursions"));
         importRunning = true;
 
@@ -107,9 +105,9 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
             if (!update) {
                 // Existing excursions deletion
-                logzLogger.logDebug(jsonLog("Clean excursions")
+                logzLogger.logDebug(jsonLog("CleanExcursions")
                         .with("message","Cleaning already imported excursions"));
-                //LOGGER.debug("Cleaning already imported excursions");
+
                 ImportersUtils.deleteResources(resourceResolver, sessionRefresh,
                         "/jcr:root/content/silversea-com//element(*,nt:unstructured)" +
                                 "[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/excursion\"]");
@@ -154,14 +152,11 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                     // Trying to deal with one excursion
                     try {
                         if (update && !cruisesWithDedicatedShorex.contains(excursion.getVoyageId())) {
-                            //logzLogger.logError(getCruiseNotModifiedError(excursion));
                             throw new ImporterException("Cruise " + excursion.getVoyageId() + " is not modified");
                         }
 
                         final Integer excursionId = excursion.getShorexId();
                         boolean imported = false;
-
-
 
                         // Iterating over itineraries in cache to write excursion
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
@@ -185,9 +180,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                                     final Resource itineraryResource = itineraryModel.getResource();
 
-                                    logzLogger.logTrace(getImportingExcurstionInItineraryLog("Importing excursion in itinerary","Importing excursion in itinerary",excursion.getShorexItineraryId(),itineraryResource.getPath()));
-                                    //LOGGER.trace("Importing excursion {} in itinerary {}",
-                                    //        excursion.getShorexItineraryId(), itineraryResource.getPath());
+                                    logzLogger.logTrace(getImportingExcurstionInItineraryLog("ImportExcursionInItinerary","Importing excursion in itinerary",excursion.getShorexItineraryId(),itineraryResource.getPath()));
 
                                     final Node itineraryNode = itineraryResource.adaptTo(Node.class);
                                     final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions", "nt:unstructured");
@@ -223,8 +216,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                         if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                                             try {
                                                 session.save();
-                                                logzLogger.logInfo(getExcursionsImportedLog("Excursions diff imported","Excursions diff imported, saving session",itemsWritten));
-                                                //LOGGER.info("{} excursions imported, saving session", +itemsWritten);
+                                                logzLogger.logInfo(getExcursionsImportedLog("ExcursionsDiffImported","Excursions diff imported, saving session", itemsWritten));
                                             } catch (RepositoryException e) {
                                                 session.refresh(true);
                                             }
@@ -232,25 +224,22 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     }
                                 }catch (ImporterException e) {
 
-                                    logzLogger.logError(getCannoFindExcursionInCacheLog("Cannot find excursion in cache","Cannot find excursion in cache", excursion.getShorexId(),itineraryModel.getPortId()));
-                                    //LOGGER.error("Cannot find excursion in cache {}", excursion.getShorexId() + "-" + itineraryModel.getPortId());
+                                    logzLogger.logError(getCannoFindExcursionInCacheLog("CannotFindExcursionInCache","Cannot find excursion in cache", excursion.getShorexId(), itineraryModel.getPortId()));
 
                                     importResult.incrementErrorNumber();
                                 } catch (Exception e) {
 
-                                    logzLogger.logError(getCannotWriteExcursionsLog("Cannot write excursion",e.getMessage(),excursion.getShorexId()));
-                                    //LOGGER.error("Cannot write excursion {}", excursion.getShorexId(), e);
+                                    logzLogger.logError(getCannotWriteExcursionsLog("CannotWriteExcursion", e.getMessage(), excursion.getShorexId()));
 
                                     importResult.incrementErrorNumber();
                                 }
                             }
                         }
-                        logzLogger.logTrace(getImportedStatusLog("Imported status","Imported status",excursion.getShorexId(),excursion.getVoyageId(),excursion.getCityId(),imported));
-                        //LOGGER.trace("Excursion {} voyage id: {} city id: {} imported status: {}", excursion.getShorexId(), excursion.getVoyageId(), excursion.getCityId(), imported);
-                    } catch (ImporterException e) {
-                        logzLogger.logWarning(getCannotDealWithExcursionsLog("Cannot deal with excursions", e.getMessage(),excursion.getShorexId()));
-                        //LOGGER.warn("Cannot deal with excursion {} - {}", excursion.getShorexId(), e.getMessage());
 
+                        logzLogger.logTrace(getImportedStatusLog("ImportedStatus","Imported status", excursion.getShorexId(), excursion.getVoyageId(), excursion.getCityId(), imported));
+
+                    } catch (ImporterException e) {
+                        logzLogger.logWarning(getCannotDealWithExcursionsLog("CannotDealWithExcursions", e.getMessage(), excursion.getShorexId()));
                         importResult.incrementErrorNumber();
                     }
                 }
@@ -264,8 +253,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             int itemsWrittenDiff = 0;
             apiPageDiff = 1;
 
-            //LOGGER.info("Launching itineraries excursions diff import");
-            logzLogger.logInfo(jsonLog("start itineraries excursions diff import")
+            logzLogger.logInfo(jsonLog("StartItinerariesExcursionsDiffImport")
                     .with("message", "start the itineraries excursions diff import"));
             do {
                 excursionsDiff = shorexesApi.shorexesGetItinerary2(lastModificationDate, apiPageDiff, pageSize, null);
@@ -278,7 +266,6 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                         
                         final Integer excursionId = excursionDiff.getShorexId();
                         boolean imported = false;
-
 
                         // Iterating over itineraries in cache to write excursion
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
@@ -294,11 +281,9 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                                 "Excursion " + excursionId + " is not present in excursions cache");
                                     }
 
-
                                     final Resource itineraryResource = itineraryModel.getResource();
 
-                                    logzLogger.logTrace(getImportingExcurstionInItineraryLog("Importing excursion in itinerary","Importing excursion in itinerary",excursionDiff.getShorexItineraryId(),itineraryResource.getPath()));
-                                    //LOGGER.trace("Importing excursion {} in itinerary {}",excursionDiff.getShorexItineraryId(), itineraryResource.getPath());
+                                    logzLogger.logTrace(getImportingExcurstionInItineraryLog("ImportingExcursionInItinerary","Importing excursion in itinerary", excursionDiff.getShorexItineraryId(), itineraryResource.getPath()));
 
                                     final Node itineraryNode = itineraryResource.adaptTo(Node.class);
                                     final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions", "nt:unstructured");
@@ -362,76 +347,59 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     if (itemsWrittenDiff % sessionRefresh == 0 && session.hasPendingChanges()) {
                                         try {
                                             session.save();
-
-                                            logzLogger.logInfo(getExcursionsImportedLog("Excursions diff imported","Excursions diff imported, saving session",itemsWritten));
-                                            //LOGGER.info("{} excursions diff imported, saving session", +itemsWrittenDiff);
+                                            logzLogger.logInfo(getExcursionsImportedLog("ExcursionsDiffImported","Excursions diff imported, saving session",itemsWritten));
                                         } catch (RepositoryException e) {
                                             session.refresh(true);
                                         }
                                     }
                                     
                                 }catch (ImporterException e) {
-                                    logzLogger.logError(getCannoFindExcursionInCacheLog("Cannot find excursion in cache","Cannot find excursion in cache", excursionDiff.getShorexId(),itineraryModel.getPortId()));
-                                    //LOGGER.error("Cannot find excursion in cache {}", excursionDiff.getShorexId() + "-" + itineraryModel.getPortId());
-
+                                    logzLogger.logError(getCannoFindExcursionInCacheLog("CannotFindExcursionInCache","Cannot find excursion in cache", excursionDiff.getShorexId(), itineraryModel.getPortId()));
                                     importResult.incrementErrorNumber();
                                 } catch (Exception e) {
-                                    logzLogger.logError(getCannotWriteExcursionsLog("Cannot write excursion", e.getMessage(), excursionDiff.getShorexId()));
-                                    //LOGGER.error("Cannot write excursion {}", excursionDiff.getShorexId(), e);
-
+                                    logzLogger.logError(getCannotWriteExcursionsLog("CannotWriteExcursion", e.getMessage(), excursionDiff.getShorexId()));
                                     importResult.incrementErrorNumber();
                                 }
                             }
                         }
-
-                        logzLogger.logTrace(getImportedStatusLog("Imported status","Imported status",excursionDiff.getShorexId(),excursionDiff.getVoyageId(),excursionDiff.getCityId(),imported));
-                        //LOGGER.trace("Excursion {} voyage id: {} city id: {} imported status: {}",excursionDiff.getShorexId(), excursionDiff.getVoyageId(), excursionDiff.getCityId(), imported);
+                        logzLogger.logTrace(getImportedStatusLog("ImportedStatus","Imported status", excursionDiff.getShorexId(), excursionDiff.getVoyageId(), excursionDiff.getCityId(), imported));
                     } catch (Exception e) {
-                        logzLogger.logWarning(getCannotDealWithExcursionsLog("Cannot deal with excursions", e.getMessage(),excursionDiff.getShorexId()));
-                        //LOGGER.warn("Cannot deal with excursion {} - {}", excursionDiff.getShorexId(), e.getMessage());
-
+                        logzLogger.logWarning(getCannotDealWithExcursionsLog("CannotDealWithExcursions", e.getMessage(), excursionDiff.getShorexId()));
                         importResult.incrementErrorNumber();
                     }
                 }
 
                 apiPageDiff++;
             } while (excursionsDiff.size() > 0);
-            
-            
+
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
                     "lastModificationDateCruisesItinerariesExcursions", false);
 
             if (session.hasPendingChanges()) {
                 try {
                     session.save();
-                    logzLogger.logInfo(getSummaryImportLog("Summary import","itineraries excursions imported, saving session", itemsWritten));
-                    logzLogger.logInfo(getSummaryImportLog("Summary import","itineraries diff excursions imported, saving session", itemsWrittenDiff));
-                    //LOGGER.info("{} itineraries excursions imported, saving session", +itemsWritten);
-                    //LOGGER.info("{} itineraries diff excursions imported, saving session", +itemsWrittenDiff);
+                    logzLogger.logInfo(getSummaryImportLog("SummaryImport","itineraries excursions imported, saving session", itemsWritten));
+                    logzLogger.logInfo(getSummaryImportLog("SummaryImportDiff","itineraries diff excursions imported, saving session", itemsWrittenDiff));
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
             }
         } catch (LoginException e) {
-            logzLogger.logError(getGenericJsonErrorLog("Resource resolver error","Cannot create resource resolver",e));
-            //LOGGER.error("Cannot create resource resolver", e);
+            logzLogger.logError(getGenericJsonErrorLog("ResourceResolverError","Cannot create resource resolver", e));
         } catch (RepositoryException | ImporterException e) {
-            logzLogger.logError(getGenericJsonErrorLog("Import excursions error","Cannot import excursions",e));
-            //LOGGER.error("Cannot import excursions", e);
+            logzLogger.logError(getGenericJsonErrorLog("ImportExcursionsError","Cannot import excursions", e));
         } catch (ApiException e) {
-            logzLogger.logError(getGenericJsonErrorLog("Read excursions from API error", "Cannot read excursions from API",e));
-            //LOGGER.error("Cannot read excursions from API", e);
+            logzLogger.logError(getGenericJsonErrorLog("ReadExcursionsFromAPIError", "Cannot read excursions from API", e));
         } finally {
             importRunning = false;
         }
 
-        logzLogger.logInfo(jsonLog("end")
+        logzLogger.logInfo(jsonLog("End")
                 .with("message", "Ending itineraries excursions import")
                 .with("success", importResult.getSuccessNumber())
                 .with("error", importResult.getErrorNumber())
                 .with("api calls",apiPage)
                 .with("api calls for diff", apiPageDiff));
-        //LOGGER.info("Ending itineraries excursions import, success: {}, errors: {}, api calls : {} and {} for diff", +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage, apiPageDiff);
 
         return importResult;
     }
@@ -473,58 +441,24 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     }
 
     // LOGS
-    /***
-     *  Get jsonLog of a generic error
-     *
-     * @param event
-     * @param message
-     * @param e
-     * @return JsonLog
-     */
     private JsonLog getGenericJsonErrorLog(String event, String message, Exception e){
         return jsonLog(event)
                 .with("message",message)
                 .with("error",e.getMessage());
     }
 
-    /***
-     * get summary log
-     *
-     * @param event
-     * @param message
-     * @param itemsWritten
-     * @return JsonLog
-     */
     private JsonLog getSummaryImportLog(String event, String message, int itemsWritten){
         return jsonLog(event)
                 .with("message", message)
                 .with("itemsWritten", itemsWritten);
     }
 
-    /***
-     * get Cannot deal with excursions log
-     * @param event
-     * @param message
-     * @param shorexId
-     * @return jsonLog
-     */
     private JsonLog getCannotDealWithExcursionsLog (String event, String message, Integer shorexId){
         return jsonLog(event)
                 .with("message", message)
                 .with("excursion shorexId", shorexId);
     }
 
-    /***
-     * get importer status log
-     *
-     * @param event
-     * @param message
-     * @param shorexId
-     * @param voyageId
-     * @param cityId
-     * @param imported
-     * @return jsonLog
-     */
     private JsonLog getImportedStatusLog (String event, String message, Integer shorexId, Integer voyageId, Integer cityId, Boolean imported){
         return jsonLog(event)
                 .with("message", message)
@@ -534,29 +468,12 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                 .with("imported status", imported);
     }
 
-    /***
-     * get cannot write excursions log
-     *
-     * @param event
-     * @param message
-     * @param shorexId
-     * @return jsonLog
-     */
     private JsonLog getCannotWriteExcursionsLog (String event, String message,Integer shorexId){
         return jsonLog(event)
                 .with("message",message)
                 .with("excursion shorexId", shorexId);
     }
 
-    /***
-     * get cannot find excursion in cache log
-     *
-     * @param event
-     * @param message
-     * @param shorexId
-     * @param portId
-     * @return jsonLog
-     */
     private JsonLog getCannoFindExcursionInCacheLog (String event, String message,Integer shorexId,Integer portId){
         return jsonLog(event)
                 .with("message",message)
@@ -564,29 +481,12 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                 .with("itinerary portId", portId);
     }
 
-    /***
-     * Get excursions imported log
-     *
-     * @param event
-     * @param message
-     * @param itemsWritten
-     * @return jsonLog
-     */
     private JsonLog getExcursionsImportedLog(String event, String message, Integer itemsWritten){
         return jsonLog(event)
                 .with("message",message)
                 .with("itemsWritten",itemsWritten);
     }
 
-    /***
-     * get importing excursion in itinearry log
-     *
-     * @param event
-     * @param message
-     * @param shorexId
-     * @param path
-     * @return
-     */
     private JsonLog getImportingExcurstionInItineraryLog(String event, String message, Integer shorexId, String path){
         return jsonLog(event)
                 .with("message",message)
