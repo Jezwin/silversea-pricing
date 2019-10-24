@@ -25,10 +25,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
-import static java.util.stream.Collectors.toList;
+import static com.silversea.aem.importers.utils.ImportersUtils.getCurrentInstance;
+import static com.silversea.aem.logging.JsonLog.jsonLog;
 
 @SlingServlet(paths = "/bin/api-import-diff")
 public class UpdateImportServlet extends SlingSafeMethodsServlet {
@@ -220,20 +220,30 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
+
+        String instance = getCurrentInstance(slingSettingsService);
+        logger.logInfo(jsonLog("StartUpdateImportServlet").with("message","Start Update import servlet on " + instance));
+        LOGGER.info("Start Update import servlet");
+
         List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
         List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get);
         Map<String, ImportResult> results = new HashMap<>();
 
         if(errors.isEmpty()) {
             new ImportRunner(jobs, logger).run().forEach(report -> results.put(report.name(), report.result()));
-            Replicate(request);
-            if (slingSettingsService.getRunModes().contains("author")) ClearCache(request, results);
+            if (instance.equals("author")){
+                Replicate(request);
+            }
+            ClearCache(request, results);
         }
 
         InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver(), cruiseCache);
         String content = repo.diffImportPage(results, errors).getOrElseGet(Throwable::getMessage);
         response.getWriter().write(content);
         response.setContentType("text/html");
+
+        logger.logInfo(jsonLog("EndUpdateImportServlet").with("message","End Update import servlet on " + instance));
+        LOGGER.info("End Update import servlet");
     }
 
     private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {

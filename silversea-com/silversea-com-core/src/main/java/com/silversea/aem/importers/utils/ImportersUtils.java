@@ -10,7 +10,6 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import io.swagger.client.StringUtil;
 import org.apache.jackrabbit.vault.util.SHA1;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
@@ -23,6 +22,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.commons.mime.MimeTypeService;
+import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -456,6 +456,27 @@ public class ImportersUtils {
         }
         return true;
 
+    }
+
+    /***
+     * Used to understand what is the current instance (author or publish)
+     *
+     * @param slingSettingsService
+     * @return string
+     */
+    public static String getCurrentInstance(SlingSettingsService slingSettingsService){
+
+        String instance = "";
+
+        Set<String> runModes = slingSettingsService.getRunModes();
+
+        if(runModes.contains("author")){
+            instance = "author";
+        }else if(runModes.contains("publish")){
+            instance = "publish";
+        }
+
+        return instance;
     }
 
     /***
