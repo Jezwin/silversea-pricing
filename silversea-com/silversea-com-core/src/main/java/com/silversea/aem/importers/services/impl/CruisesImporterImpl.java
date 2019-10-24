@@ -13,19 +13,14 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesImporter;
 import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
-import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.models.CruiseModel;
-import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.ApiConfigurationService;
-
 import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyagesApi;
-import io.swagger.client.model.Brochure;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
-
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
@@ -135,8 +130,8 @@ public class CruisesImporterImpl implements CruisesImporter {
                 for (Voyage cruise : cruises) {
                     LOGGER.trace("importing cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
                     logger.logTrace(jsonLog("importAllItems")
-                            .with("name",cruise.getVoyageName())
-                            .with("code",cruise.getVoyageCod()));
+                            .with("voyageName",cruise.getVoyageName())
+                            .with("voyageCode",cruise.getVoyageCod()));
 
                     try {
                         final List<String> destinationPaths = destinationsMapping.get(String.valueOf(cruise.getDestinationId()));
@@ -186,7 +181,8 @@ public class CruisesImporterImpl implements CruisesImporter {
                                 if (shipsMapping.get(cruise.getShipId()).containsKey(language)) {
                                     LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(cruise.getShipId()).get(language));
                                     logger.logTrace(jsonLog("importAllItems")
-                                            .with("cruiseShip",shipsMapping.get(cruise.getShipId()).get(language)));
+                                            .with("message","associating ship to cruise")
+                                            .with("ship",shipsMapping.get(cruise.getShipId()).get(language)));
 
                                     cruiseContentNode.setProperty("shipReference", shipsMapping.get(cruise.getShipId()).get(language));
                                 }
@@ -224,10 +220,10 @@ public class CruisesImporterImpl implements CruisesImporter {
                     } catch (RepositoryException | WCMException | ImporterException e) {
                         LOGGER.error("Cannot write cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod(), e);
                         logger.logError(jsonLog("importAllItems")
-                                .with("msg","cannot write cruise")
+                                .with("message","cannot write cruise")
                                 .with("cruiseName",cruise.getVoyageName())
                                 .with("cruiseCode",cruise.getVoyageCod())
-                                .with("exception",e.getMessage()));
+                                .with(e));
 
                         errorNumber++;
                     }
@@ -254,21 +250,21 @@ public class CruisesImporterImpl implements CruisesImporter {
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
             logger.logError(jsonLog("importAllItems")
-                    .with("msg","Cannot create resource resolver"));
+                    .with(e));
         } catch (RepositoryException | ImporterException e) {
             LOGGER.error("Cannot import cruises", e);
             logger.logError(jsonLog("importAllItems")
-                    .with("msg","Cannot import cruises"));
+                    .with(e));
         } catch (ApiException e) {
             LOGGER.error("Cannot read cruises from API", e);
             logger.logError(jsonLog("importAllItems")
-                    .with("msg","Cannot read cruises from API"));
+                    .with(e));
         }
 
         LOGGER.info("Ending cruises import, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber,
                 apiPage);
         logger.logInfo(jsonLog("importAllItems")
-                .with("msg","Cruises import end")
+                .with("message","Cruises import end")
                 .with("success", +successNumber)
                 .with("errors",+errorNumber)
                 .with("apiCalls",apiPage));
@@ -282,7 +278,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
         LOGGER.debug("Starting cruises update");
         logger.logDebug(jsonLog("updateItems")
-                .with("msg","Starting cruises update"));
+                .with("message","Starting cruises update"));
         int successNumber = 0;
         int errorNumber = 0;
         int apiPage = 1;
@@ -339,7 +335,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                             // deactivate cruise
                             LOGGER.debug("deactivating cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
                             logger.logDebug(jsonLog("updateItems")
-                                    .with("msg","deactivating cruise")
+                                    .with("message","deactivating cruise")
                                     .with("voyageName",cruise.getVoyageName())
                                     .with("voyageCode",cruise.getVoyageCod()));
 
@@ -362,7 +358,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                 // update cruise
                                 LOGGER.debug("Updating cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
                                 logger.logDebug(jsonLog("updateItems")
-                                        .with("msg","Updating cruise")
+                                        .with("message","Updating cruise")
                                         .with("voyageName",cruise.getVoyageName())
                                         .with("voyageCode",cruise.getVoyageCod()));
 
@@ -384,7 +380,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                 // create cruise
                                 LOGGER.debug("Creating cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
                                 logger.logDebug(jsonLog("updateItems")
-                                        .with("msg","Creating cruise")
+                                        .with("message","Creating cruise")
                                         .with("voyageName",cruise.getVoyageName())
                                         .with("voyageCode",cruise.getVoyageCod()));
 
@@ -417,10 +413,10 @@ public class CruisesImporterImpl implements CruisesImporter {
                     } catch (RepositoryException | WCMException | ImporterException e) {
                         LOGGER.warn("Cannot write cruise {} ({}) - {}", cruise.getVoyageName(), cruise.getVoyageCod(), e.getMessage());
                         logger.logWarning(jsonLog("updateItems")
-                                .with("msg","Cannot write cruise")
-                                .with("eMessage", e.getMessage())
+                                .with("message","Cannot write cruise")
                                 .with("voyageName",cruise.getVoyageName())
-                                .with("voyageCode",cruise.getVoyageCod()));
+                                .with("voyageCode",cruise.getVoyageCod())
+                                .with(e));
 
                         errorNumber++;
                     }
@@ -442,8 +438,8 @@ public class CruisesImporterImpl implements CruisesImporter {
                             LOGGER.debug("Cruise {} in the past ({}) or not visible ({}), mark to deactivate",
                                     cruiseContentNode.getPath(), startDate.getTime(), isVisible);
                             logger.logDebug(jsonLog("updateItems")
-                                    .with("msg","This cruise is either in the past or is not visible, mark to deactivate")
-                                    .with("cruise",cruiseContentNode.getPath())
+                                    .with("message","This cruise is either in the past or is not visible, mark to deactivate")
+                                    .with("cruisePath",cruiseContentNode.getPath())
                                     .with("isVisible",isVisible)
                                     .with("date",startDate.getTime().toString()));
                             cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
@@ -455,8 +451,8 @@ public class CruisesImporterImpl implements CruisesImporter {
                     } catch (RepositoryException e) {
                         LOGGER.warn("Cannot extract start date from cruise {}", cruiseContentNode.getPath());
                         logger.logWarning(jsonLog("updateItems")
-                                .with("msg","Cannot extract start date from cruise")
-                                .with("cruise",cruiseContentNode.getPath()));
+                                .with("message","Cannot extract start date from cruise")
+                                .with("cruisePath",cruiseContentNode.getPath()));
                     }
                 }
             }
@@ -470,8 +466,8 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                     LOGGER.debug("{} cruises imported, saving session", +itemsWritten);
                     logger.logDebug(jsonLog("updateItems")
-                            .with("msg","cruises imported, saving session")
-                            .with("cruises",+itemsWritten));
+                            .with("message","cruises imported, saving session")
+                            .with("cruisesImported",+itemsWritten));
 
                 } catch (RepositoryException e) {
                     session.refresh(false);
@@ -480,23 +476,23 @@ public class CruisesImporterImpl implements CruisesImporter {
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
             logger.logError(jsonLog("updateItems")
-                    .with("msg","Cannot create resource resolver")
-                    .with("eMessage",e.getMessage()));
+                    .with("message","Cannot create resource resolver")
+                    .with(e));
         } catch (RepositoryException | ImporterException e) {
             LOGGER.error("Cannot import cruises", e);
             logger.logError(jsonLog("updateItems")
-                    .with("msg","Cannot import cruises")
-                    .with("eMessage",e.getMessage()));
+                    .with("message","Cannot import cruises")
+                    .with(e));
         } catch (ApiException e) {
             LOGGER.error("Cannot read cruises from API", e);
             logger.logError(jsonLog("updateItems")
-                    .with("msg","Cannot read cruises from API")
-                    .with("eMessage",e.getMessage()));
+                    .with("message","Cannot read cruises from API")
+                    .with(e));
         }
 
         LOGGER.info("Ending cruises update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
         logger.logInfo(jsonLog("updateItems")
-                .with("msg","Ending cruises update")
+                .with("message","Ending cruises update")
                 .with("success",+successNumber)
                 .with("errors",+errorNumber)
                 .with("apiCalls",apiPage));
@@ -516,7 +512,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
         LOGGER.debug("Starting cruises alias updater");
         logger.logDebug(jsonLog("updateCheckAlias")
-                .with("msg","Starting cruises alias updater"));
+                .with("message","Starting cruises alias updater"));
         final int[] successNumber = {0};
         final int[] errorNumber = {0};
 
@@ -561,7 +557,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                                     LOGGER.info("Renamed " + currentAlias + " to " +newAlias + " for lang " + language);
                                     logger.logInfo(jsonLog("updateCheckAlias")
-                                            .with("msg","Renaming cruise")
+                                            .with("message","Renaming cruise")
                                             .with("currentName",currentAlias)
                                             .with("newName",newAlias)
                                             .with("forLang",language));
@@ -572,8 +568,8 @@ public class CruisesImporterImpl implements CruisesImporter {
                         } catch (Exception e) {
                             LOGGER.error("Issue while trying to align cruise sling alias ", e);
                             logger.logError(jsonLog("updateCheckAlias")
-                                    .with("msg","Issue while trying to align cruise sling alias")
-                                    .with("eMessage",e.getMessage()));
+                                    .with("message","Issue while trying to align cruise sling alias")
+                                    .with(e));
                             errorNumber[0]++;
                         }
                     }
@@ -590,13 +586,13 @@ public class CruisesImporterImpl implements CruisesImporter {
         } catch (Exception e) {
             LOGGER.error("Cannot update sling alias of cruises", e);
             logger.logError(jsonLog("updateCheckAlias")
-                    .with("msg","Cannot update sling alias of cruises")
-                    .with("eMessage",e.getMessage()));
+                    .with("message","Cannot update sling alias of cruises")
+                    .with(e));
             errorNumber[0]++;
         }
         LOGGER.info("Number of SUCCESS " + successNumber[0]);
         logger.logInfo(jsonLog("updateCheckAlias")
-                .with("msg","renaming process finished")
+                .with("message","renaming process finished")
                 .with("successNumber",successNumber[0]));
         return new ImportResult(successNumber[0], errorNumber[0]);
     }
@@ -642,10 +638,10 @@ public class CruisesImporterImpl implements CruisesImporter {
                         } catch (JSONException e) {
                             LOGGER.error("Cannot add cruise {} with path {} to cruises array", cruiseCode, cruise.getPath(), e);
                             logger.logError(jsonLog("getJsonMapping")
-                                    .with("msg","Cannot add cruise to cruises array")
+                                    .with("message","Cannot add cruise to cruises array")
                                     .with("cruiseCode",cruiseCode)
                                     .with("cruisePath",cruise.getPath())
-                                    .with("eMessage",e.getMessage()));
+                                    .with(e));
                         }
                     }
                 }
@@ -654,8 +650,8 @@ public class CruisesImporterImpl implements CruisesImporter {
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
             logger.logError(jsonLog("getJsonMapping")
-                    .with("msg","Cannot create resource resolver")
-                    .with("eMessage",e.getMessage()));
+                    .with("message","Cannot create resource resolver")
+                    .with(e));
         }
 
         return jsonObject;
@@ -693,7 +689,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             if (shipsMapping.get(cruise.getShipId()).containsKey(language)) {
                 LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(cruise.getShipId()).get(language));
                 logger.logTrace(jsonLog("updateCruiseData")
-                        .with("msg","Associating ship to cruise")
+                        .with("message","Associating ship to cruise")
                         .with("voyageCode",cruise.getVoyageCod())
                         .with("ship",shipsMapping.get(cruise.getShipId()).get(language)));
                 cruiseContentNode.setProperty("shipReference", shipsMapping.get(cruise.getShipId()).get(language));
@@ -781,8 +777,8 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                 LOGGER.info("{} cruises imported, saving session", +itemsWritten);
                 logger.logInfo(jsonLog("batchSave")
-                        .with("msg","cruises imported, saving session")
-                        .with("imported",+itemsWritten));
+                        .with("message","cruises imported, saving session")
+                        .with("importedItems",+itemsWritten));
             } catch (RepositoryException e) {
                 session.refresh(true);
             }
