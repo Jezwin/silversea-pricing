@@ -13,12 +13,16 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesImporter;
 import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.logging.JsonLog;
+import com.silversea.aem.logging.LogzLoggerFactory;
+import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyagesApi;
+import io.swagger.client.model.Brochure;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
 
@@ -42,6 +46,8 @@ import javax.jcr.Session;
 
 import java.util.*;
 
+import static com.silversea.aem.logging.JsonLog.jsonLog;
+
 @Service
 @Component
 public class CruisesImporterImpl implements CruisesImporter {
@@ -50,6 +56,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
     private int sessionRefresh = 100;
     private int pageSize = 100;
+
+    @Reference
+    private LogzLoggerFactory sscLogFactory;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -73,8 +82,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
     @Override
     public ImportResult importAllItems() {
+        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
         LOGGER.debug("Starting cruises import");
-
+        logger.logDebug(jsonLog("importAllItems").with("message","Starting cruises import"));
         int successNumber = 0;
         int errorNumber = 0;
         int apiPage = 1;
@@ -94,6 +104,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
             // Existing cruises deletion
             LOGGER.debug("Cleaning already imported cruises");
+            logger.logDebug(jsonLog("importAllItems").with("message","Cleaning already imported cruises"));
 
             // removing assets
             /*ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/dam/silversea-com/api-provided/cruises"
@@ -123,6 +134,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                 for (Voyage cruise : cruises) {
                     LOGGER.trace("importing cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
+                    logger.logTrace(jsonLog("importAllItems")
+                            .with("name",cruise.getVoyageName())
+                            .with("code",cruise.getVoyageCod()));
 
                     try {
                         final List<String> destinationPaths = destinationsMapping.get(String.valueOf(cruise.getDestinationId()));
@@ -143,6 +157,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                             final String language = LanguageHelper.getLanguage(destinationPage);
 
                             LOGGER.trace("Destination language : {}", language);
+                            logger.logTrace(jsonLog("importAllItems").with("destinationLanguage",language));
 
                             final String cruiseTitle = CruisesImportUtils.getTranslatedCruiseTitle(language, cruise.getVoyageName());
                             final Node cruiseContentNode = CruisesImportUtils.createCruisePage(pageManager, destinationPath, cruise.getVoyageName(), cruise.getVoyageCod());
@@ -170,6 +185,8 @@ public class CruisesImporterImpl implements CruisesImporter {
                             if (shipsMapping.containsKey(cruise.getShipId())) {
                                 if (shipsMapping.get(cruise.getShipId()).containsKey(language)) {
                                     LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(cruise.getShipId()).get(language));
+                                    logger.logTrace(jsonLog("importAllItems")
+                                            .with("cruiseShip",shipsMapping.get(cruise.getShipId()).get(language)));
 
                                     cruiseContentNode.setProperty("shipReference", shipsMapping.get(cruise.getShipId()).get(language));
                                 }
@@ -206,6 +223,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                         }
                     } catch (RepositoryException | WCMException | ImporterException e) {
                         LOGGER.error("Cannot write cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod(), e);
+                        logger.logError(jsonLog("importAllItems")
+                                .with("msg","cannot write cruise")
+                                .with("cruiseName",cruise.getVoyageName())
+                                .with("cruiseCode",cruise.getVoyageCod())
+                                .with("exception",e.getMessage()));
 
                         errorNumber++;
                     }
@@ -222,28 +244,45 @@ public class CruisesImporterImpl implements CruisesImporter {
                     session.save();
 
                     LOGGER.debug("{} cruises imported, saving session", +itemsWritten);
+                    logger.logDebug(jsonLog("importAllItems")
+                            .with("importedCruises",+itemsWritten));
+
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
             }
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
+            logger.logError(jsonLog("importAllItems")
+                    .with("msg","Cannot create resource resolver"));
         } catch (RepositoryException | ImporterException e) {
             LOGGER.error("Cannot import cruises", e);
+            logger.logError(jsonLog("importAllItems")
+                    .with("msg","Cannot import cruises"));
         } catch (ApiException e) {
             LOGGER.error("Cannot read cruises from API", e);
+            logger.logError(jsonLog("importAllItems")
+                    .with("msg","Cannot read cruises from API"));
         }
 
         LOGGER.info("Ending cruises import, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber,
                 apiPage);
+        logger.logInfo(jsonLog("importAllItems")
+                .with("msg","Cruises import end")
+                .with("success", +successNumber)
+                .with("errors",+errorNumber)
+                .with("apiCalls",apiPage));
 
         return new ImportResult(successNumber, errorNumber);
     }
 
     @Override
     public ImportResult updateItems() {
-        LOGGER.debug("Starting cruises update");
+        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
 
+        LOGGER.debug("Starting cruises update");
+        logger.logDebug(jsonLog("updateItems")
+                .with("msg","Starting cruises update"));
         int successNumber = 0;
         int errorNumber = 0;
         int apiPage = 1;
@@ -285,6 +324,8 @@ public class CruisesImporterImpl implements CruisesImporter {
             final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruises");
 
             LOGGER.debug("Last import date for cruises {}", lastModificationDate);
+            logger.logDebug(jsonLog("updateItems")
+                    .with("lastImportDate",lastModificationDate));
 
             List<Voyage77> cruises;
             int itemsWritten = 0;
@@ -297,6 +338,10 @@ public class CruisesImporterImpl implements CruisesImporter {
                         if (cruisesMapping.containsKey(cruise.getVoyageId()) && cruise.getIsDeleted() != null && cruise.getIsDeleted()) {
                             // deactivate cruise
                             LOGGER.debug("deactivating cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
+                            logger.logDebug(jsonLog("updateItems")
+                                    .with("msg","deactivating cruise")
+                                    .with("voyageName",cruise.getVoyageName())
+                                    .with("voyageCode",cruise.getVoyageCod()));
 
                             for (Map.Entry<String, Page> cruisePages : cruisesMapping.get(cruise.getVoyageId()).entrySet()) {
                                 final Node cruiseContentNode = cruisePages.getValue().getContentResource().adaptTo(Node.class);
@@ -316,6 +361,10 @@ public class CruisesImporterImpl implements CruisesImporter {
                             if (cruisesMapping.containsKey(cruise.getVoyageId())) {
                                 // update cruise
                                 LOGGER.debug("Updating cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
+                                logger.logDebug(jsonLog("updateItems")
+                                        .with("msg","Updating cruise")
+                                        .with("voyageName",cruise.getVoyageName())
+                                        .with("voyageCode",cruise.getVoyageCod()));
 
                                 for (Map.Entry<String, Page> cruisePages : cruisesMapping.get(cruise.getVoyageId()).entrySet()) {
                                     final Node cruiseContentNode = cruisePages.getValue().getContentResource().adaptTo(Node.class);
@@ -334,6 +383,10 @@ public class CruisesImporterImpl implements CruisesImporter {
                             } else {
                                 // create cruise
                                 LOGGER.debug("Creating cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
+                                logger.logDebug(jsonLog("updateItems")
+                                        .with("msg","Creating cruise")
+                                        .with("voyageName",cruise.getVoyageName())
+                                        .with("voyageCode",cruise.getVoyageCod()));
 
                                 final List<String> destinationPaths = destinationsMapping.get(String.valueOf(cruise.getDestinationId()));
 
@@ -363,6 +416,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                         }
                     } catch (RepositoryException | WCMException | ImporterException e) {
                         LOGGER.warn("Cannot write cruise {} ({}) - {}", cruise.getVoyageName(), cruise.getVoyageCod(), e.getMessage());
+                        logger.logWarning(jsonLog("updateItems")
+                                .with("msg","Cannot write cruise")
+                                .with("eMessage", e.getMessage())
+                                .with("voyageName",cruise.getVoyageName())
+                                .with("voyageCode",cruise.getVoyageCod()));
 
                         errorNumber++;
                     }
@@ -383,7 +441,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                         if (startDate.before(Calendar.getInstance()) || !isVisible) {
                             LOGGER.debug("Cruise {} in the past ({}) or not visible ({}), mark to deactivate",
                                     cruiseContentNode.getPath(), startDate.getTime(), isVisible);
-
+                            logger.logDebug(jsonLog("updateItems")
+                                    .with("msg","This cruise is either in the past or is not visible, mark to deactivate")
+                                    .with("cruise",cruiseContentNode.getPath())
+                                    .with("isVisible",isVisible)
+                                    .with("date",startDate.getTime().toString()));
                             cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
 
                             itemsWritten++;
@@ -392,6 +454,9 @@ public class CruisesImporterImpl implements CruisesImporter {
                         }
                     } catch (RepositoryException e) {
                         LOGGER.warn("Cannot extract start date from cruise {}", cruiseContentNode.getPath());
+                        logger.logWarning(jsonLog("updateItems")
+                                .with("msg","Cannot extract start date from cruise")
+                                .with("cruise",cruiseContentNode.getPath()));
                     }
                 }
             }
@@ -404,20 +469,37 @@ public class CruisesImporterImpl implements CruisesImporter {
                     session.save();
 
                     LOGGER.debug("{} cruises imported, saving session", +itemsWritten);
+                    logger.logDebug(jsonLog("updateItems")
+                            .with("msg","cruises imported, saving session")
+                            .with("cruises",+itemsWritten));
+
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
             }
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
+            logger.logError(jsonLog("updateItems")
+                    .with("msg","Cannot create resource resolver")
+                    .with("eMessage",e.getMessage()));
         } catch (RepositoryException | ImporterException e) {
             LOGGER.error("Cannot import cruises", e);
+            logger.logError(jsonLog("updateItems")
+                    .with("msg","Cannot import cruises")
+                    .with("eMessage",e.getMessage()));
         } catch (ApiException e) {
             LOGGER.error("Cannot read cruises from API", e);
+            logger.logError(jsonLog("updateItems")
+                    .with("msg","Cannot read cruises from API")
+                    .with("eMessage",e.getMessage()));
         }
 
         LOGGER.info("Ending cruises update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
-
+        logger.logInfo(jsonLog("updateItems")
+                .with("msg","Ending cruises update")
+                .with("success",+successNumber)
+                .with("errors",+errorNumber)
+                .with("apiCalls",apiPage));
         return new ImportResult(successNumber, errorNumber);
     }
 
@@ -430,9 +512,11 @@ public class CruisesImporterImpl implements CruisesImporter {
         //convert into valid name (jcr)
         //Cut before any parenthesis or comma and replace space with dash
         //First need to check how many changes will it create !
+        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
 
         LOGGER.debug("Starting cruises alias updater");
-
+        logger.logDebug(jsonLog("updateCheckAlias")
+                .with("msg","Starting cruises alias updater"));
         final int[] successNumber = {0};
         final int[] errorNumber = {0};
 
@@ -461,31 +545,39 @@ public class CruisesImporterImpl implements CruisesImporter {
                                         .replaceAll("-+", "-");
                             }
 
-                                if (!currentAlias.contains("-to-") && !currentAlias.contains("-nach-") && !currentAlias.contains("-a-")) {
-                                    //need to replace !
-                                    CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
-                                    if(cruiseModel != null && cruiseModel.getArrivalPortName() != null && cruiseModel.getDeparturePortName() != null) {
-                                        String newAlias = JcrUtil.createValidName(StringUtils
-                                                .stripAccents(cruiseModel.getDeparturePortName() + "-to-" + cruiseModel.getArrivalPortName() + " - " + cruiseModel.getCruiseCode()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
-                                                .replaceAll("-+", "-");
-                                        if (language.equals("fr") || language.equals("es") || language.equals("pt-br")) {
-                                            newAlias = newAlias.replace("-to-", "-a-");
-                                        } else if (language.equals("de")) {
-                                            newAlias = newAlias.replace("-to-", "-nach-");
-                                        }
-                                        cruiseContentNode.setProperty("sling:alias", newAlias);
-
-                                        LOGGER.info("Renamed " + currentAlias + " to " +newAlias + " for lang " + language);
-                                        successNumber[0]++;
+                            if (!currentAlias.contains("-to-") && !currentAlias.contains("-nach-") && !currentAlias.contains("-a-")) {
+                                //need to replace !
+                                CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
+                                if(cruiseModel != null && cruiseModel.getArrivalPortName() != null && cruiseModel.getDeparturePortName() != null) {
+                                    String newAlias = JcrUtil.createValidName(StringUtils
+                                            .stripAccents(cruiseModel.getDeparturePortName() + "-to-" + cruiseModel.getArrivalPortName() + " - " + cruiseModel.getCruiseCode()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                                            .replaceAll("-+", "-");
+                                    if (language.equals("fr") || language.equals("es") || language.equals("pt-br")) {
+                                        newAlias = newAlias.replace("-to-", "-a-");
+                                    } else if (language.equals("de")) {
+                                        newAlias = newAlias.replace("-to-", "-nach-");
                                     }
+                                    cruiseContentNode.setProperty("sling:alias", newAlias);
 
+                                    LOGGER.info("Renamed " + currentAlias + " to " +newAlias + " for lang " + language);
+                                    logger.logInfo(jsonLog("updateCheckAlias")
+                                            .with("msg","Renaming cruise")
+                                            .with("currentName",currentAlias)
+                                            .with("newName",newAlias)
+                                            .with("forLang",language));
+                                    successNumber[0]++;
                                 }
+
+                            }
                         } catch (Exception e) {
                             LOGGER.error("Issue while trying to align cruise sling alias ", e);
+                            logger.logError(jsonLog("updateCheckAlias")
+                                    .with("msg","Issue while trying to align cruise sling alias")
+                                    .with("eMessage",e.getMessage()));
                             errorNumber[0]++;
                         }
                     }
-                    ));
+            ));
             if (session.hasPendingChanges()) {
                 try {
                     session.save();
@@ -497,14 +589,22 @@ public class CruisesImporterImpl implements CruisesImporter {
             }
         } catch (Exception e) {
             LOGGER.error("Cannot update sling alias of cruises", e);
+            logger.logError(jsonLog("updateCheckAlias")
+                    .with("msg","Cannot update sling alias of cruises")
+                    .with("eMessage",e.getMessage()));
             errorNumber[0]++;
         }
         LOGGER.info("Number of SUCCESS " + successNumber[0]);
+        logger.logInfo(jsonLog("updateCheckAlias")
+                .with("msg","renaming process finished")
+                .with("successNumber",successNumber[0]));
         return new ImportResult(successNumber[0], errorNumber[0]);
     }
 
     @Override
     public JSONObject getJsonMapping() {
+        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
+
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
@@ -541,6 +641,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                             }
                         } catch (JSONException e) {
                             LOGGER.error("Cannot add cruise {} with path {} to cruises array", cruiseCode, cruise.getPath(), e);
+                            logger.logError(jsonLog("getJsonMapping")
+                                    .with("msg","Cannot add cruise to cruises array")
+                                    .with("cruiseCode",cruiseCode)
+                                    .with("cruisePath",cruise.getPath())
+                                    .with("eMessage",e.getMessage()));
                         }
                     }
                 }
@@ -548,6 +653,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
+            logger.logError(jsonLog("getJsonMapping")
+                    .with("msg","Cannot create resource resolver")
+                    .with("eMessage",e.getMessage()));
         }
 
         return jsonObject;
@@ -557,6 +665,10 @@ public class CruisesImporterImpl implements CruisesImporter {
                                   Map<Integer, String> featuresMapping, Voyage77 cruise,
                                   String language, Node cruiseContentNode, MimeTypeService mimeTypeService,
                                   ResourceResolver resourceResolver) throws RepositoryException {
+
+
+        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
+
         // Adding tags
         List<String> tagIds = new ArrayList<>();
 
@@ -580,7 +692,10 @@ public class CruisesImporterImpl implements CruisesImporter {
         if (shipsMapping.containsKey(cruise.getShipId())) {
             if (shipsMapping.get(cruise.getShipId()).containsKey(language)) {
                 LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(cruise.getShipId()).get(language));
-
+                logger.logTrace(jsonLog("updateCruiseData")
+                        .with("msg","Associating ship to cruise")
+                        .with("voyageCode",cruise.getVoyageCod())
+                        .with("ship",shipsMapping.get(cruise.getShipId()).get(language)));
                 cruiseContentNode.setProperty("shipReference", shipsMapping.get(cruise.getShipId()).get(language));
             }
         }
@@ -641,30 +756,37 @@ public class CruisesImporterImpl implements CruisesImporter {
                     cruiseContentNode.getParent().getParent().getName(), cruise.getMap4Url(), "bigItineraryMap",mimeTypeService, resourceResolver);
         }
 
-            if (StringUtils.isNotEmpty(cruise.getMapPos())){
-                CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
+        if (StringUtils.isNotEmpty(cruise.getMapPos())){
+            CruisesImportUtils.associateMapAsset(session, cruiseContentNode,
                     cruiseContentNode.getParent().getParent().getName(), cruise.getMapPos(), "smallItineraryMap", mimeTypeService, resourceResolver);
-            }
+        }
 
         final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
         final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
 
         if (startDate.after(Calendar.getInstance()) && isVisible) {
-        	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+            cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
         }else{
-        	cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+            cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
         }
     }
 
     private void batchSave(Session session, int itemsWritten) throws RepositoryException {
+
+        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
+
         if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
             try {
                 session.save();
 
                 LOGGER.info("{} cruises imported, saving session", +itemsWritten);
+                logger.logInfo(jsonLog("batchSave")
+                        .with("msg","cruises imported, saving session")
+                        .with("imported",+itemsWritten));
             } catch (RepositoryException e) {
                 session.refresh(true);
             }
         }
     }
+
 }
