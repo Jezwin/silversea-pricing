@@ -39,6 +39,9 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+import static com.silversea.aem.constants.RunModesConstants.AUTHOR;
+import static com.silversea.aem.constants.RunModesConstants.PUBLISH;
+
 public class ImportersUtils {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ImportersUtils.class);
@@ -460,10 +463,10 @@ public class ImportersUtils {
     public static String getAEMInstanceType(SlingSettingsService slingSettingsService){
         Set<String> runModes = slingSettingsService.getRunModes();
 
-        if(runModes.contains("author")){
-            return "author";
-        }else if(runModes.contains("publish")){
-            return "publish";
+        if(runModes.contains(AUTHOR)){
+            return AUTHOR;
+        }else if(runModes.contains(PUBLISH)){
+            return PUBLISH;
         }else{
             return "";
         }

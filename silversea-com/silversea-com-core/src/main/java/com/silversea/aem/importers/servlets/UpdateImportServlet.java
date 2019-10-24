@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.silversea.aem.constants.RunModesConstants.AUTHOR;
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
 import static com.silversea.aem.importers.utils.ImportersUtils.getAEMInstanceType;
 import static com.silversea.aem.logging.JsonLog.jsonLog;
@@ -221,8 +222,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
 
-        String instance = getAEMInstanceType(slingSettingsService);
-        logger.logInfo(jsonLog("StartUpdateImportServlet").with("message","Start Update import servlet on " + instance));
+        String currentAemInstanceType = getAEMInstanceType(slingSettingsService);
+        logger.logInfo(jsonLog("StartUpdateImportServlet").with("message","Start Update import servlet on " + currentAemInstanceType));
 
         List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
         List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get);
@@ -230,7 +231,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
         if(errors.isEmpty()) {
             new ImportRunner(jobs, logger).run().forEach(report -> results.put(report.name(), report.result()));
-            if (instance.equals("author")){
+            if (currentAemInstanceType.equals(AUTHOR)){
                 Replicate(request);
             }
             ClearCache(request, results);
@@ -241,7 +242,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         response.getWriter().write(content);
         response.setContentType("text/html");
 
-        logger.logInfo(jsonLog("UpdateImportComplete").with("message","End Update import servlet on " + instance));
+        logger.logInfo(jsonLog("UpdateImportComplete").with("message","End Update import servlet on " + currentAemInstanceType));
     }
 
     private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {
