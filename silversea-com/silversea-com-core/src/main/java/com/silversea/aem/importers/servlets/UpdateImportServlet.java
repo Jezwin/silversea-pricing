@@ -223,7 +223,6 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
         String instance = getCurrentInstance(slingSettingsService);
         logger.logInfo(jsonLog("StartUpdateImportServlet").with("message","Start Update import servlet on " + instance));
-        LOGGER.info("Start Update import servlet");
 
         List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
         List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get);
@@ -243,7 +242,6 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         response.setContentType("text/html");
 
         logger.logInfo(jsonLog("EndUpdateImportServlet").with("message","End Update import servlet on " + instance));
-        LOGGER.info("End Update import servlet");
     }
 
     private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {
