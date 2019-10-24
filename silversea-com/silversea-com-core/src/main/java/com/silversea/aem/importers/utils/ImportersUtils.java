@@ -10,7 +10,6 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import io.swagger.client.StringUtil;
 import org.apache.jackrabbit.vault.util.SHA1;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
