@@ -41,6 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.silversea.aem.logging.JsonLog.jsonLog;
+import static com.silversea.aem.logging.JsonLog.jsonLogWithMessage;
+import static com.silversea.aem.logging.JsonLog.jsonLogWithMessageAndError;
 
 @Service
 @Component
@@ -74,14 +76,13 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     @Override
     public ImportResult importAllItems(final boolean update) throws ImporterException {
         LogzLogger logzLogger = logzLoggerFactory.getLogger("CruisesItinerariesExcursionsImporterImpl");
-        logzLogger.logInfo(jsonLog("StartItinerariesExcursionsImporter")
-                .with("message", "Start of the itineraries excursions import process"));
+        logzLogger.logInfo(jsonLogWithMessage("StartItinerariesExcursionsImporter", "Start of the itineraries excursions import process"));
+
         if (importRunning) {
             throw new ImporterException("Import is already running");
         }
 
-        logzLogger.logInfo(jsonLog("StartItinerariesExcursionsImportNoChangesFrom")
-                .with("message", "Start the import of excursions related to itineraries without using the changesFrom parameter"));
+        logzLogger.logInfo(jsonLogWithMessage("StartItinerariesExcursionsImportNoChangesFrom", "Start the import of excursions related to itineraries without using the changesFrom parameter"));
         importRunning = true;
 
         final ImportResult importResult = new ImportResult();
@@ -103,8 +104,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
             if (!update) {
                 // Existing excursions deletion
-                logzLogger.logDebug(jsonLog("CleanExcursions")
-                        .with("message","Cleaning already imported excursions"));
+                logzLogger.logDebug(jsonLogWithMessage("CleanExcursions","Cleaning already imported excursions"));
 
                 ImportersUtils.deleteResources(resourceResolver, sessionRefresh,
                         "/jcr:root/content/silversea-com//element(*,nt:unstructured)" +
@@ -250,8 +250,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             int itemsWrittenDiff = 0;
             apiPageDiff = 1;
 
-            logzLogger.logInfo(jsonLog("StartItinerariesExcursionsImportChangesFrom")
-                    .with("message", "Start the import of excursions related to itineraries using the changesFrom parameter"));
+            logzLogger.logInfo(jsonLogWithMessage("StartItinerariesExcursionsImportChangesFrom", "Start the import of excursions related to itineraries using the changesFrom parameter"));
             do {
                 excursionsDiff = shorexesApi.shorexesGetItinerary2(lastModificationDate, apiPageDiff, pageSize, null);
                 
@@ -382,11 +381,11 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                 }
             }
         } catch (LoginException e) {
-            logzLogger.logError(getGenericJsonErrorLog("ResourceResolverError","Cannot create resource resolver", e));
+            logzLogger.logError(jsonLogWithMessageAndError("ResourceResolverError","Cannot create resource resolver",e));
         } catch (RepositoryException | ImporterException e) {
-            logzLogger.logError(getGenericJsonErrorLog("ImportExcursionsError","Cannot import excursions", e));
+            logzLogger.logError(jsonLogWithMessageAndError("ImportExcursionsError","Cannot import excursions", e));
         } catch (ApiException e) {
-            logzLogger.logError(getGenericJsonErrorLog("ReadExcursionsFromAPIError", "Cannot read excursions from API", e));
+            logzLogger.logError(jsonLogWithMessageAndError("ReadExcursionsFromAPIError", "Cannot read excursions from API", e));
         } finally {
             importRunning = false;
         }
@@ -437,17 +436,10 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
         return cruisesWithDedicatedShorex;
     }
 
-    // LOGS
-    private JsonLog getGenericJsonErrorLog(String event, String message, Exception e){
-        return jsonLog(event)
-                .with("message",message)
-                .with("error",e.getMessage());
-    }
-
     private JsonLog getSummaryImportLog(String event, String message, int itemsWritten){
         return jsonLog(event)
                 .with("message", message)
-                .with("itemsWritten", itemsWritten);
+                .with("excursionsImported", itemsWritten);
     }
 
     private JsonLog getCannotDealWithExcursionsLog (String event, String message, Integer shorexId){
@@ -481,7 +473,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     private JsonLog getExcursionsImportedLog(String event, String message, Integer itemsWritten){
         return jsonLog(event)
                 .with("message",message)
-                .with("itemsWritten",itemsWritten);
+                .with("excursionsImported",itemsWritten);
     }
 
     private JsonLog getImportingExcurstionInItineraryLog(String event, String message, Integer shorexId, String path){
