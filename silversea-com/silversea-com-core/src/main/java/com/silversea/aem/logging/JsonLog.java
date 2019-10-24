@@ -61,6 +61,19 @@ public class JsonLog {
         return this;
     }
 
+    public static JsonLog jsonLogWithMessageAndError(String event, String message, Exception e){
+        JsonLog jsonLog = new JsonLog(event);
+        jsonLog.with("message",message)
+                .with("error",e.getMessage());
+        return jsonLog;
+    }
+
+    public static JsonLog jsonLogWithMessage(String event, String message){
+        JsonLog jsonLog = new JsonLog(event);
+        jsonLog.with("message",message);
+        return jsonLog;
+    }
+
     JsonObject underlying() {
         return json;
     }

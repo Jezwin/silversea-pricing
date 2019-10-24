@@ -6,4 +6,8 @@ public interface SSCLogger {
     void logWarning(JsonLog message);
 
     void logError(JsonLog message);
+
+    void logDebug(JsonLog message);
+
+    void logTrace(JsonLog message);
 }
