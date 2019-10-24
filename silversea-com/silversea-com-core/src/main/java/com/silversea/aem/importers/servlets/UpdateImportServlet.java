@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
-import static com.silversea.aem.importers.utils.ImportersUtils.getCurrentInstance;
+import static com.silversea.aem.importers.utils.ImportersUtils.getAEMInstanceType;
 import static com.silversea.aem.logging.JsonLog.jsonLog;
 
 @SlingServlet(paths = "/bin/api-import-diff")
@@ -221,7 +221,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
 
-        String instance = getCurrentInstance(slingSettingsService);
+        String instance = getAEMInstanceType(slingSettingsService);
         logger.logInfo(jsonLog("StartUpdateImportServlet").with("message","Start Update import servlet on " + instance));
 
         List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
@@ -241,7 +241,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         response.getWriter().write(content);
         response.setContentType("text/html");
 
-        logger.logInfo(jsonLog("EndUpdateImportServlet").with("message","End Update import servlet on " + instance));
+        logger.logInfo(jsonLog("UpdateImportComplete").with("message","End Update import servlet on " + instance));
     }
 
     private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {

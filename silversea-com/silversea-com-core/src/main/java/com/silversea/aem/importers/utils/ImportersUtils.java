@@ -435,7 +435,6 @@ public class ImportersUtils {
 
     }
 
-
     public static boolean isResourceToBeUpdated(ResourceResolver resourceResolver, String existingResource,
                                                 URL remoteUrl) {
         Resource existingAsset = resourceResolver.getResource(existingResource);
@@ -458,25 +457,16 @@ public class ImportersUtils {
 
     }
 
-    /***
-     * Used to understand what is the current instance (author or publish)
-     *
-     * @param slingSettingsService
-     * @return string
-     */
-    public static String getCurrentInstance(SlingSettingsService slingSettingsService){
-
-        String instance = "";
-
+    public static String getAEMInstanceType(SlingSettingsService slingSettingsService){
         Set<String> runModes = slingSettingsService.getRunModes();
 
         if(runModes.contains("author")){
-            instance = "author";
+            return "author";
         }else if(runModes.contains("publish")){
-            instance = "publish";
+            return "publish";
+        }else{
+            return "";
         }
-
-        return instance;
     }
 
     /***
