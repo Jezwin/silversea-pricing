@@ -841,7 +841,7 @@
     <offer-accumulated
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Todas as ofertas são acumuláveis e estão sujeitas a disponibilidade."/>
+            sling:message="Todas as ofertas estão sujeitas a disponibilidade."/>
     <offers
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
