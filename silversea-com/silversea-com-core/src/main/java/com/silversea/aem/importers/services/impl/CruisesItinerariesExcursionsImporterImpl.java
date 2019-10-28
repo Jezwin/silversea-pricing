@@ -75,8 +75,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
     @Override
     public ImportResult importAllItems(final boolean update) throws ImporterException {
-        LogzLogger logzLogger = logzLoggerFactory.getLogger("CruisesItinerariesExcursionsImporterImpl");
-        logzLogger.logInfo(jsonLogWithMessage("StartItinerariesExcursionsImporter", "Start of the itineraries excursions import process"));
+        LogzLogger logzLogger = (LogzLogger) logzLoggerFactory.getLogger(CruisesItinerariesExcursionsImporterImpl.class);
+        logzLogger.logInfo(jsonLogWithMessage("ItinerariesExcursionsImporterStarting", "Start of the itineraries excursions import process"));
 
         if (importRunning) {
             throw new ImporterException("Import is already running");
@@ -390,8 +390,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             importRunning = false;
         }
 
-        logzLogger.logInfo(jsonLog("End")
-                .with("message", "Ending itineraries excursions import")
+        logzLogger.logInfo(jsonLog("ItinerariesExcursionsImporterComplete", "Ending itineraries excursions import")
                 .with("success", importResult.getSuccessNumber())
                 .with("error", importResult.getErrorNumber())
                 .with("apiCallsChangesFrom",apiPage)
@@ -437,20 +436,17 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     }
 
     private JsonLog getSummaryImportLog(String event, String message, int itemsWritten){
-        return jsonLog(event)
-                .with("message", message)
+        return jsonLog(event, message)
                 .with("excursionsImported", itemsWritten);
     }
 
     private JsonLog getCannotDealWithExcursionsLog (String event, String message, Integer shorexId){
-        return jsonLog(event)
-                .with("message", message)
+        return jsonLog(event, message)
                 .with("excursionShorexId", shorexId);
     }
 
     private JsonLog getImportedStatusLog (String event, String message, Integer shorexId, Integer voyageId, Integer cityId, Boolean imported){
-        return jsonLog(event)
-                .with("message", message)
+        return jsonLog(event, message)
                 .with("excursionShorexId", shorexId)
                 .with("excursionVoyageId", voyageId)
                 .with("excursionCityId", cityId)
@@ -458,27 +454,23 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     }
 
     private JsonLog getCannotWriteExcursionsLog (String event, String message,Integer shorexId){
-        return jsonLog(event)
-                .with("message",message)
+        return jsonLog(event,message)
                 .with("excursionShorexId", shorexId);
     }
 
     private JsonLog getCannoFindExcursionInCacheLog (String event, String message,Integer shorexId,Integer portId){
-        return jsonLog(event)
-                .with("message",message)
+        return jsonLog(event,message)
                 .with("excursionShorexId", shorexId)
                 .with("itineraryPortId", portId);
     }
 
     private JsonLog getExcursionsImportedLog(String event, String message, Integer itemsWritten){
-        return jsonLog(event)
-                .with("message",message)
+        return jsonLog(event, message)
                 .with("excursionsImported",itemsWritten);
     }
 
     private JsonLog getImportingExcurstionInItineraryLog(String event, String message, Integer shorexId, String path){
-        return jsonLog(event)
-                .with("message",message)
+        return jsonLog(event ,message)
                 .with("shorexItineraryId",shorexId)
                 .with("itineraryPath", path);
     }
