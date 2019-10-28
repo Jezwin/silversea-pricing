@@ -12,11 +12,21 @@ public class JsonLog {
         return new JsonLog(event);
     }
 
+    public static JsonLog jsonLog(String event, String message){
+        return new JsonLog(event,message);
+    }
+
     public static JsonLog nested() { return new JsonLog(); }
 
     private JsonLog(String event) {
         json = new JsonObject();
         json.addProperty("event", event);
+    }
+
+    private JsonLog(String event, String message) {
+        json = new JsonObject();
+        json.addProperty("event", event);
+        json.addProperty("message",message);
     }
 
     private JsonLog() {
@@ -62,15 +72,13 @@ public class JsonLog {
     }
 
     public static JsonLog jsonLogWithMessageAndError(String event, String message, Exception e){
-        JsonLog jsonLog = new JsonLog(event);
-        jsonLog.with("message",message)
+        JsonLog jsonLog = new JsonLog(event,message)
                 .with("error",e.getMessage());
         return jsonLog;
     }
 
     public static JsonLog jsonLogWithMessage(String event, String message){
-        JsonLog jsonLog = new JsonLog(event);
-        jsonLog.with("message",message);
+        JsonLog jsonLog = new JsonLog(event,message);
         return jsonLog;
     }
 

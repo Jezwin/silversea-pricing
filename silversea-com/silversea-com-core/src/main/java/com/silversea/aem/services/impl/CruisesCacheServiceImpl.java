@@ -300,23 +300,23 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     private JsonLog jsonLogCruisesInCache(String event, String message, Integer cruiseInCache){
-        return jsonLog(event).with("message",message)
+        return jsonLog(event,message)
                 .with("cruiseCacheSize", cruiseInCache);
     }
 
     private JsonLog jsonLogWithCruisePath(String event, String message, String cruiseModelPath){
-        return jsonLog(event).with("message",message)
+        return jsonLog(event,message)
                 .with("cruiseModelPath", cruiseModelPath);
     }
 
     private JsonLog jsonLogCruiseCodeWithLang(String event, String message, String cruiseCode,String lang){
-        return jsonLog(event).with("message",message)
+        return jsonLog(event,message)
                 .with("cruiseCode", cruiseCode)
                 .with("lang", lang);
     }
 
     private JsonLog jsonLogDurationPath(String event, String message, String duration, String path){
-        return jsonLog(event).with("message",message)
+        return jsonLog(event,message)
                 .with("duration", duration)
                 .with("path", path);
     }
