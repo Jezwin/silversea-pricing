@@ -74,8 +74,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     @Override
     public ImportResult buildCruiseCache() {
 
-        logzLogger = logzLoggerFactory.getLogger("CruisesCacheServiceImpl");
-        logzLogger.logInfo(jsonLogWithMessage("StartBuildCruiseCache", "Start of FYCCacheRebuild"));
+        logzLogger = (LogzLogger) logzLoggerFactory.getLogger(CruisesCacheService.class);
+        logzLogger.logInfo(jsonLogWithMessage("FYCCacheRebuildStarting", "Start of FYCCacheRebuild"));
 
         ImportResult importResult = new ImportResult();
         final Map<String, Object> authenticationParams = new HashMap<>();
@@ -139,7 +139,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 i += cruise.getValue().size();
             }
             importResult.incrementSuccessNumber();
-            logzLogger.logInfo(jsonLogCruisesInCache("BuildCruiseCacheComplete", "End of FYCCacheRebuild", i));
+            logzLogger.logInfo(jsonLogCruisesInCache("FYCCacheRebuildComplete", "End of FYCCacheRebuild", i));
         } catch (LoginException e) {
             importResult.incrementErrorNumber();
             logzLogger.logError(jsonLogWithMessageAndError("ResourceResolverError","Cannot create resource resolver",e));
@@ -301,7 +301,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     private JsonLog jsonLogCruisesInCache(String event, String message, Integer cruiseInCache){
         return jsonLog(event).with("message",message)
-                .with("cruiseInCache", cruiseInCache);
+                .with("cruiseCacheSize", cruiseInCache);
     }
 
     private JsonLog jsonLogWithCruisePath(String event, String message, String cruiseModelPath){
