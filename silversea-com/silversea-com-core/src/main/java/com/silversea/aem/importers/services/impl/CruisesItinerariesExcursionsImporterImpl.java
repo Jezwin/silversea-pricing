@@ -75,7 +75,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
     @Override
     public ImportResult importAllItems(final boolean update) throws ImporterException {
-        LogzLogger logzLogger = (LogzLogger) logzLoggerFactory.getLogger(CruisesItinerariesExcursionsImporterImpl.class);
+        LogzLogger logzLogger = logzLoggerFactory.getLogger(CruisesItinerariesExcursionsImporterImpl.class.getName());
         logzLogger.logInfo(jsonLogWithMessage("ItinerariesExcursionsImporterStarting", "Start of the itineraries excursions import process"));
 
         if (importRunning) {

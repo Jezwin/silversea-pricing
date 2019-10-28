@@ -74,7 +74,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     @Override
     public ImportResult buildCruiseCache() {
 
-        logzLogger = (LogzLogger) logzLoggerFactory.getLogger(CruisesCacheService.class);
+        logzLogger = logzLoggerFactory.getLogger(CruisesCacheService.class.getName());
         logzLogger.logInfo(jsonLogWithMessage("FYCCacheRebuildStarting", "Start of FYCCacheRebuild"));
 
         ImportResult importResult = new ImportResult();
