@@ -219,7 +219,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
 
         String currentAemInstanceType = getAEMInstanceType(slingSettingsService);
-        logger.logInfo(jsonLogWithMessage("StartUpdateImportServlet","Start Update import servlet on " + currentAemInstanceType));
+        logger.logInfo(jsonLogWithMessage("UpdateImportServletStart","Start Update import servlet on " + currentAemInstanceType));
 
         List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
         List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get);
@@ -238,7 +238,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         response.getWriter().write(content);
         response.setContentType("text/html");
 
-        logger.logInfo(jsonLogWithMessage("UpdateImportComplete","Update import servlet completed on " + currentAemInstanceType));
+        logger.logInfo(jsonLogWithMessage("UpdateImportServletComplete","Update import servlet completed on " + currentAemInstanceType));
     }
 
     private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {

@@ -7,6 +7,9 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.logging.JsonLog;
+import com.silversea.aem.logging.LogzLogger;
+import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 
@@ -17,23 +20,28 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.settings.SlingSettingsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.YearMonth;
 import java.util.*;
 
+import static com.silversea.aem.logging.JsonLog.jsonLog;
+import static com.silversea.aem.logging.JsonLog.jsonLogWithMessage;
+import static com.silversea.aem.logging.JsonLog.jsonLogWithMessageAndError;
+
 @Service
 @Component
 public class CruisesCacheServiceImpl implements CruisesCacheService {
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesCacheServiceImpl.class);
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
     @Reference
     private SlingSettingsService slingSettingsService;
+
+    @Reference
+    protected LogzLoggerFactory logzLoggerFactory;
+
+    private LogzLogger logzLogger;
 
     private Map<String, Map<String, CruiseModelLight>> cruisesByCode = new HashMap<>();
 
@@ -48,7 +56,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     private Map<String, Set<YearMonth>> departureDates = new HashMap<>();
 
     private Map<String, Set<FeatureModelLight>> features = new HashMap<>();
-    
+
     private Map<String, Map<String, CruiseModelLight>> cruisesByCodeTmp = new HashMap<>();
 
     private Map<String, List<DestinationModelLight>> destinationsTmp = new HashMap<>();
@@ -65,9 +73,14 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     @Override
     public ImportResult buildCruiseCache() {
+
+        logzLogger = (LogzLogger) logzLoggerFactory.getLogger(CruisesCacheService.class);
+        logzLogger.logInfo(jsonLogWithMessage("FYCCacheRebuildStarting", "Start of FYCCacheRebuild"));
+
         ImportResult importResult = new ImportResult();
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(
                 authenticationParams)) {
@@ -89,7 +102,6 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
             for (final String lang : languages) {
                 // init language
-                
                 cruisesByCodeTmp.put(lang, new HashMap<>());
                 destinationsTmp.put(lang, new ArrayList<>());
                 shipsTmp.put(lang, new ArrayList<>());
@@ -104,17 +116,17 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 destinationsTmp.get(lang).sort(Comparator.comparing(DestinationModelLight::getTitle));
                 shipsTmp.get(lang).sort(Comparator.comparing(ShipModelLight::getTitle));
                 portsTmp.get(lang).sort(Comparator.comparing(PortModelLight::getApiTitle));
-               
+
             }
-            
-            cruisesByCode = cruisesByCodeTmp; 
+
+            cruisesByCode = cruisesByCodeTmp;
             destinations = destinationsTmp;
             ships = shipsTmp;
             ports = portsTmp;
             durations = durationsTmp;
             departureDates = departureDatesTmp;
             features = featuresTmp;
-            
+
             cruisesByCodeTmp = null;
             destinationsTmp = null;
             shipsTmp = null;
@@ -127,10 +139,10 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 i += cruise.getValue().size();
             }
             importResult.incrementSuccessNumber();
-            LOGGER.info("End of cruise cache build, {} cruises cached", i);
+            logzLogger.logInfo(jsonLogCruisesInCache("FYCCacheRebuildComplete", "End of FYCCacheRebuild", i));
         } catch (LoginException e) {
             importResult.incrementErrorNumber();
-            LOGGER.error("Cannot create resource resolver", e);
+            logzLogger.logError(jsonLogWithMessageAndError("ResourceResolverError","Cannot create resource resolver",e));
         }
         return importResult;
     }
@@ -178,18 +190,18 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     @Override
     public void addOrUpdateCruise(CruiseModelLight cruiseModel, String langIn) {
         if (cruiseModel == null) {
-            LOGGER.warn("Cannot update cache, the cruise model provided is null");
+
+            logzLogger.logWarning(jsonLogWithMessage("CannotUpdateCache","Cannot update cache, the cruise model provided is null"));
             return;
         }
 
-        LOGGER.debug("Updating cruises cache with {}", cruiseModel.getPath());
+        logzLogger.logDebug(jsonLogWithCruisePath("UpdateCruiseCache","Updating cruise cache",cruiseModel.getPath()));
 
-        
         final String cruiseCode = cruiseModel.getCruiseCode();
         final String lang = langIn;
 
         if (cruisesByCode.containsKey(lang)) {
-        	//cruisesByCode.get(lang).remove(cruiseCode);
+            //cruisesByCode.get(lang).remove(cruiseCode);
             cruisesByCode.get(lang).put(cruiseCode, cruiseModel);
         } else {
             final HashMap<String, CruiseModelLight> cruiseByCode = new HashMap<>();
@@ -202,11 +214,11 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     @Override
     public void removeCruise(String lang, String cruiseCode) {
         if (lang == null || cruiseCode == null) {
-            LOGGER.warn("Cannot update cache with info {} {}", lang, cruiseCode);
+            logzLogger.logWarning(jsonLogCruiseCodeWithLang("CannotUpdateCache","Cannot update cache",cruiseCode,lang));
             return;
         }
 
-        LOGGER.debug("Removing cruise from cache with {} {}", lang, cruiseCode);
+        logzLogger.logDebug(jsonLogCruiseCodeWithLang("RemoveCruiseFromCache","Removing cruise from cache", cruiseCode,lang));
 
         if (cruisesByCode.containsKey(lang) && cruisesByCode.get(lang).containsKey(cruiseCode)) {
             cruisesByCode.get(lang).remove(cruiseCode);
@@ -220,55 +232,54 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
      */
     private void collectCruisesPages(final Page rootPage) {
         if (rootPage.getContentResource() != null && rootPage.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
-        	try{
-            final String lang = LanguageHelper.getLanguage(rootPage);
+            try{
+                final String lang = LanguageHelper.getLanguage(rootPage);
 
-            final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
-            
-            if (cruiseShouldBeCached(cruiseModel)) {
-                CruiseModelLight cruiseModelLight = new CruiseModelLight(cruiseModel);
-                cruisesByCodeTmp.get(lang).put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
+                final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
 
-                if (cruiseModel.getDestination() != null
-                        && !destinationsTmp.get(lang).contains(new DestinationModelLight(cruiseModel.getDestination()))) {
-                    destinationsTmp.get(lang).add(new DestinationModelLight(cruiseModel.getDestination()));
-                }
+                if (cruiseShouldBeCached(cruiseModel)) {
+                    CruiseModelLight cruiseModelLight = new CruiseModelLight(cruiseModel);
+                    cruisesByCodeTmp.get(lang).put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
 
-                if (cruiseModel.getShip() != null && !shipsTmp.get(lang).contains(new ShipModelLight(cruiseModel.getShip()))) {
-                    shipsTmp.get(lang).add(new ShipModelLight(cruiseModel.getShip()));
-                }
+                    if (cruiseModel.getDestination() != null
+                            && !destinationsTmp.get(lang).contains(new DestinationModelLight(cruiseModel.getDestination()))) {
+                        destinationsTmp.get(lang).add(new DestinationModelLight(cruiseModel.getDestination()));
+                    }
 
-                if (cruiseModel.getItineraries() != null) {
-                    for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                        if (itinerary.getPort() != null && !portsTmp.get(lang).contains(new PortModelLight(itinerary.getPort()))) {
-                            portsTmp.get(lang).add(new PortModelLight(itinerary.getPort()));
+                    if (cruiseModel.getShip() != null && !shipsTmp.get(lang).contains(new ShipModelLight(cruiseModel.getShip()))) {
+                        shipsTmp.get(lang).add(new ShipModelLight(cruiseModel.getShip()));
+                    }
+
+                    if (cruiseModel.getItineraries() != null) {
+                        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+                            if (itinerary.getPort() != null && !portsTmp.get(lang).contains(new PortModelLight(itinerary.getPort()))) {
+                                portsTmp.get(lang).add(new PortModelLight(itinerary.getPort()));
+                            }
                         }
                     }
+
+                    try {
+                        durationsTmp.get(lang).add(Integer.parseInt(cruiseModel.getDuration()));
+                    } catch (NumberFormatException e) {
+                        logzLogger.logWarning(jsonLogDurationPath("CannotGetInitValueOfCruise","cannot get init value of duration of cruise",cruiseModel.getDuration(),cruiseModel.getPage().getPath()));
+                    }
+
+                    departureDatesTmp.get(lang).add(YearMonth.of(cruiseModel.getStartDate().get(Calendar.YEAR),
+                            cruiseModel.getStartDate().get(Calendar.MONTH) + 1));
+                    List<FeatureModel> tmpFeat = cruiseModel.getFeatures();
+                    List<FeatureModelLight> tmpFeatLight = new ArrayList<>();
+                    for (FeatureModel featureModel : tmpFeat) {
+                        tmpFeatLight.add(new FeatureModelLight(featureModel));
+                    }
+                    featuresTmp.get(lang).addAll(tmpFeatLight);
+                    tmpFeat = null;
+                    tmpFeatLight = null;
+
+                    logzLogger.logDebug(jsonLogWithCruisePath("AddingCruiseInPath","Adding cruise in cache",cruiseModel.getPage().getPath()));
                 }
-
-                try {
-                    durationsTmp.get(lang).add(Integer.parseInt(cruiseModel.getDuration()));
-                } catch (NumberFormatException e) {
-                    LOGGER.warn("Cannot get int value for duration {} in cruise {}", cruiseModel.getDuration(),
-                            cruiseModel.getPage().getPath());
-                }
-
-                departureDatesTmp.get(lang).add(YearMonth.of(cruiseModel.getStartDate().get(Calendar.YEAR),
-                        cruiseModel.getStartDate().get(Calendar.MONTH) + 1));
-                List<FeatureModel> tmpFeat = cruiseModel.getFeatures();
-                List<FeatureModelLight> tmpFeatLight = new ArrayList<>();
-                for (FeatureModel featureModel : tmpFeat) {
-					tmpFeatLight.add(new FeatureModelLight(featureModel));
-				}
-                featuresTmp.get(lang).addAll(tmpFeatLight);
-                tmpFeat = null;
-                tmpFeatLight = null;
-
-                LOGGER.debug("Adding cruise at path {} in cache", cruiseModel.getPage().getPath());
+            }catch(Exception e){
+                logzLogger.logError(jsonLogWithCruisePath("ErrorAddingCruiseInPath","Error adding cruise in path",rootPage.getPath()));
             }
-        	}catch(Exception e){
-        		 LOGGER.error("XXX Error adding cruise at path {} in cache", rootPage.getPath());
-        	}
         } else {
             final Iterator<Page> children = rootPage.listChildren();
 
@@ -287,4 +298,27 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
         return isVisible && departureInTheFuture;
     }
+
+    private JsonLog jsonLogCruisesInCache(String event, String message, Integer cruiseInCache){
+        return jsonLog(event,message)
+                .with("cruiseCacheSize", cruiseInCache);
+    }
+
+    private JsonLog jsonLogWithCruisePath(String event, String message, String cruiseModelPath){
+        return jsonLog(event,message)
+                .with("cruiseModelPath", cruiseModelPath);
+    }
+
+    private JsonLog jsonLogCruiseCodeWithLang(String event, String message, String cruiseCode,String lang){
+        return jsonLog(event,message)
+                .with("cruiseCode", cruiseCode)
+                .with("lang", lang);
+    }
+
+    private JsonLog jsonLogDurationPath(String event, String message, String duration, String path){
+        return jsonLog(event,message)
+                .with("duration", duration)
+                .with("path", path);
+    }
+
 }
