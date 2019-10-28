@@ -18,22 +18,19 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.settings.SlingSettingsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
+import static com.silversea.aem.constants.RunModesConstants.AUTHOR;
 import static com.silversea.aem.importers.ImportJobRequest.jobRequest;
-import static java.util.stream.Collectors.toList;
+import static com.silversea.aem.importers.utils.ImportersUtils.getAEMInstanceType;
+import static com.silversea.aem.logging.JsonLog.jsonLogWithMessage;
 
 @SlingServlet(paths = "/bin/api-import-diff")
 public class UpdateImportServlet extends SlingSafeMethodsServlet {
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(UpdateImportServlet.class);
 
     public enum Mode {
         brochures,
@@ -220,20 +217,28 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         SSCLogger logger = sscLogFactory.getLogger(UpdateImportServlet.class);
+
+        String currentAemInstanceType = getAEMInstanceType(slingSettingsService);
+        logger.logInfo(jsonLogWithMessage("StartUpdateImportServlet","Start Update import servlet on " + currentAemInstanceType));
+
         List<String> errors = getImportJobs(request).filter(Either::isLeft).map(Either::getLeft);
         List<ImportJobRequest> jobs = getImportJobs(request).filter(Either::isRight).map(Either::get);
         Map<String, ImportResult> results = new HashMap<>();
 
         if(errors.isEmpty()) {
             new ImportRunner(jobs, logger).run().forEach(report -> results.put(report.name(), report.result()));
-            Replicate(request);
-            if (slingSettingsService.getRunModes().contains("author")) ClearCache(request, results);
+            if (currentAemInstanceType.equals(AUTHOR)){
+                Replicate(request);
+            }
+            ClearCache(request, results);
         }
 
         InternalPageRepository repo = new InternalPageRepository(request.getResourceResolver(), cruiseCache);
         String content = repo.diffImportPage(results, errors).getOrElseGet(Throwable::getMessage);
         response.getWriter().write(content);
         response.setContentType("text/html");
+
+        logger.logInfo(jsonLogWithMessage("UpdateImportComplete","Update import servlet completed on " + currentAemInstanceType));
     }
 
     private List<Either<String, ImportJobRequest>> getImportJobs(SlingHttpServletRequest request) {

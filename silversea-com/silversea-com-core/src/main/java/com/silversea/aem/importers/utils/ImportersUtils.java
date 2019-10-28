@@ -22,6 +22,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.commons.mime.MimeTypeService;
+import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +38,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+
+import static com.silversea.aem.constants.RunModesConstants.AUTHOR;
+import static com.silversea.aem.constants.RunModesConstants.PUBLISH;
 
 public class ImportersUtils {
 
@@ -434,7 +438,6 @@ public class ImportersUtils {
 
     }
 
-
     public static boolean isResourceToBeUpdated(ResourceResolver resourceResolver, String existingResource,
                                                 URL remoteUrl) {
         Resource existingAsset = resourceResolver.getResource(existingResource);
@@ -455,6 +458,18 @@ public class ImportersUtils {
         }
         return true;
 
+    }
+
+    public static String getAEMInstanceType(SlingSettingsService slingSettingsService){
+        Set<String> runModes = slingSettingsService.getRunModes();
+
+        if(runModes.contains(AUTHOR)){
+            return AUTHOR;
+        }else if(runModes.contains(PUBLISH)){
+            return PUBLISH;
+        }else{
+            return "";
+        }
     }
 
     /***
