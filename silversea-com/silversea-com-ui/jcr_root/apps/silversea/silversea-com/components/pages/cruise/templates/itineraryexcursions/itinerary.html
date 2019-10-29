@@ -10,7 +10,7 @@
 </template>
 
 <template
-        data-sly-use.newCruiseDisclaimerHelper="${'com.silversea.aem.helper.NewCruiseDisclaimerHelper' @ cruiseCode = model.cruiseCode}"
+        data-sly-use.newCruiseDisclaimerHelper="${'com.silversea.aem.newcruisedisclaimer.NewCruiseDisclaimerHelper' @ cruiseCode = model.cruiseCode}"
         data-sly-template.commonHeader="${@ duration, currentPath, countryCode, model, dayUntilDeparture, portsGallery, numPorts,numRoutes, numCountries,customDescription, hideVoyageCode, externalizerHelper,numEO,numExcursions }">
     <div class="cruise-2018-itineraries-header ${numEO &&  numEO > 0 ? '' : 'cruise-2018-itineraries-header-no-eo'}">
         <sly data-sly-test="${model.cruiseType != 'silversea-expedition'}">
