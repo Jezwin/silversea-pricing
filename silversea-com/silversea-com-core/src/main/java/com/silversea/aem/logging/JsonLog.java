@@ -4,6 +4,8 @@ import io.logz.sender.com.google.gson.JsonArray;
 import io.logz.sender.com.google.gson.JsonObject;
 import io.logz.sender.com.google.gson.JsonPrimitive;
 
+import java.io.StringWriter;
+
 public class JsonLog {
 
     private final JsonObject json;
@@ -65,10 +67,22 @@ public class JsonLog {
     public JsonLog with(Throwable e) {
         JsonObject obj = new JsonObject();
         obj.addProperty("type", e.getClass().getCanonicalName());
-        obj.addProperty("message", e.getMessage());
+        obj.addProperty("stackTrace", GetStackTraceString(e));
         if (e.getCause() != null) obj.addProperty("cause", e.getCause().getMessage());
         underlying().add("exception", obj);
+
+        this.json.addProperty("message", e.getMessage());
+
         return this;
+    }
+
+    private String GetStackTraceString(Throwable e) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : e.getStackTrace()) {
+            sb.append(element.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     public static JsonLog jsonLogWithMessageAndError(String event, String message, Exception e){

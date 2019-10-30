@@ -17,7 +17,6 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.CruiseUtils;
 import com.silversea.aem.utils.PathUtils;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -577,17 +576,20 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruise) {
+        Function<ExclusiveOfferModel, ExclusiveOfferItem> exclusiveOfferModelExclusiveOfferItemFunction = exclusiveOfferModel -> {
+            EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
+            EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
+            String destinationPath = cruise.getDestination().getPath();
+            return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
+        };
+
         return cruise.getExclusiveOffers().stream()
                 .filter(eo -> eo.getGeomarkets() != null && eo.getGeomarkets().contains(geomarket))
-                .map(exclusiveOfferModel -> {
-                    EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
-                    EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
-                    String destinationPath = cruise.getDestination().getPath();
-                    return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
-                })
+                .map(exclusiveOfferModelExclusiveOfferItemFunction)
                 .sorted(comparing((ExclusiveOfferItem eo) -> CruiseUtils.firstNonNull(eo.getPriorityWeight(), 0)).reversed())
                 .collect(toList());
     }
+
 
     private CruiseModel retrieveCruiseModel() {
         if (getRequest().getAttribute("cruiseModel") != null) {
@@ -882,7 +884,5 @@ public class Cruise2018Use extends EoHelper {
     public Integer getHasexcursionsCounter() {
         return hasexcursionsCounter;
     }
-
-
 }
 

@@ -7,10 +7,19 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ValueTypeBean;
+import com.silversea.aem.config.CoreConfig;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.content.CrxContentLoader;
+import com.silversea.aem.featuretoggles.FeatureToggles;
 import com.silversea.aem.importers.services.StyleCache;
+import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.models.ExclusiveOfferFareModel;
 import com.silversea.aem.models.ExclusiveOfferModel;
+import com.silversea.aem.proxies.ExclusiveOfferProxy;
+import com.silversea.aem.proxies.OkHttpClientWrapper;
+import com.silversea.aem.services.ExclusiveOffer;
+import com.silversea.aem.utils.AwsSecretsManager;
+import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -20,14 +29,25 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
     private StyleCache styleCache;
     private Gson gson;
+    private ExclusiveOfferProxy exclusiveOfferProxy;
+    private ExclusiveOffer exclusiveOffer;
+    private LogzLoggerFactory sscLogFactory;
+    private FeatureToggles featureToggles;
 
     @Override
     public void activate() throws Exception {
         super.activate();
         styleCache = getSlingScriptHelper().getService(StyleCache.class);
+        sscLogFactory = getSlingScriptHelper().getService(LogzLoggerFactory.class);
         gson = new GsonBuilder().create();
-    }
 
+        CoreConfig config = getSlingScriptHelper().getService(CoreConfig.class);
+        AwsSecretsManager awsSecretsManager = new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName());
+        exclusiveOfferProxy = new ExclusiveOfferProxy(new OkHttpClientWrapper(awsSecretsManager), config.getExclusiveOfferApiDomain());
+        exclusiveOffer = new ExclusiveOffer(exclusiveOfferProxy, sscLogFactory.getLogger(ExclusiveOffer.class));
+
+        featureToggles = new FeatureToggles(new CrxContentLoader(super.getResourceResolver()));
+    }
 
     public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {
         EoBean eoBean = null;
@@ -43,6 +63,17 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
+
+            if (featureToggles.isEnabled("exclusiveOffersExternalBff"))
+            {
+                if(getCurrentPage().getProperties().get("cruiseCode").equals("6928") && tokensAndStyle.containsKey("air_price"))
+                {
+                    String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
+                    Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
+                    exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
+                }
+            }
+
             ValueTypeBean eoValue = null;
             if (eoModel.getExpirationDate() != null) {
                 Date expirationDate = eoModel.getExpirationDate();
