@@ -18,4 +18,14 @@ public class NullLogger implements SSCLogger {
     public void logError(JsonLog message) {
 
     }
+
+    @Override
+    public void logDebug(JsonLog message) {
+
+    }
+
+    @Override
+    public void logTrace(JsonLog message) {
+
+    }
 }
