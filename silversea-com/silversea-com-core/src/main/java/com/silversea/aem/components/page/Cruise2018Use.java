@@ -590,6 +590,7 @@ public class Cruise2018Use extends EoHelper {
                 .collect(toList());
     }
 
+
     private CruiseModel retrieveCruiseModel() {
         if (getRequest().getAttribute("cruiseModel") != null) {
             return (CruiseModel) getRequest().getAttribute("cruiseModel");
