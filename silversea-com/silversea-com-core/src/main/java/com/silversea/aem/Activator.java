@@ -17,8 +17,6 @@ public class Activator implements BundleActivator, BundleListener {
     @Reference
     private LogzLoggerFactory sscLogFactory;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Activator.class);
-
     @Override
     public void start(BundleContext context) throws Exception {
         context.addBundleListener(this);
@@ -39,16 +37,16 @@ public class Activator implements BundleActivator, BundleListener {
                 && event.getBundle().getSymbolicName().equals("com.silversea.aem.silversea-com-core")) {
 
             try {
-                Thread.sleep(45000);
                 sscLogger.logInfo(jsonLog("SleepingBeforeCruiseCacheInit"));
+                Thread.sleep(45000);
             } catch (InterruptedException e) {
                 sscLogger.logError(jsonLog("SleepBeforeCruiseCacheInitFailed").with(e));
             }
             while(!buildCacheInit(event, sscLogger)){
                 sscLogger.logWarning(jsonLog("CruiseInitFailed"));
                 try {
-                    Thread.sleep(30000);
                     sscLogger.logInfo(jsonLog("SleepingBeforeNextCruiseCacheInitAttempt"));
+                    Thread.sleep(30000);
                 } catch (InterruptedException e) {
                     sscLogger.logError(jsonLog("SleepBeforeNextCruiseCacheInitInterrupted").with(e));
                 }
