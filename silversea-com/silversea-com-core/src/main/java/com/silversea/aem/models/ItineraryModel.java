@@ -142,7 +142,7 @@ public class ItineraryModel {
             }
         }
         hasDedicatedShorex =
-                !isExpedition &&  Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 180;
+              new DedicatedShorexPolicy().hasDedicatedShorex(departDateInit, isExpedition);
 
         excursionToShow.sort(Comparator.comparing(ItineraryExcursionModel::getTitle));
         this.excursions = excursionToShow;
@@ -366,5 +366,11 @@ public class ItineraryModel {
         }
 
         return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date);
+    }
+
+    public static class DedicatedShorexPolicy {
+        public static Boolean hasDedicatedShorex(Calendar departDate, Boolean isExpedition) {
+            return !isExpedition &&  Days.daysBetween(Instant.now(), new DateTime(departDate)).getDays() < 180;
+        }
     }
 }
