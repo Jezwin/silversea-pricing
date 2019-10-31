@@ -142,7 +142,7 @@ public class ItineraryModel {
             }
         }
         hasDedicatedShorex =
-                !isExpedition &&  Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 120;
+                !isExpedition &&  Days.daysBetween(Instant.now(), new DateTime(departDateInit)).getDays() < 180;
 
         excursionToShow.sort(Comparator.comparing(ItineraryExcursionModel::getTitle));
         this.excursions = excursionToShow;
