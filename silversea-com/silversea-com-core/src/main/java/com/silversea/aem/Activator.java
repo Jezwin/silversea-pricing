@@ -1,8 +1,6 @@
 package com.silversea.aem;
 
-import com.silversea.aem.logging.JsonLog;
-import com.silversea.aem.logging.LogzLoggerFactory;
-import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.logging.*;
 import com.silversea.aem.services.CruisesCacheService;
 import io.vavr.Lazy;
 import org.apache.felix.scr.annotations.Reference;
@@ -14,24 +12,20 @@ import static com.silversea.aem.logging.JsonLog.jsonLog;
 
 public class Activator implements BundleActivator, BundleListener {
 
-    @Reference
-    private LogzLoggerFactory sscLogFactory;
 
     @Override
     public void start(BundleContext context) throws Exception {
         context.addBundleListener(this);
-        sscLogFactory.getLogger(Activator.class).logInfo(jsonLog("BundleStarting"));
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
         context.removeBundleListener(this);
-        sscLogFactory.getLogger(Activator.class).logInfo(jsonLog("BundleStopping"));
     }
 
     @Override
     public void bundleChanged(BundleEvent event) {
-        SSCLogger sscLogger = sscLogFactory.getLogger(Activator.class);
+        SSCLogger sscLogger = getLog(event.getBundle().getBundleContext());
         sscLogger.logInfo(jsonLog("BundleChanged").with("bundleEvent", event.getType()));
         if (event.getType() == BundleEvent.STARTED
                 && event.getBundle().getSymbolicName().equals("com.silversea.aem.silversea-com-core")) {
@@ -42,7 +36,7 @@ public class Activator implements BundleActivator, BundleListener {
             } catch (InterruptedException e) {
                 sscLogger.logError(jsonLog("SleepBeforeCruiseCacheInitFailed").with(e));
             }
-            while(!buildCacheInit(event, sscLogger)){
+            while(!buildCacheInit(event, null)){
                 sscLogger.logWarning(jsonLog("CruiseInitFailed"));
                 try {
                     sscLogger.logInfo(jsonLog("SleepingBeforeNextCruiseCacheInitAttempt"));
@@ -73,6 +67,12 @@ public class Activator implements BundleActivator, BundleListener {
             sscLogger.logError(jsonLog("FailedToInitCruiseCache").with(e));
             return false;
         }
+    }
+
+    private SSCLogger getLog(BundleContext context) {
+        final ServiceReference sRef = context.getServiceReference(SSCLoggerFactory.class.getName());
+        SSCLoggerFactory factory = (SSCLoggerFactory) context.getService(sRef);
+        return factory.getLogger(Activator.class);
     }
 
 }
