@@ -36,7 +36,7 @@ public class Activator implements BundleActivator, BundleListener {
             } catch (InterruptedException e) {
                 sscLogger.logError(jsonLog("SleepBeforeCruiseCacheInitFailed").with(e));
             }
-            while(!buildCacheInit(event, null)){
+            while(!buildCacheInit(event, sscLogger)){
                 sscLogger.logWarning(jsonLog("CruiseInitFailed"));
                 try {
                     sscLogger.logInfo(jsonLog("SleepingBeforeNextCruiseCacheInitAttempt"));
