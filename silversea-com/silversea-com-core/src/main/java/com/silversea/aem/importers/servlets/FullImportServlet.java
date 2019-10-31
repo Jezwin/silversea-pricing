@@ -7,6 +7,7 @@ import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.internalpages.InternalPageRepository;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.services.CruisesCacheService;
 import io.vavr.control.Either;
 import org.apache.felix.scr.annotations.Reference;
@@ -111,7 +112,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
 
     @Reference
-    private LogzLoggerFactory sscLogFactory;
+    private SSCLoggerFactory sscLogFactory;
 
     @Reference
     private CruisesCacheService cruiseCache;

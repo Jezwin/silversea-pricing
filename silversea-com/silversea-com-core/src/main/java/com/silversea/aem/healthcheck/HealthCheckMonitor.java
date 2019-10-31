@@ -3,6 +3,7 @@ package com.silversea.aem.healthcheck;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.services.CruisesCacheService;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
@@ -25,7 +26,7 @@ public class HealthCheckMonitor implements Runnable {
     private SSCLogger sscLogger;
 
     @Reference
-    private LogzLoggerFactory sscLogFactory;
+    private SSCLoggerFactory sscLogFactory;
 
     @Reference
     private CruisesCacheService cruiseCache;
