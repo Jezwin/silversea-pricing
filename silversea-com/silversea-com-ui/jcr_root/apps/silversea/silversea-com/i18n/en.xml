@@ -258,7 +258,7 @@
     <cruise-itinerary-120-day
             jcr:primaryType="sling:MessageEntry"
             sling:key="cruise-itinerary-120-day"
-            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit https://my.silversea.com 120 days prior to sailing for the most updated information."/>
+            sling:message="Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit https://my.silversea.com 180 days prior to sailing for the most updated information."/>
     <new-cruise-disclaimer
             jcr:primaryType="sling:MessageEntry"
             sling:key="new-cruise-disclaimer"
@@ -266,7 +266,7 @@
     <cruise-excursion-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-excursion-description"
-        sling:message="Shore excursions provide the highlight of any cruise and allow you to gather a 360° vision of your destination. You may also make your own bespoke arrangements with the Silver Shore Concierge at least 30 days prior to sailing. Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 120 days prior to sailing for the most updated information. Please be aware that tours are available on a first-come, first-served basis, and that some tours are very popular with guests often ending up being wait-listed: in order to avoid disappointment, it is therefore suggested to book in advance via my.silversea.com"/>
+        sling:message="Shore excursions provide the highlight of any cruise and allow you to gather a 360° vision of your destination. You may also make your own bespoke arrangements with the Silver Shore Concierge at least 30 days prior to sailing. Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 180 days prior to sailing for the most updated information. Please be aware that tours are available on a first-come, first-served basis, and that some tours are very popular with guests often ending up being wait-listed: in order to avoid disappointment, it is therefore suggested to book in advance via my.silversea.com"/>
     <cruise-itinerary
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary"

@@ -417,7 +417,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
         //define today date and cutoff date
         Calendar today = Calendar.getInstance(); //today date
         String todayString = dateFormat.format(today.getTime());
-        today.add(Calendar.DATE, 120); // Adding 120 days
+        today.add(Calendar.DATE, 180); // Adding 120 days
         String cutoffString = dateFormat.format(today.getTime());
 
         final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
