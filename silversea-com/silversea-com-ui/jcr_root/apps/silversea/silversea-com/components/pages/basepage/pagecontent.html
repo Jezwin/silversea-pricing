@@ -1,7 +1,7 @@
 <div class="container" data-sly-use.externalPage="com.silversea.aem.components.external.ExternalPageHelper">
     <sly data-sly-test="${externalPage.ExternalPage}"
          data-sly-include="${externalPage.TemplatePath}"/>
-    <sly data-sly-test="${!externalPage.TermsAndConditionsPage}">
+    <sly data-sly-test="${!externalPage.ExternalPage}">
         <div data-sly-test="${properties.abTestManual}" class="manualBVersion"
              data-sly-resource="${'parVersionB' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
         <div class="${properties.abTestManual ? 'manualAVersion' : ''} "
