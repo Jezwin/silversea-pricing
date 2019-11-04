@@ -1,7 +1,7 @@
 package com.silversea.aem.components;
 
 public class GeolocationHelper extends AbstractGeolocationAwareUse {
-    public String getGeolocation() {
+    public String getCountryPath() {
         return super.geolocation.getPath().replaceAll("^/etc/tags/geotagging/", "");
     }
 

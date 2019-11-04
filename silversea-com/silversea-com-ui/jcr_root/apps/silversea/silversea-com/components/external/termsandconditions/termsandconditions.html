@@ -8,7 +8,7 @@
         var domContainer = document.querySelector("#tnc-container");
         ReactDOM.render(
             React.createElement(SilverseaComUi.TermsAndConditions, {
-                market: "${geolocation.Geolocation @ context='scriptString'}",
+                countryPath: "${geolocation.CountryPath @ context='scriptString'}",
                 language: "${geolocation.Language @ context='scriptString'}",
             }),
             domContainer
