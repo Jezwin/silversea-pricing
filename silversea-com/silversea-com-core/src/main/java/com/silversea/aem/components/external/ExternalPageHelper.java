@@ -8,49 +8,39 @@ import org.apache.sling.api.resource.ResourceResolver;
 
 import java.util.Arrays;
 
-// "/content/silversea-com/[^\\/]+/terms-and-conditions"
-// "/apps/silversea/silversea-com/components/external/termsandconditions/termsandconditions.html"
-
 public class ExternalPageHelper extends WCMUsePojo {
     final ExternalPageDef[] externalPageDefs = {
             new ExternalPageDef("/terms-and-conditions",
                     "/termsandconditions/termsandconditions.html",
-                    x -> x.isTermsAndConditionsExternalUiEnabled())
+                    x -> x.isTermsAndConditionsExternalUiEnabled()),
+            new ExternalPageDef("/cruise/cruise-results",
+                    "/findyourcruise/findyourcruise.html",
+                    x -> x.isFindYourCruiseExternalUiEnabled())
     };
 
     static final String EXTERNAL_TEMPLATE_PATH = "/apps/silversea/silversea-com/components/external";
-    static final String TERMS_AND_CONDITIONS_PATH_REGEX = "/content/silversea-com/[^\\/]+/terms-and-conditions";
-    static final String FIND_YOUR_CRUISE_RESULTS_PATH_REGEX = "/content/silversea-com/[^\\/]+/cruise/cruise-results";
 
     private AppSettingsModel appSettings;
 
     public Boolean isExternalPage() {
+        String currentPagePath = this.getCurrentPage().getPath();
         return Arrays.stream(externalPageDefs)
                 .filter(x -> x.featureToggle.isEnabled(appSettings))
-                .anyMatch(x -> matchesCurrentPage(x));
+                .anyMatch(x -> pathMatches(x, currentPagePath));
     }
 
     public String getTemplatePath() {
+        String currentPagePath = this.getCurrentPage().getPath();
         return Arrays.stream(externalPageDefs)
-                .filter(x -> x.featureToggle.isEnabled(appSettings))
-                .filter(x -> matchesCurrentPage(x))
+                .filter(x -> x.featureToggle == null || x.featureToggle.isEnabled(appSettings))
+                .filter(x -> pathMatches(x, currentPagePath))
                 .map(x -> EXTERNAL_TEMPLATE_PATH + x.templatePath)
                 .findFirst()
                 .orElse(null);
     }
 
-    private boolean matchesCurrentPage(ExternalPageDef x) {
-        return this.getCurrentPage().getPath().matches("/content/silversea-com/[^\\/]+" + x.crxPathRegex);
-    }
-
-    public Boolean isTermsAndConditionsPage() {
-        return appSettings.isTermsAndConditionsExternalUiEnabled()
-                && this.getCurrentPage().getPath().matches(TERMS_AND_CONDITIONS_PATH_REGEX);
-    }
-
-    public Boolean isFindYourCruiseResultsPage() {
-        return appSettings.isFindYourCruiseExternalUiEnabled()
-                && this.getCurrentPage().getPath().matches(FIND_YOUR_CRUISE_RESULTS_PATH_REGEX);
+    private boolean pathMatches(ExternalPageDef x, String path) {
+        return path.matches("/content/silversea-com/[^\\/]+" + x.crxPathRegex);
     }
 
     @Override
@@ -62,13 +52,17 @@ public class ExternalPageHelper extends WCMUsePojo {
     }
 
     public interface FeatureToggle {
-        public Boolean isEnabled(AppSettingsModel appSettings);
+        Boolean isEnabled(AppSettingsModel appSettings);
     }
 
     private class ExternalPageDef {
         private final FeatureToggle featureToggle;
         private String crxPathRegex;
         private String templatePath;
+
+        public ExternalPageDef(String crxPathRegex, String templatePath) {
+            this(crxPathRegex, templatePath, null);
+        }
 
         public ExternalPageDef(String crxPathRegex, String templatePath, FeatureToggle featureToggle) {
 

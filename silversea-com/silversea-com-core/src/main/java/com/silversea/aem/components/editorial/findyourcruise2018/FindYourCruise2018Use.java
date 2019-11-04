@@ -50,9 +50,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private String grandVoyagePath;
     private String comboCruisePath;
 
-    private String bffApiBaseUrl;
-    private String externalUiJsUrl;
-
     private List<CruiseItem> cruises;
 
     private FilterBar filterBar;
@@ -60,7 +57,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private Pagination pagination;
     private String requestQuotePagePath;
     private List<OfferPriorityModel> priorityOffer;
-    private boolean useExternalUi;
+
 
 
     @Override
@@ -68,11 +65,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         super.activate();
 
         ResourceResolver resourceResolver = super.getResourceResolver();
-
-        CrxContentLoader contentLoader = new CrxContentLoader(resourceResolver);
-
-        ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
-        AppSettingsModel appSettings = configurationManager.getAppSettings();
 
         Page currentPage = getCurrentPage();
         Resource resource = getResource();
@@ -89,19 +81,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         grandVoyagePath = externalizer.relativeLink(request, PathUtils.getGrandVoyagesPagePath(resource, currentPage));
         comboCruisePath = getComboCruisePath(resourceResolver, getCurrentPage(), getRequest());
         requestQuotePagePath = retrieveRequestQuotePath(resource);
-
-        this.externalUiJsUrl = appSettings.getExternalUiJsUrl();
-        this.bffApiBaseUrl = appSettings.getBffApiBaseUrl();
-
-        this.useExternalUi = this.externalUiJsUrl != null
-                && this.bffApiBaseUrl != null
-                && appSettings.isFindYourCruiseExternalUiEnabled();
-
-        // If we're using external UI, we can skip the model building.
-        if (this.useExternalUi) {
-            dullInit();
-            return;
-        }
 
         String paginationLimit = null;
         if (getProp("paginationLimit", String.class).isPresent()) {
@@ -328,8 +307,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         return tagManager;
     }
 
-    public boolean getUseExternalUi() { return this.useExternalUi; }
-
     public String getWorldCruisePath() {
         return worldCruisePath;
     }
@@ -349,14 +326,6 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     public String getMarketCurrency() {
         return super.geomarket + super.currency;
-    }
-
-    public String getBffApiBaseUrl() {
-        return bffApiBaseUrl;
-    }
-
-    public String getExternalUiJsUrl() {
-        return externalUiJsUrl;
     }
 
     public String toJson() {

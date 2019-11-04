@@ -4,31 +4,14 @@
 <div class="findyourcruise2018 v2 "
      data-sly-use.fyc="${'com.silversea.aem.components.editorial.findyourcruise2018.FindYourCruise2018Use' @ psize='15'}"
 >
-    <sly data-sly-test="${!fyc.useExternalUi}">
-        <div id="findyourcruise2018-wrapper" class="findyourcruise2018-wrapper">
-            <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
-                 data-sly-call="${filterTemplate.default @ fyc=fyc}"/>
-            <div class="c-fyc-v2__result-wrapper fyc2018-results-div c-fyc-v2">
-                <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/results.html"
-                     data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
-            </div>
+    <div id="findyourcruise2018-wrapper" class="findyourcruise2018-wrapper">
+        <sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/filter.html"
+             data-sly-call="${filterTemplate.default @ fyc=fyc}"/>
+        <div class="c-fyc-v2__result-wrapper fyc2018-results-div c-fyc-v2">
+            <sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise2018/templates/results.html"
+                 data-sly-call="${resultsTemplate.default @ fyc=fyc}"/>
         </div>
-        <div class="fyc2018-tmp-div">
-        </div>
-    </sly>
-    <sly data-sly-test="${fyc.useExternalUi}">
-        <div id="fyc-container"></div>
-        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-        <script src="${fyc.externalUiJsUrl}"></script>
-        <script>
-            var domContainer = document.querySelector("#fyc-container");
-            ReactDOM.render(
-                React.createElement(SilverseaComUi.FindYourCruise, {
-                    bffApiBaseUrl: "${fyc.bffApiBaseUrl @ context='scriptString'}"
-                }),
-                domContainer
-            );
-        </script>
-    </sly>
+    </div>
+    <div class="fyc2018-tmp-div">
+    </div>
 </div>
