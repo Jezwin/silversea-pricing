@@ -14,7 +14,6 @@ import com.silversea.aem.content.CrxContentLoader;
 import com.silversea.aem.importers.services.StyleCache;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.models.AppSettingsModel;
-import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.models.ExclusiveOfferFareModel;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.proxies.ExclusiveOfferProxy;
@@ -34,14 +33,14 @@ public class EoHelper extends AbstractGeolocationAwareUse {
     private Gson gson;
     private ExclusiveOfferProxy exclusiveOfferProxy;
     private ExclusiveOffer exclusiveOffer;
+    private LogzLoggerFactory sscLogFactory;
     private AppSettingsModel appSettings;
-    private SSCLoggerFactory sscLogFactory;
 
     @Override
     public void activate() throws Exception {
         super.activate();
         styleCache = getSlingScriptHelper().getService(StyleCache.class);
-        sscLogFactory = getSlingScriptHelper().getService(SSCLoggerFactory.class);
+        sscLogFactory = getSlingScriptHelper().getService(LogzLoggerFactory.class);
         gson = new GsonBuilder().create();
 
         ResourceResolver resourceResolver = super.getResourceResolver();

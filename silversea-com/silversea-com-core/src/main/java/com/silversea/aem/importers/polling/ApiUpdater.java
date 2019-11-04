@@ -9,7 +9,6 @@ import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.logging.LogzLogger;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
-import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.services.CruisesCacheService;
 
 import io.vavr.collection.List;
@@ -122,7 +121,7 @@ public class ApiUpdater implements Runnable {
     private Replicator replicator;
 
     @Reference
-    private SSCLoggerFactory sscLogFactory;
+    private LogzLoggerFactory sscLogFactory;
 
     @Override
     public void run() {

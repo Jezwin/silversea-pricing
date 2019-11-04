@@ -9,7 +9,6 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesExcursionsImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.logging.JsonLog;
-import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -61,7 +60,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     protected ApiConfigurationService apiConfig;
 
     @Reference
-    protected SSCLoggerFactory  logzLoggerFactory;
+    protected LogzLoggerFactory  logzLoggerFactory;
 
     @Activate
     protected void activate(final ComponentContext context) {

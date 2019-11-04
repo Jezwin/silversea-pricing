@@ -11,7 +11,6 @@ import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
-import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.services.GeolocationTagService;
 
@@ -55,7 +54,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
     private GeolocationTagService geolocationTagService;
 
     @Reference
-    private SSCLoggerFactory sscLogFactory;
+    private LogzLoggerFactory sscLogFactory;
 
     @Activate
     protected void activate(final ComponentContext context) {

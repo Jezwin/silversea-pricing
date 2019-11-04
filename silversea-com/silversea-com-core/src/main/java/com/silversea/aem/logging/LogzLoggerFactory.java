@@ -16,8 +16,9 @@ import java.util.Optional;
 import java.util.concurrent.Executors;
 
 @Component(immediate = true, metatype = true, label = "LoggingServiceFactory")
-@Service
-public class LogzLoggerFactory implements SSCLoggerFactory {
+@Service(LogzLoggerFactory.class)
+
+public class LogzLoggerFactory {
 
     public static final String LOGZIO_LISTENER_URL = "http://listener-eu.logz.io:8070";
     public static final String LOGZIO_TYPE = "java";
@@ -41,12 +42,10 @@ public class LogzLoggerFactory implements SSCLoggerFactory {
                 }).toJavaOptional();
     }
 
-    @Override
     public LogzLogger getLogger(String component) {
         return new LogzLogger(sender, component);
     }
 
-    @Override
     public SSCLogger getLogger(Class clazz) {
         return new LogzLogger(sender, clazz.getName());
     }

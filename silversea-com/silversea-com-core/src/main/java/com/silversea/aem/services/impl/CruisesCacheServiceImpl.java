@@ -10,7 +10,6 @@ import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLogger;
 import com.silversea.aem.logging.LogzLoggerFactory;
-import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 
@@ -40,7 +39,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     private SlingSettingsService slingSettingsService;
 
     @Reference
-    protected SSCLoggerFactory logzLoggerFactory;
+    protected LogzLoggerFactory logzLoggerFactory;
 
     private LogzLogger logzLogger;
 
