@@ -3,6 +3,7 @@ package com.silversea.aem.importers.polling;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.services.CruisesCacheService;
 
 import org.apache.felix.scr.annotations.*;
@@ -27,7 +28,7 @@ public class CruiseCacheUpdater implements Runnable {
     private CruisesCacheService cruisesCacheService;
 
     @Reference
-    private LogzLoggerFactory sscLogFactory;
+    private SSCLoggerFactory sscLogFactory;
 
     @Override
     public void run() {

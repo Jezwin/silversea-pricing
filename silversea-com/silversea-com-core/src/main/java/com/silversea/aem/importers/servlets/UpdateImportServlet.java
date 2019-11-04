@@ -7,6 +7,7 @@ import com.silversea.aem.importers.services.impl.ImportResult;
 import com.silversea.aem.internalpages.InternalPageRepository;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.logging.SSCLoggerFactory;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GlobalCacheService;
 import io.vavr.Lazy;
@@ -170,7 +171,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private SlingSettingsService slingSettingsService;
 
     @Reference
-    private LogzLoggerFactory sscLogFactory;
+    private SSCLoggerFactory sscLogFactory;
 
     @Reference
     private CruisesCacheService cruiseCache;

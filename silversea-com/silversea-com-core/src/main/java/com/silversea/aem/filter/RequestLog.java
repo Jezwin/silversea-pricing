@@ -4,6 +4,7 @@ import com.silversea.aem.importers.polling.ApiUpdater;
 import com.silversea.aem.logging.JsonLog;
 import com.silversea.aem.logging.LogzLoggerFactory;
 import com.silversea.aem.logging.SSCLogger;
+import com.silversea.aem.logging.SSCLoggerFactory;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
@@ -29,7 +30,7 @@ import static com.silversea.aem.logging.JsonLog.jsonLog;
 public class RequestLog implements Filter {
 
     @Reference
-    private LogzLoggerFactory sscLogFactory;
+    private SSCLoggerFactory sscLogFactory;
 
     private SSCLogger logger;
 
