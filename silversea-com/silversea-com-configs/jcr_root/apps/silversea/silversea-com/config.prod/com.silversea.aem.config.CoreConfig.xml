@@ -3,4 +3,4 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0" jcr:primaryType="sling:OsgiConfig"
           awsRegion="us-east-1"
           awsSecretName="prod/silversea-com"
-          exclusiveOfferApiDomain="127.0.0.1:3000"/>
+          />

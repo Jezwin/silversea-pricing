@@ -10,8 +10,9 @@ import com.google.gson.JsonArray;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.components.editorial.findyourcruise2018.filters.*;
+import com.silversea.aem.config.ConfigurationManager;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.featuretoggles.FeatureToggles;
+import com.silversea.aem.models.AppSettingsModel;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.content.CrxContentLoader;
 import com.silversea.aem.models.CruiseModelLight;
@@ -66,11 +67,17 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     public void activate() throws Exception {
         super.activate();
 
-        FeatureToggles featureToggles = new FeatureToggles(new CrxContentLoader(super.getResourceResolver()));
+        ResourceResolver resourceResolver = super.getResourceResolver();
+
+        CrxContentLoader contentLoader = new CrxContentLoader(resourceResolver);
+
+        ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
+        AppSettingsModel appSettings = configurationManager.getAppSettings();
+
         Page currentPage = getCurrentPage();
         Resource resource = getResource();
         SlingHttpServletRequest request = getRequest();
-        ResourceResolver resourceResolver = getResourceResolver();
+
         Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
 
         lang = LanguageHelper.getLanguage(currentPage);
@@ -83,12 +90,12 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         comboCruisePath = getComboCruisePath(resourceResolver, getCurrentPage(), getRequest());
         requestQuotePagePath = retrieveRequestQuotePath(resource);
 
-        this.externalUiJsUrl = (String) currentPage.getProperties().get("externalUiJsUrl");
-        this.bffApiBaseUrl = (String) currentPage.getProperties().get("bffApiBaseUrl");
+        this.externalUiJsUrl = appSettings.getExternalUiJsUrl();
+        this.bffApiBaseUrl = appSettings.getBffApiBaseUrl();
 
         this.useExternalUi = this.externalUiJsUrl != null
                 && this.bffApiBaseUrl != null
-                && featureToggles.isEnabled("findYourCruiseExternalUi");
+                && appSettings.isFindYourCruiseExternalUiEnabled();
 
         // If we're using external UI, we can skip the model building.
         if (this.useExternalUi) {

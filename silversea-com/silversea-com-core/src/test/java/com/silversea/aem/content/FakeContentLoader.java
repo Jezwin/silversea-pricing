@@ -17,8 +17,21 @@ public class FakeContentLoader implements ContentLoader {
     }
 
     @Override
-    public <T> T get(String path, Class<T> objectClass) {
-        return (T) this.repo.get(path);
+    public <T> T get(String path, Class<T> objectClass) throws Exception {
+
+        T lookup = (T) this.repo.get(path);
+
+        if(lookup == null) {
+            String message = String.format("Couldn't find %s at CRX path %s", objectClass.getSimpleName(), path);
+            throw new Exception(message);
+        }
+
+        if(!lookup.getClass().isAssignableFrom(objectClass)) {
+            String message = String.format("Found CRX resource at %s but was unable to convert it to a %s", path, objectClass.getSimpleName());
+            throw new Exception(message);
+        }
+
+        return lookup;
     }
 
     @Override
