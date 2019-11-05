@@ -51,7 +51,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
         CoreConfig config = getSlingScriptHelper().getService(CoreConfig.class);
         AwsSecretsManager awsSecretsManager = new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName());
 
-        exclusiveOfferProxy = new ExclusiveOfferProxy(new OkHttpClientWrapper(awsSecretsManager), this.appSettings.getExclusiveOfferApiDomain());
+        exclusiveOfferProxy = new ExclusiveOfferProxy(new OkHttpClientWrapper(awsSecretsManager), this.appSettings.getBffApiBaseUrl());
         exclusiveOffer = new ExclusiveOffer(exclusiveOfferProxy, sscLogFactory.getLogger(ExclusiveOffer.class));
     }
 
@@ -72,7 +72,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
             if (appSettings.isExclusiveOffersExternalBffEnabled())
             {
-                if(getCurrentPage().getProperties().get("cruiseCode").equals("6928") && tokensAndStyle.containsKey("air_price"))
+                if(getCurrentPage().getProperties().get("cruiseCode").equals("SM210221016") && tokensAndStyle.containsKey("air_price"))
                 {
                     String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
                     Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);

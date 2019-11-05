@@ -27,7 +27,7 @@ public class ExclusiveOfferProxyTest {
                 .Get("http://notUsed/exclusive-offers/1925/GBP/en_GB"))
                 .thenReturn("{\"air_price\":\"£1'199\", \"non_use_air_credit\": \"£100\"}");
 
-        ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "notUsed");
+        ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "http://notUsed");
         exclusiveOffer = new ExclusiveOffer(proxy, logger);
     }
 

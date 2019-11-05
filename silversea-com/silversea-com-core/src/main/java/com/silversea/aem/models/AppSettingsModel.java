@@ -20,17 +20,12 @@ public class AppSettingsModel {
     @Inject @Optional
     private Boolean findYourCruiseExternalUiEnabled;
     @Inject @Optional
-    private String exclusiveOfferApiDomain;
-    @Inject @Optional
     private Boolean termsAndConditionsExternalUiEnabled;
 
     public AppSettingsModel() {}
 
     public Boolean isExclusiveOffersExternalBffEnabled() {
         return defaultIfNull(this.exclusiveOffersExternalBffEnabled, false);
-    }
-
-    public String getExclusiveOfferApiDomain() { return defaultIfNull(exclusiveOfferApiDomain, "127.0.0.1:3000");
     }
 
     public Boolean isFindYourCruiseExternalUiEnabled() {
