@@ -2,15 +2,15 @@
     <sly data-sly-test="${externalPage.ExternalPage}"
          data-sly-include="${externalPage.TemplatePath}"/>
     <sly data-sly-test="${externalPage.AemContentMode == 'Fallback'}">
+        <script>
+            window.showAemFallbackContent = function() { $("#aemFallbackContent").show(); };
+        </script>
         <div id="aemFallbackContent" style="display:none;">
             <div data-sly-test="${properties.abTestManual}" class="manualBVersion"
                  data-sly-resource="${'parVersionB' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             <div class="${properties.abTestManual ? 'manualAVersion' : ''} "
                  data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
         </div>
-        <script>
-            window.showAemFallbackContent = function() { $("#aemFallbackContent").show(); };
-        </script>
     </sly>
     <sly data-sly-test="${externalPage.AemContentMode == 'Show'}">
             <div data-sly-test="${properties.abTestManual}" class="manualBVersion"
