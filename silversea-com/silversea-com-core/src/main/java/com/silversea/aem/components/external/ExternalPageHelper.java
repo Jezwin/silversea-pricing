@@ -10,21 +10,25 @@ import java.util.Arrays;
 
 public class ExternalPageHelper extends WCMUsePojo {
 
-    private AppSettingsModel appSettings;
+    private ExternalPageDef externalPageDef;
 
     public Boolean isExternalPage() {
-        String currentPagePath = this.getCurrentPage().getPath();
-        return Arrays.stream(ExternalPageDefs.All)
-                .filter(x -> x.isEnabled(this.appSettings))
-                .anyMatch(x -> x.isPathMatch(currentPagePath));
+        return this.externalPageDef != null;
     }
 
     public String getTemplatePath() {
-        String currentPagePath = this.getCurrentPage().getPath();
+        return this.externalPageDef.getTemplatePath();
+    }
+
+    public String getAemContentMode() {
+        if( this.externalPageDef == null) return "Show";
+        return this.externalPageDef.getAemContentOption() == ExternalPageAemContentOption.RenderAsFallback ? "Fallback" : "Remove";
+    }
+
+    private ExternalPageDef getExternalPageDef(AppSettingsModel appSettings, String currentPagePath) {
         return Arrays.stream(ExternalPageDefs.All)
-                .filter(x ->  x.isEnabled(this.appSettings))
+                .filter(x ->  x.isEnabled(appSettings))
                 .filter(x -> x.isPathMatch(currentPagePath))
-                .map(x -> x.getTemplatePath())
                 .findFirst()
                 .orElse(null);
     }
@@ -34,7 +38,10 @@ public class ExternalPageHelper extends WCMUsePojo {
         ResourceResolver resourceResolver = super.getResourceResolver();
         CrxContentLoader contentLoader = new CrxContentLoader(resourceResolver);
         ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
-        this.appSettings = configurationManager.getAppSettings();
+        AppSettingsModel appSettings = configurationManager.getAppSettings();
+
+        this.externalPageDef = getExternalPageDef(appSettings, this.getCurrentPage().getPath());
+
     }
 
 }

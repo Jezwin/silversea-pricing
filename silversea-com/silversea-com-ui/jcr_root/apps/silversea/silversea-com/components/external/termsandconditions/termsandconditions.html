@@ -10,6 +10,7 @@
             React.createElement(SilverseaComUi.TermsAndConditions, {
                 countryPath: "${geolocation.CountryPath @ context='scriptString'}",
                 language: "${geolocation.Language @ context='scriptString'}",
+                fallback: function() { window.showAemFallbackContent(); }
             }),
             domContainer
         );
