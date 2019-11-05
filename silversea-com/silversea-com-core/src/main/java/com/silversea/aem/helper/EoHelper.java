@@ -70,14 +70,10 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 
-            if (appSettings.isExclusiveOffersExternalBffEnabled())
-            {
-                if(getCurrentPage().getProperties().get("cruiseCode").equals("SM210221016") && tokensAndStyle.containsKey("air_price"))
-                {
-                    String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
-                    Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
-                    exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
-                }
+            if (appSettings.isExclusiveOffersExternalBffEnabled()) {
+                String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
+                Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
+                exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
             }
 
             ValueTypeBean eoValue = null;
