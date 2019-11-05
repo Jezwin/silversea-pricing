@@ -19,16 +19,11 @@ public class AppSettingsModel {
     private String bffApiBaseUrl;
     @Inject @Optional
     private Boolean findYourCruiseExternalUiEnabled;
-    @Inject @Optional
-    private String exclusiveOfferApiDomain;
 
     public AppSettingsModel() {}
 
     public Boolean isExclusiveOffersExternalBffEnabled() {
         return defaultIfNull(this.exclusiveOffersExternalBffEnabled, false);
-    }
-
-    public String getExclusiveOfferApiDomain() { return defaultIfNull(exclusiveOfferApiDomain, "127.0.0.1:3000");
     }
 
     public Boolean isFindYourCruiseExternalUiEnabled() {

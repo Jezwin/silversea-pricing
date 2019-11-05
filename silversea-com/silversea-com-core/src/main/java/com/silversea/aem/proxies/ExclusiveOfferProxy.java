@@ -13,7 +13,7 @@ public class ExclusiveOfferProxy {
 
     private ApiClient apiClient;
 
-    private final String url = "http://{domain}/exclusive-offers/{cruiseCode}/{currency}/{locale}";
+    private final String url = "{baseUrl}/exclusive-offers/{cruiseCode}/{currency}/{locale}";
     private String domain;
 
     public ExclusiveOfferProxy(ApiClient apiClient, String domain){
@@ -23,7 +23,7 @@ public class ExclusiveOfferProxy {
 
     public Map getExclusiveOfferTokens(String currency, String cruiseCode, Locale locale) throws IOException, JSONException, UnsuccessfulHttpRequestException {
 
-            String resolvedUrl = url.replace("{domain}", domain)
+            String resolvedUrl = url.replace("{baseUrl}", domain)
                     .replace("{cruiseCode}", cruiseCode)
                     .replace("{currency}", currency)
                     .replace("{locale}", locale.toString());
