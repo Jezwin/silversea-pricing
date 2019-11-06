@@ -19,6 +19,8 @@ public class AppSettingsModel {
     private String bffApiBaseUrl;
     @Inject @Optional
     private Boolean findYourCruiseExternalUiEnabled;
+    @Inject @Optional
+    private Boolean termsAndConditionsExternalUiEnabled;
 
     public AppSettingsModel() {}
 
@@ -36,5 +38,9 @@ public class AppSettingsModel {
 
     public String getBffApiBaseUrl() {
         return bffApiBaseUrl;
+    }
+
+    public Boolean isTermsAndConditionsExternalUiEnabled() {
+        return defaultIfNull(this.termsAndConditionsExternalUiEnabled, false);
     }
 }
