@@ -43,4 +43,5 @@ public class AppSettingsModel {
     public Boolean isTermsAndConditionsExternalUiEnabled() {
         return defaultIfNull(this.termsAndConditionsExternalUiEnabled, false);
     }
+
 }

@@ -26,6 +26,9 @@ public class VoyagePriceMarket {
   @SerializedName("air_prices")
   private List<AirPrice> airPrices = new ArrayList<AirPrice>();
 
+  @SerializedName("priority_fare")
+  private String priorityFare = null;
+
   public VoyagePriceMarket marketCod(String marketCod) {
     this.marketCod = marketCod;
     return this;
@@ -49,7 +52,7 @@ public class VoyagePriceMarket {
     return this;
   }
 
-   /**
+  /**
    * Get currencyCod
    * @return currencyCod
   **/
@@ -108,6 +111,13 @@ public class VoyagePriceMarket {
     this.airPrices = airPrices;
   }
 
+  public String getPriorityFare() {
+    return priorityFare;
+  }
+
+  public void setPriorityFare(String priorityFare) {
+    this.priorityFare = priorityFare;
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -121,14 +131,14 @@ public class VoyagePriceMarket {
     return Objects.equals(this.marketCod, voyagePriceMarket.marketCod) &&
         Objects.equals(this.currencyCod, voyagePriceMarket.currencyCod) &&
         Objects.equals(this.cruiseOnlyPrices, voyagePriceMarket.cruiseOnlyPrices) &&
+        Objects.equals(this.priorityFare, voyagePriceMarket.priorityFare) &&
         Objects.equals(this.airPrices, voyagePriceMarket.airPrices);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(marketCod, currencyCod, cruiseOnlyPrices, airPrices);
+    return Objects.hash(marketCod, currencyCod, cruiseOnlyPrices, airPrices,priorityFare);
   }
-
 
   @Override
   public String toString() {
@@ -139,6 +149,7 @@ public class VoyagePriceMarket {
     sb.append("    currencyCod: ").append(toIndentedString(currencyCod)).append("\n");
     sb.append("    cruiseOnlyPrices: ").append(toIndentedString(cruiseOnlyPrices)).append("\n");
     sb.append("    airPrices: ").append(toIndentedString(airPrices)).append("\n");
+    sb.append("    priorityFare: ").append(toIndentedString(priorityFare)).append("\n");
     sb.append("}");
     return sb.toString();
   }
