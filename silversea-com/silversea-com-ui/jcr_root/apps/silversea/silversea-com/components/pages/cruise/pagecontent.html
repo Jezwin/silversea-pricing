@@ -56,7 +56,8 @@
          offersNumber = cruise.totalNumberOfOffers,
          isVenetian=cruise.isVenetianSociety,
          odd = cruise.areOffersOdd,
-         VSLBPath = cruise.VSLBPath}"/>
+         VSLBPath = cruise.VSLBPath,
+         cruiseCode=cruise.cruiseModel.cruiseCode}"/>
     <hr data-sly-test="${cruise.totalNumberOfOffers != 0}" style="border-color: white;"/>
     <div data-sly-resource="${'parOverItinerary' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <sly data-sly-use.itineraryexcursions="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/itineraryexcursions.html"
