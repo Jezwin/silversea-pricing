@@ -14,7 +14,7 @@
                 <sly data-sly-use.offerPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=offer.exclusiveOfferPath}" />
                 <div class="col-sm-6 offer-item ">
                     <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
-                         href="#${offerPath.externalizedUrl @ extension='html', selectors=['modalcontent' , '2018', '{0}{1}' @ format=['cruise_code_', cruiseCode]]}"
+                         href="#${offerPath.externalizedUrl @ extension='html', selectors=['modalcontent' , '2018', cruiseCode]}"
                          rel="nofollow"
                          id="lb-offer-${offerList.index}"
                          data-slb-arrows="true"

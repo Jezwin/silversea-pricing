@@ -884,5 +884,7 @@ public class Cruise2018Use extends EoHelper {
     public Integer getHasexcursionsCounter() {
         return hasexcursionsCounter;
     }
+
+    public String cruiseCodeUrlIdentifier(){ return "cruise_code_" + cruiseModel.getCruiseCode();}
 }
 
