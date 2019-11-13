@@ -71,14 +71,6 @@ public class EoHelper extends AbstractGeolocationAwareUse {
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 
             String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
-            if(cruiseCode == null) {
-                String[] selectors = getRequest().getRequestPathInfo().getSelectors();
-                for (String selector : selectors) {
-                    if (selector.startsWith("cruise_code_")) {
-                        cruiseCode = selector.replace("cruise_code_", "");
-                    }
-                }
-            }
 
             if (appSettings.isExclusiveOffersExternalBffEnabled() && cruiseCode != null) {
                 Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
