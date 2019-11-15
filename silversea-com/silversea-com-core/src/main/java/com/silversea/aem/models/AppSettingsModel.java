@@ -21,6 +21,8 @@ public class AppSettingsModel {
     private Boolean findYourCruiseExternalUiEnabled;
     @Inject @Optional
     private Boolean termsAndConditionsExternalUiEnabled;
+    @Inject @Optional
+    private Boolean antarcticaExperimentExternalUiEnabled;
 
     public AppSettingsModel() {}
 
@@ -42,5 +44,9 @@ public class AppSettingsModel {
 
     public Boolean isTermsAndConditionsExternalUiEnabled() {
         return defaultIfNull(this.termsAndConditionsExternalUiEnabled, false);
+    }
+
+    public Boolean isAntarcticaExperimentExternalUiEnabled() {
+        return defaultIfNull(this.antarcticaExperimentExternalUiEnabled, false);
     }
 }

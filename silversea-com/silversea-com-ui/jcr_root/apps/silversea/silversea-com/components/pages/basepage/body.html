@@ -2,7 +2,23 @@
     <sly data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/header'}"/>
     <div class="header2019" data-sly-resource="${'header2019' @ resourceType='silversea/silversea-com/components/included/header2019'}"/>
 </header>
-<sly data-sly-include="pagecontent.html"/>
+
+<div class="container" data-sly-use.externalPage="com.silversea.aem.components.external.ExternalPageHelper">
+    <sly data-sly-test="${externalPage.ExternalPage}"
+         data-sly-include="${externalPage.TemplatePath}"/>
+    <sly data-sly-test="${externalPage.AemContentMode == 'Fallback'}">
+        <script>
+            window.showAemFallbackContent = function() { $("#aemFallbackContent").show(); };
+        </script>
+        <div id="aemFallbackContent" style="display:none;">
+            <sly data-sly-include="pagecontent.html"/>
+        </div>
+    </sly>
+    <sly data-sly-test="${externalPage.AemContentMode == 'Show'}">
+        <sly data-sly-include="pagecontent.html"/>
+    </sly>
+</div>
+
 <footer class="c-footer" id="footer"
         data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/footer'}"></footer>
         <!--

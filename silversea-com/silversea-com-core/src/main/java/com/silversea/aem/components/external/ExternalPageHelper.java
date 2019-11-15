@@ -41,7 +41,6 @@ public class ExternalPageHelper extends WCMUsePojo {
         AppSettingsModel appSettings = configurationManager.getAppSettings();
 
         this.externalPageDef = getExternalPageDef(appSettings, this.getCurrentPage().getPath());
-
     }
 
 }
