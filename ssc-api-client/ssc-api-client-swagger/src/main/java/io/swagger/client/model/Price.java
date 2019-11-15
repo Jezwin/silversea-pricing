@@ -43,6 +43,9 @@ public class Price {
   @SerializedName("vs_saving")
   private String vsSaving = null;
 
+  @SerializedName("fare")
+  private String fare = null;
+
   public Price suiteCategoryUrl(String suiteCategoryUrl) {
     this.suiteCategoryUrl = suiteCategoryUrl;
     return this;
@@ -241,6 +244,13 @@ public class Price {
     this.vsSaving = vsSaving;
   }
 
+  public String getFare() {
+    return fare;
+  }
+
+  public void setFare(String fare) {
+    this.fare = fare;
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -261,12 +271,13 @@ public class Price {
         Objects.equals(this.suiteAvailability, price.suiteAvailability) &&
         Objects.equals(this.singleSupplementPerc, price.singleSupplementPerc) &&
         Objects.equals(this.hasVsSaving, price.hasVsSaving) &&
+        Objects.equals(this.fare, price.fare) &&
         Objects.equals(this.vsSaving, price.vsSaving);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(suiteCategoryUrl, suiteCategoryCod, suiteCategory, currencyCod, cruiseOnlyFare, bundleFare, earlyBookingBonus, suiteAvailability, singleSupplementPerc, hasVsSaving, vsSaving);
+    return Objects.hash(suiteCategoryUrl, suiteCategoryCod, suiteCategory, currencyCod, cruiseOnlyFare, bundleFare, earlyBookingBonus, suiteAvailability, singleSupplementPerc, hasVsSaving, vsSaving, fare);
   }
 
 
@@ -274,7 +285,7 @@ public class Price {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Price {\n");
-    
+
     sb.append("    suiteCategoryUrl: ").append(toIndentedString(suiteCategoryUrl)).append("\n");
     sb.append("    suiteCategoryCod: ").append(toIndentedString(suiteCategoryCod)).append("\n");
     sb.append("    suiteCategory: ").append(toIndentedString(suiteCategory)).append("\n");
@@ -286,6 +297,7 @@ public class Price {
     sb.append("    singleSupplementPerc: ").append(toIndentedString(singleSupplementPerc)).append("\n");
     sb.append("    hasVsSaving: ").append(toIndentedString(hasVsSaving)).append("\n");
     sb.append("    vsSaving: ").append(toIndentedString(vsSaving)).append("\n");
+    sb.append("    fare: ").append(toIndentedString(fare)).append("\n");
     sb.append("}");
     return sb.toString();
   }

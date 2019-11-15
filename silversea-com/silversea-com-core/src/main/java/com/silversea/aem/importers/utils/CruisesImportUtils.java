@@ -32,6 +32,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * TODO javadoc
@@ -48,8 +50,10 @@ public class CruisesImportUtils {
 			throws RepositoryException {
 		final ImportResult importResult = new ImportResult();
 
+		List<Price> cruiseOnlyPrices = filterPricesByPriorityFare(priceMarket);
+
 		// Iterating over prices variation
-		for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {
+		for (final Price cruiseOnlyPrice : cruiseOnlyPrices) {
 			try {
 				if (cruiseContentNode.getProperty("shipReference") == null) {
 					throw new ImporterException("Cruise " + cruise.getKey() + " do not contains a" + " ship reference");
@@ -100,6 +104,17 @@ public class CruisesImportUtils {
 		}
 
 		return importResult;
+	}
+
+	public static List<Price> filterPricesByPriorityFare(VoyagePriceMarket priceMarket) {
+		List<Price> cruiseOnlyPrices = priceMarket.getCruiseOnlyPrices();
+
+		if(priceMarket.getPriorityFare() != null) {
+			cruiseOnlyPrices = cruiseOnlyPrices.stream()
+					.filter(price -> priceMarket.getPriorityFare().equals(price.getFare()))
+					.collect(Collectors.toList());
+		}
+		return cruiseOnlyPrices;
 	}
 
 	static public ImportResult importComboCruisePrice(final Session session, final Node cruiseContentNode,

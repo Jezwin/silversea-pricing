@@ -292,6 +292,9 @@ public class PricesApi {
         
 
         // create path and map variables
+
+        //TODO: change the endpoint when the api reach prod
+        //String localVarPath = "/v1/multiplefares".replaceAll("\\{format\\}","json");
         String localVarPath = "/v1/prices".replaceAll("\\{format\\}","json");
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
