@@ -12,6 +12,12 @@ public class ExternalPageDefs {
                     ExternalPageAemContentOption.RenderAsFallback),
 
             new ExternalPageDef(
+                    "/destinations/antarctica-cruise",
+                    "/antarcticaexperiment/antarcticaexperiment.html",
+                    x -> x.isAntarcticaExperimentExternalUiEnabled(),
+                    ExternalPageAemContentOption.RenderAsFallback),
+
+            new ExternalPageDef(
                     "/cruise/cruise-results",
                     "/findyourcruise/findyourcruise.html",
                     x -> x.isFindYourCruiseExternalUiEnabled(),
