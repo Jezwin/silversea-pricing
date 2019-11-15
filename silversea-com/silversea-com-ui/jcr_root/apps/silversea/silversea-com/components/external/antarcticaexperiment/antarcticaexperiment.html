@@ -1,11 +1,8 @@
 <div data-sly-use.config="com.silversea.aem.config.ConfigurationHelper"
      data-sly-use.geolocation="com.silversea.aem.components.GeolocationHelper">
-    <div id="antarcticaexperiment-container"></div>
-    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-    <script src="${config.AppSettings.ExternalUiJsUrl}"></script>
+    <sly data-sly-include="/apps/silversea/silversea-com/components/external/reactexternalui.html" />
     <script>
-        var domContainer = document.querySelector("#antarcticaexperiment-container");
+        var domContainer = document.querySelector("#external-ui-container");
         ReactDOM.render(
             React.createElement(SilverseaComUi.AntarcticaExperiment, {
                 countryPath: "${geolocation.CountryPath @ context='scriptString'}",
