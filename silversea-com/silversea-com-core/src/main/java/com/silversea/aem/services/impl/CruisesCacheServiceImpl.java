@@ -72,6 +72,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     private Map<String, Set<YearMonth>> departureDatesTmp = new HashMap<>();
 
     private Map<String, Set<FeatureModelLight>> featuresTmp = new HashMap<>();
+    private boolean forceVisibleOnAuthor;
 
     @Override
     public ImportResult buildCruiseCache() {
@@ -101,6 +102,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             durationsTmp = new HashMap<>();
             departureDatesTmp = new HashMap<>();
             featuresTmp = new HashMap<>();
+
+            forceVisibleOnAuthor = loadForceVisibleOnAuthor(resourceResolver);
 
             for (final String lang : languages) {
                 // init language
@@ -147,6 +150,18 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             logzLogger.logError(jsonLogWithMessageAndError("ResourceResolverError","Cannot create resource resolver",e));
         }
         return importResult;
+    }
+
+    private boolean loadForceVisibleOnAuthor(ResourceResolver resourceResolver) {
+        try {
+            CrxContentLoader contentLoader = new CrxContentLoader(resourceResolver);
+            ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
+            AppSettingsModel appSettings = configurationManager.getAppSettings();
+            return slingSettingsService.getRunModes().contains("author") && appSettings.getShowAllCruisesOnAuthorEnabled();
+        } catch (Exception e) {
+            logzLogger.logError(jsonLogWithMessageAndError("Exception","Cannot create configuration manager",e));
+        }
+        return false;
     }
 
     @Override
@@ -297,20 +312,6 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-        boolean forceVisibleOnAuthor = false;
-
-        try(final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)){
-            CrxContentLoader contentLoader = new CrxContentLoader(resourceResolver);
-            ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
-            AppSettingsModel appSettings = configurationManager.getAppSettings();
-
-            forceVisibleOnAuthor = slingSettingsService.getRunModes().contains("author") && appSettings.getShowAllCruisesOnAuthorEnabled();
-        }
-        catch (LoginException le) {
-            logzLogger.logError(jsonLogWithMessageAndError("ResourceResolverError","Cannot create resource resolver",le));
-        } catch (Exception e) {
-            logzLogger.logError(jsonLogWithMessageAndError("Generic error","Error on CruisesCacheServiceImpl.cruiseShouldBeCached",e));
-        }
 
         boolean isVisible = forceVisibleOnAuthor || cruiseModel.isVisible();
 
