@@ -9,6 +9,7 @@ import com.google.common.base.Strings;
 import com.silversea.aem.components.beans.*;
 import com.silversea.aem.components.included.combo.AssetGalleryCruiseUse;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.CruiseCodeHelper;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
@@ -885,6 +886,6 @@ public class Cruise2018Use extends EoHelper {
         return hasexcursionsCounter;
     }
 
-    public String cruiseCodeUrlIdentifier(){ return "cruise_code_" + cruiseModel.getCruiseCode();}
+    public String cruiseCodeUrlIdentifier() { return CruiseCodeHelper.urlIdentifierFor(cruiseModel.getCruiseCode()); }
 }
 

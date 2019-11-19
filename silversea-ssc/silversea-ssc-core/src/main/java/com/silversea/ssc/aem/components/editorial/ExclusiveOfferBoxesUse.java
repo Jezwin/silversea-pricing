@@ -1,27 +1,5 @@
 package com.silversea.ssc.aem.components.editorial;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.jcr.Session;
-
-import com.silversea.aem.config.ConfigurationManager;
-import com.silversea.aem.config.CoreConfig;
-import com.silversea.aem.content.CrxContentLoader;
-import com.silversea.aem.logging.LogzLoggerFactory;
-import com.silversea.aem.models.AppSettingsModel;
-import com.silversea.aem.proxies.ExclusiveOfferProxy;
-import com.silversea.aem.proxies.OkHttpClientWrapper;
-import com.silversea.aem.services.ExclusiveOffer;
-import com.silversea.aem.utils.AwsSecretsManager;
-import com.silversea.aem.utils.AwsSecretsManagerClientWrapper;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
-
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
@@ -30,9 +8,18 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.designer.Designer;
 import com.silversea.aem.components.beans.ValueTypeBean;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.CruiseCodeHelper;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.ssc.aem.bean.EoBoxesBean;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
+
+import javax.jcr.Session;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ExclusiveOfferBoxesUse extends EoHelper {
 
@@ -118,13 +105,6 @@ public class ExclusiveOfferBoxesUse extends EoHelper {
 			}
 
 			Resource res = getResourceResolver().resolve(rootPath);
-			String cruiseCode = "";
-			String[] selectors = getRequest().getRequestPathInfo().getSelectors();
-			for (String selector : selectors) {
-				if (selector.startsWith("cruise_code_")) {
-					cruiseCode = selector.replace("cruise_code_", "");
-				}
-			}
 
 			if (res != null) {
 				Page rootPage = res.adaptTo(Page.class);
@@ -133,7 +113,7 @@ public class ExclusiveOfferBoxesUse extends EoHelper {
 					ExclusiveOfferModel currentEO = rootPage.adaptTo(ExclusiveOfferModel.class);
 					if (currentEO != null && currentEO.getActiveSystem()) {
 						tokensAndStyles = super.getTokenAnsStyleByTag(currentEO);
-						resolveExclusiveOfferTokens(tokensAndStyles, cruiseCode);
+						resolveExclusiveOfferTokens(tokensAndStyles, CruiseCodeHelper.getCruiseCode(getRequest()));
 
 						String keyToReplace = null, valueToReplace = null, key = null, endTag = null, type = null,
 								valueStyle = null;
