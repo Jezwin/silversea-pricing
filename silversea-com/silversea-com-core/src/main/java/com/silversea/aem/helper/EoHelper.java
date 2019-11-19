@@ -1,5 +1,6 @@
 package com.silversea.aem.helper;
 
+import com.day.cq.wcm.api.Page;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -31,28 +32,20 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
     private StyleCache styleCache;
     private Gson gson;
-    private ExclusiveOfferProxy exclusiveOfferProxy;
-    private ExclusiveOffer exclusiveOffer;
-    private LogzLoggerFactory sscLogFactory;
     private AppSettingsModel appSettings;
+    private ExclusiveOffer exclusiveOffer;
 
     @Override
     public void activate() throws Exception {
         super.activate();
         styleCache = getSlingScriptHelper().getService(StyleCache.class);
-        sscLogFactory = getSlingScriptHelper().getService(LogzLoggerFactory.class);
         gson = new GsonBuilder().create();
 
         ResourceResolver resourceResolver = super.getResourceResolver();
         CrxContentLoader contentLoader = new CrxContentLoader(resourceResolver);
         ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
         this.appSettings = configurationManager.getAppSettings();
-
-        CoreConfig config = getSlingScriptHelper().getService(CoreConfig.class);
-        AwsSecretsManager awsSecretsManager = new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName());
-
-        exclusiveOfferProxy = new ExclusiveOfferProxy(new OkHttpClientWrapper(awsSecretsManager), this.appSettings.getBffApiBaseUrl());
-        exclusiveOffer = new ExclusiveOffer(exclusiveOfferProxy, sscLogFactory.getLogger(ExclusiveOffer.class));
+        this.exclusiveOffer = createExclusiveOffer();
     }
 
     public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {
@@ -70,12 +63,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 
-            String cruiseCode = (String) getCurrentPage().getProperties().get("cruiseCode");
-
-            if (appSettings.isExclusiveOffersExternalBffEnabled() && cruiseCode != null) {
-                Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
-                exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
-            }
+            resolveExclusiveOfferTokens(tokensAndStyle);
 
             ValueTypeBean eoValue = null;
             if (eoModel.getExpirationDate() != null) {
@@ -304,6 +292,27 @@ public class EoHelper extends AbstractGeolocationAwareUse {
         return eoBean;
     }
 
+    protected void resolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokensAndStyle) {
+        String cruiseCode = CruiseCodeHelper.getCruiseCode(getCurrentPage(), getRequest());
+
+        if (getAppSettings().isExclusiveOffersExternalBffEnabled() && cruiseCode != null) {
+            Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
+
+            exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
+        }
+    }
+
+    private ExclusiveOffer createExclusiveOffer() {
+        LogzLoggerFactory sscLogFactory = getSlingScriptHelper().getService(LogzLoggerFactory.class);
+        CoreConfig config = getSlingScriptHelper().getService(CoreConfig.class);
+        AwsSecretsManager awsSecretsManager = new AwsSecretsManagerClientWrapper(config.getAwsRegion(), config.getAwsSecretName());
+        ExclusiveOfferProxy exclusiveOfferProxy = new ExclusiveOfferProxy(
+                new OkHttpClientWrapper(awsSecretsManager),
+                getAppSettings().getBffApiBaseUrl());
+
+        return new ExclusiveOffer(exclusiveOfferProxy, sscLogFactory.getLogger(ExclusiveOffer.class));
+    }
+
     protected Map<String, ValueTypeBean> getTokenAnsStyleByTag(ExclusiveOfferModel eoModel) {
         Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
         Map<String, ValueTypeBean> styles = styleCache.getStyles();
@@ -329,6 +338,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
         return tokensAndStyle;
     }
 
+    protected AppSettingsModel getAppSettings() {
+        return appSettings;
+    }
 
     private Map<String, ValueTypeBean> getTokensByBesthMatchTag(String[] customTokens) {
         Map<String, ValueTypeBean> tokenByTag = new HashMap<String, ValueTypeBean>();

@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ offers, offersNumber, isVenetian, odd, VSLBPath }">
+<template data-sly-template.default="${ @ offers, offersNumber, isVenetian, odd, VSLBPath, cruiseCode }">
     <div class="offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer" id="menu-cruise2018offers"
          data-sly-test="${offersNumber!=0}">
         <div class="offers-title">
@@ -14,7 +14,7 @@
                 <sly data-sly-use.offerPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=offer.exclusiveOfferPath}" />
                 <div class="col-sm-6 offer-item ">
                     <div data-sly-element="${offer.exclusiveOfferPath ? 'a' : 'div'}"
-                         href="#${offerPath.externalizedUrl @ extension='html', selectors=['modalcontent' , '2018']}"
+                         href="#${offerPath.externalizedUrl @ extension='html', selectors=['modalcontent' , '2018', cruiseCode]}"
                          rel="nofollow"
                          id="lb-offer-${offerList.index}"
                          data-slb-arrows="true"
