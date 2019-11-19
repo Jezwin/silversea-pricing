@@ -113,7 +113,7 @@ public class ExclusiveOfferBoxesUse extends EoHelper {
 					ExclusiveOfferModel currentEO = rootPage.adaptTo(ExclusiveOfferModel.class);
 					if (currentEO != null && currentEO.getActiveSystem()) {
 						tokensAndStyles = super.getTokenAnsStyleByTag(currentEO);
-						resolveExclusiveOfferTokens(tokensAndStyles, CruiseCodeHelper.getCruiseCode(getRequest()));
+						resolveExclusiveOfferTokens(tokensAndStyles);
 
 						String keyToReplace = null, valueToReplace = null, key = null, endTag = null, type = null,
 								valueStyle = null;
