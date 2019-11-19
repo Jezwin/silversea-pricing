@@ -2,7 +2,9 @@ package com.silversea.aem.services.impl;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.config.ConfigurationManager;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.content.CrxContentLoader;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.impl.ImportResult;
@@ -293,7 +295,25 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
         if(cruiseModel == null)
             return false;
 
-        boolean isVisible = slingSettingsService.getRunModes().contains("author") || cruiseModel.isVisible();
+        final Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+        boolean forceVisibleOnAuthor = false;
+
+        try(final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)){
+            CrxContentLoader contentLoader = new CrxContentLoader(resourceResolver);
+            ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
+            AppSettingsModel appSettings = configurationManager.getAppSettings();
+
+            forceVisibleOnAuthor = slingSettingsService.getRunModes().contains("author") && appSettings.getShowAllCruisesOnAuthorEnabled();
+        }
+        catch (LoginException le) {
+            logzLogger.logError(jsonLogWithMessageAndError("ResourceResolverError","Cannot create resource resolver",le));
+        } catch (Exception e) {
+            logzLogger.logError(jsonLogWithMessageAndError("Generic error","Error on CruisesCacheServiceImpl.cruiseShouldBeCached",e));
+        }
+
+        boolean isVisible = forceVisibleOnAuthor || cruiseModel.isVisible();
+
         boolean departureInTheFuture = cruiseModel.getStartDate().after(Calendar.getInstance());
 
         return isVisible && departureInTheFuture;

@@ -22,7 +22,10 @@ public class AppSettingsModel {
     @Inject @Optional
     private Boolean termsAndConditionsExternalUiEnabled;
     @Inject @Optional
+    private Boolean showAllCruisesOnAuthorEnabled;
+    @Inject @Optional
     private Boolean antarcticaExperimentExternalUiEnabled;
+
 
     public AppSettingsModel() {}
 
@@ -46,6 +49,10 @@ public class AppSettingsModel {
         return defaultIfNull(this.termsAndConditionsExternalUiEnabled, false);
     }
 
+
+    public Boolean getShowAllCruisesOnAuthorEnabled() {
+        return defaultIfNull(this.showAllCruisesOnAuthorEnabled,false);
+    }
     public Boolean isAntarcticaExperimentExternalUiEnabled() {
         return defaultIfNull(this.antarcticaExperimentExternalUiEnabled, false);
     }
