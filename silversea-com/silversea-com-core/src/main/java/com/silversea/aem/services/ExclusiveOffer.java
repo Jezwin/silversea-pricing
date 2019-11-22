@@ -23,10 +23,10 @@ public class ExclusiveOffer {
         this.logger = logger;
     }
 
-    public void ResolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokens, String currency, String cruiseCode, Locale locale) {
+    public void ResolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokens, String currency, String cruiseCode, Locale locale, String countryCode) {
         try {
 
-            Map tokenValues = exclusiveOfferProxy.getExclusiveOfferTokens(currency, cruiseCode, locale);
+            Map tokenValues = exclusiveOfferProxy.getExclusiveOfferTokens(currency, cruiseCode, locale, countryCode);
 
             for (Object key : tokens.keySet())
             {

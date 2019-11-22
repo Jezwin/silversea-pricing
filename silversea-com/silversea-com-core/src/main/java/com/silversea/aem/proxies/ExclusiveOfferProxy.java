@@ -13,7 +13,7 @@ public class ExclusiveOfferProxy {
 
     private ApiClient apiClient;
 
-    private final String url = "{baseUrl}/exclusive-offers/{cruiseCode}/{currency}/{locale}";
+    private final String url = "{baseUrl}/exclusive-offers/{cruiseCode}?currency={currency}&locale={locale}&countryCode={countryCode}";
     private String domain;
 
     public ExclusiveOfferProxy(ApiClient apiClient, String domain){
@@ -21,12 +21,14 @@ public class ExclusiveOfferProxy {
         this.apiClient = apiClient;
     }
 
-    public Map getExclusiveOfferTokens(String currency, String cruiseCode, Locale locale) throws IOException, JSONException, UnsuccessfulHttpRequestException {
+    public Map getExclusiveOfferTokens(String currency, String cruiseCode, Locale locale, String countryCode) throws IOException, JSONException, UnsuccessfulHttpRequestException {
 
             String resolvedUrl = url.replace("{baseUrl}", domain)
                     .replace("{cruiseCode}", cruiseCode)
                     .replace("{currency}", currency)
-                    .replace("{locale}", locale.toString());
+                    .replace("{locale}", locale.toString())
+                    .replace("{countryCode}", countryCode);
+
 
             String response = apiClient.Get(resolvedUrl);
 

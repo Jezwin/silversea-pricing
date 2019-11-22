@@ -298,7 +298,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
         if (getAppSettings().isExclusiveOffersExternalBffEnabled() && cruiseCode != null) {
             Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
 
-            exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale);
+            exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale, countryCode);
         }
     }
 

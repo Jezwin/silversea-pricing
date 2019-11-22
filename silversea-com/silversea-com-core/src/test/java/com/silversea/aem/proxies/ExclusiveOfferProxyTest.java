@@ -24,7 +24,7 @@ public class ExclusiveOfferProxyTest {
         ApiClient apiClientMock = mock(ApiClient.class);
         SSCLogger logger = new NullLogger();
         when(apiClientMock
-                .Get("http://notUsed/exclusive-offers/1925/GBP/en_GB"))
+                .Get("http://notUsed/exclusive-offers/1925?currency=GBP&locale=en_GB&countryCode=GB"))
                 .thenReturn("{\"air_price\":\"£1'199\", \"non_use_air_credit\": \"£100\"}");
 
         ExclusiveOfferProxy proxy = new ExclusiveOfferProxy(apiClientMock, "http://notUsed");
@@ -38,7 +38,7 @@ public class ExclusiveOfferProxyTest {
         Map<String, ValueTypeBean> token = new HashMap<>();
         token.put("air_price", new ValueTypeBean("", "token"));
 
-        exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale);
+        exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale, "GB");
 
         assertEquals("£1'199", token.get("air_price").getValue());
     }
@@ -50,7 +50,7 @@ public class ExclusiveOfferProxyTest {
         Map<String, ValueTypeBean> token = new HashMap<>();
         token.put("key_that_does_not_exist", new ValueTypeBean("original_value", "token"));
 
-        exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale);
+        exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale, "GB");
 
         assertEquals("original_value", token.get("key_that_does_not_exist").getValue());
     }
