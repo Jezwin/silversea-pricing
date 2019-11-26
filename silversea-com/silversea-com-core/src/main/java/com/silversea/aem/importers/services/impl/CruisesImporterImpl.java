@@ -274,7 +274,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
     @Override
     public ImportResult updateItems() {
-        SSCLogger logger = sscLogFactory.getLogger(BrochuresImporterImpl.class);
+        SSCLogger logger = sscLogFactory.getLogger(CruisesImporterImpl.class);
 
         LOGGER.debug("Starting cruises update");
         logger.logDebug(jsonLog("updateItems")
