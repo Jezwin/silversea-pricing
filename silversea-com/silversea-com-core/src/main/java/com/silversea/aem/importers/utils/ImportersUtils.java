@@ -307,10 +307,14 @@ public class ImportersUtils {
 
             final Page itemPage = item.getParent().adaptTo(Page.class);
             final String language = LanguageHelper.getLanguage(itemPage);
-
-            final Integer itemId = item.getValueMap().get(propertyId , Integer.class);
-            final Integer itemId2 = item.getValueMap().get(propertyId2, Integer.class);
-
+            Integer itemId = null;
+            Integer itemId2 = null;
+            if(item.getValueMap().containsKey(propertyId)) {
+            	itemId = item.getValueMap().get(propertyId , Integer.class);
+            }
+            if(item.getValueMap().containsKey(propertyId2)) {
+            	itemId2 = item.getValueMap().get(propertyId2, Integer.class);
+            }
             if (itemId != null && itemId2 != null) {
                 if (itemsMapping.containsKey(itemId + "-" + itemId2)) {
                     itemsMapping.get(itemId + "-" + itemId2).put(language, itemPage.getPath());
