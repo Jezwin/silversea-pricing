@@ -3,8 +3,8 @@
     <picture data-sly-test.imageUrl="${imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
         <source
-            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=8,
-            ${assetHelper.imageUrl}?hei=${image.mobileRetinaWidth}&wid=${image.mobileRetinaWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=8 2x"
+            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80,
+            ${assetHelper.imageUrl}?hei=${image.mobileRetinaWidth}&wid=${image.mobileRetinaWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80 2x"
             media="(max-width: 767px)" />
         <source
             srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"
