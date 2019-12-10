@@ -293,7 +293,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
     }
 
     protected void resolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokensAndStyle) {
-        String cruiseCode = CruiseCodeHelper.getCruiseCode(getCurrentPage(), getRequest());
+        String cruiseCode = CruiseCodeHelper.getCruiseCode(getCurrentPage(), getRequest(), tokensAndStyle);
 
         if (getAppSettings().isExclusiveOffersExternalBffEnabled() && cruiseCode != null) {
             Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
