@@ -18,7 +18,11 @@ public class AppSettingsModel {
     @Inject @Optional
     private String bffApiBaseUrl;
     @Inject @Optional
-    private Boolean findYourCruiseExternalUiEnabled;
+    private String graphQLEndpointUrl;
+    @Inject @Optional
+    private String sanityDataset;
+    @Inject @Optional
+    private String sanityProjectId;
     @Inject @Optional
     private Boolean termsAndConditionsExternalUiEnabled;
     @Inject @Optional
@@ -33,16 +37,24 @@ public class AppSettingsModel {
         return defaultIfNull(this.exclusiveOffersExternalBffEnabled, false);
     }
 
-    public Boolean isFindYourCruiseExternalUiEnabled() {
-        return defaultIfNull(this.findYourCruiseExternalUiEnabled, false);
-    }
-
     public String getExternalUiJsUrl() {
         return externalUiJsUrl;
     }
 
     public String getBffApiBaseUrl() {
         return bffApiBaseUrl;
+    }
+
+    public String getGraphQLEndpointUrl() {
+        return graphQLEndpointUrl;
+    }
+
+    public String getSanityDataset() {
+        return sanityDataset;
+    }
+
+    public String getSanityProjectId() {
+        return sanityProjectId;
     }
 
     public Boolean isTermsAndConditionsExternalUiEnabled() {

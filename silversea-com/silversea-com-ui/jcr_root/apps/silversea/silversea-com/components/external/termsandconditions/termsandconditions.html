@@ -1,13 +1,16 @@
 <div data-sly-use.config="com.silversea.aem.config.ConfigurationHelper"
-     data-sly-use.geolocation="com.silversea.aem.components.GeolocationHelper">
-    <sly data-sly-include="/apps/silversea/silversea-com/components/external/reactexternalui.html" />
+     data-sly-use.geolocation="com.silversea.aem.components.GeolocationHelper"
+     class="container">
+    <sly data-sly-include="/apps/silversea/silversea-com/components/external/reactexternalui.html"/>
     <script>
         var domContainer = document.querySelector("#external-ui-container");
         ReactDOM.render(
             React.createElement(SilverseaComUi.TermsAndConditions, {
                 countryPath: "${geolocation.CountryPath @ context='scriptString'}",
                 language: "${geolocation.Language @ context='scriptString'}",
-                fallback: function() { window.showAemFallbackContent(); }
+                fallback: function () {
+                    window.showAemFallbackContent();
+                }
             }),
             domContainer
         );

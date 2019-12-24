@@ -1,4 +1,4 @@
-<div data-sly-use.config="com.silversea.aem.config.ConfigurationHelper"
+<sly data-sly-use.config="com.silversea.aem.config.ConfigurationHelper"
      data-sly-use.geolocation="com.silversea.aem.components.GeolocationHelper">
     <sly data-sly-include="/apps/silversea/silversea-com/components/external/reactexternalui.html" />
     <script>
@@ -7,9 +7,12 @@
             React.createElement(SilverseaComUi.AntarcticaExperiment, {
                 countryPath: "${geolocation.CountryPath @ context='scriptString'}",
                 language: "${geolocation.Language @ context='scriptString'}",
-                fallback: function() { window.showAemFallbackContent(); }
+                fallback: function() { window.showAemFallbackContent(); },
+                graphQLEndpointUrl: "${config.AppSettings.graphQLEndpointUrl @ context='scriptString'}",
+                sanityProjectId: "${config.AppSettings.sanityProjectId @ context='scriptString'}",
+                sanityDataset: "${config.AppSettings.sanityDataset @ context='scriptString'}"
             }),
             domContainer
         );
     </script>
-</div>
+</sly>

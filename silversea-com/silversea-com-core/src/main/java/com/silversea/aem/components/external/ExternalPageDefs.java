@@ -16,12 +16,6 @@ public class ExternalPageDefs {
                     "/antarcticaexperiment/antarcticaexperiment.html",
                     x -> x.isAntarcticaExperimentExternalUiEnabled(),
                     ExternalPageAemContentOption.RenderAsFallback),
-
-            new ExternalPageDef(
-                    "/cruise/cruise-results",
-                    "/findyourcruise/findyourcruise.html",
-                    x -> x.isFindYourCruiseExternalUiEnabled(),
-                    ExternalPageAemContentOption.RemoveAemContent)
     };
 
 }
