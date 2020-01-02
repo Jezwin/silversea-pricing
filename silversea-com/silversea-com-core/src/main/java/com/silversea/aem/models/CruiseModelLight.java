@@ -50,6 +50,8 @@ public class CruiseModelLight {
 
     private List<String> portPaths = new ArrayList<>();
 
+    private boolean isFlyCruise = false;
+
     public CruiseModelLight(CruiseModel cruiseModel) {
 
         title = cruiseModel.getTitle();
@@ -248,4 +250,13 @@ public class CruiseModelLight {
     public String getLang() {
         return lang;
     }
+
+    public boolean isFlyCruise() {
+		return isFlyCruise;
+	}
+
+	public void setFlyCruise(boolean isFlyCruise) {
+		this.isFlyCruise = isFlyCruise;
+	}
+
 }

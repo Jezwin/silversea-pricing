@@ -25,6 +25,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
+import org.json.JSONObject;
 
 import java.time.*;
 import java.util.*;
@@ -57,7 +58,7 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
     private Pagination pagination;
     private String requestQuotePagePath;
     private List<OfferPriorityModel> priorityOffer;
-
+    private String[] flyCruiseIds;
 
 
     @Override
@@ -97,13 +98,25 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                         return null;
                     }
                 });
+        ValueMap contentValueMap = resource.getValueMap();
+        String[] flyCruiseIdList = null != contentValueMap ? contentValueMap.get("flyCruiseIds", String[].class) : null;
+        JSONObject jObj;
+        flyCruiseIds = new String[flyCruiseIdList.length];
+        if (flyCruiseIdList != null) {
+			for (int i = 0; i < flyCruiseIdList.length; i++) {
+				jObj = new JSONObject(flyCruiseIdList[i]);
+				if (jObj.has("flyCruiseId")) {
+					flyCruiseIds[i] = jObj.getString("flyCruiseId");
+				}
+			}
+		}
+
         if (allCruises.isPresent()) {
             init(allCruises.get(), paginationLimit);
         } else {
             //to avoid displaying blank pages when error occurs
             dullInit();
         }
-
     }
 
     /***
@@ -174,6 +187,18 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         filterBar = initFilters(httpRequest, allCruises);
 
         List<CruiseModelLight> filteredCruises = applyFilters(preFilteredCruises, filterBar);
+
+	if(null != flyCruiseIds) {
+        Iterator<CruiseModelLight> iterator = filteredCruises.iterator(); 
+        while (iterator.hasNext()) {
+        	CruiseModelLight cruise = (CruiseModelLight) iterator.next();
+	        	if(Arrays.asList(flyCruiseIds).contains(cruise.getCruiseCode())) {
+	        		cruise.setFlyCruise(true);
+	        	}
+        	}
+        }
+  
+        
         if (computeFilters) {
             filterBar.updateFilters(preFilteredCruises, filteredCruises);
         }
@@ -337,5 +362,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 
     public List<OfferPriorityModel> getPriorityOffer() {
         return priorityOffer;
+    }
+
+    public String[] getFlyCruiseIds() {
+        return flyCruiseIds;
     }
 }

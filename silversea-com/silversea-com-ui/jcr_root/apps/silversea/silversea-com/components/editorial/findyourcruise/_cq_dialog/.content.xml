@@ -72,6 +72,48 @@
                     </column>
                 </items>
             </tab1>
+	   	 <tab2
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Fly Cruise List"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <flyCruiseIds
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/multifield">
+                                <field
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                                    acs-commons-nested=""
+                                    name="./flyCruiseIds">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <column
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                            <items jcr:primaryType="nt:unstructured">
+                                                <flyCruiseId
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    fieldDescription="Fly Cruise ID"
+                                                    fieldLabel="Fly Cruise ID"
+                                                    name="./flyCruiseId"
+                                                    value=""/>
+                                            </items>
+                                        </column>
+                                    </items>
+                                </field>
+                            </flyCruiseIds>
+                        </items>
+                    </column>
+                </items>
+            </tab2>
         </items>
     </content>
 </jcr:root>
