@@ -1,4 +1,5 @@
-<sly data-sly-use.eoData="com.silversea.ssc.aem.components.editorial.ExclusiveOfferBoxesUse" />
+<sly data-sly-use.exclusiveOfferBoxesUse="com.silversea.ssc.aem.components.editorial.ExclusiveOfferBoxesUse" />
+<sly data-sly-list.eoData="${exclusiveOfferBoxesUse.exclusiveOfferBoxes}">
 <div data-sly-test.empty="${wcmmode.edit}"	class="cq-placeholder cq-dd-image"	data-emptytext="Exclusive Offer Boxes - 2018 (#c-exclusive-offer-boxes-${eoData.propertiesAdapted.sscUUID})"></div>
 <section id="c-exclusive-offer-boxes-${eoData.propertiesAdapted.sscUUID}" class="col-xs-12 ${eoData.showComponent ? 'c-exclusive-offer-boxes' : ''}">
 	<sly data-sly-test="${eoData.showComponent}"  data-sly-use.eoBoxesTemplate="silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxesTemplate.html">
@@ -33,4 +34,5 @@
 	});
 	</script>
 </section>
+</sly>
 <div class="clearfix"></div>
