@@ -16,6 +16,8 @@ public class AppSettingsModel {
     @Inject @Optional
     private String externalUiJsUrl;
     @Inject @Optional
+    private String externalUiCssUrl;
+    @Inject @Optional
     private String bffApiBaseUrl;
     @Inject @Optional
     private String graphQLEndpointUrl;
@@ -39,6 +41,10 @@ public class AppSettingsModel {
 
     public String getExternalUiJsUrl() {
         return externalUiJsUrl;
+    }
+
+    public String getExternalUiCssUrl() {
+        return externalUiCssUrl;
     }
 
     public String getBffApiBaseUrl() {
