@@ -13,7 +13,8 @@ public class ExclusiveOfferProxy {
 
     private ApiClient apiClient;
 
-    private final String url = "{baseUrl}/exclusive-offers/{cruiseCode}?currency={currency}&locale={locale}&countryCode={countryCode}";
+    private final String urlByCruiseCode = "{baseUrl}/exclusive-offers/{cruiseCode}?currency={currency}&locale={locale}&countryCode={countryCode}";
+    private final String urlByExclusiveOfferId = "{baseUrl}/exclusive-offers/group/{exclusiveOfferId}?currency={currency}&locale={locale}&countryCode={countryCode}";
     private String domain;
 
     public ExclusiveOfferProxy(ApiClient apiClient, String domain){
@@ -21,18 +22,27 @@ public class ExclusiveOfferProxy {
         this.apiClient = apiClient;
     }
 
-    public Map getExclusiveOfferTokens(String currency, String cruiseCode, Locale locale, String countryCode) throws IOException, JSONException, UnsuccessfulHttpRequestException {
+    public Map getTokensByCruiseCode(String currency, Locale locale, String countryCode, String cruiseCode) throws IOException, JSONException, UnsuccessfulHttpRequestException {
 
-            String resolvedUrl = url.replace("{baseUrl}", domain)
-                    .replace("{cruiseCode}", cruiseCode)
-                    .replace("{currency}", currency)
-                    .replace("{locale}", locale.toString())
-                    .replace("{countryCode}", countryCode);
+        String template = urlByCruiseCode.replace("{cruiseCode}", cruiseCode);
+        return getTokens(currency, locale, countryCode, template);
+    }
 
+    public Map getTokensByExclusiveOfferId(String currency, Locale locale, String countryCode, String exclusiveOfferId) throws IOException, JSONException, UnsuccessfulHttpRequestException {
 
-            String response = apiClient.Get(resolvedUrl);
+        String template = urlByExclusiveOfferId.replace("{exclusiveOfferId}", exclusiveOfferId);
+        return getTokens(currency, locale, countryCode, template);
+    }
 
-            return MapExclusiveOffer(response);
+    private Map getTokens(String currency, Locale locale, String countryCode, String template) throws IOException, UnsuccessfulHttpRequestException, JSONException {
+        String resolvedUrl = template
+                .replace("{baseUrl}", domain)
+                .replace("{currency}", currency)
+                .replace("{locale}", locale.toString())
+                .replace("{countryCode}", countryCode);
+        String response = apiClient.Get(resolvedUrl);
+
+        return MapExclusiveOffer(response);
     }
 
     private Map MapExclusiveOffer(String response) throws JSONException {

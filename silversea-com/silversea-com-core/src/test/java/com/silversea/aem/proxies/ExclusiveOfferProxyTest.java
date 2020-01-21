@@ -38,7 +38,7 @@ public class ExclusiveOfferProxyTest {
         Map<String, ValueTypeBean> token = new HashMap<>();
         token.put("air_price", new ValueTypeBean("", "token"));
 
-        exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale, "GB");
+        exclusiveOffer.resolveTokensByCruiseCode(token, "GBP", locale, "GB", "1925");
 
         assertEquals("£1'199", token.get("air_price").getValue());
     }
@@ -50,7 +50,7 @@ public class ExclusiveOfferProxyTest {
         Map<String, ValueTypeBean> token = new HashMap<>();
         token.put("key_that_does_not_exist", new ValueTypeBean("original_value", "token"));
 
-        exclusiveOffer.ResolveExclusiveOfferTokens(token, "GBP", "1925", locale, "GB");
+        exclusiveOffer.resolveTokensByCruiseCode(token, "GBP", locale, "GB", "1925");
 
         assertEquals("original_value", token.get("key_that_does_not_exist").getValue());
     }

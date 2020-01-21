@@ -1,6 +1,5 @@
 package com.silversea.aem.helper;
 
-import com.day.cq.wcm.api.Page;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -63,7 +62,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             Map<String, ValueTypeBean> tokensAndStyle =
                     getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 
-            resolveExclusiveOfferTokens(tokensAndStyle);
+            resolveExclusiveOfferTokens(eoModel, tokensAndStyle);
 
             ValueTypeBean eoValue = null;
             if (eoModel.getExpirationDate() != null) {
@@ -292,13 +291,16 @@ public class EoHelper extends AbstractGeolocationAwareUse {
         return eoBean;
     }
 
-    protected void resolveExclusiveOfferTokens(Map<String, ValueTypeBean> tokensAndStyle) {
-        String cruiseCode = CruiseCodeHelper.getCruiseCode(getCurrentPage(), getRequest(), tokensAndStyle);
-
-        if (getAppSettings().isExclusiveOffersExternalBffEnabled() && cruiseCode != null) {
+    protected void resolveExclusiveOfferTokens(ExclusiveOfferModel eoModel, Map<String, ValueTypeBean> tokensAndStyle) {
+        if (getAppSettings().isExclusiveOffersExternalBffEnabled()) {
             Locale locale = new Locale(getCurrentPage().getLanguage().getLanguage(), countryCode);
 
-            exclusiveOffer.ResolveExclusiveOfferTokens(tokensAndStyle, currency, cruiseCode, locale, countryCode);
+            String cruiseCode = CruiseCodeHelper.getCruiseCode(getCurrentPage(), getRequest());
+            if (cruiseCode != null) {
+                exclusiveOffer.resolveTokensByCruiseCode(tokensAndStyle, currency, locale, countryCode, cruiseCode);
+            } else {
+                exclusiveOffer.resolveTokensByExclusiveOfferId(tokensAndStyle, currency, locale, countryCode, eoModel.getId());
+            }
         }
     }
 

@@ -1,36 +1,19 @@
 package com.silversea.aem.helper;
 
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.ValueTypeBean;
 import org.apache.sling.api.SlingHttpServletRequest;
-
-import java.util.Map;
 
 public class CruiseCodeHelper {
 
-    public static final String SELECTOR_CRUISE_CODE_PREFIX = "cruise_code_";
+    private static final String SELECTOR_CRUISE_CODE_PREFIX = "cruise_code_";
 
-    public static String getCruiseCode(final Page currentPage, final SlingHttpServletRequest request, Map<String, ValueTypeBean> tokensAndStyle) {
+    public static String getCruiseCode(final Page currentPage, final SlingHttpServletRequest request) {
         String cruiseCode = getCruiseCode(currentPage);
 
         if (cruiseCode != null) {
             return cruiseCode;
         }
-        cruiseCode = getCruiseCode(request);
-        if (cruiseCode != null) {
-            return cruiseCode;
-        }
-        return getDefaultCruiseCode(tokensAndStyle);
-    }
-
-    private static String getDefaultCruiseCode(Map<String, ValueTypeBean> tokensAndStyle) {
-        if(tokensAndStyle.containsKey("default_voyage_code")){
-            String token = tokensAndStyle.get("default_voyage_code").getValue();
-            if(token.equals(""))
-                return null;
-            return token;
-        }
-        return null;
+        return getCruiseCode(request);
     }
 
     public static String getCruiseCode(final Page currentPage) {
