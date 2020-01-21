@@ -3,7 +3,8 @@
     data-sly-use.runModeHelper="com.silversea.aem.helper.RunModesHelper"
     data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"
     data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
-    class="${countryHelper.hrefLangValid} aToBTmp"
+    data-sly-use.externalPage="com.silversea.aem.components.external.ExternalPageHelper"
+    class="${countryHelper.hrefLangValid} ${externalPage.ExternalPage ? '' : 'aToBTmp'}"
     lang="${countryHelper.hrefLangValid}">
 <head data-sly-include="head.html"></head>
 <body class="${runModeHelper.authorRunModeClass} ${pageHelper.templateName} ${properties.abTestManual ? 'abTestManual' : ''}" data-sly-include="body.html">
