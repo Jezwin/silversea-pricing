@@ -2,7 +2,7 @@
      data-sly-use.geolocation="com.silversea.aem.components.GeolocationHelper">
     <sly data-sly-include="/apps/silversea/silversea-com/components/external/reactexternalui.html" />
     <script>
-        var domContainer = document.querySelector("#external-ui-container");
+        var domContainer = document.querySelector("#xui");
         ReactDOM.render(
             React.createElement(SilverseaComUi.AntarcticaExperiment, {
                 countryPath: "${geolocation.CountryPath @ context='scriptString'}",

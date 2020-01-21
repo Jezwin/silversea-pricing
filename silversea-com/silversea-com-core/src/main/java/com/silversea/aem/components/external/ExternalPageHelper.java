@@ -27,7 +27,7 @@ public class ExternalPageHelper extends WCMUsePojo {
 
     private ExternalPageDef getExternalPageDef(AppSettingsModel appSettings, String currentPagePath) {
         return Arrays.stream(ExternalPageDefs.All)
-                .filter(x ->  x.isEnabled(appSettings))
+                .filter(x -> x.isEnabled(appSettings))
                 .filter(x -> x.isPathMatch(currentPagePath))
                 .findFirst()
                 .orElse(null);
