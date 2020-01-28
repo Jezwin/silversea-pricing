@@ -1,6 +1,7 @@
 package com.silversea.aem.components.external;
 
 import com.silversea.aem.models.AppSettingsModel;
+import org.apache.sling.api.SlingHttpServletRequest;
 
 public class ExternalPageDef {
 
@@ -11,18 +12,20 @@ public class ExternalPageDef {
     private ExternalPageAemContentOption aemContentOption;
     private String crxPathRegex;
     private String templatePath;
+    private RequestChecker requestChecker;
 
     public ExternalPageDef(String crxPathRegex, String templatePath) {
 
-        this(crxPathRegex, templatePath, null, ExternalPageAemContentOption.RemoveAemContent);
+        this(crxPathRegex, templatePath, null, null, ExternalPageAemContentOption.RemoveAemContent);
     }
 
-    public ExternalPageDef(String crxRelativePathRegex, String templateRelativePath, FeatureToggle featureToggle, ExternalPageAemContentOption aemContentOption) {
+    public ExternalPageDef(String crxRelativePathRegex, String templateRelativePath, FeatureToggle featureToggle, RequestChecker requestChecker, ExternalPageAemContentOption aemContentOption) {
 
         this.crxPathRegex = CRX_BASE_PATH_REGEX + crxRelativePathRegex;
         this.templatePath = HTML_TEMPLATE_BASE_PATH + templateRelativePath;
         this.featureToggle = featureToggle;
         this.aemContentOption = aemContentOption;
+        this.requestChecker = requestChecker;
     }
 
     public String getTemplatePath() {
@@ -42,8 +45,16 @@ public class ExternalPageDef {
         return this.aemContentOption;
     }
 
+    public boolean isRequestMatch(SlingHttpServletRequest queryString) {
+        return this.requestChecker == null
+                || this.requestChecker.isMatch(queryString);
+    }
 
     public interface FeatureToggle {
         Boolean isEnabled(AppSettingsModel appSettings);
+    }
+
+    public interface RequestChecker {
+        Boolean isMatch(SlingHttpServletRequest request);
     }
 }
