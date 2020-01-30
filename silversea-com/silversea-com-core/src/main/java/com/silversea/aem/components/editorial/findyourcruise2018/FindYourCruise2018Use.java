@@ -66,9 +66,9 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
         super.activate();
 
         ResourceResolver resourceResolver = super.getResourceResolver();
-
         Page currentPage = getCurrentPage();
         Resource resource = getResource();
+        Resource flyResource = resource;
         SlingHttpServletRequest request = getRequest();
 
         Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
@@ -98,18 +98,28 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
                         return null;
                     }
                 });
-        ValueMap contentValueMap = resource.getValueMap();
-        String[] flyCruiseIdList = null != contentValueMap ? contentValueMap.get("flyCruiseIds", String[].class) : null;
-        JSONObject jObj;
-        flyCruiseIds = new String[flyCruiseIdList.length];
-        if (flyCruiseIdList != null) {
-			for (int i = 0; i < flyCruiseIdList.length; i++) {
-				jObj = new JSONObject(flyCruiseIdList[i]);
-				if (jObj.has("flyCruiseId")) {
-					flyCruiseIds[i] = jObj.getString("flyCruiseId");
+        
+        if(resource.getPath().contains("destinations")) {
+        	flyResource = (resourceResolver.getResource(getPageManager().getContainingPage(resource).getParent(2).getPath())).getChild("cruise/cruise-results/jcr:content/par/findyourcruise");
+        }
+        ValueMap contentValueMap = null != flyResource ? flyResource.getValueMap() : null;
+        if(null != contentValueMap) { 
+	        if(!contentValueMap.containsKey("flyCruiseIds")) {
+	        	flyCruiseIds = new String[0];
+	        } else {
+		        String[] flyCruiseIdList = (null != contentValueMap && null != contentValueMap.get("flyCruiseIds", String[].class)) ? contentValueMap.get("flyCruiseIds", String[].class) : null;
+		        JSONObject jObj;
+		        if (flyCruiseIdList != null) {
+		        flyCruiseIds = new String[flyCruiseIdList.length];
+					for (int i = 0; i < flyCruiseIdList.length; i++) {
+						jObj = new JSONObject(flyCruiseIdList[i]);
+						if (jObj.has("flyCruiseId")) {
+							flyCruiseIds[i] = jObj.getString("flyCruiseId");
+						}
+					}
 				}
-			}
-		}
+	        }
+        }
 
         if (allCruises.isPresent()) {
             init(allCruises.get(), paginationLimit);
@@ -191,10 +201,10 @@ public class FindYourCruise2018Use extends AbstractGeolocationAwareUse {
 	if(null != flyCruiseIds) {
         Iterator<CruiseModelLight> iterator = filteredCruises.iterator(); 
         while (iterator.hasNext()) {
-        	CruiseModelLight cruise = (CruiseModelLight) iterator.next();
+        	CruiseModelLight cruise = iterator.next();
 	        	if(Arrays.asList(flyCruiseIds).contains(cruise.getCruiseCode())) {
 	        		cruise.setFlyCruise(true);
-	        	}
+	        	} else cruise.setFlyCruise(false);
         	}
         }
   
