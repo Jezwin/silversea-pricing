@@ -11,13 +11,13 @@
 </template>
 
 <template data-sly-template.resp="${ @ imagePath, query }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
-    <picture class="lazy" data-loader="picturetag" data-sly-test="${imagePath}" data-sly-test.imageUrl="${imagePath}">
+    <picture data-sly-test="${imagePath}" data-sly-test.imageUrl="${imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
         <!--[if IE 9]><video style="display: none;"><![endif]-->
         <source data-srcset="${assetHelper.imageUrl}?wid=${image.mobileWidth}&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1" media="(max-width: 767px)" />
         <source data-srcset="${assetHelper.imageUrl}?wid=${image.desktopWidth}&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1" media="(min-width: 768px)" />
         <!--[if IE 9]></video><![endif]-->
-        <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" src="" data-src="${assetHelper.imageUrl @ context='unsafe'}?wid=${image.desktopWidth @ context='unsafe'}&fmt=pjpeg&pscan=5&qlt=80&fit=hfit" alt="${properties.jcr:title || assetHelper.metadataResource.valueMap['dc:title']  || currentPage.title}" />
+        <img class="lazyload" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" src="" data-src="${assetHelper.imageUrl @ context='unsafe'}?wid=${image.desktopWidth @ context='unsafe'}&fmt=pjpeg&pscan=5&qlt=80&fit=hfit" alt="${properties.jcr:title || assetHelper.metadataResource.valueMap['dc:title']  || currentPage.title}" />
     </picture>
 </template>
 
