@@ -25,7 +25,7 @@
             <div data-sly-repeat.hit="${searchResultsUse.hitsListFiletered}" class="c-search-result__results__item" tabindex="0">
                 <h4 class="c-search-result__results__item__title">${hit.title @ context='html'}</h4>
                 <p class="c-search-result__results__item__description">${hit.excerpt @ context='html'}</p>
-                <a class="c-search-result__results__link" href="${hit.path @ extension='html'}" tabindex="-1">
+                <a class="c-search-result__results__link" href="${hit.properties.sling:vanityPath == null? hit.path : hit.properties.sling:vanityPath @ extension='html', prependPath='/'}" tabindex="-1">
                     <span class="hidden">${hit.title @ context='html'}</span>
                 </a>
             </div>
