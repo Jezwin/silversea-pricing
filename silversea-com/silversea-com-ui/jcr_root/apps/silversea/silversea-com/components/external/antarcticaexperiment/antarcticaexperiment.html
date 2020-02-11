@@ -10,7 +10,16 @@
                 fallback: function() { window.showAemFallbackContent(); },
                 graphQLEndpointUrl: "${config.AppSettings.graphQLEndpointUrl @ context='scriptString'}",
                 sanityProjectId: "${config.AppSettings.sanityProjectId @ context='scriptString'}",
-                sanityDataset: "${config.AppSettings.sanityDataset @ context='scriptString'}"
+                sanityDataset: "${config.AppSettings.sanityDataset @ context='scriptString'}",
+                trackEvent: (s && s.tl)
+                    ? function (eventName, options) {
+                        adobeOptions = (options && options.adobe) || {};
+                        s.tl(adobeOptions.linkObject || true,
+                             adobeOptions.linkType || "o",
+                             eventName,
+                             adobeOptions.variableOverrides)
+                    }
+                    : null
             }),
             domContainer
         );
