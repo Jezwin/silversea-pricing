@@ -1,5 +1,7 @@
+
 $(function () {
     $(document).ready(function () {
+        adjustHeight("cruise-2018-suites-fares-description-title");
         var isCorrectPage = ($("body").hasClass("cruise") || $("body").hasClass("combocruise")) && $(".cruise-2018-suites-fares").length > 0;
 
         if (isCorrectPage) {
@@ -77,3 +79,12 @@ $(function () {
         return isVisible;
     }//isElementInView
 });
+
+function adjustHeight(div){
+	var max = -1;
+    $("."+div).each(function() {
+        var h = $(this).height(); 
+        max = h > max ? h : max;
+    });
+    $("."+div).css('height',max);
+}
