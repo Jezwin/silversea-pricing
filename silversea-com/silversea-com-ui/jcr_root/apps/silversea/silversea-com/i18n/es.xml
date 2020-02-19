@@ -61,6 +61,10 @@
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
             sling:message="está disponible en los siguientes barcos"/>
+    <available-on-ship
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="está disponible en lo siguiente barco"/>
     <award-label
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

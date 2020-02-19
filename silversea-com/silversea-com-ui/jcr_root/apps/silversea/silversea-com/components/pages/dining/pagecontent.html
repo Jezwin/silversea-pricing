@@ -8,7 +8,7 @@
                 <sly data-sly-use.pagegallery="silversea/silversea-com/components/pages/dining/singledining/pagegallery.html"
                             data-sly-call="${pagegallery.default @ diningUse=diningUse}" />
                 <section class="o-section c-single-dining-availability">
-                    <p class="c-single-dining-availability__title">${currentPage.navigationTitle || currentPage.title @ context='html'} ${'available-on-ships' @ i18n} :</p>
+                    <p class="c-single-dining-availability__title">${currentPage.navigationTitle || currentPage.title @ context='html'} ${diningUse.diningReferenceList.size > 1? 'available-on-ships' : 'available-on-ship' @ i18n} :</p>
                     <div class="container-fluid">
                         <ul class="row c-list" data-sly-list="${diningUse.diningReferenceList}">
                             <li class="col-md-3 c-list__item">

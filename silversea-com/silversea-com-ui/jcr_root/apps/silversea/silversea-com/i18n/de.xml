@@ -60,6 +60,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="ist auf folgenden Schiffen verfügbar"/>
+    <available-on-ship
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="ist auf folgendem schiff verfüegbar"/>
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1407,7 +1411,7 @@
     <view-all-dining-options
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Weniger Speiseoptionen anzeigen"/>
+            sling:message="Alle Speiseoptionen anzeigen"/>
 	<view-voyage-highlights
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"

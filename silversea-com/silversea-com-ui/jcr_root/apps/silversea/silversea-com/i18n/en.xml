@@ -79,6 +79,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="available-on-ships"
         sling:message="is available on the following ships"/>
+    <available-on-ship
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="available-on-ships"
+        sling:message="is available on the following ship"/>
     <award-label
         jcr:primaryType="sling:MessageEntry"
         sling:key="award-label"
