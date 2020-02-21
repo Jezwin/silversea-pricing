@@ -11,49 +11,29 @@ import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 @Model(adaptables = Resource.class)
 public class AppSettingsModel {
 
-    @Inject
-    @Optional
+    @Inject @Optional
     private boolean exclusiveOffersExternalBffEnabled;
-    @Inject
-    @Optional
+    @Inject @Optional
     private String externalUiJsUrl;
-    @Inject
-    @Optional
+    @Inject @Optional
     private String externalUiCssUrl;
-    @Inject
-    @Optional
-    private String algoliaAppId;
-    @Inject
-    @Optional
-    private String algoliaApiKey;
-    @Inject
-    @Optional
-    private String algoliaSearchIndexName;
-    @Inject
-    @Optional
+    @Inject @Optional
     private String bffApiBaseUrl;
-    @Inject
-    @Optional
+    @Inject @Optional
     private String graphQLEndpointUrl;
-    @Inject
-    @Optional
+    @Inject @Optional
     private String sanityDataset;
-    @Inject
-    @Optional
+    @Inject @Optional
     private String sanityProjectId;
-    @Inject
-    @Optional
+    @Inject @Optional
     private Boolean termsAndConditionsExternalUiEnabled;
-    @Inject
-    @Optional
+    @Inject @Optional
     private Boolean showAllCruisesOnAuthorEnabled;
-    @Inject
-    @Optional
+    @Inject @Optional
     private Boolean antarcticaExperimentExternalUiEnabled;
 
 
-    public AppSettingsModel() {
-    }
+    public AppSettingsModel() {}
 
     public Boolean isExclusiveOffersExternalBffEnabled() {
         return defaultIfNull(this.exclusiveOffersExternalBffEnabled, false);
@@ -65,18 +45,6 @@ public class AppSettingsModel {
 
     public String getExternalUiCssUrl() {
         return externalUiCssUrl;
-    }
-
-    public String getAlgoliaAppId() {
-        return algoliaAppId;
-    }
-
-    public String getAlgoliaApiKey() {
-        return algoliaApiKey;
-    }
-
-    public String getAlgoliaSearchIndexName() {
-        return algoliaSearchIndexName;
     }
 
     public String getBffApiBaseUrl() {
@@ -99,10 +67,10 @@ public class AppSettingsModel {
         return defaultIfNull(this.termsAndConditionsExternalUiEnabled, false);
     }
 
-    public Boolean getShowAllCruisesOnAuthorEnabled() {
-        return defaultIfNull(this.showAllCruisesOnAuthorEnabled, false);
-    }
 
+    public Boolean getShowAllCruisesOnAuthorEnabled() {
+        return defaultIfNull(this.showAllCruisesOnAuthorEnabled,false);
+    }
     public Boolean isAntarcticaExperimentExternalUiEnabled() {
         return defaultIfNull(this.antarcticaExperimentExternalUiEnabled, false);
     }
