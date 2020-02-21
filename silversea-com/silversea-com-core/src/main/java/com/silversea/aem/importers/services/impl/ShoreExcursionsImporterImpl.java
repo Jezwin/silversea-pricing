@@ -186,7 +186,8 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                             excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
                             excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
                             excursionPageContentNode.setProperty("note", shorex.getNote());
-
+                            excursionPageContentNode.setProperty("cityId", cityId);
+                            
 
                             if (StringUtils.isNotBlank(shorex.getSymbols())) {
                                 final String[] symbolsIDs = shorex.getSymbols().split(",");

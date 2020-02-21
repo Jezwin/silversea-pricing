@@ -315,6 +315,12 @@ public class ImportersUtils {
             if(item.getValueMap().containsKey(propertyId2)) {
             	itemId2 = item.getValueMap().get(propertyId2, Integer.class);
             }
+            else if(propertyId2.equals("cityId")){
+        		Resource parentNode = resourceResolver.getResource(itemPage.getParent().getParent().getPath()+"/jcr:content");
+        		if(parentNode.getValueMap().containsKey(propertyId2)) {
+            		itemId2 = parentNode.getValueMap().get(propertyId2, Integer.class);
+        		}
+            }
             if (itemId != null && itemId2 != null) {
                 if (itemsMapping.containsKey(itemId + "-" + itemId2)) {
                     itemsMapping.get(itemId + "-" + itemId2).put(language, itemPage.getPath());
