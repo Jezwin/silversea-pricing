@@ -10,7 +10,10 @@
                 fallback: function() { window.showAemFallbackContent(); },
                 graphQLEndpointUrl: "${config.AppSettings.graphQLEndpointUrl @ context='scriptString'}",
                 sanityProjectId: "${config.AppSettings.sanityProjectId @ context='scriptString'}",
-                sanityDataset: "${config.AppSettings.sanityDataset @ context='scriptString'}"
+                sanityDataset: "${config.AppSettings.sanityDataset @ context='scriptString'}",
+                algoliaAppId: "${config.AppSettings.algoliaAppId @ context='scriptString'}",
+                algoliaApiKey: "${config.AppSettings.algoliaApiKey @ context='scriptString'}",
+                algoliaSearchIndexName: "${config.AppSettings.algoliaSearchIndexName @ context='scriptString'}"
             }),
             domContainer
         );
