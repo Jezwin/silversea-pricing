@@ -21,26 +21,37 @@ if($(".finyourport").length){
         var results = [],
             destinations = [],
             visiblePorts = [],
-            // visiblePorts = $('.finyourport [name="itinerary-port"] option:gt(1):not(:disabled)').map(function(port){return this.value;}),
+            selectedDest,
             filteredPortData = {};
-
-        if($.trim($('.finyourport [name="itinerary-port"]').val()) === ''){
+        var portTest=true;
+        if($.trim($('.finyourport [name="itinerary-port"]').val()) === '' && $('.finyourport [name="destination"]').val() === ''){
             visiblePorts = $('.finyourport [name="itinerary-port"] option:gt(1):not(:disabled)').map(function(port){return this.value;});
-        } else {
+        } else if($('.finyourport [name="destination"]').val() === '') {
             visiblePorts.push($.trim($('.finyourport [name="itinerary-port"]').val()));
-        }
-
-        visiblePorts = $.makeArray(visiblePorts);
-        filteredPortData = portsDest.map(function(port){
-            if(visiblePorts.indexOf(port.port_city_id) > -1){
-                destinations = [];
+        } else {
+            portTest = false;
+            selectedDest=($('.finyourport [name="destination"]').val());
+            filteredPortData = portsDest.map(function(port){
                 $.each(port.related_destinations, function(k, v){
-                    destinations.push(v.dest_name);
+                    if(selectedDest == v.dest_id){
+                        results += "<a href='"+port.port_path+".html' class='clearfix c-find-port__result__link'><span class='col-sm-5 c-find-port__result__city'>"+port.port_name+"</span><span class='col-sm-7 c-find-port__result__destination'>"+v.dest_name+"</span></a>";
+                    }
                 });
-                results += "<a href='"+port.port_path+".html' class='clearfix c-find-port__result__link'><span class='col-sm-5 c-find-port__result__city'>"+port.port_name+"</span><span class='col-sm-7 c-find-port__result__destination'>"+destinations.join(',')+"</span></a>";
-            }
-        });
+            });
 
+        }
+        if(portTest == true) {
+            visiblePorts = $.makeArray(visiblePorts);
+            filteredPortData = portsDest.map(function(port){
+                if(visiblePorts.indexOf(port.port_name) > -1){
+                    destinations = [];
+                    $.each(port.related_destinations, function(k, v){
+                        destinations.push(v.dest_name);
+                    });
+                    results += "<a href='"+port.port_path+".html' class='clearfix c-find-port__result__link'><span class='col-sm-5 c-find-port__result__city'>"+port.port_name+"</span><span class='col-sm-7 c-find-port__result__destination'>"+destinations.join(',')+"</span></a>";
+                }
+            });
+        }
         $('.c-find-port__result-list').html(results);
     }
 
@@ -154,7 +165,7 @@ if($(".finyourport").length){
             setCounter();
         });
 
-        $('#counter').off('click').on('click', showResults);
+        $('#counter').on('click', showResults);
     }
 
     $(document).ready(initChosen);
