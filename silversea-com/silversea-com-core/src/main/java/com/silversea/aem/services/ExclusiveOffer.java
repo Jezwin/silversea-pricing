@@ -42,10 +42,8 @@ public class ExclusiveOffer {
         try {
             Map tokenValues = getTokens.get();
 
-            for (Object key : tokens.keySet()) {
-                if(tokenValues.containsKey(key.toString())) {
-                    tokens.put(key.toString(), new ValueTypeBean(tokenValues.get(key).toString(), "token"));
-                }
+            for (Object key : tokenValues.keySet()) {
+                tokens.put(key.toString(), new ValueTypeBean(tokenValues.get(key).toString(), "token"));
             }
         } catch (IOException | JSONException e) {
             logger.logError(getLogMessage.get().with(e));

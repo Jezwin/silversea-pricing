@@ -4,6 +4,7 @@ import com.silversea.aem.components.beans.ValueTypeBean;
 import com.silversea.aem.logging.SSCLogger;
 import com.silversea.aem.services.ExclusiveOffer;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -53,5 +54,16 @@ public class ExclusiveOfferProxyTest {
         exclusiveOffer.resolveTokensByCruiseCode(token, "GBP", locale, "GB", "1925");
 
         assertEquals("original_value", token.get("key_that_does_not_exist").getValue());
+    }
+
+    @Test
+    public void ShouldAddTokenValueWhenKeyDoesNotExist() {
+        Locale locale = new Locale("en", "GB");
+
+        Map<String, ValueTypeBean> emptyToken = new HashMap<>();
+
+        exclusiveOffer.resolveTokensByCruiseCode(emptyToken, "GBP", locale, "GB", "1925");
+
+        assertEquals("£1'199", emptyToken.get("air_price").getValue());
     }
 }
