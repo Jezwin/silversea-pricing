@@ -6,6 +6,8 @@ import org.apache.sling.models.annotations.Optional;
 
 import javax.inject.Inject;
 
+import java.net.URL;
+
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 @Model(adaptables = Resource.class)
@@ -50,7 +52,15 @@ public class AppSettingsModel {
     @Inject
     @Optional
     private Boolean antarcticaExperimentExternalUiEnabled;
-
+    @Inject
+    @Optional
+    private Boolean antarcticaExperimentStaticExternalUiEnabled;
+    @Inject
+    @Optional
+    private String staticExternalUiRootUrl;
+    @Inject
+    @Optional
+    private String antarcticaExperimentStaticExternalUiPath;
 
     public AppSettingsModel() {
     }
@@ -105,5 +115,21 @@ public class AppSettingsModel {
 
     public Boolean isAntarcticaExperimentExternalUiEnabled() {
         return defaultIfNull(this.antarcticaExperimentExternalUiEnabled, false);
+    }
+
+    public Boolean isAntarcticaExperimentStaticExternalUiEnabled() {
+        return defaultIfNull(this.antarcticaExperimentStaticExternalUiEnabled, false);
+    }
+
+    public String getStaticExternalUiRootUrl() {
+        return this.staticExternalUiRootUrl == null
+                ? "https://master.d1rtypgd03ay5i.amplifyapp.com/"
+                : this.staticExternalUiRootUrl;
+    }
+
+    public String getAntarcticaExperimentStaticExternalUiPath() {
+        return this.antarcticaExperimentStaticExternalUiPath == null
+                ? "/destinations/antarctica/"
+                : this.antarcticaExperimentStaticExternalUiPath;
     }
 }

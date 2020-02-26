@@ -12,6 +12,7 @@ import java.util.Arrays;
 public class ExternalPageHelper extends WCMUsePojo {
 
     private ExternalPageDef externalPageDef;
+    private AppSettingsModel appSettings;
 
     public Boolean isExternalPage() {
         return this.externalPageDef != null;
@@ -41,6 +42,30 @@ public class ExternalPageHelper extends WCMUsePojo {
                 .orElse(null);
     }
 
+    public String getHeadMarkup() throws Exception {
+        if (this.externalPageDef == null) return null;
+        return this.externalPageDef.getHeadMarkup(this.appSettings);
+    }
+
+    public String getStaticBodyMarkup() throws Exception {
+        if (this.externalPageDef == null)
+            return "<!-- Tried to render static body markup but wasn't an ExternalPage -->";
+        StaticHtmlExternalPageDef staticPageDef =
+                (this.externalPageDef instanceof StaticHtmlExternalPageDef
+                        ? (StaticHtmlExternalPageDef) this.externalPageDef
+                        : null);
+        if (staticPageDef == null)
+            return "<!-- Tried to render static body markup but wasn't a StaticHtmlExternalPageDef -->";
+
+        try {
+            return staticPageDef.getBodyMarkup(this.appSettings);
+        } catch(Exception ex) {
+            return "<!-- Tried to render static body markup but got " +
+                    ex.getMessage() +
+                    "-->";
+        }
+    }
+
     @Override
     public void activate() throws Exception {
         ResourceResolver resourceResolver = super.getResourceResolver();
@@ -48,6 +73,8 @@ public class ExternalPageHelper extends WCMUsePojo {
         ConfigurationManager configurationManager = new ConfigurationManager(contentLoader);
 
         AppSettingsModel appSettings = configurationManager.getAppSettings();
+        this.appSettings = appSettings;
+
         String pagePath = this.getCurrentPage().getPath();
         SlingHttpServletRequest request = this.getRequest();
 

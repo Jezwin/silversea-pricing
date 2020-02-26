@@ -46,6 +46,6 @@
 <meta name="theme-color" content="#ffffff">
 <title>${'{0} | Silversea' @ format=[pageProperties.metaTitle || pageProperties.pageTitle || pageProperties.jcr:title],
     i18n}</title>
-<link data-sly-use.externalPage="com.silversea.aem.components.external.ExternalPageHelper"
-      data-sly-use.config="com.silversea.aem.config.ConfigurationHelper" data-sly-test="${externalPage.ExternalPage}"
-      rel="stylesheet" href="${config.AppSettings.ExternalUiCssUrl}"/>
+<sly data-sly-use.externalPage="com.silversea.aem.components.external.ExternalPageHelper" >
+    ${externalPage.headMarkup @ context='unsafe'}
+</sly>
