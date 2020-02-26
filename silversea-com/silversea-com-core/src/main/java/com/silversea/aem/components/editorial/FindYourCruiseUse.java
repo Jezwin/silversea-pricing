@@ -662,17 +662,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private List<CruiseModelLight> checkWorldCruiseGrandVoyages(String filter, List<CruiseModelLight> allCruises) {
         if (destinationFilter.equalsIgnoreCase(filter)) {
             mapCruiseCodeWcAnGV = new TreeMap<>();
-            Map<String, Map<String, CruiseModelLight>> mapWcAndGv = WorldAndGrandVoyageCache
-                    .getInstance(getResourceResolver()).getCache();
+            Map<String, Map<String, CruiseModelLight>> mapWcAndGv = filter == "gv" ? WorldAndGrandVoyageCache.getInstance(getResourceResolver(), "gv").getCache() : WorldAndGrandVoyageCache.getInstance(getResourceResolver(), "wc").getCache();
             allCruises = new ArrayList<>();
             for (Entry<String, Map<String, CruiseModelLight>> entry : mapWcAndGv.entrySet()) {
                 String key = entry.getKey();
-                if (key.contains(filter.toUpperCase())) {
                     for (Entry<String, CruiseModelLight> entryCruise : entry.getValue().entrySet()) {
                         mapCruiseCodeWcAnGV.put(entryCruise.getValue().getCruiseCode(), key);
                         allCruises.add(entryCruise.getValue());
-                    }
-                }
+                    } 
             }
         }
         return allCruises;

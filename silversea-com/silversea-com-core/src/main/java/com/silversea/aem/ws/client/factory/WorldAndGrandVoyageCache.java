@@ -43,6 +43,20 @@ public class WorldAndGrandVoyageCache {
 		}
 		return instance;
 	}
+	
+	//For grand voyages and world cruises(destination filters) in FYC search
+	public static WorldAndGrandVoyageCache getInstance(ResourceResolver resolverImport, String filter) {
+		if (instance == null) {
+			instance = new WorldAndGrandVoyageCache();
+			resourceResolver = resolverImport;
+			if (filter == "gv") {
+				instance.buildCacheByResource("grand-voyages-cruise");
+			} else {
+				instance.buildCacheByResource("world-cruises");
+			}			
+		}
+		return instance;
+	}
 
 	public Map<String, Map<String, CruiseModelLight>> getCache() {
 		return cache;
