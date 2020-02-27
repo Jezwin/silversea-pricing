@@ -90,6 +90,13 @@
                                 name="./firstSlideOnly"
                                 value="true" 
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <mobileSliderGeolocalized
+                                jcr:primaryType="nt:unstructured"
+                                text="Mobile Slider for US"
+                                fieldDescription="Displays slider in mobile for US alone.(Check this, uncheck 'First slide only')"
+                                name="./mobileSliderGeolocalized"
+                                value="true" 
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <fullWidth
                                 jcr:primaryType="nt:unstructured"
                                 text="Full width"
