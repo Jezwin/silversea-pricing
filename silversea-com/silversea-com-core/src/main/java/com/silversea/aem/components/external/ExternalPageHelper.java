@@ -9,7 +9,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 
 import java.util.Arrays;
 
-public class ExternalPageHelper extends WCMUsePojo {
+public class ExternalPageHelper
+        extends WCMUsePojo {
 
     private ExternalPageDef externalPageDef;
     private AppSettingsModel appSettings;
@@ -44,7 +45,7 @@ public class ExternalPageHelper extends WCMUsePojo {
 
     public String getHeadMarkup() throws Exception {
         if (this.externalPageDef == null) return null;
-        return this.externalPageDef.getHeadMarkup(this.appSettings);
+        return this.externalPageDef.getHeadMarkup(this.appSettings, getLanguage());
     }
 
     public String getStaticBodyMarkup() throws Exception {
@@ -58,12 +59,18 @@ public class ExternalPageHelper extends WCMUsePojo {
             return "<!-- Tried to render static body markup but wasn't a StaticHtmlExternalPageDef -->";
 
         try {
-            return staticPageDef.getBodyMarkup(this.appSettings);
+            return staticPageDef.getBodyMarkup(this.appSettings, getLanguage());
         } catch(Exception ex) {
             return "<!-- Tried to render static body markup but got " +
                     ex.getMessage() +
                     "-->";
         }
+    }
+
+    private String getLanguage() {
+        return this.getCurrentPage()
+                .getPath()
+                .replaceAll("^/content/silversea-com/([^/\\.]+).*", "$1");
     }
 
     @Override

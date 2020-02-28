@@ -46,5 +46,5 @@ public abstract class ExternalPageDef {
         Boolean isMatch(SlingHttpServletRequest request);
     }
 
-    public abstract String getHeadMarkup(AppSettingsModel appSettings) throws Exception;
+    public abstract String getHeadMarkup(AppSettingsModel appSettings, String language) throws Exception;
 }

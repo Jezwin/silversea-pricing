@@ -1,7 +1,6 @@
 package com.silversea.aem.components.external;
 
 import com.silversea.aem.models.AppSettingsModel;
-import org.apache.sling.api.SlingHttpServletRequest;
 
 public class ReactExternalPageDef extends ExternalPageDef {
 
@@ -25,7 +24,7 @@ public class ReactExternalPageDef extends ExternalPageDef {
     }
 
     @Override
-    public String getHeadMarkup(AppSettingsModel appSettings) {
+    public String getHeadMarkup(AppSettingsModel appSettings, String language) {
 
         String cssLink = String.format(
                 "<link rel=\"stylesheet\" href=\"%s\" />\n",

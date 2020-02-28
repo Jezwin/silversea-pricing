@@ -22,8 +22,11 @@ public class StaticHtmlExternalPageDef extends ExternalPageDef {
         return ExternalPageAemContentOption.RemoveAemContent;
     }
 
-    private String getUrl(AppSettingsModel appSettings) throws MalformedURLException {
-        return new URL(new URL(appSettings.getStaticExternalUiRootUrl()), this.pathRetriever.get(appSettings)).toString();
+    private String getUrl(AppSettingsModel appSettings, String language) throws MalformedURLException {
+        String languagePathPrefix = language.equalsIgnoreCase("en") ? "" : "/" + language;
+        String path = languagePathPrefix + this.pathRetriever.get(appSettings);
+        URL rootUrl = new URL(appSettings.getStaticExternalUiRootUrl());
+        return new URL(rootUrl, path).toString();
     }
 
     private String prependRootUrl(String staticExternalUiRootUrl, String relativeUrl) {
@@ -45,16 +48,16 @@ public class StaticHtmlExternalPageDef extends ExternalPageDef {
     }
 
     @Override
-    public String getHeadMarkup(AppSettingsModel appSettings) throws Exception {
-        Document doc = Jsoup.connect(getUrl(appSettings)).get();
+    public String getHeadMarkup(AppSettingsModel appSettings, String language) throws Exception {
+        Document doc = Jsoup.connect(getUrl(appSettings, language)).get();
         Element head = doc.head();
         //String rootUrl = appSettings.getStaticExternalUiRootUrl();
         //makeUrlsAbsolute("link", "href", head, rootUrl);
         return head.html();
     }
 
-    public String getBodyMarkup(AppSettingsModel appSettings) throws Exception {
-        Document doc = Jsoup.connect(getUrl(appSettings)).get();
+    public String getBodyMarkup(AppSettingsModel appSettings, String language) throws Exception {
+        Document doc = Jsoup.connect(getUrl(appSettings, language)).get();
         Element body = doc.body();
         //String rootUrl = appSettings.getStaticExternalUiRootUrl();
         //makeUrlsAbsolute("script", "src", body, rootUrl);
