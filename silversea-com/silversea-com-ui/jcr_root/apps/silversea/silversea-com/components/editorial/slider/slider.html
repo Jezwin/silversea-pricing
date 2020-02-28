@@ -7,7 +7,7 @@
 	});
 </script>
 <script data-sly-test="${properties.mobileSliderGeolocalized}">
-	if(window.dataLayer[0].user_country=="US") {
+	if(window.dataLayer[0].user_country!="US") {
 		$('div.c-slider').addClass('c-slider--first-slide-only');
 	}
 </script>
