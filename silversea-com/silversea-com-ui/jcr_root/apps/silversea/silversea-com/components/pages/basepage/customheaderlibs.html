@@ -207,8 +207,16 @@ setTimeout(function(){
 	
 })();
 </script>
-<sly
-    data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
-    data-sly-call="${clientlib.css @ categories='apps.silversea-com,apps.silversea-ssc'}" />
+<!-- COST 40 /libs/granite/slightly/templates/clientlib.html  -->
+<sly data-sly-use.externalPage="com.silversea.aem.components.external.ExternalPageHelper"
+     data-sly-test="${!externalPage.ExternalPage}"
+     data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.css @ categories='apps.silversea-com,apps.silversea-ssc'}"/>
+<sly data-sly-use.externalPage="com.silversea.aem.components.external.ExternalPageHelper"
+     data-sly-test="${externalPage.ExternalPage}">
+    <link rel="stylesheet" href="/etc/designs/silversea-com/header-footer-only.css"
+          type="text/css">
+</sly>
+<!--/ COST 40 -->
 <sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}" />
 <link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.v12s225ssa2310.min.css" type="text/css">

@@ -24,12 +24,20 @@
 <link rel="canonical" href="${pageHelper.currentLanguage @ extension='html'}"/>
 <!--/* /open graph tag */-->
 <sly data-sly-include="datalayer.html"/>
+<!-- BASE 65 -->
+<!-- COST ~15 -->
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}"/>
+<!-- /COST ~15 -->
+<!-- COST ~25 -->
 <sly data-sly-include="author.html"/>
 <sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp"/>
+<!-- /COST 25 -->
+<!-- COST 35 -->
 <script src="//assets.adobedtm.com/launch-ENfb954b796e1948aa8c7327a7b87b545b-staging.min.js" async></script>
+<!-- /COST 35 -->
+<!-- COST 40 -->
 <sly data-sly-include="customheaderlibs.html"/>
-
+<!-- /COST 40 -->
 <sly data-sly-test.faviconpath="${head.faviconPath}">
     <link rel="icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
