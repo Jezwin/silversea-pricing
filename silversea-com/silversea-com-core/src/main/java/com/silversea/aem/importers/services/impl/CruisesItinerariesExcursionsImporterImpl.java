@@ -198,6 +198,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                         }
 
                                         excursionNode.setProperty("excursionId", excursionId);
+                                        excursionNode.setProperty("price", excursion.getPrice());
+                                        excursionNode.setProperty("shorexCategory", excursion.getTestCategory());
                                         excursionNode.setProperty("excursionItineraryId", excursion.getShorexItineraryId());
                                         excursionNode.setProperty("date", excursion.getDate().toGregorianCalendar());
                                         excursionNode.setProperty("plannedDepartureTime", excursion.getPlannedDepartureTime());

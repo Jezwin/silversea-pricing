@@ -43,6 +43,14 @@ public class ItineraryExcursionModel {
     @Inject
     @Optional
     private String generalDepartureTime;
+    
+    @Inject
+    @Optional
+    private String shorexCategory;
+    
+    @Inject
+    @Optional
+    private int price;
 
     // TODO create custom injector
     private ExcursionModel excursion;
@@ -56,6 +64,7 @@ public class ItineraryExcursionModel {
 
             if (excursionPage != null) {
                 excursion = excursionPage.adaptTo(ExcursionModel.class);
+                excursion.setPriceAndCategory(this.price,this.shorexCategory);
             }
         }
     }
@@ -71,8 +80,12 @@ public class ItineraryExcursionModel {
         return plannedDepartureTime;
     }
 
-    public String getGeneralDepartureTime() {
-        return generalDepartureTime;
+    public String getShorexCategory() {
+        return shorexCategory;
+    }
+    
+    public int getPrice() {
+        return price;
     }
 
     public void setGeneralDepartureTime(String generalDepartureTime) {

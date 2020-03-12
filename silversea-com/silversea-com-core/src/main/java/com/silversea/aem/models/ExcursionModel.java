@@ -76,6 +76,10 @@ public class ExcursionModel {
     @Named(JcrConstants.JCR_CONTENT + "/shorexCategory")
     @Optional
     private String shorexCategory;
+    
+    private int price;
+    
+    private String testShorexCategory;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/pois")
@@ -160,6 +164,14 @@ public class ExcursionModel {
     public String getCodeExcursion() {
         return codeExcursion;
     }
+    
+    public int getPrice() {
+    	return price;
+    }
+    
+    public String getTestShorexCategory() {
+        return testShorexCategory;
+    }
 
     public String getCode() {
         return getCodeExcursion();
@@ -195,6 +207,12 @@ public class ExcursionModel {
 
     public String getSchedule() {
         return schedule;
+    }
+    
+    public void setPriceAndCategory(int price, String category) {
+    	
+    	this.price = price;
+    	this.testShorexCategory = category;
     }
 
 
