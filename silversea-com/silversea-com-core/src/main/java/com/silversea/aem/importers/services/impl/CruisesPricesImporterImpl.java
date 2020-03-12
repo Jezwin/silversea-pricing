@@ -205,7 +205,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                                     Value[] existingOffers = offer.getValues();
                                     if (!(existingOffers[0].toString() == aiOfferPath) &&
                                     		!(existingOffers[1].toString() == bpOfferPath) &&
-                                    			bestPriceActiveFlag == false) {
+                                    			bestPriceActiveFlag == true) {
 				                                    Value[] bestPriceActiveOffer = new Value[2];
 				                                    bestPriceActiveOffer[0] = valueFactory.createValue(aiOfferPath);
 				                                    bestPriceActiveOffer[1] = valueFactory.createValue(bpOfferPath);
@@ -215,12 +215,12 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                                     }
                                     if ((existingOffers[0].toString() == aiOfferPath) &&
                                     		(existingOffers[1].toString() == bpOfferPath) &&
-                                    			bestPriceActiveFlag == false) {
+                                    			bestPriceActiveFlag == true) {
                                     				existingOffers = ArrayUtils.removeAll(existingOffers, 0,1);
                                     				cruiseContentNode.setProperty("offer", existingOffers);
                                     }
                                 }
-                                if (bestPriceActiveFlag == false && !cruiseContentNode.hasProperty("offer")) {
+                                if (bestPriceActiveFlag == true && !cruiseContentNode.hasProperty("offer")) {
                                 	ValueFactory valueFactory = session.getValueFactory();
                                 	Value[] values = new Value[2];
                                 	values[0] = valueFactory.createValue(aiOfferPath);
