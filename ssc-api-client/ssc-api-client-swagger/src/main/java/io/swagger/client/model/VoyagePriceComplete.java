@@ -21,6 +21,9 @@ public class VoyagePriceComplete {
 
   @SerializedName("voyage_url")
   private String voyageUrl = null;
+  
+  @SerializedName("best_price_available")
+  private boolean bestPriceAvailable;
 
   @SerializedName("market_currency")
   private List<VoyagePriceMarket> marketCurrency = new ArrayList<VoyagePriceMarket>();
@@ -63,6 +66,24 @@ public class VoyagePriceComplete {
 
   public VoyagePriceComplete voyageUrl(String voyageUrl) {
     this.voyageUrl = voyageUrl;
+    return this;
+  }
+  
+  /**
+   * Get bestPriceAvailable
+   * @return bestPriceAvailable
+  **/
+  @ApiModelProperty(value = "")
+  public boolean getBestPriceAvailable() {
+    return bestPriceAvailable;
+  }
+
+  public void setBestPriceAvailable(boolean bestPriceAvailable) {
+    this.bestPriceAvailable = bestPriceAvailable;
+  }
+
+  public VoyagePriceComplete bestPriceAvailable(boolean bestPriceAvailable) {
+    this.bestPriceAvailable = bestPriceAvailable;
     return this;
   }
 
@@ -115,6 +136,7 @@ public class VoyagePriceComplete {
     return Objects.equals(this.voyageId, voyagePriceComplete.voyageId) &&
         Objects.equals(this.voyageCod, voyagePriceComplete.voyageCod) &&
         Objects.equals(this.voyageUrl, voyagePriceComplete.voyageUrl) &&
+        Objects.equals(this.bestPriceAvailable, voyagePriceComplete.bestPriceAvailable) &&
         Objects.equals(this.marketCurrency, voyagePriceComplete.marketCurrency);
   }
 
@@ -132,6 +154,7 @@ public class VoyagePriceComplete {
     sb.append("    voyageId: ").append(toIndentedString(voyageId)).append("\n");
     sb.append("    voyageCod: ").append(toIndentedString(voyageCod)).append("\n");
     sb.append("    voyageUrl: ").append(toIndentedString(voyageUrl)).append("\n");
+    sb.append("    bestPriceAvailable: ").append(toIndentedString(bestPriceAvailable)).append("\n");
     sb.append("    marketCurrency: ").append(toIndentedString(marketCurrency)).append("\n");
     sb.append("}");
     return sb.toString();

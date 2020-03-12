@@ -9,6 +9,7 @@ import com.silversea.aem.importers.services.CruisesPricesImporter;
 import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.services.BestPriceOfferConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.PricesApi;
@@ -17,6 +18,7 @@ import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -31,8 +33,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Value;
+import javax.jcr.ValueFactory;
 
 import java.util.*;
 
@@ -44,6 +49,9 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
     private int sessionRefresh = 100;
     private int pageSize = 100;
+    private String bpOfferPath = null;
+    private String aiOfferPath = null;
+    
 
     private boolean importRunning;
 
@@ -52,6 +60,9 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
     @Reference
     private ApiConfigurationService apiConfig;
+    
+    @Reference
+    private BestPriceOfferConfigurationService bpOfferConfig;
 
     @Activate
     protected void activate(final ComponentContext context) {
@@ -62,6 +73,9 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
         if (apiConfig.getPageSize() != 0) {
             pageSize = apiConfig.getPageSize();
         }
+        
+        bpOfferPath = bpOfferConfig.getBestPriceOffer();
+        aiOfferPath = bpOfferConfig.getAllInclusiveOffer();
     }
 
     @Override
@@ -158,6 +172,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
             List<VoyagePriceComplete> prices;
             int itemsWritten = 0;
             apiPage = 1;
+            int count = 0;
 
             do {
                 prices = pricesApi.pricesGet3(apiPage, pageSize, null);
@@ -182,7 +197,37 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                         for (Map.Entry<String, String> cruise : cruisesMapping.get(cruiseId).entrySet()) {
                             try {
                                 final Node cruiseContentNode = session.getNode(cruise.getValue() + "/jcr:content");
-
+                                boolean bestPriceActiveFlag = price.getBestPriceAvailable();
+                                cruiseContentNode.setProperty("bestPriceAvailable", bestPriceActiveFlag);
+                                if (cruiseContentNode.hasProperty("offer")) {
+                                	Property offer = cruiseContentNode.getProperty("offer"); 
+                                	ValueFactory valueFactory = session.getValueFactory();
+                                    Value[] existingOffers = offer.getValues();
+                                    if (!(existingOffers[0].toString() == aiOfferPath) &&
+                                    		!(existingOffers[1].toString() == bpOfferPath) &&
+                                    			bestPriceActiveFlag == false) {
+				                                    Value[] bestPriceActiveOffer = new Value[2];
+				                                    bestPriceActiveOffer[0] = valueFactory.createValue(aiOfferPath);
+				                                    bestPriceActiveOffer[1] = valueFactory.createValue(bpOfferPath);
+				                                    Value[] both = ArrayUtils.addAll(bestPriceActiveOffer, existingOffers);
+				                                    //values[values.length-1] = valueFactory.createValue("/content/silversea-com/en/exclusive-offers/early-booking-offer1");
+				                                    cruiseContentNode.setProperty("offer", both);
+                                    }
+                                    if ((existingOffers[0].toString() == aiOfferPath) &&
+                                    		(existingOffers[1].toString() == bpOfferPath) &&
+                                    			bestPriceActiveFlag == false) {
+                                    				existingOffers = ArrayUtils.removeAll(existingOffers, 0,1);
+                                    				cruiseContentNode.setProperty("offer", existingOffers);
+                                    }
+                                }
+                                if (bestPriceActiveFlag == false && !cruiseContentNode.hasProperty("offer")) {
+                                	ValueFactory valueFactory = session.getValueFactory();
+                                	Value[] values = new Value[2];
+                                	values[0] = valueFactory.createValue(aiOfferPath);
+                                	values[1]  = valueFactory.createValue(bpOfferPath);
+                                	cruiseContentNode.setProperty("bestPriceAvailable", values);
+                                }
+                                
                                 if (cruiseContentNode.hasNode("suites")) {
                                     cruiseContentNode.getNode("suites").remove();
                                 }
@@ -235,9 +280,14 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                         importResult.incrementErrorNumber();
                     }
+                    break;
                 }
 
                 apiPage++;
+                count++;
+                if(count==50) {
+                	break;
+                }
             } while (prices.size() > 0);
 
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),

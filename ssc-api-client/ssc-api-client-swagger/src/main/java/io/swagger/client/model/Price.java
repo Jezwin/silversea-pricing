@@ -22,7 +22,7 @@ public class Price {
   @SerializedName("currency_cod")
   private String currencyCod = null;
 
-  @SerializedName("cruise_only_fare")
+  @SerializedName("price")
   private Integer cruiseOnlyFare = null;
 
   @SerializedName("bundle_fare")

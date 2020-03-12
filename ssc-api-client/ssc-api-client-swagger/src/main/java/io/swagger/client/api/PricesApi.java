@@ -296,6 +296,9 @@ public class PricesApi {
         //TODO: change the endpoint when the api reach prod
         //String localVarPath = "/v1/multiplefares".replaceAll("\\{format\\}","json");
         String localVarPath = "/v1/prices".replaceAll("\\{format\\}","json");
+        
+        String dummyApiTest ="http://apit.silversea.com/api/v2/prices_breakdown/USD";
+        
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         if (page != null)
@@ -334,7 +337,7 @@ public class PricesApi {
         }
 
         String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(dummyApiTest, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
     
     private com.squareup.okhttp.Call pricesMultiGet3Call(Integer page, Integer perPage, String envelope, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
