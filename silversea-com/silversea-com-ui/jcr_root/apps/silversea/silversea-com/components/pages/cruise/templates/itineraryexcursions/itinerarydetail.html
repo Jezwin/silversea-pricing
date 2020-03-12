@@ -152,6 +152,8 @@
                                     class="cruise-2018-itineraries-port-excursions-description-read-more-content"
                                     data-sly-test="${helperText.textRest}">${helperText.textRest @ context='html'}</span>
                         </div>
+
+                        <!--
                         <div data-sly-test="${hasExcursionsOrMid}"
                              class="cruise-2018-itineraries-excursions-accordion cruise-2018-itineraries-show-more cruise-2018-itineraries-port-excursions-number">
                             <sly data-sly-test="${hasExcursions}">
@@ -163,6 +165,8 @@
                             <sly data-sly-test="${hasMid}"> ${mid.size} ${'land-programmes'  @i18n}
                             </sly>
                         </div>
+                        -->
+
                     </div>
                     <sly data-sly-test="${hasExcursionsOrMid}"
                          data-sly-use.excursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"

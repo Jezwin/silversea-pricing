@@ -2,13 +2,9 @@
     <div style="display:none;"
          class="cruise-2018-itineraries-port-excursions cruise-2018-itineraries-excursions-accordion  ${itineraryLast ? 'cruise-2018-itineraries-port-excursions-last' : ''}"
          id="cruise2018itineraryexcursion">
-        <sly data-sly-list.midEx="${mid}">
-            <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"
-                 data-sly-call="${subExcursion.sub @ model=model, itinerary=itinerary, index = midExList.index, id = midEx.landId,
-                 description = midEx.description, lightbox= 'lg-midShorex', title = midEx.title, isMid=true, features =null, isLast=midExList.last, path=path}">
-            </sly>
-        </sly>
-        <sly data-sly-list.excursion="${excursions}"
+
+          <h4>Possible excursions included (${excursions.size})</h4>
+          <sly data-sly-list.excursion="${excursions}"
              data-sly-test.lightbox="${itinerary.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}">
             <sly data-sly-test.description="${excursion.longDescription || excursion.apiLongDescription || excursion.description }"/>
             <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"
@@ -17,6 +13,25 @@
             </sly>
         </sly>
 
+		 <h4>Not included possible excursions - Premium</h4>
+        <sly data-sly-list.excursion="${excursions}"
+             data-sly-test.lightbox="${itinerary.hasDedicatedShorex ? 'lg-itShorex' : 'lg-shorex'}"
+             data-sly-test="${excursion.shorexCategory== 'premium'}">
+            <sly data-sly-test.description="${excursion.longDescription || excursion.apiLongDescription || excursion.description }"/>
+            <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"
+                 data-sly-call="${subExcursion.sub @ model=model,itinerary=itinerary, index = excursionList.index, id = excursion.shorexId,
+                 description = description, lightbox= lightbox, title = excursion.title, isMid=false,features= excursion.features, isLast=excursionList.last,path=path}">
+            </sly>
+        </sly>
+        <h4 >Mid-lands (${mid.size})</h4>
+        <sly data-sly-list.midEx="${mid}">
+            <sly data-sly-use.subExcursion="/apps/silversea/silversea-com/components/pages/cruise/templates/itineraryexcursions/excursion.html"
+                 data-sly-call="${subExcursion.sub @ model=model, itinerary=itinerary, index = midExList.index, id = midEx.landId,
+                 description = midEx.description, lightbox= 'lg-midShorex', title = midEx.title, isMid=true, features =null, isLast=midExList.last, path=path}">
+            </sly>
+        </sly>
+
+        <!--
         <div data-ssc-accordion="show" data-sly-test="${size>8}"
              class="cruise-2018-itineraries-port-excursions-btn bordered ${itineraryLast ? '' : 'notLast'}">
             <a class="btn btn-thin btn-white" href="#">
@@ -24,6 +39,7 @@
                 <span class="cruise-2018-excursions-accordion-button" style="display:none">${'view-less' @ i18n}</span>
             </a>
         </div>
+        -->
     </div>
 </template>
 <template data-sly-template.sub="${ @ model, itinerary, index, id,description,  lightbox, title, isMid, features, isLast, path}">
@@ -38,12 +54,27 @@
                     </span></div>
         </a>
         ${title}
+        <div class="cruise-2018-itineraries-port-excursions-activity-level" data-sly-list.feature="${features}"
+             data-sly-test="${features}">
+            <div class="activity-level"> 
+            <sly data-sly-test="${feature.title == 'Minimal Activity'||feature.title =='Moderate Activity'||feature.title =='Extreme Activity'||feature.title =='Extensive Activity'}">
+            ACTIVITY LEVEL:
+            <sly data-sly-test="${feature.title == 'Minimal Activity'}"> Easy </sly>
+            <sly data-sly-test="${feature.title == 'Moderate Activity'}"> Moderate </sly>
+            <sly data-sly-test="${feature.title == 'Extreme Activity'}"> Extreme </sly>
+            <sly data-sly-test="${feature.title == 'Extensive Activity'}"> Extensive </sly>
+            </sly>
+            </div>
+        </div>
         <div class="cruise-2018-itineraries-port-excursions-excursion-features" data-sly-list.feature="${features}"
              data-sly-test="${features}">
-            <span class="feature"> <i class="${feature.icon}"></i> <span class="tooltip"><i></i>${feature.title}</span></span>
+            <span class="feature" data-sly-test="${feature.title != 'Minimal Activity'&&feature.title !='Moderate Activity'&&feature.title !='Extreme Activity'&& feature.title !='Extensive Activity'}"> 
+			ACCESSIBLE:
+            <i class="${feature.icon}"></i> <span class="tooltip"><i></i>${feature.title}</span>
+            </span>
         </div>
         <div class="cruise-2018-itineraries-port-excursions-excursion-features" data-sly-test="${isMid}">
-            <span class="midland">MIDLAND</span>
+            <!-- <span class="midland">MIDLAND</span> -->
         </div>
     </div>
 </template>
