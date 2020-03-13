@@ -127,7 +127,8 @@
                                 <sly data-sly-test="${!arriveTime && departTime && !overnight}">${'departure' @i18n}</sly>
                                 <sly data-sly-test="${!overnight}"
                                      data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=departTime}"> ${arriveTimeFormat.value}</sly>
-                                <i data-sly-test="${overnight}" class="fa fa-moon-o"></i>
+									<span data-sly-test="${overnight}">OVERNIGHT</span>
+                                     <!-- <i data-sly-test="${overnight}" class="fa fa-moon-o"></i> -->
                             </div>
                         </div>
                         <div
