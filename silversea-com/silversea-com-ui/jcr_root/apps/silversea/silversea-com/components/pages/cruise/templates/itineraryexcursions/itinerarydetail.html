@@ -69,9 +69,11 @@
             <div class="cruise-2018-itineraries-itinerary" id="itinerary-${itinerary.itineraryId}">
                 <sly data-sly-use.externalizerHelperCruise="${'com.silversea.aem.helper.ExternalizerHelper' @ path=model.path}"/>
                 <div class="cruise-2018-itineraries-itinerary-row">
+					<!--
                     <a class="open-lightbox-port cruise-2018-link-open-modal clickable" data-target=".lightbox"
                        data-sly-test="${expandable}" id="lb-it-${itinerary.itineraryId}" rel="nofollow"
                        href="${externalizerHelperCruise.externalizedUrl @ extension='html', selectors=['lightboxes.lg-port', itinerary.itineraryId]}"></a>
+					-->
                     <div class="cruise-2018-itineraries-itinerary-row-day ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-last' : ''}">
                         <div class="cruise-2018-itineraries-itinerary-row-day-wrapper ${itineraryList.last ? 'cruise-2018-itineraries-itinerary-row-day-wrapper-debark' : ''}">
                             <span data-sly-test="${!itineraryList.last}"

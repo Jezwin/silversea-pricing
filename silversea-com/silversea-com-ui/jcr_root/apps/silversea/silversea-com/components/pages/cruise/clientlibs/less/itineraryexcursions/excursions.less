@@ -79,11 +79,11 @@ i.icon-shorex + span { height: 0; width: 0; display: none; }
         &:hover{
 			background: rgb(244, 244, 244);
         }
-  }
 
-    .first{
+        .first{
 		width: 30%;
         font-weight: bold;
+
     }
     .second{
         width: 30%;
@@ -98,6 +98,9 @@ i.icon-shorex + span { height: 0; width: 0; display: none; }
 		text-decoration: underline;
         }
     }
+  }
+
+
 
   .cruise-2018-itineraries-port-excursions-excursion-view-all {
     display: none;
@@ -276,5 +279,26 @@ i.icon-shorex + span { height: 0; width: 0; display: none; }
       color: @color-second;
     }
   }
+}
+
+@media (max-width: 767px) {
+.cruise-2018-itineraries-container {
+        .cruise-2018-itineraries-port-excursions-excursion {
+            flex-direction: column;
+            .first{
+                width: 100%;
+                margin-bottom: 5%;
+            }
+            .second{
+                width: 100%;
+                margin-left: 0px;
+                margin-bottom: 5%;
+            }
+            .third{
+                width: 100%;
+                margin-left: 0px;
+            }
+        }
+    }
 }
 
